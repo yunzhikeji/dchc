@@ -1,0 +1,2 @@
+/*圆形 主要利用了css3.0的圆角属性 border-radius 适当的调整大小会有不同的效果*/
+.circle { width: 100px; height: 100px; background: #669; -moz-border-radius: 50px; -webkit-border-radius: 50px; border-radius: 50px; }

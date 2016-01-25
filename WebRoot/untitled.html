@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>jquery的树形菜单代码 - 计划 - 博客园 </title>
+<meta name="keywords" content="www.cnblogs.com/jihua"/>
+<style type="text/css">
+/* 树形菜单开始 */
+.close { float:right; clear:right; font-size:12px; font-weight:normal; cursor:pointer; padding-right:10px;}
+.title { font-size:14px; color:#fff; margin-bottom:10px; padding-left:5px; width:290px;}
+.menu { width:290px; height:330px; margin-bottom:10px;}
+.l1 { background:#000; font-size:13px; padding:5px 0 0 30px; height:20px; margin-bottom:5px; cursor:pointer;}
+.slist { margin:0 0 5px 0; display:none;}
+.l2 { padding:0 0 0 35px; font-size:13px;}
+.l2 a { padding:6px 0 0 5px; width:230px; height:21px; display:block;} 
+.currentl2 a,.l2 a:hover { background:#1E5A82; color:#fff;}
+.sslist { background:#156890; width:235px; overflow:hidden; margin:0 0 5px 35px; display:none;}
+.l3 a { padding:6px 0 0 5px; width:230px; height:20px; display:block;} 
+.currentl3 a,.l3 a:hover { color:#fff; font-weight:bold;}
+</style>
+<script type="text/javascript" src="lib/zTree/v3/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript">
+    // 树状菜单
+    $(document).ready(function () {
+        $(".l1").toggle(function () {
+            $(".slist").animate({ height: 'toggle', opacity: 'hide' }, "slow");
+            $(this).next(".slist").animate({ height: 'toggle', opacity: 'toggle' }, "slow");
+        }, function () {
+            $(".slist").animate({ height: 'toggle', opacity: 'hide' }, "slow");
+            $(this).next(".slist").animate({ height: 'toggle', opacity: 'toggle' }, "slow");
+        });
+
+        $(".l2").toggle(function () {
+            $(this).next(".sslist").animate({ height: 'toggle', opacity: 'toggle' }, "slow");
+        }, function () {
+            $(this).next(".sslist").animate({ height: 'toggle', opacity: 'toggle' }, "slow");
+        });
+
+        $(".l2").click(function () {
+            $(".l3").removeClass("currentl3");
+            $(".l2").removeClass("currentl2");
+            $(this).addClass("currentl2");
+        });
+
+        $(".l3").click(function () {
+            $(".l3").removeClass("currentl3");
+            $(this).addClass("currentl3");
+        });
+
+   });
+</script>
+</head>
+<body>
+<div class="menu">
+  <h1 class="l1">一级菜单</h1>
+  <div class="slist">
+    <h2 class="l2"><a href="#">二级菜单</a></h2>
+    <ul class="sslist">
+      <li class="l3"><a href="#">·三级菜单</a></li>
+      <li class="l3"><a href="#">·三级菜单</a></li>
+      <li class="l3"><a href="http://jihua.cnblogs.com" target="_blank">·jihua.cnblogs.com</a></li>
+      <li class="l3"><a href="#">·三级菜单</a></li>
+    </ul>
+    <h2 class="l2"><a href="#">二级菜单</a></h2>
+    <ul class="sslist">
+      <li class="l3"><a href="#">·三级菜单</a></li>
+      <li class="l3"><a href="#">·三级菜单</a></li>
+      <li class="l3"><a href="http://jihua.cnblogs.com" target="_blank">·三级菜单</a></li>
+      <li class="l3"><a href="#">·三级菜单</a></li>
+    </ul>
+    <h2 class="l2"><a href="#">二级www.cnblogs.com/jihua</a></h2>
+  </div>
+  <h1 class="l1">一级博客园</h1>
+  <div class="slist">
+    <h2 class="l2"><a href="#">二级菜单计划</a></h2>
+    <h2 class="l2"><a href="#">二级菜单</a></h2>
+    <h2 class="l2"><a href="#">二级菜单</a></h2>
+  </div>
+  <h1 class="l1">一级菜单</h1>
+  <div class="slist">
+    <h2 class="l2"><a href="#">二级菜单</a></h2>
+    <h2 class="l2"><a href="#">二级菜单</a></h2>
+    <h2 class="l2"><a href="#">二级菜单</a></h2>
+  </div>
+</div>
+</body>
+</html>

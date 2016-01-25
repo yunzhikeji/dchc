@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+	"http://struts.apache.org/dtds/struts-2.1.dtd">
+
+<struts>
+	<constant name="struts.ui.theme" value="simple"></constant>
+	<constant name="struts.objectFactory" value="spring"></constant>
+	<constant name="struts.multipart.maxSize" value="1000000000" /> 
+	<constant name="struts.devMode" value="false"></constant>
+	<constant name="struts.multipart.saveDir" value="/tmp"></constant>
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+	
+	<package name="unit" extends="struts-default">
+		<global-results>
+			<result name="adminLogin">/login.jsp</result>
+			<result name="opsessiongo">/op_sessiongo.jsp</result>
+		</global-results>
+		<action name="unitAction" class="unitAction">
+			<result name="sessiongo">/op_sessiongo.jsp</result>
+			<result name="success_child">/op_success_child.jsp</result>
+			<result name="success">/op_success.jsp</result>
+			<result name="fail">/op_failure.jsp</result>
+			<result name="operror">/op_error.jsp</result>
+			
+			<result name="list">/unit_manage.jsp</result>
+			<result name="add">/unit_add.jsp</result>
+			<result name="load">/unit_update.jsp</result>
+			<result name="view">/unit_view.jsp</result>
+			
+			<result name="invalid.token">/op_failure_child.jsp</result>
+			<interceptor-ref name="defaultStack" />
+            <interceptor-ref name="token" >
+            	<param name="includeMethods">add</param>
+            	<param name="excludeMethods">default</param>
+            </interceptor-ref>
+		</action>
+	</package>
+	
+	<package name="unit_json" extends="json-default">
+		<action name="deleteUnits" class="unitAction" method="deleteUnits"/>
+	</package>
+	
+	<package name="userRole" extends="struts-default">
+		<global-results>
+			<result name="adminLogin">/login.jsp</result>
+			<result name="opsessiongo">/op_sessiongo.jsp</result>
+		</global-results>
+		<action name="toolkitAction" class="toolkitAction">
+		</action>
+		<action name="userRoleAction" class="userRoleAction">
+			<result name="loginSucc">/index.jsp</result>
+			
+			<result name="opsessiongo">/op_sessiongo.jsp</result>
+			<result name="opsessiongo_child">/op_sessiongo_child.jsp</result>
+			<result name="success">/op_success.jsp</result>
+			<result name="success_child">/op_success_child.jsp</result>
+			<result name="fail">/op_failure.jsp</result>
+			<result name="operror">/op_error.jsp</result>
+			
+			<result name="list">/userRole_manage.jsp</result>
+			<result name="add">/userRole_add.jsp</result>
+			<result name="load">/userRole_update.jsp</result>
+			<result name="view">/userRole_view.jsp</result>
+			<result name="password">/userRolepassword_update.jsp</result>
+			
+			<result name="invalid.token">/op_failure_child.jsp</result>
+			<interceptor-ref name="defaultStack" />
+            <interceptor-ref name="token" >
+            	<param name="includeMethods">add</param>
+            	<param name="excludeMethods">default</param>
+            </interceptor-ref>
+		</action>
+	</package>
+	
+	
+	<package name="userRole_json" extends="json-default">
+		<action name="deleteUserRoles" class="userRoleAction" method="deleteUserRoles"/>
+	</package>
+	
+	<package name="person" extends="struts-default">
+		<global-results>
+			<result name="adminLogin">/login.jsp</result>
+			<result name="opsessiongo">/op_sessiongo.jsp</result>
+		</global-results>
+		<action name="personAction" class="personAction">
+			<result name="sessiongo">/op_sessiongo.jsp</result>
+			<result name="success_child">/op_success_child.jsp</result>
+			<result name="success">/op_success.jsp</result>
+			<result name="fail">/op_failure.jsp</result>
+			<result name="operror">/op_error.jsp</result>
+			
+			<result name="list">/person_manage.jsp</result>
+			<result name="add">/person_add.jsp</result>
+			<result name="load">/person_update.jsp</result>
+			<result name="view">/person_view.jsp</result>
+			
+			<result name="addLawcase">/lawcase_add.jsp</result>
+			<result name="updateLawcase">/lawcase_update.jsp</result>
+			
+			<result name="addTroubleshooting">/troubleshooting_add.jsp</result>
+			<result name="updateTroubleshooting">/troubleshooting_update.jsp</result>
+			
+			<result name="invalid.token">/op_failure_child.jsp</result>
+			<interceptor-ref name="defaultStack" />
+            <interceptor-ref name="token" >
+            	<param name="includeMethods">add</param>
+            	<param name="excludeMethods">default</param>
+            </interceptor-ref>
+		</action>
+	</package>
+	
+	<package name="person_json" extends="json-default">
+		<action name="deletePersons" class="personAction" method="deletePersons"/>
+		<action name="deleteLawcase" class="personAction" method="deleteLawcase"/>
+		<action name="deleteTroubleshooting" class="personAction" method="deleteTroubleshooting"/>
+	</package>
+</struts>
+
