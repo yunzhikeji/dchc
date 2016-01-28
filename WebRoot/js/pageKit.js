@@ -15,7 +15,7 @@ function childPage(title,url){
 function addPage(title,url,w,h){
 	layer.open({
     type: 2,
-    area: ['800px', '500px'],
+    area: ['900px', '500px'],
     fix: false, //不固定
 	title:title,
     maxmin: true,

@@ -172,4 +172,27 @@ function deleteLawcase(troubid)
 		}
 }
 
+//删除发起研判信息
+function deleteJudge(jid)
+{
+		if(confirm('你确定删除该研判信息吗？'))
+		{
+			$.ajax({   
+			            url:'deleteJudge',//这里是你的action或者servlert的路径地址   
+			            type:'post', //数据发送方式   
+			            async:false,
+			            data: {"jid":jid},
+			            dataType:'json',
+			            error: function(msg)
+			            { //失败   
+			            	console.log('删除失败.');   
+			            },   
+			            success: function(msg)
+			            { //成功
+			            	location.replace(location.href);
+						}
+					});
+		}
+}
+
 

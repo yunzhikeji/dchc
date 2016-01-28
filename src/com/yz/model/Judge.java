@@ -125,7 +125,7 @@ public class Judge implements java.io.Serializable {
 		return this.reportTime;
 	}
 
-	@Column(name = "reportUnit", length = 20)
+	@Column(name = "reportUnit", length = 255)
 	public String getReportUnit() {
 		return this.reportUnit;
 	}

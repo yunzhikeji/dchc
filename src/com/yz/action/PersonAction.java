@@ -16,6 +16,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
@@ -28,17 +29,22 @@ import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.yz.model.GamblingCriminalMan;
+import com.yz.model.Judge;
 import com.yz.model.Lawcase;
 import com.yz.model.Person;
 import com.yz.model.Troubleshooting;
+import com.yz.model.Unit;
 import com.yz.model.UserRole;
 import com.yz.service.IGamblingCriminalManService;
+import com.yz.service.IJudgeService;
 import com.yz.service.ILawcaseService;
 import com.yz.service.IPersonService;
 import com.yz.service.ITroubleshootingService;
+import com.yz.service.IUnitService;
 import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
+import com.yz.vo.UnitVO;
 
 @Component("personAction")
 @Scope("prototype")
@@ -64,6 +70,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private int id;
 	private int lawid;
 	private int troubid;
+	private int jid;
 	private int con;
 	private String convalue;
 	private int status;// 按状态
@@ -86,6 +93,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private IGamblingCriminalManService gamblingCriminalManService;
 	private ILawcaseService lawcaseService;
 	private ITroubleshootingService troubleshootingService;
+	private IJudgeService judgeService;
+	private IUnitService unitService;
 	 
 
 	//单个表对象
@@ -93,12 +102,19 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private GamblingCriminalMan gamblingCriminalMan;
 	private Lawcase lawcase;
 	private Troubleshooting troubleshooting;
+	private Judge judge;
+	private UnitVO unitVO;
+	private Unit unit;
 
 	//list表对象
 	private List<Person> persons;
-
+	private List<UnitVO> unitVOs;
+	private List<Unit> units;
 	//权限
 	private int ulimit;
+	
+	//部门json
+	private String jsonUnits;
 
 	/**
 	 * 机构管理
@@ -536,6 +552,81 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return "success_child";
 	}
 
+	
+	/**
+	 * 发起研判模块
+	 */
+	public String goToAddJudge()
+	{
+		person = personService.loadById(id);
+		return "addJudge";
+	}
+	
+	//处理报送部门
+	public void getUnitVOs() {
+		// TODO Auto-generated method stub
+		unitVOs = new ArrayList<UnitVO>();
+		units = unitService.getUnits();
+		if(units.size()>0)
+		{
+			for (Unit unit : units) {
+				unitVO = new UnitVO();
+				unitVO.setId(unit.getId());
+				unitVO.setName(unit.getName());
+				unitVOs.add(unitVO);
+			}
+		}
+		JSONArray jsonArray = JSONArray.fromObject(unitVOs);
+		PrintWriter out;
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+			out = response.getWriter();
+			out.print(jsonArray.toString());
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String addJudge() throws Exception
+	{
+		judgeService.add(judge);
+		return "success_child";
+	}
+	
+	public String deleteJudge() throws Exception{
+
+		judge = judgeService.loadById(jid);
+		judgeService.delete(judge);
+		AjaxMsgVO msgVO = new AjaxMsgVO();
+		msgVO.setMessage("删除成功.");
+		JSONObject jsonObj = JSONObject.fromObject(msgVO);
+		PrintWriter out;
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+			out = response.getWriter();
+			out.print(jsonObj.toString());
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public String loadJudge()
+	{
+		judge = judgeService.loadById(jid);
+		return "updateJudge";
+	}
+	
+	public String updateJudge()
+	{
+		judgeService.update(judge);
+		return "success_child";
+	}
+	
 	// get、set-------------------------------------------
 
 	// 获得HttpServletResponse对象
@@ -832,7 +923,80 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	public void setTroubleshooting(Troubleshooting troubleshooting) {
 		this.troubleshooting = troubleshooting;
 	}
-	
+
+	public int getJid() {
+		return jid;
+	}
+
+	public void setJid(int jid) {
+		this.jid = jid;
+	}
+
+	public IJudgeService getJudgeService() {
+		return judgeService;
+	}
+
+	@Resource
+	public void setJudgeService(IJudgeService judgeService) {
+		this.judgeService = judgeService;
+	}
+
+	public Judge getJudge() {
+		return judge;
+	}
+
+	public void setJudge(Judge judge) {
+		this.judge = judge;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public String getJsonUnits() {
+		return jsonUnits;
+	}
+
+	public void setJsonUnits(String jsonUnits) {
+		this.jsonUnits = jsonUnits;
+	}
+
+	public IUnitService getUnitService() {
+		return unitService;
+	}
+
+	@Resource
+	public void setUnitService(IUnitService unitService) {
+		this.unitService = unitService;
+	}
+
+	public UnitVO getUnitVO() {
+		return unitVO;
+	}
+
+	public void setUnitVO(UnitVO unitVO) {
+		this.unitVO = unitVO;
+	}
+
+	public Unit getUnit() {
+		return unit;
+	}
+
+	public void setUnit(Unit unit) {
+		this.unit = unit;
+	}
+
+	public List<Unit> getUnits() {
+		return units;
+	}
+
+	public void setUnits(List<Unit> units) {
+		this.units = units;
+	}
+
+	public void setUnitVOs(List<UnitVO> unitVOs) {
+		this.unitVOs = unitVOs;
+	}
 	
 
 }

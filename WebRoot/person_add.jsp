@@ -804,79 +804,6 @@
 								</table>
 							</div>
 						</div>
-						<div class="tabCon">
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div
-										style="height: 100px; width: 200px; border: solid 1px #666">
-										<table width="100%" border="0" cellspacing="0" cellpadding="0">
-											<tr bgcolor="#ccc">
-												<td>
-													&nbsp;
-												</td>
-											</tr>
-											<tr>
-												<td>
-													&nbsp;
-												</td>
-											</tr>
-										</table>
-									</div>
-								</div>
-							</div>
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div style="height: 25px; width: 200px; text-align: center">
-										<i class="Hui-iconfont f-18 ">&#xe674;</i>
-									</div>
-								</div>
-							</div>
-							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-								<div style="height: 100px; width: 200px; border: solid 1px #666">
-									<table width="100%" border="0" cellspacing="0" cellpadding="0">
-										<tr bgcolor="#ccc">
-											<td>
-												&nbsp;
-											</td>
-										</tr>
-										<tr>
-											<td>
-												&nbsp;
-											</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div style="height: 25px; width: 200px; text-align: center">
-										<i class="Hui-iconfont f-18 ">&#xe674;</i>
-									</div>
-								</div>
-							</div>
-							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-								<div
-									style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-									完结
-								</div>
-							</div>
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div style="height: 25px; width: 200px; text-align: center">
-										<i class="Hui-iconfont f-18 ">&#xe674;</i>
-									</div>
-								</div>
-							</div>
-							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-								<div
-									style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-									领导批示
-								</div>
-							</div>
-						</div>
-					</div>
-
-
 				</div>
 				-->
 				<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
@@ -913,17 +840,6 @@ function addgxr(title,url,w,h){
     content: url
 });
 }
-/*新增涉案情况*/
-function addsaqk(title,url,w,h){
-	layer.open({
-    type: 2,
-    area: ['800px', '500px'],
-    fix: false, //不固定
-	title:title,
-    maxmin: true,
-    content: url
-});
-}
 $(function(){
 	$('.skin-minimal input').iCheck({
 		checkboxClass: 'icheckbox-blue',
@@ -932,16 +848,6 @@ $(function(){
 	});
 });
 
-/*布控人-添加*/
-function bukongman_add(title,url,w,h){
-	var index = layer.open({
-		type: 2,
-		area: ['800px', '500px'],
-		title: title,
-		content: url
-	});
-	
-}
 /*机构流转*/
 function Department_change(title,url,w,h){
 	var index = layer.open({
@@ -957,16 +863,6 @@ function article_start(obj,id){
 	layer.confirm('确认要发布吗？',function(index){
 		layer.msg('已发布!',{icon: 6,time:1000});
 	});
-}
-/*案例-疑难*/
-function difficult_start(title,url,w,h){
-	var index = layer.open({
-		type: 2,
-		area: ['800px', '500px'],
-		title: title,
-		content: url
-	});
-	
 }
 /*案例-保存*/
 function article_save(obj,id){

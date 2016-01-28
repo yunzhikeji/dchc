@@ -101,6 +101,9 @@
 			<result name="addTroubleshooting">/troubleshooting_add.jsp</result>
 			<result name="updateTroubleshooting">/troubleshooting_update.jsp</result>
 			
+			<result name="addJudge">/judge_add.jsp</result>
+			<result name="updateJudge">/judge_update.jsp</result>
+			
 			<result name="invalid.token">/op_failure_child.jsp</result>
 			<interceptor-ref name="defaultStack" />
             <interceptor-ref name="token" >
@@ -114,6 +117,8 @@
 		<action name="deletePersons" class="personAction" method="deletePersons"/>
 		<action name="deleteLawcase" class="personAction" method="deleteLawcase"/>
 		<action name="deleteTroubleshooting" class="personAction" method="deleteTroubleshooting"/>
+		<action name="deleteJudge" class="personAction" method="deleteJudge"/>
+		<action name="getUnitVOs" class="personAction" method="getUnitVOs"/>
 	</package>
 </struts>
 

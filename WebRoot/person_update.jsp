@@ -37,15 +37,15 @@
 			enctype="multipart/form-data" onsubmit="return checkPerson();">
 			<div class="pd-20">
 				<div class="row cl">
-					<div class="col-6 col-offset-6 ">
+					<div class="col-6 col-offset-6 " >
 						<div class=" f-r pr-5">
 							<s:token></s:token>
 							<input type="submit" class="btn btn-success radius" id="button"
 								value="保存并提交"></input>
 						</div>
 						<div class=" f-r pr-5">
-							<button type="submit" class="btn btn-success radius" id="button"
-								name="" onClick="difficult_start('发布案例','addfbal.html')">
+							<button type="button" class="btn btn-success radius" id="button"
+								name="" onClick="addPage('发布案例','addfbal.html')">
 								<i class="Hui-iconfont">&#xe6bf;</i> 发布案例
 							</button>
 						</div>
@@ -78,6 +78,7 @@
 											</label>
 										</td>
 										<td>
+											
 											<s:textfield id="number" name="person.number"
 												cssClass="input-text radius size-M "
 												cssStyle="width: 200px;"></s:textfield>
@@ -579,7 +580,9 @@
 													<s:property value="#status.index+1"/>
 												</td>
 												<td>
+												<a href="#" onclick="javascript::">
 													<s:property value="caseNumber"/>
+													</a>
 												</td>
 												<td>
 													<s:property value="caseName"/>
@@ -648,7 +651,9 @@
 													<s:property value="#status.index+1"/>
 												</td>
 												<td>
+												<a href="#" onclick="javascript::">
 													<s:property value="title"/>
+												</a>
 												</td>
 												<td>
 													<s:property value="question"/>
@@ -675,26 +680,26 @@
 
 							</div>
 
-
+							<!--发起研判信息-->
 							<div class="row cl mt-20">
 								<div class="col-12 mb-0 c-primary f-16"
 									style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
 									发起研判信息
-									<input class="btn btn-primary radius mt-10 f-r" type="button"
-										onclick="addPage('发起研判','addyanpan.html','500','300')"
-										value="发起研判">
+										<input class="btn btn-primary radius mt-10 f-r" type="button"
+										onclick="addPage('发起研判信息','personAction!goToAddJudge?id=<s:property value="id"/>','650','300')"
+										value="发起研判信息">
 								</div>
 								<div class="col-12">
-									<table class="table table-border table-bg mb-10">
+									<table class="table table-border table-bg mb-10" style="table-layout:fixed;">
 										<thead>
 											<tr>
 												<th width="7%">
 													研判序号
 												</th>
-												<th width="14%">
+												<th width="24%">
 													报送机构
 												</th>
-												<th width="67%">
+												<th width="57%" >
 													研判要求
 												</th>
 												<th width="12%">
@@ -703,20 +708,32 @@
 											</tr>
 										</thead>
 										<tbody>
+										<s:if test="person.judges.size>0">
+										<s:iterator value="person.judges" var="judge" status="status">
 											<tr>
 												<td>
-													&nbsp;
+													<s:property value="#status.index+1"/>
 												</td>
 												<td>
-													&nbsp;
+													<s:property value="reportUnit"/>
+												</td>
+												<td style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden; ">
+													<a href="#" onclick="javascript::">
+													<s:property value="judgeRequirement"/>
+													</a>
 												</td>
 												<td>
-													&nbsp;
-												</td>
-												<td>
-													&nbsp;
+												<a style="text-decoration: none" class="ml-5"
+										onclick="addPage('编辑研判信息','personAction!loadJudge?jid=<s:property value="id" />','500','300')"
+										href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i>
+									</a>
+									<a style="text-decoration: none" class="ml-5"
+									    href="javascript:;" onclick="deleteJudge(<s:property value="id" />);"
+										title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
 												</td>
 											</tr>
+											</s:iterator>
+											</s:if>
 										</tbody>
 									</table>
 								</div>
@@ -734,74 +751,49 @@
 													研判序号
 												</th>
 												<th align="center">
-													1
+													刑技研判
 												</th>
 												<th align="center">
-													2
+													网技研判
+												</th>
+												<th align="center">
+													情报研判
+												</th>
+												<th align="center">
+													图像侦查
 												</th>
 											</tr>
 										</thead>
 										<tbody>
+										<s:if test="person.judges.size>0">
+										<s:iterator value="person.judges" var="judge" status="status">
 											<tr>
 												<td>
-													刑技研判
+													<s:property value="#status.index+1"/>
 												</td>
 												<td>
-													<textarea name="input" class="input-text" id="input"
-														style="width: 400px; height: 80px; float: left;"
-														placeholder=""></textarea>
+													<s:textarea name="criminalJudge" cssClass="input-text" id="criminalJudge"
+														cssStyle="width: 260px; height: 180px; float: left;"
+														readonly="true"></s:textarea>
 												</td>
 												<td>
-													<textarea name="input2" class="input-text" id="input2"
-														style="width: 400px; height: 80px; float: left;"
-														placeholder=""></textarea>
+													<s:textarea name="networkJudge" cssClass="input-text" id="networkJudge"
+														cssStyle="width: 260px; height: 180px; float: left;"
+														readonly="true"></s:textarea>
+												</td>
+												<td>
+												<s:textarea name="intelligenceJudge" cssClass="input-text" id="intelligenceJudge"
+														cssStyle="width: 260px; height: 180px; float: left;"
+														readonly="true"></s:textarea>
+												</td>
+												<td>
+												<s:textarea name="imageJudge" cssClass="input-text" id="imageJudge"
+														cssStyle="width: 260px; height: 180px; float: left;"
+														readonly="true"></s:textarea>
 												</td>
 											</tr>
-											<tr>
-												<td>
-													网技研判
-												</td>
-												<td>
-													<textarea name="input3" class="input-text" id="input3"
-														style="width: 400px; height: 80px; float: left;"
-														placeholder=""></textarea>
-												</td>
-												<td>
-													<textarea name="input4" class="input-text" id="input4"
-														style="width: 400px; height: 80px; float: left;"
-														placeholder=""></textarea>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													情报研判
-												</td>
-												<td>
-													<textarea name="input5" class="input-text" id="input5"
-														style="width: 400px; height: 80px; float: left;"
-														placeholder=""></textarea>
-												</td>
-												<td>
-													<textarea name="input6" class="input-text" id="input6"
-														style="width: 400px; height: 80px; float: left;"
-														placeholder=""></textarea>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													图像侦查
-												</td>
-												<td>
-													<textarea name="input7" class="input-text" id="input7"
-														style="width: 400px; height: 80px; float: left;"
-														placeholder=""></textarea>
-												</td>
-												<td>
-													<textarea name="input8" class="input-text" id="input8"
-														style="width: 400px; height: 80px; float: left;"
-														placeholder=""></textarea>
-												</td>
-											</tr>
+											</s:iterator>
+											</s:if>
 										</tbody>
 									</table>
 								</div>
@@ -832,13 +824,13 @@
 							<div class="row cl">
 								<table width="100%" border="0" cellspacing="0" cellpadding="0"
 									style="line-height: 45px;">
-									<tr>
-										<td width="10%" valign="top">
+										<tr>
+											<td width="10%" valign="top">
 											<label class="form-label text-r">
 												综合情况：
 											</label>
 										</td>
-										<td>
+										<td >
 											<s:textfield name="person.comprehensiveJudge"
 												cssClass="input-text" id="input9"
 												cssStyle="width: 800px; height: 80px; float: left;"
@@ -868,82 +860,7 @@
 								</table>
 							</div>
 						</div>
-						<div class="tabCon">
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div
-										style="height: 100px; width: 200px; border: solid 1px #666">
-										<table width="100%" border="0" cellspacing="0" cellpadding="0">
-											<tr bgcolor="#ccc">
-												<td>
-													&nbsp;
-												</td>
-											</tr>
-											<tr>
-												<td>
-													&nbsp;
-												</td>
-											</tr>
-										</table>
-									</div>
-								</div>
-							</div>
-							<!--箭头分割-->
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div style="height: 25px; width: 200px; text-align: center">
-										<i class="Hui-iconfont f-18 ">&#xe674;</i>
-									</div>
-								</div>
-							</div>
-							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-								<div style="height: 100px; width: 200px; border: solid 1px #666">
-									<table width="100%" border="0" cellspacing="0" cellpadding="0">
-										<tr bgcolor="#ccc">
-											<td>
-												&nbsp;
-											</td>
-										</tr>
-										<tr>
-											<td>
-												&nbsp;
-											</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-							<!--箭头分割-->
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div style="height: 25px; width: 200px; text-align: center">
-										<i class="Hui-iconfont f-18 ">&#xe674;</i>
-									</div>
-								</div>
-							</div>
-							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-								<div
-									style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-									完结
-								</div>
-							</div>
-							<!--箭头分割-->
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div style="height: 25px; width: 200px; text-align: center">
-										<i class="Hui-iconfont f-18 ">&#xe674;</i>
-									</div>
-								</div>
-							</div>
-							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-								<div
-									style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-									领导批示
-								</div>
-							</div>
-						</div>
 					</div>
-
-
 				</div>
 				<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
 				<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
@@ -979,17 +896,6 @@ function addgxr(title,url,w,h){
     content: url
 });
 }
-/*新增涉案情况*/
-function addsaqk(title,url,w,h){
-	layer.open({
-    type: 2,
-    area: ['800px', '500px'],
-    fix: false, //不固定
-	title:title,
-    maxmin: true,
-    content: url
-});
-}
 $(function(){
 	$('.skin-minimal input').iCheck({
 		checkboxClass: 'icheckbox-blue',
@@ -998,16 +904,6 @@ $(function(){
 	});
 });
 
-/*布控人-添加*/
-function bukongman_add(title,url,w,h){
-	var index = layer.open({
-		type: 2,
-		area: ['800px', '500px'],
-		title: title,
-		content: url
-	});
-	
-}
 /*机构流转*/
 function Department_change(title,url,w,h){
 	var index = layer.open({
@@ -1023,16 +919,6 @@ function article_start(obj,id){
 	layer.confirm('确认要发布吗？',function(index){
 		layer.msg('已发布!',{icon: 6,time:1000});
 	});
-}
-/*案例-疑难*/
-function difficult_start(title,url,w,h){
-	var index = layer.open({
-		type: 2,
-		area: ['800px', '500px'],
-		title: title,
-		content: url
-	});
-	
 }
 /*案例-保存*/
 function article_save(obj,id){

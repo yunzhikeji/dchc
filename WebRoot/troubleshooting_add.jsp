@@ -54,7 +54,7 @@
 								name="troubleshooting.releaseTime"
 								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})"
 								id="troubleshooting" class="input-text Wdate"
-								style="width: 200px;" value="${person.joinDate}"> </span> </span>
+								style="width: 200px;" > </span> </span>
 				</div>
 				<div class="row cl">
 					<label class="form-label col-2">
