@@ -115,6 +115,7 @@
 			<form name="judgeUpdateForm" class="form form-horizontal" action="personAction!updateJudge" method="post" onsubmit="">
 					<s:hidden name="judge.id"></s:hidden>
 					<s:hidden name="judge.person.id"></s:hidden>
+					<s:hidden name="judge.type"  title="研判类型"></s:hidden>
 				<div class="row cl">
 					<label class="form-label col-2">
 						<span class="c-red">*</span>报送机构：
@@ -143,6 +144,14 @@
 								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',readOnly:true})"
 								id="troubleshooting" class="input-text Wdate" value="<s:property value="judge.reportTime"/>"
 								> </span> </span>
+					<label class="form-label col-2">
+					研判次序：
+				</label>
+				<span class="form-label col-3"> <span
+					class="formControls col-12"> 
+					<s:textfield  cssClass="input-text" placeholder="研判顺序" id="indexNumber"
+							name="judge.indexNumber" cssStyle="width: 200px;" ></s:textfield>
+							</span> </span>
 					</div>
 				<div class="row cl">
 				<label class="form-label col-2">
@@ -154,7 +163,7 @@
 								name="judge.transactor"
 								value="<s:property value="judge.transactor"/>" /> </span> </span>
 				<label class="form-label col-2">
-					联系电话：<s:property value="#session.userRoleo.unit.name"/>
+					联系电话：
 				</label>
 				<span class="form-label col-3"> <span
 					class="formControls col-12"> 
@@ -184,6 +193,9 @@
 						cssClass="input-text" id="criminalJudge" 
 						cssStyle="width: 113%; height: 120px; float: left;" placeholder="刑技研判"></s:textarea>
 			</span> </span>
+			<s:hidden name="judge.networkJudge"></s:hidden>
+			<s:hidden name="judge.intelligenceJudge"></s:hidden>
+			<s:hidden name="judge.imageJudge"></s:hidden>
 		</div>
 		</s:if>
 		<s:if test='%{#session.userRoleo.unit.name == "网安大队"}'>
@@ -197,6 +209,9 @@
 						cssClass="input-text" id="networkJudge" 
 						cssStyle="width: 113%; height: 120px; float: left;" placeholder="网技研判"></s:textarea>
 			</span> </span>
+			<s:hidden name="judge.criminalJudge"></s:hidden>
+			<s:hidden name="judge.intelligenceJudge"></s:hidden>
+			<s:hidden name="judge.imageJudge"></s:hidden>
 		</div>
 		</s:if>
 		<s:if test='%{#session.userRoleo.unit.name == "指挥中心"}'>
@@ -208,8 +223,11 @@
 			<span class="formControls col-10">
 						<s:textarea name="judge.intelligenceJudge"
 						cssClass="input-text" id="intelligenceJudge" 
-						cssStyle="width: 113%; height: 120px; float: left;" placeholder="刑技研判"></s:textarea>
+						cssStyle="width: 113%; height: 120px; float: left;" placeholder="情报研判"></s:textarea>
 			</span> </span>
+			<s:hidden name="judge.criminalJudge"></s:hidden>
+			<s:hidden name="judge.networkJudge"></s:hidden>
+			<s:hidden name="judge.imageJudge"></s:hidden>
 		</div>
 		</s:if>
 		<s:if test='%{#session.userRoleo.unit.name == "图像侦查"}'>
@@ -223,6 +241,9 @@
 						cssClass="input-text" id="imageJudge" 
 						cssStyle="width: 113%; height: 120px; float: left;" placeholder="图像研判"></s:textarea>
 			</span> </span>
+			<s:hidden name="judge.criminalJudge"></s:hidden>
+			<s:hidden name="judge.networkJudge"></s:hidden>
+			<s:hidden name="judge.intelligenceJudge"></s:hidden>
 		</div>
 		</s:if>
 			<div class="row cl">

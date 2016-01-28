@@ -118,4 +118,11 @@ public class JudgeServiceImp implements IJudgeService {
 		// TODO Auto-generated method stub
 		return judgeDao.getJudgeById(upjudgeid);
 	}
+	public List<Judge> loadByTypeAndPid(int type, Integer pid) {
+		// TODO Auto-generated method stub
+		String queryString="from Judge mo where mo.type=:type and mo.person.id=:pid";
+		String[] paramNames=new String[]{"type","pid"};
+		Object[] values=new Object[]{type,pid};
+		return judgeDao.queryList(queryString, paramNames, values);
+	}
 }

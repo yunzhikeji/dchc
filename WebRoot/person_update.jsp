@@ -694,7 +694,7 @@
 										<thead>
 											<tr>
 												<th width="7%">
-													研判序号
+													研判次序
 												</th>
 												<th width="24%">
 													报送机构
@@ -712,7 +712,7 @@
 										<s:iterator value="person.judges" var="judge" status="status">
 											<tr>
 												<td>
-													<s:property value="#status.index+1"/>
+													<s:property value="indexNumber"/>
 												</td>
 												<td>
 													<s:property value="reportUnit"/>
@@ -747,8 +747,8 @@
 									<table class="table table-border table-bg mb-10">
 										<thead>
 											<tr>
-												<th width="7%" bgcolor="#F5FAFE">
-													研判序号
+												<th>
+													研判次序
 												</th>
 												<th align="center">
 													刑技研判
@@ -769,7 +769,7 @@
 										<s:iterator value="person.judges" var="judge" status="status">
 											<tr>
 												<td>
-													<s:property value="#status.index+1"/>
+													<s:property value="indexNumber"/>
 												</td>
 												<td>
 													<s:textarea name="criminalJudge" cssClass="input-text" id="criminalJudge"

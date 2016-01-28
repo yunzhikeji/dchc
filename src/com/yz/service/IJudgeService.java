@@ -38,5 +38,7 @@ public interface IJudgeService {
 
 	public abstract Judge getJudgeById(Integer upjudgeid);
 
+	public abstract List<Judge> loadByTypeAndPid(int i, Integer id);
+
 
 }

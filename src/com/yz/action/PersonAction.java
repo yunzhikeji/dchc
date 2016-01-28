@@ -110,6 +110,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private List<Person> persons;
 	private List<UnitVO> unitVOs;
 	private List<Unit> units;
+	private List<Judge> judges;
 	//权限
 	private int ulimit;
 	
@@ -591,12 +592,24 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 	public String addJudge() throws Exception
 	{
+		if(judge.getType()==1)
+		{
+			handleJudgeIndex();
+		}
 		judgeService.add(judge);
 		return "success_child";
 	}
-	
-	public String deleteJudge() throws Exception{
+	//新增研判信息设置研判顺序
+	private void handleJudgeIndex() {
+		// TODO Auto-generated method stub
+		judges = judgeService.loadByTypeAndPid(1,judge.getPerson().getId());
+		if(judges!=null)
+		{
+			judge.setIndexNumber(judges.size()+1);
+		}
+	}
 
+	public String deleteJudge() throws Exception{
 		judge = judgeService.loadById(jid);
 		judgeService.delete(judge);
 		AjaxMsgVO msgVO = new AjaxMsgVO();
@@ -997,6 +1010,15 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	public void setUnitVOs(List<UnitVO> unitVOs) {
 		this.unitVOs = unitVOs;
 	}
+
+	public List<Judge> getJudges() {
+		return judges;
+	}
+
+	public void setJudges(List<Judge> judges) {
+		this.judges = judges;
+	}
 	
 
+	
 }
