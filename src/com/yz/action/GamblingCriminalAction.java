@@ -46,9 +46,9 @@ import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
 import com.yz.vo.UnitVO;
 
-@Component("personAction")
+@Component("gamblingCriminalManAction")
 @Scope("prototype")
-public class PersonAction extends ActionSupport implements RequestAware,
+public class GamblingCriminalAction extends ActionSupport implements RequestAware,
 		SessionAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
@@ -108,6 +108,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 	//list表对象
 	private List<Person> persons;
+	private List<GamblingCriminalMan> gamblingCriminalMans;
 	private List<UnitVO> unitVOs;
 	private List<Unit> units;
 	private List<Judge> judges;
@@ -143,14 +144,14 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		pageTileName = selectTileName(type);
 
 		// 总记录数
-		totalCount = personService.getTotalCount(con, convalue, user, type,queryState,starttime,endtime);
+		totalCount = gamblingCriminalManService.getTotalCount(con, convalue, user, type,queryState,starttime,endtime);
 		// 总页数
-		pageCount = personService.getPageCount(totalCount, size);
+		pageCount = gamblingCriminalManService.getPageCount(totalCount, size);
 		if (page > pageCount && pageCount != 0) {
 			page = pageCount;
 		}
 		// 所有当前页记录对象
-		persons = personService
+		gamblingCriminalMans = gamblingCriminalManService
 				.queryList(con, convalue, user, page, size, type,queryState,starttime,endtime);
 
 		return "list";
@@ -187,19 +188,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		case 8:
 			pageName = "刑事传唤";
 			break;
-		case 9:
-			pageName = "赌博人员";
-			break;
-		case 10:
-			pageName = "赌博人员";
-			break;
-		case 11:
-			pageName = "赌博人员";
-			break;
-		case 12:
-			pageName = "赌博人员";
-			break;
-
 		default:
 			break;
 		}
@@ -292,7 +280,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		person.setJoinDate(DateTimeKit.getLocalDate());//设置录入时间
 		person.setHandleState(1);//初始化处理状态
 		personService.add(person);
-		arg[0] = "personAction!list?type="+person.getType();
+		arg[0] = "gamblingCriminalManAction!list?type="+gamblingCriminalMan.getType();
 		arg[1] = "人员管理";
 		return "success_child";
 	}
@@ -1018,7 +1006,16 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	public void setJudges(List<Judge> judges) {
 		this.judges = judges;
 	}
-	
 
+	public List<GamblingCriminalMan> getGamblingCriminalMans() {
+		return gamblingCriminalMans;
+	}
+
+	public void setGamblingCriminalMans(
+			List<GamblingCriminalMan> gamblingCriminalMans) {
+		this.gamblingCriminalMans = gamblingCriminalMans;
+	}
+	
+	
 	
 }
