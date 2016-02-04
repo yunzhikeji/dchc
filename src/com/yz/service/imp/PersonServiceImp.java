@@ -84,11 +84,11 @@ public class PersonServiceImp implements IPersonService {
 			if(con==2){
 				queryString += "and mo.number like ? "; 
 			}
-			if(con==3){
+			if(con==2){
 				queryString += "and mo.idcard like ? "; 
 			}
-			if(con==4){
-				queryString += "and mo.userRole.realname like ? "; 
+			if(con==2){
+				queryString += "and mo.userRole.name like ? "; 
 			}
 			p = new Object[]{'%'+convalue+'%'};
 		}
@@ -126,11 +126,11 @@ public class PersonServiceImp implements IPersonService {
 			if(con==2){
 				queryString += "and mo.number like ? "; 
 			}
-			if(con==3){
+			if(con==2){
 				queryString += "and mo.idcard like ? "; 
 			}
-			if(con==4){
-				queryString += "and mo.userRole.realname like ? "; 
+			if(con==2){
+				queryString += "and mo.userRole.name like ? "; 
 			}
 			p = new Object[]{'%'+convalue+'%'};
 		}

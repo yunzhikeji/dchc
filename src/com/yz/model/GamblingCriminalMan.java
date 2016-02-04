@@ -41,7 +41,6 @@ public class GamblingCriminalMan implements java.io.Serializable {
 	private Integer isDrugRelated;//是否涉毒
 	private String equivocation;//可疑度
 	private String interrogateReason;//盘问原因
-	private Integer type;//种类 //赌博人员，涉恶人员，涉黄人员，食药环人员，涉毒人员，留置盘问，侵财人员，刑事传唤
 	private Person person;
 
 	// Constructors
@@ -189,11 +188,6 @@ public class GamblingCriminalMan implements java.io.Serializable {
 	public String getRegisterAddressArea() {
 		return this.registerAddressArea;
 	}
-	
-	@Column(name = "type")
-	public Integer getType() {
-		return type;
-	}
 
 	@Column(name = "virtualID", length = 30)
 	public String getVirtualId() {
@@ -284,13 +278,8 @@ public class GamblingCriminalMan implements java.io.Serializable {
 		this.registerAddressArea = registerAddressArea;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
-	}
-
 	public void setVirtualId(String virtualId) {
 		this.virtualId = virtualId;
 	}
-	
 
 }

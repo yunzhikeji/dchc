@@ -69,7 +69,7 @@
 			   <ul class="er" style="display:block;">
 				 <li class="e_li"> <a href="#">治安人员<i class="Hui-iconfont menu_dropdown-arrow f-r" style="margin-right:20px;">&#xe6d5;</i></a> 
 					<ul class="thr">
-						<li> <a _href="gamblingCriminalManAction!list?type=1" href="javascript:void(0)">赌博人员</a> </li>
+						<li> <a _href="personAction!list?type=1" href="javascript:void(0)">赌博人员</a> </li>
 						<li> <a _href="personAction!list?type=2" href="javascript:void(0)">涉恶人员</a></li>
 						<li> <a _href="personAction!list?type=3" href="javascript:void(0)">涉黄人员</a></li>
 						<li> <a _href="personAction!list?type=4" href="javascript:void(0)">食药环人员 </a></li>
@@ -78,11 +78,11 @@
 				 </li>
 				<li class="e_li"> <a  href="#">刑事人员<i class="Hui-iconfont menu_dropdown-arrow f-r" style="margin-right:20px;">&#xe6d5;</i></a> 
 					<ul class="thr">
-                         <li><a _href="gamblingCriminalManAction!list?type=5" href="javascript:void(0)">涉毒人员</a></li>
+                         <li><a _href="drug-list.html" href="javascript:void(0)">涉毒人员</a></li>
 						<li> <a _href="run-list.html" href="javascript:void(0)">负案在逃人员</a></li>
 						<li> <a _href="personAction!list?type=6" href="javascript:void(0)">留置盘问人员</a> </li>
-						<li> <a _href="personAction!list?type=7" href="javascript:void(0)">侵财人员</a> </li>
-						<li> <a _href="personAction!list?type=8" href="javascript:void(0)">刑事传唤人员</a> </li>
+						<li> <a _href="goods-list.html" href="javascript:void(0)">侵财人员</a> </li>
+						<li> <a _href="summon-list.html" href="javascript:void(0)">刑事传唤人员</a> </li>
 						<div class="clear"></div>
 					</ul>
 				</li>

@@ -80,16 +80,16 @@ public class GamblingCriminalManServiceImp implements IGamblingCriminalManServic
 		
 		if(con!=0&&convalue!=null&&!convalue.equals("")){
 			if(con==1){
-				queryString += "and mo.person.name like ? "; 
+				queryString += "and mo.name like ? "; 
 			}
 			if(con==2){
-				queryString += "and mo.person.number like ? "; 
+				queryString += "and mo.number like ? "; 
 			}
-			if(con==3){
-				queryString += "and mo.person.idcard like ? "; 
+			if(con==2){
+				queryString += "and mo.idcard like ? "; 
 			}
-			if(con==4){
-				queryString += "and mo.person.userRole.realname like ? "; 
+			if(con==2){
+				queryString += "and mo.userRole.name like ? "; 
 			}
 			p = new Object[]{'%'+convalue+'%'};
 		}
@@ -97,13 +97,13 @@ public class GamblingCriminalManServiceImp implements IGamblingCriminalManServic
 			queryString += " and mo.type ="+type;
 		}
 		if(queryState!=0){
-			queryString += " and mo.person.handleState ="+queryState;
+			queryString += " and mo.handleState ="+queryState;
 		}
 		if(starttime!=null&&!starttime.equals("")){
-			queryString += " and mo.person.joinDate>='"+starttime+"'";
+			queryString += " and mo.joinDate>='"+starttime+"'";
 		}
 		if(endtime!=null&&!endtime.equals("")){
-			queryString += " and mo.person.joinDate<='"+endtime+"'";
+			queryString += " and mo.joinDate<='"+endtime+"'";
 		}
 		return gamblingCriminalManDao.getUniqueResult(queryString,p);
 	}
@@ -122,16 +122,16 @@ public class GamblingCriminalManServiceImp implements IGamblingCriminalManServic
 		Object[] p = null;
 		if(con!=0&&convalue!=null&&!convalue.equals("")){
 			if(con==1){
-				queryString += "and mo.person.name like ? "; 
+				queryString += "and mo.name like ? "; 
 			}
 			if(con==2){
-				queryString += "and mo.person.number like ? "; 
+				queryString += "and mo.number like ? "; 
 			}
-			if(con==3){
-				queryString += "and mo.person.idcard like ? "; 
+			if(con==2){
+				queryString += "and mo.idcard like ? "; 
 			}
-			if(con==4){
-				queryString += "and mo.person.userRole.realname like ? "; 
+			if(con==2){
+				queryString += "and mo.userRole.name like ? "; 
 			}
 			p = new Object[]{'%'+convalue+'%'};
 		}
@@ -139,13 +139,13 @@ public class GamblingCriminalManServiceImp implements IGamblingCriminalManServic
 			queryString += " and mo.type ="+type;
 		}
 		if(queryState!=0){
-			queryString += " and mo.person.handleState ="+queryState;
+			queryString += " and mo.handleState ="+queryState;
 		}
 		if(starttime!=null&&!starttime.equals("")){
-			queryString += " and mo.person.joinDate>='"+starttime+"'";
+			queryString += " and mo.joinDate>='"+starttime+"'";
 		}
 		if(endtime!=null&&!endtime.equals("")){
-			queryString += " and mo.person.joinDate<='"+endtime+"'";
+			queryString += " and mo.joinDate<='"+endtime+"'";
 		}
 		return gamblingCriminalManDao.pageList(queryString,p,page,size);
 	}

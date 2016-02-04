@@ -39,6 +39,14 @@
 						    <s:token></s:token>
 							<input type="submit"  class="btn btn-success radius" id="button" value="保存并提交"></input>
 						</div>
+						<!-- 
+						<div class=" f-r pr-5">
+							<button type="submit" class="btn btn-success radius" id="button"
+								name="" onClick="difficult_start('发布案例','addfbal.html')">
+								<i class="Hui-iconfont">&#xe6bf;</i> 发布案例
+							</button>
+						</div>
+						 -->
 					</div>
 				</div>
 
@@ -173,7 +181,6 @@
 											<s:textfield name="person.idcard"  cssClass="input-text radius size-M "
 												cssStyle="width: 200px;"></s:textfield>
 										</td>
-										
 										<td>
 											<label class="form-label text-r">
 												DNA编号：

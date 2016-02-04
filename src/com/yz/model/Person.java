@@ -16,7 +16,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- * Person entity. 人员信息 
+ * Person entity. 所有人员信息 
  * 
  * @author lq
  */

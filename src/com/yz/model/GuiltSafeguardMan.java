@@ -24,13 +24,13 @@ public class GuiltSafeguardMan implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
-	private String launchTime;//发起时间
-	private String workdUnit;//工作单位
-	private String temporaryAddress;//暂住地址
-	private String location;//落脚地
-	private String criminalRecordPhoto1;//前科照片1
-	private String criminalRecordPhoto2;//前科照片2
-	private String criminalRecordPhoto3;//前科照片3
+	private String launchTime;//
+	private String workdUnit;//
+	private String temporaryAddress;//
+	private String location;//
+	private String criminalRecordPhoto1;//
+	private String criminalRecordPhoto2;//
+	private String criminalRecordPhoto3;//
 	private Person person;//
 
 	// Constructors

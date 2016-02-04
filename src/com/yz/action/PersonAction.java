@@ -118,7 +118,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private String jsonUnits;
 
 	/**
-	 * 人员管理
+	 * 机构管理
 	 */
 	public String list() throws Exception {
 
@@ -497,7 +497,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	public String loadLawcase()
 	{
 		lawcase = lawcaseService.loadById(lawid);
-		return "updateLawcase";
+		return "updateTroubleshooting";
 	}
 	
 	public String updateLawcase()
