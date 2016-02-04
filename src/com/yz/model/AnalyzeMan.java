@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * AnalyzeMan entity.
+ * AnalyzeMan entity.侵财分析人员
  * 
  * @author MyEclipse Persistence Tools
  */

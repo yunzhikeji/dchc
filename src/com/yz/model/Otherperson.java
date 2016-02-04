@@ -40,7 +40,7 @@ public class Otherperson implements java.io.Serializable {
 	private String leftPhoto;//左侧照片
 	private String rightPhoto;//右侧照片
 	private Integer isArrest;//是否被抓获
-	private Integer type;//类型(1:同案人 2：嫌疑人 3：关系人)
+	private Integer otype;//类型(1:同案人 2：嫌疑人 3：关系人)
 
 	// Constructors
 
@@ -54,7 +54,7 @@ public class Otherperson implements java.io.Serializable {
 			String qq, String wechat, Integer sex, String registerAddress,
 			String workdUnit, String currentAddressArea, String currentAddress,
 			String relation, String frontPhoto, String leftPhoto,
-			String rightPhoto, Integer isArrest, Integer type) {
+			String rightPhoto, Integer isArrest, Integer otype) {
 		this.clue = clue;
 		this.injurycase = injurycase;
 		this.person = person;
@@ -74,7 +74,7 @@ public class Otherperson implements java.io.Serializable {
 		this.leftPhoto = leftPhoto;
 		this.rightPhoto = rightPhoto;
 		this.isArrest = isArrest;
-		this.type = type;
+		this.otype = otype;
 	}
 
 	@Column(name = "birthday", length = 20)
@@ -173,9 +173,9 @@ public class Otherperson implements java.io.Serializable {
 		return this.telphone;
 	}
 
-	@Column(name = "type")
-	public Integer getType() {
-		return this.type;
+	@Column(name = "otype")
+	public Integer getOtype() {
+		return this.otype;
 	}
 
 	@Column(name = "wechat", length = 15)
@@ -260,8 +260,8 @@ public class Otherperson implements java.io.Serializable {
 		this.telphone = telphone;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
+	public void setOtype(Integer otype) {
+		this.otype = otype;
 	}
 
 	public void setWechat(String wechat) {

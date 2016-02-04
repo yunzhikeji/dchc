@@ -154,7 +154,20 @@
 										href="javascript:;" title="查看"><s:property value="name" /></a>
 								</td>
 								<td>
-									赌博人员
+									<s:if test="type==1">赌博人员</s:if>
+									<s:if test="type==2">涉恶人员</s:if>
+									<s:if test="type==3">涉黄人员</s:if>
+									<s:if test="type==4">食药环人员</s:if>
+									<s:if test="type==5">涉毒人员</s:if>
+									<s:if test="type==6">留置盘问</s:if>
+									<s:if test="type==7">侵财人员</s:if>
+									<s:if test="type==8">刑事传唤</s:if>
+									<s:if test="type==9">负案在逃人员</s:if>
+									<s:if test="type==10">维稳人员</s:if>
+									<s:if test="type==11">失踪人员</s:if>
+									<s:if test="type==12">侵财人员分析</s:if>
+									<s:if test="type==13">技术比中人员</s:if>
+									<s:if test="type==14">普通线索</s:if>
 								</td>
 								<td>
 									<s:property value="userRole.unit.name" />

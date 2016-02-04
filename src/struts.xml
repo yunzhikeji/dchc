@@ -123,49 +123,5 @@
 		<action name="getUnitVOs" class="personAction" method="getUnitVOs"/>
 	</package>
 	
-	<package name="disappearman" extends="struts-default">
-		<global-results>
-			<result name="adminLogin">/login.jsp</result>
-			<result name="opsessiongo">/op_sessiongo.jsp</result>
-		</global-results>
-		<action name="disappearmanAction" class="disappearmanAction">
-			<result name="sessiongo">/op_sessiongo.jsp</result>
-			<result name="success_child">/op_success_child.jsp</result>
-			<result name="success">/op_success.jsp</result>
-			<result name="fail">/op_failure.jsp</result>
-			<result name="operror">/op_error.jsp</result>
-			
-			<result name="list">/disappearman_manage.jsp</result>
-			<result name="add">/disappearman_add.jsp</result>
-			<result name="load">/disappearman_update.jsp</result>
-			<result name="view">/disappearman_view.jsp</result>
-			
-			<result name="addLawcase">/lawcase_add.jsp</result>
-			<result name="updateLawcase">/lawcase_update.jsp</result>
-			
-			<result name="addTroubleshooting">/troubleshooting_add.jsp</result>
-			<result name="updateTroubleshooting">/troubleshooting_update.jsp</result>
-			
-			<result name="addJudge">/judge_add.jsp</result>
-			<result name="updateJudge">/judge_update.jsp</result>
-			
-			<result name="invalid.token">/op_failure_child.jsp</result>
-			<interceptor-ref name="defaultStack" />
-            <interceptor-ref name="token" >
-            	<param name="includeMethods">add</param>
-            	<param name="excludeMethods">default</param>
-            </interceptor-ref>
-		</action>
-	</package>
-	
-	
-	
-	<package name="disappearman_json" extends="json-default">
-		<action name="deletedisappearmen" class="disappearmanAction" method="deletedisappearmen"/>
-		<action name="deleteLawcase" class="disappearmanAction" method="deleteLawcase"/>
-		<action name="deleteTroubleshooting" class="disappearmanAction" method="deleteTroubleshooting"/>
-		<action name="deleteJudge" class="disappearmanAction" method="deleteJudge"/>
-		<action name="getUnitVOs" class="disappearmanAction" method="getUnitVOs"/>
-	</package>
 </struts>
 

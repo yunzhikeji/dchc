@@ -33,11 +33,12 @@
 		<title>修改人员信息</title>
 	</head>
 	<body>
-		<form name="personUpdateForm" action="personAction!update" method="post"
-			enctype="multipart/form-data" onsubmit="return checkPerson();">
+		<form name="personUpdateForm" action="personAction!update"
+			method="post" enctype="multipart/form-data"
+			onsubmit="return checkPerson();">
 			<div class="pd-20">
 				<div class="row cl">
-					<div class="col-6 col-offset-6 " >
+					<div class="col-6 col-offset-6 ">
 						<div class=" f-r pr-5">
 							<s:token></s:token>
 							<input type="submit" class="btn btn-success radius" id="button"
@@ -78,7 +79,7 @@
 											</label>
 										</td>
 										<td>
-											
+
 											<s:textfield id="number" name="person.number"
 												cssClass="input-text radius size-M "
 												cssStyle="width: 200px;"></s:textfield>
@@ -186,116 +187,6 @@
 									<tr>
 										<td>
 											<label class="form-label text-r">
-												身份证号：
-											</label>
-										</td>
-										<td>
-											<s:textfield name="person.idcard"
-												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
-										</td>
-										<td>
-											<label class="form-label text-r">
-												DNA编号：
-											</label>
-										</td>
-										<td>
-											<s:textfield name="gamblingCriminalMan.dnanumber"
-												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<label class="form-label text-r">
-												指纹编号：
-											</label>
-										</td>
-										<td>
-											<s:textfield name="gamblingCriminalMan.fingerPrintNumber"
-												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
-										</td>
-										<td>
-											<label class="form-label text-r">
-												足迹编号：
-											</label>
-										</td>
-										<td>
-											<s:textfield name="gamblingCriminalMan.footPrintNumber"
-												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<label class="form-label text-r">
-												户籍地区划：
-											</label>
-										</td>
-										<td>
-											<s:textfield name="gamblingCriminalMan.registerAddressArea"
-												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
-										</td>
-										<td>
-											<label class="form-label text-r">
-												户籍地详址：
-											</label>
-										</td>
-										<td>
-											<s:textfield name="person.registerAddress"
-												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<label class="form-label text-r">
-												现住地区划：
-											</label>
-										</td>
-										<td>
-											<s:textfield name="gamblingCriminalMan.currentAddressArea"
-												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
-										</td>
-										<td>
-											<label class="form-label text-r">
-												现住地详址：
-											</label>
-										</td>
-										<td colspan="2">
-											<s:textfield name="gamblingCriminalMan.currentAddress"
-												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<label class="form-label text-r">
-												其它身份信息：
-											</label>
-										</td>
-										<td>
-											<s:textfield name="gamblingCriminalMan.otherId"
-												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
-										</td>
-										<td>
-											<label class="form-label text-r">
-												手机号码：
-											</label>
-										</td>
-										<td colspan="2">
-											<s:textfield name="person.telphone"
-												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<label class="form-label text-r">
 												QQ：
 											</label>
 										</td>
@@ -318,158 +209,323 @@
 									<tr>
 										<td>
 											<label class="form-label text-r">
-												虚拟身份：
+												身份证号：
 											</label>
 										</td>
 										<td>
-											<s:textfield name="gamblingCriminalMan.virtualId"
+											<s:textfield name="person.idcard"
 												cssClass="input-text radius size-M "
 												cssStyle="width: 200px;"></s:textfield>
 										</td>
 										<td>
 											<label class="form-label text-r">
-												银行卡信息：
+												手机号码：
 											</label>
 										</td>
 										<td colspan="2">
-											<s:textfield name="gamblingCriminalMan.bankCard"
+											<s:textfield name="person.telphone"
 												cssClass="input-text radius size-M "
 												cssStyle="width: 200px;"></s:textfield>
 										</td>
+
 									</tr>
 									<tr>
 										<td>
 											<label class="form-label text-r">
-												绰号：
+												户籍地详址：
 											</label>
 										</td>
 										<td>
-											<s:textfield name="gamblingCriminalMan.nickname"
+											<s:textfield name="person.registerAddress"
 												cssClass="input-text radius size-M "
 												cssStyle="width: 200px;"></s:textfield>
 										</td>
-										<td>
-											<label class="form-label text-r">
-												车牌号：
-											</label>
-										</td>
-										<td colspan="2">
-											<s:textfield name="gamblingCriminalMan.carLicenseNumber"
-												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<label class="form-label text-r">
-												发动机号：
-											</label>
-										</td>
-										<td>
-											<s:textfield name="gamblingCriminalMan.engineNumber"
-												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
-										</td>
-										<td>
-											<label class="form-label text-r">
-												车架号：
-											</label>
-										</td>
-										<td colspan="2">
-											<s:textfield name="gamblingCriminalMan.carFrameNumber"
-												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<label class="form-label text-r">
-												手机串号：
-											</label>
-										</td>
-										<td>
-											<s:textfield name="gamblingCriminalMan.imei"
-												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
-										</td>
-										<s:if test="type==1">
+
+
+										<!--               person over line                                    -->
+										<!--            gamblingCriminalMan start line                         -->
+										<s:if test="type<=8">
 											<td>
 												<label class="form-label text-r">
-													赌场角色：
+													户籍地区划：
 												</label>
 											</td>
-											<td colspan="2">
-												<s:textfield name="gamblingCriminalMan.casinoRole"
+											<td>
+												<s:textfield name="gamblingCriminalMan.registerAddressArea"
 													cssClass="input-text radius size-M "
 													cssStyle="width: 200px;"></s:textfield>
 											</td>
-											<s:hidden name="gamblingCriminalMan.equivocation" title="可疑度"></s:hidden>
 										</s:if>
-										<s:elseif test="type==6">
-											<td>
-												<label class="form-label text-r">
-													可疑度：
-												</label>
-											</td>
-											<td colspan="2">
-												<s:textfield name="gamblingCriminalMan.equivocation"
-													cssClass="input-text radius size-M "
-													cssStyle="width: 200px;"></s:textfield>
-											</td>
-											<s:hidden name="gamblingCriminalMan.casinoRole" title="赌场角色"></s:hidden>
-										</s:elseif>
-										<s:else>
-											<s:hidden name="gamblingCriminalMan.casinoRole" title="赌场角色"></s:hidden>
-											<s:hidden name="gamblingCriminalMan.equivocation" title="可疑度"></s:hidden>
-										</s:else>
 									</tr>
-									<s:if test="type==1">
+									<s:if test="type<=8">
 										<tr>
 											<td>
 												<label class="form-label text-r">
-													赌博形式：
+													DNA编号：
 												</label>
 											</td>
 											<td>
-												<s:textfield name="gamblingCriminalMan.gambleType"
+												<s:textfield name="gamblingCriminalMan.dnanumber"
 													cssClass="input-text radius size-M "
 													cssStyle="width: 200px;"></s:textfield>
 											</td>
 											<td>
 												<label class="form-label text-r">
-													是否涉毒：
+													其它身份信息：
 												</label>
 											</td>
 											<td>
-												<s:select list="#{0:'否',1:'是'}" cssClass="input-text"
-													name="gamblingCriminalMan.isDrugRelated" listKey="key"
-													listValue="value" cssStyle="width:200px"></s:select>
+												<s:textfield name="gamblingCriminalMan.otherId"
+													cssClass="input-text radius size-M "
+													cssStyle="width: 200px;"></s:textfield>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label class="form-label text-r">
+													指纹编号：
+												</label>
 											</td>
 											<td>
-												&nbsp;
+												<s:textfield name="gamblingCriminalMan.fingerPrintNumber"
+													cssClass="input-text radius size-M "
+													cssStyle="width: 200px;"></s:textfield>
+											</td>
+											<td>
+												<label class="form-label text-r">
+													足迹编号：
+												</label>
+											</td>
+											<td>
+												<s:textfield name="gamblingCriminalMan.footPrintNumber"
+													cssClass="input-text radius size-M "
+													cssStyle="width: 200px;"></s:textfield>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label class="form-label text-r">
+													现住地区划：
+												</label>
+											</td>
+											<td>
+												<s:textfield name="gamblingCriminalMan.currentAddressArea"
+													cssClass="input-text radius size-M "
+													cssStyle="width: 200px;"></s:textfield>
+											</td>
+											<td>
+												<label class="form-label text-r">
+													现住地详址：
+												</label>
+											</td>
+											<td colspan="2">
+												<s:textfield name="gamblingCriminalMan.currentAddress"
+													cssClass="input-text radius size-M "
+													cssStyle="width: 200px;"></s:textfield>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label class="form-label text-r">
+													虚拟身份：
+												</label>
+											</td>
+											<td>
+												<s:textfield name="gamblingCriminalMan.virtualId"
+													cssClass="input-text radius size-M "
+													cssStyle="width: 200px;"></s:textfield>
+											</td>
+											<td>
+												<label class="form-label text-r">
+													银行卡信息：
+												</label>
+											</td>
+											<td colspan="2">
+												<s:textfield name="gamblingCriminalMan.bankCard"
+													cssClass="input-text radius size-M "
+													cssStyle="width: 200px;"></s:textfield>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label class="form-label text-r">
+													绰号：
+												</label>
+											</td>
+											<td>
+												<s:textfield name="gamblingCriminalMan.nickname"
+													cssClass="input-text radius size-M "
+													cssStyle="width: 200px;"></s:textfield>
+											</td>
+											<td>
+												<label class="form-label text-r">
+													车牌号：
+												</label>
+											</td>
+											<td colspan="2">
+												<s:textfield name="gamblingCriminalMan.carLicenseNumber"
+													cssClass="input-text radius size-M "
+													cssStyle="width: 200px;"></s:textfield>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label class="form-label text-r">
+													发动机号：
+												</label>
+											</td>
+											<td>
+												<s:textfield name="gamblingCriminalMan.engineNumber"
+													cssClass="input-text radius size-M "
+													cssStyle="width: 200px;"></s:textfield>
+											</td>
+											<td>
+												<label class="form-label text-r">
+													车架号：
+												</label>
+											</td>
+											<td colspan="2">
+												<s:textfield name="gamblingCriminalMan.carFrameNumber"
+													cssClass="input-text radius size-M "
+													cssStyle="width: 200px;"></s:textfield>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label class="form-label text-r">
+													手机串号：
+												</label>
+											</td>
+											<td>
+												<s:textfield name="gamblingCriminalMan.imei"
+													cssClass="input-text radius size-M "
+													cssStyle="width: 200px;"></s:textfield>
+											</td>
+											<s:if test="type==1">
+												<td>
+													<label class="form-label text-r">
+														赌场角色：
+													</label>
+												</td>
+												<td colspan="2">
+													<s:textfield name="gamblingCriminalMan.casinoRole"
+														cssClass="input-text radius size-M "
+														cssStyle="width: 200px;"></s:textfield>
+												</td>
+												<s:hidden name="gamblingCriminalMan.equivocation"
+													title="可疑度"></s:hidden>
+											</s:if>
+											<s:elseif test="type==6">
+												<td>
+													<label class="form-label text-r">
+														可疑度：
+													</label>
+												</td>
+												<td colspan="2">
+													<s:textfield name="gamblingCriminalMan.equivocation"
+														cssClass="input-text radius size-M "
+														cssStyle="width: 200px;"></s:textfield>
+												</td>
+												<s:hidden name="gamblingCriminalMan.casinoRole" title="赌场角色"></s:hidden>
+											</s:elseif>
+											<s:else>
+												<s:hidden name="gamblingCriminalMan.casinoRole" title="赌场角色"></s:hidden>
+												<s:hidden name="gamblingCriminalMan.equivocation"
+													title="可疑度"></s:hidden>
+											</s:else>
+										</tr>
+										<s:if test="type==1">
+											<tr>
+												<td>
+													<label class="form-label text-r">
+														赌博形式：
+													</label>
+												</td>
+												<td>
+													<s:textfield name="gamblingCriminalMan.gambleType"
+														cssClass="input-text radius size-M "
+														cssStyle="width: 200px;"></s:textfield>
+												</td>
+												<td>
+													<label class="form-label text-r">
+														是否涉毒：
+													</label>
+												</td>
+												<td>
+													<s:select list="#{0:'否',1:'是'}" cssClass="input-text"
+														name="gamblingCriminalMan.isDrugRelated" listKey="key"
+														listValue="value" cssStyle="width:200px"></s:select>
+												</td>
+												<td>
+													&nbsp;
+												</td>
+											</tr>
+										</s:if>
+										<s:else>
+											<s:hidden name="gamblingCriminalMan.gambleType" title="赌博类型"></s:hidden>
+											<s:hidden name="gamblingCriminalMan.isDrugRelated"
+												title="是否涉毒"></s:hidden>
+										</s:else>
+										<tr>
+											<td>
+												<label class="form-label text-r">
+													信息提取情况：
+												</label>
+											</td>
+											<td colspan="4">
+												<label for="check-box">
+													<s:checkboxlist theme="simple" cssStyle="width:36px"
+														name="gamblingCriminalMan.infoExtraction"
+														list="{'提取手机信息','提取银行卡信息','提取DNA','提取指纹','提取鞋印'}"
+														value="infoExtractions" />
+												</label>
 											</td>
 										</tr>
 									</s:if>
-									<s:else>
-										<s:hidden name="gamblingCriminalMan.gambleType" title="赌博类型"></s:hidden>
-										<s:hidden name="gamblingCriminalMan.isDrugRelated"
-											title="是否涉毒"></s:hidden>
-									</s:else>
-									<tr>
-										<td>
+									<!--   gamblingCriminalMan over line   -->
+
+									<!--   guiltSafeguardMan start line   -->
+									<s:if test="type>8&&type<=10">
+										<tr>
+											<td height="53">
+												<label class="form-label text-r">
+													工作单位：
+												</label>
+											</td>
+											<td>
+												<s:textfield name="guiltSafeguardMan.workdUnit"
+													cssClass="input-text radius size-M "
+													cssStyle="width: 200px;"></s:textfield>
+											</td>
+											<td>
 											<label class="form-label text-r">
-												信息提取情况：
+												暂住地址：
 											</label>
 										</td>
-										<td colspan="4">
-											<label for="check-box">
-												<s:checkboxlist theme="simple" cssStyle="width:36px"
-													name="gamblingCriminalMan.infoExtraction"
-													list="{'提取手机信息','提取银行卡信息','提取DNA','提取指纹','提取鞋印'}"
-													value="infoExtractions" />
-											</label>
+										<td colspan="2">
+											<s:textfield name="guiltSafeguardMan.temporaryAddress"
+												cssClass="input-text radius size-M "
+												cssStyle="width: 350px;"></s:textfield>
 										</td>
-									</tr>
+										</tr>
+										<tr>
+											<td>
+												<label class="form-label text-r">
+													落脚地：
+												</label>
+											</td>
+											<td colspan="4">
+
+												<s:textfield name="guiltSafeguardMan.location"
+													cssClass="input-text radius size-M "
+													cssStyle="width: 780px;"></s:textfield>
+											</td>
+										</tr>
+										<tr>
+									</s:if>
+									<!--   guiltSafeguardMan over line   -->
+
+
 									<tr>
 										<td>
 											<label class="form-label text-r">
@@ -485,36 +541,42 @@
 								</table>
 
 							</div>
-<div class="row cl mt-20">
-								<div class="col-12 mb-10 c-primary f-16"
-									style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
-									携带物品
+
+							<!-- 1-8 携带物品工具 -->
+							<s:if test="type<=8">
+								<div class="row cl mt-20">
+									<div class="col-12 mb-10 c-primary f-16"
+										style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
+										携带物品
+									</div>
+									<div class="row cl mb-10">
+										<div class="col-1">
+											<label class="form-label text-l">
+												携带物品：
+											</label>
+										</div>
+										<div class="col-11">
+											<s:textfield name="person.carrier"
+												cssClass="input-text radius size-M " cssStyle="width: 80%;"></s:textfield>
+											多个物品请输入&quot;,&quot;隔开
+										</div>
+									</div>
+									<div class="row cl mb-10">
+										<div class="col-1">
+											<label class="form-label text-l">
+												携带工具：
+											</label>
+										</div>
+										<div class="col-11">
+											<s:textfield name="person.carryTool"
+												cssClass="input-text radius size-M " cssStyle="width: 80%;"></s:textfield>
+											多个物品请输入&quot;,&quot;隔开
+										</div>
+									</div>
 								</div>
-								<div class="row cl mb-10">
-									<div class="col-1">
-										<label class="form-label text-l">
-											携带物品：
-										</label>
-									</div>
-									<div class="col-11">
-											<s:textfield name="person.carrier"  cssClass="input-text radius size-M "
-												cssStyle="width: 80%;"></s:textfield>
-										多个物品请输入&quot;,&quot;隔开
-									</div>
-								</div>
-								<div class="row cl mb-10">
-									<div class="col-1">
-										<label class="form-label text-l">
-											携带工具：
-										</label>
-									</div>
-									<div class="col-11">
-											<s:textfield name="person.carryTool"  cssClass="input-text radius size-M "
-												cssStyle="width: 80%;"></s:textfield>
-										多个物品请输入&quot;,&quot;隔开
-									</div>
-								</div>
-							</div>
+							</s:if>
+
+							<!-- 留置盘问 盘问原因 -->
 							<s:if test="type==6">
 								<div class="row cl mt-20">
 									<div class="col-12 mb-10 c-primary f-16"
@@ -538,6 +600,304 @@
 								<s:hidden name="gamblingCriminalMan.interrogateReason"
 									title="盘问原因"></s:hidden>
 							</s:else>
+
+
+							<!-- 负罪在逃、维稳人员 的前科照片、关系人、同案人 -->
+							<s:if test="type>8&&type<=10">
+								<div class="row cl mt-15">
+									<div class="col-12 mb-15 c-primary f-16"
+										style="border-bottom: solid 2px #2DABF7">
+										前科照片
+										<span class="label label-danger radius">【图片不大于5M】</span>
+									</div>
+									<div class="col-3">
+										<table width="100%" border="0" cellspacing="0" cellpadding="0">
+											<tr>
+												<td align="center">
+													<img id="myimage1" class="img-responsive thumbnail"
+														width="176px" height="220px" alt="前科照片1" />
+													<script type="text/javascript">
+															function change1() {
+															    var pic1 = document.getElementById("myimage1"),
+															        file1 = document.getElementById("myfile1");
+															    var ext1=file1.value.substring(file1.value.lastIndexOf(".")+1).toLowerCase();
+															     // gif在IE浏览器暂时无法显示
+															     if(ext1!='png'&&ext1!='jpg'&&ext1!='jpeg'){
+															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
+															         return;
+															     }
+															     var isIE = navigator.userAgent.match(/MSIE/)!= null,
+															         isIE6 = navigator.userAgent.match(/MSIE 6.0/)!= null;
+															     if(isIE) {
+															        file1.select();
+															        var reallocalpath = document.selection.createRange().text;
+															 
+															        // IE6浏览器设置img的src为本地路径可以直接显示图片
+															         if (isIE6) {
+															            pic1.src = reallocalpath;
+															         }else {
+															            // 非IE6版本的IE由于安全问题直接设置img的src无法显示本地图片，但是可以通过滤镜来实现
+															             pic1.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='image',src=\"" + reallocalpath + "\")";
+															             // 设置img的src为base64编码的透明图片 取消显示浏览器默认图片
+															             pic1.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+															         }
+															     }else {
+															        html5Reader1(file1);
+															     }
+															     pic1.alt = '图片';
+															}
+															 function html5Reader1(file1){
+															     var file1 = file1.files[0];
+															     var reader1 = new FileReader();
+															     reader1.readAsDataURL(file1);
+															     reader1.onload = function(e){
+															         var pic1 = document.getElementById("myimage1");
+															         pic1.src=this.result;
+															     }
+															 }
+												</script>
+												</td>
+											</tr>
+											<tr>
+												<td align="center">
+													<s:file name="picture1"
+														cssClass="btn btn-primary radius mt-10"
+														accept="image/jpeg,image/png,image/jpg"
+														onchange="change1();" id="myfile1"></s:file>
+												</td>
+											</tr>
+										</table>
+									</div>
+									<div class="col-3">
+										<table width="100%" border="0" cellspacing="0" cellpadding="0">
+											<tr>
+												<td align="center">
+													<img id="myimage2" class="img-responsive thumbnail"
+														width="176px" height="220px" alt="前科照片2" />
+													<script type="text/javascript">
+															function change2() {
+															    var pic2 = document.getElementById("myimage2"),
+															        file2 = document.getElementById("myfile2");
+															    var ext2=file2.value.substring(file2.value.lastIndexOf(".")+1).toLowerCase();
+															     // gif在IE浏览器暂时无法显示
+															     if(ext2!='png'&&ext2!='jpg'&&ext2!='jpeg'){
+															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
+															         return;
+															     }
+															     var isIE = navigator.userAgent.match(/MSIE/)!= null,
+															         isIE6 = navigator.userAgent.match(/MSIE 6.0/)!= null;
+															     if(isIE) {
+															        file2.select();
+															        var reallocalpath = document.selection.createRange().text;
+															 
+															        // IE6浏览器设置img的src为本地路径可以直接显示图片
+															         if (isIE6) {
+															            pic2.src = reallocalpath;
+															         }else {
+															            // 非IE6版本的IE由于安全问题直接设置img的src无法显示本地图片，但是可以通过滤镜来实现
+															             pic2.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='image',src=\"" + reallocalpath + "\")";
+															             // 设置img的src为base64编码的透明图片 取消显示浏览器默认图片
+															             pic2.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+															         }
+															     }else {
+															        html5Reader2(file2);
+															     }
+															     pic2.alt = '图片';
+															}
+															 function html5Reader2(file2){
+															     var file2 = file2.files[0];
+															     var reader2 = new FileReader();
+															     reader2.readAsDataURL(file2);
+															     reader2.onload = function(e){
+															         var pic2 = document.getElementById("myimage2");
+															         pic2.src=this.result;
+															     }
+															 }
+												</script>
+												</td>
+											</tr>
+											<tr>
+												<td align="center">
+													<s:file name="picture2"
+														cssClass="btn btn-primary radius mt-10"
+														accept="image/jpeg,image/png,image/jpg"
+														onchange="change2();" id="myfile2"></s:file>
+												</td>
+											</tr>
+										</table>
+									</div>
+									<div class="col-3">
+										<table width="100%" border="0" cellspacing="0" cellpadding="0">
+											<tr>
+												<td align="center">
+													<img id="myimage3" class="img-responsive thumbnail"
+														width="176px" height="220px" alt="前科照片3" />
+													<script type="text/javascript">
+															function change3() {
+															    var pic3 = document.getElementById("myimage3"),
+															        file3 = document.getElementById("myfile3");
+															    var ext3=file3.value.substring(file3.value.lastIndexOf(".")+1).toLowerCase();
+															     // gif在IE浏览器暂时无法显示
+															     if(ext3!='png'&&ext3!='jpg'&&ext3!='jpeg'){
+															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
+															         return;
+															     }
+															     var isIE = navigator.userAgent.match(/MSIE/)!= null,
+															         isIE6 = navigator.userAgent.match(/MSIE 6.0/)!= null;
+															     if(isIE) {
+															        file3.select();
+															        var reallocalpath = document.selection.createRange().text;
+															 
+															        // IE6浏览器设置img的src为本地路径可以直接显示图片
+															         if (isIE6) {
+															            pic3.src = reallocalpath;
+															         }else {
+															            // 非IE6版本的IE由于安全问题直接设置img的src无法显示本地图片，但是可以通过滤镜来实现
+															             pic3.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='image',src=\"" + reallocalpath + "\")";
+															             // 设置img的src为base64编码的透明图片 取消显示浏览器默认图片
+															             pic3.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+															         }
+															     }else {
+															        html5Reader3(file3);
+															     }
+															     pic3.alt = '图片';
+															}
+															 function html5Reader3(file3){
+															     var file3 = file3.files[0];
+															     var reader3 = new FileReader();
+															     reader3.readAsDataURL(file3);
+															     reader3.onload = function(e){
+															         var pic3 = document.getElementById("myimage3");
+															         pic3.src=this.result;
+															     }
+															 }
+															 </script>
+												</td>
+											</tr>
+											<tr>
+												<td align="center">
+													<s:file name="picture3"
+														cssClass="btn btn-primary radius mt-10"
+														accept="image/jpeg,image/png,image/jpg"
+														onchange="change3();" id="myfile3"></s:file>
+												</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+
+								<!--关系人信息-->
+								<div class="row cl mt-20">
+									<div class="col-12 mb-0 c-primary f-16"
+										style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
+										关系人信息
+										<input class="btn btn-primary radius mt-10 f-r" type="button"
+											onclick="addgxr('新增关系人','addgxr.html','900','600')"
+											value="新增关系人">
+									</div>
+									
+									<div class="col-12">
+										<table class="table table-border table-bg">
+											<thead>
+												<tr>
+													<th>
+														序号
+													</th>
+													<th>
+														人员编号
+													</th>
+													<th>
+														姓名
+													</th>
+													<th>
+														身份证
+													</th>
+													<th>
+														操作
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														&nbsp;
+													</td>
+													<td>
+														&nbsp;
+													</td>
+													<td>
+														&nbsp;
+													</td>
+													<td>
+														&nbsp;
+													</td>
+													<td>
+														&nbsp;
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+								
+								
+								<!--同案人员-->
+								<div class="row cl mt-20">
+									<div class="col-12 mb-0 c-primary f-16"
+										style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
+										同案人员信息
+										<input class="btn btn-primary radius mt-10 f-r" type="button"
+											onclick="addgxr('新增同案人员','addtar.html','500','300')"
+											value="新增同案人员">
+									</div>
+									<div class="col-12">
+										<table class="table table-border table-bg">
+											<thead>
+												<tr>
+													<th>
+														序号
+													</th>
+													<th>
+														人员编号
+													</th>
+													<th>
+														姓名
+													</th>
+													<th>
+														身份证
+													</th>
+													<th>
+														操作
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>
+														&nbsp;
+													</td>
+													<td>
+														&nbsp;
+													</td>
+													<td>
+														&nbsp;
+													</td>
+													<td>
+														&nbsp;
+													</td>
+													<td>
+														&nbsp;
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+							</s:if>
+
+
+
 
 
 							<div class="row cl mt-20">
@@ -573,37 +933,38 @@
 											</tr>
 										</thead>
 										<tbody>
-										<s:if test="person.lawcases.size>0">
-										<s:iterator value="person.lawcases" var="lawcase" status="status">
-											<tr>
-												<td>
-													<s:property value="#status.index+1"/>
-												</td>
-												<td>
-												<a href="#" onclick="javascript::">
-													<s:property value="caseNumber"/>
-													</a>
-												</td>
-												<td>
-													<s:property value="caseName"/>
-												</td>
-												<td>
-													<s:property value="fillName"/>
-												</td>
-												<td>
-													<s:property value="fillUnit"/>
-												</td>
-												<td>
-									<a style="text-decoration: none" class="ml-5"
-										onclick="addPage('编辑涉案情况','personAction!loadLawcase?lawid=<s:property value="id" />','500','300')"
-										href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i>
-									</a>
-									<a style="text-decoration: none" class="ml-5"
-									    href="javascript:;" onclick="deleteLawcase(<s:property value="id" />);"
-										title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
-												</td>
-											</tr>
-											</s:iterator>
+											<s:if test="person.lawcases.size>0">
+												<s:iterator value="person.lawcases" var="lawcase"
+													status="status">
+													<tr>
+														<td>
+															<s:property value="#status.index+1" />
+														</td>
+														<td>
+															<a href="#" onclick="javascript::"> <s:property
+																	value="caseNumber" /> </a>
+														</td>
+														<td>
+															<s:property value="caseName" />
+														</td>
+														<td>
+															<s:property value="fillName" />
+														</td>
+														<td>
+															<s:property value="fillUnit" />
+														</td>
+														<td>
+															<a style="text-decoration: none" class="ml-5"
+																onclick="addPage('编辑涉案情况','personAction!loadLawcase?lawid=<s:property value="id" />','500','300')"
+																href="javascript:;" title="编辑"><i
+																class="Hui-iconfont">&#xe6df;</i> </a>
+															<a style="text-decoration: none" class="ml-5"
+																href="javascript:;"
+																onclick="deleteLawcase(<s:property value="id" />);"
+																title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
+														</td>
+													</tr>
+												</s:iterator>
 											</s:if>
 										</tbody>
 									</table>
@@ -611,7 +972,7 @@
 
 							</div>
 
-							
+
 							<!--发起疑难-->
 							<div class="row cl mt-20">
 								<div class="col-12 mb-0 c-primary f-16"
@@ -643,37 +1004,38 @@
 											</tr>
 										</thead>
 										<tbody>
-										
-										<s:if test="person.troubleshootings.size>0">
-										<s:iterator value="person.troubleshootings" var="troubleshooting" status="status">
-											<tr>
-												<td>
-													<s:property value="#status.index+1"/>
-												</td>
-												<td>
-												<a href="#" onclick="javascript::">
-													<s:property value="title"/>
-												</a>
-												</td>
-												<td>
-													<s:property value="question"/>
-												</td>
-												<td>
-													<s:property value="issuer"/>
-												</td>
-												<td>
-									<a style="text-decoration: none" class="ml-5"
-										onclick="addPage('编辑疑难解答','personAction!loadTroubleshooting?troubid=<s:property value="id" />','500','300')"
-										href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i>
-									</a>
-									<a style="text-decoration: none" class="ml-5"
-									    href="javascript:;" onclick="deleteTroubleshooting(<s:property value="id" />);"
-										title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
-												</td>
-											</tr>
-											</s:iterator>
+
+											<s:if test="person.troubleshootings.size>0">
+												<s:iterator value="person.troubleshootings"
+													var="troubleshooting" status="status">
+													<tr>
+														<td>
+															<s:property value="#status.index+1" />
+														</td>
+														<td>
+															<a href="#" onclick="javascript::"> <s:property
+																	value="title" /> </a>
+														</td>
+														<td>
+															<s:property value="question" />
+														</td>
+														<td>
+															<s:property value="issuer" />
+														</td>
+														<td>
+															<a style="text-decoration: none" class="ml-5"
+																onclick="addPage('编辑疑难解答','personAction!loadTroubleshooting?troubid=<s:property value="id" />','500','300')"
+																href="javascript:;" title="编辑"><i
+																class="Hui-iconfont">&#xe6df;</i> </a>
+															<a style="text-decoration: none" class="ml-5"
+																href="javascript:;"
+																onclick="deleteTroubleshooting(<s:property value="id" />);"
+																title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
+														</td>
+													</tr>
+												</s:iterator>
 											</s:if>
-											
+
 										</tbody>
 									</table>
 								</div>
@@ -685,12 +1047,13 @@
 								<div class="col-12 mb-0 c-primary f-16"
 									style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
 									发起研判信息
-										<input class="btn btn-primary radius mt-10 f-r" type="button"
+									<input class="btn btn-primary radius mt-10 f-r" type="button"
 										onclick="addPage('发起研判信息','personAction!goToAddJudge?id=<s:property value="id"/>','650','300')"
 										value="发起研判信息">
 								</div>
 								<div class="col-12">
-									<table class="table table-border table-bg mb-10" style="table-layout:fixed;">
+									<table class="table table-border table-bg mb-10"
+										style="table-layout: fixed;">
 										<thead>
 											<tr>
 												<th width="7%">
@@ -699,7 +1062,7 @@
 												<th width="24%">
 													报送机构
 												</th>
-												<th width="57%" >
+												<th width="57%">
 													研判要求
 												</th>
 												<th width="12%">
@@ -708,31 +1071,33 @@
 											</tr>
 										</thead>
 										<tbody>
-										<s:if test="person.judges.size>0">
-										<s:iterator value="person.judges" var="judge" status="status">
-											<tr>
-												<td>
-													<s:property value="indexNumber"/>
-												</td>
-												<td>
-													<s:property value="reportUnit"/>
-												</td>
-												<td style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden; ">
-													<a href="#" onclick="javascript::">
-													<s:property value="judgeRequirement"/>
-													</a>
-												</td>
-												<td>
-												<a style="text-decoration: none" class="ml-5"
-										onclick="addPage('编辑研判信息','personAction!loadJudge?jid=<s:property value="id" />','500','300')"
-										href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i>
-									</a>
-									<a style="text-decoration: none" class="ml-5"
-									    href="javascript:;" onclick="deleteJudge(<s:property value="id" />);"
-										title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
-												</td>
-											</tr>
-											</s:iterator>
+											<s:if test="person.judges.size>0">
+												<s:iterator value="person.judges" var="judge"
+													status="status">
+													<tr>
+														<td>
+															<s:property value="indexNumber" />
+														</td>
+														<td>
+															<s:property value="reportUnit" />
+														</td>
+														<td
+															style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+															<a href="#" onclick="javascript::"> <s:property
+																	value="judgeRequirement" /> </a>
+														</td>
+														<td>
+															<a style="text-decoration: none" class="ml-5"
+																onclick="addPage('编辑研判信息','personAction!loadJudge?jid=<s:property value="id" />','500','300')"
+																href="javascript:;" title="编辑"><i
+																class="Hui-iconfont">&#xe6df;</i> </a>
+															<a style="text-decoration: none" class="ml-5"
+																href="javascript:;"
+																onclick="deleteJudge(<s:property value="id" />);"
+																title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
+														</td>
+													</tr>
+												</s:iterator>
 											</s:if>
 										</tbody>
 									</table>
@@ -765,34 +1130,39 @@
 											</tr>
 										</thead>
 										<tbody>
-										<s:if test="person.judges.size>0">
-										<s:iterator value="person.judges" var="judge" status="status">
-											<tr>
-												<td>
-													<s:property value="indexNumber"/>
-												</td>
-												<td>
-													<s:textarea name="criminalJudge" cssClass="input-text" id="criminalJudge"
-														cssStyle="width: 260px; height: 180px; float: left;"
-														readonly="true"></s:textarea>
-												</td>
-												<td>
-													<s:textarea name="networkJudge" cssClass="input-text" id="networkJudge"
-														cssStyle="width: 260px; height: 180px; float: left;"
-														readonly="true"></s:textarea>
-												</td>
-												<td>
-												<s:textarea name="intelligenceJudge" cssClass="input-text" id="intelligenceJudge"
-														cssStyle="width: 260px; height: 180px; float: left;"
-														readonly="true"></s:textarea>
-												</td>
-												<td>
-												<s:textarea name="imageJudge" cssClass="input-text" id="imageJudge"
-														cssStyle="width: 260px; height: 180px; float: left;"
-														readonly="true"></s:textarea>
-												</td>
-											</tr>
-											</s:iterator>
+											<s:if test="person.judges.size>0">
+												<s:iterator value="person.judges" var="judge"
+													status="status">
+													<tr>
+														<td>
+															<s:property value="indexNumber" />
+														</td>
+														<td>
+															<s:textarea name="criminalJudge" cssClass="input-text"
+																id="criminalJudge"
+																cssStyle="width: 260px; height: 180px; float: left;"
+																readonly="true"></s:textarea>
+														</td>
+														<td>
+															<s:textarea name="networkJudge" cssClass="input-text"
+																id="networkJudge"
+																cssStyle="width: 260px; height: 180px; float: left;"
+																readonly="true"></s:textarea>
+														</td>
+														<td>
+															<s:textarea name="intelligenceJudge"
+																cssClass="input-text" id="intelligenceJudge"
+																cssStyle="width: 260px; height: 180px; float: left;"
+																readonly="true"></s:textarea>
+														</td>
+														<td>
+															<s:textarea name="imageJudge" cssClass="input-text"
+																id="imageJudge"
+																cssStyle="width: 260px; height: 180px; float: left;"
+																readonly="true"></s:textarea>
+														</td>
+													</tr>
+												</s:iterator>
 											</s:if>
 										</tbody>
 									</table>
@@ -824,13 +1194,13 @@
 							<div class="row cl">
 								<table width="100%" border="0" cellspacing="0" cellpadding="0"
 									style="line-height: 45px;">
-										<tr>
-											<td width="10%" valign="top">
+									<tr>
+										<td width="10%" valign="top">
 											<label class="form-label text-r">
 												综合情况：
 											</label>
 										</td>
-										<td >
+										<td>
 											<s:textfield name="person.comprehensiveJudge"
 												cssClass="input-text" id="input9"
 												cssStyle="width: 800px; height: 80px; float: left;"
