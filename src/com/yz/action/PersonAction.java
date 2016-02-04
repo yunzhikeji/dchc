@@ -29,6 +29,7 @@ import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.yz.model.GamblingCriminalMan;
+import com.yz.model.GuiltSafeguardMan;
 import com.yz.model.Judge;
 import com.yz.model.Lawcase;
 import com.yz.model.Person;
@@ -36,6 +37,7 @@ import com.yz.model.Troubleshooting;
 import com.yz.model.Unit;
 import com.yz.model.UserRole;
 import com.yz.service.IGamblingCriminalManService;
+import com.yz.service.IGuiltSafeguardManService;
 import com.yz.service.IJudgeService;
 import com.yz.service.ILawcaseService;
 import com.yz.service.IPersonService;
@@ -68,13 +70,14 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 	// 条件
 	private int id;
-	private int lawid;
-	private int troubid;
-	private int jid;
+	private int pid;// 按用户id
+	private int guid;//负案在逃、维稳人员id
+	private int lawid;//涉及案件
+	private int troubid;//疑难问题
+	private int jid;//研判情况
 	private int con;
 	private String convalue;
 	private int status;// 按状态
-	private int pid;// 按用户id
 	private int type;// 人员类型
 	private int queryState;
 	private String starttime;
@@ -91,6 +94,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	 //service层对象
 	private IPersonService personService;
 	private IGamblingCriminalManService gamblingCriminalManService;
+	private IGuiltSafeguardManService guiltSafeguardManService;
 	private ILawcaseService lawcaseService;
 	private ITroubleshootingService troubleshootingService;
 	private IJudgeService judgeService;
@@ -100,6 +104,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	//单个表对象
 	private Person person;
 	private GamblingCriminalMan gamblingCriminalMan;
+	private GuiltSafeguardMan guiltSafeguardMan;
 	private Lawcase lawcase;
 	private Troubleshooting troubleshooting;
 	private Judge judge;
@@ -188,10 +193,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			pageName = "刑事传唤";
 			break;
 		case 9:
-			pageName = "赌博人员";
+			pageName = "负案在逃";
 			break;
 		case 10:
-			pageName = "赌博人员";
+			pageName = "维稳人员";
 			break;
 		case 11:
 			pageName = "赌博人员";
@@ -246,33 +251,53 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			break;
 		case 2:
 			//pageName = "涉恶人员";
+			gamblingCriminalManService.add(gamblingCriminalMan);
+			person.setGamblingCriminalMan(gamblingCriminalMan);
 			break;
 		case 3:
 			//pageName = "涉黄人员";
+			gamblingCriminalManService.add(gamblingCriminalMan);
+			person.setGamblingCriminalMan(gamblingCriminalMan);
 			break;
 		case 4:
 			//pageName = "食药环人员";
+			gamblingCriminalManService.add(gamblingCriminalMan);
+			person.setGamblingCriminalMan(gamblingCriminalMan);
 			break;
 		case 5:
 			//pageName = "涉毒人员";
+			gamblingCriminalManService.add(gamblingCriminalMan);
+			person.setGamblingCriminalMan(gamblingCriminalMan);
 			break;
 		case 6:
 			//pageName = "留置盘问";
+			gamblingCriminalManService.add(gamblingCriminalMan);
+			person.setGamblingCriminalMan(gamblingCriminalMan);
 			break;
 		case 7:
 			//pageName = "侵财人员";
+			gamblingCriminalManService.add(gamblingCriminalMan);
+			person.setGamblingCriminalMan(gamblingCriminalMan);
 			break;
 		case 8:
 			//pageName = "刑事传唤";
+			gamblingCriminalManService.add(gamblingCriminalMan);
+			person.setGamblingCriminalMan(gamblingCriminalMan);
 			break;
 		case 9:
-			//pageName = "赌博人员";
+			//pageName = "负罪在逃";
+			guiltSafeguardManService.add(guiltSafeguardMan);
+			person.setGuiltSafeguardMan(guiltSafeguardMan);
 			break;
 		case 10:
-			//pageName = "赌博人员";
+			//pageName = "维稳人员";
+			guiltSafeguardManService.add(guiltSafeguardMan);
+			person.setGuiltSafeguardMan(guiltSafeguardMan);
 			break;
 		case 11:
 			//pageName = "赌博人员";
+			gamblingCriminalManService.add(gamblingCriminalMan);
+			person.setGamblingCriminalMan(gamblingCriminalMan);
 			break;
 		case 12:
 			//pageName = "赌博人员";
@@ -1018,7 +1043,33 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	public void setJudges(List<Judge> judges) {
 		this.judges = judges;
 	}
-	
 
+	public int getGuid() {
+		return guid;
+	}
+
+	public void setGuid(int guid) {
+		this.guid = guid;
+	}
+
+	public IGuiltSafeguardManService getGuiltSafeguardManService() {
+		return guiltSafeguardManService;
+	}
+
+	@Resource
+	public void setGuiltSafeguardManService(
+			IGuiltSafeguardManService guiltSafeguardManService) {
+		this.guiltSafeguardManService = guiltSafeguardManService;
+	}
+
+	public GuiltSafeguardMan getGuiltSafeguardMan() {
+		return guiltSafeguardMan;
+	}
+
+	public void setGuiltSafeguardMan(GuiltSafeguardMan guiltSafeguardMan) {
+		this.guiltSafeguardMan = guiltSafeguardMan;
+	}
+	
+	
 	
 }
