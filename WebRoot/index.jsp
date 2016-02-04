@@ -86,7 +86,7 @@
 						<div class="clear"></div>
 					</ul>
 				</li>
-                <li><a _href="lost-list.html" href="javascript:void(0)">失踪人员</a></li>
+                <li><a _href="disappearmanAction!list?type=1" href="javascript:void(0)">失踪人员</a></li>
                 <li><a _href="stability-list.html" href="javascript:void(0)">维稳人员</a></li>
                 <li><a _href="goodsman-list.html" href="javascript:void(0)">侵财人员分析</a></li>
                 <li><a _href="jishu-list.html" href="javascript:void(0)">技术比中人员</a></li>
