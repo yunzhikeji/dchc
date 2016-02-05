@@ -102,7 +102,7 @@ public class Lawcase implements java.io.Serializable {
 		return this.id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
 	@JoinColumn(name = "perid")
 	public Person getPerson() {
 		return this.person;

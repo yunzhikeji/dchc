@@ -194,5 +194,26 @@ function deleteJudge(jid)
 					});
 		}
 }
-
+//删除发起关系人员，同案人员信息
+function deleteOtherperson(otherid)
+{
+		if(confirm('你确定删除该人员信息吗？'))
+		{
+			$.ajax({   
+			            url:'deleteOtherperson',//这里是你的action或者servlert的路径地址   
+			            type:'post', //数据发送方式   
+			            async:false,
+			            data: {"otherid":otherid},
+			            dataType:'json',
+			            error: function(msg)
+			            { //失败   
+			            	console.log('删除失败.');   
+			            },   
+			            success: function(msg)
+			            { //成功
+			            	location.replace(location.href);
+						}
+					});
+		}
+}
 

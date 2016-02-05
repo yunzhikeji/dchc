@@ -90,6 +90,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private String convalue;
 	private int status;// 按状态
 	private int type;// 人员类型
+	private int otype;//其他人员类型 1：关系人员，2：同案人员
 	private int queryState;
 	private String starttime;
 	private String endtime;
@@ -144,6 +145,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private List<UnitVO> unitVOs;
 	private List<Unit> units;
 	private List<Judge> judges;
+	private List<Otherperson> otherpersons;
+	private List<Otherperson> gxrs;//关系人员
+	private List<Otherperson> tars;//同案人员
+	private List<Otherperson> xyrs;//嫌疑人员
 	//权限
 	private int ulimit;
 	
@@ -274,8 +279,9 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo_child";
 		}
+		type = person.getType();
 		//分类添加人员信息
-		switch (person.getType()) {
+		switch (type) {
 		case 0:
 		case 1:
 			//pageName = "赌博人员";
@@ -293,6 +299,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			//pageName = "侵财人员";
 		case 8:
 			//pageName = "刑事传唤";
+			if(gamblingCriminalMan==null)
+			{
+				gamblingCriminalMan = new GamblingCriminalMan();
+			}
 			gamblingCriminalManService.add(gamblingCriminalMan);
 			person.setGamblingCriminalMan(gamblingCriminalMan);
 			break;
@@ -300,6 +310,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			//pageName = "负罪在逃";
 		case 10:
 			//pageName = "维稳人员";
+			if(guiltSafeguardMan==null)
+			{
+				guiltSafeguardMan = new GuiltSafeguardMan();
+			}
 			if(picture1!=null&&picture1FileName!=null&&!picture1FileName.replace(" ", "").equals("")){
 				String imageName=DateTimeKit.getDateRandom()+picture1FileName.substring(picture1FileName.indexOf("."));
 				this.upload("/guiltSafeguardMan",imageName,picture1);
@@ -321,28 +335,43 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			break;
 		case 11:
 			//pageName = "失踪人员分析";
+			if(disappearman==null)
+			{
+				disappearman = new DisappearMan();
+			}
 			disappearmanService.add(disappearman);
 			person.setDisappearMan(disappearman);
 			break;
 		case 12:
 			//pageName = "侵财人员分析";
+			if(analyzeMan==null)
+			{
+				analyzeMan = new AnalyzeMan();
+			}
 			analyzeManService.add(analyzeMan);
 			person.setAnalyzeMan(analyzeMan);
 			break;
 		case 13:
 			//pageName = "技术比中人员";
+			if(contrastMan==null)
+			{
+				contrastMan = new ContrastMan();
+			}
 			contrastManService.add(contrastMan);
 			person.setContrastMan(contrastMan);
 			break;
 		case 14:
 			//pageName = "普通线索";
+			if(commonClue==null)
+			{
+				commonClue = new CommonClue();
+			}
 			commonClueService.add(commonClue);
 			person.setCommonClue(commonClue);
 			break;
 		default:
 			break;
 		}
-		
 		
 		if(picture!=null&&pictureFileName!=null&&!pictureFileName.replace(" ", "").equals("")){
 			String imageName=DateTimeKit.getDateRandom()+pictureFileName.substring(pictureFileName.indexOf("."));
@@ -414,7 +443,9 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		person = personService.loadById(id);
 		
 		
-		switch (person.getType()) {
+		type = person.getType();
+		//分类添加人员信息
+		switch (type) {
 		case 0:
 		case 1:
 		case 2:
@@ -424,10 +455,12 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		case 6:
 		case 7:
 		case 8:
+			id = person.getGamblingCriminalMan().getId();
 			break;
 		case 9:
 		case 10:
-			guiltSafeguardMan = person.getGuiltSafeguardMan();
+			id = person.getGuiltSafeguardMan().getId();
+			guiltSafeguardMan = guiltSafeguardManService.loadById(id);
 			if(guiltSafeguardMan!=null)
 			{
 				if(guiltSafeguardMan.getCriminalRecordPhoto1()!=null&&!guiltSafeguardMan.getCriminalRecordPhoto1().replace(" ", "").equals(""))
@@ -444,6 +477,28 @@ public class PersonAction extends ActionSupport implements RequestAware,
 				{
 					File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+guiltSafeguardMan.getCriminalRecordPhoto3());
 					photofile.delete();
+				}
+				//同时删除所有同安人员，关系人员的照片
+				otherpersons = otherpersonService.getOtherpersons();
+				if(otherpersons!=null&&otherpersons.size()>0)
+				{
+					for (Otherperson otherperson : otherpersons) {
+						if(otherperson.getFrontPhoto()!=null&&!otherperson.getFrontPhoto().replace(" ", "").equals(""))
+						{
+							File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+otherperson.getFrontPhoto());
+							photofile.delete();
+						}
+						if(otherperson.getLeftPhoto()!=null&&!otherperson.getLeftPhoto().replace(" ", "").equals(""))
+						{
+							File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+otherperson.getLeftPhoto());
+							photofile.delete();
+						}
+						if(otherperson.getRightPhoto()!=null&&!otherperson.getRightPhoto().replace(" ", "").equals(""))
+						{
+							File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+otherperson.getRightPhoto());
+							photofile.delete();
+						}
+					}
 				}
 			}
 			break;
@@ -466,7 +521,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		personService.delete(person);
 		
 		
-		
 		arg[0] = "personAction!list?type="+type;
 		arg[1] = "人员管理";
 		return SUCCESS;
@@ -483,7 +537,9 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		for (int i = 0; i < ids.length; i++) {
 			person = personService.loadById(ids[i]);
 			
-			switch (person.getType()) {
+			type = person.getType();
+			//分类添加人员信息
+			switch (type) {
 			case 0:
 			case 1:
 			case 2:
@@ -496,7 +552,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 				break;
 			case 9:
 			case 10:
-				guiltSafeguardMan = person.getGuiltSafeguardMan();
+				id = person.getGuiltSafeguardMan().getId();
+				guiltSafeguardMan = guiltSafeguardManService.loadById(id);
 				if(guiltSafeguardMan!=null)
 				{
 					if(guiltSafeguardMan.getCriminalRecordPhoto1()!=null&&!guiltSafeguardMan.getCriminalRecordPhoto1().replace(" ", "").equals(""))
@@ -527,7 +584,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			default:
 				break;
 			}
-			
 			
 			
 			File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+person.getPhotoImg());
@@ -562,8 +618,11 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		}
 		pageTileName = selectTileName(type);
 		
-		person = personService.loadById(id);// 当前修改人员的id
-		switch (person.getType()) {
+		person = personService.queryPersonById(id);// 当前修改人员的id
+		
+		type = person.getType();
+		//分类添加人员信息
+		switch (type) {
 		case 0:
 		case 1:
 		case 2:
@@ -574,11 +633,16 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		case 7:
 		case 8:
 			gamblingCriminalMan = person.getGamblingCriminalMan();
-			handleInfoExtractionMsg(gamblingCriminalMan.getInfoExtraction());
+			if(gamblingCriminalMan!=null)
+			{
+				handleInfoExtractionMsg(gamblingCriminalMan.getInfoExtraction());
+			}
 			break;
 		case 9:
 		case 10:
-			
+			guiltSafeguardMan = person.getGuiltSafeguardMan();
+			gxrs = otherpersonService.getOtherpersonByOtype(1,id);
+			tars = otherpersonService.getOtherpersonByOtype(2,id);
 			break;
 		case 11:
 			break;
@@ -622,9 +686,9 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo_child";
 		}
-		
+		type = person.getType();
 		//分类添加人员信息
-		switch (person.getType()) {
+		switch (type) {
 		case 0:
 		case 1:
 			//pageName = "赌博人员";
@@ -643,6 +707,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		case 8:
 			//pageName = "刑事传唤";
 			gamblingCriminalManService.update(gamblingCriminalMan);
+			person.setGamblingCriminalMan(gamblingCriminalMan);
 			break;
 		case 9:
 			//pageName = "负罪在逃";
@@ -650,14 +715,14 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			//pageName = "维稳人员";
 			if(picture1!=null&&picture1FileName!=null&&!picture1FileName.replace(" ", "").equals("")){
 				String imageName=DateTimeKit.getDateRandom()+picture1FileName.substring(picture1FileName.indexOf("."));
-				this.upload("/modeltwo",imageName,picture1);
+				this.upload("/guiltSafeguardMan",imageName,picture1);
 				File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+guiltSafeguardMan.getCriminalRecordPhoto1());
 				photofile.delete();
 				guiltSafeguardMan.setCriminalRecordPhoto1("guiltSafeguardMan"+"/"+imageName);
 			}
 			if(picture2!=null&&picture2FileName!=null&&!picture2FileName.replace(" ", "").equals("")){
 				String imageName=DateTimeKit.getDateRandom()+picture2FileName.substring(picture2FileName.indexOf("."));
-				this.upload("/modeltwo",imageName,picture2);
+				this.upload("/guiltSafeguardMan",imageName,picture2);
 				File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+guiltSafeguardMan.getCriminalRecordPhoto2());
 				photofile.delete();
 				guiltSafeguardMan.setCriminalRecordPhoto2("guiltSafeguardMan"+"/"+imageName);
@@ -665,12 +730,13 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			
 			if(picture3!=null&&picture3FileName!=null&&!picture3FileName.replace(" ", "").equals("")){
 				String imageName=DateTimeKit.getDateRandom()+picture3FileName.substring(picture3FileName.indexOf("."));
-				this.upload("/modeltwo",imageName,picture3);
+				this.upload("/guiltSafeguardMan",imageName,picture3);
 				File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+guiltSafeguardMan.getCriminalRecordPhoto3());
 				photofile.delete();
 				guiltSafeguardMan.setCriminalRecordPhoto3("guiltSafeguardMan"+"/"+imageName);
 			}
 			guiltSafeguardManService.update(guiltSafeguardMan);
+			person.setGuiltSafeguardMan(guiltSafeguardMan);
 			break;
 		case 11:
 			//pageName = "失踪人员分析";
@@ -759,7 +825,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	public String loadLawcase()
 	{
 		lawcase = lawcaseService.loadById(lawid);
-		return "updateTroubleshooting";
+		return "updateLawcase";
 	}
 	
 	public String updateLawcase()
@@ -915,6 +981,22 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	
 	public String addOtherperson() throws Exception
 	{
+		if(picture1!=null&&picture1FileName!=null&&!picture1FileName.replace(" ", "").equals("")){
+			String imageName=DateTimeKit.getDateRandom()+picture1FileName.substring(picture1FileName.indexOf("."));
+			this.upload("/otherperson",imageName,picture1);
+			otherperson.setFrontPhoto("otherperson"+"/"+imageName);
+		}
+		if(picture2!=null&&picture2FileName!=null&&!picture2FileName.replace(" ", "").equals("")){
+			String imageName=DateTimeKit.getDateRandom()+picture2FileName.substring(picture2FileName.indexOf("."));
+			this.upload("/otherperson",imageName,picture2);
+			otherperson.setLeftPhoto("otherperson"+"/"+imageName);
+		}
+		
+		if(picture3!=null&&picture3FileName!=null&&!picture3FileName.replace(" ", "").equals("")){
+			String imageName=DateTimeKit.getDateRandom()+picture3FileName.substring(picture3FileName.indexOf("."));
+			this.upload("/otherperson",imageName,picture3);
+			otherperson.setRightPhoto("otherperson"+"/"+imageName);
+		}
 		otherpersonService.add(otherperson);
 		return "success_child";
 	}
@@ -922,6 +1004,21 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	public String deleteOtherperson() throws Exception{
 
 		otherperson = otherpersonService.loadById(otherid);
+		if(otherperson.getFrontPhoto()!=null&&!otherperson.getFrontPhoto().replace(" ", "").equals(""))
+		{
+			File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+otherperson.getFrontPhoto());
+			photofile.delete();
+		}
+		if(otherperson.getLeftPhoto()!=null&&!otherperson.getLeftPhoto().replace(" ", "").equals(""))
+		{
+			File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+otherperson.getLeftPhoto());
+			photofile.delete();
+		}
+		if(otherperson.getRightPhoto()!=null&&!otherperson.getRightPhoto().replace(" ", "").equals(""))
+		{
+			File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+otherperson.getRightPhoto());
+			photofile.delete();
+		}
 		otherpersonService.delete(otherperson);
 		AjaxMsgVO msgVO = new AjaxMsgVO();
 		msgVO.setMessage("删除成功.");
@@ -941,12 +1038,34 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	
 	public String loadOtherperson()
 	{
-		otherperson = otherpersonService.loadById(lawid);
-		return "updateTroubleshooting";
+		otherperson = otherpersonService.loadById(otherid);
+		return "updateOtherperson";
 	}
 	
-	public String updateOtherperson()
+	public String updateOtherperson() throws Exception
 	{
+		if(picture1!=null&&picture1FileName!=null&&!picture1FileName.replace(" ", "").equals("")){
+			String imageName=DateTimeKit.getDateRandom()+picture1FileName.substring(picture1FileName.indexOf("."));
+			this.upload("/otherperson",imageName,picture1);
+			File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+otherperson.getFrontPhoto());
+			photofile.delete();
+			otherperson.setFrontPhoto("otherperson"+"/"+imageName);
+		}
+		if(picture2!=null&&picture2FileName!=null&&!picture2FileName.replace(" ", "").equals("")){
+			String imageName=DateTimeKit.getDateRandom()+picture2FileName.substring(picture2FileName.indexOf("."));
+			this.upload("/guiltSafeguardMan",imageName,picture2);
+			File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+otherperson.getLeftPhoto());
+			photofile.delete();
+			otherperson.setLeftPhoto("otherperson"+"/"+imageName);
+		}
+		
+		if(picture3!=null&&picture3FileName!=null&&!picture3FileName.replace(" ", "").equals("")){
+			String imageName=DateTimeKit.getDateRandom()+picture3FileName.substring(picture3FileName.indexOf("."));
+			this.upload("/guiltSafeguardMan",imageName,picture3);
+			File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+otherperson.getRightPhoto());
+			photofile.delete();
+			otherperson.setRightPhoto("otherperson"+"/"+imageName);
+		}
 		otherpersonService.update(otherperson);
 		return "success_child";
 	}
@@ -1235,8 +1354,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	}
 
 	@Resource
-	public void setTroubleshootingService(
-			ITroubleshootingService troubleshootingService) {
+	public void setTroubleshootingService(ITroubleshootingService troubleshootingService) {
 		this.troubleshootingService = troubleshootingService;
 	}
 
@@ -1514,6 +1632,48 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	public void setOtherperson(Otherperson otherperson) {
 		this.otherperson = otherperson;
 	}
+
+	public int getOtype() {
+		return otype;
+	}
+
+	public void setOtype(int otype) {
+		this.otype = otype;
+	}
+
+	public List<Otherperson> getGxrs() {
+		return gxrs;
+	}
+
+	public void setGxrs(List<Otherperson> gxrs) {
+		this.gxrs = gxrs;
+	}
+
+	public List<Otherperson> getTars() {
+		return tars;
+	}
+
+	public void setTars(List<Otherperson> tars) {
+		this.tars = tars;
+	}
+
+	public List<Otherperson> getXyrs() {
+		return xyrs;
+	}
+
+	public void setXyrs(List<Otherperson> xyrs) {
+		this.xyrs = xyrs;
+	}
+
+	public List<Otherperson> getOtherpersons() {
+		return otherpersons;
+	}
+
+	public void setOtherpersons(List<Otherperson> otherpersons) {
+		this.otherpersons = otherpersons;
+	}
+	
+	
 	
 	
 	

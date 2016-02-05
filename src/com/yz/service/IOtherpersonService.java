@@ -38,5 +38,7 @@ public interface IOtherpersonService {
 
 	public abstract Otherperson getOtherpersonById(Integer upotherpersonid);
 
+	public abstract List<Otherperson> getOtherpersonByOtype(int i, Integer integer);
+
 
 }

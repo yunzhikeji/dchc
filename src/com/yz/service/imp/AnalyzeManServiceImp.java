@@ -84,11 +84,11 @@ public class AnalyzeManServiceImp implements IAnalyzeManService {
 			if(con==2){
 				queryString += "and mo.number like ? "; 
 			}
-			if(con==2){
+			if(con==3){
 				queryString += "and mo.idcard like ? "; 
 			}
-			if(con==2){
-				queryString += "and mo.userRole.name like ? "; 
+			if(con==4){
+				queryString += "and mo.userRole.realname like ? "; 
 			}
 			p = new Object[]{'%'+convalue+'%'};
 		}
@@ -126,11 +126,11 @@ public class AnalyzeManServiceImp implements IAnalyzeManService {
 			if(con==2){
 				queryString += "and mo.number like ? "; 
 			}
-			if(con==2){
+			if(con==3){
 				queryString += "and mo.idcard like ? "; 
 			}
-			if(con==2){
-				queryString += "and mo.userRole.name like ? "; 
+			if(con==4){
+				queryString += "and mo.userRole.realname like ? "; 
 			}
 			p = new Object[]{'%'+convalue+'%'};
 		}

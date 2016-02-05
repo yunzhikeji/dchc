@@ -1,5 +1,6 @@
 package com.yz.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -87,7 +88,7 @@ public class Troubleshooting implements java.io.Serializable {
 		return this.issuer;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade=CascadeType.REMOVE,fetch = FetchType.LAZY)
 	@JoinColumn(name = "perid")
 	public Person getPerson() {
 		return this.person;

@@ -88,7 +88,7 @@ public class PersonServiceImp implements IPersonService {
 				queryString += "and mo.idcard like ? "; 
 			}
 			if(con==4){
-				queryString += "and mo.userRole.name like ? "; 
+				queryString += "and mo.userRole.realname like ? "; 
 			}
 			p = new Object[]{'%'+convalue+'%'};
 		}
@@ -130,7 +130,7 @@ public class PersonServiceImp implements IPersonService {
 				queryString += "and mo.idcard like ? "; 
 			}
 			if(con==4){
-				queryString += "and mo.userRole.name like ? "; 
+				queryString += "and mo.userRole.realname like ? "; 
 			}
 			p = new Object[]{'%'+convalue+'%'};
 		}
@@ -152,5 +152,11 @@ public class PersonServiceImp implements IPersonService {
 	public Person getPersonById(Integer uppersonid) {
 		// TODO Auto-generated method stub
 		return personDao.getPersonById(uppersonid);
+	}
+	public Person queryPersonById(int id) {
+		String queryString="from Person mo where mo.id=:id";
+		String[] paramNames=new String[]{"id"};
+		Object[] values=new Object[]{id};
+		return personDao.queryByNamedParam(queryString,paramNames,values);
 	}
 }

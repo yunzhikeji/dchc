@@ -1,5 +1,6 @@
 package com.yz.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.engine.Cascade;
 
 /**
  * Judge entity.研判信息,部门查证，上报情况
@@ -114,7 +117,7 @@ public class Judge implements java.io.Serializable {
 		return this.networkJudge;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(cascade=CascadeType.REMOVE,fetch = FetchType.LAZY)
 	@JoinColumn(name = "perid")
 	public Person getPerson() {
 		return this.person;

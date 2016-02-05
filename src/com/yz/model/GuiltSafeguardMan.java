@@ -24,14 +24,14 @@ public class GuiltSafeguardMan implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
-	private String launchTime;//
-	private String workdUnit;//
-	private String temporaryAddress;//
-	private String location;//
-	private String criminalRecordPhoto1;//
-	private String criminalRecordPhoto2;//
-	private String criminalRecordPhoto3;//
-	private Person person;//
+	private String launchTime;//发起时间
+	private String workdUnit;//工作单位
+	private String temporaryAddress;//暂住地址
+	private String location;//落脚点
+	private String criminalRecordPhoto1;//前科照片1
+	private String criminalRecordPhoto2;//前科照片2
+	private String criminalRecordPhoto3;//前科照片3
+	private Person person;
 
 	// Constructors
 
@@ -54,17 +54,17 @@ public class GuiltSafeguardMan implements java.io.Serializable {
 		this.person = person;
 	}
 
-	@Column(name = "criminalRecordPhoto1", length = 30)
+	@Column(name = "criminalRecordPhoto1", length = 255)
 	public String getCriminalRecordPhoto1() {
 		return this.criminalRecordPhoto1;
 	}
 
-	@Column(name = "criminalRecordPhoto2", length = 30)
+	@Column(name = "criminalRecordPhoto2", length = 255)
 	public String getCriminalRecordPhoto2() {
 		return this.criminalRecordPhoto2;
 	}
 
-	@Column(name = "criminalRecordPhoto3", length = 30)
+	@Column(name = "criminalRecordPhoto3", length = 255)
 	public String getCriminalRecordPhoto3() {
 		return this.criminalRecordPhoto3;
 	}
@@ -82,7 +82,7 @@ public class GuiltSafeguardMan implements java.io.Serializable {
 		return this.launchTime;
 	}
 
-	@Column(name = "location", length = 50)
+	@Column(name = "location", length = 255)
 	public String getLocation() {
 		return this.location;
 	}
@@ -92,12 +92,12 @@ public class GuiltSafeguardMan implements java.io.Serializable {
 		return this.person;
 	}
 
-	@Column(name = "temporaryAddress", length = 50)
+	@Column(name = "temporaryAddress", length = 255)
 	public String getTemporaryAddress() {
 		return this.temporaryAddress;
 	}
 
-	@Column(name = "workdUnit", length = 20)
+	@Column(name = "workdUnit", length = 50)
 	public String getWorkdUnit() {
 		return this.workdUnit;
 	}

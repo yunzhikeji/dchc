@@ -110,5 +110,6 @@
 			      <button onclick="childPage_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 			    </div>
 			</div>
+			</form>
 	</body>
 </html>

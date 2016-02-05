@@ -106,7 +106,7 @@ public class Person implements java.io.Serializable {
 		this.judges = judges;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name = "anid")
 	public AnalyzeMan getAnalyzeMan() {
 		return this.analyzeMan;
@@ -132,7 +132,7 @@ public class Person implements java.io.Serializable {
 		return this.lawcases;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name = "comid")
 	public CommonClue getCommonClue() {
 		return this.commonClue;
@@ -143,13 +143,13 @@ public class Person implements java.io.Serializable {
 		return this.comprehensiveJudge;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name = "conid")
 	public ContrastMan getContrastMan() {
 		return this.contrastMan;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name = "disid")
 	public DisappearMan getDisappearMan() {
 		return this.disappearMan;
@@ -160,13 +160,13 @@ public class Person implements java.io.Serializable {
 		return this.endSituation;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name = "gaid")
 	public GamblingCriminalMan getGamblingCriminalMan() {
 		return this.gamblingCriminalMan;
 	}
 
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JoinColumn(name = "guid")
 	public GuiltSafeguardMan getGuiltSafeguardMan() {
 		return this.guiltSafeguardMan;

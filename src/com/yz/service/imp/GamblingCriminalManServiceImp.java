@@ -85,11 +85,11 @@ public class GamblingCriminalManServiceImp implements IGamblingCriminalManServic
 			if(con==2){
 				queryString += "and mo.number like ? "; 
 			}
-			if(con==2){
+			if(con==3){
 				queryString += "and mo.idcard like ? "; 
 			}
-			if(con==2){
-				queryString += "and mo.userRole.name like ? "; 
+			if(con==4){
+				queryString += "and mo.userRole.realname like ? "; 
 			}
 			p = new Object[]{'%'+convalue+'%'};
 		}
@@ -127,11 +127,11 @@ public class GamblingCriminalManServiceImp implements IGamblingCriminalManServic
 			if(con==2){
 				queryString += "and mo.number like ? "; 
 			}
-			if(con==2){
+			if(con==3){
 				queryString += "and mo.idcard like ? "; 
 			}
-			if(con==2){
-				queryString += "and mo.userRole.name like ? "; 
+			if(con==4){
+				queryString += "and mo.userRole.realname like ? "; 
 			}
 			p = new Object[]{'%'+convalue+'%'};
 		}
@@ -153,5 +153,11 @@ public class GamblingCriminalManServiceImp implements IGamblingCriminalManServic
 	public GamblingCriminalMan getGamblingCriminalManById(Integer upgamblingCriminalManid) {
 		// TODO Auto-generated method stub
 		return gamblingCriminalManDao.getGamblingCriminalManById(upgamblingCriminalManid);
+	}
+	public GamblingCriminalMan getGamblingCriminalManByPersonId(Integer id) {
+		String queryString="from GamblingCriminalMan mo where mo.person.id=:id";
+		String[] paramNames=new String[]{"id"};
+		Object[] values=new Object[]{id};
+		return gamblingCriminalManDao.queryByNamedParam(queryString,paramNames,values);
 	}
 }

@@ -39,4 +39,7 @@ public interface IPersonService {
 	public abstract Person getPersonById(Integer uppersonid);
 
 
+	public abstract Person queryPersonById(int id);
+
+
 }

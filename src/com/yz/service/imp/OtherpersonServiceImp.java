@@ -118,4 +118,10 @@ public class OtherpersonServiceImp implements IOtherpersonService {
 		// TODO Auto-generated method stub
 		return otherpersonDao.getOtherpersonById(upotherpersonid);
 	}
+	public List<Otherperson> getOtherpersonByOtype(int otype,Integer pid) {
+		// TODO Auto-generated method stub.
+		String queryString = "from Otherperson mo where 1=1 and mo.otype=? and mo.person.id=? ";
+		Object[] p = new Object[]{otype,pid};
+		return otherpersonDao.getObjectsByCondition(queryString, p);
+	}
 }

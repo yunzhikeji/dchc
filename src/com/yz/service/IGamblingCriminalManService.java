@@ -38,5 +38,8 @@ public interface IGamblingCriminalManService {
 
 	public abstract GamblingCriminalMan getGamblingCriminalManById(Integer upgamblingCriminalManid);
 
+	public abstract GamblingCriminalMan getGamblingCriminalManByPersonId(
+			Integer id);
+
 
 }

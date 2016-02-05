@@ -17,7 +17,7 @@ import javax.persistence.Table;
 /**
  * Clue entity.
  * 
- * @author MyEclipse Persistence Tools
+ * @author MyEclipse Persistence Tools 刑侦线索，团伙系列案件
  */
 @Entity
 @Table(name = "clue", schema = "dbo", catalog = "dchc")

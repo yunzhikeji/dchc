@@ -33,6 +33,7 @@
 		<title>修改人员信息</title>
 	</head>
 	<body>
+	id:<s:property value="id"/>
 		<form name="personUpdateForm" action="personAction!update"
 			method="post" enctype="multipart/form-data"
 			onsubmit="return checkPerson();">
@@ -258,6 +259,7 @@
 										</s:if>
 									</tr>
 									<s:if test="type<=8">
+									<s:hidden name="gamblingCriminalMan.id" title="人员子表自身id"></s:hidden>
 										<tr>
 											<td>
 												<label class="form-label text-r">
@@ -486,6 +488,10 @@
 
 									<!--   guiltSafeguardMan start line   -->
 									<s:if test="type>8&&type<=10">
+									<s:hidden name="guiltSafeguardMan.id" title="人员子表自身id"></s:hidden>
+									<s:hidden name="guiltSafeguardMan.criminalRecordPhoto1" title="前科照片1"></s:hidden>
+									<s:hidden name="guiltSafeguardMan.criminalRecordPhoto2" title="前科照片2"></s:hidden>
+									<s:hidden name="guiltSafeguardMan.criminalRecordPhoto3" title="前科照片3"></s:hidden>
 										<tr>
 											<td height="53">
 												<label class="form-label text-r">
@@ -521,7 +527,6 @@
 													cssStyle="width: 780px;"></s:textfield>
 											</td>
 										</tr>
-										<tr>
 									</s:if>
 									<!--   guiltSafeguardMan over line   -->
 
@@ -602,7 +607,7 @@
 							</s:else>
 
 
-							<!-- 负罪在逃、维稳人员 的前科照片、关系人、同案人 -->
+							<!-- guiltSafeguardMan 负罪在逃、维稳人员 的前科照片、关系人、同案人 -->
 							<s:if test="type>8&&type<=10">
 								<div class="row cl mt-15">
 									<div class="col-12 mb-15 c-primary f-16"
@@ -614,7 +619,7 @@
 										<table width="100%" border="0" cellspacing="0" cellpadding="0">
 											<tr>
 												<td align="center">
-													<img id="myimage1" class="img-responsive thumbnail"
+													<img src="<%=basePath%>${guiltSafeguardMan.criminalRecordPhoto1}" id="myimage1" class="img-responsive thumbnail"
 														width="176px" height="220px" alt="前科照片1" />
 													<script type="text/javascript">
 															function change1() {
@@ -672,7 +677,7 @@
 										<table width="100%" border="0" cellspacing="0" cellpadding="0">
 											<tr>
 												<td align="center">
-													<img id="myimage2" class="img-responsive thumbnail"
+													<img src="<%=basePath%>${guiltSafeguardMan.criminalRecordPhoto2}" id="myimage2" class="img-responsive thumbnail"
 														width="176px" height="220px" alt="前科照片2" />
 													<script type="text/javascript">
 															function change2() {
@@ -730,7 +735,7 @@
 										<table width="100%" border="0" cellspacing="0" cellpadding="0">
 											<tr>
 												<td align="center">
-													<img id="myimage3" class="img-responsive thumbnail"
+													<img src="<%=basePath%>${guiltSafeguardMan.criminalRecordPhoto1}" id="myimage3" class="img-responsive thumbnail"
 														width="176px" height="220px" alt="前科照片3" />
 													<script type="text/javascript">
 															function change3() {
@@ -791,9 +796,9 @@
 									<div class="col-12 mb-0 c-primary f-16"
 										style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
 										关系人信息
-										<input class="btn btn-primary radius mt-10 f-r" type="button"
-											onclick="addgxr('新增关系人','addgxr.html','900','600')"
-											value="新增关系人">
+									<input class="btn btn-primary radius mt-10 f-r" type="button"
+										onclick="addPage('新增关系人','personAction!goToAddOtherperson?id=<s:property value="id"/>&otype=1','500','300')"
+										value="新增关系人">
 									</div>
 									
 									<div class="col-12">
@@ -818,23 +823,36 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>
-														&nbsp;
-													</td>
-													<td>
-														&nbsp;
-													</td>
-													<td>
-														&nbsp;
-													</td>
-													<td>
-														&nbsp;
-													</td>
-													<td>
-														&nbsp;
-													</td>
-												</tr>
+													<s:if test="gxrs.size>0">
+												<s:iterator value="gxrs" var="otherperson"
+													status="status">
+													<tr>
+														<td>
+															<s:property value="#status.index+1" />
+														</td>
+														<td>
+															<a href="#" onclick="javascript::"> <s:property
+																	value="number" /> </a>
+														</td>
+														<td>
+															<s:property value="name" />
+														</td>
+														<td>
+															<s:property value="idcard" />
+														</td>
+														<td>
+															<a style="text-decoration: none" class="ml-5"
+																onclick="addPage('编辑同案人','personAction!loadOtherperson?otherid=<s:property value="id" />','500','300')"
+																href="javascript:;" title="编辑"><i
+																class="Hui-iconfont">&#xe6df;</i> </a>
+															<a style="text-decoration: none" class="ml-5"
+																href="javascript:;"
+																onclick="deleteOtherperson(<s:property value="id" />);"
+																title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
+														</td>
+													</tr>
+												</s:iterator>
+											</s:if>
 											</tbody>
 										</table>
 									</div>
@@ -847,8 +865,8 @@
 										style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
 										同案人员信息
 										<input class="btn btn-primary radius mt-10 f-r" type="button"
-											onclick="addgxr('新增同案人员','addtar.html','500','300')"
-											value="新增同案人员">
+										onclick="addPage('新增同案人员','personAction!goToAddOtherperson?id=<s:property value="id"/>&otype=2','500','300')"
+										value="新增同案人员">
 									</div>
 									<div class="col-12">
 										<table class="table table-border table-bg">
@@ -872,23 +890,36 @@
 												</tr>
 											</thead>
 											<tbody>
-												<tr>
-													<td>
-														&nbsp;
-													</td>
-													<td>
-														&nbsp;
-													</td>
-													<td>
-														&nbsp;
-													</td>
-													<td>
-														&nbsp;
-													</td>
-													<td>
-														&nbsp;
-													</td>
-												</tr>
+												<s:if test="tars.size>0">
+												<s:iterator value="tars" var="otherperson"
+													status="status">
+													<tr>
+														<td>
+															<s:property value="#status.index+1" />
+														</td>
+														<td>
+															<a href="#" onclick="javascript::"> <s:property
+																	value="number" /> </a>
+														</td>
+														<td>
+															<s:property value="name" />
+														</td>
+														<td>
+															<s:property value="idcard" />
+														</td>
+														<td>
+															<a style="text-decoration: none" class="ml-5"
+																onclick="addPage('编辑同案人','personAction!loadOtherperson?otherid=<s:property value="id" />','500','300')"
+																href="javascript:;" title="编辑"><i
+																class="Hui-iconfont">&#xe6df;</i> </a>
+															<a style="text-decoration: none" class="ml-5"
+																href="javascript:;"
+																onclick="deleteOtherperson(<s:property value="id" />);"
+																title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
+														</td>
+													</tr>
+												</s:iterator>
+											</s:if>
 											</tbody>
 										</table>
 									</div>
@@ -1299,8 +1330,6 @@ function article_save(obj,id){
 </script>
 				<s:hidden name="person.type" title="人员类型"></s:hidden>
 				<s:hidden name="person.id" title="人员id"></s:hidden>
-				<s:hidden name="gamblingCriminalMan.id" title="人员子表自身id"></s:hidden>
-				<s:hidden name="person.gamblingCriminalMan.id" title="人员子表gamid"></s:hidden>
 				<s:hidden name="person.userRole.id" title="人员子表userRoleid"></s:hidden>
 				<s:hidden name="person.photoImg" title="人员照片"></s:hidden>
 				<s:hidden name="person.handleState" title="办理状态"></s:hidden>
