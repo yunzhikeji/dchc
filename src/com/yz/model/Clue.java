@@ -25,21 +25,21 @@ public class Clue implements java.io.Serializable {
 
 	// Fields
 
-	private Integer id;
-	private UserRole userRole;
-	private String number;
-	private String securityClassification;
-	private String title;
-	private String contactName;
-	private String telphone;
-	private String carrier;
-	private String carryTool;
-	private String clueMessage;
-	private String endSituation;
-	private String comprehensiveJudge;
-	private String leaderInstruction;
-	private Integer type;
-	private List<Lawcase> lawcases = new ArrayList<Lawcase>();
+	private Integer id;      
+	private UserRole userRole;                        // 录入人员
+	private String number;						     // 编号	
+	private String securityClassification;			//密级
+	private String title;								//	标题	
+	private String contactName;						//联系人
+	private String telphone;					//	电话号码
+	private String carrier;							//携带物品
+	private String carryTool;						//携带工具
+	private String clueMessage;						//线索信息
+	private String endSituation;					//完结情况	1抓获 2死亡 3撤销案件 4释放 5治安拘留 6刑事拘留 7留置盘问 8其它
+	private String comprehensiveJudge;				//综合研判情况
+	private String leaderInstruction;				//领导批示
+	private Integer type;							//类型
+	private List<Lawcase> lawcases = new ArrayList<Lawcase>();		
 	private List<Troubleshooting> troubleshootings = new ArrayList<Troubleshooting>();
 	private List<Otherperson> otherpersons = new ArrayList<Otherperson>();
 	private List<Judge> judges = new ArrayList<Judge>();

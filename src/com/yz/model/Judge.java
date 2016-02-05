@@ -122,7 +122,7 @@ public class Judge implements java.io.Serializable {
 	public Person getPerson() {
 		return this.person;
 	}
-
+	
 	@Column(name = "reportTime", length = 30)
 	public String getReportTime() {
 		return this.reportTime;
