@@ -74,7 +74,7 @@ public class ClueServiceImp implements IClueService {
 	 * @see com.yz.service.imp.IPersonServiceImp#getTotalCount(int, java.lang.String)
 	 */
 	public int getTotalCount(int con, String convalue, UserRole userRole,int type, int queryState, String starttime, String endtime) {
-		String queryString = "select count(*) from clue mo where 1=1 ";
+		String queryString = "select count(*) from Clue mo where 1=1 ";
 		Object[] p = null;
 		
 		if(con!=0&&convalue!=null&&!convalue.equals("")){

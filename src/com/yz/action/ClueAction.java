@@ -201,7 +201,7 @@ public class ClueAction extends ActionSupport implements RequestAware,
 			pageName = "人员";
 			break;
 		case 1:
-			pageName = "赌博人员";
+			pageName = "刑侦线索";
 			break;
 		case 2:
 			pageName = "涉恶人员";
@@ -242,6 +242,8 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		case 14:
 			pageName = "普通线索";
 			break;
+		case 15:
+			pageName = "刑侦线索";
 		default:
 			break;
 		}
@@ -627,7 +629,9 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		
 		//分类添加人员信息
 		switch (clue.getType()) {
+		
 		case 0:
+			
 		case 1:
 			//pageName = "赌博人员";
 		case 2:

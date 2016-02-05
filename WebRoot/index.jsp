@@ -95,7 +95,7 @@
           <li><a href="#"><i class="Hui-iconfont ">&#xe665;</i> 线索管理<img class="more" src="images/more.png"/></a>
 			   <ul class="er">
 				 <li><a _href="clues-list.html" href="javascript:void(0)">普通线索</a></li>
-				 <li><a _href="inves-list.html" href="javascript:void(0)">刑侦线索</a></li>
+				 <li><a _href="clueAction!list?type=1" href="javascript:void(0)">刑侦线索</a></li>
 			   </ul>
 		  </li>
           <li><a href="#"><i class="Hui-iconfont ">&#xe636;</i> 案件管理<img class="more" src="images/more.png"/></a>

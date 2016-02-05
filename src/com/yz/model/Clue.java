@@ -29,6 +29,7 @@ public class Clue implements java.io.Serializable {
 	private UserRole userRole;                        // 录入人员
 	private String number;						     // 编号	
 	private String securityClassification;			//密级
+	private String intelligenceType;				//情报类型
 	private String title;								//	标题	
 	private String contactName;						//联系人
 	private String telphone;					//	电话号码
@@ -263,6 +264,14 @@ public class Clue implements java.io.Serializable {
 
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
+	}
+
+	public String getIntelligenceType() {
+		return intelligenceType;
+	}
+
+	public void setIntelligenceType(String intelligenceType) {
+		this.intelligenceType = intelligenceType;
 	}
 
 }
