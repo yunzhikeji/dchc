@@ -1053,7 +1053,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		}
 		if(picture2!=null&&picture2FileName!=null&&!picture2FileName.replace(" ", "").equals("")){
 			String imageName=DateTimeKit.getDateRandom()+picture2FileName.substring(picture2FileName.indexOf("."));
-			this.upload("/guiltSafeguardMan",imageName,picture2);
+			this.upload("/otherperson",imageName,picture2);
 			File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+otherperson.getLeftPhoto());
 			photofile.delete();
 			otherperson.setLeftPhoto("otherperson"+"/"+imageName);
@@ -1061,7 +1061,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		
 		if(picture3!=null&&picture3FileName!=null&&!picture3FileName.replace(" ", "").equals("")){
 			String imageName=DateTimeKit.getDateRandom()+picture3FileName.substring(picture3FileName.indexOf("."));
-			this.upload("/guiltSafeguardMan",imageName,picture3);
+			this.upload("/otherperson",imageName,picture3);
 			File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+otherperson.getRightPhoto());
 			photofile.delete();
 			otherperson.setRightPhoto("otherperson"+"/"+imageName);
