@@ -282,6 +282,9 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		switch (clue.getType()) {
 		case 0:
 		case 1:
+			judgeService.add(judge);
+			judges.add(judge);
+			clue.setJudges(judges);
 			//pageName = "赌博人员";
 		case 2:
 			//pageName = "涉恶人员";
@@ -297,7 +300,10 @@ public class ClueAction extends ActionSupport implements RequestAware,
 			//pageName = "侵财人员";
 		case 8:
 			//pageName = "刑事传唤";
-			gamblingCriminalManService.add(gamblingCriminalMan);
+			//gamblingCriminalManService.add(gamblingCriminalMan);
+			judgeService.add(judge);
+			judges.add(judge);
+			clue.setJudges(judges);
 		//	clue.setGamblingCriminalMan(gamblingCriminalMan);
 			break;
 		case 9:

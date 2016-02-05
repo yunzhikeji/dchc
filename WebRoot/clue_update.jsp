@@ -76,24 +76,30 @@
     <s:textfield id="title" name="clue.title"
 												cssClass="input-text radius size-M "
 												cssStyle="width:90%;"></s:textfield>
-      <input type="text" class="input-text radius size-M " style="width:90%;">
     </div>
   </div>
      <div class="row cl mb-10">
        <div class="col-2" >
        <label class="form-label text-r">联系人：</label></div>
      <div class="col-4" >
-       <input type="text" class="input-text radius size-M " style="width:300px;">
+    	<s:textfield id="contactName" name="clue.contactName"
+												cssClass="input-text radius size-M "
+												cssStyle="width:300px;"></s:textfield>
      </div>
      <div class="col-2" >
        <label class="form-label text-r">电话：</label></div>
-     <div class="col-4" ><input type="text" class="input-text radius size-M " style="width:300px;"></div>
+     <div class="col-4" >
+     <s:textfield id="telphone" name="clue.telphone"
+												cssClass="input-text radius size-M "
+												cssStyle="width:300px;"></s:textfield>
  </div>
      <div class="row cl mb-10">
        <div class="col-2" >
          <label class="form-label text-r">上报单位：</label></div>
      <div class="col-4" >
-       <input type="text" class="input-text radius size-M " style="width:300px;">
+     <s:textfield id="telphone" name="clue.telphone"
+												cssClass="input-text radius size-M "
+												cssStyle="width:300px;"></s:textfield>
      </div>
      <div class="col-2" >
        <label class="form-label text-r">上报人：</label></div>
