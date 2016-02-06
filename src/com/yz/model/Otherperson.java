@@ -151,7 +151,7 @@ public class Otherperson implements java.io.Serializable {
 		return this.otype;
 	}
 
-	@ManyToOne(cascade=CascadeType.REMOVE,fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "perid")
 	public Person getPerson() {
 		return this.person;

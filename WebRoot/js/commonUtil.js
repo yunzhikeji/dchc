@@ -149,7 +149,7 @@ function deleteLawcase(lawid)
 }
 
 //删除疑难解答
-function deleteLawcase(troubid)
+function deleteTroubleshooting(troubid)
 {
 		if(confirm('你确定删除该疑难吗？'))
 		{
@@ -189,6 +189,7 @@ function deleteJudge(jid)
 			            },   
 			            success: function(msg)
 			            { //成功
+			            	alert(msg.message);
 			            	location.replace(location.href);
 						}
 					});
@@ -211,6 +212,7 @@ function deleteOtherperson(otherid)
 			            },   
 			            success: function(msg)
 			            { //成功
+			            	alert(msg.message);
 			            	location.replace(location.href);
 						}
 					});

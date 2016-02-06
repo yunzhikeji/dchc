@@ -37,7 +37,7 @@ public class Judge implements java.io.Serializable {
 	private String networkJudge;//网技研判
 	private String intelligenceJudge;//情报研判
 	private String imageJudge;//图帧研判
-	private Integer type;//1:研判信息  2：部门查证 3：上报情况
+	private Integer jtype;//1:研判信息  2：部门查证 3：上报情况
 
 	// Constructors
 
@@ -50,7 +50,7 @@ public class Judge implements java.io.Serializable {
 			String reportUnit, String reportTime, String transactor,
 			String telphone, String judgeRequirement, Integer indexNumber,
 			String criminalJudge, String networkJudge,
-			String intelligenceJudge, String imageJudge, Integer type) {
+			String intelligenceJudge, String imageJudge, Integer jtype) {
 		this.clue = clue;
 		this.injurycase = injurycase;
 		this.person = person;
@@ -64,7 +64,7 @@ public class Judge implements java.io.Serializable {
 		this.networkJudge = networkJudge;
 		this.intelligenceJudge = intelligenceJudge;
 		this.imageJudge = imageJudge;
-		this.type = type;
+		this.jtype = jtype;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -117,7 +117,7 @@ public class Judge implements java.io.Serializable {
 		return this.networkJudge;
 	}
 
-	@ManyToOne(cascade=CascadeType.REMOVE,fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "perid")
 	public Person getPerson() {
 		return this.person;
@@ -143,9 +143,9 @@ public class Judge implements java.io.Serializable {
 		return this.transactor;
 	}
 
-	@Column(name = "type")
-	public Integer getType() {
-		return this.type;
+	@Column(name = "jtype")
+	public Integer getJtype() {
+		return this.jtype;
 	}
 
 	public void setClue(Clue clue) {
@@ -204,8 +204,8 @@ public class Judge implements java.io.Serializable {
 		this.transactor = transactor;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
+	public void setJtype(Integer jtype) {
+		this.jtype = jtype;
 	}
 
 }

@@ -114,7 +114,7 @@
 		<div class="pd-20">
 			<form name="judgeAddForm" class="form form-horizontal" action="personAction!addJudge" method="post" onsubmit="">
 				<input type="hidden" name="judge.person.id" value="${id}" />
-				<s:hidden name="judge.type" value="1" title="1:研判信息 2：部门查证 3：上报情况"></s:hidden>
+				<input type="hidden" name="judge.jtype" value="${jtype}" />
 				<div class="row cl">
 					<label class="form-label col-2">
 						<span class="c-red">*</span>报送机构：

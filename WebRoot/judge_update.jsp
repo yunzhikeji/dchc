@@ -115,7 +115,7 @@
 			<form name="judgeUpdateForm" class="form form-horizontal" action="personAction!updateJudge" method="post" onsubmit="">
 					<s:hidden name="judge.id"></s:hidden>
 					<s:hidden name="judge.person.id"></s:hidden>
-					<s:hidden name="judge.type"  title="研判类型"></s:hidden>
+					<s:hidden name="judge.jtype"  title="研判类型"></s:hidden>
 				<div class="row cl">
 					<label class="form-label col-2">
 						<span class="c-red">*</span>报送机构：

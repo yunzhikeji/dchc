@@ -1079,7 +1079,7 @@
 									style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
 									发起研判信息
 									<input class="btn btn-primary radius mt-10 f-r" type="button"
-										onclick="addPage('发起研判信息','personAction!goToAddJudge?id=<s:property value="id"/>','650','300')"
+										onclick="addPage('发起研判信息','personAction!goToAddJudge?id=<s:property value="id"/>&jtype=1','650','300')"
 										value="发起研判信息">
 								</div>
 								<div class="col-12">

@@ -25,8 +25,7 @@
 	</head>
 
 	<body>
-		<form name="lawcaseAddForm" action="personAction!addLawcase" method="post"
-			onsubmit="">
+		<form name="lawcaseAddForm" action="personAction!addLawcase" method="post" onsubmit="">
 			<input type="hidden" name="lawcase.person.id" value="${id}"/>
 			<div class="pd-20">
 				<div class="row cl mb-10">

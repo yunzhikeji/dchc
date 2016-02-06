@@ -88,7 +88,7 @@ public class Troubleshooting implements java.io.Serializable {
 		return this.issuer;
 	}
 
-	@ManyToOne(cascade=CascadeType.REMOVE,fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "perid")
 	public Person getPerson() {
 		return this.person;

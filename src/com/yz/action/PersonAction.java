@@ -91,6 +91,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private int status;// 按状态
 	private int type;// 人员类型
 	private int otype;//其他人员类型 1：关系人员，2：同案人员
+	private int jtype;//发起类型 1:研判信息 2：部门查证 3：上报情况
 	private int queryState;
 	private String starttime;
 	private String endtime;
@@ -920,7 +921,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 	public String addJudge() throws Exception
 	{
-		if(judge.getType()==1)
+		if(judge.getJtype()==1)
 		{
 			handleJudgeIndex();
 		}
@@ -1671,6 +1672,14 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 	public void setOtherpersons(List<Otherperson> otherpersons) {
 		this.otherpersons = otherpersons;
+	}
+
+	public int getJtype() {
+		return jtype;
+	}
+
+	public void setJtype(int jtype) {
+		this.jtype = jtype;
 	}
 	
 	
