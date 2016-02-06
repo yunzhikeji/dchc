@@ -923,16 +923,16 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	{
 		if(judge.getJtype()==1)
 		{
-			handleJudgeIndex();
+			handleJudgeIndex(judge.getJtype());
 		}
 		judgeService.add(judge);
 		return "success_child";
 	}
 	
 	//新增研判信息设置研判顺序
-	private void handleJudgeIndex() {
+	private void handleJudgeIndex(int currentJtype) {
 		// TODO Auto-generated method stub
-		judges = judgeService.loadByTypeAndPid(1,judge.getPerson().getId());
+		judges = judgeService.loadByTypeAndPid(currentJtype,judge.getPerson().getId());
 		if(judges!=null)
 		{
 			judge.setIndexNumber(judges.size()+1);
