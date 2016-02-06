@@ -60,6 +60,205 @@
 											value="pageTileName" />信息表</small>
 								</h1>
 							</div>
+							
+							<!-- 失踪人员   -->
+							<s:if test="type==11">
+									<div class="row cl mt-15">
+							<div class="col-12 mb-15 c-primary f-16"
+								style="border-bottom: solid 2px #2DABF7">
+								人员照片
+								<span class="label label-danger radius">【图片不大于5M】</span>
+							</div>
+							<div class="col-3">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0">
+									<tr>
+										<td align="center">
+												<img id="myimage1" class="img-responsive thumbnail"
+															width="176px" height="220px" alt="前科照片1" />
+														<script type="text/javascript">
+															function change1() {
+															    var pic1 = document.getElementById("myimage1"),
+															        file1 = document.getElementById("myfile1");
+															    var ext1=file1.value.substring(file1.value.lastIndexOf(".")+1).toLowerCase();
+															     // gif在IE浏览器暂时无法显示
+															     if(ext1!='png'&&ext1!='jpg'&&ext1!='jpeg'){
+															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
+															         return;
+															     }
+															     var isIE = navigator.userAgent.match(/MSIE/)!= null,
+															         isIE6 = navigator.userAgent.match(/MSIE 6.0/)!= null;
+															     if(isIE) {
+															        file1.select();
+															        var reallocalpath = document.selection.createRange().text;
+															 
+															        // IE6浏览器设置img的src为本地路径可以直接显示图片
+															         if (isIE6) {
+															            pic1.src = reallocalpath;
+															         }else {
+															            // 非IE6版本的IE由于安全问题直接设置img的src无法显示本地图片，但是可以通过滤镜来实现
+															             pic1.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='image',src=\"" + reallocalpath + "\")";
+															             // 设置img的src为base64编码的透明图片 取消显示浏览器默认图片
+															             pic1.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+															         }
+															     }else {
+															        html5Reader1(file1);
+															     }
+															     pic1.alt = '图片';
+															}
+															 function html5Reader1(file1){
+															     var file1 = file1.files[0];
+															     var reader1 = new FileReader();
+															     reader1.readAsDataURL(file1);
+															     reader1.onload = function(e){
+															         var pic1 = document.getElementById("myimage1");
+															         pic1.src=this.result;
+															     }
+															 }
+												</script>
+													
+												
+										</td>
+									</tr>
+									<tr>
+										<td align="center">
+												<s:file name="picture1"
+															cssClass="btn btn-primary radius mt-10"
+															accept="image/jpeg,image/png,image/jpg"
+															onchange="change1();" id="myfile1"></s:file>
+												
+										</td>
+									</tr>
+								</table>
+
+							</div>
+							<div class="col-3">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0">
+									<tr>
+										<td align="center">
+										
+										<img id="myimage2" class="img-responsive thumbnail"
+															width="176px" height="220px" alt="前科照片2" />
+														<script type="text/javascript">
+															function change2() {
+															    var pic2 = document.getElementById("myimage2"),
+															        file2 = document.getElementById("myfile2");
+															    var ext2=file2.value.substring(file2.value.lastIndexOf(".")+1).toLowerCase();
+															     // gif在IE浏览器暂时无法显示
+															     if(ext2!='png'&&ext2!='jpg'&&ext2!='jpeg'){
+															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
+															         return;
+															     }
+															     var isIE = navigator.userAgent.match(/MSIE/)!= null,
+															         isIE6 = navigator.userAgent.match(/MSIE 6.0/)!= null;
+															     if(isIE) {
+															        file2.select();
+															        var reallocalpath = document.selection.createRange().text;
+															 
+															        // IE6浏览器设置img的src为本地路径可以直接显示图片
+															         if (isIE6) {
+															            pic2.src = reallocalpath;
+															         }else {
+															            // 非IE6版本的IE由于安全问题直接设置img的src无法显示本地图片，但是可以通过滤镜来实现
+															             pic2.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='image',src=\"" + reallocalpath + "\")";
+															             // 设置img的src为base64编码的透明图片 取消显示浏览器默认图片
+															             pic2.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+															         }
+															     }else {
+															        html5Reader2(file2);
+															     }
+															     pic2.alt = '图片';
+															}
+															 function html5Reader2(file2){
+															     var file2 = file2.files[0];
+															     var reader2 = new FileReader();
+															     reader2.readAsDataURL(file2);
+															     reader2.onload = function(e){
+															         var pic2 = document.getElementById("myimage2");
+															         pic2.src=this.result;
+															     }
+															 }
+												</script>
+												
+												
+										</td>
+									</tr>
+									<tr>
+										<td align="center">
+												<s:file name="picture2"
+															cssClass="btn btn-primary radius mt-10"
+															accept="image/jpeg,image/png,image/jpg"
+															onchange="change2();" id="myfile2"></s:file>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div class="col-3">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0">
+									<tr>
+										<td align="center">
+										
+										
+											<img id="myimage3" class="img-responsive thumbnail"
+															width="176px" height="220px" alt="前科照片3" />
+														<script type="text/javascript">
+															function change3() {
+															    var pic3 = document.getElementById("myimage3"),
+															        file3 = document.getElementById("myfile3");
+															    var ext3=file3.value.substring(file3.value.lastIndexOf(".")+1).toLowerCase();
+															     // gif在IE浏览器暂时无法显示
+															     if(ext3!='png'&&ext3!='jpg'&&ext3!='jpeg'){
+															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
+															         return;
+															     }
+															     var isIE = navigator.userAgent.match(/MSIE/)!= null,
+															         isIE6 = navigator.userAgent.match(/MSIE 6.0/)!= null;
+															     if(isIE) {
+															        file3.select();
+															        var reallocalpath = document.selection.createRange().text;
+															 
+															        // IE6浏览器设置img的src为本地路径可以直接显示图片
+															         if (isIE6) {
+															            pic3.src = reallocalpath;
+															         }else {
+															            // 非IE6版本的IE由于安全问题直接设置img的src无法显示本地图片，但是可以通过滤镜来实现
+															             pic3.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='image',src=\"" + reallocalpath + "\")";
+															             // 设置img的src为base64编码的透明图片 取消显示浏览器默认图片
+															             pic3.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+															         }
+															     }else {
+															        html5Reader3(file3);
+															     }
+															     pic3.alt = '图片';
+															}
+															 function html5Reader3(file3){
+															     var file3 = file3.files[0];
+															     var reader3 = new FileReader();
+															     reader3.readAsDataURL(file3);
+															     reader3.onload = function(e){
+															         var pic3 = document.getElementById("myimage3");
+															         pic3.src=this.result;
+															     }
+															 }
+															 </script>
+										</td>
+									</tr>
+									<tr>
+										<td align="center">
+										<s:file name="picture3"
+															cssClass="btn btn-primary radius mt-10"
+															accept="image/jpeg,image/png,image/jpg"
+															onchange="change3();" id="myfile3"></s:file>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+							
+							</s:if>
+							
+							
+							
+							
 							<div class="row cl">
 								<div class="col-12 mb-10 c-primary f-16"
 									style="border-bottom: solid 2px #2DABF7">
