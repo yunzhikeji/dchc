@@ -164,20 +164,19 @@
 				</div>
 		<div class="row cl">
 			<label class="form-label col-2">
-				研判要求：
+				<s:if test="jtype==1">研判</s:if><s:if test="jtype==2">查证</s:if>要求：
 			</label>
 			<span class="form-label col-9">
 			<span class="formControls col-10">
 						<s:textarea name="judge.judgeRequirement"
 						cssClass="input-text" id="judgeRequirement" 
-						cssStyle="width: 113%; height: 120px; float: left;" placeholder="研判要求"></s:textarea>
+						cssStyle="width: 113%; height: 120px; float: left;" ></s:textarea>
 			</span> </span>
 		</div>
 			<div class="row cl">
 				<s:token></s:token>
 				<div class="col-10 col-offset-2">
-					<input type="submit" class="btn btn-primary radius" value="保存并提交">
-					</input>
+					<input type="submit" class="btn btn-primary radius" value="保存并提交"/>
 					<button onclick="childPage_close();" class="btn btn-default radius"
 						type="button">
 						&nbsp;&nbsp;取消&nbsp;&nbsp;

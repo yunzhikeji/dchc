@@ -288,10 +288,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			//pageName = "负罪在逃";
 		case 10:
 			//pageName = "维稳人员";
-			return "add";
+			return "guiltSafeguardMan_add";
 		case 11:
 			//pageName = "失踪人员";
-			return "add";
+			return "disappearman_add";
 		case 12:
 			//pageName = "侵财人员分析";
 			return "add";
@@ -365,7 +365,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 				this.upload("/guiltSafeguardMan",imageName,picture2);
 				guiltSafeguardMan.setCriminalRecordPhoto2("guiltSafeguardMan"+"/"+imageName);
 			}
-			
 			if(picture3!=null&&picture3FileName!=null&&!picture3FileName.replace(" ", "").equals("")){
 				String imageName=DateTimeKit.getDateRandom()+picture3FileName.substring(picture3FileName.indexOf("."));
 				this.upload("/guiltSafeguardMan",imageName,picture3);
@@ -486,7 +485,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private String picture3FileName;
 
 
-
 	/**
 	 * 删除一
 	 * 
@@ -570,7 +568,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		default:
 			break;
 		}
-		
 		
 		//删除照片
 		File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+person.getPhotoImg());
@@ -700,9 +697,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			guiltSafeguardMan = person.getGuiltSafeguardMan();
 			gxrs = otherpersonService.getOtherpersonByOtype(1,id);
 			tars = otherpersonService.getOtherpersonByOtype(2,id);
-			return "load";
+			return "guiltSafeguardMan_load";
 		case 11:
-			return "load";
+			disappearman = person.getDisappearMan();
+			return "disappearman_load";
 		case 12:
 			return "load";
 		case 13:
@@ -976,15 +974,12 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 	public String addJudge() throws Exception
 	{
-		if(judge.getJtype()==1)
-		{
-			handleJudgeIndex(judge.getJtype());
-		}
+		handleJudgeIndex(judge.getJtype());
 		judgeService.add(judge);
 		return "success_child";
 	}
 	
-	//新增研判信息设置研判顺序
+	//新增研判(查证)信息设置研判(查证)顺序
 	private void handleJudgeIndex(int currentJtype) {
 		// TODO Auto-generated method stub
 		judges = judgeService.loadByTypeAndPid(currentJtype,judge.getPerson().getId());
@@ -1126,6 +1121,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return "success_child";
 	}
 	
+	/*
 	private TestModel testModel;
 	public String addTest()
 	{
@@ -1144,7 +1140,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		System.out.println(testModel.getName());
 		return null;
 	}
-	
+	*/
 	
 	// get、set-------------------------------------------
 
@@ -1758,13 +1754,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		this.jtype = jtype;
 	}
 
-	public TestModel getTestModel() {
-		return testModel;
-	}
-
-	public void setTestModel(TestModel testModel) {
-		this.testModel = testModel;
-	}
 	
 	
 	

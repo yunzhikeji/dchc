@@ -115,7 +115,7 @@
 			<form name="judgeUpdateForm" class="form form-horizontal" action="personAction!updateJudge" method="post" onsubmit="">
 					<s:hidden name="judge.id"></s:hidden>
 					<s:hidden name="judge.person.id"></s:hidden>
-					<s:hidden name="judge.jtype"  title="研判类型"></s:hidden>
+					<s:hidden name="judge.jtype"  title="类型"></s:hidden>
 				<div class="row cl">
 					<label class="form-label col-2">
 						<span class="c-red">*</span>报送机构：
@@ -145,11 +145,11 @@
 								id="troubleshooting" class="input-text Wdate" value="<s:property value="judge.reportTime"/>"
 								> </span> </span>
 					<label class="form-label col-2">
-					研判次序：
+					<s:if test="judge.jtype==1">研判</s:if><s:if test="judge.jtype==2">查证</s:if>次序：
 				</label>
 				<span class="form-label col-3"> <span
 					class="formControls col-12"> 
-					<s:textfield  cssClass="input-text" placeholder="研判顺序" id="indexNumber"
+					<s:textfield  cssClass="input-text" placeholder="顺序" id="indexNumber"
 							name="judge.indexNumber" cssStyle="width: 200px;" ></s:textfield>
 							</span> </span>
 					</div>
@@ -173,19 +173,19 @@
 				</div>
 		<div class="row cl">
 			<label class="form-label col-2">
-				研判要求：
+				<s:if test="judge.jtype==1">研判</s:if><s:if test="judge.jtype==2">查证</s:if>要求：
 			</label>
 			<span class="form-label col-9">
 			<span class="formControls col-10">
 						<s:textarea name="judge.judgeRequirement"
 						cssClass="input-text" id="judgeRequirement" 
-						cssStyle="width: 113%; height: 120px; float: left;" placeholder="研判要求"></s:textarea>
+						cssStyle="width: 113%; height: 120px; float: left;" ></s:textarea>
 			</span> </span>
 		</div>
 		<s:if test='%{#session.userRoleo.unit.name == "技术中队"}'>
 			<div class="row cl">
 			<label class="form-label col-2">
-				刑技研判：
+				刑技<s:if test="judge.jtype==1">研判</s:if><s:if test="judge.jtype==2">查证</s:if>：
 			</label>
 			<span class="form-label col-9">
 			<span class="formControls col-10">
@@ -201,7 +201,7 @@
 		<s:if test='%{#session.userRoleo.unit.name == "网安大队"}'>
 		<div class="row cl">
 			<label class="form-label col-2">
-				网技研判：
+				网技<s:if test="judge.jtype==1">研判</s:if><s:if test="judge.jtype==2">查证</s:if>：
 			</label>
 			<span class="form-label col-9">
 			<span class="formControls col-10">
@@ -217,7 +217,7 @@
 		<s:if test='%{#session.userRoleo.unit.name == "指挥中心"}'>
 		<div class="row cl">
 			<label class="form-label col-2">
-				情报研判：
+				情报<s:if test="judge.jtype==1">研判</s:if><s:if test="judge.jtype==2">查证</s:if>：
 			</label>
 			<span class="form-label col-9">
 			<span class="formControls col-10">
@@ -233,7 +233,7 @@
 		<s:if test='%{#session.userRoleo.unit.name == "图像侦查"}'>
 		<div class="row cl">
 			<label class="form-label col-2">
-				图像研判：
+				图像<s:if test="judge.jtype==1">研判</s:if><s:if test="judge.jtype==2">查证</s:if>：
 			</label>
 			<span class="form-label col-9">
 			<span class="formControls col-10">

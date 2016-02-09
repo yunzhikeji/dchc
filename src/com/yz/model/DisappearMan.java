@@ -128,12 +128,12 @@ public class DisappearMan implements java.io.Serializable {
 		return bodyFeature;
 	}
 
-	@Column(name = "currentAddress", length = 50)
+	@Column(name = "currentAddress", length = 255)
 	public String getCurrentAddress() {
 		return currentAddress;
 	}
 
-	@Column(name = "currentAddressArea", length = 50)
+	@Column(name = "currentAddressArea", length = 255)
 	public String getCurrentAddressArea() {
 		return this.currentAddressArea;
 	}
@@ -221,17 +221,17 @@ public class DisappearMan implements java.io.Serializable {
 		return this.person;
 	}
 
-	@Column(name = "photo1", length = 30)
+	@Column(name = "photo1", length = 100)
 	public String getPhoto1() {
 		return this.photo1;
 	}
 
-	@Column(name = "photo2", length = 30)
+	@Column(name = "photo2", length = 100)
 	public String getPhoto2() {
 		return this.photo2;
 	}
 
-	@Column(name = "photo3", length = 30)
+	@Column(name = "photo3", length = 100)
 	public String getPhoto3() {
 		return this.photo3;
 	}
