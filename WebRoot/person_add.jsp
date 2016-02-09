@@ -785,7 +785,7 @@
 												cssStyle="width: 200px;"></s:textfield>
 										</td>
 									</tr>
-									</s:if>
+								    </s:if>
 									<!--           person over line         -->
 
 									<!--   gamblingCriminalMan start line   -->
