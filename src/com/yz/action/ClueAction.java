@@ -866,7 +866,7 @@ public class ClueAction extends ActionSupport implements RequestAware,
 
 	public String addJudge() throws Exception
 	{
-		if(judge.getType()==1)
+		if(judge.getJtype()==1)
 		{
 			handleJudgeIndex();
 		}

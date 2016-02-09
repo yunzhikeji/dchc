@@ -95,6 +95,14 @@
 			<result name="load">/person_update.jsp</result>
 			<result name="view">/person_view.jsp</result>
 			
+			<result name="addtest">/testadd.jsp</result>
+			<result name="test">/testupdate.jsp</result>
+			
+			<result name="gamblingCriminalMan_add">/gamblingCriminalMan_add.jsp</result>
+			<result name="gamblingCriminalMan_load">/gamblingCriminalMan_update.jsp</result>
+			<result name="gamblingCriminalMan_view">/gamblingCriminalMan_view.jsp</result>
+			
+			
 			<result name="addLawcase">/lawcase_add.jsp</result>
 			<result name="updateLawcase">/lawcase_update.jsp</result>
 			

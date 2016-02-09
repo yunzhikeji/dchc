@@ -21,26 +21,25 @@ public class GamblingCriminalMan implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
-	private String dnanumber;//DNA编号
-	private String fingerPrintNumber;//指纹编号
-	private String registerAddressArea;//户籍地区划
-	private String currentAddressArea;//现住地区划
-	private String currentAddress;//现住地详址
-	private String otherId;//其它身份信息
-	private String virtualId;//虚拟身份
-	private String bankCard;//银行卡信息
-	private String nickname;//绰号
-	private String footPrintNumber;//足迹编号
-	private String carLicenseNumber;//车牌号
-	private String engineNumber;//发动机号
-	private String carFrameNumber;//车架号
-	private String imei;//手机串号
-	private String infoExtraction;//信息提取情况
-	private String casinoRole;//赌场角色
-	private String gambleType;//赌博形式
-	private Integer isDrugRelated;//是否涉毒
-	private String equivocation;//可疑度
-	private String interrogateReason;//盘问原因
+	private String dnanumber;// DNA编号
+	private String fingerPrintNumber;// 指纹编号
+	private String currentAddressArea;// 现住地区划
+	private String currentAddress;// 现住地详址
+	private String otherId;// 其它身份信息
+	private String virtualId;// 虚拟身份
+	private String bankCard;// 银行卡信息
+	private String nickname;// 绰号
+	private String footPrintNumber;// 足迹编号
+	private String carLicenseNumber;// 车牌号
+	private String engineNumber;// 发动机号
+	private String carFrameNumber;// 车架号
+	private String imei;// 手机串号
+	private String infoExtraction;// 信息提取情况
+	private String casinoRole;// 赌场角色
+	private String gambleType;// 赌博形式
+	private Integer isDrugRelated;// 是否涉毒
+	private String equivocation;// 可疑度
+	private String interrogateReason;// 盘问原因
 	private Person person;
 
 	// Constructors
@@ -51,16 +50,15 @@ public class GamblingCriminalMan implements java.io.Serializable {
 
 	/** full constructor */
 	public GamblingCriminalMan(String dnanumber, String fingerPrintNumber,
-			String registerAddressArea, String currentAddressArea,
-			String currentAddress, String otherId, String virtualId,
-			String bankCard, String nickname, String footPrintNumber,
-			String carLicenseNumber, String engineNumber,
-			String carFrameNumber, String imei, String infoExtraction,
-			String casinoRole, String gambleType, Integer isDrugRelated,
-			String equivocation, String interrogateReason, Person person) {
+			String currentAddressArea, String currentAddress, String otherId,
+			String virtualId, String bankCard, String nickname,
+			String footPrintNumber, String carLicenseNumber,
+			String engineNumber, String carFrameNumber, String imei,
+			String infoExtraction, String casinoRole, String gambleType,
+			Integer isDrugRelated, String equivocation,
+			String interrogateReason, Person person) {
 		this.dnanumber = dnanumber;
 		this.fingerPrintNumber = fingerPrintNumber;
-		this.registerAddressArea = registerAddressArea;
 		this.currentAddressArea = currentAddressArea;
 		this.currentAddress = currentAddress;
 		this.otherId = otherId;
@@ -184,11 +182,6 @@ public class GamblingCriminalMan implements java.io.Serializable {
 		return this.person;
 	}
 
-	@Column(name = "registerAddressArea", length = 50)
-	public String getRegisterAddressArea() {
-		return this.registerAddressArea;
-	}
-
 	@Column(name = "virtualID", length = 30)
 	public String getVirtualId() {
 		return this.virtualId;
@@ -272,10 +265,6 @@ public class GamblingCriminalMan implements java.io.Serializable {
 
 	public void setPerson(Person person) {
 		this.person = person;
-	}
-
-	public void setRegisterAddressArea(String registerAddressArea) {
-		this.registerAddressArea = registerAddressArea;
 	}
 
 	public void setVirtualId(String virtualId) {

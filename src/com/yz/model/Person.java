@@ -43,6 +43,7 @@ public class Person implements java.io.Serializable {
 	private String wechat;//微信
 	private Integer sex;//性别
 	private String registerAddress;//户籍地址
+	private String registerAddressArea;//户籍地址
 	private String carrier;//携带物品（多个以，隔开）
 	private String carryTool;//携带工具（多个以，隔开）
 	private String endSituation;//完结情况
@@ -69,7 +70,7 @@ public class Person implements java.io.Serializable {
 			ContrastMan contrastMan, GamblingCriminalMan gamblingCriminalMan,
 			String number, String name, String idcard, String birthday,
 			String telphone, String qq, String wechat, Integer sex,
-			String registerAddress, String carrier, String carryTool,
+			String registerAddress,String registerAddressArea, String carrier, String carryTool,
 			String endSituation, String comprehensiveJudge,
 			String leaderInstruction, Integer isMakeControl, Integer type, String joinDate,int handleState,String photoImg,
 			List<Otherperson> otherpersons, List<Lawcase> lawcases,
@@ -90,6 +91,7 @@ public class Person implements java.io.Serializable {
 		this.wechat = wechat;
 		this.sex = sex;
 		this.registerAddress = registerAddress;
+		this.registerAddressArea = registerAddressArea;
 		this.carrier = carrier;
 		this.carryTool = carryTool;
 		this.endSituation = endSituation;
@@ -125,11 +127,6 @@ public class Person implements java.io.Serializable {
 	@Column(name = "carryTool")
 	public String getCarryTool() {
 		return this.carryTool;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "person")
-	public List<Lawcase> getLawcases() {
-		return this.lawcases;
 	}
 
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
@@ -172,6 +169,11 @@ public class Person implements java.io.Serializable {
 		return this.guiltSafeguardMan;
 	}
 
+	@Column(name = "handleState")
+	public Integer getHandleState() {
+		return handleState;
+	}
+
 	// Property accessors
 	@Id
 	@GeneratedValue
@@ -200,6 +202,11 @@ public class Person implements java.io.Serializable {
 		return this.judges;
 	}
 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "person")
+	public List<Lawcase> getLawcases() {
+		return this.lawcases;
+	}
+
 	@Column(name = "leaderInstruction")
 	public String getLeaderInstruction() {
 		return this.leaderInstruction;
@@ -220,6 +227,11 @@ public class Person implements java.io.Serializable {
 		return this.otherpersons;
 	}
 
+	@Column(name = "photoImg")
+	public String getPhotoImg() {
+		return photoImg;
+	}
+
 	@Column(name = "qq", length = 15)
 	public String getQq() {
 		return this.qq;
@@ -228,6 +240,11 @@ public class Person implements java.io.Serializable {
 	@Column(name = "registerAddress", length = 60)
 	public String getRegisterAddress() {
 		return this.registerAddress;
+	}
+
+	@Column(name = "registerAddressArea", length = 100)
+	public String getRegisterAddressArea() {
+		return registerAddressArea;
 	}
 
 	@Column(name = "sex")
@@ -244,12 +261,13 @@ public class Person implements java.io.Serializable {
 	public List<Troubleshooting> getTroubleshootings() {
 		return this.troubleshootings;
 	}
-
+	
+	
 	@Column(name = "type")
 	public Integer getType() {
 		return this.type;
 	}
-
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "uid")
 	public UserRole getUserRole() {
@@ -259,25 +277,6 @@ public class Person implements java.io.Serializable {
 	@Column(name = "wechat", length = 15)
 	public String getWechat() {
 		return this.wechat;
-	}
-	
-	
-	@Column(name = "handleState")
-	public Integer getHandleState() {
-		return handleState;
-	}
-	
-	@Column(name = "photoImg")
-	public String getPhotoImg() {
-		return photoImg;
-	}
-
-	public void setPhotoImg(String photoImg) {
-		this.photoImg = photoImg;
-	}
-
-	public void setHandleState(Integer handleState) {
-		this.handleState = handleState;
 	}
 
 	public void setAnalyzeMan(AnalyzeMan analyzeMan) {
@@ -294,10 +293,6 @@ public class Person implements java.io.Serializable {
 
 	public void setCarryTool(String carryTool) {
 		this.carryTool = carryTool;
-	}
-
-	public void setLawcases(List<Lawcase> lawcases) {
-		this.lawcases = lawcases;
 	}
 
 	public void setCommonClue(CommonClue commonClue) {
@@ -328,6 +323,10 @@ public class Person implements java.io.Serializable {
 		this.guiltSafeguardMan = guiltSafeguardMan;
 	}
 
+	public void setHandleState(Integer handleState) {
+		this.handleState = handleState;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
@@ -348,6 +347,10 @@ public class Person implements java.io.Serializable {
 		this.judges = judges;
 	}
 
+	public void setLawcases(List<Lawcase> lawcases) {
+		this.lawcases = lawcases;
+	}
+
 	public void setLeaderInstruction(String leaderInstruction) {
 		this.leaderInstruction = leaderInstruction;
 	}
@@ -365,12 +368,20 @@ public class Person implements java.io.Serializable {
 		this.otherpersons = otherpersons;
 	}
 
+	public void setPhotoImg(String photoImg) {
+		this.photoImg = photoImg;
+	}
+
 	public void setQq(String qq) {
 		this.qq = qq;
 	}
 
 	public void setRegisterAddress(String registerAddress) {
 		this.registerAddress = registerAddress;
+	}
+
+	public void setRegisterAddressArea(String registerAddressArea) {
+		this.registerAddressArea = registerAddressArea;
 	}
 
 	public void setSex(Integer sex) {
@@ -396,5 +407,7 @@ public class Person implements java.io.Serializable {
 	public void setWechat(String wechat) {
 		this.wechat = wechat;
 	}
+	
+	
 
 }

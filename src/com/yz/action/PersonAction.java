@@ -38,6 +38,7 @@ import com.yz.model.Judge;
 import com.yz.model.Lawcase;
 import com.yz.model.Otherperson;
 import com.yz.model.Person;
+import com.yz.model.TestModel;
 import com.yz.model.Troubleshooting;
 import com.yz.model.Unit;
 import com.yz.model.UserRole;
@@ -235,7 +236,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			pageName = "维稳人员";
 			break;
 		case 11:
-			pageName = "失踪人员分析";
+			pageName = "失踪人员";
 			break;
 		case 12:
 			pageName = "侵财人员分析";
@@ -264,7 +265,46 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			return "opsessiongo";
 		}
 		pageTileName = selectTileName(type);
-		return "add";
+		switch (type) {
+		case 0:
+		case 1:
+			//pageName = "赌博人员";
+		case 2:
+			//pageName = "涉恶人员";
+		case 3:
+			//pageName = "涉黄人员";
+		case 4:
+			//pageName = "食药环人员";
+		case 5:
+			//pageName = "涉毒人员";
+		case 6:
+			//pageName = "留置盘问";
+		case 7:
+			//pageName = "侵财人员";
+		case 8:
+			//pageName = "刑事传唤";
+			return "gamblingCriminalMan_add";
+		case 9:
+			//pageName = "负罪在逃";
+		case 10:
+			//pageName = "维稳人员";
+			return "add";
+		case 11:
+			//pageName = "失踪人员";
+			return "add";
+		case 12:
+			//pageName = "侵财人员分析";
+			return "add";
+		case 13:
+			//pageName = "技术比中人员";
+			return "add";
+		case 14:
+			//pageName = "普通线索";
+			return "add";
+		default:
+			return "add";
+		}
+		
 	}
 
 	/**
@@ -339,6 +379,22 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			if(disappearman==null)
 			{
 				disappearman = new DisappearMan();
+			}
+			if(picture1!=null&&picture1FileName!=null&&!picture1FileName.replace(" ", "").equals("")){
+				String imageName=DateTimeKit.getDateRandom()+picture1FileName.substring(picture1FileName.indexOf("."));
+				this.upload("/disappearman",imageName,picture1);
+				disappearman.setPhoto1("disappearman"+"/"+imageName);
+			}
+			if(picture2!=null&&picture2FileName!=null&&!picture2FileName.replace(" ", "").equals("")){
+				String imageName=DateTimeKit.getDateRandom()+picture2FileName.substring(picture2FileName.indexOf("."));
+				this.upload("/disappearman",imageName,picture2);
+				disappearman.setPhoto2("disappearman"+"/"+imageName);
+			}
+			
+			if(picture3!=null&&picture3FileName!=null&&!picture3FileName.replace(" ", "").equals("")){
+				String imageName=DateTimeKit.getDateRandom()+picture3FileName.substring(picture3FileName.indexOf("."));
+				this.upload("/disappearman",imageName,picture3);
+				disappearman.setPhoto3("disappearman"+"/"+imageName);
 			}
 			disappearmanService.add(disappearman);
 			person.setDisappearMan(disappearman);
@@ -638,28 +694,28 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			{
 				handleInfoExtractionMsg(gamblingCriminalMan.getInfoExtraction());
 			}
-			break;
+			return "gamblingCriminalMan_load";
 		case 9:
 		case 10:
 			guiltSafeguardMan = person.getGuiltSafeguardMan();
 			gxrs = otherpersonService.getOtherpersonByOtype(1,id);
 			tars = otherpersonService.getOtherpersonByOtype(2,id);
-			break;
+			return "load";
 		case 11:
-			break;
+			return "load";
 		case 12:
-			break;
+			return "load";
 		case 13:
-			break;
+			return "load";
 		case 14:
-			break;
+			return "load";
 		default:
-			break;
+			return "load";
 		}
 		
 
 		
-		return "load";
+		
 	}
 
 	//页面显示被选中 信息提前情况 {'提取手机信息','提取银行卡信息','提取DNA','提取指纹','提取鞋印'}显示格式
@@ -674,7 +730,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 				infoExtractions.add(infoExtractionpres[i].replace(" ", ""));
 			}
 		}
-		
 	}
 
 	/**
@@ -740,7 +795,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			person.setGuiltSafeguardMan(guiltSafeguardMan);
 			break;
 		case 11:
-			//pageName = "失踪人员分析";
+			//pageName = "失踪人员";
 			disappearmanService.update(disappearman);
 			break;
 		case 12:
@@ -1071,8 +1126,29 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return "success_child";
 	}
 	
+	private TestModel testModel;
+	public String addTest()
+	{
+		System.out.println(testModel.getName());
+		return "addtest";
+	}
+	
+	public String loadTest(){
+		testModel = new TestModel(11,"lqtest");
+		return "test";
+	}
+	
+	public String updateTest()
+	{
+		System.out.println(testModel.getId());
+		System.out.println(testModel.getName());
+		return null;
+	}
+	
+	
 	// get、set-------------------------------------------
 
+	
 	// 获得HttpServletResponse对象
 	public void setServletResponse(HttpServletResponse response) {
 		this.response = response;
@@ -1680,6 +1756,14 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 	public void setJtype(int jtype) {
 		this.jtype = jtype;
+	}
+
+	public TestModel getTestModel() {
+		return testModel;
+	}
+
+	public void setTestModel(TestModel testModel) {
+		this.testModel = testModel;
 	}
 	
 	

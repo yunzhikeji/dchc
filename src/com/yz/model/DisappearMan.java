@@ -25,20 +25,21 @@ public class DisappearMan implements java.io.Serializable {
 	private String photo1;
 	private String photo2;
 	private String photo3;
-	private String nickname;
+	private String nickname;//别名
 	private String currentAddressArea;
-	private String foreignName;
-	private String otherIdname;
-	private String otherIdnumber;
-	private String unitContactName;
-	private String unitContactTelphone;
-	private String reportContactName;
-	private String reportContactTelphone;
-	private String missingAddress;
-	private String missingStartTime;
-	private String missingEndTime;
-	private String foundMissingTime;
-	private String missingCause;
+	private String currentAddress;
+	private String foreignName;//外文名
+	private String otherIdname;//其他证件名称
+	private String otherIdnumber;//其他证件号码
+	private String unitContactName;//单位联系人
+	private String unitContactTelphone;//单位联系电话
+	private String reportContactName;//报案联系人姓名
+	private String reportContactTelphone;//报案联系电话
+	private String missingAddress;//失踪地址
+	private String missingStartTime;//失踪日期范围开始
+	private String missingEndTime;//失踪日期范围结束
+	private String foundMissingTime;//发现失踪日期
+	private String missingCause;//
 	private Integer height;
 	private String shape;
 	private String feature;
@@ -46,6 +47,8 @@ public class DisappearMan implements java.io.Serializable {
 	private String bloodType;
 	private String accent;
 	private String specificFeature;
+	private String specificFeatureCon;
+	private String bodyFeature;
 	private String dressSituation;
 	private String relativeBlood;
 	private String revocateUnit;
@@ -62,7 +65,7 @@ public class DisappearMan implements java.io.Serializable {
 
 	/** full constructor */
 	public DisappearMan(String dnanumber, String photo1, String photo2,
-			String photo3, String nickname, String currentAddressArea,
+			String photo3, String nickname, String currentAddressArea,String currentAddress,
 			String foreignName, String otherIdname, String otherIdnumber,
 			String unitContactName, String unitContactTelphone,
 			String reportContactName, String reportContactTelphone,
@@ -70,7 +73,7 @@ public class DisappearMan implements java.io.Serializable {
 			String missingEndTime, String foundMissingTime,
 			String missingCause, Integer height, String shape, String feature,
 			Integer footLength, String bloodType, String accent,
-			String specificFeature, String dressSituation,
+			String specificFeature,String specificFeatureCon,String bodyFeature, String dressSituation,
 			String relativeBlood, String revocateUnit, String revocateName,
 			String revocateTime, String revocateReason, Person person) {
 		this.dnanumber = dnanumber;
@@ -79,6 +82,7 @@ public class DisappearMan implements java.io.Serializable {
 		this.photo3 = photo3;
 		this.nickname = nickname;
 		this.currentAddressArea = currentAddressArea;
+		this.currentAddress = currentAddress;
 		this.foreignName = foreignName;
 		this.otherIdname = otherIdname;
 		this.otherIdnumber = otherIdnumber;
@@ -98,6 +102,8 @@ public class DisappearMan implements java.io.Serializable {
 		this.bloodType = bloodType;
 		this.accent = accent;
 		this.specificFeature = specificFeature;
+		this.specificFeatureCon = specificFeatureCon;
+		this.bodyFeature = bodyFeature;
 		this.dressSituation = dressSituation;
 		this.relativeBlood = relativeBlood;
 		this.revocateUnit = revocateUnit;
@@ -115,6 +121,16 @@ public class DisappearMan implements java.io.Serializable {
 	@Column(name = "bloodType", length = 20)
 	public String getBloodType() {
 		return this.bloodType;
+	}
+
+	@Column(name = "bodyFeature")
+	public String getBodyFeature() {
+		return bodyFeature;
+	}
+
+	@Column(name = "currentAddress", length = 50)
+	public String getCurrentAddress() {
+		return currentAddress;
 	}
 
 	@Column(name = "currentAddressArea", length = 50)
@@ -264,6 +280,11 @@ public class DisappearMan implements java.io.Serializable {
 	public String getSpecificFeature() {
 		return this.specificFeature;
 	}
+	
+	@Column(name = "specificFeatureCon")
+	public String getSpecificFeatureCon() {
+		return specificFeatureCon;
+	}
 
 	@Column(name = "unitContactName", length = 25)
 	public String getUnitContactName() {
@@ -281,6 +302,14 @@ public class DisappearMan implements java.io.Serializable {
 
 	public void setBloodType(String bloodType) {
 		this.bloodType = bloodType;
+	}
+
+	public void setBodyFeature(String bodyFeature) {
+		this.bodyFeature = bodyFeature;
+	}
+
+	public void setCurrentAddress(String currentAddress) {
+		this.currentAddress = currentAddress;
 	}
 
 	public void setCurrentAddressArea(String currentAddressArea) {
@@ -399,6 +428,10 @@ public class DisappearMan implements java.io.Serializable {
 		this.specificFeature = specificFeature;
 	}
 
+	public void setSpecificFeatureCon(String specificFeatureCon) {
+		this.specificFeatureCon = specificFeatureCon;
+	}
+
 	public void setUnitContactName(String unitContactName) {
 		this.unitContactName = unitContactName;
 	}
@@ -406,5 +439,6 @@ public class DisappearMan implements java.io.Serializable {
 	public void setUnitContactTelphone(String unitContactTelphone) {
 		this.unitContactTelphone = unitContactTelphone;
 	}
+	
 
 }
