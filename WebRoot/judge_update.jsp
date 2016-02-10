@@ -123,11 +123,11 @@
 					<span class="form-label col-6"> 
 						<span class="formControls col-12"> 
 						<input type="text" class="input-text" id="showVal"  onclick="showMenu();" value="<s:property value="judge.reportUnit"/>" placeholder="报送机构" id="input2"
-							name="judge.reportUnit" style="width:140%" readonly="readonly"/> 
+							name="judge.reportUnit" style="width:100%" readonly="readonly"/> 
 						</span> 
 					</span>
 					
-				<span class="form-label col-4"> 
+				<span class="form-label col-4" style="margin-left:-50px;"> 
 					<input type="button" id="citySel" onclick="showMenu();" class="btn btn-primary radius" value="选择部门">
 				</span>
 				<div id="menuContent" class="menuContent" style="display:none; position: absolute;">
@@ -145,7 +145,7 @@
 								id="troubleshooting" class="input-text Wdate" value="<s:property value="judge.reportTime"/>"
 								> </span> </span>
 					<label class="form-label col-2">
-					<s:if test="judge.jtype==1">研判</s:if><s:if test="judge.jtype==2">查证</s:if>次序：
+					<s:if test="judge.jtype==1">研判</s:if><s:if test="judge.jtype==2">查证</s:if><s:if test="judge.jtype==3">上报</s:if>次序：
 				</label>
 				<span class="form-label col-3"> <span
 					class="formControls col-12"> 
@@ -173,7 +173,7 @@
 				</div>
 		<div class="row cl">
 			<label class="form-label col-2">
-				<s:if test="judge.jtype==1">研判</s:if><s:if test="judge.jtype==2">查证</s:if>要求：
+				<s:if test="judge.jtype==1">研判要求</s:if><s:if test="judge.jtype==2">查证要求</s:if><s:if test="judge.jtype==3">上报内容</s:if>：
 			</label>
 			<span class="form-label col-9">
 			<span class="formControls col-10">
@@ -182,7 +182,8 @@
 						cssStyle="width: 113%; height: 120px; float: left;" ></s:textarea>
 			</span> </span>
 		</div>
-		<s:if test='%{#session.userRoleo.unit.name == "技术中队"}'>
+		<s:if test="judge.jtype!=3">
+	<s:if test='%{#session.userRoleo.unit.name == "技术中队"}'>
 			<div class="row cl">
 			<label class="form-label col-2">
 				刑技<s:if test="judge.jtype==1">研判</s:if><s:if test="judge.jtype==2">查证</s:if>：
@@ -246,6 +247,7 @@
 			<s:hidden name="judge.intelligenceJudge"></s:hidden>
 		</div>
 		</s:if>
+		</s:if>	
 			<div class="row cl">
 				<s:token></s:token>
 				<div class="col-10 col-offset-2">

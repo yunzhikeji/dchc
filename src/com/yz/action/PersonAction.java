@@ -294,7 +294,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			return "disappearman_add";
 		case 12:
 			//pageName = "侵财人员分析";
-			return "add";
+			return "analyzeMan_add";
 		case 13:
 			//pageName = "技术比中人员";
 			return "add";
@@ -695,14 +695,15 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		case 9:
 		case 10:
 			guiltSafeguardMan = person.getGuiltSafeguardMan();
-			gxrs = otherpersonService.getOtherpersonByOtype(1,id);
-			tars = otherpersonService.getOtherpersonByOtype(2,id);
+			gxrs = otherpersonService.getOtherpersonByOtype(1,id);//关系人
+			tars = otherpersonService.getOtherpersonByOtype(2,id);//同案人
 			return "guiltSafeguardMan_load";
 		case 11:
 			disappearman = person.getDisappearMan();
 			return "disappearman_load";
 		case 12:
-			return "load";
+			analyzeMan = person.getAnalyzeMan();
+			return "analyzeMan_load";
 		case 13:
 			return "load";
 		case 14:
@@ -795,10 +796,12 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		case 11:
 			//pageName = "失踪人员";
 			disappearmanService.update(disappearman);
+			person.setDisappearMan(disappearman);
 			break;
 		case 12:
 			//pageName = "侵财人员分析";
 			analyzeManService.update(analyzeMan);
+			person.setAnalyzeMan(analyzeMan);
 			break;
 		case 13:
 			//pageName = "技术比中人员";

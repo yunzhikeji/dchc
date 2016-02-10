@@ -88,7 +88,7 @@
 				</li>
                 <li><a _href="personAction!list?type=11" href="javascript:void(0)">失踪人员</a></li>
                 <li><a _href="personAction!list?type=10" href="javascript:void(0)">维稳人员</a></li>
-                <li><a _href="goodsman-list.html" href="javascript:void(0)">侵财人员分析</a></li>
+                <li><a _href="personAction!list?type=12" href="javascript:void(0)">侵财人员分析</a></li>
                 <li><a _href="jishu-list.html" href="javascript:void(0)">技术比中人员</a></li>
 			   </ul>
 		  </li>

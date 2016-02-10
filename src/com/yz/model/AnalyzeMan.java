@@ -15,7 +15,7 @@ import javax.persistence.Table;
 /**
  * AnalyzeMan entity.侵财分析人员
  * 
- * @author MyEclipse Persistence Tools
+ * @author lq
  */
 @Entity
 @Table(name = "analyzeMan", schema = "dbo", catalog = "dchc")
@@ -24,45 +24,50 @@ public class AnalyzeMan implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
-	private Integer registrationReason;
-	private String degreeEducation;
-	private Integer preOccupation;
-	private String workdUnit;
-	private Integer criminalRecord;
-	private Integer criminalRecordTimes;
-	private String taoBaoNumber;
-	private Integer haveTemporaryResidential;
-	private Integer isTemporaryResidentialUseful;
-	private Integer residentialZone;
-	private String comeToDztime;
-	private Integer stayLocation;
-	private String address;
-	private Integer isStayRegister;
-	private Integer isStayRealname;
-	private Integer isStayInmate;
-	private Integer isNetplayRegister;
-	private Integer isNetplayRealname;
-	private Integer isCaseHappenNearbyInternetbar;
-	private Integer pocketbook;
-	private Integer isPropertyCrime;
-	private Integer isStreetCrime;
-	private Integer isSomeZone;
-	private Integer crimeMotive;
-	private Integer crimeBigLocation;
-	private Integer crimeSmallLocation;
-	private Integer crimeTime;
-	private Integer transportationTypeCome;
-	private Integer transportationTypeGo;
-	private Integer fledRange;
-	private String crimeMethod;
-	private Integer crimeAnalyze;
-	private Integer solveWay;
-	private Integer isGangCrime;
-	private Integer crimeToolSource;
-	private Integer foulTo;
-	private Integer stolenGoodsWay;
-	private Integer mainArrestWay;
-	private Integer assistArrestWay;
+	private Integer registrationReason;//登记缘由（1刑事拘留2刑事传唤3留置盘问4取保候查）
+	private String lawcaseReason;//涉嫌案由
+	private String nickname;//别名
+	private String degreeEducation;//文化程度
+	private String nationality;//名族
+	private Integer preOccupation;//入所前职业( 1固定职业2临时工3无业)
+	private String workdUnit;//工作单位
+	private Integer criminalRecord;//前科(1盗窃 2抢劫 3抢夺 4其他)
+	private Integer criminalRecordTimes;//前科次数
+	private String taoBaoNumber;//淘宝号
+	private Integer haveTemporaryResidential;//暂住证有无（ 1有2无）
+	private Integer isTemporaryResidentialUseful;//暂住证是否失效(1有效2无效)
+	private Integer residentialZone;//居住区域（ 1省外2市外3市内区外4本区5本单位辖区）
+	private String comeToDztime;//来德州时间
+	private Integer stayLocation;//	居住场所（ 1租房2旅馆3网吧4寄宿5浴室6车船码头7公园）
+	private String address;//	地址
+	private Integer isStayRegister;//住宿旅店有无登记
+	private Integer isStayRealname;//住宿旅店有无实名认证
+	private Integer isStayInmate;//	住宿旅店有无同住
+	private Integer isNetplayRegister;//上网有无登记
+	private Integer isNetplayRealname;//上网有无实名认证
+	private Integer isCaseHappenNearbyInternetbar;//上网是否在案发地附近
+	private Integer pocketbook;//经济来源（ 1务工2经商3亲朋资助4无）
+	private Integer isPropertyCrime;//是否侵财（ 1是2否）
+	private Integer isStreetCrime;//街面犯罪（ 1是2否）
+	private Integer isSomeZone;//作案地与居住地是否为同地（ 1是2否）
+	private Integer crimeMotive;//作案动机（ 1经济胁迫2挥霍享乐3寻找刺激4报复纠纷5同伙相约6教唆胁迫）
+	private Integer crimeBigLocation;//作案地点大范围（  1城区2农村3城郊4公路5野外 ）
+	private Integer crimeSmallLocation;//	作案地点小范围（ 1大型商场2小型店铺3广场车站4居民住宅5偏僻地带6机关单位7长砖企业8娱乐场所9农宅租房)
+	private Integer crimeTime;//作案时间（ 1上午作案2下午作案3前半夜作案4后半夜作案 ）
+	private Integer transportationTypeCome;//选择交通方式来（ 1徒步2公交车3私家车4自行车5地铁）
+	private Integer transportationTypeGo;//	选择交通方式去( 1徒步2公交车3私家车4自行车5地铁)
+	private Integer fledRange;//流窜范围（ 1本地2跨社区3跨街道4跨区县5跨市6跨省）
+	private String crimeMethod;//作案手段方式
+	private Integer crimeAnalyze;//	作案分析 1夜盗2白闯3盗窃电动车4其他盗窃5抢劫6诈骗）
+	private Integer solveWay;//破案途径（ 1技侦2网监3视频4技术5信息6巡逻设卡7审查8情报9投案自首10银行查询）
+	private Integer isGangCrime;//是否结伙作案（ 1是2否）
+	private Integer gangGx;//结伙成员关系
+	private Integer gangNumber;//成员人数
+	private Integer crimeToolSource;//作案工具来源（ 1网购2商购3自制4他人给予）
+	private Integer foulTo;//脏物去向（ 1本地2跨社区3跨街道4跨区县5跨市6跨省）
+	private Integer stolenGoodsWay;//	销赃途径( 1卖2典当3散卖4自用5转送)
+	private Integer mainArrestWay;//	主要抓捕途径（ 1背包机2技侦3布控4网上追逃5信息研判6巡逻设卡7投案自首8其他）
+	private Integer assistArrestWay;//辅助抓捕途径（ 1背包机2技侦3布控4网上追逃5信息研判6巡逻设卡7投案自首8其他）
 	private List<Person> persons = new ArrayList<Person>();
 
 	// Constructors
@@ -72,7 +77,7 @@ public class AnalyzeMan implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public AnalyzeMan(Integer registrationReason, String degreeEducation,
+	public AnalyzeMan(Integer registrationReason, String nickname,String lawcaseReason,String degreeEducation,String nationality,
 			Integer preOccupation, String workdUnit, Integer criminalRecord,
 			Integer criminalRecordTimes, String taoBaoNumber,
 			Integer haveTemporaryResidential,
@@ -86,10 +91,13 @@ public class AnalyzeMan implements java.io.Serializable {
 			Integer crimeSmallLocation, Integer crimeTime,
 			Integer transportationTypeCome, Integer transportationTypeGo,
 			Integer fledRange, String crimeMethod, Integer crimeAnalyze,
-			Integer solveWay, Integer isGangCrime, Integer crimeToolSource,
+			Integer solveWay, Integer isGangCrime,Integer gangGx,Integer gangNumber, Integer crimeToolSource,
 			Integer foulTo, Integer stolenGoodsWay, Integer mainArrestWay,
 			Integer assistArrestWay, List<Person> persons) {
 		this.registrationReason = registrationReason;
+		this.lawcaseReason = lawcaseReason;
+		this.nickname = nickname;
+		this.nationality = nationality;
 		this.degreeEducation = degreeEducation;
 		this.preOccupation = preOccupation;
 		this.workdUnit = workdUnit;
@@ -123,6 +131,8 @@ public class AnalyzeMan implements java.io.Serializable {
 		this.crimeAnalyze = crimeAnalyze;
 		this.solveWay = solveWay;
 		this.isGangCrime = isGangCrime;
+		this.gangGx = gangGx;
+		this.gangNumber = gangNumber;
 		this.crimeToolSource = crimeToolSource;
 		this.foulTo = foulTo;
 		this.stolenGoodsWay = stolenGoodsWay;
@@ -131,6 +141,8 @@ public class AnalyzeMan implements java.io.Serializable {
 		this.persons = persons;
 	}
 
+	
+	
 	@Column(name = "address", length = 50)
 	public String getAddress() {
 		return this.address;
@@ -206,6 +218,16 @@ public class AnalyzeMan implements java.io.Serializable {
 		return this.foulTo;
 	}
 
+	@Column(name = "gangGx")
+	public Integer getGangGx() {
+		return gangGx;
+	}
+
+	@Column(name = "gangNumber")
+	public Integer getGangNumber() {
+		return gangNumber;
+	}
+
 	@Column(name = "haveTemporaryResidential")
 	public Integer getHaveTemporaryResidential() {
 		return this.haveTemporaryResidential;
@@ -269,14 +291,29 @@ public class AnalyzeMan implements java.io.Serializable {
 		return this.isStreetCrime;
 	}
 
-	@Column(name = "isTemporary ResidentialUseful")
+	@Column(name = "isTemporaryResidentialUseful")
 	public Integer getIsTemporaryResidentialUseful() {
 		return this.isTemporaryResidentialUseful;
+	}
+
+	@Column(name = "lawcaseReason",length = 50)
+	public String getLawcaseReason() {
+		return lawcaseReason;
 	}
 
 	@Column(name = "mainArrestWay")
 	public Integer getMainArrestWay() {
 		return this.mainArrestWay;
+	}
+
+	@Column(name = "nationality")
+	public String getNationality() {
+		return nationality;
+	}
+
+	@Column(name = "nickname",length = 50)
+	public String getNickname() {
+		return nickname;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "analyzeMan")
@@ -399,6 +436,14 @@ public class AnalyzeMan implements java.io.Serializable {
 		this.foulTo = foulTo;
 	}
 
+	public void setGangGx(Integer gangGx) {
+		this.gangGx = gangGx;
+	}
+
+	public void setGangNumber(Integer gangNumber) {
+		this.gangNumber = gangNumber;
+	}
+
 	public void setHaveTemporaryResidential(Integer haveTemporaryResidential) {
 		this.haveTemporaryResidential = haveTemporaryResidential;
 	}
@@ -453,8 +498,20 @@ public class AnalyzeMan implements java.io.Serializable {
 		this.isTemporaryResidentialUseful = isTemporaryResidentialUseful;
 	}
 
+	public void setLawcaseReason(String lawcaseReason) {
+		this.lawcaseReason = lawcaseReason;
+	}
+
 	public void setMainArrestWay(Integer mainArrestWay) {
 		this.mainArrestWay = mainArrestWay;
+	}
+
+	public void setNationality(String nationality) {
+		this.nationality = nationality;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public void setPersons(List<Person> persons) {

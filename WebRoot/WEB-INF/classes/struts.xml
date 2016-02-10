@@ -107,6 +107,10 @@
 			<result name="disappearman_load">/disappearman_update.jsp</result>
 			<result name="disappearman_view">/disappearman_view.jsp</result>
 			
+			<result name="analyzeMan_add">/analyzeMan_add.jsp</result>
+			<result name="analyzeMan_load">/analyzeMan_update.jsp</result>
+			<result name="analyzeMan_view">/analyzeMan_view.jsp</result>
+			
 			<result name="addLawcase">/lawcase_add.jsp</result>
 			<result name="updateLawcase">/lawcase_update.jsp</result>
 			

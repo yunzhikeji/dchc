@@ -164,7 +164,7 @@
 				</div>
 		<div class="row cl">
 			<label class="form-label col-2">
-				<s:if test="jtype==1">研判</s:if><s:if test="jtype==2">查证</s:if>要求：
+				<s:if test="jtype==1">研判要求</s:if><s:if test="jtype==2">查证要求</s:if><s:if test="jtype==3">上报内容</s:if>：
 			</label>
 			<span class="form-label col-9">
 			<span class="formControls col-10">
