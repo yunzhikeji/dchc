@@ -446,11 +446,9 @@
 												</label>
 											</td>
 											<td colspan="4">
-												<label for="check-box">
 													<s:checkboxlist theme="simple" cssStyle="width:36px"
 														name="gamblingCriminalMan.infoExtraction"
 														list="{'提取手机信息','提取银行卡信息','提取DNA','提取指纹','提取鞋印'}" />
-												</label>
 											</td>
 										</tr>
 										<tr>

@@ -21,6 +21,7 @@ public class CommonClue implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
+	private String nickname;
 	private String launchTime;
 	private String virtualId;
 	private String bankCard;
@@ -36,9 +37,10 @@ public class CommonClue implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public CommonClue(String launchTime, String virtualId, String bankCard,
+	public CommonClue(String launchTime, String virtualId, String bankCard,String nickname,
 			String askHelpContent, String registerAddressPhoto,
 			String criminalRecordPhoto, Person person) {
+		this.nickname = nickname;
 		this.launchTime = launchTime;
 		this.virtualId = virtualId;
 		this.bankCard = bankCard;
@@ -48,6 +50,8 @@ public class CommonClue implements java.io.Serializable {
 		this.person = person;
 	}
 
+	
+	
 	@Column(name = "askHelpContent")
 	public String getAskHelpContent() {
 		return this.askHelpContent;
@@ -58,7 +62,7 @@ public class CommonClue implements java.io.Serializable {
 		return this.bankCard;
 	}
 
-	@Column(name = "criminalRecordPhoto", length = 30)
+	@Column(name = "criminalRecordPhoto", length = 50)
 	public String getCriminalRecordPhoto() {
 		return this.criminalRecordPhoto;
 	}
@@ -76,12 +80,17 @@ public class CommonClue implements java.io.Serializable {
 		return this.launchTime;
 	}
 
+	@Column(name = "nickname", length = 30)
+	public String getNickname() {
+		return nickname;
+	}
+
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "commonClue")
 	public Person getPerson() {
 		return this.person;
 	}
 
-	@Column(name = "registerAddressPhoto", length = 30)
+	@Column(name = "registerAddressPhoto", length = 50)
 	public String getRegisterAddressPhoto() {
 		return this.registerAddressPhoto;
 	}
@@ -109,6 +118,10 @@ public class CommonClue implements java.io.Serializable {
 
 	public void setLaunchTime(String launchTime) {
 		this.launchTime = launchTime;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public void setPerson(Person person) {

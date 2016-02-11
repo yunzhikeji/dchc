@@ -12,7 +12,7 @@ import javax.persistence.Table;
 /**
  * ContrastMan entity.
  * 
- * @author MyEclipse Persistence Tools
+ * @author MyEclipse Persistence Tools 技术比中人员
  */
 @Entity
 @Table(name = "contrastMan", schema = "dbo", catalog = "dchc")
@@ -21,8 +21,8 @@ public class ContrastMan implements java.io.Serializable {
 	// Fields
 
 	private Integer id;
-	private Integer contrastType;
-	private String dnanumber;
+	private Integer contrastType;//
+	private String dnanumber;//
 	private String fingerPrintNumber;
 	private String contrastUnit;
 	private String contrastName;
@@ -86,7 +86,7 @@ public class ContrastMan implements java.io.Serializable {
 		return this.contrastUnit;
 	}
 
-	@Column(name = "criminalRecordPhoto", length = 30)
+	@Column(name = "criminalRecordPhoto", length = 50)
 	public String getCriminalRecordPhoto() {
 		return this.criminalRecordPhoto;
 	}
@@ -124,7 +124,7 @@ public class ContrastMan implements java.io.Serializable {
 		return this.person;
 	}
 
-	@Column(name = "registerAddressPhoto", length = 30)
+	@Column(name = "registerAddressPhoto", length = 50)
 	public String getRegisterAddressPhoto() {
 		return this.registerAddressPhoto;
 	}

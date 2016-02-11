@@ -297,10 +297,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			return "analyzeMan_add";
 		case 13:
 			//pageName = "技术比中人员";
-			return "add";
+			return "contrastMan_add";
 		case 14:
 			//pageName = "普通线索";
-			return "add";
+			return "commonClue_add";
 		default:
 			return "add";
 		}
@@ -389,7 +389,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 				this.upload("/disappearman",imageName,picture2);
 				disappearman.setPhoto2("disappearman"+"/"+imageName);
 			}
-			
 			if(picture3!=null&&picture3FileName!=null&&!picture3FileName.replace(" ", "").equals("")){
 				String imageName=DateTimeKit.getDateRandom()+picture3FileName.substring(picture3FileName.indexOf("."));
 				this.upload("/disappearman",imageName,picture3);
@@ -413,6 +412,16 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			{
 				contrastMan = new ContrastMan();
 			}
+			if(picture1!=null&&picture1FileName!=null&&!picture1FileName.replace(" ", "").equals("")){
+				String imageName=DateTimeKit.getDateRandom()+picture1FileName.substring(picture1FileName.indexOf("."));
+				this.upload("/contrastMan",imageName,picture1);
+				contrastMan.setRegisterAddressPhoto("contrastMan"+"/"+imageName);
+			}
+			if(picture2!=null&&picture2FileName!=null&&!picture2FileName.replace(" ", "").equals("")){
+				String imageName=DateTimeKit.getDateRandom()+picture2FileName.substring(picture2FileName.indexOf("."));
+				this.upload("/contrastMan",imageName,picture2);
+				contrastMan.setCriminalRecordPhoto("contrastMan"+"/"+imageName);
+			}
 			contrastManService.add(contrastMan);
 			person.setContrastMan(contrastMan);
 			break;
@@ -421,6 +430,16 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			if(commonClue==null)
 			{
 				commonClue = new CommonClue();
+			}
+			if(picture1!=null&&picture1FileName!=null&&!picture1FileName.replace(" ", "").equals("")){
+				String imageName=DateTimeKit.getDateRandom()+picture1FileName.substring(picture1FileName.indexOf("."));
+				this.upload("/commonClue",imageName,picture1);
+				commonClue.setRegisterAddressPhoto("commonClue"+"/"+imageName);
+			}
+			if(picture2!=null&&picture2FileName!=null&&!picture2FileName.replace(" ", "").equals("")){
+				String imageName=DateTimeKit.getDateRandom()+picture2FileName.substring(picture2FileName.indexOf("."));
+				this.upload("/commonClue",imageName,picture2);
+				commonClue.setCriminalRecordPhoto("commonClue"+"/"+imageName);
 			}
 			commonClueService.add(commonClue);
 			person.setCommonClue(commonClue);
@@ -558,12 +577,62 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			}
 			break;
 		case 11:
+			id = person.getDisappearMan().getId();
+			disappearman = disappearmanService.loadById(id);
+			if(disappearman!=null)
+			{
+				if(disappearman.getPhoto1()!=null&&!disappearman.getPhoto1().replace(" ", "").equals(""))
+				{
+					File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+disappearman.getPhoto1());
+					photofile.delete();
+				}
+				if(disappearman.getPhoto2()!=null&&!disappearman.getPhoto2().replace(" ", "").equals(""))
+				{
+					File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+disappearman.getPhoto2());
+					photofile.delete();
+				}
+				if(disappearman.getPhoto3()!=null&&!disappearman.getPhoto3().replace(" ", "").equals(""))
+				{
+					File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+disappearman.getPhoto3());
+					photofile.delete();
+				}
+			}
 			break;
 		case 12:
 			break;
 		case 13:
+			id = person.getContrastMan().getId();
+			contrastMan = contrastManService.loadById(id);
+			if(contrastMan!=null)
+			{
+				if(contrastMan.getRegisterAddressPhoto()!=null&&!contrastMan.getRegisterAddressPhoto().replace(" ", "").equals(""))
+				{
+					File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+contrastMan.getRegisterAddressPhoto());
+					photofile.delete();
+				}
+				if(contrastMan.getCriminalRecordPhoto()!=null&&!contrastMan.getCriminalRecordPhoto().replace(" ", "").equals(""))
+				{
+					File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+contrastMan.getCriminalRecordPhoto());
+					photofile.delete();
+				}
+			}
 			break;
 		case 14:
+			id = person.getCommonClue().getId();
+			commonClue = commonClueService.loadById(id);
+			if(commonClue!=null)
+			{
+				if(commonClue.getRegisterAddressPhoto()!=null&&!commonClue.getRegisterAddressPhoto().replace(" ", "").equals(""))
+				{
+					File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+commonClue.getRegisterAddressPhoto());
+					photofile.delete();
+				}
+				if(commonClue.getCriminalRecordPhoto()!=null&&!commonClue.getCriminalRecordPhoto().replace(" ", "").equals(""))
+				{
+					File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+commonClue.getCriminalRecordPhoto());
+					photofile.delete();
+				}
+			}
 			break;
 		default:
 			break;
@@ -628,12 +697,62 @@ public class PersonAction extends ActionSupport implements RequestAware,
 				}
 				break;
 			case 11:
+				id = person.getDisappearMan().getId();
+				disappearman = disappearmanService.loadById(id);
+				if(disappearman!=null)
+				{
+					if(disappearman.getPhoto1()!=null&&!disappearman.getPhoto1().replace(" ", "").equals(""))
+					{
+						File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+disappearman.getPhoto1());
+						photofile.delete();
+					}
+					if(disappearman.getPhoto2()!=null&&!disappearman.getPhoto2().replace(" ", "").equals(""))
+					{
+						File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+disappearman.getPhoto2());
+						photofile.delete();
+					}
+					if(disappearman.getPhoto3()!=null&&!disappearman.getPhoto3().replace(" ", "").equals(""))
+					{
+						File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+disappearman.getPhoto3());
+						photofile.delete();
+					}
+				}
 				break;
 			case 12:
 				break;
 			case 13:
+				id = person.getContrastMan().getId();
+				contrastMan = contrastManService.loadById(id);
+				if(contrastMan!=null)
+				{
+					if(contrastMan.getRegisterAddressPhoto()!=null&&!contrastMan.getRegisterAddressPhoto().replace(" ", "").equals(""))
+					{
+						File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+contrastMan.getRegisterAddressPhoto());
+						photofile.delete();
+					}
+					if(contrastMan.getCriminalRecordPhoto()!=null&&!contrastMan.getCriminalRecordPhoto().replace(" ", "").equals(""))
+					{
+						File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+contrastMan.getCriminalRecordPhoto());
+						photofile.delete();
+					}
+				}
 				break;
 			case 14:
+				id = person.getCommonClue().getId();
+				commonClue = commonClueService.loadById(id);
+				if(commonClue!=null)
+				{
+					if(commonClue.getRegisterAddressPhoto()!=null&&!commonClue.getRegisterAddressPhoto().replace(" ", "").equals(""))
+					{
+						File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+commonClue.getRegisterAddressPhoto());
+						photofile.delete();
+					}
+					if(commonClue.getCriminalRecordPhoto()!=null&&!commonClue.getCriminalRecordPhoto().replace(" ", "").equals(""))
+					{
+						File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+commonClue.getCriminalRecordPhoto());
+						photofile.delete();
+					}
+				}
 				break;
 			default:
 				break;
@@ -705,9 +824,11 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			analyzeMan = person.getAnalyzeMan();
 			return "analyzeMan_load";
 		case 13:
-			return "load";
+			contrastMan = person.getContrastMan();
+			return "contrastMan_load";
 		case 14:
-			return "load";
+			commonClue = person.getCommonClue();
+			return "commonClue_load";
 		default:
 			return "load";
 		}
@@ -782,7 +903,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 				photofile.delete();
 				guiltSafeguardMan.setCriminalRecordPhoto2("guiltSafeguardMan"+"/"+imageName);
 			}
-			
 			if(picture3!=null&&picture3FileName!=null&&!picture3FileName.replace(" ", "").equals("")){
 				String imageName=DateTimeKit.getDateRandom()+picture3FileName.substring(picture3FileName.indexOf("."));
 				this.upload("/guiltSafeguardMan",imageName,picture3);
@@ -795,6 +915,27 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			break;
 		case 11:
 			//pageName = "失踪人员";
+			if(picture1!=null&&picture1FileName!=null&&!picture1FileName.replace(" ", "").equals("")){
+				String imageName=DateTimeKit.getDateRandom()+picture1FileName.substring(picture1FileName.indexOf("."));
+				this.upload("/disappearman",imageName,picture1);
+				File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+disappearman.getPhoto1());
+				photofile.delete();
+				disappearman.setPhoto1("disappearman"+"/"+imageName);
+			}
+			if(picture2!=null&&picture2FileName!=null&&!picture2FileName.replace(" ", "").equals("")){
+				String imageName=DateTimeKit.getDateRandom()+picture2FileName.substring(picture2FileName.indexOf("."));
+				this.upload("/disappearman",imageName,picture2);
+				File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+disappearman.getPhoto2());
+				photofile.delete();
+				disappearman.setPhoto2("disappearman"+"/"+imageName);
+			}
+			if(picture3!=null&&disappearman!=null&&!picture3FileName.replace(" ", "").equals("")){
+				String imageName=DateTimeKit.getDateRandom()+picture3FileName.substring(picture3FileName.indexOf("."));
+				this.upload("/disappearman",imageName,picture3);
+				File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+disappearman.getPhoto3());
+				photofile.delete();
+				disappearman.setPhoto3("disappearman"+"/"+imageName);
+			}
 			disappearmanService.update(disappearman);
 			person.setDisappearMan(disappearman);
 			break;
@@ -805,11 +946,41 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			break;
 		case 13:
 			//pageName = "技术比中人员";
+			if(picture1!=null&&picture1FileName!=null&&!picture1FileName.replace(" ", "").equals("")){
+				String imageName=DateTimeKit.getDateRandom()+picture1FileName.substring(picture1FileName.indexOf("."));
+				this.upload("/contrastMan",imageName,picture1);
+				File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+contrastMan.getRegisterAddressPhoto());
+				photofile.delete();
+				contrastMan.setRegisterAddressPhoto("contrastMan"+"/"+imageName);
+			}
+			if(picture2!=null&&picture2FileName!=null&&!picture2FileName.replace(" ", "").equals("")){
+				String imageName=DateTimeKit.getDateRandom()+picture2FileName.substring(picture2FileName.indexOf("."));
+				this.upload("/contrastMan",imageName,picture2);
+				File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+contrastMan.getCriminalRecordPhoto());
+				photofile.delete();
+				contrastMan.setCriminalRecordPhoto("contrastMan"+"/"+imageName);
+			}
 			contrastManService.update(contrastMan);
+			person.setContrastMan(contrastMan);
 			break;
 		case 14:
 			//pageName = "普通线索";
+			if(picture1!=null&&picture1FileName!=null&&!picture1FileName.replace(" ", "").equals("")){
+				String imageName=DateTimeKit.getDateRandom()+picture1FileName.substring(picture1FileName.indexOf("."));
+				this.upload("/commonClue",imageName,picture1);
+				File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+commonClue.getRegisterAddressPhoto());
+				photofile.delete();
+				commonClue.setRegisterAddressPhoto("commonClue"+"/"+imageName);
+			}
+			if(picture2!=null&&picture2FileName!=null&&!picture2FileName.replace(" ", "").equals("")){
+				String imageName=DateTimeKit.getDateRandom()+picture2FileName.substring(picture2FileName.indexOf("."));
+				this.upload("/commonClue",imageName,picture2);
+				File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+commonClue.getCriminalRecordPhoto());
+				photofile.delete();
+				commonClue.setCriminalRecordPhoto("commonClue"+"/"+imageName);
+			}
 			commonClueService.update(commonClue);
+			person.setCommonClue(commonClue);
 			break;
 		default:
 			break;

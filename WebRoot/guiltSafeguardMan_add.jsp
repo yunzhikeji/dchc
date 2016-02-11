@@ -36,7 +36,7 @@
 		<script type="text/javascript" src="js/pageKit.js"></script>
 		<script type="text/javascript" src="js/checkUtil.js"></script>
 		<script type="text/javascript" src="js/commonUtil.js"></script>
-		<title>修改人员信息</title>
+		<title>新增人员信息</title>
 	</head>
 	<body>
 		<form name="personAddForm" action="personAction!add" method="post"

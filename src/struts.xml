@@ -111,6 +111,14 @@
 			<result name="analyzeMan_load">/analyzeMan_update.jsp</result>
 			<result name="analyzeMan_view">/analyzeMan_view.jsp</result>
 			
+			<result name="contrastMan_add">/contrastMan_add.jsp</result>
+			<result name="contrastMan_load">/contrastMan_update.jsp</result>
+			<result name="contrastMan_view">/contrastMan_view.jsp</result>
+			
+			<result name="commonClue_add">/commonClue_add.jsp</result>
+			<result name="commonClue_load">/commonClue_update.jsp</result>
+			<result name="commonClue_view">/commonClue_view.jsp</result>
+			
 			<result name="addLawcase">/lawcase_add.jsp</result>
 			<result name="updateLawcase">/lawcase_update.jsp</result>
 			

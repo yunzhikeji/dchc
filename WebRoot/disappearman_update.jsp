@@ -81,7 +81,7 @@
 									<table width="100%" border="0" cellspacing="0" cellpadding="0">
 										<tr>
 											<td align="center">
-												<img id="myimage1" class="img-responsive thumbnail"
+												<img id="myimage1" class="img-responsive thumbnail" src="<%=basePath%>${disappearman.photo1}"
 													width="176px" height="220px" alt="照片1" />
 												<script type="text/javascript">
 															function change1() {
@@ -144,7 +144,7 @@
 										<tr>
 											<td align="center">
 
-												<img id="myimage2" class="img-responsive thumbnail"
+												<img id="myimage2" class="img-responsive thumbnail" src="<%=basePath%>${disappearman.photo2}"
 													width="176px" height="220px" alt="照片2" />
 												<script type="text/javascript">
 															function change2() {
@@ -204,7 +204,7 @@
 									<table width="100%" border="0" cellspacing="0" cellpadding="0">
 										<tr>
 											<td align="center">
-												<img id="myimage3" class="img-responsive thumbnail"
+												<img id="myimage3" class="img-responsive thumbnail" src="<%=basePath%>${disappearman.photo3}"
 													width="176px" height="220px" alt="照片3" />
 												<script type="text/javascript">
 															function change3() {
