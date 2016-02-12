@@ -55,12 +55,12 @@
      <div class="col-2" >
     <label class="form-label text-r">登陆平台密码：</label></div>
      <div class="col-10" >
-      <s:textfield id="password" cssClass="input-text radius size-M" cssStyle="width:200px;" name="userRole.password"  ></s:textfield>
-     </div>
+     	<input  type="password" id="password" class="input-text radius size-M" style="width:200px;" name="userRole.password"/>
+       </div>
   </div>
 <div class="row cl mb-10">
      <div class="col-2" >
-    <label class="form-label text-r">真实姓名：</label></div>
+    <label class="form-label text-r">姓名：</label></div>
      <div class="col-4" >
        <s:textfield id="userRoleRealname" cssClass="input-text radius size-M" cssStyle="width:200px;" name="userRole.realname" ></s:textfield>
     
@@ -68,9 +68,18 @@
 </div>
 <div class="row cl mb-10">
      <div class="col-2" >
-    <label class="form-label text-r">警员编号：</label></div>
+    <label class="form-label text-r">性别：</label></div>
+     <div class="col-4" >
+       <s:select list="#{1:'男',0:'女'}" cssClass="input-text" cssStyle="width:200px;"
+							name="userRole.sex" listKey="key" listValue="value"></s:select>
+     </div>
+</div>
+<div class="row cl mb-10">
+     <div class="col-2" >
+    <label class="form-label text-r">用户权限：</label></div>
      <div class="col-10" >
-      <s:textfield id="userRoleNumber" cssClass="input-text radius size-M" cssStyle="width:200px;" name="userRole.number"  ></s:textfield>
+     <s:select list="#{0:'普通用户',1:'管理员',2:'超级管理员'}" cssClass="input-text" cssStyle="width:200px;"
+							name="userRole.userLimit" listKey="key" listValue="value"></s:select>
      </div>
   </div>
   <div class="row cl mb-10">

@@ -70,7 +70,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private javax.servlet.http.HttpServletResponse response;
 	private javax.servlet.http.HttpServletRequest req;
 	
-	
 
 	// 分页显示
 	private String[] arg = new String[2];

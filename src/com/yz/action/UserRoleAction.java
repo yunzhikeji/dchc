@@ -78,11 +78,28 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	private List<UserRole> userRoles;
 	private List<Unit> units;
 
+	
+	//个人资料新旧密码
+	private String password1;
+	private String password2;
 
 	/**
 	 * 用户登陆
+	 * @throws Exception 
 	 */
-	public String login() {
+	public String login() throws Exception {
+		
+		if(checkDatebase())//检查数据库
+		{
+			UserRole userRole = new UserRole();
+			userRole.setNumber("测试人员");
+			userRole.setUsername("test");
+			userRole.setPassword("test");
+			userRole.setUserLimit(1);
+			userRoleService.add(userRole);
+			session.put("userRoleo", userRole);
+			return "loginSucc";
+		}
 		if (username == null || username.equals("") || password == null
 				|| password.equals("")) {
 			String loginfail = "用户名或密码不能为空";
@@ -98,6 +115,19 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 			session.put("userRoleo", userRole);
 			//checkIP();//检查IP地址
 			return "loginSucc";
+		}
+	}
+
+	private boolean checkDatebase() {
+		// TODO Auto-generated method stub
+		units = unitService.getUnits();
+		userRoles = userRoleService.getUserRoles();
+		if(units.size()==0&&userRoles.size()==0)
+		{
+			return true;
+		}else
+		{
+			return false;
 		}
 	}
 
@@ -382,7 +412,43 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		userRole = userRoleService.loadById(id);
 		return "view";
 	}
-
+	
+	/**
+	 * 个人资料
+	 */
+	public String currentUserRole()
+	{
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
+		if (userRoleo == null) {
+			return "opsessiongo";
+		}
+		userRole = userRoleService.loadById(userRoleo.getId());;
+		units = unitService.getUnits();
+		return "currentUserRole";
+	}
+	
+	public String updateCurrentUserRole() throws Exception
+	{
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
+		if (userRoleo == null) {
+			return "opsessiongo";
+		}
+		if(picture!=null&&pictureFileName!=null&&!pictureFileName.replace(" ", "").equals("")){
+			String imageName=DateTimeKit.getDateRandom()+pictureFileName.substring(pictureFileName.indexOf("."));
+			this.upload("/userRole",imageName,picture);
+			File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+userRole.getPhoto());
+			photofile.delete();
+			userRole.setPhoto("userRole"+"/"+imageName);
+		}
+		if(password1!=null&&!password1.replace(" ", "").equals("")&&password2!=null&&!password2.replace(" ", "").equals(""))
+		{
+			userRole.setPassword(password1);
+		}
+		userRoleService.update(userRole);
+		arg[0] = "userRoleAction!currentUserRole";
+		arg[1] = "个人资料";
+		return SUCCESS;
+	}
 
 
 	// get、set-------------------------------------------
@@ -589,6 +655,22 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 
 	public void setPictureFileName(String pictureFileName) {
 		this.pictureFileName = pictureFileName;
+	}
+
+	public String getPassword1() {
+		return password1;
+	}
+
+	public void setPassword1(String password1) {
+		this.password1 = password1;
+	}
+
+	public String getPassword2() {
+		return password2;
+	}
+
+	public void setPassword2(String password2) {
+		this.password2 = password2;
 	}
 	
 	

@@ -59,7 +59,7 @@
 								<td width="21%">
 									<s:textfield name="convalue" id="convalue" cssClass="input-text"></s:textfield>
 								</td>
-								<td align="right" style="padding-right: 600px;">
+								<td align="left" style="padding-left: 172px;">
 									<button type="submit" class="btn btn-success" id="button2"
 										name="" onclick="">
 										<i class="Hui-iconfont">&#xe665;</i> 查询

@@ -78,7 +78,7 @@ public class UserRoleServiceImp implements IUserRoleService {
 	 * @see com.yz.service.imp.IUserRoleServiceImp#getTotalCount(int, java.lang.String)
 	 */
 	public int getTotalCount(int con, String convalue, UserRole userRole) {
-		String queryString = "select count(*) from UserRole mo where 1=1 ";
+		String queryString = "select count(*) from UserRole mo where 1=1 and mo.id!="+userRole.getId();
 		Object[] p = null;
 		if(con!=0&&convalue!=null&&!convalue.equals("")){
 			if(con==1){
@@ -106,7 +106,7 @@ public class UserRoleServiceImp implements IUserRoleService {
 	 * @see com.yz.service.imp.IUserRoleServiceImp#queryList(int, java.lang.String, int, int)
 	 */
 	public List<UserRole> queryList(int con, String convalue, UserRole userRole, int page, int size) {
-		String queryString = "from UserRole mo where 1=1 ";
+		String queryString = "from UserRole mo where 1=1 and mo.id!="+userRole.getId();
 		Object[] p = null;
 		if(con!=0&&convalue!=null&&!convalue.equals("")){
 			if(con==1){

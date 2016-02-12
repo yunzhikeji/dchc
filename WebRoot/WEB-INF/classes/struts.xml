@@ -64,6 +64,9 @@
 			<result name="view">/userRole_view.jsp</result>
 			<result name="password">/userRolepassword_update.jsp</result>
 			
+			<result name="currentUserRole">/currentUserRole.jsp</result>
+			
+			
 			<result name="invalid.token">/op_failure_child.jsp</result>
 			<interceptor-ref name="defaultStack" />
             <interceptor-ref name="token" >

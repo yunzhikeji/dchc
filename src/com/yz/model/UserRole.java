@@ -32,6 +32,8 @@ public class UserRole implements java.io.Serializable {
 	private String number;//警员编号
 	private String realname;//真实姓名
 	private String photo;//照片
+	private Integer userLimit;//用户权限
+	private Integer sex;//性别
 	private List<Person> persons = new ArrayList<Person>();//录入的人员信息
 	private List<Injurycase> injurycases = new ArrayList<Injurycase>();//录入的重伤案件信息
 	private List<Clue> clues = new ArrayList<Clue>();//录入的刑侦线索信息
@@ -44,7 +46,7 @@ public class UserRole implements java.io.Serializable {
 
 	/** full constructor */
 	public UserRole(Unit unit, String username, String password, String telphone,
-			String number, String realname, String photo, List<Person> persons,
+			String number, String realname, String photo, List<Person> persons,Integer userLimit,Integer sex,
 			List<Injurycase> injurycases, List<Clue> clues) {
 		this.unit = unit;
 		this.username = username;
@@ -53,11 +55,15 @@ public class UserRole implements java.io.Serializable {
 		this.number = number;
 		this.realname = realname;
 		this.photo = photo;
+		this.userLimit = userLimit;
+		this.sex = sex;
 		this.persons = persons;
 		this.injurycases = injurycases;
 		this.clues = clues;
 	}
 
+	
+	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userRole")
 	public List<Clue> getClues() {
 		return this.clues;
@@ -101,6 +107,11 @@ public class UserRole implements java.io.Serializable {
 		return this.realname;
 	}
 
+	@Column(name = "sex")
+	public Integer getSex() {
+		return sex;
+	}
+
 	@Column(name = "telphone", length = 30)
 	public String getTelphone() {
 		return this.telphone;
@@ -110,6 +121,11 @@ public class UserRole implements java.io.Serializable {
 	@JoinColumn(name = "unitid")
 	public Unit getUnit() {
 		return this.unit;
+	}
+
+	@Column(name = "userLimit")
+	public Integer getUserLimit() {
+		return userLimit;
 	}
 
 	@Column(name = "username", length = 30)
@@ -149,12 +165,20 @@ public class UserRole implements java.io.Serializable {
 		this.realname = realname;
 	}
 
+	public void setSex(Integer sex) {
+		this.sex = sex;
+	}
+
 	public void setTelphone(String telphone) {
 		this.telphone = telphone;
 	}
 
 	public void setUnit(Unit unit) {
 		this.unit = unit;
+	}
+
+	public void setUserLimit(Integer userLimit) {
+		this.userLimit = userLimit;
 	}
 
 	public void setUsername(String username) {
