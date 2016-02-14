@@ -546,27 +546,18 @@
 								</table>
 							</div>
 						</div>
-						<!--流转信息-->
-						<div class="tabCon">
+					<div class="tabCon">
 							<div class="row cl">
 								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
 									<div
-										style="height: 100px; width: 200px; border: solid 1px #666">
-										<table width="100%" border="0" cellspacing="0" cellpadding="0">
-											<tr bgcolor="#ccc">
-												<td>
-													&nbsp;
-												</td>
-											</tr>
-											<tr>
-												<td>
-													&nbsp;
-												</td>
-											</tr>
-										</table>
+										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+										<s:property value="person.userRole.realname"/>：录入
 									</div>
 								</div>
 							</div>
+							<s:if test="person.judges.size>0">
+												<s:iterator value="person.judges" var="judge"
+													status="status">
 							<div class="row cl">
 								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
 									<div style="height: 25px; width: 200px; text-align: center">
@@ -577,19 +568,17 @@
 							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
 								<div style="height: 100px; width: 200px; border: solid 1px #666">
 									<table width="100%" border="0" cellspacing="0" cellpadding="0">
-										<tr bgcolor="#ccc">
-											<td>
-												&nbsp;
-											</td>
-										</tr>
 										<tr>
 											<td>
-												&nbsp;
+												研判次序<s:property value="indexNumber" />: <s:property value="reportUnit" />
 											</td>
 										</tr>
 									</table>
 								</div>
 							</div>
+							</s:iterator>
+							</s:if>
+							<s:if test="person.comprehensiveJudge!=null&&person.comprehensiveJudge!=''">
 							<div class="row cl">
 								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
 									<div style="height: 25px; width: 200px; text-align: center">
@@ -603,6 +592,8 @@
 									完结
 								</div>
 							</div>
+							</s:if>
+							<s:if test="person.leaderInstruction!=null&&person.leaderInstruction!=''">
 							<div class="row cl">
 								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
 									<div style="height: 25px; width: 200px; text-align: center">
@@ -611,11 +602,14 @@
 								</div>
 							</div>
 							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-								<div style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+								<div
+									style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
 									领导批示
 								</div>
 							</div>
+							</s:if>
 						</div>
+					</div>
 					</div>
 					<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
 					<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
