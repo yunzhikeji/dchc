@@ -110,7 +110,8 @@
 					<li> <a _href="userRoleAction!list" href="javascript:void(0)">角色管理</a> </li>
 					<li> <a _href="userRoleAction!currentUserRole" href="javascript:void(0)">个人资料</a> </li>
 					<!--  <li> <a _href="system-base.html" href="javascript:void(0)">IP限制</a> </li> -->
-                    <li> <a _href="notice-list.html" href="javascript:void(0)">通知公告</a> </li>
+                    <li> <a _href="pnoticeAction!list" href="javascript:void(0)">通知公告</a> </li>
+                    <li> <a _href="successexampleAction!list" href="javascript:void(0)">成功案例</a> </li>
 			   </ul>
 		  </li>
 		  <div class="clear"></div>

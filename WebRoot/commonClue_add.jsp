@@ -57,7 +57,7 @@
 				<div style="width: 100%">
 					<div id="tab_demo" class="HuiTab">
 						<div class="tabBar cl">
-							<span>信息录入</span><span>流转信息</span>
+							<span>信息录入</span>
 						</div>
 						<div class="tabCon">
 							<div class="row cl text-c">

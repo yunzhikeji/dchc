@@ -70,6 +70,36 @@ function jumpPersonPage(url,page,con,convalue,type,queryState,starttime,endtime)
 	window.location=url;
 }
 
+
+//通知公告 分页显示
+function jumpPnoticePage(url,page,con,convalue,starttime,endtime){
+	
+	var page=page;
+	if(isNaN(page)){
+		var page2=document.getElementById(page).value;
+		page=parseInt(page2);
+	}
+	var url=url+'?page='+page+'&con='+con+'&convalue='+convalue+'&starttime='+starttime+'&endtime='+endtime;
+	url=encodeURI(url);
+	url=encodeURI(url);
+	window.location=url;
+}
+
+
+//成功案例 分页显示
+function jumpSuccessexamplePage(url,page,con,convalue,starttime,endtime){
+	
+	var page=page;
+	if(isNaN(page)){
+		var page2=document.getElementById(page).value;
+		page=parseInt(page2);
+	}
+	var url=url+'?page='+page+'&con='+con+'&convalue='+convalue+'&starttime='+starttime+'&endtime='+endtime;
+	url=encodeURI(url);
+	url=encodeURI(url);
+	window.location=url;
+}
+
 function jumpYoukeLinePage(url,page,con,convalue,limits,projectid,linetext,upuserid){
 	
 	var page=page;

@@ -91,13 +91,13 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		
 		if(checkDatebase())//检查数据库
 		{
-			UserRole userRole = new UserRole();
-			userRole.setNumber("测试人员");
-			userRole.setUsername("test");
-			userRole.setPassword("test");
-			userRole.setUserLimit(1);
-			userRoleService.add(userRole);
-			session.put("userRoleo", userRole);
+			UserRole userRoleTest = new UserRole();
+			userRoleTest.setNumber("测试人员");
+			userRoleTest.setUsername("test");
+			userRoleTest.setPassword("test");
+			userRoleTest.setUserLimit(1);
+			userRoleService.add(userRoleTest);
+			session.put("userRoleo", userRoleTest);
 			return "loginSucc";
 		}
 		if (username == null || username.equals("") || password == null
@@ -106,13 +106,13 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 			request.put("loginFail", loginfail);
 			return "adminLogin";
 		}
-		UserRole userRole = userRoleService.userRolelogin(username, password);
-		if (userRole == null) {
+		UserRole userRoleLogin = userRoleService.userRolelogin(username, password);
+		if (userRoleLogin == null) {
 			String loginfail = "用户名或密码输入有误";
 			request.put("loginFail", loginfail);
 			return "adminLogin";
 		} else {
-			session.put("userRoleo", userRole);
+			session.put("userRoleo", userRoleLogin);
 			//checkIP();//检查IP地址
 			return "loginSucc";
 		}

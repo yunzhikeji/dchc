@@ -1,7 +1,9 @@
 package com.yz.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -37,7 +39,7 @@ public class UserRole implements java.io.Serializable {
 	private List<Person> persons = new ArrayList<Person>();//录入的人员信息
 	private List<Injurycase> injurycases = new ArrayList<Injurycase>();//录入的重伤案件信息
 	private List<Clue> clues = new ArrayList<Clue>();//录入的刑侦线索信息
-
+	private List<Pnotice> pnotices = new ArrayList<Pnotice>();
 	// Constructors
 
 	/** default constructor */
@@ -47,7 +49,7 @@ public class UserRole implements java.io.Serializable {
 	/** full constructor */
 	public UserRole(Unit unit, String username, String password, String telphone,
 			String number, String realname, String photo, List<Person> persons,Integer userLimit,Integer sex,
-			List<Injurycase> injurycases, List<Clue> clues) {
+			List<Injurycase> injurycases, List<Clue> clues, List<Pnotice> pnotices) {
 		this.unit = unit;
 		this.username = username;
 		this.password = password;
@@ -60,6 +62,7 @@ public class UserRole implements java.io.Serializable {
 		this.persons = persons;
 		this.injurycases = injurycases;
 		this.clues = clues;
+		this.pnotices = pnotices;
 	}
 
 	
@@ -100,6 +103,11 @@ public class UserRole implements java.io.Serializable {
 	@Column(name = "photo", length = 30)
 	public String getPhoto() {
 		return this.photo;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userRole")
+	public List<Pnotice> getPnotices() {
+		return pnotices;
 	}
 
 	@Column(name = "realname", length = 30)
@@ -159,6 +167,10 @@ public class UserRole implements java.io.Serializable {
 
 	public void setPhoto(String photo) {
 		this.photo = photo;
+	}
+
+	public void setPnotices(List<Pnotice> pnotices) {
+		this.pnotices = pnotices;
 	}
 
 	public void setRealname(String realname) {

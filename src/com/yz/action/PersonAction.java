@@ -38,6 +38,7 @@ import com.yz.model.Judge;
 import com.yz.model.Lawcase;
 import com.yz.model.Otherperson;
 import com.yz.model.Person;
+import com.yz.model.Successexample;
 import com.yz.model.TestModel;
 import com.yz.model.Troubleshooting;
 import com.yz.model.Unit;
@@ -52,6 +53,7 @@ import com.yz.service.IJudgeService;
 import com.yz.service.ILawcaseService;
 import com.yz.service.IOtherpersonService;
 import com.yz.service.IPersonService;
+import com.yz.service.ISuccessexampleService;
 import com.yz.service.ITroubleshootingService;
 import com.yz.service.IUnitService;
 import com.yz.util.ConvertUtil;
@@ -92,7 +94,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private int type;// 人员类型
 	private int otype;//其他人员类型 1：关系人员，2：同案人员
 	private int jtype;//发起类型 1:研判信息 2：部门查证 3：上报情况
-	private int queryState;
+	private int queryState;//办理状态 
 	private String starttime;
 	private String endtime;
 	
@@ -120,6 +122,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private IJudgeService judgeService;
 	private IOtherpersonService otherpersonService;
 	
+	private ISuccessexampleService successexampleService;
+	
 	
 	
 	 
@@ -137,6 +141,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private Troubleshooting troubleshooting;
 	private Judge judge;
 	private Otherperson otherperson;
+	
+	private Successexample successexample;
 	
 	private UnitVO unitVO;
 	private Unit unit;
@@ -1294,6 +1300,53 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return "success_child";
 	}
 	
+	
+	/**
+	 * 发布成功案例
+	 */
+	public String goToAddSuccessexample()
+	{
+		person = personService.loadById(id);
+		return "addSuccessexample";
+	}
+	
+	public String addSuccessexample() throws Exception
+	{
+		successexampleService.add(successexample);
+		return "success_child";
+	}
+	
+	public String deleteSuccessexample() throws Exception{
+
+		successexample = successexampleService.loadById(lawid);
+		successexampleService.delete(successexample);
+		AjaxMsgVO msgVO = new AjaxMsgVO();
+		msgVO.setMessage("删除成功.");
+		JSONObject jsonObj = JSONObject.fromObject(msgVO);
+		PrintWriter out;
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+			out = response.getWriter();
+			out.print(jsonObj.toString());
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public String loadSuccessexample()
+	{
+		successexample = successexampleService.loadById(lawid);
+		return "updateSuccessexample";
+	}
+	
+	public String updateSuccessexample()
+	{
+		successexampleService.update(successexample);
+		return "success_child";
+	}
 	/*
 	private TestModel testModel;
 	public String addTest()
@@ -1925,6 +1978,24 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 	public void setJtype(int jtype) {
 		this.jtype = jtype;
+	}
+
+	public ISuccessexampleService getSuccessexampleService() {
+		return successexampleService;
+	}
+
+	@Resource
+	public void setSuccessexampleService(
+			ISuccessexampleService successexampleService) {
+		this.successexampleService = successexampleService;
+	}
+
+	public Successexample getSuccessexample() {
+		return successexample;
+	}
+
+	public void setSuccessexample(Successexample successexample) {
+		this.successexample = successexample;
 	}
 
 	

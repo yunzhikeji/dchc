@@ -128,7 +128,8 @@
 										</label>
 									</div>
 									<div class="col-4">
-										<input type="text" name="person.birthday"  value="<s:property value="person.birthday"/>"
+										<input type="text" name="person.birthday"
+											value="<s:property value="person.birthday"/>"
 											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})"
 											id="logmin" class="input-text Wdate" style="width: 200px;">
 									</div>
@@ -181,7 +182,8 @@
 										</label>
 									</div>
 									<div class="col-4">
-										<input type="text" name="contrastMan.contrastTime" value="<s:property value="contrastMan.contrastTime"/>"
+										<input type="text" name="contrastMan.contrastTime"
+											value="<s:property value="contrastMan.contrastTime"/>"
 											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',readOnly:true})"
 											id="logmin" class="input-text Wdate" style="width: 200px;">
 									</div>
@@ -191,7 +193,8 @@
 										</label>
 									</div>
 									<div class="col-4">
-										<input type="text" name="contrastMan.collectionTime" value="<s:property value="contrastMan.collectionTime"/>"
+										<input type="text" name="contrastMan.collectionTime"
+											value="<s:property value="contrastMan.collectionTime"/>"
 											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',readOnly:true})"
 											id="logmin" class="input-text Wdate" style="width: 200px;">
 									</div>
@@ -226,7 +229,6 @@
 										</tr>
 									</table>
 								</div>
-
 								<div class="row cl mt-15">
 									<div class="col-12 mb-15 c-primary f-16"
 										style="border-bottom: solid 2px #2DABF7">
@@ -237,7 +239,8 @@
 										<table width="100%" border="0" cellspacing="0" cellpadding="0">
 											<tr>
 												<td align="center">
-													<img id="myimage1" class="img-responsive thumbnail" src="<%=basePath%>${contrastMan.registerAddressPhoto}"
+													<img id="myimage1" class="img-responsive thumbnail"
+														src="<%=basePath%>${contrastMan.registerAddressPhoto}"
 														width="176px" height="220px" alt="户籍照片" />
 													<script type="text/javascript">
 															function change1() {
@@ -296,7 +299,8 @@
 										<table width="100%" border="0" cellspacing="0" cellpadding="0">
 											<tr>
 												<td align="center">
-													<img id="myimage2" class="img-responsive thumbnail" src="<%=basePath%>${contrastMan.criminalRecordPhoto}"
+													<img id="myimage2" class="img-responsive thumbnail"
+														src="<%=basePath%>${contrastMan.criminalRecordPhoto}"
 														width="176px" height="220px" alt="前科照片" />
 													<script type="text/javascript">
 															function change2() {
@@ -351,214 +355,283 @@
 										</table>
 									</div>
 								</div>
-								<div class="row cl mb-10"></div>
 							</div>
-						</div>
-						<div class="row cl mt-20">
-							<div class="col-12 mb-0 c-primary f-16"
-								style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
-								发起查证信息
-								<input class="btn btn-primary radius mt-10 f-r" type="button"
-									onclick="addPage('发起查证信息','personAction!goToAddJudge?id=<s:property value="id"/>&jtype=2','650','300')"
-									value="发起查证信息">
+							<div class="row cl mt-20">
+								<div class="col-12 mb-0 c-primary f-16"
+									style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
+									发起查证信息
+									<input class="btn btn-primary radius mt-10 f-r" type="button"
+										onclick="addPage('发起查证信息','personAction!goToAddJudge?id=<s:property value="id"/>&jtype=2','650','300')"
+										value="发起查证信息">
+								</div>
+								<div class="col-12">
+									<table class="table table-border table-bg mb-10"
+										style="table-layout: fixed;">
+										<thead>
+											<tr>
+												<th width="7%">
+													查证次序
+												</th>
+												<th width="24%">
+													报送机构
+												</th>
+												<th width="57%">
+													查证要求
+												</th>
+												<th width="12%">
+													操作
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<s:if test="person.judges.size>0">
+												<s:iterator value="person.judges" var="judge"
+													status="status">
+													<tr>
+														<td>
+															<s:property value="indexNumber" />
+														</td>
+														<td>
+															<s:property value="reportUnit" />
+														</td>
+														<td
+															style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+															<a href="#" onclick="javascript::"> <s:property
+																	value="judgeRequirement" /> </a>
+														</td>
+														<td>
+															<a style="text-decoration: none" class="ml-5"
+																onclick="addPage('编辑查证信息','personAction!loadJudge?jid=<s:property value="id" />','500','300')"
+																href="javascript:;" title="编辑"><i
+																class="Hui-iconfont">&#xe6df;</i> </a>
+															<a style="text-decoration: none" class="ml-5"
+																href="javascript:;"
+																onclick="deleteJudge(<s:property value="id" />);"
+																title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
+														</td>
+													</tr>
+												</s:iterator>
+											</s:if>
+										</tbody>
+									</table>
+								</div>
 							</div>
-							<div class="col-12">
-								<table class="table table-border table-bg mb-10"
-									style="table-layout: fixed;">
-									<thead>
-										<tr>
-											<th width="7%">
-												查证次序
-											</th>
-											<th width="24%">
-												报送机构
-											</th>
-											<th width="57%">
-												查证要求
-											</th>
-											<th width="12%">
-												操作
-											</th>
-										</tr>
-									</thead>
-									<tbody>
-										<s:if test="person.judges.size>0">
-											<s:iterator value="person.judges" var="judge" status="status">
-												<tr>
-													<td>
-														<s:property value="indexNumber" />
-													</td>
-													<td>
-														<s:property value="reportUnit" />
-													</td>
-													<td
-														style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
-														<a href="#" onclick="javascript::"> <s:property
-																value="judgeRequirement" /> </a>
-													</td>
-													<td>
-														<a style="text-decoration: none" class="ml-5"
-															onclick="addPage('编辑查证信息','personAction!loadJudge?jid=<s:property value="id" />','500','300')"
-															href="javascript:;" title="编辑"><i
-															class="Hui-iconfont">&#xe6df;</i> </a>
-														<a style="text-decoration: none" class="ml-5"
-															href="javascript:;"
-															onclick="deleteJudge(<s:property value="id" />);"
-															title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
-													</td>
-												</tr>
-											</s:iterator>
-										</s:if>
-									</tbody>
+							<div class="row cl mt-20">
+								<div class="col-12 mb-0 c-primary f-16"
+									style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
+									查证情况
+								</div>
+								<div class="col-12">
+									<table class="table table-border table-bg mb-10">
+										<thead>
+											<tr>
+												<th>
+													查证次序
+												</th>
+												<th align="center">
+													刑技查证
+												</th>
+												<th align="center">
+													网技查证
+												</th>
+												<th align="center">
+													情报查证
+												</th>
+												<th align="center">
+													图像查证
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<s:if test="person.judges.size>0">
+												<s:iterator value="person.judges" var="judge"
+													status="status">
+													<tr>
+														<td>
+															<s:property value="indexNumber" />
+														</td>
+														<td>
+															<s:textarea name="criminalJudge" cssClass="input-text"
+																id="criminalJudge"
+																cssStyle="width: 260px; height: 180px; float: left;"
+																readonly="true"></s:textarea>
+														</td>
+														<td>
+															<s:textarea name="networkJudge" cssClass="input-text"
+																id="networkJudge"
+																cssStyle="width: 260px; height: 180px; float: left;"
+																readonly="true"></s:textarea>
+														</td>
+														<td>
+															<s:textarea name="intelligenceJudge"
+																cssClass="input-text" id="intelligenceJudge"
+																cssStyle="width: 260px; height: 180px; float: left;"
+																readonly="true"></s:textarea>
+														</td>
+														<td>
+															<s:textarea name="imageJudge" cssClass="input-text"
+																id="imageJudge"
+																cssStyle="width: 260px; height: 180px; float: left;"
+																readonly="true"></s:textarea>
+														</td>
+													</tr>
+												</s:iterator>
+											</s:if>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="row cl">
+								<div class="col-12 mb-10 c-primary f-16"
+									style="border-bottom: solid 2px #2DABF7">
+									完结情况
+								</div>
+								<table width="100%" border="0" cellspacing="0" cellpadding="0"
+									style="line-height: 45px;">
+									<tr>
+										<td width="86%" style="padding-left: 9%;">
+											<s:radio theme="simple" cssStyle="width:36px"
+												cssClass="check-box"
+												list='#{ 1:"抓获", 2:"死亡", 3:"撤销案件", 4:"释放", 5:"治安拘留", 6:"刑事拘留", 7:"留置盘问", 8:"其他" }'
+												name="person.endSituation" />
+										</td>
+									</tr>
+								</table>
+
+							</div>
+							<div class="col-12 mb-10 c-primary f-16"
+								style="border-bottom: solid 2px #2DABF7">
+								综合情况
+							</div>
+
+							<div class="row cl">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0"
+									style="line-height: 45px;">
+									<tr>
+										<td width="10%" valign="top">
+											<label class="form-label text-r">
+												综合情况：
+											</label>
+										</td>
+										<td>
+											<s:textfield name="person.comprehensiveJudge"
+												cssClass="input-text" id="input9"
+												cssStyle="width: 1400px; height: 80px; float: left;"
+												placeholder="根据以上研判信息填写综合情况"></s:textfield>
+										</td>
+									</tr>
+								</table>
+								<div class="col-12 mb-10 c-primary f-16"
+									style="border-bottom: solid 2px #2DABF7">
+									领导批示
+								</div>
+								<table width="100%" border="0" cellspacing="0" cellpadding="0"
+									style="line-height: 45px;">
+									<tr>
+										<td width="10%" valign="top">
+											<label class="form-label text-r">
+												领导批示：
+											</label>
+										</td>
+										<td>
+											<s:textfield name="person.leaderInstruction"
+												cssClass="input-text" id="input9"
+												cssStyle="width: 1400px; height: 80px; float: left;"
+												placeholder="领导批示填写"></s:textfield>
+										</td>
+									</tr>
 								</table>
 							</div>
 						</div>
-						<div class="row cl mt-20">
-							<div class="col-12 mb-0 c-primary f-16"
-								style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
-								查证情况
-							</div>
-							<div class="col-12">
-								<table class="table table-border table-bg mb-10">
-									<thead>
-										<tr>
-											<th>
-												查证次序
-											</th>
-											<th align="center">
-												刑技查证
-											</th>
-											<th align="center">
-												网技查证
-											</th>
-											<th align="center">
-												情报查证
-											</th>
-											<th align="center">
-												图像查证
-											</th>
+					<!--流转信息-->
+					<div class="tabCon">
+						<div class="row cl">
+							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+								<div style="height: 100px; width: 200px; border: solid 1px #666">
+									<table width="100%" border="0" cellspacing="0" cellpadding="0">
+										<tr bgcolor="#ccc">
+											<td>
+												&nbsp;
+											</td>
 										</tr>
-									</thead>
-									<tbody>
-										<s:if test="person.judges.size>0">
-											<s:iterator value="person.judges" var="judge" status="status">
-												<tr>
-													<td>
-														<s:property value="indexNumber" />
-													</td>
-													<td>
-														<s:textarea name="criminalJudge" cssClass="input-text"
-															id="criminalJudge"
-															cssStyle="width: 260px; height: 180px; float: left;"
-															readonly="true"></s:textarea>
-													</td>
-													<td>
-														<s:textarea name="networkJudge" cssClass="input-text"
-															id="networkJudge"
-															cssStyle="width: 260px; height: 180px; float: left;"
-															readonly="true"></s:textarea>
-													</td>
-													<td>
-														<s:textarea name="intelligenceJudge" cssClass="input-text"
-															id="intelligenceJudge"
-															cssStyle="width: 260px; height: 180px; float: left;"
-															readonly="true"></s:textarea>
-													</td>
-													<td>
-														<s:textarea name="imageJudge" cssClass="input-text"
-															id="imageJudge"
-															cssStyle="width: 260px; height: 180px; float: left;"
-															readonly="true"></s:textarea>
-													</td>
-												</tr>
-											</s:iterator>
-										</s:if>
-									</tbody>
+										<tr>
+											<td>
+												&nbsp;
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="row cl">
+							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+								<div style="height: 25px; width: 200px; text-align: center">
+									<i class="Hui-iconfont f-18 ">&#xe674;</i>
+								</div>
+							</div>
+						</div>
+						<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+							<div style="height: 100px; width: 200px; border: solid 1px #666">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0">
+									<tr bgcolor="#ccc">
+										<td>
+											&nbsp;
+										</td>
+									</tr>
+									<tr>
+										<td>
+											&nbsp;
+										</td>
+									</tr>
 								</table>
 							</div>
 						</div>
 						<div class="row cl">
-							<div class="col-12 mb-10 c-primary f-16"
-								style="border-bottom: solid 2px #2DABF7">
-								完结情况
+							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+								<div style="height: 25px; width: 200px; text-align: center">
+									<i class="Hui-iconfont f-18 ">&#xe674;</i>
+								</div>
 							</div>
-							<table width="100%" border="0" cellspacing="0" cellpadding="0"
-								style="line-height: 45px;">
-								<tr>
-									<td width="86%" style="padding-left: 9%;">
-										<s:radio theme="simple" cssStyle="width:36px"
-											cssClass="check-box"
-											list='#{ 1:"抓获", 2:"死亡", 3:"撤销案件", 4:"释放", 5:"治安拘留", 6:"刑事拘留", 7:"留置盘问", 8:"其他" }'
-											name="person.endSituation" />
-									</td>
-								</tr>
-							</table>
-
 						</div>
-						<div class="col-12 mb-10 c-primary f-16"
-							style="border-bottom: solid 2px #2DABF7">
-							综合情况
+						<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+							<div
+								style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+								完结
+							</div>
 						</div>
-
 						<div class="row cl">
-							<table width="100%" border="0" cellspacing="0" cellpadding="0"
-								style="line-height: 45px;">
-								<tr>
-									<td width="10%" valign="top">
-										<label class="form-label text-r">
-											综合情况：
-										</label>
-									</td>
-									<td>
-										<s:textfield name="person.comprehensiveJudge"
-											cssClass="input-text" id="input9"
-											cssStyle="width: 800px; height: 80px; float: left;"
-											placeholder="根据以上研判信息填写综合情况"></s:textfield>
-									</td>
-								</tr>
-							</table>
-							<div class="col-12 mb-10 c-primary f-16"
-								style="border-bottom: solid 2px #2DABF7">
+							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+								<div style="height: 25px; width: 200px; text-align: center">
+									<i class="Hui-iconfont f-18 ">&#xe674;</i>
+								</div>
+							</div>
+						</div>
+						<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+							<div
+								style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
 								领导批示
 							</div>
-							<table width="100%" border="0" cellspacing="0" cellpadding="0"
-								style="line-height: 45px;">
-								<tr>
-									<td width="10%" valign="top">
-										<label class="form-label text-r">
-											领导批示：
-										</label>
-									</td>
-									<td>
-										<s:textfield name="person.leaderInstruction"
-											cssClass="input-text" id="input9"
-											cssStyle="width: 800px; height: 80px; float: left;"
-											placeholder="领导批示填写"></s:textfield>
-									</td>
-								</tr>
-							</table>
 						</div>
 					</div>
 				</div>
-			</div>
-			<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
-			<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
-			<script type="text/javascript"
-				src="lib/My97DatePicker/WdatePicker.js"></script>
-			<script type="text/javascript" src="lib/icheck/jquery.icheck.min.js"></script>
-			<script type="text/javascript"
-				src="lib/Validform/5.3.2/Validform.min.js"></script>
-			<script type="text/javascript"
-				src="lib/webuploader/0.1.5/webuploader.min.js"></script>
-			<script type="text/javascript"
-				src="lib/ueditor/1.4.3/ueditor.config.js"></script>
-			<script type="text/javascript"
-				src="lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
-			<script type="text/javascript"
-				src="lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
-			<script type="text/javascript" src="js/H-ui.js"></script>
-			<script type="text/javascript" src="js/H-ui.admin.js"></script>
-			<script type="text/javascript">
+				<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+				<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
+				<script type="text/javascript"
+					src="lib/My97DatePicker/WdatePicker.js"></script>
+				<script type="text/javascript" src="lib/icheck/jquery.icheck.min.js"></script>
+				<script type="text/javascript"
+					src="lib/Validform/5.3.2/Validform.min.js"></script>
+				<script type="text/javascript"
+					src="lib/webuploader/0.1.5/webuploader.min.js"></script>
+				<script type="text/javascript"
+					src="lib/ueditor/1.4.3/ueditor.config.js"></script>
+				<script type="text/javascript"
+					src="lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+				<script type="text/javascript"
+					src="lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+				<script type="text/javascript" src="js/H-ui.js"></script>
+				<script type="text/javascript" src="js/H-ui.admin.js"></script>
+				<script type="text/javascript">
 
 $(function(){
 $.Huitab("#tab_demo .tabBar span","#tab_demo .tabCon","current","click","0");
@@ -626,15 +699,15 @@ function article_save(obj,id){
 	});
 }
 </script>
-			<s:hidden name="contrastMan.id" title="人员子表自身id"></s:hidden>
-			<s:hidden name="contrastMan.registerAddressPhoto" title="户籍照片"></s:hidden>
-			<s:hidden name="contrastMan.criminalRecordPhoto" title="前科照片"></s:hidden>
-			<s:hidden name="person.type" title="人员类型"></s:hidden>
-			<s:hidden name="person.id" title="人员id"></s:hidden>
-			<s:hidden name="person.userRole.id" title="人员子表userRoleid"></s:hidden>
-			<s:hidden name="person.photoImg" title="人员照片"></s:hidden>
-			<s:hidden name="person.handleState" title="办理状态"></s:hidden>
-			<s:hidden name="person.joinDate" title="录入时间"></s:hidden>
+				<s:hidden name="contrastMan.id" title="人员子表自身id"></s:hidden>
+				<s:hidden name="contrastMan.registerAddressPhoto" title="户籍照片"></s:hidden>
+				<s:hidden name="contrastMan.criminalRecordPhoto" title="前科照片"></s:hidden>
+				<s:hidden name="person.type" title="人员类型"></s:hidden>
+				<s:hidden name="person.id" title="人员id"></s:hidden>
+				<s:hidden name="person.userRole.id" title="人员子表userRoleid"></s:hidden>
+				<s:hidden name="person.photoImg" title="人员照片"></s:hidden>
+				<s:hidden name="person.handleState" title="办理状态"></s:hidden>
+				<s:hidden name="person.joinDate" title="录入时间"></s:hidden>
 		</form>
 	</body>
 </html>

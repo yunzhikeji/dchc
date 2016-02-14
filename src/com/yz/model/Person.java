@@ -1,7 +1,9 @@
 package com.yz.model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -114,7 +116,7 @@ public class Person implements java.io.Serializable {
 		return this.analyzeMan;
 	}
 
-	@Column(name = "birthday", length = 20)
+	@Column(name = "birthday", length = 30)
 	public String getBirthday() {
 		return this.birthday;
 	}

@@ -61,7 +61,7 @@
 						<td>
 							会话时间过长，session丢失，请重新登陆.&nbsp;
 							<span id="jumpTo">5</span>秒后跳转到
-						 <strong><u><a href="login.jsp">登陆页面</a></strong>
+						 <strong><u><a href="login.jsp" arget="_blank">登陆页面</a></strong>
 						</td>
 						<script type="text/javascript">countDown(5,'<s:property value="arg[0]"/>');</script>
 					</tr>

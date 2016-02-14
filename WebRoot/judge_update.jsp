@@ -199,7 +199,7 @@
 			<s:hidden name="judge.imageJudge"></s:hidden>
 		</div>
 		</s:if>
-		<s:if test='%{#session.userRoleo.unit.name == "网安大队"}'>
+		<s:if test='%{#session.userRoleo.unit.number == "371402020000"}'>
 		<div class="row cl">
 			<label class="form-label col-2">
 				网技<s:if test="judge.jtype==1">研判</s:if><s:if test="judge.jtype==2">查证</s:if>：
@@ -215,7 +215,7 @@
 			<s:hidden name="judge.imageJudge"></s:hidden>
 		</div>
 		</s:if>
-		<s:if test='%{#session.userRoleo.unit.name == "指挥中心"}'>
+		<s:if test='%{#session.userRoleo.unit.number == "371402060000"}'>
 		<div class="row cl">
 			<label class="form-label col-2">
 				情报<s:if test="judge.jtype==1">研判</s:if><s:if test="judge.jtype==2">查证</s:if>：

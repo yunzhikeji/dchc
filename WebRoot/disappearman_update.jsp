@@ -785,7 +785,6 @@
 													</div>
 												</div>
 											</div>
-
 								</table>
 							</div>
 							<div class="row cl mt-20">
@@ -868,7 +867,6 @@
 											cssStyle="width: 95%; height: 50px;"></s:textarea>
 									</div>
 								</div>
-							</div>
 						</div>
 
 
@@ -1031,7 +1029,7 @@
 									<td>
 										<s:textfield name="person.comprehensiveJudge"
 											cssClass="input-text" id="input9"
-											cssStyle="width: 800px; height: 80px; float: left;"
+											cssStyle="width: 1400px; height: 80px; float: left;"
 											placeholder="根据以上研判信息填写综合情况"></s:textfield>
 									</td>
 								</tr>
@@ -1051,13 +1049,84 @@
 									<td>
 										<s:textfield name="person.leaderInstruction"
 											cssClass="input-text" id="input9"
-											cssStyle="width: 800px; height: 80px; float: left;"
+											cssStyle="width: 1400px; height: 80px; float: left;"
 											placeholder="领导批示填写"></s:textfield>
 									</td>
 								</tr>
 							</table>
 						</div>
 					</div>
+									<!--流转信息-->
+					<div class="tabCon">
+						<div class="row cl">
+							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+								<div style="height: 100px; width: 200px; border: solid 1px #666">
+									<table width="100%" border="0" cellspacing="0" cellpadding="0">
+										<tr bgcolor="#ccc">
+											<td>
+												&nbsp;
+											</td>
+										</tr>
+										<tr>
+											<td>
+												&nbsp;
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="row cl">
+							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+								<div style="height: 25px; width: 200px; text-align: center">
+									<i class="Hui-iconfont f-18 ">&#xe674;</i>
+								</div>
+							</div>
+						</div>
+						<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+							<div style="height: 100px; width: 200px; border: solid 1px #666">
+								<table width="100%" border="0" cellspacing="0" cellpadding="0">
+									<tr bgcolor="#ccc">
+										<td>
+											&nbsp;
+										</td>
+									</tr>
+									<tr>
+										<td>
+											&nbsp;
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="row cl">
+							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+								<div style="height: 25px; width: 200px; text-align: center">
+									<i class="Hui-iconfont f-18 ">&#xe674;</i>
+								</div>
+							</div>
+						</div>
+						<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+							<div
+								style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+								完结
+							</div>
+						</div>
+						<div class="row cl">
+							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+								<div style="height: 25px; width: 200px; text-align: center">
+									<i class="Hui-iconfont f-18 ">&#xe674;</i>
+								</div>
+							</div>
+						</div>
+						<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+							<div
+								style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+								领导批示
+							</div>
+						</div>
+					</div>
+				</div>
 				</div>
 			</div>
 			<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>

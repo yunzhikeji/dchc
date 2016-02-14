@@ -19,17 +19,16 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.opensymphony.xwork2.ActionSupport;
+import com.yz.model.Pnotice;
+import com.yz.model.UserRole;
+import com.yz.service.IPnoticeService;
 import com.yz.util.ConvertUtil;
 import com.yz.vo.AjaxMsgVO;
-import com.opensymphony.xwork2.ActionSupport;
-import com.yz.model.Unit;
-import com.yz.model.UserRole;
-import com.yz.service.IUnitService;
 
-@Component("unitAction")  
+@Component("pnoticeAction")  
 @Scope("prototype")
-public class UnitAction extends ActionSupport implements RequestAware,
-		SessionAware, ServletResponseAware, ServletRequestAware {
+public class PnoticeAction extends ActionSupport implements RequestAware,SessionAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
 	Map<String, Object> request;
@@ -51,19 +50,21 @@ public class UnitAction extends ActionSupport implements RequestAware,
 	private String convalue;
 	private int status;// 按状态
 	private int pid;// 按用户id
+	private String starttime;
+	private String endtime;
 
 	//批量删除
 	private String checkedIDs;
 	
 	//service层对象
-	private IUnitService unitService;
+	private IPnoticeService pnoticeService;
 
 	//单个表对象
-	private Unit unit;
+	private Pnotice pnotice;
 	
 	//list表对象
 	 
-	private List<Unit> units;
+	private List<Pnotice> pnotices;
 
 	//权限
 	private int ulimit;
@@ -74,7 +75,6 @@ public class UnitAction extends ActionSupport implements RequestAware,
 	 * 机构管理
 	 */
 	public String list() throws Exception {
-
 		UserRole userRoleo = (UserRole) session.get("userRoleo");
 		if (userRoleo == null) {
 			return "opsessiongo";
@@ -85,16 +85,21 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		if (page < 1) {
 			page = 1;
 		}
+		if(starttime!=null&&!starttime.equals("")){
+			starttime=URLDecoder.decode(starttime, "utf-8");
+		}
+		if(endtime!=null&&!endtime.equals("")){
+			endtime=URLDecoder.decode(endtime, "utf-8");
+		}
 		// 总记录数
-		totalCount = unitService.getTotalCount(con, convalue, userRoleo);
+		totalCount = pnoticeService.getTotalCount(con, convalue, userRoleo,starttime,endtime);
 		// 总页数
-		pageCount = unitService.getPageCount(totalCount, size);
+		pageCount = pnoticeService.getPageCount(totalCount, size);
 		if (page > pageCount && pageCount != 0) {
 			page = pageCount;
 		}
 		// 所有当前页记录对象
-		units = unitService.queryList(con, convalue, userRoleo, page, size);
-		
+		pnotices = pnoticeService.queryList(con, convalue, userRoleo, page, size,starttime,endtime);
 		return "list";
 	}
 
@@ -124,10 +129,11 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo_child";
 		}
-		unitService.add(unit);
+		pnotice.setUserRole(userRoleo);
+		pnoticeService.add(pnotice);
 
-		arg[0] = "unitAction!list";
-		arg[1] = "机构管理";
+		arg[0] = "pnoticeAction!list";
+		arg[1] = "通知管理";
 		return "success_child";
 	}
 
@@ -141,9 +147,9 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		unitService.deleteById(id);
-		arg[0] = "unitAction!list";
-		arg[1] = "机构管理";
+		pnoticeService.deleteById(id);
+		arg[0] = "pnoticeAction!list";
+		arg[1] = "通知管理";
 		return SUCCESS;
 	}
 	
@@ -153,12 +159,12 @@ public class UnitAction extends ActionSupport implements RequestAware,
 	 * 
 	 * @return
 	 */
-	public String deleteUnits() {
+	public String deletePnotices() {
 		
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
 		for(int i=0;i<ids.length;i++)
 		{
-			unitService.deleteById(ids[i]);
+			pnoticeService.deleteById(ids[i]);
 		}
 		AjaxMsgVO msgVO = new AjaxMsgVO();
 		msgVO.setMessage("批量删除成功.");
@@ -188,9 +194,9 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		unit = unitService.loadById(id);// 当前修改机构的id
+		pnotice = pnoticeService.loadById(id);// 当前修改通知的id
 		/*
-		 * 当前操作机构权限划分
+		 * 当前操作通知权限划分
 		 */
 		return "load";
 	}
@@ -205,9 +211,10 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo_child";
 		}
-		unitService.update(unit);
-		arg[0] = "unitAction!list";
-		arg[1] = "机构管理";
+		pnotice.setUserRole(userRoleo);
+		pnoticeService.update(pnotice);
+		arg[0] = "pnoticeAction!list";
+		arg[1] = "通知管理";
 		return "success_child";
 	}
 
@@ -222,7 +229,7 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		unit = unitService.loadById(id);
+		pnotice = pnoticeService.loadById(id);
 		return "view";
 	}
 
@@ -326,29 +333,29 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		this.arg = arg;
 	}
 
-	public IUnitService getUnitService() {
-		return unitService;
+	public IPnoticeService getPnoticeService() {
+		return pnoticeService;
 	}
 
 	@Resource
-	public void setUnitService(IUnitService unitService) {
-		this.unitService = unitService;
+	public void setPnoticeService(IPnoticeService pnoticeService) {
+		this.pnoticeService = pnoticeService;
 	}
 
-	public Unit getUnit() {
-		return unit;
+	public Pnotice getPnotice() {
+		return pnotice;
 	}
 
-	public void setUnit(Unit unit) {
-		this.unit = unit;
+	public void setPnotice(Pnotice pnotice) {
+		this.pnotice = pnotice;
 	}
 
-	public List<Unit> getUnits() {
-		return units;
+	public List<Pnotice> getPnotices() {
+		return pnotices;
 	}
 
-	public void setUnits(List<Unit> units) {
-		this.units = units;
+	public void setPnotices(List<Pnotice> pnotices) {
+		this.pnotices = pnotices;
 	}
 
 	public String getCheckedIDs() {
@@ -385,4 +392,26 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		this.req = req;
 	}
 
+
+	public String getStarttime() {
+		return starttime;
+	}
+
+
+	public void setStarttime(String starttime) {
+		this.starttime = starttime;
+	}
+
+
+	public String getEndtime() {
+		return endtime;
+	}
+
+
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
+	
+	
+	
 }
