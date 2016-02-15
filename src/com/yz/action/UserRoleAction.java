@@ -25,14 +25,31 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.opensymphony.xwork2.ActionSupport;
+import com.yz.model.AnalyzeMan;
+import com.yz.model.CommonClue;
+import com.yz.model.ContrastMan;
+import com.yz.model.GamblingCriminalMan;
+import com.yz.model.GuiltSafeguardMan;
+import com.yz.model.Person;
+import com.yz.model.Pnotice;
+import com.yz.model.Successexample;
+import com.yz.model.Troubleshooting;
+import com.yz.model.Unit;
+import com.yz.model.UserRole;
+import com.yz.service.IAnalyzeManService;
+import com.yz.service.ICommonClueService;
+import com.yz.service.IContrastManService;
+import com.yz.service.IGamblingCriminalManService;
+import com.yz.service.IGuiltSafeguardManService;
+import com.yz.service.IPnoticeService;
+import com.yz.service.ISuccessexampleService;
+import com.yz.service.ITroubleshootingService;
+import com.yz.service.IUnitService;
+import com.yz.service.IUserRoleService;
 import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
-import com.opensymphony.xwork2.ActionSupport;
-import com.yz.model.Unit;
-import com.yz.model.UserRole;
-import com.yz.service.IUnitService;
-import com.yz.service.IUserRoleService;
 
 @Component("userRoleAction")  
 @Scope("prototype")
@@ -70,6 +87,15 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	//service层对象
 	private IUnitService unitService;
 	private IUserRoleService userRoleService;
+	private IPnoticeService pnoticeService;
+	private ISuccessexampleService successexampleService;
+	private IGamblingCriminalManService gamblingCriminalManService;
+	private IGuiltSafeguardManService guiltSafeguardManService;
+	private IAnalyzeManService analyzeManService;
+	private IContrastManService contrastManService;
+	private ICommonClueService commonClueService;
+	
+	private ITroubleshootingService troubleshootingService;
 
 	//单个对象
 	private UserRole userRole;
@@ -77,6 +103,15 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	//list对象
 	private List<UserRole> userRoles;
 	private List<Unit> units;
+	private List<Pnotice> pnotices;
+	private List<Successexample> successexamples;
+	private List<GamblingCriminalMan> gamblingCriminalMans;
+	private List<GuiltSafeguardMan> guiltSafeguardMans;
+	private List<AnalyzeMan> analyzeMans;
+	private List<ContrastMan> contrastMans;
+	private List<CommonClue> commonClues;
+	
+	private List<Troubleshooting> troubleshootings;
 
 	
 	//个人资料新旧密码
@@ -112,10 +147,38 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 			request.put("loginFail", loginfail);
 			return "adminLogin";
 		} else {
-			session.put("userRoleo", userRoleLogin);
+			//设置登陆时间
+			if(session.get("userRoleo")==null)
+			{
+				setLoginTime(userRoleLogin);
+				session.put("userRoleo", userRoleLogin);
+			}
 			//checkIP();//检查IP地址
 			return "loginSucc";
 		}
+	}
+	
+	public String welcome()
+	{
+		//欢迎界面
+		pnotices = pnoticeService.getPnotices();
+		successexamples = successexampleService.getSuccessexamples();
+		troubleshootings = troubleshootingService.getTroubleshootings();
+		return "welcome";
+	}
+
+	//设置登陆时间
+	private void setLoginTime(UserRole userRoleLogin) {
+		// TODO Auto-generated method stub
+		if(userRoleLogin.getBeforeLoginTime()==""||userRoleLogin.getBeforeLoginTime()==null)
+		{
+			userRoleLogin.setBeforeLoginTime(DateTimeKit.getLocalTime());
+		}else
+		{
+			userRoleLogin.setBeforeLoginTime(userRoleLogin.getCurrentLoginTime());
+		}
+		userRoleLogin.setCurrentLoginTime(DateTimeKit.getLocalTime());
+		userRoleService.update(userRoleLogin);
 	}
 
 	private boolean checkDatebase() {
@@ -671,6 +734,147 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 
 	public void setPassword2(String password2) {
 		this.password2 = password2;
+	}
+
+	public IPnoticeService getPnoticeService() {
+		return pnoticeService;
+	}
+
+	@Resource
+	public void setPnoticeService(IPnoticeService pnoticeService) {
+		this.pnoticeService = pnoticeService;
+	}
+
+	public List<Pnotice> getPnotices() {
+		return pnotices;
+	}
+
+	public void setPnotices(List<Pnotice> pnotices) {
+		this.pnotices = pnotices;
+	}
+
+	public ISuccessexampleService getSuccessexampleService() {
+		return successexampleService;
+	}
+
+	@Resource
+	public void setSuccessexampleService(
+			ISuccessexampleService successexampleService) {
+		this.successexampleService = successexampleService;
+	}
+
+	public IGamblingCriminalManService getGamblingCriminalManService() {
+		return gamblingCriminalManService;
+	}
+
+	@Resource
+	public void setGamblingCriminalManService(
+			IGamblingCriminalManService gamblingCriminalManService) {
+		this.gamblingCriminalManService = gamblingCriminalManService;
+	}
+
+	public IGuiltSafeguardManService getGuiltSafeguardManService() {
+		return guiltSafeguardManService;
+	}
+
+	@Resource
+	public void setGuiltSafeguardManService(
+			IGuiltSafeguardManService guiltSafeguardManService) {
+		this.guiltSafeguardManService = guiltSafeguardManService;
+	}
+
+	public IAnalyzeManService getAnalyzeManService() {
+		return analyzeManService;
+	}
+
+	@Resource
+	public void setAnalyzeManService(IAnalyzeManService analyzeManService) {
+		this.analyzeManService = analyzeManService;
+	}
+
+	public IContrastManService getContrastManService() {
+		return contrastManService;
+	}
+
+	@Resource
+	public void setContrastManService(IContrastManService contrastManService) {
+		this.contrastManService = contrastManService;
+	}
+
+	public ICommonClueService getCommonClueService() {
+		return commonClueService;
+	}
+
+	@Resource
+	public void setCommonClueService(ICommonClueService commonClueService) {
+		this.commonClueService = commonClueService;
+	}
+
+	public List<Successexample> getSuccessexamples() {
+		return successexamples;
+	}
+
+	public void setSuccessexamples(List<Successexample> successexamples) {
+		this.successexamples = successexamples;
+	}
+
+	public List<GamblingCriminalMan> getGamblingCriminalMans() {
+		return gamblingCriminalMans;
+	}
+
+	public void setGamblingCriminalMans(
+			List<GamblingCriminalMan> gamblingCriminalMans) {
+		this.gamblingCriminalMans = gamblingCriminalMans;
+	}
+
+	public List<GuiltSafeguardMan> getGuiltSafeguardMans() {
+		return guiltSafeguardMans;
+	}
+
+	public void setGuiltSafeguardMans(List<GuiltSafeguardMan> guiltSafeguardMans) {
+		this.guiltSafeguardMans = guiltSafeguardMans;
+	}
+
+	public List<AnalyzeMan> getAnalyzeMans() {
+		return analyzeMans;
+	}
+
+	public void setAnalyzeMans(List<AnalyzeMan> analyzeMans) {
+		this.analyzeMans = analyzeMans;
+	}
+
+	public List<ContrastMan> getContrastMans() {
+		return contrastMans;
+	}
+
+	public void setContrastMans(List<ContrastMan> contrastMans) {
+		this.contrastMans = contrastMans;
+	}
+
+	public List<CommonClue> getCommonClues() {
+		return commonClues;
+	}
+
+	public void setCommonClues(List<CommonClue> commonClues) {
+		this.commonClues = commonClues;
+	}
+
+	public ITroubleshootingService getTroubleshootingService() {
+		return troubleshootingService;
+	}
+
+	@Resource
+	public void setTroubleshootingService(
+			ITroubleshootingService troubleshootingService) {
+		this.troubleshootingService = troubleshootingService;
+	}
+
+	public List<Troubleshooting> getTroubleshootings() {
+		return troubleshootings;
+	}
+
+	public void setTroubleshootings(List<Troubleshooting> troubleshootings) {
+		this.troubleshootings = troubleshootings;
 	}
 	
 	

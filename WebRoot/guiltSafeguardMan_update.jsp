@@ -49,12 +49,15 @@
 							<input type="submit" class="btn btn-success radius" id="button"
 								value="保存并提交"></input>
 						</div>
+						<s:if test="person.getEndSituation()!=null&&person.getEndSituation()!='0'">
 						<div class=" f-r pr-5">
 							<button type="button" class="btn btn-success radius" id="button"
-								name="" onClick="addPage('发布案例','addfbal.html')">
+								name=""
+								onclick="addPage('发布案例','personAction!goToAddSuccessexample?id=<s:property value="id"/>','500','300')">
 								<i class="Hui-iconfont">&#xe6bf;</i> 发布案例
 							</button>
 						</div>
+						</s:if>
 					</div>
 				</div>
 

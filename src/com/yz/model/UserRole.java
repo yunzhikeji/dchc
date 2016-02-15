@@ -36,6 +36,8 @@ public class UserRole implements java.io.Serializable {
 	private String photo;//照片
 	private Integer userLimit;//用户权限
 	private Integer sex;//性别
+	private String beforeLoginTime;
+	private String currentLoginTime;
 	private List<Person> persons = new ArrayList<Person>();//录入的人员信息
 	private List<Injurycase> injurycases = new ArrayList<Injurycase>();//录入的重伤案件信息
 	private List<Clue> clues = new ArrayList<Clue>();//录入的刑侦线索信息
@@ -48,7 +50,7 @@ public class UserRole implements java.io.Serializable {
 
 	/** full constructor */
 	public UserRole(Unit unit, String username, String password, String telphone,
-			String number, String realname, String photo, List<Person> persons,Integer userLimit,Integer sex,
+			String number, String realname, String photo, List<Person> persons,Integer userLimit,Integer sex,String beforeLoginTime,String currentLoginTime,
 			List<Injurycase> injurycases, List<Clue> clues, List<Pnotice> pnotices) {
 		this.unit = unit;
 		this.username = username;
@@ -59,6 +61,8 @@ public class UserRole implements java.io.Serializable {
 		this.photo = photo;
 		this.userLimit = userLimit;
 		this.sex = sex;
+		this.beforeLoginTime = beforeLoginTime;
+		this.currentLoginTime = currentLoginTime;
 		this.persons = persons;
 		this.injurycases = injurycases;
 		this.clues = clues;
@@ -66,10 +70,20 @@ public class UserRole implements java.io.Serializable {
 	}
 
 	
-	
+	@Column(name = "beforeLoginTime", length = 50)
+	public String getBeforeLoginTime() {
+		return beforeLoginTime;
+	}
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "userRole")
 	public List<Clue> getClues() {
 		return this.clues;
+	}
+	
+	
+	@Column(name = "currentLoginTime", length = 50)
+	public String getCurrentLoginTime() {
+		return currentLoginTime;
 	}
 
 	// Property accessors
@@ -141,8 +155,16 @@ public class UserRole implements java.io.Serializable {
 		return this.username;
 	}
 
+	public void setBeforeLoginTime(String beforeLoginTime) {
+		this.beforeLoginTime = beforeLoginTime;
+	}
+
 	public void setClues(List<Clue> clues) {
 		this.clues = clues;
+	}
+
+	public void setCurrentLoginTime(String currentLoginTime) {
+		this.currentLoginTime = currentLoginTime;
 	}
 
 	public void setId(Integer id) {

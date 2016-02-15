@@ -699,7 +699,6 @@
 									</table>
 								</div>
 							</div>
-							/
 
 							<div class="col-12 mb-10 c-primary f-16"
 								style="border-bottom: solid 2px #2DABF7">

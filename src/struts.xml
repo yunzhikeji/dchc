@@ -66,6 +66,7 @@
 			
 			<result name="currentUserRole">/currentUserRole.jsp</result>
 			
+			<result name="welcome">/welcome.jsp</result>
 			
 			<result name="invalid.token">/op_failure_child.jsp</result>
 			<interceptor-ref name="defaultStack" />

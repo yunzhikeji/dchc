@@ -18,7 +18,7 @@ public class DateTimeKit {
 	 */
 	public static String getLocalTime() {
 		Date date=new Date();
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String dateString=sdf.format(date);
 		return dateString;
 	}

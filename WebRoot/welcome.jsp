@@ -1,4 +1,13 @@
-﻿<!DOCTYPE HTML>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="/struts-tags" prefix="s"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
+<!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="utf-8">
@@ -6,37 +15,25 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 <meta http-equiv="Cache-Control" content="no-siteapp" />
-<!--[if lt IE 9]>
-<script type="text/javascript" src="lib/html5.js"></script>
-<script type="text/javascript" src="lib/respond.min.js"></script>
-<script type="text/javascript" src="lib/PIE_IE678.js"></script>
-<![endif]-->
 <link href="css/H-ui.min.css" rel="stylesheet" type="text/css" />
 <link href="css/H-ui.admin.css" rel="stylesheet" type="text/css" />
 <link href="css/ncss.css" rel="stylesheet" type="text/css" />
 <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
-<!--[if IE 6]>
-<script type="text/javascript" src="lib/DD_belatedPNG_0.0.8a-min.js" ></script>
-<script>DD_belatedPNG.fix('*');</script>
-<![endif]-->
 <title>我的桌面</title>
 </head>
 <body>
 
 <div class="pd-20">
 <div class="Huialert Huialert-info"><i class="icon-remove f-r" style=" cursor:pointer;">关闭</i>
-<p>欢迎登录 德城公安-合成作战平台  　您上次登录时间：2014-6-14 11:19:55</p>
+<p>欢迎登录 德城公安-合成作战平台  　您上次登录时间：${session.userRoleo.beforeLoginTime}</p>
 
 <div  style=" width: 100%; margin-top:15px;">
 	<div class="BreakingNewsController easing" id="breakingnews">
 		<div class="bn-title"></div>
 		<ul id="abc">
-			<li><a href="#" >【2016-01-15】通知公告通知公告通知公告通知公告</a></li>
-			<li><a href="#" >【2016-02-15】通知公告通知公告通知公告通知公告</a></li>
-			<li><a href="#" >【2016-03-15】通知公告通知公告通知公告通知公告</a></li>
-			<li><a href="#" >【2016-04-15】通知公告通知公告通知公告通知公告</a></li>
-			<li><a href="#" >【2016-05-15】通知公告通知公告通知公告通知公告</a></li>
-			<li><a href="#" >【2016-06-15】通知公告通知公告通知公告通知公告</a></li>
+		<s:iterator value="pnotices" var="pnotice" status="status">
+			<li><a href="pnoticeAction!view?id=<s:property value="id" />" >【<s:property value="releaseTime" />】<s:property value="title" /></a></li>
+		</s:iterator>
 		</ul>
 		<div class="bn-arrows"><span class="bn-arrows-left"></span><span class="bn-arrows-right"></span></div>	
 	</div>
@@ -47,69 +44,17 @@
    <div class="col-6" style="padding:5px;">
      <div class="tabBarbox">
      <div id="tab_daiban" class="HuiTab">
-  <div class="tabBar cl"><span>全局</span><span>治安</span><span>刑事</span></div>
-           
-  <div class="tabCon">
+  <div class="tabBar cl"><span>治安人员</span><span>刑事人员</span><span>其他人员</span></div>
   
-  <div class="tit">事项办理情况统计表 <span class="label label-warning radius f-r " ><a href="#">查看更多</a></span>  </div>
+  
+  <div class="tabCon">
+  <div class="tit">事项办理情况统计表 <span class="label label-warning radius f-r " ></span>  </div>
      <table class="table table-border table-bg table-bordered radius" style="margin:1%; width:98%">
   <thead  class="text-c">
-    <tr class="active"><th width="20%">事项名称</th><th>在办</th><th>本周办结</th><th>本月办结</th><th>上月办结</th><th>本年办结</th></tr>
-  </thead>
-  <tr class="text-c">
-    <td>负案在逃</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-  </tr>
-  <tr class="text-c">
-    <td>留置盘问</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-  </tr>
-  <tr class="text-c">
-    <td>失踪人员</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-  </tr>
-  <tr class="text-c">
-    <td>维稳人员</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-  </tr>
-  <tr class="text-c">
-    <td>线索流转</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-    <td>0</td>
-  </tr>
-</table>
-
-  </div>
-  <div class="tabCon">
-  
-  <div class="tit">事项办理情况统计表 <span class="label label-warning radius f-r " ><a href="#">查看更多</a></span>  </div>
-     <table class="table table-border table-bg table-bordered radius" style="margin:1%; width:98%">
-  <thead  class="text-c">
-    <tr class="active"><th width="20%">事项名称</th><th>在办</th><th>本周办结</th><th>本月办结</th><th>上月办结</th><th>本年办结</th></tr>
+<tr class="active"><th width="20%">事项名称</th><th style="color: red">未办理</th><th>在办理</th><th>已完结</th><th>总计</th></tr>
   </thead>
   <tr class="text-c">
     <td>赌博人员</td>
-    <td>0</td>
-    <td>0</td>
     <td>0</td>
     <td>0</td>
     <td>0</td>
@@ -119,13 +64,9 @@
     <td>0</td>
     <td>0</td>
     <td>0</td>
-    <td>0</td>
-    <td>0</td>
   </tr>
   <tr class="text-c">
     <td>涉恶人员</td>
-    <td>0</td>
-    <td>0</td>
     <td>0</td>
     <td>0</td>
     <td>0</td>
@@ -135,31 +76,61 @@
     <td>0</td>
     <td>0</td>
     <td>0</td>
-    <td>0</td>
-    <td>0</td>
-  </tr>
-  <tr class="text-c">
-    <td>--</td>
-    <td>--</td>
-    <td>--</td>
-    <td>--</td>
-    <td>--</td>
-    <td>--</td>
   </tr>
 </table>
 
   </div>
+           
+  <div class="tabCon">
+  
+  <div class="tit">事项办理情况统计表 <span class="label label-warning radius f-r " ></span>  </div>
+     <table class="table table-border table-bg table-bordered radius" style="margin:1%; width:98%">
+  <thead  class="text-c">
+ <tr class="active"><th width="20%">事项名称</th><th style="color: red">未办理</th><th>在办理</th><th>已完结</th></tr>
+  </thead>
+  <tr class="text-c">
+    <td>负案在逃</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+  </tr>
+  <tr class="text-c">
+    <td>留置盘问</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+  </tr>
+  <tr class="text-c">
+    <td>失踪人员</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+  </tr>
+  <tr class="text-c">
+    <td>维稳人员</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+  </tr>
+  <tr class="text-c">
+    <td>线索流转</td>
+    <td>0</td>
+    <td>0</td>
+    <td>0</td>
+  </tr>
+</table>
+  </div>
+  
+  
   <div class="tabCon">
   
   <div class="tit">事项办理情况统计表 <span class="label label-warning radius f-r " ><a href="#">查看更多</a></span>  </div>
      <table class="table table-border table-bg table-bordered radius" style="margin:1%; width:98%">
   <thead  class="text-c">
-    <tr class="active"><th width="20%">事项名称</th><th>在办</th><th>本周办结</th><th>本月办结</th><th>上月办结</th><th>本年办结</th></tr>
+    <tr class="active"><th width="20%">事项名称</th><th style="color: red">未办理</th><th>在办理</th><th>已完结</th></tr>
   </thead>
   <tr class="text-c">
     <td>技术比中</td>
-    <td>0</td>
-    <td>0</td>
     <td>0</td>
     <td>0</td>
     <td>0</td>
@@ -169,13 +140,9 @@
     <td>0</td>
     <td>0</td>
     <td>0</td>
-    <td>0</td>
-    <td>0</td>
   </tr>
   <tr class="text-c">
     <td>刑事传唤</td>
-    <td>0</td>
-    <td>0</td>
     <td>0</td>
     <td>0</td>
     <td>0</td>
@@ -185,13 +152,9 @@
     <td>0</td>
     <td>0</td>
     <td>0</td>
-    <td>0</td>
-    <td>0</td>
   </tr>
   <tr class="text-c">
     <td>重伤案件</td>
-    <td>0</td>
-    <td>0</td>
     <td>0</td>
     <td>0</td>
     <td>0</td>
@@ -208,15 +171,15 @@
     <div id="tab_yanpan" class="HuiTab">
   <div class="tabBar cl"><span>中队</span><span>派出所1</span><span>派出所2</span></div>
   <div class="tabCon">
-  <div class="tit">事项办理情况统计表 <span class="label label-warning radius f-r " ><a href="#">查看更多</a></span>  </div>
+  <div class="tit">事项办理情况统计表 <span class="label label-warning radius f-r " ></span>  </div>
   <div id="#" style="min-width:450px;height:230px"></div>
   </div>
   <div class="tabCon">
-   <div class="tit">事项办理情况统计表 <span class="label label-warning radius f-r " ><a href="#">查看更多</a></span>  </div>
+   <div class="tit">事项办理情况统计表 <span class="label label-warning radius f-r " ></span>  </div>
   <div id="container" style="min-width:450px;height:230px"></div>
   </div>
   <div class="tabCon">
-   <div class="tit">事项办理情况统计表 <span class="label label-warning radius f-r " ><a href="#">查看更多</a></span>  </div>
+   <div class="tit">事项办理情况统计表 <span class="label label-warning radius f-r " ></span>  </div>
   <div id="#" style="min-width:450px;height:230px"></div>
   </div>
 </div>
@@ -230,11 +193,9 @@
 	<div class="panel-header">成功案例</div>
 	<div class="panel-body">
     <ul class="tlist">
-  <li class="box-1"><a href="#">
-    <time>[2015-11-12]</time>
-    标题标题标题标题标题标题</a></li>
-  <li class="box-1"><time>[2015-11-12]</time>标题标题标题标题标题标题</li>
-  <li class="box-1"><time>[2015-11-12]</time>标题标题标题标题标题标题</li>
+    <s:iterator value="successexamples" var="successexample" status="status">
+ 	 <li class="box-1"><a href="successexampleAction!view?id=<s:property value="id"/>"><time>[<s:property value="releaseTime"/>]</time><s:property value="title"/></a></li>
+  </s:iterator>
 </ul>
     
     </div>
@@ -243,32 +204,13 @@
 <div class="col-6" style="padding:5px;">
 <div class="panel panel-default">
 	<div class="panel-header">疑难解答</div>
-	<div class="panel-body">面板内容</div>
+	   <s:iterator value="troubleshootings" var="troubleshooting" status="status">
+ 	 <li class="box-1"><a href="personAction!loadTroubleshooting?troubid=<s:property value="id"/>"><time>[<s:property value="releaseTime"/>]</time><s:property value="title"/></a></li>
+  </s:iterator>
 </div>
 </div>
 </div>
 
-<div class="row cl">
-<div class="col-6" style="padding:5px;">
-<div class="panel panel-default " >
-	<div class="panel-header ">通知公告<span class="f-r" style=" cursor:pointer;">more</span></div>
-	<div class="panel-body">面板内容</div>
-</div>
-</div>
-<div class="col-6" style="padding:5px;">
-<div class="panel panel-default">
-	<div class="panel-header">最新线索</div>
-	<div class="panel-body">面板内容</div>
-</div>
-</div>
-</div>
-
-<div class="row cl">
-<div class="col-12" style="padding:5px;"></div>
-
-</div>
-    
-</div>
 <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script> 
 <script type="text/javascript" src="lib/Validform/5.3.2/Validform.min.js"></script> 
 <script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script> 

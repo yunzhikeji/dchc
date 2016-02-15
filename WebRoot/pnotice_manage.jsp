@@ -146,7 +146,7 @@
 								</td>
 								<td class="td-manage">
 									<a style="text-decoration: none" class="ml-5"
-										onclick="childPageFull('编辑人员','pnoticeAction!load?id=<s:property value="id"/>')"
+										onclick="childPageFull('编辑通知公告','pnoticeAction!load?id=<s:property value="id"/>')"
 										href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i>
 									</a>
 									<a style="text-decoration: none" class="ml-5"

@@ -999,6 +999,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			person.setPhotoImg("person"+"/"+imageName);
 		}
 		
+		if(person.getEndSituation()!=null&&person.getEndSituation()!="")
+		{
+			person.setHandleState(3);//完结
+		}
 		personService.update(person);
 		
 		arg[0] = "personAction!list?type="+person.getType();
@@ -1031,10 +1035,26 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	
 	public String addLawcase() throws Exception
 	{
+		changePersonHandleState(lawcase.getPerson().getId());
 		lawcaseService.add(lawcase);
 		return "success_child";
 	}
 	
+	//改变人员当前处理状态
+	private void changePersonHandleState(int perid) {
+		
+		Person per = personService.loadById(perid);
+		if(per!=null)
+		{
+			if(per.getHandleState()==1)
+			{
+				per.setHandleState(2);
+				personService.update(per);
+			}
+		}
+		
+	}
+
 	public String deleteLawcase() throws Exception{
 
 		lawcase = lawcaseService.loadById(lawid);
@@ -1078,6 +1098,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	
 	public String addTroubleshooting() throws Exception
 	{
+		changePersonHandleState(troubleshooting.getPerson().getId());
 		troubleshootingService.add(troubleshooting);
 		return "success_child";
 	}
@@ -1154,6 +1175,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	public String addJudge() throws Exception
 	{
 		handleJudgeIndex(judge.getJtype());
+		changePersonHandleState(judge.getPerson().getId());
 		judgeService.add(judge);
 		return "success_child";
 	}
@@ -1227,6 +1249,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			this.upload("/otherperson",imageName,picture3);
 			otherperson.setRightPhoto("otherperson"+"/"+imageName);
 		}
+		changePersonHandleState(otherperson.getPerson().getId());
 		otherpersonService.add(otherperson);
 		return "success_child";
 	}

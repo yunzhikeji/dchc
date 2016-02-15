@@ -133,7 +133,7 @@
 								</td>
 								<td>
 									<a style="text-decoration: none" class="ml-5"
-										onclick="childPageFull('查看通知公告','successexampleAction!view?id=<s:property value="id"/>')"
+										onclick="childPageFull('查看成功案例','successexampleAction!view?id=<s:property value="id"/>')"
 										href="javascript:;" title="查看"><s:property value="title" /></a>
 								</td>
 								<td>
@@ -144,7 +144,7 @@
 								</td>
 								<td class="td-manage">
 									<a style="text-decoration: none" class="ml-5"
-										onclick="childPageFull('编辑人员','successexampleAction!load?id=<s:property value="id"/>')"
+										onclick="childPageFull('编辑成功案例','successexampleAction!load?id=<s:property value="id"/>')"
 										href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i>
 									</a>
 									<a style="text-decoration: none" class="ml-5"
