@@ -159,4 +159,9 @@ public class PersonServiceImp implements IPersonService {
 		Object[] values=new Object[]{id};
 		return personDao.queryByNamedParam(queryString,paramNames,values);
 	}
+	public List<Person> getPersonsByTypeAndHandleState(int type, int handleState) {
+		// TODO Auto-generated method stub
+		String queryString="from Person mo where mo.type="+type+" and mo.handleState="+handleState;
+		return personDao.queryList(queryString);
+	}
 }

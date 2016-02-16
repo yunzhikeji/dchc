@@ -125,4 +125,16 @@ public class JudgeServiceImp implements IJudgeService {
 		Object[] values=new Object[]{jtype,pid};
 		return judgeDao.queryList(queryString, paramNames, values);
 	}
+	public List<Judge> loadClueByTypeAndPid(int jtype, Integer cid) {
+		String queryString="from Judge mo where mo.jtype=:jtype and mo.clue.id=:cid";
+		String[] paramNames=new String[]{"jtype","cid"};
+		Object[] values=new Object[]{jtype,cid};
+		return judgeDao.queryList(queryString, paramNames, values);
+	}
+	public List<Judge> loadInjurycaseByTypeAndPid(int jtype, Integer inid) {
+		String queryString="from Judge mo where mo.jtype=:jtype and mo.injurycase.id=:inid";
+		String[] paramNames=new String[]{"jtype","inid"};
+		Object[] values=new Object[]{jtype,inid};
+		return judgeDao.queryList(queryString, paramNames, values);
+	}
 }

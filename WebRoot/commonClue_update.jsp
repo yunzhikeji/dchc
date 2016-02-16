@@ -295,7 +295,7 @@
 									style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
 									案件基本信息
 									<input class="btn btn-primary radius mt-10 f-r" type="button"
-										onclick="addPage('新增涉案情况','personAction!goToAddLawcase?id=<s:property value="id"/>','500','300')"
+										onclick="addPage('新增涉案情况','lawcaseAction!goToAdd?pid=<s:property value="id"/>','500','300')"
 										value="新增涉案情况">
 								</div>
 								<div class="col-12">
@@ -345,7 +345,7 @@
 														</td>
 														<td>
 															<a style="text-decoration: none" class="ml-5"
-																onclick="addPage('编辑涉案情况','personAction!loadLawcase?lawid=<s:property value="id" />','500','300')"
+																onclick="addPage('编辑涉案情况','lawcaseAction!load?lawid=<s:property value="id" />','500','300')"
 																href="javascript:;" title="编辑"><i
 																class="Hui-iconfont">&#xe6df;</i> </a>
 															<a style="text-decoration: none" class="ml-5"
@@ -365,7 +365,7 @@
 									style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
 									发起查证信息
 									<input class="btn btn-primary radius mt-10 f-r" type="button"
-										onclick="addPage('发起查证信息','personAction!goToAddJudge?id=<s:property value="id"/>&jtype=2','650','300')"
+										onclick="addPage('发起查证信息','judgeAction!goToAdd?pid=<s:property value="id"/>&jtype=2','650','300')"
 										value="发起查证信息">
 								</div>
 								<div class="col-12">
@@ -519,7 +519,7 @@
 										<td>
 											<s:textfield name="person.comprehensiveJudge"
 												cssClass="input-text" id="input9"
-												cssStyle="width: 1400px; height: 80px; float: left;"
+												cssStyle="width: 100%; height: 80px; float: left;"
 												placeholder="根据以上研判信息填写综合情况"></s:textfield>
 										</td>
 									</tr>
@@ -539,7 +539,7 @@
 										<td>
 											<s:textfield name="person.leaderInstruction"
 												cssClass="input-text" id="input9"
-												cssStyle="width: 1400px; height: 80px; float: left;"
+												cssStyle="width: 100%; height: 80px; float: left;"
 												placeholder="领导批示填写"></s:textfield>
 										</td>
 									</tr>
@@ -570,7 +570,7 @@
 									<table width="100%" border="0" cellspacing="0" cellpadding="0">
 										<tr>
 											<td>
-												研判次序<s:property value="indexNumber" />: <s:property value="reportUnit" />
+												部门查证<s:property value="indexNumber" />: <s:property value="reportUnit" />
 											</td>
 										</tr>
 									</table>

@@ -124,4 +124,9 @@ public class OtherpersonServiceImp implements IOtherpersonService {
 		Object[] p = new Object[]{otype,pid};
 		return otherpersonDao.getObjectsByCondition(queryString, p);
 	}
+	public List<Otherperson> getInjurycaseOtherpersonByOtype(int otype, int inid) {
+		String queryString = "from Otherperson mo where 1=1 and mo.otype=? and mo.injurycase.id=? ";
+		Object[] p = new Object[]{otype,inid};
+		return otherpersonDao.getObjectsByCondition(queryString, p);
+	}
 }

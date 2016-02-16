@@ -26,8 +26,18 @@
 	<body>
 		<div class="pd-20">
 			<form name="troubleshootingAddForm" class="form form-horizontal"
-				action="personAction!addTroubleshooting" method="post" onsubmit="">
-				<input type="hidden" name="troubleshooting.person.id" value="${id}" />
+				action="troubleshootingAction!add" method="post" onsubmit="">
+				<s:if test="pid!=null&&pid!=0">
+				<input type="hidden" name="troubleshooting.person.id" value="${pid}"/>
+				</s:if>
+				<s:if test="inid!=null&&inid!=0">
+					<input type="hidden" name="troubleshooting.injurycase.id" value="${inid}"/>
+				</s:if>
+				<s:if test="cid!=null&&cid!=0">
+					<input type="hidden" name="troubleshooting.clue.id" value="${cid}"/>
+				</s:if>
+				
+				
 				<div class="row cl">
 					<label class="form-label col-2">
 						<span class="c-red">*</span>标题：
@@ -45,7 +55,7 @@
 						class="formControls col-10"> <input type="text" id="issuer"
 								class="input-text" 
 								name="troubleshooting.issuer"
-								value="${person.userRole.realname}" /> </span> </span>
+								value="${session.userRole.realname}" /> </span> </span>
 					<label class="form-label col-2">
 						发布时间：
 					</label>

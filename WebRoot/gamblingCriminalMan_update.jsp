@@ -53,7 +53,7 @@
 						<div class=" f-r pr-5">
 							<button type="button" class="btn btn-success radius" id="button"
 								name=""
-								onclick="addPage('发布案例','personAction!goToAddSuccessexample?id=<s:property value="id"/>','500','300')">
+								onclick="addPage('发布案例','successexampleAction!goToAdd?pid=<s:property value="id"/>','500','300')">
 								<i class="Hui-iconfont">&#xe6bf;</i> 发布案例
 							</button>
 						</div>
@@ -542,7 +542,7 @@
 									style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
 									案件基本信息
 									<input class="btn btn-primary radius mt-10 f-r" type="button"
-										onclick="addPage('新增涉案情况','personAction!goToAddLawcase?id=<s:property value="id"/>','500','300')"
+										onclick="addPage('新增涉案情况','lawcaseAction!goToAdd?pid=<s:property value="id"/>','500','300')"
 										value="新增涉案情况">
 								</div>
 								<div class="col-12">
@@ -592,7 +592,7 @@
 														</td>
 														<td>
 															<a style="text-decoration: none" class="ml-5"
-																onclick="addPage('编辑涉案情况','personAction!loadLawcase?lawid=<s:property value="id" />','500','300')"
+																onclick="addPage('编辑涉案情况','lawcaseAction!load?lawid=<s:property value="id" />','500','300')"
 																href="javascript:;" title="编辑"><i
 																class="Hui-iconfont">&#xe6df;</i> </a>
 															<a style="text-decoration: none" class="ml-5"
@@ -616,7 +616,7 @@
 									style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
 									发起疑难
 									<input class="btn btn-primary radius mt-10 f-r" type="button"
-										onclick="addPage('发起疑难','personAction!goToAddTroubleshooting?id=<s:property value="id"/>','500','300')"
+										onclick="addPage('发起疑难','troubleshootingAction!goToAdd?pid=<s:property value="id"/>','500','300')"
 										value="发起疑难">
 								</div>
 								<div class="col-12">
@@ -661,7 +661,7 @@
 														</td>
 														<td>
 															<a style="text-decoration: none" class="ml-5"
-																onclick="addPage('编辑疑难解答','personAction!loadTroubleshooting?troubid=<s:property value="id" />','500','300')"
+																onclick="addPage('编辑疑难解答','troubleshootingAction!load?troubid=<s:property value="id" />','500','300')"
 																href="javascript:;" title="编辑"><i
 																class="Hui-iconfont">&#xe6df;</i> </a>
 															<a style="text-decoration: none" class="ml-5"
@@ -685,7 +685,7 @@
 									style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
 									发起研判信息
 									<input class="btn btn-primary radius mt-10 f-r" type="button"
-										onclick="addPage('发起研判信息','personAction!goToAddJudge?id=<s:property value="id"/>&jtype=1','650','300')"
+										onclick="addPage('发起研判信息','judgeAction!goToAdd?pid=<s:property value="id"/>&jtype=1','650','300')"
 										value="发起研判信息">
 								</div>
 								<div class="col-12">
@@ -725,7 +725,7 @@
 														</td>
 														<td>
 															<a style="text-decoration: none" class="ml-5"
-																onclick="addPage('编辑研判信息','personAction!loadJudge?jid=<s:property value="id" />','500','300')"
+																onclick="addPage('编辑研判信息','judgeAction!load?jid=<s:property value="id" />','500','300')"
 																href="javascript:;" title="编辑"><i
 																class="Hui-iconfont">&#xe6df;</i> </a>
 															<a style="text-decoration: none" class="ml-5"

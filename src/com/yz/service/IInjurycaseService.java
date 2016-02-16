@@ -41,4 +41,15 @@ public interface IInjurycaseService {
 
 
 	public abstract Injurycase queryInjurycaseById(int id);
+
+	public abstract int getTotalCount(int con, String convalue,
+			UserRole userRoleo, int itype, int queryState, String starttime,
+			String endtime);
+
+	public abstract List<Injurycase> queryList(int con, String convalue,
+			UserRole userRoleo, int page, int size, int itype, int queryState,
+			String starttime, String endtime);
+
+	public abstract List<Injurycase> getInjurycaseByTypeAndHandleState(
+			int itype, int handleState);
 }

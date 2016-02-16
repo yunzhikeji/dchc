@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import com.yz.dao.IClueDao;
 import com.yz.model.Clue;
+import com.yz.model.Person;
 import com.yz.model.UserRole;
 import com.yz.service.IClueService;
 @Component("clueService")
@@ -73,27 +74,27 @@ public class ClueServiceImp implements IClueService {
 	/* (non-Javadoc)
 	 * @see com.yz.service.imp.IPersonServiceImp#getTotalCount(int, java.lang.String)
 	 */
-	public int getTotalCount(int con, String convalue, UserRole userRole,int type, int queryState, String starttime, String endtime) {
+	public int getTotalCount(int con, String convalue, UserRole userRole,int ctype, int queryState, String starttime, String endtime) {
 		String queryString = "select count(*) from Clue mo where 1=1 ";
 		Object[] p = null;
 		
 		if(con!=0&&convalue!=null&&!convalue.equals("")){
 			if(con==1){
-				queryString += "and mo.name like ? "; 
-			}
-			if(con==2){
 				queryString += "and mo.number like ? "; 
 			}
+			if(con==2){
+				queryString += "and mo.securityClassification like ? "; 
+			}
 			if(con==3){
-				queryString += "and mo.idcard like ? "; 
+				queryString += "and mo.intelligenceType like ? "; 
 			}
 			if(con==4){
 				queryString += "and mo.userRole.name like ? "; 
 			}
 			p = new Object[]{'%'+convalue+'%'};
 		}
-		if(type!=0){
-			queryString += " and mo.type ="+type;
+		if(ctype!=0){
+			queryString += " and mo.ctype ="+ctype;
 		}
 		if(queryState!=0){
 			queryString += " and mo.handleState ="+queryState;
@@ -116,26 +117,26 @@ public class ClueServiceImp implements IClueService {
 	/* (non-Javadoc)
 	 * @see com.yz.service.imp.IPersonServiceImp#queryList(int, java.lang.String, int, int)
 	 */
-	public List<Clue> queryList(int con, String convalue, UserRole userRole, int page, int size,int type, int queryState, String starttime, String endtime) {
-		String queryString = "from Person mo where 1=1 ";
+	public List<Clue> queryList(int con, String convalue, UserRole userRole, int page, int size,int ctype, int queryState, String starttime, String endtime) {
+		String queryString = "from Clue mo where 1=1 ";
 		Object[] p = null;
 		if(con!=0&&convalue!=null&&!convalue.equals("")){
 			if(con==1){
-				queryString += "and mo.name like ? "; 
-			}
-			if(con==2){
 				queryString += "and mo.number like ? "; 
 			}
+			if(con==2){
+				queryString += "and mo.securityClassification like ? "; 
+			}
 			if(con==3){
-				queryString += "and mo.idcard like ? "; 
+				queryString += "and mo.intelligenceType like ? "; 
 			}
 			if(con==4){
 				queryString += "and mo.userRole.name like ? "; 
 			}
 			p = new Object[]{'%'+convalue+'%'};
 		}
-		if(type!=0){
-			queryString += " and mo.type ="+type;
+		if(ctype!=0){
+			queryString += " and mo.ctype ="+ctype;
 		}
 		if(queryState!=0){
 			queryString += " and mo.handleState ="+queryState;
@@ -153,4 +154,11 @@ public class ClueServiceImp implements IClueService {
 		// TODO Auto-generated method stub
 		return clueDao.getClueById(upclueid);
 	}
+	public List<Clue> getCluesByTypeAndHandleState(int ctype, int handleState) {
+		// TODO Auto-generated method stub
+		String queryString="from Clue mo where mo.ctype="+ctype+" and mo.handleState="+handleState;
+		return clueDao.queryList(queryString);
+	}
+	
+	
 }

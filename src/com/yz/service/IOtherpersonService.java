@@ -40,5 +40,8 @@ public interface IOtherpersonService {
 
 	public abstract List<Otherperson> getOtherpersonByOtype(int i, Integer integer);
 
+	public abstract List<Otherperson> getInjurycaseOtherpersonByOtype(int i,
+			int id);
+
 
 }

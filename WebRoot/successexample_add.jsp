@@ -26,7 +26,7 @@
 
 	<body>
 		<div class="pd-20">
-			<form name="successexampleAddForm" action="personAction!addSuccessexample" method="post"
+			<form name="successexampleAddForm" action="successexampleAction!add" method="post"
 				class="form form-horizontal" id="form-article-add"  onsubmit="">
 				<div class="row cl">
 					<div class="row cl">
@@ -67,8 +67,18 @@
 
 									 </span> </span>
 					</div>
-					<input type="hidden" name="successexample.content" value="${person.comprehensiveJudge}" />
-					<input type="hidden" name="successexample.perid" value="${id}" />
+					<s:if test="person.comprehensiveJudge!=null&&person.comprehensiveJudge!=''">
+						<input type="hidden" name="successexample.content" value="${person.comprehensiveJudge}" />
+					</s:if>
+					<s:if test="injurycase.comprehensiveJudge!=null&&injurycase.comprehensiveJudge!=''">
+						<input type="hidden" name="successexample.content" value="${injurycase.comprehensiveJudge}" />
+					</s:if>
+					<s:if test="clue.comprehensiveJudge!=null&&clue.comprehensiveJudge!=''">
+						<input type="hidden" name="successexample.content" value="${clue.comprehensiveJudge}" />
+					</s:if>
+					<input type="hidden" name="successexample.perid" value="${pid}" />
+					<input type="hidden" name="successexample.inid" value="${inid}" />
+					<input type="hidden" name="successexample.cid" value="${cid}" />
 				</div>
 				<div class="row cl">
 					<div class="col-10 col-offset-2">

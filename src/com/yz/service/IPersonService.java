@@ -41,5 +41,8 @@ public interface IPersonService {
 
 	public abstract Person queryPersonById(int id);
 
+	public abstract List<Person> getPersonsByTypeAndHandleState(int type,
+			int handleState);
+
 
 }

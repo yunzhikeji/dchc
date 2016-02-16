@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,10 +28,12 @@ import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.yz.model.AnalyzeMan;
+import com.yz.model.Clue;
 import com.yz.model.CommonClue;
 import com.yz.model.ContrastMan;
 import com.yz.model.GamblingCriminalMan;
 import com.yz.model.GuiltSafeguardMan;
+import com.yz.model.Injurycase;
 import com.yz.model.Person;
 import com.yz.model.Pnotice;
 import com.yz.model.Successexample;
@@ -38,10 +41,13 @@ import com.yz.model.Troubleshooting;
 import com.yz.model.Unit;
 import com.yz.model.UserRole;
 import com.yz.service.IAnalyzeManService;
+import com.yz.service.IClueService;
 import com.yz.service.ICommonClueService;
 import com.yz.service.IContrastManService;
 import com.yz.service.IGamblingCriminalManService;
 import com.yz.service.IGuiltSafeguardManService;
+import com.yz.service.IInjurycaseService;
+import com.yz.service.IPersonService;
 import com.yz.service.IPnoticeService;
 import com.yz.service.ISuccessexampleService;
 import com.yz.service.ITroubleshootingService;
@@ -50,6 +56,9 @@ import com.yz.service.IUserRoleService;
 import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
+import com.yz.vo.ClueNumberVO;
+import com.yz.vo.InjurycaseNumberVO;
+import com.yz.vo.PersonNumberVO;
 
 @Component("userRoleAction")  
 @Scope("prototype")
@@ -96,6 +105,9 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	private ICommonClueService commonClueService;
 	
 	private ITroubleshootingService troubleshootingService;
+	private IPersonService personService;
+	private IClueService clueService;
+	private IInjurycaseService injurycaseService;
 
 	//单个对象
 	private UserRole userRole;
@@ -105,13 +117,23 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	private List<Unit> units;
 	private List<Pnotice> pnotices;
 	private List<Successexample> successexamples;
+	private List<Person> persons;
 	private List<GamblingCriminalMan> gamblingCriminalMans;
 	private List<GuiltSafeguardMan> guiltSafeguardMans;
 	private List<AnalyzeMan> analyzeMans;
 	private List<ContrastMan> contrastMans;
 	private List<CommonClue> commonClues;
 	
+	private List<Clue> clues;
+	private List<Injurycase> injurycases;
+	
+	
 	private List<Troubleshooting> troubleshootings;
+	
+	//处理主界面人员数量信息
+	private List<PersonNumberVO> personNumberVOs;
+	private List<InjurycaseNumberVO> injurycaseNumberVOs;
+	private List<ClueNumberVO> clueNumberVOs;
 
 	
 	//个人资料新旧密码
@@ -164,7 +186,115 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		pnotices = pnoticeService.getPnotices();
 		successexamples = successexampleService.getSuccessexamples();
 		troubleshootings = troubleshootingService.getTroubleshootings();
+		
+		persons = personService.getPersons();
+		setMainPersonJspNumber();
+		setMainInjurycaseJspNumber();
+		setMainClueJspNumber();
+		
 		return "welcome";
+	}
+
+	
+	private void setMainClueJspNumber() {
+		// TODO Auto-generated method stub
+		clueNumberVOs = new ArrayList<ClueNumberVO>();
+		
+		for(int i =1;i<=1;i++)
+		{
+			ClueNumberVO clueNumberVO = new ClueNumberVO();
+			clueNumberVO.setCtype(i);
+			int number1 = getCurrentClueVONumber(i,1);
+			int number2 = getCurrentVONumber(i,2);
+			int number3 = getCurrentVONumber(i,3);
+			int number4 = number1+number2+number3;
+			clueNumberVO.setNumber1(number1);
+			clueNumberVO.setNumber2(number2);
+			clueNumberVO.setNumber3(number3);
+			clueNumberVO.setTotalNumber(number4);
+			clueNumberVOs.add(clueNumberVO);
+		}
+	}
+
+	
+
+	private void setMainInjurycaseJspNumber() {
+		// TODO Auto-generated method stub
+		injurycaseNumberVOs = new ArrayList<InjurycaseNumberVO>();
+		
+		for(int i =1;i<=3;i++)
+		{
+			InjurycaseNumberVO injurycaseNumberVO = new InjurycaseNumberVO();
+			injurycaseNumberVO.setItype(i);
+			int number1 = getCurrentInjurycaseVONumber(i,1);
+			int number2 = getCurrentInjurycaseVONumber(i,2);
+			int number3 = getCurrentInjurycaseVONumber(i,3);
+			int number4 = number1+number2+number3;
+			injurycaseNumberVO.setNumber1(number1);
+			injurycaseNumberVO.setNumber2(number2);
+			injurycaseNumberVO.setNumber3(number3);
+			injurycaseNumberVO.setTotalNumber(number4);
+			injurycaseNumberVOs.add(injurycaseNumberVO);
+		}
+	}
+
+	//设置人员前端显示
+	private void setMainPersonJspNumber() {
+		// TODO Auto-generated method stub
+		personNumberVOs = new ArrayList<PersonNumberVO>();
+		
+		for(int i =1;i<=14;i++)
+		{
+			PersonNumberVO personNumberVO = new PersonNumberVO();
+			personNumberVO.setType(i);
+			int number1 = getCurrentVONumber(i,1);
+			int number2 = getCurrentVONumber(i,2);
+			int number3 = getCurrentVONumber(i,3);
+			int number4 = number1+number2+number3;
+			personNumberVO.setNumber1(number1);
+			personNumberVO.setNumber2(number2);
+			personNumberVO.setNumber3(number3);
+			personNumberVO.setTotalNumber(number4);
+			personNumberVOs.add(personNumberVO);
+		}
+	}
+	
+	private int getCurrentVONumber(int type,int handleState)
+	{
+		persons = personService.getPersonsByTypeAndHandleState(type,handleState);
+		if(persons!=null)
+		{
+			return persons.size();
+		}else
+		{
+			return 0;
+		}
+	
+	}
+	
+	private int getCurrentClueVONumber(int ctype, int handleState) {
+		// TODO Auto-generated method stub
+		clues = clueService.getCluesByTypeAndHandleState(ctype,handleState);
+		if(clues!=null)
+		{
+			return clues.size();
+		}else
+		{
+			return 0;
+		}
+	}
+	
+	private int getCurrentInjurycaseVONumber(int itype,int handleState)
+	{
+		injurycases = injurycaseService.getInjurycaseByTypeAndHandleState(itype,handleState);
+		if(injurycases!=null)
+		{
+			return injurycases.size();
+		}else
+		{
+			return 0;
+		}
+	
 	}
 
 	//设置登陆时间
@@ -875,6 +1005,81 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 
 	public void setTroubleshootings(List<Troubleshooting> troubleshootings) {
 		this.troubleshootings = troubleshootings;
+	}
+
+	public IPersonService getPersonService() {
+		return personService;
+	}
+
+	@Resource
+	public void setPersonService(IPersonService personService) {
+		this.personService = personService;
+	}
+
+	public List<Person> getPersons() {
+		return persons;
+	}
+
+	public void setPersons(List<Person> persons) {
+		this.persons = persons;
+	}
+
+	public List<PersonNumberVO> getPersonNumberVOs() {
+		return personNumberVOs;
+	}
+
+	public void setPersonNumberVOs(List<PersonNumberVO> personNumberVOs) {
+		this.personNumberVOs = personNumberVOs;
+	}
+
+	public IClueService getClueService() {
+		return clueService;
+	}
+
+	@Resource
+	public void setClueService(IClueService clueService) {
+		this.clueService = clueService;
+	}
+
+	public IInjurycaseService getInjurycaseService() {
+		return injurycaseService;
+	}
+
+	@Resource
+	public void setInjurycaseService(IInjurycaseService injurycaseService) {
+		this.injurycaseService = injurycaseService;
+	}
+
+	public List<Clue> getClues() {
+		return clues;
+	}
+
+	public void setClues(List<Clue> clues) {
+		this.clues = clues;
+	}
+
+	public List<Injurycase> getInjurycases() {
+		return injurycases;
+	}
+
+	public void setInjurycases(List<Injurycase> injurycases) {
+		this.injurycases = injurycases;
+	}
+
+	public List<InjurycaseNumberVO> getInjurycaseNumberVOs() {
+		return injurycaseNumberVOs;
+	}
+
+	public void setInjurycaseNumberVOs(List<InjurycaseNumberVO> injurycaseNumberVOs) {
+		this.injurycaseNumberVOs = injurycaseNumberVOs;
+	}
+
+	public List<ClueNumberVO> getClueNumberVOs() {
+		return clueNumberVOs;
+	}
+
+	public void setClueNumberVOs(List<ClueNumberVO> clueNumberVOs) {
+		this.clueNumberVOs = clueNumberVOs;
 	}
 	
 	

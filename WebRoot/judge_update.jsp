@@ -112,9 +112,21 @@
 
 	<body>
 		<div class="pd-20">
-			<form name="judgeUpdateForm" class="form form-horizontal" action="personAction!updateJudge" method="post" onsubmit="">
+			<form name="judgeUpdateForm" class="form form-horizontal" action="judgeAction!update" method="post" onsubmit="">
 					<s:hidden name="judge.id"></s:hidden>
+					
+					<s:if test="judge.person!=null">
 					<s:hidden name="judge.person.id"></s:hidden>
+					</s:if>
+					<s:if test="judge.injurycase!=null">
+					<s:hidden name="judge.injurycase.id"></s:hidden>
+					</s:if>
+					<s:if test="judge.clue!=null">
+					<s:hidden name="judge.clue.id"></s:hidden>
+					</s:if>
+			
+					
+					
 					<s:hidden name="judge.jtype"  title="类型"></s:hidden>
 				<div class="row cl">
 					<label class="form-label col-2">

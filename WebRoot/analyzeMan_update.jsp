@@ -644,7 +644,7 @@
 									style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
 									上报信息
 									<input class="btn btn-primary radius mt-10 f-r" type="button"
-										onclick="addPage('上报信息','personAction!goToAddJudge?id=<s:property value="id"/>&jtype=3','650','300')"
+										onclick="addPage('上报信息','judgeAction!goToAdd?pid=<s:property value="id"/>&jtype=3','650','300')"
 										value="上报信息">
 								</div>
 								<div class="col-12">
@@ -768,7 +768,7 @@
 									<table width="100%" border="0" cellspacing="0" cellpadding="0">
 										<tr>
 											<td>
-												研判次序<s:property value="indexNumber" />: <s:property value="reportUnit" />
+												上报信息<s:property value="indexNumber" />: <s:property value="reportUnit" />
 											</td>
 										</tr>
 									</table>

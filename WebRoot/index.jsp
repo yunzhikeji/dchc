@@ -95,13 +95,14 @@
           <li><a href="#"><i class="Hui-iconfont ">&#xe665;</i> 线索管理<img class="more" src="images/more.png"/></a>
 			   <ul class="er">
 				 <li><a _href="personAction!list?type=14" href="javascript:void(0)">普通线索</a></li>
-				 <li><a _href="clueAction!list?type=1" href="javascript:void(0)">刑侦线索</a></li>
+				 <li><a _href="clueAction!list?ctype=1" href="javascript:void(0)">刑侦线索</a></li>
 			   </ul>
 		  </li>
           <li><a href="#"><i class="Hui-iconfont ">&#xe636;</i> 案件管理<img class="more" src="images/more.png"/></a>
 			   <ul class="er">
-				 <li><a _href="gangs-list.html" href="javascript:void(0)">团伙系列案件</a></li>
-				 <li><a _href="hurt-list.html" href="javascript:void(0)">重伤案件</a></li>
+			  	 <li><a _href="injurycaseAction!list?itype=1" href="javascript:void(0)">一般案件</a></li>
+				 <li><a _href="injurycaseAction!list?itype=3" href="javascript:void(0)">团伙系列案件</a></li>
+				 <li><a _href="injurycaseAction!list?itype=2" href="javascript:void(0)">重伤案件</a></li>
 			   </ul>
 		  </li>          
 		  <li><a href="#"><i class="Hui-iconfont ">&#xe61d;</i> 系统管理<img class="more" src="images/more.png"/></a>

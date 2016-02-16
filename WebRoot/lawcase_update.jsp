@@ -25,10 +25,16 @@
 	</head>
 
 	<body>
-		<form name="lawcaseUpdateForm" action="personAction!updateLawcase" method="post"
+		<form name="lawcaseUpdateForm" action="lawcaseAction!update" method="post"
 			onsubmit="">
 			<s:hidden name="lawcase.id"></s:hidden>
+			
+			<s:if test="lawcase.person!=null">
 			<s:hidden name="lawcase.person.id"></s:hidden>
+			</s:if>
+			<s:if test="lawcase.clue!=null">
+			<s:hidden name="lawcase.clue.id"></s:hidden>
+			</s:if>
 			<div class="pd-20">
 				<div class="row cl mb-10">
 					<div class="col-2">

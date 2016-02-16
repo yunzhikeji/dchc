@@ -178,5 +178,79 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 	public void update(Injurycase injurycase) {
 		injurycaseDao.update(injurycase);
 	}
-
+	public int getTotalCount(int con, String convalue, UserRole userRoleo,
+			int itype, int queryState, String starttime, String endtime) {
+		String queryString = "select count(*) from Injurycase mo where 1=1 ";
+		Object[] p = null;
+		
+		if(con!=0&&convalue!=null&&!convalue.equals("")){
+			if(con==1){
+				queryString += "and mo.name like ? "; 
+			}
+			if(con==2){
+				queryString += "and mo.number like ? "; 
+			}
+			if(con==3){
+				queryString += "and mo.idcard like ? "; 
+			}
+			if(con==4){
+				queryString += "and mo.userRole.realname like ? "; 
+			}
+			p = new Object[]{'%'+convalue+'%'};
+		}
+		if(itype!=0){
+			queryString += " and mo.itype ="+itype;
+		}
+		if(queryState!=0){
+			queryString += " and mo.handleState ="+queryState;
+		}
+		if(starttime!=null&&!starttime.equals("")){
+			queryString += " and mo.joinDate>='"+starttime+"'";
+		}
+		if(endtime!=null&&!endtime.equals("")){
+			queryString += " and mo.joinDate<='"+endtime+"'";
+		}
+		return injurycaseDao.getUniqueResult(queryString,p);
+	}
+	public List<Injurycase> queryList(int con, String convalue,
+			UserRole userRoleo, int page, int size, int itype, int queryState,
+			String starttime, String endtime) {
+		String queryString = "from Injurycase mo where 1=1 ";
+		Object[] p = null;
+		if(con!=0&&convalue!=null&&!convalue.equals("")){
+			if(con==1){
+				queryString += "and mo.name like ? "; 
+			}
+			if(con==2){
+				queryString += "and mo.number like ? "; 
+			}
+			if(con==3){
+				queryString += "and mo.idcard like ? "; 
+			}
+			if(con==4){
+				queryString += "and mo.userRole.realname like ? "; 
+			}
+			p = new Object[]{'%'+convalue+'%'};
+		}
+		if(itype!=0){
+			queryString += " and mo.itype ="+itype;
+		}
+		if(queryState!=0){
+			queryString += " and mo.handleState ="+queryState;
+		}
+		if(starttime!=null&&!starttime.equals("")){
+			queryString += " and mo.joinDate>='"+starttime+"'";
+		}
+		if(endtime!=null&&!endtime.equals("")){
+			queryString += " and mo.joinDate<='"+endtime+"'";
+		}
+		return injurycaseDao.pageList(queryString,p,page,size);
+	}
+	public List<Injurycase> getInjurycaseByTypeAndHandleState(int itype,
+			int handleState) {
+		// TODO Auto-generated method stub
+		String queryString="from Injurycase mo where mo.itype="+itype+" and mo.handleState="+handleState;
+		return injurycaseDao.queryList(queryString);
+	}
+	
 }

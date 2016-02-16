@@ -27,10 +27,19 @@
 	</head>
 
 	<body>
-		<form name="otherpersonUpdateForm" action="personAction!updateOtherperson"
+		<form name="otherpersonUpdateForm" action="otherpersonAction!update"
 			method="post" enctype="multipart/form-data" onsubmit="">
 			<s:hidden name="otherperson.id"></s:hidden>
+			
+			<s:if test="otherperson.person!=null">
 			<s:hidden name="otherperson.person.id"></s:hidden>
+			</s:if>
+			<s:if test="otherperson.injurycase!=null">
+			<s:hidden name="otherperson.injurycase.id"></s:hidden>
+			</s:if>
+			
+			
+			
 			<s:hidden name="otherperson.otype"></s:hidden>
 			<s:hidden name="otherperson.frontPhoto"></s:hidden>
 			<s:hidden name="otherperson.leftPhoto"></s:hidden>

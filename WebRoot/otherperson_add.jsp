@@ -26,9 +26,14 @@
 	</head>
 
 	<body>
-		<form name="otherpersonAddForm" action="personAction!addOtherperson"
+		<form name="otherpersonAddForm" action="otherpersonAction!add"
 			method="post" enctype="multipart/form-data" onsubmit="">
-			<input type="hidden" name="otherperson.person.id" value="${id}" />
+			<s:if test="pid!=null&&pid!=0">
+				<input type="hidden" name="otherperson.person.id" value="${pid}" />
+			</s:if>
+			<s:if test="inid!=null&&inid!=0">
+				<input type="hidden" name="otherperson.injurycase.id" value="${inid}" />
+			</s:if>
 			<input type="hidden" name="otherperson.otype" value="${otype}" />
 			<div class="pd-20">
 				<div class="row cl mb-10">

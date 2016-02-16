@@ -26,9 +26,20 @@
 	<body>
 		<div class="pd-20">
 			<form name="troubleshootingUpdateForm" class="form form-horizontal"
-				action="personAction!updateTroubleshooting" method="post" onsubmit="">
+				action="troubleshootingAction!update" method="post" onsubmit="">
 				<s:hidden name="troubleshooting.id"></s:hidden>
-				<s:hidden name="troubleshooting.person.id"></s:hidden>
+				
+				<s:if test="troubleshooting.person!=null">
+					<s:hidden name="troubleshooting.person.id"></s:hidden>
+					</s:if>
+					<s:if test="troubleshooting.injurycase!=null">
+					<s:hidden name="troubleshooting.injurycase.id"></s:hidden>
+					</s:if>
+					<s:if test="troubleshooting.clue!=null">
+					<s:hidden name="troubleshooting.clue.id"></s:hidden>
+					</s:if>
+				
+				
 				<div class="row cl">
 					<label class="form-label col-2">
 						<span class="c-red">*</span>标题：

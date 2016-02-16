@@ -30,16 +30,16 @@ public class Clue implements java.io.Serializable {
 	private String number;						     // 编号	
 	private String securityClassification;			//密级
 	private String intelligenceType;				//情报类型
-	private String title;								//	标题	
+	private String title;							//	标题	
 	private String contactName;						//联系人
-	private String telphone;					//	电话号码
+	private String telphone;						//	电话号码
 	private String carrier;							//携带物品
 	private String carryTool;						//携带工具
 	private String clueMessage;						//线索信息
 	private String endSituation;					//完结情况	1抓获 2死亡 3撤销案件 4释放 5治安拘留 6刑事拘留 7留置盘问 8其它
 	private String comprehensiveJudge;				//综合研判情况
 	private String leaderInstruction;				//领导批示
-	private Integer type;							//类型
+	private Integer ctype;							//类型
 	private List<Lawcase> lawcases = new ArrayList<Lawcase>();		
 	private List<Troubleshooting> troubleshootings = new ArrayList<Troubleshooting>();
 	private List<Otherperson> otherpersons = new ArrayList<Otherperson>();
@@ -57,7 +57,7 @@ public class Clue implements java.io.Serializable {
 	public Clue(UserRole userRole, String number, String securityClassification,
 			String title, String contactName, String telphone, String carrier,
 			String carryTool, String clueMessage, String endSituation,
-			String comprehensiveJudge, String leaderInstruction, Integer type,String joinDate,Integer handleState,
+			String comprehensiveJudge, String leaderInstruction, Integer ctype,String joinDate,Integer handleState,
 			List<Lawcase> lawcases, List<Troubleshooting> troubleshootings,
 			List<Otherperson> otherpersons, List<Judge> judges) {
 		this.userRole = userRole;
@@ -72,7 +72,7 @@ public class Clue implements java.io.Serializable {
 		this.endSituation = endSituation;
 		this.comprehensiveJudge = comprehensiveJudge;
 		this.leaderInstruction = leaderInstruction;
-		this.type = type;
+		this.ctype = ctype;
 		this.joinDate = joinDate;
 		this.handleState = handleState;
 		this.lawcases = lawcases;
@@ -169,9 +169,9 @@ public class Clue implements java.io.Serializable {
 		return this.troubleshootings;
 	}
 	
-	@Column(name = "type")
-	public Integer getType() {
-		return this.type;
+	@Column(name = "ctype")
+	public Integer getCtype() {
+		return this.ctype;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -258,8 +258,8 @@ public class Clue implements java.io.Serializable {
 		this.troubleshootings = troubleshootings;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
+	public void setCtype(Integer ctype) {
+		this.ctype = ctype;
 	}
 
 	public void setUserRole(UserRole userRole) {

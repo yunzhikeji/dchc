@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * Injurycase entity.重伤案件
+ * Injurycase entity.重伤案件,一般案件
  * 
  * @author lq
  */
@@ -38,12 +38,14 @@ public class Injurycase implements java.io.Serializable {
 	private String telphone;//鉴定人联系电话
 	private String injuryAssess;//重伤评估
 	private String endSituation;//完结情况
+	private String comprehensiveJudge;//综合情况
 	private String leaderInstruction;//领导批示
 	private List<Otherperson> otherpersons = new ArrayList<Otherperson>();//其他人员，包括（同案人，嫌疑人，关系人）
 	private List<Troubleshooting> troubleshootings = new ArrayList<Troubleshooting>();//疑难解答
 	private List<Judge> judges = new ArrayList<Judge>();//研判信息,部门查证，上报情况
 	private String joinDate;//录入时间
 	private Integer handleState;//办理状态
+	private Integer itype;
 	// Constructors
 
 	/** default constructor */
@@ -54,7 +56,7 @@ public class Injurycase implements java.io.Serializable {
 	public Injurycase(UserRole userRole, String caseNumber, String caseType,
 			String caseName, String fillUnit, String fillName, String fillTime,
 			String briefCase, String appraiser, String telphone,
-			String injuryAssess, String endSituation,String joinDate,Integer handleState,
+			String injuryAssess, String endSituation,String joinDate,Integer handleState,String comprehensiveJudge,
 			String leaderInstruction, List<Otherperson> otherpersons,
 			List<Troubleshooting> troubleshootings, List<Judge> judges) {
 		this.userRole = userRole;
@@ -70,6 +72,7 @@ public class Injurycase implements java.io.Serializable {
 		this.injuryAssess = injuryAssess;
 		this.endSituation = endSituation;
 		this.leaderInstruction = leaderInstruction;
+		this.comprehensiveJudge = comprehensiveJudge;
 		this.joinDate = joinDate;
 		this.handleState = handleState;
 		this.otherpersons = otherpersons;
@@ -103,6 +106,11 @@ public class Injurycase implements java.io.Serializable {
 		return this.caseType;
 	}
 
+	@Column(name = "comprehensiveJudge")
+	public String getComprehensiveJudge() {
+		return comprehensiveJudge;
+	}
+
 	@Column(name = "endSituation",length= 100)
 	public String getEndSituation() {
 		return this.endSituation;
@@ -123,6 +131,11 @@ public class Injurycase implements java.io.Serializable {
 		return this.fillUnit;
 	}
 
+	@Column(name = "handleState")
+	public Integer getHandleState() {
+		return handleState;
+	}
+
 	// Property accessors
 	@Id
 	@GeneratedValue
@@ -134,6 +147,11 @@ public class Injurycase implements java.io.Serializable {
 	@Column(name = "injuryAssess")
 	public String getInjuryAssess() {
 		return this.injuryAssess;
+	}
+
+	@Column(name = "itype")
+	public Integer getItype() {
+		return itype;
 	}
 
 	@Column(name = "joinDate",length=30)
@@ -192,6 +210,10 @@ public class Injurycase implements java.io.Serializable {
 		this.caseType = caseType;
 	}
 
+	public void setComprehensiveJudge(String comprehensiveJudge) {
+		this.comprehensiveJudge = comprehensiveJudge;
+	}
+
 	public void setEndSituation(String endSituation) {
 		this.endSituation = endSituation;
 	}
@@ -203,17 +225,25 @@ public class Injurycase implements java.io.Serializable {
 	public void setFillTime(String fillTime) {
 		this.fillTime = fillTime;
 	}
-
+	
 	public void setFillUnit(String fillUnit) {
 		this.fillUnit = fillUnit;
+	}
+
+	public void setHandleState(Integer handleState) {
+		this.handleState = handleState;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
+
 	public void setInjuryAssess(String injuryAssess) {
 		this.injuryAssess = injuryAssess;
+	}
+
+	public void setItype(Integer itype) {
+		this.itype = itype;
 	}
 
 	public void setJoinDate(String joinDate) {
@@ -243,5 +273,7 @@ public class Injurycase implements java.io.Serializable {
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
 	}
+	
+	
 
 }

@@ -29,28 +29,32 @@ import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.yz.model.AnalyzeMan;
-import com.yz.model.Clue;
 import com.yz.model.CommonClue;
 import com.yz.model.ContrastMan;
 import com.yz.model.DisappearMan;
 import com.yz.model.GamblingCriminalMan;
 import com.yz.model.GuiltSafeguardMan;
+import com.yz.model.Injurycase;
 import com.yz.model.Judge;
 import com.yz.model.Lawcase;
 import com.yz.model.Otherperson;
+import com.yz.model.Person;
+import com.yz.model.Successexample;
 import com.yz.model.Troubleshooting;
 import com.yz.model.Unit;
 import com.yz.model.UserRole;
 import com.yz.service.IAnalyzeManService;
-import com.yz.service.IClueService;
 import com.yz.service.ICommonClueService;
 import com.yz.service.IContrastManService;
 import com.yz.service.IDisappearManService;
 import com.yz.service.IGamblingCriminalManService;
 import com.yz.service.IGuiltSafeguardManService;
+import com.yz.service.IInjurycaseService;
 import com.yz.service.IJudgeService;
 import com.yz.service.ILawcaseService;
 import com.yz.service.IOtherpersonService;
+import com.yz.service.IPersonService;
+import com.yz.service.ISuccessexampleService;
 import com.yz.service.ITroubleshootingService;
 import com.yz.service.IUnitService;
 import com.yz.util.ConvertUtil;
@@ -58,9 +62,9 @@ import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
 import com.yz.vo.UnitVO;
 
-@Component("clueAction")
+@Component("injurycaseAction")
 @Scope("prototype")
-public class ClueAction extends ActionSupport implements RequestAware,
+public class InjurycaseAction extends ActionSupport implements RequestAware,
 		SessionAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
@@ -79,15 +83,17 @@ public class ClueAction extends ActionSupport implements RequestAware,
 	// 条件
 	private int id;
 	private int pid;// 按用户id
+	private int inid;// 案件id
 
-	private int lawid;// 涉及案件
 	private int troubid;// 疑难问题
+	private int otherid;// 同案人员，关系人员
 	private int jid;// 研判情况
 	private int con;
 	private String convalue;
 	private int status;// 按状态
-	private int ctype;// 线索类型
-	private int queryState;
+	private int itype;// 类型
+	private int jtype;// 发起类型 1:研判信息 2：部门查证 3：上报情况
+	private int queryState;// 办理状态
 	private String starttime;
 	private String endtime;
 
@@ -99,31 +105,29 @@ public class ClueAction extends ActionSupport implements RequestAware,
 
 	// service层对象
 	private IUnitService unitService;
-
-	private IClueService clueService;
-
-	private ILawcaseService lawcaseService;
+	private IInjurycaseService injurycaseService;
 	private ITroubleshootingService troubleshootingService;
-
+	private IOtherpersonService otherpersonService;
 	private IJudgeService judgeService;
+	private ISuccessexampleService successexampleService;
 
 	// 单个表对象
-	private Clue clue;
 
-	private Lawcase lawcase;
 	private Troubleshooting troubleshooting;
+	private Otherperson otherperson;
+	private Injurycase injurycase;
 	private Judge judge;
+	private Successexample successexample;
 
 	private UnitVO unitVO;
 	private Unit unit;
 
 	// list表对象
-	private List<Clue> clues;
+	private List<Injurycase> injurycases;
+	private List<Otherperson> tars;// 同案人员
+	private List<Judge> judges;
 	private List<UnitVO> unitVOs;
 	private List<Unit> units;
-
-	// 权限
-	private int ulimit;
 
 	// 部门json
 	private String jsonUnits;
@@ -152,33 +156,39 @@ public class ClueAction extends ActionSupport implements RequestAware,
 			page = 1;
 		}
 
-		pageTileName = selectTileName(ctype);
+		pageTileName = selectTileName(itype);
 
 		// 总记录数
-		totalCount = clueService.getTotalCount(con, convalue, userRoleo, ctype,
-				queryState, starttime, endtime);
+		totalCount = injurycaseService.getTotalCount(con, convalue, userRoleo,
+				itype, queryState, starttime, endtime);
 		// 总页数
-		pageCount = clueService.getPageCount(totalCount, size);
+		pageCount = injurycaseService.getPageCount(totalCount, size);
 		if (page > pageCount && pageCount != 0) {
 			page = pageCount;
 		}
 		// 所有当前页记录对象
-		clues = clueService.queryList(con, convalue, userRoleo, page, size,
-				ctype, queryState, starttime, endtime);
+		injurycases = injurycaseService.queryList(con, convalue, userRoleo,
+				page, size, itype, queryState, starttime, endtime);
 
 		return "list";
 	}
 
 	// 选择页面名称
-	private String selectTileName(int ctype) {
+	private String selectTileName(int type) {
 		// TODO Auto-generated method stub
-		String pageName = "线索信息";
-		switch (ctype) {
+		String pageName = "案件信息";
+		switch (type) {
 		case 0:
-			pageName = "线索";
+			pageName = "案件";
 			break;
 		case 1:
-			pageName = "刑侦线索";
+			pageName = "一般案件";
+			break;
+		case 2:
+			pageName = "重伤案件";
+			break;
+		case 3:
+			pageName = "团伙系列案件";
 			break;
 		default:
 			break;
@@ -197,7 +207,6 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		pageTileName = selectTileName(ctype);
 		return "add";
 	}
 
@@ -214,12 +223,13 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo_child";
 		}
-		clue.setUserRole(userRoleo);// 设置录入人员
-		clue.setJoinDate(DateTimeKit.getLocalDate());// 设置录入时间
-		clue.setHandleState(1);// 初始化处理状态
-		clueService.add(clue);
-		arg[0] = "clueAction!list?ctype=" + clue.getCtype();
-		arg[1] = "线索管理";
+		injurycase.setUserRole(userRoleo);// 设置录入人员
+		injurycase.setJoinDate(DateTimeKit.getLocalDate());// 设置录入时间
+		injurycase.setHandleState(1);// 初始化处理状态
+
+		injurycaseService.add(injurycase);
+		arg[0] = "injurycaseAction!list?itype=" + injurycase.getItype();
+		arg[1] = "案件管理";
 		return "success_child";
 	}
 
@@ -233,10 +243,10 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		clue = clueService.loadById(id);
-		clueService.delete(clue);
-		arg[0] = "clueAction!list?ctype=" + ctype;
-		arg[1] = "人员管理";
+		injurycase = injurycaseService.loadById(id);
+		injurycaseService.delete(injurycase);
+		arg[0] = "injurycaseAction!list?itype=" + injurycase.getItype();
+		arg[1] = "案件管理";
 		return SUCCESS;
 	}
 
@@ -245,12 +255,12 @@ public class ClueAction extends ActionSupport implements RequestAware,
 	 * 
 	 * @return
 	 */
-	public String deleteclues() throws Exception {
+	public String deleteInjurycases() throws Exception {
 
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
 		for (int i = 0; i < ids.length; i++) {
-			clue = clueService.loadById(ids[i]);
-			clueService.delete(clue);
+			injurycase = injurycaseService.loadById(id);
+			injurycaseService.delete(injurycase);
 		}
 		AjaxMsgVO msgVO = new AjaxMsgVO();
 		msgVO.setMessage("批量删除成功.");
@@ -278,11 +288,15 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		pageTileName = selectTileName(ctype);
+		pageTileName = selectTileName(itype);
 
-		clue = clueService.loadById(id);// 当前修改人员的id
-
+		tars = otherpersonService.getInjurycaseOtherpersonByOtype(2, id);// 同案人
+		
+		
+		
+		injurycase = injurycaseService.queryInjurycaseById(id);// 当前修改案件的id
 		return "load";
+
 	}
 
 	/**
@@ -295,11 +309,14 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo_child";
 		}
+		if (injurycase.getEndSituation() != null
+				&& injurycase.getEndSituation() != "") {
+			injurycase.setHandleState(3);// 完结
+		}
+		injurycaseService.update(injurycase);
 
-		clueService.update(clue);
-
-		arg[0] = "clueAction!list?ctype=" + clue.getCtype();
-		arg[1] = "人员管理";
+		arg[0] = "injurycaseAction!list?itype=" + injurycase.getItype();
+		arg[1] = "案件管理";
 		return "success_child";
 	}
 
@@ -313,7 +330,7 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		clue = clueService.loadById(id);
+		injurycase = injurycaseService.loadById(id);
 		return "view";
 	}
 
@@ -416,45 +433,12 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		this.arg = arg;
 	}
 
-	public IClueService getClueService() {
-		return clueService;
-	}
-
-	@Resource
-	public void setClueService(IClueService clueService) {
-		this.clueService = clueService;
-	}
-
-	public Clue getClue() {
-		return clue;
-	}
-
-	public void setClue(Clue clue) {
-		this.clue = clue;
-	}
-
-	public List<Clue> getClues() {
-		return clues;
-	}
-
-	public void setClues(List<Clue> clues) {
-		this.clues = clues;
-	}
-
 	public String getCheckedIDs() {
 		return checkedIDs;
 	}
 
 	public void setCheckedIDs(String checkedIDs) {
 		this.checkedIDs = checkedIDs;
-	}
-
-	public int getUlimit() {
-		return ulimit;
-	}
-
-	public void setUlimit(int ulimit) {
-		this.ulimit = ulimit;
 	}
 
 	public javax.servlet.http.HttpServletResponse getResponse() {
@@ -505,31 +489,6 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		this.endtime = endtime;
 	}
 
-	public ILawcaseService getLawcaseService() {
-		return lawcaseService;
-	}
-
-	@Resource
-	public void setLawcaseService(ILawcaseService lawcaseService) {
-		this.lawcaseService = lawcaseService;
-	}
-
-	public Lawcase getLawcase() {
-		return lawcase;
-	}
-
-	public void setLawcase(Lawcase lawcase) {
-		this.lawcase = lawcase;
-	}
-
-	public int getLawid() {
-		return lawid;
-	}
-
-	public void setLawid(int lawid) {
-		this.lawid = lawid;
-	}
-
 	public int getTroubid() {
 		return troubid;
 	}
@@ -556,12 +515,125 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		this.troubleshooting = troubleshooting;
 	}
 
+	public int getSize() {
+		return size;
+	}
+
+	public String getJsonUnits() {
+		return jsonUnits;
+	}
+
+	public void setJsonUnits(String jsonUnits) {
+		this.jsonUnits = jsonUnits;
+	}
+
+	public int getOtherid() {
+		return otherid;
+	}
+
+	public void setOtherid(int otherid) {
+		this.otherid = otherid;
+	}
+
+	public IOtherpersonService getOtherpersonService() {
+		return otherpersonService;
+	}
+
+	@Resource
+	public void setOtherpersonService(IOtherpersonService otherpersonService) {
+		this.otherpersonService = otherpersonService;
+	}
+
+	public Otherperson getOtherperson() {
+		return otherperson;
+	}
+
+	public void setOtherperson(Otherperson otherperson) {
+		this.otherperson = otherperson;
+	}
+
+	public List<Otherperson> getTars() {
+		return tars;
+	}
+
+	public void setTars(List<Otherperson> tars) {
+		this.tars = tars;
+	}
+
+	public ISuccessexampleService getSuccessexampleService() {
+		return successexampleService;
+	}
+
+	@Resource
+	public void setSuccessexampleService(
+			ISuccessexampleService successexampleService) {
+		this.successexampleService = successexampleService;
+	}
+
+	public Successexample getSuccessexample() {
+		return successexample;
+	}
+
+	public void setSuccessexample(Successexample successexample) {
+		this.successexample = successexample;
+	}
+
+	public int getItype() {
+		return itype;
+	}
+
+	public void setItype(int itype) {
+		this.itype = itype;
+	}
+
+	public IInjurycaseService getInjurycaseService() {
+		return injurycaseService;
+	}
+
+	@Resource
+	public void setInjurycaseService(IInjurycaseService injurycaseService) {
+		this.injurycaseService = injurycaseService;
+	}
+
+	public Injurycase getInjurycase() {
+		return injurycase;
+	}
+
+	public void setInjurycase(Injurycase injurycase) {
+		this.injurycase = injurycase;
+	}
+
+	public List<Injurycase> getInjurycases() {
+		return injurycases;
+	}
+
+	public void setInjurycases(List<Injurycase> injurycases) {
+		this.injurycases = injurycases;
+	}
+
 	public int getJid() {
 		return jid;
 	}
 
 	public void setJid(int jid) {
 		this.jid = jid;
+	}
+
+	public int getJtype() {
+		return jtype;
+	}
+
+	public void setJtype(int jtype) {
+		this.jtype = jtype;
+	}
+
+	public IUnitService getUnitService() {
+		return unitService;
+	}
+
+	@Resource
+	public void setUnitService(IUnitService unitService) {
+		this.unitService = unitService;
 	}
 
 	public IJudgeService getJudgeService() {
@@ -581,27 +653,6 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		this.judge = judge;
 	}
 
-	public int getSize() {
-		return size;
-	}
-
-	public String getJsonUnits() {
-		return jsonUnits;
-	}
-
-	public void setJsonUnits(String jsonUnits) {
-		this.jsonUnits = jsonUnits;
-	}
-
-	public IUnitService getUnitService() {
-		return unitService;
-	}
-
-	@Resource
-	public void setUnitService(IUnitService unitService) {
-		this.unitService = unitService;
-	}
-
 	public UnitVO getUnitVO() {
 		return unitVO;
 	}
@@ -618,6 +669,14 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		this.unit = unit;
 	}
 
+	public List<Judge> getJudges() {
+		return judges;
+	}
+
+	public void setJudges(List<Judge> judges) {
+		this.judges = judges;
+	}
+
 	public List<Unit> getUnits() {
 		return units;
 	}
@@ -630,16 +689,12 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		this.unitVOs = unitVOs;
 	}
 
-	public int getCtype() {
-		return ctype;
+	public int getInid() {
+		return inid;
 	}
 
-	public void setCtype(int ctype) {
-		this.ctype = ctype;
-	}
-
-	public List<UnitVO> getUnitVOs() {
-		return unitVOs;
+	public void setInid(int inid) {
+		this.inid = inid;
 	}
 
 }

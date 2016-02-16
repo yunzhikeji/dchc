@@ -25,8 +25,18 @@
 	</head>
 
 	<body>
-		<form name="lawcaseAddForm" action="personAction!addLawcase" method="post" onsubmit="">
-			<input type="hidden" name="lawcase.person.id" value="${id}"/>
+		<form name="lawcaseAddForm" action="lawcaseAction!add" method="post" onsubmit="">
+		
+			<s:if test="pid!=null&&pid!=0">
+				<input type="hidden" name="lawcase.person.id" value="${pid}"/>
+			</s:if>
+			<s:if test="inid!=null&&inid!=0">
+				<input type="hidden" name="lawcase.injurycase.id" value="${inid}"/>
+			</s:if>
+			<s:if test="cid!=null&&cid!=0">
+				<input type="hidden" name="lawcase.clue.id" value="${cid}"/>
+			</s:if>
+			
 			<div class="pd-20">
 				<div class="row cl mb-10">
 					<div class="col-2">
@@ -66,7 +76,7 @@
 					</div>
 					<div class="col-4">
 					<input type="text" id="fillName" class="input-text radius size-M"
-							style="width:200px;" name="lawcase.fillName" value="${person.userRole.realname}"/>
+							style="width:200px;" name="lawcase.fillName" value="${session.userRole.realname}"/>
 					</div>
 				</div>
 				<div class="row cl mb-10">

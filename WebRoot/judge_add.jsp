@@ -112,8 +112,17 @@
 
 	<body>
 		<div class="pd-20">
-			<form name="judgeAddForm" class="form form-horizontal" action="personAction!addJudge" method="post" onsubmit="">
-				<input type="hidden" name="judge.person.id" value="${id}" />
+			<form name="judgeAddForm" class="form form-horizontal" action="judgeAction!add" method="post" onsubmit="">
+			
+				<s:if test="pid!=null&&pid!=0">
+					<input type="hidden" name="judge.person.id" value="${pid}"/>
+				</s:if>
+				<s:if test="inid!=null&&inid!=0">
+					<input type="hidden" name="judge.injurycase.id" value="${inid}"/>
+				</s:if>
+				<s:if test="cid!=null&&cid!=0">
+					<input type="hidden" name="judge.clue.id" value="${cid}"/>
+				</s:if>
 				<input type="hidden" name="judge.jtype" value="${jtype}" />
 				<div class="row cl">
 					<label class="form-label col-2">

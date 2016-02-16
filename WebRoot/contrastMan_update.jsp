@@ -361,7 +361,7 @@
 									style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
 									发起查证信息
 									<input class="btn btn-primary radius mt-10 f-r" type="button"
-										onclick="addPage('发起查证信息','personAction!goToAddJudge?id=<s:property value="id"/>&jtype=2','650','300')"
+										onclick="addPage('发起查证信息','judgeAction!goToAdd?pid=<s:property value="id"/>&jtype=2','650','300')"
 										value="发起查证信息">
 								</div>
 								<div class="col-12">
@@ -567,7 +567,7 @@
 									<table width="100%" border="0" cellspacing="0" cellpadding="0">
 										<tr>
 											<td>
-												研判次序<s:property value="indexNumber" />: <s:property value="reportUnit" />
+												部门查证<s:property value="indexNumber" />: <s:property value="reportUnit" />
 											</td>
 										</tr>
 									</table>

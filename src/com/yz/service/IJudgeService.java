@@ -40,5 +40,11 @@ public interface IJudgeService {
 
 	public abstract List<Judge> loadByTypeAndPid(int i, Integer id);
 
+	public abstract List<Judge> loadInjurycaseByTypeAndPid(int currentJtype,
+			Integer id);
+
+	public abstract List<Judge> loadClueByTypeAndPid(int currentJtype,
+			Integer id);
+
 
 }

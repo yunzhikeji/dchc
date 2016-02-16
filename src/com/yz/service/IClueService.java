@@ -38,5 +38,8 @@ public interface IClueService {
 
 	public abstract Clue getClueById(Integer upclueid);
 
+	public abstract List<Clue> getCluesByTypeAndHandleState(int ctype,
+			int handleState);
+
 
 }

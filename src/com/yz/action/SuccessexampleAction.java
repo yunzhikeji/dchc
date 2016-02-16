@@ -20,8 +20,14 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.yz.model.Clue;
+import com.yz.model.Injurycase;
+import com.yz.model.Person;
 import com.yz.model.Successexample;
 import com.yz.model.UserRole;
+import com.yz.service.IClueService;
+import com.yz.service.IInjurycaseService;
+import com.yz.service.IPersonService;
 import com.yz.service.ISuccessexampleService;
 import com.yz.util.ConvertUtil;
 import com.yz.vo.AjaxMsgVO;
@@ -46,10 +52,12 @@ public class SuccessexampleAction extends ActionSupport implements RequestAware,
 
 	// 条件
 	private int id;
+	private int pid;// 人员id
+	private int inid; // 案件id
+	private int cid;// 刑侦线索
 	private int con;
 	private String convalue;
 	private int status;// 按状态
-	private int pid;// 按用户id
 	private String starttime;
 	private String endtime;
 
@@ -58,8 +66,14 @@ public class SuccessexampleAction extends ActionSupport implements RequestAware,
 	
 	//service层对象
 	private ISuccessexampleService successexampleService;
+	private IPersonService personService;
+	private IInjurycaseService injurycaseService;
+	private IClueService clueService;
 
 	//单个表对象
+	private Person person;
+	private Injurycase injurycase;
+	private Clue clue;
 	private Successexample successexample;
 	
 	//list表对象
@@ -113,6 +127,18 @@ public class SuccessexampleAction extends ActionSupport implements RequestAware,
 		UserRole userRoleo = (UserRole) session.get("userRoleo");
 		if (userRoleo == null) {
 			return "opsessiongo";
+		}
+		if(pid!=0)
+		{
+			person = personService.loadById(pid);
+		}
+		if(inid!=0)
+		{
+			injurycase = injurycaseService.loadById(inid);
+		}
+		if(cid!=0)
+		{
+			clue = clueService.loadById(cid);
 		}
 		return "add";
 	}
@@ -408,6 +434,88 @@ public class SuccessexampleAction extends ActionSupport implements RequestAware,
 
 	public void setEndtime(String endtime) {
 		this.endtime = endtime;
+	}
+
+
+	public int getInid() {
+		return inid;
+	}
+
+
+	public void setInid(int inid) {
+		this.inid = inid;
+	}
+
+
+	public int getCid() {
+		return cid;
+	}
+
+
+	public void setCid(int cid) {
+		this.cid = cid;
+	}
+
+
+	public IPersonService getPersonService() {
+		return personService;
+	}
+
+	@Resource
+	public void setPersonService(IPersonService personService) {
+		this.personService = personService;
+	}
+
+
+	public IInjurycaseService getInjurycaseService() {
+		return injurycaseService;
+	}
+
+
+	@Resource
+	public void setInjurycaseService(IInjurycaseService injurycaseService) {
+		this.injurycaseService = injurycaseService;
+	}
+
+
+	public IClueService getClueService() {
+		return clueService;
+	}
+
+
+	@Resource
+	public void setClueService(IClueService clueService) {
+		this.clueService = clueService;
+	}
+
+
+	public Person getPerson() {
+		return person;
+	}
+
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+
+
+	public Injurycase getInjurycase() {
+		return injurycase;
+	}
+
+
+	public void setInjurycase(Injurycase injurycase) {
+		this.injurycase = injurycase;
+	}
+
+
+	public Clue getClue() {
+		return clue;
+	}
+
+
+	public void setClue(Clue clue) {
+		this.clue = clue;
 	}
 	
 	

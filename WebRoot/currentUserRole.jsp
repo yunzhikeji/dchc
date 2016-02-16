@@ -34,7 +34,7 @@
 			</dl>
 		</div>
 		<div class="pd-20">
-		<form name="userRoleUpdateForm" id="form-change-password" class="form form-horizontal" action="userRoleAction!updateCurrentUserRole" method="post" enctype="multipart/form-data"  onsubmit="return checkUserRole();" >
+		<form name="userRoleUpdateForm" id="form-change-password" class="form form-horizontal" action="userRoleAction!updateCurrentUserRole" method="post" enctype="multipart/form-data"  onsubmit="" >
 				<s:hidden name="userRole.id"/>
 				<s:hidden name="userRole.photo"/>
 				<s:hidden name="userRole.password"/>

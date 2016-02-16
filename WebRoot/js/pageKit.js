@@ -71,6 +71,20 @@ function jumpPersonPage(url,page,con,convalue,type,queryState,starttime,endtime)
 }
 
 
+//案件 分页显示
+function jumpInjurycasePage(url,page,con,convalue,itype,queryState,starttime,endtime){
+	
+	var page=page;
+	if(isNaN(page)){
+		var page2=document.getElementById(page).value;
+		page=parseInt(page2);
+	}
+	var url=url+'?page='+page+'&con='+con+'&convalue='+convalue+'&itype='+itype+'&queryState='+queryState+'&starttime='+starttime+'&endtime='+endtime;
+	url=encodeURI(url);
+	url=encodeURI(url);
+	window.location=url;
+}
+
 //通知公告 分页显示
 function jumpPnoticePage(url,page,con,convalue,starttime,endtime){
 	
