@@ -9,8 +9,10 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -58,6 +60,7 @@ import com.yz.service.IPersonService;
 import com.yz.service.ISuccessexampleService;
 import com.yz.service.ITroubleshootingService;
 import com.yz.service.IUnitService;
+import com.yz.service.IUserRoleService;
 import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
@@ -124,6 +127,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private IInjurycaseService injurycaseService;
 
 	private ISuccessexampleService successexampleService;
+	
+	private IUserRoleService userRoleService;
 
 	// 单个表对象
 	private Person person;
@@ -170,6 +175,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			return "opsessiongo";
 		}
 
+		UserRole  userRole = userRoleService.loadById(userRoleo.getId());
+		
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
 		}
@@ -186,7 +193,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		pageTileName = selectTileName(type);
 
 		// 总记录数
-		totalCount = personService.getTotalCount(con, convalue, userRoleo,
+		totalCount = personService.getTotalCount(con, convalue, userRole,
 				type, queryState, starttime, endtime);
 		// 总页数
 		pageCount = personService.getPageCount(totalCount, size);
@@ -194,7 +201,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			page = pageCount;
 		}
 		// 所有当前页记录对象
-		persons = personService.queryList(con, convalue, userRoleo, page, size,
+		persons = personService.queryList(con, convalue, userRole, page, size,
 				type, queryState, starttime, endtime);
 
 		return "list";
@@ -489,13 +496,53 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			this.upload("/person", imageName, picture);
 			person.setPhotoImg("person" + "/" + imageName);
 		}
-		person.setUserRole(userRoleo);// 设置录入人员
+		
+		UserRole  userRole = userRoleService.loadById(userRoleo.getId());
+		person.setUserRole(userRole);// 设置录入人员
 		person.setJoinDate(DateTimeKit.getLocalDate());// 设置录入时间
 		person.setHandleState(1);// 初始化处理状态
 		personService.add(person);
+		
+		System.out.println("pid:"+person.getId());
+		
+		//添加当前用户id到部门pids
+		if(userRole.getUnit()!=null)
+		{
+			int uid = userRole.getUnit().getId();
+			Unit un = unitService.loadById(uid);
+			
+			if(un.getPids()!=null&&un.getPids()!="")
+			{
+				un.setPids(handleIDs(un.getPids(),person.getId()+""));
+			}else
+			{
+				un.setPids(person.getId()+",");
+			}
+			unitService.update(un);
+		}
+		
 		arg[0] = "personAction!list?type=" + person.getType();
 		arg[1] = "人员管理";
 		return "success_child";
+	}
+	
+	//处理ids
+	private String handleIDs(String objIDs,String objID) {
+		// TODO Auto-generated method stub
+		Set<String> ids = new HashSet<String>();
+		String newIDs = "";
+		String[] arrayIDs = objIDs.split(",");
+		for(int i=0;i<arrayIDs.length;i++)
+		{
+			ids.add(arrayIDs[i]);
+		}
+		ids.add(objID);
+		
+		for (String id : ids) {  
+		      newIDs= newIDs+id+",";
+		} 
+		System.out.println(newIDs);
+		return newIDs;
 	}
 
 	// 上传照片
@@ -1810,4 +1857,18 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		this.injurycaseService = injurycaseService;
 	}
 
+	public IUserRoleService getUserRoleService() {
+		return userRoleService;
+	}
+
+	@Resource
+	public void setUserRoleService(IUserRoleService userRoleService) {
+		this.userRoleService = userRoleService;
+	}
+
+	public List<UnitVO> getUnitVOs() {
+		return unitVOs;
+	}
+
+	
 }

@@ -28,6 +28,9 @@ public class Unit implements java.io.Serializable {
 	private String name;//部门名称
 	private String number;//部门编号
 	private String superior;//所属上级单位
+	private String pids;//包含人员
+	private String cids;//包含线索
+	private String inids;//包含案件
 	private List<UserRole> userRoles = new ArrayList<UserRole>();//部门成员
 
 	// Constructors
@@ -37,12 +40,20 @@ public class Unit implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Unit(String name, String number, Integer unitLimit, String superior,List<UserRole> userRoles) {
+	public Unit(String name, String number, Integer unitLimit, String superior,String pids,String cids,String inids,List<UserRole> userRoles) {
 		this.name = name;
 		this.number = number;
 		this.unitLimit = unitLimit;
 		this.superior = superior;
+		this.pids = pids;
+		this.cids = cids;
+		this.inids = inids;
 		this.userRoles = userRoles;
+	}
+
+	@Column(name = "cids", length = 100)
+	public String getCids() {
+		return cids;
 	}
 
 	// Property accessors
@@ -53,9 +64,9 @@ public class Unit implements java.io.Serializable {
 		return this.id;
 	}
 
-	@Column(name = "unitLimit")
-	public Integer getUnitLimit() {
-		return this.unitLimit;
+	@Column(name = "inids", length = 100)
+	public String getInids() {
+		return inids;
 	}
 
 	@Column(name = "name", length = 30)
@@ -67,10 +78,21 @@ public class Unit implements java.io.Serializable {
 	public String getNumber() {
 		return this.number;
 	}
+	
+	
+	@Column(name = "pids", length = 100)
+	public String getPids() {
+		return pids;
+	}
 
 	@Column(name = "superior", length = 30)
 	public String getSuperior() {
 		return superior;
+	}
+
+	@Column(name = "unitLimit")
+	public Integer getUnitLimit() {
+		return this.unitLimit;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "unit")
@@ -78,12 +100,16 @@ public class Unit implements java.io.Serializable {
 		return this.userRoles;
 	}
 
+	public void setCids(String cids) {
+		this.cids = cids;
+	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	public void setUnitLimit(Integer unitLimit) {
-		this.unitLimit = unitLimit;
+	public void setInids(String inids) {
+		this.inids = inids;
 	}
 
 	public void setName(String name) {
@@ -94,8 +120,16 @@ public class Unit implements java.io.Serializable {
 		this.number = number;
 	}
 
+	public void setPids(String pids) {
+		this.pids = pids;
+	}
+
 	public void setSuperior(String superior) {
 		this.superior = superior;
+	}
+
+	public void setUnitLimit(Integer unitLimit) {
+		this.unitLimit = unitLimit;
 	}
 
 	public void setUserRoles(List<UserRole> userRoles) {

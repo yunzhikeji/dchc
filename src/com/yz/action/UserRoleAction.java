@@ -182,21 +182,27 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	
 	public String welcome()
 	{
+		// 登陆验证
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
+		if (userRoleo == null) {
+			return "opsessiongo";
+		}
+		UserRole  userRoleWelcome = userRoleService.loadById(userRoleo.getId());
 		//欢迎界面
 		pnotices = pnoticeService.getPnotices();
-		successexamples = successexampleService.getSuccessexamples();
-		troubleshootings = troubleshootingService.getTroubleshootings();
+		successexamples = successexampleService.getSuccessexamples();//所有
+		troubleshootings = troubleshootingService.getTroubleshootings();//所有
 		
 		persons = personService.getPersons();
-		setMainPersonJspNumber();
-		setMainInjurycaseJspNumber();
-		setMainClueJspNumber();
+		setMainPersonJspNumber(userRoleWelcome);
+		setMainInjurycaseJspNumber(userRoleWelcome);
+		setMainClueJspNumber(userRoleWelcome);
 		
 		return "welcome";
 	}
 
 	
-	private void setMainClueJspNumber() {
+	private void setMainClueJspNumber(UserRole userRole) {
 		// TODO Auto-generated method stub
 		clueNumberVOs = new ArrayList<ClueNumberVO>();
 		
@@ -204,9 +210,9 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		{
 			ClueNumberVO clueNumberVO = new ClueNumberVO();
 			clueNumberVO.setCtype(i);
-			int number1 = getCurrentClueVONumber(i,1);
-			int number2 = getCurrentVONumber(i,2);
-			int number3 = getCurrentVONumber(i,3);
+			int number1 = getCurrentClueVONumber(i,1,userRole);
+			int number2 = getCurrentClueVONumber(i,2,userRole);
+			int number3 = getCurrentClueVONumber(i,3,userRole);
 			int number4 = number1+number2+number3;
 			clueNumberVO.setNumber1(number1);
 			clueNumberVO.setNumber2(number2);
@@ -218,7 +224,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 
 	
 
-	private void setMainInjurycaseJspNumber() {
+	private void setMainInjurycaseJspNumber(UserRole userRole) {
 		// TODO Auto-generated method stub
 		injurycaseNumberVOs = new ArrayList<InjurycaseNumberVO>();
 		
@@ -226,9 +232,9 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		{
 			InjurycaseNumberVO injurycaseNumberVO = new InjurycaseNumberVO();
 			injurycaseNumberVO.setItype(i);
-			int number1 = getCurrentInjurycaseVONumber(i,1);
-			int number2 = getCurrentInjurycaseVONumber(i,2);
-			int number3 = getCurrentInjurycaseVONumber(i,3);
+			int number1 = getCurrentInjurycaseVONumber(i,1,userRole);
+			int number2 = getCurrentInjurycaseVONumber(i,2,userRole);
+			int number3 = getCurrentInjurycaseVONumber(i,3,userRole);
 			int number4 = number1+number2+number3;
 			injurycaseNumberVO.setNumber1(number1);
 			injurycaseNumberVO.setNumber2(number2);
@@ -239,7 +245,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	}
 
 	//设置人员前端显示
-	private void setMainPersonJspNumber() {
+	private void setMainPersonJspNumber(UserRole userRole) {
 		// TODO Auto-generated method stub
 		personNumberVOs = new ArrayList<PersonNumberVO>();
 		
@@ -247,9 +253,9 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		{
 			PersonNumberVO personNumberVO = new PersonNumberVO();
 			personNumberVO.setType(i);
-			int number1 = getCurrentVONumber(i,1);
-			int number2 = getCurrentVONumber(i,2);
-			int number3 = getCurrentVONumber(i,3);
+			int number1 = getCurrentVONumber(i,1,userRole);
+			int number2 = getCurrentVONumber(i,2,userRole);
+			int number3 = getCurrentVONumber(i,3,userRole);
 			int number4 = number1+number2+number3;
 			personNumberVO.setNumber1(number1);
 			personNumberVO.setNumber2(number2);
@@ -259,9 +265,9 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		}
 	}
 	
-	private int getCurrentVONumber(int type,int handleState)
+	private int getCurrentVONumber(int type,int handleState,UserRole userRole)
 	{
-		persons = personService.getPersonsByTypeAndHandleState(type,handleState);
+		persons = personService.getPersonsByTypeAndHandleState(type,handleState,userRole);
 		if(persons!=null)
 		{
 			return persons.size();
@@ -272,9 +278,9 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	
 	}
 	
-	private int getCurrentClueVONumber(int ctype, int handleState) {
+	private int getCurrentClueVONumber(int ctype, int handleState,UserRole userRole) {
 		// TODO Auto-generated method stub
-		clues = clueService.getCluesByTypeAndHandleState(ctype,handleState);
+		clues = clueService.getCluesByTypeAndHandleState(ctype,handleState,userRole);
 		if(clues!=null)
 		{
 			return clues.size();
@@ -284,9 +290,9 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		}
 	}
 	
-	private int getCurrentInjurycaseVONumber(int itype,int handleState)
+	private int getCurrentInjurycaseVONumber(int itype,int handleState,UserRole userRole)
 	{
-		injurycases = injurycaseService.getInjurycaseByTypeAndHandleState(itype,handleState);
+		injurycases = injurycaseService.getInjurycaseByTypeAndHandleState(itype,handleState,userRole);
 		if(injurycases!=null)
 		{
 			return injurycases.size();
@@ -395,10 +401,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	 * @return
 	 */
 	public String goToAdd() {
-		UserRole userRoleo = (UserRole) session.get("userRoleo");
-		if (userRoleo == null) {
-			return "opsessiongo";
-		}
+		
 		units = unitService.getUnits();
 		return "add";
 	}
@@ -523,10 +526,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	 */
 	public String load(){
 		
-		UserRole userRoleo = (UserRole) session.get("userRoleo");
-		if (userRoleo == null) {
-			return "opsessiongo";
-		}
 		userRole = userRoleService.loadById(id);
 		units = unitService.getUnits();
 		return "load";

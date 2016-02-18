@@ -105,6 +105,20 @@ public class ClueServiceImp implements IClueService {
 		if(endtime!=null&&!endtime.equals("")){
 			queryString += " and mo.joinDate<='"+endtime+"'";
 		}
+		//用户所在机构不为空
+		if(userRole.getUnit()!=null&&userRole.getUnit().getCids()!=null&&userRole.getUnit().getCids().replace(" ", "")!="")
+		{
+			String cids = userRole.getUnit().getCids();
+			String lastChar = cids.substring(cids.length()-1, cids.length());
+			if(lastChar.equals(","))
+			{
+				cids = cids.substring(0, cids.length()-1);
+			}
+			queryString += " and mo.id in ("+cids+")";
+		}else
+		{
+			queryString += " and mo.id in (0)";
+		}
 		return clueDao.getUniqueResult(queryString,p);
 	}
 	public Clue getClueByCluename(String cluename) {
@@ -147,6 +161,21 @@ public class ClueServiceImp implements IClueService {
 		if(endtime!=null&&!endtime.equals("")){
 			queryString += " and mo.joinDate<='"+endtime+"'";
 		}
+		//用户所在机构不为空
+		if(userRole.getUnit()!=null&&userRole.getUnit().getCids()!=null&&userRole.getUnit().getCids().replace(" ", "")!="")
+		{
+			String cids = userRole.getUnit().getCids();
+			String lastChar = cids.substring(cids.length()-1, cids.length());
+			if(lastChar.equals(","))
+			{
+				cids = cids.substring(0, cids.length()-1);
+			}
+			queryString += " and mo.id in ("+cids+")";
+		}else
+		{
+			queryString += " and mo.id in (0)";
+		}
+		System.out.println(queryString);
 		return clueDao.pageList(queryString,p,page,size);
 	}
 
@@ -154,9 +183,23 @@ public class ClueServiceImp implements IClueService {
 		// TODO Auto-generated method stub
 		return clueDao.getClueById(upclueid);
 	}
-	public List<Clue> getCluesByTypeAndHandleState(int ctype, int handleState) {
+	public List<Clue> getCluesByTypeAndHandleState(int ctype, int handleState,UserRole userRole) {
 		// TODO Auto-generated method stub
 		String queryString="from Clue mo where mo.ctype="+ctype+" and mo.handleState="+handleState;
+		//用户所在机构不为空
+		if(userRole.getUnit()!=null&&userRole.getUnit().getCids()!=null&&userRole.getUnit().getCids().replace(" ", "")!="")
+		{
+			String cids = userRole.getUnit().getCids();
+			String lastChar = cids.substring(cids.length()-1, cids.length());
+			if(lastChar.equals(","))
+			{
+				cids = cids.substring(0, cids.length()-1);
+			}
+			queryString += " and mo.id in ("+cids+")";
+		}else
+		{
+			queryString += " and mo.id in (0)";
+		}
 		return clueDao.queryList(queryString);
 	}
 	

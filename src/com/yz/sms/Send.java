@@ -56,8 +56,6 @@ public class Send {
     }
     
     public static String sendSMS(String phones,String content) throws Exception{
-    	//模板固定
-    	//#日期时间#：数据超限，请尽快查看！#项目#-#线路#-#网关#-#传感器编号#-#温度#【能源物联网】
     	String PostData = "sname=dlyzzn00&spwd=jsjlj477937&scorpid=&sprdid=1012808&sdst="+phones+"&smsg="+java.net.URLEncoder.encode(content,"utf-8");
         //out.println(PostData);
         String ret = Send.SMS(PostData, "http://cf.lmobile.cn/submitdata/Service.asmx/g_Submit");

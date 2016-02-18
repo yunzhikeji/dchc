@@ -178,7 +178,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 	public void update(Injurycase injurycase) {
 		injurycaseDao.update(injurycase);
 	}
-	public int getTotalCount(int con, String convalue, UserRole userRoleo,
+	public int getTotalCount(int con, String convalue, UserRole userRole,
 			int itype, int queryState, String starttime, String endtime) {
 		String queryString = "select count(*) from Injurycase mo where 1=1 ";
 		Object[] p = null;
@@ -196,6 +196,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 			if(con==4){
 				queryString += "and mo.userRole.realname like ? "; 
 			}
+			
 			p = new Object[]{'%'+convalue+'%'};
 		}
 		if(itype!=0){
@@ -210,10 +211,25 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		if(endtime!=null&&!endtime.equals("")){
 			queryString += " and mo.joinDate<='"+endtime+"'";
 		}
+		//用户所在机构不为空
+		if(userRole.getUnit()!=null&&userRole.getUnit().getInids()!=null&&userRole.getUnit().getInids().replace(" ", "")!="")
+		{
+			String inids = userRole.getUnit().getInids();
+			String lastChar = inids.substring(inids.length()-1, inids.length());
+			if(lastChar.equals(","))
+			{
+				inids = inids.substring(0, inids.length()-1);
+			}
+			queryString += " and mo.id in ("+inids+")";
+		}else
+		{
+			queryString += " and mo.id in (0)";
+		}
+		System.out.println(queryString);
 		return injurycaseDao.getUniqueResult(queryString,p);
 	}
 	public List<Injurycase> queryList(int con, String convalue,
-			UserRole userRoleo, int page, int size, int itype, int queryState,
+			UserRole userRole, int page, int size, int itype, int queryState,
 			String starttime, String endtime) {
 		String queryString = "from Injurycase mo where 1=1 ";
 		Object[] p = null;
@@ -244,12 +260,40 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		if(endtime!=null&&!endtime.equals("")){
 			queryString += " and mo.joinDate<='"+endtime+"'";
 		}
+		//用户所在机构不为空
+		if(userRole.getUnit()!=null&&userRole.getUnit().getInids()!=null&&userRole.getUnit().getInids().replace(" ", "")!="")
+		{
+			String inids = userRole.getUnit().getInids();
+			String lastChar = inids.substring(inids.length()-1, inids.length());
+			if(lastChar.equals(","))
+			{
+				inids = inids.substring(0, inids.length()-1);
+			}
+			queryString += " and mo.id in ("+inids+")";
+		}else
+		{
+			queryString += " and mo.id in (0)";
+		}
 		return injurycaseDao.pageList(queryString,p,page,size);
 	}
 	public List<Injurycase> getInjurycaseByTypeAndHandleState(int itype,
-			int handleState) {
+			int handleState,UserRole userRole) {
 		// TODO Auto-generated method stub
 		String queryString="from Injurycase mo where mo.itype="+itype+" and mo.handleState="+handleState;
+		//用户所在机构不为空
+		if(userRole.getUnit()!=null&&userRole.getUnit().getInids()!=null&&userRole.getUnit().getInids().replace(" ", "")!="")
+		{
+			String inids = userRole.getUnit().getInids();
+			String lastChar = inids.substring(inids.length()-1, inids.length());
+			if(lastChar.equals(","))
+			{
+				inids = inids.substring(0, inids.length()-1);
+			}
+			queryString += " and mo.id in ("+inids+")";
+		}else
+		{
+			queryString += " and mo.id in (0)";
+		}
 		return injurycaseDao.queryList(queryString);
 	}
 	

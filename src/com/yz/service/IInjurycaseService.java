@@ -51,5 +51,5 @@ public interface IInjurycaseService {
 			String starttime, String endtime);
 
 	public abstract List<Injurycase> getInjurycaseByTypeAndHandleState(
-			int itype, int handleState);
+			int itype, int handleState, UserRole userRole);
 }

@@ -1,16 +1,12 @@
 package com.yz.action;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
@@ -28,40 +23,17 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.yz.model.AnalyzeMan;
 import com.yz.model.Clue;
-import com.yz.model.CommonClue;
-import com.yz.model.ContrastMan;
-import com.yz.model.DisappearMan;
-import com.yz.model.GamblingCriminalMan;
-import com.yz.model.GuiltSafeguardMan;
 import com.yz.model.Injurycase;
 import com.yz.model.Judge;
-import com.yz.model.Lawcase;
-import com.yz.model.Otherperson;
 import com.yz.model.Person;
-import com.yz.model.Successexample;
-import com.yz.model.TestModel;
-import com.yz.model.Troubleshooting;
 import com.yz.model.Unit;
 import com.yz.model.UserRole;
-import com.yz.service.IAnalyzeManService;
 import com.yz.service.IClueService;
-import com.yz.service.ICommonClueService;
-import com.yz.service.IContrastManService;
-import com.yz.service.IDisappearManService;
-import com.yz.service.IGamblingCriminalManService;
-import com.yz.service.IGuiltSafeguardManService;
 import com.yz.service.IInjurycaseService;
 import com.yz.service.IJudgeService;
-import com.yz.service.ILawcaseService;
-import com.yz.service.IOtherpersonService;
 import com.yz.service.IPersonService;
-import com.yz.service.ISuccessexampleService;
-import com.yz.service.ITroubleshootingService;
 import com.yz.service.IUnitService;
-import com.yz.util.ConvertUtil;
-import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
 import com.yz.vo.UnitVO;
 
@@ -163,21 +135,156 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 	}
 
 	public String add() throws Exception {
-		
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
+		if (userRoleo == null) {
+			return "opsessiongo_child";
+		}
 		if (judge.getPerson()!= null) {
-			changePersonHandleState(judge.getPerson().getId());
+			//changePersonHandleState(judge.getPerson().getId());
 			handlePersonJudgeIndex(judge.getJtype());
+			judge.getReportUnit();
+			setUnitPids(userRoleo,judge);
+			
 		}
 		if (judge.getInjurycase()!= null) {
-			changeInjurycaseHandleState(judge.getInjurycase().getId());
+			//changeInjurycaseHandleState(judge.getInjurycase().getId());
 			handleInjurycaseJudgeIndex(judge.getJtype());
+			setUnitInids(userRoleo,judge);
+			
 		}
 		if (judge.getClue()!= null) {
-			changeClueHandleState(judge.getClue().getId());
+			//changeClueHandleState(judge.getClue().getId());
 			handleClueJudgeIndex(judge.getJtype());
+			setUnitCids(userRoleo,judge);
+			
 		}
 		judgeService.add(judge);
 		return "success_child";
+	}
+	
+	
+
+	//设置报送部门的pids
+	private void setUnitPids(UserRole userRoleo,Judge judge) {
+		// TODO Auto-generated method stub
+		//报送的部门
+		if(judge.getReportUnit()!=null&&judge.getReportUnit().replace(" ", "")!="")
+		{
+			String reportUnit = judge.getReportUnit();
+			Set<String> unitNames = new HashSet<String>();
+			String[] arrayUnitNames = reportUnit.split(",");
+			for(int i=0;i<arrayUnitNames.length;i++)
+			{
+				unitNames.add(arrayUnitNames[i]);
+			}
+			for (String uname : unitNames) {  
+				
+				List<Unit> units = unitService.getUnitByName(uname);
+				if(units!=null&&units.size()>0)
+				{
+					Unit un = units.get(0);
+					
+					if(un.getPids()!=null&&un.getPids()!="")
+					{
+						un.setPids(handleIDs(un.getPids(),judge.getPerson().getId()+""));
+					}else
+					{
+						un.setPids(judge.getPerson().getId()+",");
+					}
+				}
+			} 
+			
+		}
+	}
+	
+	
+	//设置报送部门的inids
+	private void setUnitInids(UserRole userRoleo,Judge judge) {
+		// TODO Auto-generated method stub
+		//报送的部门
+		if(judge.getReportUnit()!=null&&judge.getReportUnit().replace(" ", "")!="")
+		{
+			String reportUnit = judge.getReportUnit();
+			Set<String> unitNames = new HashSet<String>();
+			String[] arrayUnitNames = reportUnit.split(",");
+			for(int i=0;i<arrayUnitNames.length;i++)
+			{
+				unitNames.add(arrayUnitNames[i]);
+			}
+			for (String uname : unitNames) {  
+				
+				List<Unit> units = unitService.getUnitByName(uname);
+				if(units!=null&&units.size()>0)
+				{
+					Unit un = units.get(0);
+					
+					if(un.getInids()!=null&&un.getInids()!="")
+					{
+						un.setInids(handleIDs(un.getInids(),judge.getInjurycase().getId()+""));
+					}else
+					{
+						un.setInids(judge.getInjurycase().getId()+",");
+					}
+				}
+			} 
+			
+		}
+	}
+	
+	
+	//设置报送部门的cids
+	private void setUnitCids(UserRole userRoleo,Judge judge) {
+		// TODO Auto-generated method stub
+		//报送的部门
+		if(judge.getReportUnit()!=null&&judge.getReportUnit().replace(" ", "")!="")
+		{
+			String reportUnit = judge.getReportUnit();
+			Set<String> unitNames = new HashSet<String>();
+			String[] arrayUnitNames = reportUnit.split(",");
+			for(int i=0;i<arrayUnitNames.length;i++)
+			{
+				unitNames.add(arrayUnitNames[i]);
+			}
+			for (String uname : unitNames) {  
+				
+				List<Unit> units = unitService.getUnitByName(uname);
+				if(units!=null&&units.size()>0)
+				{
+					Unit un = units.get(0);
+					
+					if(un.getCids()!=null&&un.getCids()!="")
+					{
+						un.setCids(handleIDs(un.getCids(),judge.getClue().getId()+""));
+					}else
+					{
+						un.setCids(judge.getClue().getId()+",");
+					}
+				}
+			} 
+			
+		}
+	}
+	
+	
+	
+	
+
+	//处理ids
+	private String handleIDs(String objIDs,String objID) {
+		// TODO Auto-generated method stub
+		Set<String> ids = new HashSet<String>();
+		String newIDs = "";
+		String[] arrayIDs = objIDs.split(",");
+		for(int i=0;i<arrayIDs.length;i++)
+		{
+			ids.add(arrayIDs[i]);
+		}
+		ids.add(objID);
+		
+		for (String id : ids) {  
+		      newIDs= newIDs+id+",";
+		} 
+		return newIDs;
 	}
 
 	// 改变人员当前处理状态

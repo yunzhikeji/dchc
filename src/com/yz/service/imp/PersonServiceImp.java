@@ -104,6 +104,23 @@ public class PersonServiceImp implements IPersonService {
 		if(endtime!=null&&!endtime.equals("")){
 			queryString += " and mo.joinDate<='"+endtime+"'";
 		}
+		//用户所在机构不为空
+		if(userRole.getUnit()!=null&&userRole.getUnit().getPids()!=null&&userRole.getUnit().getPids().replace(" ", "")!="")
+		{
+			String pids = userRole.getUnit().getPids();
+			String lastChar = pids.substring(pids.length()-1, pids.length());
+			if(lastChar.equals(","))
+			{
+				pids = pids.substring(0, pids.length()-1);
+			}
+			queryString += " and mo.id in ("+pids+")";
+		}else
+		{
+			queryString += " and mo.id in (0)";
+		}
+		System.out.println(queryString);
+		
+		
 		return personDao.getUniqueResult(queryString,p);
 	}
 	public Person getPersonByPersonname(String personname) {
@@ -146,6 +163,21 @@ public class PersonServiceImp implements IPersonService {
 		if(endtime!=null&&!endtime.equals("")){
 			queryString += " and mo.joinDate<='"+endtime+"'";
 		}
+		//用户所在机构不为空
+		if(userRole.getUnit()!=null&&userRole.getUnit().getPids()!=null&&userRole.getUnit().getPids().replace(" ", "")!="")
+		{
+			String pids = userRole.getUnit().getPids();
+			String lastChar = pids.substring(pids.length()-1, pids.length());
+			if(lastChar.equals(","))
+			{
+				pids = pids.substring(0, pids.length()-1);
+			}
+			queryString += " and mo.id in ("+pids+")";
+		}else
+		{
+			queryString += " and mo.id in (0)";
+		}
+		System.out.println(queryString);
 		return personDao.pageList(queryString,p,page,size);
 	}
 
@@ -159,9 +191,27 @@ public class PersonServiceImp implements IPersonService {
 		Object[] values=new Object[]{id};
 		return personDao.queryByNamedParam(queryString,paramNames,values);
 	}
-	public List<Person> getPersonsByTypeAndHandleState(int type, int handleState) {
+	public List<Person> getPersonsByTypeAndHandleState(int type, int handleState,UserRole userRole) {
 		// TODO Auto-generated method stub
 		String queryString="from Person mo where mo.type="+type+" and mo.handleState="+handleState;
+		//用户所在机构不为空
+		if(userRole.getUnit()!=null&&userRole.getUnit().getPids()!=null&&userRole.getUnit().getPids().replace(" ", "")!="")
+		{
+			String pids = userRole.getUnit().getPids();
+			String lastChar = pids.substring(pids.length()-1, pids.length());
+			if(lastChar.equals(","))
+			{
+				pids = pids.substring(0, pids.length()-1);
+			}
+			queryString += " and mo.id in ("+pids+")";
+		}else
+		{
+			queryString += " and mo.id in (0)";
+		}
 		return personDao.queryList(queryString);
+	}
+	public int savereturn(Person person) {
+		// TODO Auto-generated method stub
+		return personDao.savereturn(person);
 	}
 }

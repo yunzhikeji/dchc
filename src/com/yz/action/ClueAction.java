@@ -9,8 +9,10 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -53,6 +55,7 @@ import com.yz.service.ILawcaseService;
 import com.yz.service.IOtherpersonService;
 import com.yz.service.ITroubleshootingService;
 import com.yz.service.IUnitService;
+import com.yz.service.IUserRoleService;
 import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
@@ -106,6 +109,8 @@ public class ClueAction extends ActionSupport implements RequestAware,
 	private ITroubleshootingService troubleshootingService;
 
 	private IJudgeService judgeService;
+	
+	private IUserRoleService userRoleService;
 
 	// 单个表对象
 	private Clue clue;
@@ -139,6 +144,8 @@ public class ClueAction extends ActionSupport implements RequestAware,
 			return "opsessiongo";
 		}
 
+		UserRole  userRole = userRoleService.loadById(userRoleo.getId());
+		
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
 		}
@@ -155,7 +162,7 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		pageTileName = selectTileName(ctype);
 
 		// 总记录数
-		totalCount = clueService.getTotalCount(con, convalue, userRoleo, ctype,
+		totalCount = clueService.getTotalCount(con, convalue, userRole, ctype,
 				queryState, starttime, endtime);
 		// 总页数
 		pageCount = clueService.getPageCount(totalCount, size);
@@ -163,7 +170,7 @@ public class ClueAction extends ActionSupport implements RequestAware,
 			page = pageCount;
 		}
 		// 所有当前页记录对象
-		clues = clueService.queryList(con, convalue, userRoleo, page, size,
+		clues = clueService.queryList(con, convalue, userRole, page, size,
 				ctype, queryState, starttime, endtime);
 
 		return "list";
@@ -214,13 +221,51 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo_child";
 		}
-		clue.setUserRole(userRoleo);// 设置录入人员
+		
+		UserRole  userRole = userRoleService.loadById(userRoleo.getId());
+		clue.setUserRole(userRole);// 设置录入人员
 		clue.setJoinDate(DateTimeKit.getLocalDate());// 设置录入时间
 		clue.setHandleState(1);// 初始化处理状态
 		clueService.add(clue);
+		
+		//添加当前线索id到部门cids
+		if(userRole.getUnit()!=null)
+		{
+			int uid = userRole.getUnit().getId();
+			Unit un = unitService.loadById(uid);
+			
+			if(un.getCids()!=null&&un.getCids()!="")
+			{
+				un.setCids(handleIDs(un.getCids(),clue.getId()+""));
+			}else
+			{
+				un.setCids(clue.getId()+",");
+			}
+			unitService.update(un);
+		}
+		
 		arg[0] = "clueAction!list?ctype=" + clue.getCtype();
 		arg[1] = "线索管理";
 		return "success_child";
+	}
+	
+	//处理ids
+	private String handleIDs(String objIDs,String objID) {
+		// TODO Auto-generated method stub
+		Set<String> ids = new HashSet<String>();
+		String newIDs = "";
+		String[] arrayIDs = objIDs.split(",");
+		for(int i=0;i<arrayIDs.length;i++)
+		{
+			ids.add(arrayIDs[i]);
+		}
+		ids.add(objID);
+		
+		for (String id : ids) {  
+		      newIDs= newIDs+id+",";
+		} 
+		System.out.println(newIDs);
+		return newIDs;
 	}
 
 	/**
@@ -641,5 +686,16 @@ public class ClueAction extends ActionSupport implements RequestAware,
 	public List<UnitVO> getUnitVOs() {
 		return unitVOs;
 	}
+
+	public IUserRoleService getUserRoleService() {
+		return userRoleService;
+	}
+
+	@Resource
+	public void setUserRoleService(IUserRoleService userRoleService) {
+		this.userRoleService = userRoleService;
+	}
+	
+	
 
 }

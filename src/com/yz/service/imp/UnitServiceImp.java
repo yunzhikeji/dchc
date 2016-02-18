@@ -118,4 +118,9 @@ public class UnitServiceImp implements IUnitService {
 		// TODO Auto-generated method stub
 		return unitDao.getUnitById(upunitid);
 	}
+	public List<Unit> getUnitByName(String uname) {
+		// TODO Auto-generated method stub
+		String queryString="from Unit mo where mo.name='"+uname+"'";
+		return unitDao.queryList(queryString);
+	}
 }

@@ -42,7 +42,9 @@ public interface IPersonService {
 	public abstract Person queryPersonById(int id);
 
 	public abstract List<Person> getPersonsByTypeAndHandleState(int type,
-			int handleState);
+			int handleState, UserRole userRole);
+
+	public abstract int savereturn(Person person);
 
 
 }
