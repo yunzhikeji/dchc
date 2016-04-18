@@ -2,6 +2,8 @@ package com.yz.util;
 
 
 public class TestMain {
+	
+	
 
 	/**
 	 * @param args
@@ -15,7 +17,7 @@ public class TestMain {
 			
 		handleInfoExtractionMsg(msg);
 		
-		System.out.println(infoExtractionMsg);
+		System.out.println(infoExtractionMsg+"hello");
 		
 	}
 	
