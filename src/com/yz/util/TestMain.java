@@ -15,7 +15,9 @@ public class TestMain {
 			
 		handleInfoExtractionMsg(msg);
 		
-		System.out.println(infoExtractionMsg);
+		System.out.println("this is a configs test");
+		System.out.println("this is a configs test");
+
 		
 	}
 	
