@@ -16,8 +16,11 @@ public class TestMain {
 		String msg = "提取手机信息,提取银行卡信息,提取DNA,提取指纹,提取鞋印";
 			
 		handleInfoExtractionMsg(msg);
-		
-		System.out.println(infoExtractionMsg+"hello github");
+
+
+		System.out.println(infoExtractionMsg);
+
+
 		
 	}
 	
