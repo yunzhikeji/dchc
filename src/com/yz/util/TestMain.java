@@ -17,7 +17,7 @@ public class TestMain {
 			
 		handleInfoExtractionMsg(msg);
 		
-		System.out.println(infoExtractionMsg+"hello");
+		System.out.println(infoExtractionMsg+"hello github");
 		
 	}
 	
