@@ -20,7 +20,8 @@ public class TestMain {
 
 		System.out.println("this is a configs test");
 		System.out.println("this is a configs test");
-
+		System.out.println("this is two configs test");
+		System.out.println("this is two configs test");
 
 		System.out.println(infoExtractionMsg+"hello");
 
