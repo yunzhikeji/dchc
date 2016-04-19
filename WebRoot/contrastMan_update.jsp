@@ -396,7 +396,7 @@
 														</td>
 														<td
 															style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
-															<a href="#" onclick="javascript::"> <s:property
+															<a href="#" onclick="javascript:void(0)"> <s:property
 																	value="judgeRequirement" /> </a>
 														</td>
 														<td>
