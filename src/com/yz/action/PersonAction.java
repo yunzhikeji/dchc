@@ -257,6 +257,9 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		case 14:
 			pageName = "普通线索";
 			break;
+		case 15:
+			pageName = "普通线索";
+			break;
 		default:
 			break;
 		}
@@ -311,6 +314,9 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		case 14:
 			// pageName = "普通线索";
 			return "commonClue_add";
+		case 15:
+			// pageName = "社会人员"
+			return "socialMan_add";
 		default:
 			return "add";
 		}

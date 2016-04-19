@@ -90,6 +90,7 @@
                 <li><a _href="personAction!list?type=10" href="javascript:void(0)">维稳人员</a></li>
                 <li><a _href="personAction!list?type=12" href="javascript:void(0)">侵财人员分析</a></li>
                 <li><a _href="personAction!list?type=13" href="javascript:void(0)">技术比中人员</a></li>
+                <li><a _href="personAction!list?type=15" href="javascript:void(0)">社会人员</a></li>
 			   </ul>
 		  </li>
           <li><a href="#"><i class="Hui-iconfont ">&#xe665;</i> 线索管理<img class="more" src="images/more.png"/></a>
