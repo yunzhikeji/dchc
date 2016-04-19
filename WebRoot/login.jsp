@@ -23,6 +23,17 @@
 <meta name="keywords" content="">
 <meta name="description" content="">
 <script type="text/javascript">
+//解决页面嵌套问题
+		$(function(){
+			document.forms[0].loginName.focus();
+		});
+		
+		// 在被嵌套时就刷新上级窗口
+		if(window.parent != window){
+			window.parent.location.reload(true);
+		}
+	</script>
+<script type="text/javascript">
  
  //设置cookie
 function setCookie(cname, cvalue, exdays) {
