@@ -19,9 +19,11 @@
 <link href="css/H-ui.login.css" rel="stylesheet" type="text/css" />
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
 <title>德城合成平台登陆界面</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
+
 <script type="text/javascript">
 //解决页面嵌套问题
 		$(function(){
