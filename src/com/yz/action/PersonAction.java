@@ -1878,6 +1878,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	public List<UnitVO> getUnitVOs() {
 		return unitVOs;
 	}
-
+	public String importExcel(){
+		return "importpage";
+	}
 	
 }
