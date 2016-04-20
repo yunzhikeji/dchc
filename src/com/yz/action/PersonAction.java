@@ -983,6 +983,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		case 14:
 			commonClue = person.getCommonClue();
 			return "commonClue_load";
+	
 		default:
 			return "load";
 		}
