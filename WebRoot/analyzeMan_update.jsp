@@ -638,14 +638,15 @@
 								</table>
 							</div>
 
-							<!--上报信息-->
+
+							<!--发起研判信息-->
 							<div class="row cl mt-20">
 								<div class="col-12 mb-0 c-primary f-16"
 									style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
-									上报信息
+									发起研判信息
 									<input class="btn btn-primary radius mt-10 f-r" type="button"
-										onclick="addPage('上报信息','judgeAction!goToAdd?pid=<s:property value="id"/>&jtype=3','650','300')"
-										value="上报信息">
+										onclick="addPage('发起研判信息','judgeAction!goToAdd?pid=<s:property value="id"/>&jtype=1','650','300')"
+										value="发起研判信息">
 								</div>
 								<div class="col-12">
 									<table class="table table-border table-bg mb-10"
@@ -653,7 +654,7 @@
 										<thead>
 											<tr>
 												<th width="7%">
-													上报次序
+													研判次序
 												</th>
 												<th width="24%">
 													报送机构
@@ -684,7 +685,7 @@
 														</td>
 														<td>
 															<a style="text-decoration: none" class="ml-5"
-																onclick="addPage('编辑上报信息','personAction!loadJudge?jid=<s:property value="id" />','500','300')"
+																onclick="addPage('编辑研判信息','judgeAction!load?jid=<s:property value="id" />','500','300')"
 																href="javascript:;" title="编辑"><i
 																class="Hui-iconfont">&#xe6df;</i> </a>
 															<a style="text-decoration: none" class="ml-5"
@@ -699,6 +700,72 @@
 									</table>
 								</div>
 							</div>
+							<div class="row cl mt-20">
+								<div class="col-12 mb-0 c-primary f-16"
+									style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
+									研判情况
+								</div>
+								<div class="col-12">
+									<table class="table table-border table-bg mb-10">
+										<thead>
+											<tr>
+												<th>
+													研判次序
+												</th>
+												<th align="center">
+													刑技研判
+												</th>
+												<th align="center">
+													网技研判
+												</th>
+												<th align="center">
+													情报研判
+												</th>
+												<th align="center">
+													图像侦查
+												</th>
+											</tr>
+										</thead>
+										<tbody>
+											<s:if test="person.judges.size>0">
+												<s:iterator value="person.judges" var="judge"
+													status="status">
+													<tr>
+														<td>
+															<s:property value="indexNumber" />
+														</td>
+														<td>
+															<s:textarea name="criminalJudge" cssClass="input-text"
+																id="criminalJudge"
+																cssStyle="width: 260px; height: 180px; float: left;"
+																readonly="true"></s:textarea>
+														</td>
+														<td>
+															<s:textarea name="networkJudge" cssClass="input-text"
+																id="networkJudge"
+																cssStyle="width: 260px; height: 180px; float: left;"
+																readonly="true"></s:textarea>
+														</td>
+														<td>
+															<s:textarea name="intelligenceJudge"
+																cssClass="input-text" id="intelligenceJudge"
+																cssStyle="width: 260px; height: 180px; float: left;"
+																readonly="true"></s:textarea>
+														</td>
+														<td>
+															<s:textarea name="imageJudge" cssClass="input-text"
+																id="imageJudge"
+																cssStyle="width: 260px; height: 180px; float: left;"
+																readonly="true"></s:textarea>
+														</td>
+													</tr>
+												</s:iterator>
+											</s:if>
+										</tbody>
+									</table>
+								</div>
+							</div>
+
 
 							<div class="col-12 mb-10 c-primary f-16"
 								style="border-bottom: solid 2px #2DABF7">
@@ -744,90 +811,96 @@
 								</table>
 							</div>
 						</div>
-					<div class="tabCon">
+						<div class="tabCon">
 							<div class="row cl">
 								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
 									<div
 										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-										<s:property value="person.userRole.realname"/>：录入
+										<s:property value="person.userRole.realname" />
+										：录入
 									</div>
 								</div>
 							</div>
 							<s:if test="person.judges.size>0">
-												<s:iterator value="person.judges" var="judge"
-													status="status">
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div style="height: 25px; width: 200px; text-align: center">
-										<i class="Hui-iconfont f-18 ">&#xe674;</i>
+								<s:iterator value="person.judges" var="judge" status="status">
+									<div class="row cl">
+										<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+											<div style="height: 25px; width: 200px; text-align: center">
+												<i class="Hui-iconfont f-18 ">&#xe674;</i>
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-								<div style="height: 100px; width: 200px; border: solid 1px #666">
-									<table width="100%" border="0" cellspacing="0" cellpadding="0">
-										<tr>
-											<td>
-												上报信息<s:property value="indexNumber" />: <s:property value="reportUnit" />
-											</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-							</s:iterator>
+									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+										<div
+											style="height: 100px; width: 200px; border: solid 1px #666">
+											<table width="100%" border="0" cellspacing="0"
+												cellpadding="0">
+												<tr>
+													<td>
+														上报信息
+														<s:property value="indexNumber" />
+														:
+														<s:property value="reportUnit" />
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</s:iterator>
 							</s:if>
-							<s:if test="person.comprehensiveJudge!=null&&person.comprehensiveJudge!=''">
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div style="height: 25px; width: 200px; text-align: center">
-										<i class="Hui-iconfont f-18 ">&#xe674;</i>
+							<s:if
+								test="person.comprehensiveJudge!=null&&person.comprehensiveJudge!=''">
+								<div class="row cl">
+									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+										<div style="height: 25px; width: 200px; text-align: center">
+											<i class="Hui-iconfont f-18 ">&#xe674;</i>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-								<div
-									style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-									完结
+								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+									<div
+										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+										完结
+									</div>
 								</div>
-							</div>
 							</s:if>
-							<s:if test="person.leaderInstruction!=null&&person.leaderInstruction!=''">
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div style="height: 25px; width: 200px; text-align: center">
-										<i class="Hui-iconfont f-18 ">&#xe674;</i>
+							<s:if
+								test="person.leaderInstruction!=null&&person.leaderInstruction!=''">
+								<div class="row cl">
+									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+										<div style="height: 25px; width: 200px; text-align: center">
+											<i class="Hui-iconfont f-18 ">&#xe674;</i>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-								<div
-									style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-									领导批示
+								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+									<div
+										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+										领导批示
+									</div>
 								</div>
-							</div>
 							</s:if>
 						</div>
 					</div>
-					</div>
-					<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
-					<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
-					<script type="text/javascript"
-						src="lib/My97DatePicker/WdatePicker.js"></script>
-					<script type="text/javascript"
-						src="lib/icheck/jquery.icheck.min.js"></script>
-					<script type="text/javascript"
-						src="lib/Validform/5.3.2/Validform.min.js"></script>
-					<script type="text/javascript"
-						src="lib/webuploader/0.1.5/webuploader.min.js"></script>
-					<script type="text/javascript"
-						src="lib/ueditor/1.4.3/ueditor.config.js"></script>
-					<script type="text/javascript"
-						src="lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
-					<script type="text/javascript"
-						src="lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
-					<script type="text/javascript" src="js/H-ui.js"></script>
-					<script type="text/javascript" src="js/H-ui.admin.js"></script>
-					<script type="text/javascript">
+				</div>
+				<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+				<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
+				<script type="text/javascript"
+					src="lib/My97DatePicker/WdatePicker.js"></script>
+				<script type="text/javascript" src="lib/icheck/jquery.icheck.min.js"></script>
+				<script type="text/javascript"
+					src="lib/Validform/5.3.2/Validform.min.js"></script>
+				<script type="text/javascript"
+					src="lib/webuploader/0.1.5/webuploader.min.js"></script>
+				<script type="text/javascript"
+					src="lib/ueditor/1.4.3/ueditor.config.js"></script>
+				<script type="text/javascript"
+					src="lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+				<script type="text/javascript"
+					src="lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+				<script type="text/javascript" src="js/H-ui.js"></script>
+				<script type="text/javascript" src="js/H-ui.admin.js"></script>
+				<script type="text/javascript">
 
 $(function(){
 $.Huitab("#tab_demo .tabBar span","#tab_demo .tabCon","current","click","0");
@@ -895,13 +968,13 @@ function article_save(obj,id){
 	});
 }
 </script>
-					<s:hidden name="analyzeMan.id" title="人员子表自身id"></s:hidden>
-					<s:hidden name="person.type" title="人员类型"></s:hidden>
-					<s:hidden name="person.id" title="人员id"></s:hidden>
-					<s:hidden name="person.userRole.id" title="人员子表userRoleid"></s:hidden>
-					<s:hidden name="person.photoImg" title="人员照片"></s:hidden>
-					<s:hidden name="person.handleState" title="办理状态"></s:hidden>
-					<s:hidden name="person.joinDate" title="录入时间"></s:hidden>
+				<s:hidden name="analyzeMan.id" title="人员子表自身id"></s:hidden>
+				<s:hidden name="person.type" title="人员类型"></s:hidden>
+				<s:hidden name="person.id" title="人员id"></s:hidden>
+				<s:hidden name="person.userRole.id" title="人员子表userRoleid"></s:hidden>
+				<s:hidden name="person.photoImg" title="人员照片"></s:hidden>
+				<s:hidden name="person.handleState" title="办理状态"></s:hidden>
+				<s:hidden name="person.joinDate" title="录入时间"></s:hidden>
 		</form>
 	</body>
 </html>
