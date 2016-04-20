@@ -147,7 +147,7 @@
 			<result name="contrastMan_view">
 				/contrastMan_view.jsp
 			</result>
-			<result name="socialMan_add">/socialMan_add.jsp</result>
+
 			<result name="commonClue_add">/commonClue_add.jsp</result>
 			<result name="commonClue_load">
 				/commonClue_update.jsp

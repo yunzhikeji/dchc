@@ -255,13 +255,13 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			pageName = "技术比中人员";
 			break;
 		case 14:
-			System.out.println("helo");
 			pageName = "普通线索";
 			break;
+			
 		case 15:
-			System.out.println("helo");
 			pageName = "社会人员";
 			break;
+
 		default:
 			break;
 		}
