@@ -140,20 +140,20 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 			return "opsessiongo_child";
 		}
 		if (judge.getPerson()!= null) {
-			//changePersonHandleState(judge.getPerson().getId());
+			changePersonHandleState(judge.getPerson().getId());
 			handlePersonJudgeIndex(judge.getJtype());
 			judge.getReportUnit();
 			setUnitPids(userRoleo,judge);
 			
 		}
 		if (judge.getInjurycase()!= null) {
-			//changeInjurycaseHandleState(judge.getInjurycase().getId());
+			changeInjurycaseHandleState(judge.getInjurycase().getId());
 			handleInjurycaseJudgeIndex(judge.getJtype());
 			setUnitInids(userRoleo,judge);
 			
 		}
 		if (judge.getClue()!= null) {
-			//changeClueHandleState(judge.getClue().getId());
+			changeClueHandleState(judge.getClue().getId());
 			handleClueJudgeIndex(judge.getJtype());
 			setUnitCids(userRoleo,judge);
 			

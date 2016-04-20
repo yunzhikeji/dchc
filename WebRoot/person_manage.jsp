@@ -146,7 +146,7 @@
 									<input name="indexID" class="indexID" type="checkbox" value="<s:property value="id"/>">
 								</td>
 								<td>
-									<s:property value="id"/>
+										<s:property value="#status.index+1+(page-1)*10" />
 								</td>
 								<td>
 									<a style="text-decoration: none" class="ml-5"
