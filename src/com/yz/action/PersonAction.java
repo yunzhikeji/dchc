@@ -26,6 +26,7 @@ import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.interceptor.SessionAware;
+import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -41,6 +42,7 @@ import com.yz.model.Judge;
 import com.yz.model.Lawcase;
 import com.yz.model.Otherperson;
 import com.yz.model.Person;
+import com.yz.model.SocialMan;
 import com.yz.model.Successexample;
 import com.yz.model.TestModel;
 import com.yz.model.Troubleshooting;
@@ -57,6 +59,7 @@ import com.yz.service.IJudgeService;
 import com.yz.service.ILawcaseService;
 import com.yz.service.IOtherpersonService;
 import com.yz.service.IPersonService;
+import com.yz.service.ISocialManService;
 import com.yz.service.ISuccessexampleService;
 import com.yz.service.ITroubleshootingService;
 import com.yz.service.IUnitService;
@@ -64,6 +67,7 @@ import com.yz.service.IUserRoleService;
 import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
+import com.yz.vo.SocialManForm;
 import com.yz.vo.UnitVO;
 
 @Component("personAction")
@@ -163,7 +167,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 	// 部门json
 	private String jsonUnits;
-
+	@Resource
+	private ISocialManService socialManService;
+	
+	
 	/**
 	 * 人员管理
 	 */
@@ -597,6 +604,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private File picture3;
 	private String picture3ContentType;
 	private String picture3FileName;
+	private SocialManForm socialManForm;
 
 	/**
 	 * 删除一
@@ -1881,6 +1889,11 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	}
 	public String importExcel(){
 		return "importpage";
+	}
+	
+	public String importdata(){
+		socialManService.saveElecUserWithExcel(socialManForm);
+		return "importdata";
 	}
 	
 }

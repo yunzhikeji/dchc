@@ -14,7 +14,7 @@
   </head>
   
   <body>
-    <s:form action="system/UserAction_importdata.do" method="post" enctype="multipart/form-data">
+    <s:form action="personAction!importdata" method="post" enctype="multipart/form-data">
       <br>
       <table border="0" width="100%" cellspacing="0" cellpadding="0">
       	<tr>

@@ -1,8 +1,4 @@
-/**
- * @author ly
- * Excel数据导入数据库
- * @version 1.0
- */
+
 package com.yz.util;
 
 import java.io.File;
@@ -46,8 +42,8 @@ public class GenerateSqlFromExcel {
 			Sheet sheet[] = wb.getSheets();
 			if (sheet != null) {
 				for (int i = 0; i < sheet.length; i++) {
-					if (!sheet[i].getName().equalsIgnoreCase("Person")) {						
-						throw new Exception("指定文件中不包含名称为Person的sheet,请重新指定！");
+					if (!sheet[i].getName().equalsIgnoreCase("Sheet1")) {						
+						throw new Exception("指定文件中不包含名称为Sheet1的sheet,请重新指定！");
 					}
 					for (int j = 1; j < sheet[i].getRows(); j++) {
 						String[] valStr = new String[8];
