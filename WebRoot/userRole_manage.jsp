@@ -156,7 +156,7 @@
 								<input type='button' class="btn btn-primary radius size-S"
 									onclick="jumpCommonPage('userRoleAction!list',document.getElementById('page').value,<s:property value="con"/>,'<s:property value="convalue"/>');" value='转到' />
 								&nbsp; 当前页：
-								<input onpaste="return false"  onkeyup="if(event.keyCode !=37 && event.keyCode != 39){if (! /^\d+$/ig.test(this.value)){this.value='';}}"
+								<input onpaste="return false"  
 									id="page" type="text" name="page"
 									value="<s:property value="page" />" size="2"
 									style="width: 25px; height: 20px; line-height: 18px; BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; FONT-SIZE: 13px; BORDER-LEFT: #cccccc 1px solid; COLOR: #000000; BORDER-BOTTOM: #cccccc 1px solid; FONT-FAMILY: 宋体; BACKGROUND-COLOR: #ffffff;" />

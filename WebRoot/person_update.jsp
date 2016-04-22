@@ -1449,7 +1449,7 @@
 															<s:property value="#status.index+1" />
 														</td>
 														<td>
-															<a href="#" onclick="javascript::"> <s:property
+															<a href="#" onclick="javascript:void(0)"> <s:property
 																	value="number" /> </a>
 														</td>
 														<td>
@@ -1515,7 +1515,7 @@
 															<s:property value="#status.index+1" />
 														</td>
 														<td>
-															<a href="#" onclick="javascript::"> <s:property
+															<a href="#" onclick="javascript:void(0)"> <s:property
 																	value="number" /> </a>
 														</td>
 														<td>
@@ -1589,7 +1589,7 @@
 														<s:property value="#status.index+1" />
 													</td>
 													<td>
-														<a href="#" onclick="javascript::"> <s:property
+														<a href="#" onclick="javascript:void(0)"> <s:property
 																value="caseNumber" /> </a>
 													</td>
 													<td>
@@ -1661,7 +1661,7 @@
 														<s:property value="#status.index+1" />
 													</td>
 													<td>
-														<a href="#" onclick="javascript::"> <s:property
+														<a href="#" onclick="javascript:void(0)"> <s:property
 																value="title" /> </a>
 													</td>
 													<td>
@@ -1730,7 +1730,7 @@
 													</td>
 													<td
 														style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
-														<a href="#" onclick="javascript::"> <s:property
+														<a href="#" onclick="javascript:void(0)"> <s:property
 																value="judgeRequirement" /> </a>
 													</td>
 													<td>

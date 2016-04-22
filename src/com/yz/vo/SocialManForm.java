@@ -10,6 +10,7 @@ import javax.persistence.Table;
 
 public class SocialManForm implements java.io.Serializable {
 	private Integer id;
+
 	private String number; // 人员编号
 	private String name; // 姓名
 	private String sex; // 性别
@@ -22,16 +23,17 @@ public class SocialManForm implements java.io.Serializable {
 	private String registerArea; // 户籍区域划分
 	private File file;
 
-	public File getFile() {
-		return file;
-	}
 
-	public void setFile(File file) {
-		this.file = file;
-	}
 
 	// 使用jxl进行报表导入的时候使用
-	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getNumber() {
 		return number;
 	}
@@ -112,4 +114,11 @@ public class SocialManForm implements java.io.Serializable {
 		this.registerArea = registerArea;
 	}
 
+	public File getFile() {
+		return file;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
+	}
 }

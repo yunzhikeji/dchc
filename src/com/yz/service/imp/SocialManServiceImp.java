@@ -223,10 +223,9 @@ public class SocialManServiceImp implements ISocialManService {
 
 		
 	
-	public void saveElecUserWithExcel(SocialManForm socialManForm) {
+	public void saveSocialManWithExcel(SocialManForm socialManForm) {
 		
 		try {
-			System.out.println(socialManForm);
 			File file = socialManForm.getFile();
 			GenerateSqlFromExcel generate = new GenerateSqlFromExcel();
 			ArrayList<String []> arrayList = generate.generateStationBugSql(file);
@@ -240,14 +239,13 @@ public class SocialManServiceImp implements ISocialManService {
 				socialMan.setNumber(data[0].toString());
 				socialMan.setName(data[1].toString());
 				socialMan.setSex(data[2].toString());
-				socialMan.setSex(data[3].toString());
-				socialMan.setBirthday(data[4].toString());
-				socialMan.setQq(data[5].toString());
-				socialMan.setWechat(data[6].toString());
-				socialMan.setIdcard(data[7].toString());
-				socialMan.setPhonenumber(data[8].toString());
-				socialMan.setRegisterAddress(data[9].toString());
-				socialMan.setRegisterArea(data[10].toString());
+				socialMan.setBirthday(data[3].toString());
+				socialMan.setQq(data[4].toString());
+				socialMan.setWechat(data[5].toString());
+				socialMan.setIdcard(data[6].toString());
+				socialMan.setPhonenumber(data[7].toString());
+				socialMan.setRegisterAddress(data[8].toString());
+				socialMan.setRegisterArea(data[9].toString());
 				socialManDao.save(socialMan);
 			}
 

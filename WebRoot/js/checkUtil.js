@@ -1,3 +1,6 @@
+//if(event.keyCode !=37 && event.keyCode != 39){if (! /^\d+$/ig.test(this.value)){this.value='';}}
+
+
 //unit_*.jsp
 function checkUnit()
 {

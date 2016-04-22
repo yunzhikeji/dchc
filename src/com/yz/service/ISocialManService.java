@@ -47,7 +47,7 @@ public interface ISocialManService {
 
 	public abstract int savereturn(SocialMan SocialMan);
 
-	public abstract void saveElecUserWithExcel(SocialManForm socialManForm);
+	public abstract void saveSocialManWithExcel(SocialManForm socialManForm);
 
 
 }

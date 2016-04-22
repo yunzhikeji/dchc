@@ -131,7 +131,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private IInjurycaseService injurycaseService;
 
 	private ISuccessexampleService successexampleService;
-	
+
 	private IUserRoleService userRoleService;
 
 	// 单个表对象
@@ -169,8 +169,12 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private String jsonUnits;
 	@Resource
 	private ISocialManService socialManService;
-	
-	
+
+	// 测试file
+	private File fileTest;
+	private String fileTestContentType;
+	private String fileTestFileName;
+
 	/**
 	 * 人员管理
 	 */
@@ -182,8 +186,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			return "opsessiongo";
 		}
 
-		UserRole  userRole = userRoleService.loadById(userRoleo.getId());
-		
+		UserRole userRole = userRoleService.loadById(userRoleo.getId());
+
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
 		}
@@ -200,8 +204,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		pageTileName = selectTileName(type);
 
 		// 总记录数
-		totalCount = personService.getTotalCount(con, convalue, userRole,
-				type, queryState, starttime, endtime);
+		totalCount = personService.getTotalCount(con, convalue, userRole, type,
+				queryState, starttime, endtime);
 		// 总页数
 		pageCount = personService.getPageCount(totalCount, size);
 		if (page > pageCount && pageCount != 0) {
@@ -216,7 +220,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 	// 选择页面名称
 	private String selectTileName(int type) {
-		// TODO Auto-generated method stub
 		String pageName = "人员信息";
 		switch (type) {
 		case 0:
@@ -363,7 +366,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			// pageName = "留置盘问";
 		case 7:
 			// pageName = "侵财人员";
-		
+
 		case 8:
 			// pageName = "刑事传唤";
 			if (gamblingCriminalMan == null) {
@@ -512,51 +515,46 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			this.upload("/person", imageName, picture);
 			person.setPhotoImg("person" + "/" + imageName);
 		}
-		
-		UserRole  userRole = userRoleService.loadById(userRoleo.getId());
+
+		UserRole userRole = userRoleService.loadById(userRoleo.getId());
 		person.setUserRole(userRole);// 设置录入人员
 		person.setJoinDate(DateTimeKit.getLocalDate());// 设置录入时间
 		person.setHandleState(1);// 初始化处理状态
 		personService.add(person);
-		
-		System.out.println("pid:"+person.getId());
-		
-		//添加当前用户id到部门pids
-		if(userRole.getUnit()!=null)
-		{
+
+		System.out.println("pid:" + person.getId());
+
+		// 添加当前用户id到部门pids
+		if (userRole.getUnit() != null) {
 			int uid = userRole.getUnit().getId();
 			Unit un = unitService.loadById(uid);
-			
-			if(un.getPids()!=null&&un.getPids()!="")
-			{
-				un.setPids(handleIDs(un.getPids(),person.getId()+""));
-			}else
-			{
-				un.setPids(person.getId()+",");
+
+			if (un.getPids() != null && un.getPids() != "") {
+				un.setPids(handleIDs(un.getPids(), person.getId() + ""));
+			} else {
+				un.setPids(person.getId() + ",");
 			}
 			unitService.update(un);
 		}
-		
+
 		arg[0] = "personAction!list?type=" + person.getType();
 		arg[1] = "人员管理";
 		return "success_child";
 	}
-	
-	//处理ids
-	private String handleIDs(String objIDs,String objID) {
-		// TODO Auto-generated method stub
+
+	// 处理ids
+	private String handleIDs(String objIDs, String objID) {
 		Set<String> ids = new HashSet<String>();
 		String newIDs = "";
 		String[] arrayIDs = objIDs.split(",");
-		for(int i=0;i<arrayIDs.length;i++)
-		{
+		for (int i = 0; i < arrayIDs.length; i++) {
 			ids.add(arrayIDs[i]);
 		}
 		ids.add(objID);
-		
-		for (String id : ids) {  
-		      newIDs= newIDs+id+",";
-		} 
+
+		for (String id : ids) {
+			newIDs = newIDs + id + ",";
+		}
 		System.out.println(newIDs);
 		return newIDs;
 	}
@@ -730,16 +728,16 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			contrastMan = contrastManService.loadById(id);
 			if (contrastMan != null) {
 				if (contrastMan.getRegisterAddressPhoto() != null
-						&& !contrastMan.getRegisterAddressPhoto().replace(" ",
-								"").equals("")) {
+						&& !contrastMan.getRegisterAddressPhoto()
+								.replace(" ", "").equals("")) {
 					File photofile = new File(ServletActionContext
 							.getServletContext().getRealPath("/")
 							+ contrastMan.getRegisterAddressPhoto());
 					photofile.delete();
 				}
 				if (contrastMan.getCriminalRecordPhoto() != null
-						&& !contrastMan.getCriminalRecordPhoto().replace(" ",
-								"").equals("")) {
+						&& !contrastMan.getCriminalRecordPhoto()
+								.replace(" ", "").equals("")) {
 					File photofile = new File(ServletActionContext
 							.getServletContext().getRealPath("/")
 							+ contrastMan.getCriminalRecordPhoto());
@@ -752,8 +750,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			commonClue = commonClueService.loadById(id);
 			if (commonClue != null) {
 				if (commonClue.getRegisterAddressPhoto() != null
-						&& !commonClue.getRegisterAddressPhoto().replace(" ",
-								"").equals("")) {
+						&& !commonClue.getRegisterAddressPhoto()
+								.replace(" ", "").equals("")) {
 					File photofile = new File(ServletActionContext
 							.getServletContext().getRealPath("/")
 							+ commonClue.getRegisterAddressPhoto());
@@ -775,8 +773,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 		// 删除照片
 		File photofile = new File(ServletActionContext.getServletContext()
-				.getRealPath("/")
-				+ person.getPhotoImg());
+				.getRealPath("/") + person.getPhotoImg());
 		photofile.delete();
 		personService.delete(person);
 
@@ -877,16 +874,16 @@ public class PersonAction extends ActionSupport implements RequestAware,
 				contrastMan = contrastManService.loadById(id);
 				if (contrastMan != null) {
 					if (contrastMan.getRegisterAddressPhoto() != null
-							&& !contrastMan.getRegisterAddressPhoto().replace(
-									" ", "").equals("")) {
+							&& !contrastMan.getRegisterAddressPhoto()
+									.replace(" ", "").equals("")) {
 						File photofile = new File(ServletActionContext
 								.getServletContext().getRealPath("/")
 								+ contrastMan.getRegisterAddressPhoto());
 						photofile.delete();
 					}
 					if (contrastMan.getCriminalRecordPhoto() != null
-							&& !contrastMan.getCriminalRecordPhoto().replace(
-									" ", "").equals("")) {
+							&& !contrastMan.getCriminalRecordPhoto()
+									.replace(" ", "").equals("")) {
 						File photofile = new File(ServletActionContext
 								.getServletContext().getRealPath("/")
 								+ contrastMan.getCriminalRecordPhoto());
@@ -899,16 +896,16 @@ public class PersonAction extends ActionSupport implements RequestAware,
 				commonClue = commonClueService.loadById(id);
 				if (commonClue != null) {
 					if (commonClue.getRegisterAddressPhoto() != null
-							&& !commonClue.getRegisterAddressPhoto().replace(
-									" ", "").equals("")) {
+							&& !commonClue.getRegisterAddressPhoto()
+									.replace(" ", "").equals("")) {
 						File photofile = new File(ServletActionContext
 								.getServletContext().getRealPath("/")
 								+ commonClue.getRegisterAddressPhoto());
 						photofile.delete();
 					}
 					if (commonClue.getCriminalRecordPhoto() != null
-							&& !commonClue.getCriminalRecordPhoto().replace(
-									" ", "").equals("")) {
+							&& !commonClue.getCriminalRecordPhoto()
+									.replace(" ", "").equals("")) {
 						File photofile = new File(ServletActionContext
 								.getServletContext().getRealPath("/")
 								+ commonClue.getCriminalRecordPhoto());
@@ -921,8 +918,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			}
 
 			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
-					+ person.getPhotoImg());
+					.getRealPath("/") + person.getPhotoImg());
 			photofile.delete();
 			personService.delete(person);
 		}
@@ -991,7 +987,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		case 14:
 			commonClue = person.getCommonClue();
 			return "commonClue_load";
-	
+
 		default:
 			return "load";
 		}
@@ -1000,7 +996,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 	// 页面显示被选中 信息提前情况 {'提取手机信息','提取银行卡信息','提取DNA','提取指纹','提取鞋印'}显示格式
 	private void handleInfoExtractionMsg(String infoExtraction) {
-		// TODO Auto-generated method stub
 		infoExtractions = new ArrayList<String>();
 		if (infoExtraction != null && infoExtraction.length() > 0
 				&& infoExtraction.contains(",")) {
@@ -1208,8 +1203,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 					+ pictureFileName.substring(pictureFileName.indexOf("."));
 			this.upload("/person", imageName, picture);
 			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
-					+ person.getPhotoImg());
+					.getRealPath("/") + person.getPhotoImg());
 			photofile.delete();
 			person.setPhotoImg("person" + "/" + imageName);
 		}
@@ -1887,13 +1881,52 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	public List<UnitVO> getUnitVOs() {
 		return unitVOs;
 	}
-	public String importExcel(){
+
+	public String importExcel() {
 		return "importpage";
 	}
-	
-	public String importdata(){
-		socialManService.saveElecUserWithExcel(socialManForm);
+
+	public String importdata() {
+		System.out.println("hello importdata");
+		System.out.println(fileTest);
+		System.out.println(fileTestContentType);
+		System.out.println(fileTestFileName);
+		socialManForm = new SocialManForm();
+		socialManForm.setFile(fileTest);
+		socialManService.saveSocialManWithExcel(socialManForm);
 		return "importdata";
 	}
-	
+
+	public SocialManForm getSocialManForm() {
+		return socialManForm;
+	}
+
+	public void setSocialManForm(SocialManForm socialManForm) {
+		this.socialManForm = socialManForm;
+	}
+
+	public File getFileTest() {
+		return fileTest;
+	}
+
+	public void setFileTest(File fileTest) {
+		this.fileTest = fileTest;
+	}
+
+	public String getFileTestContentType() {
+		return fileTestContentType;
+	}
+
+	public void setFileTestContentType(String fileTestContentType) {
+		this.fileTestContentType = fileTestContentType;
+	}
+
+	public String getFileTestFileName() {
+		return fileTestFileName;
+	}
+
+	public void setFileTestFileName(String fileTestFileName) {
+		this.fileTestFileName = fileTestFileName;
+	}
+
 }
