@@ -55,6 +55,7 @@ import com.yz.service.IUnitService;
 import com.yz.service.IUserRoleService;
 import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
+import com.yz.util.MD5Util;
 import com.yz.vo.AjaxMsgVO;
 import com.yz.vo.ClueNumberVO;
 import com.yz.vo.InjurycaseNumberVO;
@@ -151,7 +152,9 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 			UserRole userRoleTest = new UserRole();
 			userRoleTest.setNumber("测试人员");
 			userRoleTest.setUsername("test");
-			userRoleTest.setPassword("test");
+			
+			userRoleTest.setPassword(MD5Util.convertMD5(MD5Util.string2MD5("test")));
+			
 			userRoleTest.setUserLimit(1);
 			userRoleService.add(userRoleTest);
 			session.put("userRoleo", userRoleTest);
@@ -163,6 +166,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 			request.put("loginFail", loginfail);
 			return "adminLogin";
 		}
+		password = MD5Util.convertMD5(MD5Util.string2MD5(password));
 		UserRole userRoleLogin = userRoleService.userRolelogin(username, password);
 		if (userRoleLogin == null) {
 			String loginfail = "用户名或密码输入有误";

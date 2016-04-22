@@ -104,7 +104,7 @@ public class UserRole implements java.io.Serializable {
 		return this.number;
 	}
 
-	@Column(name = "password", length = 30)
+	@Column(name = "password")
 	public String getPassword() {
 		return this.password;
 	}
