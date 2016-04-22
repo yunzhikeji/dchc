@@ -283,6 +283,7 @@ public class PersonServiceImp implements IPersonService {
 				person.setIdcard(data[5].toString());
 				person.setRegisterAddress(data[6].toString());
 				person.setRegisterAddressArea(data[7].toString());
+				person.setType(15);
 				person.setSocialMan(socialMan);
 				socialManDao.save(socialMan);
 				int pid = personDao.savereturn(person);
