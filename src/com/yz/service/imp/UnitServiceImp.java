@@ -123,4 +123,10 @@ public class UnitServiceImp implements IUnitService {
 		String queryString="from Unit mo where mo.name='"+uname+"'";
 		return unitDao.queryList(queryString);
 	}
+	public Unit queryByUid(int uid) {
+		String queryString = "from Unit mo where mo.id=:uid";
+		String[] paramNames = new String[] { "uid" };
+		Object[] values = new Object[] { uid };
+		return unitDao.queryByNamedParam(queryString, paramNames, values);
+	}
 }

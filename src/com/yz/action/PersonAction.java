@@ -18,7 +18,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
@@ -26,7 +25,6 @@ import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.interceptor.SessionAware;
-import org.omg.CORBA.PRIVATE_MEMBER;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -37,14 +35,11 @@ import com.yz.model.ContrastMan;
 import com.yz.model.DisappearMan;
 import com.yz.model.GamblingCriminalMan;
 import com.yz.model.GuiltSafeguardMan;
-import com.yz.model.Injurycase;
 import com.yz.model.Judge;
 import com.yz.model.Lawcase;
 import com.yz.model.Otherperson;
 import com.yz.model.Person;
-import com.yz.model.SocialMan;
 import com.yz.model.Successexample;
-import com.yz.model.TestModel;
 import com.yz.model.Troubleshooting;
 import com.yz.model.Unit;
 import com.yz.model.UserRole;
@@ -171,9 +166,9 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private ISocialManService socialManService;
 
 	// 测试file
-	private File fileTest;
-	private String fileTestContentType;
-	private String fileTestFileName;
+	private File file;
+	private String fileContentType;
+	private String fileFileName;
 
 	/**
 	 * 人员管理
@@ -1887,13 +1882,12 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	}
 
 	public String importdata() {
-		System.out.println("hello importdata");
-		System.out.println(fileTest);
-		System.out.println(fileTestContentType);
-		System.out.println(fileTestFileName);
-		socialManForm = new SocialManForm();
-		socialManForm.setFile(fileTest);
-		socialManService.saveSocialManWithExcel(socialManForm);
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
+		if (userRoleo == null) {
+			return "opsessiongo";
+		}
+		person = new Person();
+		personService.saveSocialManWithExcel(person, file, userRoleo);
 		return "importdata";
 	}
 
@@ -1905,28 +1899,28 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		this.socialManForm = socialManForm;
 	}
 
-	public File getFileTest() {
-		return fileTest;
+	public File getFile() {
+		return file;
 	}
 
-	public void setFileTest(File fileTest) {
-		this.fileTest = fileTest;
+	public void setFile(File file) {
+		this.file = file;
 	}
 
-	public String getFileTestContentType() {
-		return fileTestContentType;
+	public String getFileContentType() {
+		return fileContentType;
 	}
 
-	public void setFileTestContentType(String fileTestContentType) {
-		this.fileTestContentType = fileTestContentType;
+	public void setFileContentType(String fileContentType) {
+		this.fileContentType = fileContentType;
 	}
 
-	public String getFileTestFileName() {
-		return fileTestFileName;
+	public String getFileFileName() {
+		return fileFileName;
 	}
 
-	public void setFileTestFileName(String fileTestFileName) {
-		this.fileTestFileName = fileTestFileName;
+	public void setFileFileName(String fileFileName) {
+		this.fileFileName = fileFileName;
 	}
 
 }

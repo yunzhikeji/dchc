@@ -30,6 +30,9 @@ public class Person implements java.io.Serializable {
 
 	private Integer id;//
 	private UserRole userRole; //录入人员
+	private SocialMan socialMan;
+
+
 	private CommonClue commonClue;//普通线索人员(普通线索)
 	private DisappearMan disappearMan;//失踪人员
 	private AnalyzeMan analyzeMan;//侵财分析人员
@@ -409,7 +412,14 @@ public class Person implements java.io.Serializable {
 	public void setWechat(String wechat) {
 		this.wechat = wechat;
 	}
-	
-	
+	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@JoinColumn(name = "soid")
+	public SocialMan getSocialMan() {
+		return socialMan;
+	}
+
+	public void setSocialMan(SocialMan socialMan) {
+		this.socialMan = socialMan;
+	}
 
 }

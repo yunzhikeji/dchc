@@ -37,7 +37,7 @@
 				<td width="83%" align="left">
 					<!--  
           <input type="file" name="socialManForm.file" style="width:365px"/>
-          --> <input type="file" name="fileTest" style="width:365px" />
+          --> <input type="file" name="file" style="width:365px" />
 				</td>
 				<td width="1%"></td>
 			</tr>

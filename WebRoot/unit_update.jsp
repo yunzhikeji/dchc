@@ -33,6 +33,10 @@
 
 <form name="unitUpdateForm" action="unitAction!update" method="post" onsubmit="return changeUnit();">
 <s:hidden name="unit.id"></s:hidden>
+<s:hidden name="unit.unitLimit"></s:hidden>
+<s:hidden name="unit.pids"></s:hidden>
+<s:hidden name="unit.cids"></s:hidden>
+<s:hidden name="unit.cids"></s:hidden>
 <div class="pd-20">
 	<div class="row cl mb-10">
      <div class="col-2" >

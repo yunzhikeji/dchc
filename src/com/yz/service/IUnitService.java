@@ -40,6 +40,8 @@ public interface IUnitService {
 
 	public abstract List<Unit> getUnitByName(String uname);
 
+	public abstract Unit queryByUid(int uid);
+
 
 
 }

@@ -1,5 +1,6 @@
 package com.yz.service;
 
+import java.io.File;
 import java.util.List;
 
 import com.yz.model.Person;
@@ -45,6 +46,8 @@ public interface IPersonService {
 			int handleState, UserRole userRole);
 
 	public abstract int savereturn(Person person);
+
+	public abstract void saveSocialManWithExcel(Person person, File fileTest,UserRole userRole);
 
 
 }
