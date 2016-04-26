@@ -100,9 +100,14 @@
 				</form>
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
-				<span class="l"><a href="javascript:;"
-					onclick="deleteAllCheckedPersons();" class="btn btn-danger radius"><i
-						class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a
+				<span class="l">
+				<s:if test="#session.userRoleo.userLimit==0">
+				<a href="javascript:;"
+					onclick="deleteAllCheckedPersons();" class="btn btn-danger radius">
+					<i
+						class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+						
+						</s:if> <a
 					class="btn btn-primary radius"
 					onclick="childPageFull('新增<s:property value="pageTileName"/>','clueAction!goToAdd?ctype=<s:property value="ctype"/>')"
 					href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 新增<s:property
@@ -183,10 +188,12 @@
 									onclick="childPageFull('编辑线索','clueAction!load?id=<s:property value="id"/>')"
 									href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i>
 								</a>
+								<s:if test="#session.userRoleo.userLimit==0">
 								<a style="text-decoration: none" class="ml-5"
 									href="clueAction!delete?id=<s:property value="id" />"
 									onclick="return confirm('你确定删除该信息吗？')" title="删除"><i
 									class="Hui-iconfont">&#xe6e2;</i> </a>
+								</s:if> 
 							</td>
 						</tr>
 					</s:iterator>

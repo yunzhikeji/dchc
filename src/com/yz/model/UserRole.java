@@ -34,7 +34,7 @@ public class UserRole implements java.io.Serializable {
 	private String number;//警员编号
 	private String realname;//真实姓名
 	private String photo;//照片
-	private Integer userLimit;//用户权限
+	private Integer userLimit;//用户权限                 //权限说明：只有权限是0的能够做删除
 	private Integer sex;//性别
 	private String beforeLoginTime;
 	private String currentLoginTime;
