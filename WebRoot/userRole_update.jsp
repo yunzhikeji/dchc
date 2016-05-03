@@ -11,6 +11,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>修改角色</title>
 <link href="css/H-ui.min.css" rel="stylesheet" type="text/css" />
 <link href="css/H-ui.admin.css" rel="stylesheet" type="text/css" />

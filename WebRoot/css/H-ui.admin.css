@@ -16,7 +16,7 @@ h4{line-height:30px}
 }
 .Hui-aside{position: absolute;top:100px;bottom:0;left:0;padding-top:10px;width:149px;z-index:99;overflow:auto; background-color:#EFEEF0;border-right: 1px solid #e5e5e5}
 .Hui-article-box{position: absolute;top:100px;right:0;bottom: 0;left:149px; overflow:hidden; z-index:1; background-color:#fff}
-.Hui-article{position: absolute;top:35px;bottom:0;left:0; right:0;overflow:auto;z-index:1}
+.Hui-article{position: absolute;top:35px;bottom:0;left:0; right:0;overflow:hidden;z-index:1}
 .Hui-container{ padding:45px 0 0}
 .Hui-aside,.Hui-article-box,.dislpayArrow,.ce{-moz-transition: all 0.2s ease 0s;-webkit-transition: all 0.2s ease 0s;-ms-transition: all 0.2s ease 0s;-o-transition: all 0.2s ease 0s;transition: all 0.2s ease 0s}
 .big-page .Hui-article-box,.big-page .dislpayArrow,.big-page .breadcrumb{left:0px}
