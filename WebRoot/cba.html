@@ -1,0 +1,541 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="renderer" content="webkit|ie-comp|ie-stand">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta http-equiv="Cache-Control" content="no-siteapp" />
+        <link href="css/cba.css" rel="stylesheet" type="text/css" />
+		<link href="css/H-ui.min.css" rel="stylesheet" type="text/css" />
+		<link href="css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+		<link href="css/style.css" rel="stylesheet" type="text/css" />
+		<link href="lib/Hui-iconfont/1.0.7/iconfont.css" rel="stylesheet"
+			type="text/css" />
+		<link rel="stylesheet"
+			href="lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="lib/layer/2.1/layer.js"></script>
+		<script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>
+		<script type="text/javascript"
+			src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+		<script type="text/javascript"
+			src="lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+		<script type="text/javascript" src="js/H-ui.js"></script>
+		<script type="text/javascript" src="js/H-ui.admin.js"></script>
+		<script type="text/javascript" src="js/pageKit.js"></script>
+		<script type="text/javascript" src="js/checkUtil.js"></script>
+		<script type="text/javascript" src="js/commonUtil.js"></script>
+		<title>串并案</title>
+	</head>
+	<body>
+		<nav class="breadcrumb">
+		<i class="Hui-iconfont">&#xe67f;</i> 首页
+		<span class="c-gray en">&gt;</span>案件视频
+		<a class="btn btn-success radius r mr-20"
+			style="line-height: 1.6em; margin-top: 3px"
+			href="javascript:location.replace(location.href);" title="刷新"><i
+			class="Hui-iconfont">&#xe68f;</i>
+		</a>
+		</nav>
+
+		<div class="pd-20">
+			<div class="text-c">
+				<form name="personListForm" method="post" action="personAction!list"
+					target="_self">
+					<input type="hidden" name="type" value="1" id="type"/>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0"
+						style="line-height: 35px;">
+						<tr height="35">
+							<td width="21%" align="right" style="padding-right: 50px;">
+								<select name="con" id="con" class="input-text" style="width:180px">
+    <option value="0" selected="selected">选择类型</option>
+    <option value="1">案件地点</option>
+    <option value="2">案件编号</option>
+    <option value="3">身份证号</option>
+    <option value="4">录入人员姓名</option>
+
+
+</select>
+							</td>
+							<td width="310px;">
+								<input type="text" name="convalue" value="" id="convalue" class="input-text"/>
+							</td>
+							<td align="right" style="padding-right: 30%;">
+								信息状态:
+								<select name="queryState" id="queryState" class="input-text" style="width:180px">
+    <option value="1">未办理</option>
+    <option value="2">已办理</option>
+    <option value="3">已完结</option>
+
+
+</select>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" align="right">
+								录入时间：
+								<input type="text" name="starttime" value=""
+									onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\')||\'%y-%M-%d\'}'})"
+									id="logmin" class="input-text Wdate" style="width: 150px;">
+								-
+								<input type="text" name="endtime" value=""
+									onFocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\')}',maxDate:'%y-%M-%d'})"
+									id="endtime" class="input-text Wdate" style="width: 150px;">
+							</td>
+							<td align="left" style="padding-left: 172px;">
+								<button type="submit" class="btn btn-success" id="button2"
+									name="" onClick="">
+									<i class="Hui-iconfont">&#xe665;</i> 查询
+								</button>
+								<button type="button" class="btn btn-success" id="button"
+									name="">
+									<i class="Hui-iconfont">&#xe66b;</i> 清空
+								</button>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div class="cl pd-5 bg-1 bk-gray mt-20">
+					<span class="l"><a href="javascript:;" onclick="deleteAllCheckedPersons();"
+						class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>
+							批量删除</a> <a class="btn btn-primary radius"
+						onclick="childPageFull('新增赌博人员','personAction!goToAdd?type=1')" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 新增案件视频</a> <a href="javascript:;" onclick="deleteAllCheckedPersons();"
+						class="btn btn-secondary radius">全部</a> <a href="javascript:;" onclick="deleteAllCheckedPersons();"
+						class="btn btn-secondary radius">未处理</a> <a href="javascript:;" onclick="deleteAllCheckedPersons();"
+						class="btn btn-secondary radius">已处理</a> <a href="javascript:;" onclick="deleteAllCheckedPersons();"
+						class="btn btn-secondary radius">已完结</a></span>
+                     
+					
+				    <span class="r">共有数据：<strong>0
+					</strong> 条</span>
+		  </div>
+          <div class="later-play-container" style="height:680px">
+        <ul id="later-play-list" class="video-list clearfix" data-total="">
+                                <li class="video-list-item video-no-tag " data-id="66666">
+              <a href="/66666" class="video-list-item-wrap" data-id="66666">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h1901.jpeg" alt="天网2016行动" src="images/h1901.jpeg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市锡山区邕武路狮山公园门前</div>
+						<div id="videoDesc" class="show-info">案发时间：2016.01.24 21:15:03</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+                </div>
+                <div class="video-title" title="天网2016行动">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">刘成贤</span>
+                  <span class="video-number">66666</span>
+                  <span class="video-cate">未处理</span>
+                                  </div>
+              </a>
+            </li>                               
+            <li class="video-list-item video-no-tag " data-id="455655">
+              <a href="/455655" class="video-list-item-wrap" data-id="455655">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h192.jpg" alt="天网2016行动" src="images/h192.jpg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市惠山区滨湖路山明小区</div>
+						<div id="videoDesc" class="show-info">案发时间：2016.02.01 20:01:36</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+                </div>
+                <div class="video-title" title="天网2016行动" style="color:#0BE831">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">王敏</span>
+                  <span class="video-number">455655</span>
+                  <span class="video-cate" style="color:#0BE831">已处理</span>
+                                  </div>
+              </a>
+            </li>
+             <li class="video-list-item video-no-tag " data-id="158925">
+              <a href="/158925" class="video-list-item-wrap" data-id="158925">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h192.jpg" alt="天网2016行动" src="images/h193.jpg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+                        <div id="videoover"  class="show-title"></div>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市湖滨区滨湖路山明小区</div>
+						<div id="videoDesc" class="show-info">案发时间：2015.12.11 13:25:01</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+              </div>
+                <div class="video-title" title="天网2016行动" style="color:#F00">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">周东林</span>
+                  <span class="video-number">158925</span>
+                  <span class="video-cate" style="color:#F00">已处理</span>
+              </div>
+              </a>
+            </li>
+            <li class="video-list-item video-no-tag " data-id="66666">
+              <a href="/66666" class="video-list-item-wrap" data-id="66666">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h1901.jpeg" alt="天网2016行动" src="images/h1901.jpeg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市锡山区邕武路狮山公园门前</div>
+						<div id="videoDesc" class="show-info">案发时间：2016.01.24 21:15:03</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+                </div>
+                <div class="video-title" title="天网2016行动">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">刘成贤</span>
+                  <span class="video-number">66666</span>
+                  <span class="video-cate">未处理</span>
+                                  </div>
+              </a>
+            </li>                               
+            <li class="video-list-item video-no-tag " data-id="455655">
+              <a href="/455655" class="video-list-item-wrap" data-id="455655">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h192.jpg" alt="天网2016行动" src="images/h192.jpg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市惠山区滨湖路山明小区</div>
+						<div id="videoDesc" class="show-info">案发时间：2016.02.01 20:01:36</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+                </div>
+                <div class="video-title" title="天网2016行动" style="color:#0BE831">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">王敏</span>
+                  <span class="video-number">455655</span>
+                  <span class="video-cate" style="color:#0BE831">已处理</span>
+                                  </div>
+              </a>
+            </li>
+             <li class="video-list-item video-no-tag " data-id="158925">
+              <a href="/158925" class="video-list-item-wrap" data-id="158925">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h192.jpg" alt="天网2016行动" src="images/h193.jpg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+                        <div id="videoover"  class="show-title"></div>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市湖滨区滨湖路山明小区</div>
+						<div id="videoDesc" class="show-info">案发时间：2015.12.11 13:25:01</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+              </div>
+                <div class="video-title" title="天网2016行动" style="color:#F00">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">周东林</span>
+                  <span class="video-number">158925</span>
+                  <span class="video-cate" style="color:#F00">已处理</span>
+              </div>
+              </a>
+            </li>
+            <li class="video-list-item video-no-tag " data-id="66666">
+              <a href="/66666" class="video-list-item-wrap" data-id="66666">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h1901.jpeg" alt="天网2016行动" src="images/h1901.jpeg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市锡山区邕武路狮山公园门前</div>
+						<div id="videoDesc" class="show-info">案发时间：2016.01.24 21:15:03</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+                </div>
+                <div class="video-title" title="天网2016行动">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">刘成贤</span>
+                  <span class="video-number">66666</span>
+                  <span class="video-cate">未处理</span>
+                                  </div>
+              </a>
+            </li>                               
+            <li class="video-list-item video-no-tag " data-id="455655">
+              <a href="/455655" class="video-list-item-wrap" data-id="455655">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h192.jpg" alt="天网2016行动" src="images/h192.jpg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市惠山区滨湖路山明小区</div>
+						<div id="videoDesc" class="show-info">案发时间：2016.02.01 20:01:36</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+                </div>
+                <div class="video-title" title="天网2016行动" style="color:#0BE831">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">王敏</span>
+                  <span class="video-number">455655</span>
+                  <span class="video-cate" style="color:#0BE831">已处理</span>
+                                  </div>
+              </a>
+            </li>
+             <li class="video-list-item video-no-tag " data-id="158925">
+              <a href="/158925" class="video-list-item-wrap" data-id="158925">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h192.jpg" alt="天网2016行动" src="images/h193.jpg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+                        <div id="videoover"  class="show-title"></div>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市湖滨区滨湖路山明小区</div>
+						<div id="videoDesc" class="show-info">案发时间：2015.12.11 13:25:01</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+              </div>
+                <div class="video-title" title="天网2016行动" style="color:#F00">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">周东林</span>
+                  <span class="video-number">158925</span>
+                  <span class="video-cate" style="color:#F00">已处理</span>
+              </div>
+              </a>
+            </li>
+            <li class="video-list-item video-no-tag " data-id="66666">
+              <a href="/66666" class="video-list-item-wrap" data-id="66666">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h1901.jpeg" alt="天网2016行动" src="images/h1901.jpeg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市锡山区邕武路狮山公园门前</div>
+						<div id="videoDesc" class="show-info">案发时间：2016.01.24 21:15:03</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+                </div>
+                <div class="video-title" title="天网2016行动">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">刘成贤</span>
+                  <span class="video-number">66666</span>
+                  <span class="video-cate">未处理</span>
+                                  </div>
+              </a>
+            </li>                               
+            <li class="video-list-item video-no-tag " data-id="455655">
+              <a href="/455655" class="video-list-item-wrap" data-id="455655">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h192.jpg" alt="天网2016行动" src="images/h192.jpg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市惠山区滨湖路山明小区</div>
+						<div id="videoDesc" class="show-info">案发时间：2016.02.01 20:01:36</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+                </div>
+                <div class="video-title" title="天网2016行动" style="color:#0BE831">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">王敏</span>
+                  <span class="video-number">455655</span>
+                  <span class="video-cate" style="color:#0BE831">已处理</span>
+                                  </div>
+              </a>
+            </li>
+             <li class="video-list-item video-no-tag " data-id="158925">
+              <a href="/158925" class="video-list-item-wrap" data-id="158925">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h192.jpg" alt="天网2016行动" src="images/h193.jpg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+                        <div id="videoover"  class="show-title"></div>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市湖滨区滨湖路山明小区</div>
+						<div id="videoDesc" class="show-info">案发时间：2015.12.11 13:25:01</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+              </div>
+                <div class="video-title" title="天网2016行动" style="color:#F00">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">周东林</span>
+                  <span class="video-number">158925</span>
+                  <span class="video-cate" style="color:#F00">已处理</span>
+              </div>
+              </a>
+            </li>
+            <li class="video-list-item video-no-tag " data-id="66666">
+              <a href="/66666" class="video-list-item-wrap" data-id="66666">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h1901.jpeg" alt="天网2016行动" src="images/h1901.jpeg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市锡山区邕武路狮山公园门前</div>
+						<div id="videoDesc" class="show-info">案发时间：2016.01.24 21:15:03</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+                </div>
+                <div class="video-title" title="天网2016行动">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">刘成贤</span>
+                  <span class="video-number">66666</span>
+                  <span class="video-cate">未处理</span>
+                                  </div>
+              </a>
+            </li>                               
+            <li class="video-list-item video-no-tag " data-id="455655">
+              <a href="/455655" class="video-list-item-wrap" data-id="455655">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h192.jpg" alt="天网2016行动" src="images/h192.jpg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市惠山区滨湖路山明小区</div>
+						<div id="videoDesc" class="show-info">案发时间：2016.02.01 20:01:36</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+                </div>
+                <div class="video-title" title="天网2016行动" style="color:#0BE831">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">王敏</span>
+                  <span class="video-number">455655</span>
+                  <span class="video-cate" style="color:#0BE831">已处理</span>
+                                  </div>
+              </a>
+            </li>
+             <li class="video-list-item video-no-tag " data-id="158925">
+              <a href="/158925" class="video-list-item-wrap" data-id="158925">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h192.jpg" alt="天网2016行动" src="images/h193.jpg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+                        <div id="videoover"  class="show-title"></div>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市湖滨区滨湖路山明小区</div>
+						<div id="videoDesc" class="show-info">案发时间：2015.12.11 13:25:01</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+              </div>
+                <div class="video-title" title="天网2016行动" style="color:#F00">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">周东林</span>
+                  <span class="video-number">158925</span>
+                  <span class="video-cate" style="color:#F00">已处理</span>
+              </div>
+              </a>
+            </li>
+            <li class="video-list-item video-no-tag " data-id="66666">
+              <a href="/66666" class="video-list-item-wrap" data-id="66666">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h1901.jpeg" alt="天网2016行动" src="images/h1901.jpeg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市锡山区邕武路狮山公园门前</div>
+						<div id="videoDesc" class="show-info">案发时间：2016.01.24 21:15:03</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+                </div>
+                <div class="video-title" title="天网2016行动">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">刘成贤</span>
+                  <span class="video-number">66666</span>
+                  <span class="video-cate">未处理</span>
+                                  </div>
+              </a>
+            </li>                               
+            <li class="video-list-item video-no-tag " data-id="455655">
+              <a href="/455655" class="video-list-item-wrap" data-id="455655">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h192.jpg" alt="天网2016行动" src="images/h192.jpg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市惠山区滨湖路山明小区</div>
+						<div id="videoDesc" class="show-info">案发时间：2016.02.01 20:01:36</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+                </div>
+                <div class="video-title" title="天网2016行动" style="color:#0BE831">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">王敏</span>
+                  <span class="video-number">455655</span>
+                  <span class="video-cate" style="color:#0BE831">已处理</span>
+                                  </div>
+              </a>
+            </li>
+             <li class="video-list-item video-no-tag " data-id="158925">
+              <a href="/158925" class="video-list-item-wrap" data-id="158925">
+                                <div class="video-cover">
+                  <img class="video-img video-img-lazy" data-original="images/h192.jpg" alt="天网2016行动" src="images/h193.jpg" style="display: block;">
+                  <ul class="show-list">
+					<li>
+                        <div id="videoover"  class="show-title"></div>
+						<div id="videoTitle" class="show-info">案发地点：江苏省无锡市湖滨区滨湖路山明小区</div>
+						<div id="videoDesc" class="show-info">案发时间：2015.12.11 13:25:01</div>
+					</li>
+				</ul>
+                  <div class="video-overlay"></div>
+                  <div class="video-play"></div>
+              </div>
+                <div class="video-title" title="天网2016行动" style="color:#F00">天网2016行动</div>
+                <div class="video-info">
+                  <span class="video-nickname">周东林</span>
+                  <span class="video-number">158925</span>
+                  <span class="video-cate" style="color:#F00">已处理</span>
+              </div>
+              </a>
+            </li>
+                  </ul>
+      </div>
+          <ul class="forminfo" style="line-height: 40px; font-size: 14px;">
+			  <table width="98%" border="0" align="center" cellpadding="2"
+					cellspacing="1" bgcolor="#93CDF3" style="margin-top: 8px">
+					<tr align="right" bgcolor="#EEF4EA">
+						<td height="34" align="center" bgcolor="#FFFFFF">&nbsp;
+							
+						</td>
+						<td height="34" colspan="6" align="center" bgcolor="#FFFFFF">
+							<a
+								href="javascript:jumpPersonPage('personAction!list',1,0,'',1,0,'','');"
+								target="rightFrame">首页</a>&nbsp;&nbsp;
+							<a
+								href="javascript:jumpPersonPage('personAction!list',0,0,'',1,0,'','');"
+								target="rightFrame">上一页</a>&nbsp;&nbsp;&nbsp;
+							<a
+								href="javascript:jumpPersonPage('personAction!list',2,0,'',1,0,'','');"
+								target="rightFrame">下一页</a>&nbsp;&nbsp;&nbsp;
+							<a
+								href="javascript:jumpPersonPage('personAction!list',0,0,'',1,0,'','');"
+								target="rightFrame">尾页</a>&nbsp;&nbsp;&nbsp;
+							<input type='button' class="btn btn-primary radius size-S"
+								onclick="jumpPersonPage('personAction!list',document.getElementById('page').value,0,'',1,0,'','');"
+								value='转到' />
+							&nbsp; 当前页：
+							<input onpaste="return false"
+								onkeyup="if(event.keyCode !=37 && event.keyCode != 39){if (! /^\d+$/ig.test(this.value)){this.value='';}}"
+								id="page" type="text" name="page"
+								value="1" size="2"
+								style="width: 25px; height: 20px; line-height: 18px; BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; FONT-SIZE: 13px; BORDER-LEFT: #cccccc 1px solid; COLOR: #000000; BORDER-BOTTOM: #cccccc 1px solid; FONT-FAMILY: 宋体; BACKGROUND-COLOR: #ffffff;" />
+							/共
+							0
+							页
+						</td>
+					</tr>
+				</table>
+			</ul>
+		</div>
+	</body>
+</html>
