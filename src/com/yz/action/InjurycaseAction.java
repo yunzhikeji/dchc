@@ -180,11 +180,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		return "list";
 	}
 
-	//串并案管理
-	public String chainingCase() {
-		
-		return "chainingCase";
-	}
+
 	// 选择页面名称
 	private String selectTileName(int type) {
 		// TODO Auto-generated method stub
