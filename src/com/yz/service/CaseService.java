@@ -4,11 +4,8 @@ import java.util.List;
 
 import com.yz.model.Case;
 
-public class CaseService {
+public interface CaseService {
 
-	public List<Case> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public List<Case> findAll();
 
 }

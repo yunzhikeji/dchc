@@ -1,29 +1,35 @@
 package com.yz.action;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts2.interceptor.RequestAware;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
+import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.ModelDriven;
-import com.yz.model.Case;
-import com.yz.service.CaseService;
+import com.yz.model.Injurycase;
+import com.yz.service.IInjurycaseService;
 
 @Component("chainingCaseAction")
 @Scope("prototype")
-public class ChainingCaseAction extends ActionSupport implements ModelDriven<Case>{
+public class ChainingCaseAction extends ActionSupport implements RequestAware,
+SessionAware, ServletResponseAware, ServletRequestAware{
 	@Resource
-	private CaseService caseService;
+	private IInjurycaseService injurycaseService;
 	
-	private Case model = new Case();
+	private Injurycase injurycase;
 	/** 列表 */
 	public String list() throws Exception {
-		List<Case> caseList = caseService.findAll();
-		ActionContext.getContext().put("caseList", caseList);
+		List<Injurycase> injurycaselist  = injurycaseService.getInjurycases();
+		
 		
 		return "list";
 	}
@@ -53,9 +59,32 @@ public class ChainingCaseAction extends ActionSupport implements ModelDriven<Cas
 		return "toList";
 	}
 
-	public Case getModel() {
+	public void setServletRequest(HttpServletRequest arg0) {
 		// TODO Auto-generated method stub
-		return model;
+		
+	}
+
+	public void setServletResponse(HttpServletResponse arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setSession(Map<String, Object> arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setRequest(Map<String, Object> arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public Injurycase getInjurycase() {
+		return injurycase;
+	}
+
+	public void setInjurycase(Injurycase injurycase) {
+		this.injurycase = injurycase;
 	}
 
 
