@@ -19,12 +19,12 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.yz.util.ConvertUtil;
-import com.yz.vo.AjaxMsgVO;
 import com.opensymphony.xwork2.ActionSupport;
 import com.yz.model.Unit;
 import com.yz.model.UserRole;
 import com.yz.service.IUnitService;
+import com.yz.util.ConvertUtil;
+import com.yz.vo.AjaxMsgVO;
 
 @Component("unitAction")  
 @Scope("prototype")

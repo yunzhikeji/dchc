@@ -40,12 +40,6 @@ public class Clue implements java.io.Serializable {
 	private String comprehensiveJudge;				//综合研判情况
 	private String leaderInstruction;				//领导批示
 	private Integer ctype;							//类型
-	private Integer isCanvas;						//水印
-	private String pids;							//pids
-	private String clueIds;							//clueids
-	private Integer isRelated;						//是否已串并案
-	private String videoPath;						//视频
-	private String thumbPath;						//缩略图路径
 	private List<Lawcase> lawcases = new ArrayList<Lawcase>();		
 	private List<Troubleshooting> troubleshootings = new ArrayList<Troubleshooting>();
 	private List<Otherperson> otherpersons = new ArrayList<Otherperson>();
@@ -278,56 +272,6 @@ public class Clue implements java.io.Serializable {
 
 	public void setIntelligenceType(String intelligenceType) {
 		this.intelligenceType = intelligenceType;
-	}
-	@Column(name="isCanvas")
-	public Integer getIsCanvas() {
-		return isCanvas;
-	}
-
-	public void setIsCanvas(Integer isCanvas) {
-		this.isCanvas = isCanvas;
-	}
-	@Column(name="pids")
-	public String getPids() {
-		return pids;
-	}
-
-	public void setPids(String pids) {
-		this.pids = pids;
-	}
-	@Column(name="clueIds")
-	public String getClueIds() {
-		return clueIds;
-	}
-
-	public void setClueIds(String clueIds) {
-		this.clueIds = clueIds;
-	}
-
-
-	@Column(name="isRelated")
-	public Integer getIsRelated() {
-		return isRelated;
-	}
-
-	public void setIsRelated(Integer isRelated) {
-		this.isRelated = isRelated;
-	}
-	@Column(name="videoPath")
-	public String getVideoPath() {
-		return videoPath;
-	}
-
-	public void setVideoPath(String videoPath) {
-		this.videoPath = videoPath;
-	}
-	@Column(name="thumbPath")
-	public String getThumbPath() {
-		return thumbPath;
-	}
-
-	public void setThumbPath(String thumbPath) {
-		this.thumbPath = thumbPath;
 	}
 
 }

@@ -260,11 +260,9 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			pageName = "技术比中人员";
 			break;
 		case 14:
-			System.out.println("helo");
 			pageName = "普通线索";
 			break;
 		case 15:
-			System.out.println("helo");
 			pageName = "社会人员";
 			break;
 		default:
@@ -517,7 +515,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		person.setHandleState(1);// 初始化处理状态
 		personService.add(person);
 
-		System.out.println("pid:" + person.getId());
 
 		// 添加当前用户id到部门pids
 		if (userRole.getUnit() != null) {

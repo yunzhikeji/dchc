@@ -1,14 +1,7 @@
 package com.yz.action;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,10 +9,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
@@ -28,41 +19,15 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.yz.model.AnalyzeMan;
 import com.yz.model.Clue;
-import com.yz.model.CommonClue;
-import com.yz.model.ContrastMan;
-import com.yz.model.DisappearMan;
-import com.yz.model.GamblingCriminalMan;
-import com.yz.model.GuiltSafeguardMan;
 import com.yz.model.Injurycase;
-import com.yz.model.Judge;
-import com.yz.model.Lawcase;
-import com.yz.model.Otherperson;
 import com.yz.model.Person;
-import com.yz.model.Successexample;
 import com.yz.model.Troubleshooting;
-import com.yz.model.Unit;
-import com.yz.model.UserRole;
-import com.yz.service.IAnalyzeManService;
 import com.yz.service.IClueService;
-import com.yz.service.ICommonClueService;
-import com.yz.service.IContrastManService;
-import com.yz.service.IDisappearManService;
-import com.yz.service.IGamblingCriminalManService;
-import com.yz.service.IGuiltSafeguardManService;
 import com.yz.service.IInjurycaseService;
-import com.yz.service.IJudgeService;
-import com.yz.service.ILawcaseService;
-import com.yz.service.IOtherpersonService;
 import com.yz.service.IPersonService;
-import com.yz.service.ISuccessexampleService;
 import com.yz.service.ITroubleshootingService;
-import com.yz.service.IUnitService;
-import com.yz.util.ConvertUtil;
-import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
-import com.yz.vo.UnitVO;
 
 @Component("troubleshootingAction")
 @Scope("prototype")

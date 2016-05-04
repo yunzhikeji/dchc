@@ -51,40 +51,111 @@
 			<div class="pd-20">
 				<div class="row cl">
 					<div class="col-6 col-offset-6 ">
-						<div class="col-6 col-offset-6 ">
-							<div class=" f-r pr-5">
-								<s:token></s:token>
-								<input type="submit" class="btn btn-success radius" id="button"
-									value="保存并提交"></input>
-							</div>
-							<s:if
-								test="injurycase.getEndSituation()!=null&&injurycase.getEndSituation()!='0'">
-								<div class=" f-r pr-5">
-									<button type="button" class="btn btn-success radius"
-										id="button" name=""
-										onclick="addPage('发布案例','successexampleAction!goToAdd?inid=<s:property value="id"/>','500','300')">
-										<i class="Hui-iconfont">&#xe6bf;</i> 发布案例
-									</button>
-								</div>
-							</s:if>
+						<div class=" f-r pr-5">
+							<s:token></s:token>
+							<input type="submit" class="btn btn-success radius" id="button"
+								value="保存并提交"></input>
 						</div>
-					</div>
-
-					<div style="width: 100%">
-						<div id="tab_demo" class="HuiTab">
-							<div class="tabBar cl">
-								<span>信息录入</span><span>流转信息</span>
+						<s:if
+							test="injurycase.getEndSituation()!=null&&injurycase.getEndSituation()!='0'">
+							<div class=" f-r pr-5">
+								<button type="button" class="btn btn-success radius" id="button"
+									name=""
+									onclick="addPage('发布案例','successexampleAction!goToAdd?inid=<s:property value="id"/>','500','300')">
+									<i class="Hui-iconfont">&#xe6bf;</i> 发布案例
+								</button>
 							</div>
-							<div class="tabCon">
-								<div class="row cl text-c">
-									<h1 style="line-height: 80px;">
-										<small style="color: #000;"><s:property
-												value="pageTileName" />信息表</small>
-									</h1>
-								</div>
-								<div class="col-12 mb-10  c-primary f-16"
-									style="border-bottom: solid 2px #2DABF7">
-									案件基本信息
+						</s:if>
+					</div>
+				</div>
+
+				<div style="width: 100%">
+					<div id="tab_demo" class="HuiTab">
+						<div class="tabBar cl">
+							<span>信息录入</span><span>流转信息</span>
+						</div>
+						<div class="tabCon">
+							<div class="row cl text-c">
+								<h1 style="line-height: 80px;">
+									<small style="color: #000;"><s:property
+											value="pageTileName" />信息表</small>
+								</h1>
+							</div>
+							<div class="col-12 mb-10  c-primary f-16"
+								style="border-bottom: solid 2px #2DABF7">
+								案件基本信息
+							</div>
+							<div class="row cl">
+								<div class="row cl mb-10">
+									<div class="col-2">
+										<label class="form-label text-r">
+											案件照片：
+										</label>
+									</div>
+									<div class="col-4">
+
+										<table width="100%" border="0" cellspacing="0" cellpadding="0">
+											<tr>
+												<td align="center">
+													<img id="myimage1"
+														src="<%=basePath%>${injurycase.imageCase}"
+														class="img-responsive thumbnail" width="176px"
+														height="220px" alt="案件图片" />
+													<script type="text/javascript">
+															function change1() {
+															    var pic1 = document.getElementById("myimage1"),
+															        file1 = document.getElementById("myfile1");
+															    var ext1=file1.value.substring(file1.value.lastIndexOf(".")+1).toLowerCase();
+															     // gif在IE浏览器暂时无法显示
+															     if(ext1!='png'&&ext1!='jpg'&&ext1!='jpeg'){
+															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
+															         return;
+															     }
+															     var isIE = navigator.userAgent.match(/MSIE/)!= null,
+															         isIE6 = navigator.userAgent.match(/MSIE 6.0/)!= null;
+															     if(isIE) {
+															        file1.select();
+															        var reallocalpath = document.selection.createRange().text;
+															 
+															        // IE6浏览器设置img的src为本地路径可以直接显示图片
+															         if (isIE6) {
+															            pic1.src = reallocalpath;
+															         }else {
+															            // 非IE6版本的IE由于安全问题直接设置img的src无法显示本地图片，但是可以通过滤镜来实现
+															             pic1.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='image',src=\"" + reallocalpath + "\")";
+															             // 设置img的src为base64编码的透明图片 取消显示浏览器默认图片
+															             pic1.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+															         }
+															     }else {
+															        html5Reader1(file1);
+															     }
+															     pic1.alt = '图片';
+															}
+															 function html5Reader1(file1){
+															     var file1 = file1.files[0];
+															     var reader1 = new FileReader();
+															     reader1.readAsDataURL(file1);
+															     reader1.onload = function(e){
+															         var pic1 = document.getElementById("myimage1");
+															         pic1.src=this.result;
+															     }
+															 }
+												</script>
+
+
+												</td>
+											</tr>
+											<tr>
+												<td align="center">
+													<s:file name="picture1"
+														cssClass="btn btn-primary radius mt-10"
+														accept="image/jpeg,image/png,image/jpg"
+														onchange="change1();" id="myfile1"></s:file>
+
+												</td>
+											</tr>
+										</table>
+									</div>
 								</div>
 								<div class="row cl">
 									<div class="row cl mb-10">
@@ -482,81 +553,81 @@
 									</div>
 								</div>
 							</div>
-							<div class="tabCon">
-								<div class="row cl">
+						</div>
+						<div class="tabCon">
+							<div class="row cl">
+								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+									<div
+										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+										<s:property value="injurycase.userRole.realname" />
+										：录入
+									</div>
+								</div>
+							</div>
+							<s:if test="injurycase.judges.size>0">
+								<s:iterator value="injurycase.judges" var="judge"
+									status="status">
+									<div class="row cl">
+										<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+											<div style="height: 25px; width: 200px; text-align: center">
+												<i class="Hui-iconfont f-18 ">&#xe674;</i>
+											</div>
+										</div>
+									</div>
 									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
 										<div
-											style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-											<s:property value="injurycase.userRole.realname" />
-											：录入
+											style="height: 100px; width: 200px; border: solid 1px #666">
+											<table width="100%" border="0" cellspacing="0"
+												cellpadding="0">
+												<tr>
+													<td>
+														研判次序
+														<s:property value="indexNumber" />
+														:
+														<s:property value="reportUnit" />
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</s:iterator>
+							</s:if>
+							<s:if
+								test="injurycase.comprehensiveJudge!=null&&injurycase.comprehensiveJudge!=''">
+								<div class="row cl">
+									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+										<div style="height: 25px; width: 200px; text-align: center">
+											<i class="Hui-iconfont f-18 ">&#xe674;</i>
 										</div>
 									</div>
 								</div>
-								<s:if test="injurycase.judges.size>0">
-									<s:iterator value="injurycase.judges" var="judge"
-										status="status">
-										<div class="row cl">
-											<div class="col-offset-5 col-5-1 text-c"
-												style="padding: 5px;">
-												<div style="height: 25px; width: 200px; text-align: center">
-													<i class="Hui-iconfont f-18 ">&#xe674;</i>
-												</div>
-											</div>
-										</div>
-										<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-											<div
-												style="height: 100px; width: 200px; border: solid 1px #666">
-												<table width="100%" border="0" cellspacing="0"
-													cellpadding="0">
-													<tr>
-														<td>
-															上报信息
-															<s:property value="indexNumber" />
-															:
-															<s:property value="reportUnit" />
-														</td>
-													</tr>
-												</table>
-											</div>
-										</div>
-									</s:iterator>
-								</s:if>
-								<s:if
-									test="injurycase.comprehensiveJudge!=null&&injurycase.comprehensiveJudge!=''">
-									<div class="row cl">
-										<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-											<div style="height: 25px; width: 200px; text-align: center">
-												<i class="Hui-iconfont f-18 ">&#xe674;</i>
-											</div>
-										</div>
+								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+									<div
+										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+										完结
 									</div>
+								</div>
+							</s:if>
+							<s:if
+								test="injurycase.leaderInstruction!=null&&injurycase.leaderInstruction!=''">
+								<div class="row cl">
 									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-										<div
-											style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-											完结
+										<div style="height: 25px; width: 200px; text-align: center">
+											<i class="Hui-iconfont f-18 ">&#xe674;</i>
 										</div>
 									</div>
-								</s:if>
-								<s:if
-									test="injurycase.leaderInstruction!=null&&injurycase.leaderInstruction!=''">
-									<div class="row cl">
-										<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-											<div style="height: 25px; width: 200px; text-align: center">
-												<i class="Hui-iconfont f-18 ">&#xe674;</i>
-											</div>
-										</div>
+								</div>
+								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+									<div
+										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+										领导批示
 									</div>
-									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-										<div
-											style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-											领导批示
-										</div>
-									</div>
-								</s:if>
-							</div>
+								</div>
+							</s:if>
 						</div>
 					</div>
-					<script type="text/javascript">
+				</div>
+				<script type="text/javascript">
 
 $(function(){
 $.Huitab("#tab_demo .tabBar span","#tab_demo .tabCon","current","click","0");
@@ -624,11 +695,19 @@ function article_save(obj,id){
 	});
 }
 </script>
-					<s:hidden name="injurycase.itype" title="案件类型"></s:hidden>
-					<s:hidden name="injurycase.id" title="案件id"></s:hidden>
-					<s:hidden name="injurycase.userRole.id" title="案件子表userRoleid"></s:hidden>
-					<s:hidden name="injurycase.handleState" title="办理状态"></s:hidden>
-					<s:hidden name="injurycase.joinDate" title="录入时间"></s:hidden>
+				<s:hidden name="injurycase.imageCase" title="案件图片"></s:hidden>
+				<s:hidden name="injurycase.isCanvas" title="水印"></s:hidden>
+				<s:hidden name="injurycase.pids" title="pids"></s:hidden>
+				<s:hidden name="injurycase.caseIds" title="caseIds"></s:hidden>
+				<s:hidden name="injurycase.isRelated" title="是否已串并案"></s:hidden>
+				<s:hidden name="injurycase.videoPath" title="视频"></s:hidden>
+				<s:hidden name="injurycase.thumbPath" title="缩略图路径"></s:hidden>
+
+				<s:hidden name="injurycase.itype" title="案件类型"></s:hidden>
+				<s:hidden name="injurycase.id" title="案件id"></s:hidden>
+				<s:hidden name="injurycase.userRole.id" title="案件子表userRoleid"></s:hidden>
+				<s:hidden name="injurycase.handleState" title="办理状态"></s:hidden>
+				<s:hidden name="injurycase.joinDate" title="录入时间"></s:hidden>
 		</form>
 	</body>
 </html>
