@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +17,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
@@ -30,32 +28,16 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.yz.model.AnalyzeMan;
-import com.yz.model.CommonClue;
-import com.yz.model.ContrastMan;
-import com.yz.model.DisappearMan;
-import com.yz.model.GamblingCriminalMan;
-import com.yz.model.GuiltSafeguardMan;
 import com.yz.model.Injurycase;
 import com.yz.model.Judge;
-import com.yz.model.Lawcase;
 import com.yz.model.Otherperson;
-import com.yz.model.Person;
 import com.yz.model.Successexample;
 import com.yz.model.Troubleshooting;
 import com.yz.model.Unit;
 import com.yz.model.UserRole;
-import com.yz.service.IAnalyzeManService;
-import com.yz.service.ICommonClueService;
-import com.yz.service.IContrastManService;
-import com.yz.service.IDisappearManService;
-import com.yz.service.IGamblingCriminalManService;
-import com.yz.service.IGuiltSafeguardManService;
 import com.yz.service.IInjurycaseService;
 import com.yz.service.IJudgeService;
-import com.yz.service.ILawcaseService;
 import com.yz.service.IOtherpersonService;
-import com.yz.service.IPersonService;
 import com.yz.service.ISuccessexampleService;
 import com.yz.service.ITroubleshootingService;
 import com.yz.service.IUnitService;
@@ -113,11 +95,10 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	private IOtherpersonService otherpersonService;
 	private IJudgeService judgeService;
 	private ISuccessexampleService successexampleService;
-	
+
 	private IUserRoleService userRoleService;
 
 	// 单个表对象
-
 	private Troubleshooting troubleshooting;
 	private Otherperson otherperson;
 	private Injurycase injurycase;
@@ -137,6 +118,11 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	// 部门json
 	private String jsonUnits;
 
+	// 案件图片
+	private File picture1;
+	private String picture1ContentType;
+	private String picture1FileName;
+
 	/**
 	 * 人员管理
 	 */
@@ -147,8 +133,8 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		
-		UserRole  userRole = userRoleService.loadById(userRoleo.getId());
+
+		UserRole userRole = userRoleService.loadById(userRoleo.getId());
 
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
@@ -179,7 +165,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 		return "list";
 	}
-
 
 	// 选择页面名称
 	private String selectTileName(int type) {
@@ -215,6 +200,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
+
 		return "add";
 	}
 
@@ -231,27 +217,30 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo_child";
 		}
-		
-		UserRole  userRole = userRoleService.loadById(userRoleo.getId());
+
+		UserRole userRole = userRoleService.loadById(userRoleo.getId());
 		injurycase.setUserRole(userRole);// 设置录入人员
 		injurycase.setJoinDate(DateTimeKit.getLocalDate());// 设置录入时间
 		injurycase.setHandleState(1);// 初始化处理状态
 
+		if (picture1 != null && picture1FileName != null
+				&& !picture1FileName.replace(" ", "").equals("")) {
+			String imageName = DateTimeKit.getDateRandom()
+					+ picture1FileName.substring(picture1FileName.indexOf("."));
+			this.upload("/case", imageName, picture1);
+			injurycase.setImageCase("case" + "/" + imageName);
+		}
 		injurycaseService.add(injurycase);
-		
-		
-		//添加当前用户id到部门pids
-		if(userRole.getUnit()!=null)
-		{
+
+		// 添加当前用户id到部门pids
+		if (userRole.getUnit() != null) {
 			int uid = userRole.getUnit().getId();
 			Unit un = unitService.loadById(uid);
-			
-			if(un.getInids()!=null&&un.getInids()!="")
-			{
-				un.setInids(handleIDs(un.getInids(),injurycase.getId()+""));
-			}else
-			{
-				un.setInids(injurycase.getId()+",");
+
+			if (un.getInids() != null && un.getInids() != "") {
+				un.setInids(handleIDs(un.getInids(), injurycase.getId() + ""));
+			} else {
+				un.setInids(injurycase.getId() + ",");
 			}
 			unitService.update(un);
 		}
@@ -259,23 +248,47 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		arg[1] = "案件管理";
 		return "success_child";
 	}
-	
-	
-	//处理ids
-	private String handleIDs(String objIDs,String objID) {
+
+	// 文件上传
+	public void upload(String fileName, String imageName, File picture)
+			throws Exception {
+		File saved = new File(ServletActionContext.getServletContext()
+				.getRealPath(fileName), imageName);
+		InputStream ins = null;
+		OutputStream ous = null;
+		try {
+			saved.getParentFile().mkdirs();
+			ins = new FileInputStream(picture);
+			ous = new FileOutputStream(saved);
+			byte[] b = new byte[1024];
+			int len = 0;
+			while ((len = ins.read(b)) != -1) {
+				ous.write(b, 0, len);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (ous != null)
+				ous.close();
+			if (ins != null)
+				ins.close();
+		}
+	}
+
+	// 处理ids
+	private String handleIDs(String objIDs, String objID) {
 		// TODO Auto-generated method stub
 		Set<String> ids = new HashSet<String>();
 		String newIDs = "";
 		String[] arrayIDs = objIDs.split(",");
-		for(int i=0;i<arrayIDs.length;i++)
-		{
+		for (int i = 0; i < arrayIDs.length; i++) {
 			ids.add(arrayIDs[i]);
 		}
 		ids.add(objID);
-		
-		for (String id : ids) {  
-		      newIDs= newIDs+id+",";
-		} 
+
+		for (String id : ids) {
+			newIDs = newIDs + id + ",";
+		}
 		System.out.println(newIDs);
 		return newIDs;
 	}
@@ -291,6 +304,15 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			return "opsessiongo";
 		}
 		injurycase = injurycaseService.loadById(id);
+
+		if (injurycase.getImageCase() != null
+				&& !injurycase.getImageCase().replace(" ", "").equals("")) {
+			File photofile = new File(ServletActionContext.getServletContext()
+					.getRealPath("/")
+					+ injurycase.getImageCase());
+			photofile.delete();
+		}
+
 		injurycaseService.delete(injurycase);
 		arg[0] = "injurycaseAction!list?itype=" + injurycase.getItype();
 		arg[1] = "案件管理";
@@ -307,6 +329,13 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
 		for (int i = 0; i < ids.length; i++) {
 			injurycase = injurycaseService.loadById(id);
+			if (injurycase.getImageCase() != null
+					&& !injurycase.getImageCase().replace(" ", "").equals("")) {
+				File photofile = new File(ServletActionContext
+						.getServletContext().getRealPath("/")
+						+ injurycase.getImageCase());
+				photofile.delete();
+			}
 			injurycaseService.delete(injurycase);
 		}
 		AjaxMsgVO msgVO = new AjaxMsgVO();
@@ -338,9 +367,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		pageTileName = selectTileName(itype);
 
 		tars = otherpersonService.getInjurycaseOtherpersonByOtype(2, id);// 同案人
-		
-		
-		
+
 		injurycase = injurycaseService.queryInjurycaseById(id);// 当前修改案件的id
 		return "load";
 
@@ -359,6 +386,17 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		if (injurycase.getEndSituation() != null
 				&& injurycase.getEndSituation() != "") {
 			injurycase.setHandleState(3);// 完结
+		}
+		if (picture1 != null && picture1FileName != null
+				&& !picture1FileName.replace(" ", "").equals("")) {
+			String imageName = DateTimeKit.getDateRandom()
+					+ picture1FileName.substring(picture1FileName.indexOf("."));
+			this.upload("/case", imageName, picture1);
+			File photofile = new File(ServletActionContext.getServletContext()
+					.getRealPath("/")
+					+ injurycase.getImageCase());
+			photofile.delete();
+			injurycase.setImageCase("case" + "/" + imageName);
 		}
 		injurycaseService.update(injurycase);
 
@@ -757,5 +795,28 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		return unitVOs;
 	}
 
-	
+	public File getPicture1() {
+		return picture1;
+	}
+
+	public void setPicture1(File picture1) {
+		this.picture1 = picture1;
+	}
+
+	public String getPicture1ContentType() {
+		return picture1ContentType;
+	}
+
+	public void setPicture1ContentType(String picture1ContentType) {
+		this.picture1ContentType = picture1ContentType;
+	}
+
+	public String getPicture1FileName() {
+		return picture1FileName;
+	}
+
+	public void setPicture1FileName(String picture1FileName) {
+		this.picture1FileName = picture1FileName;
+	}
+
 }
