@@ -53,6 +53,8 @@ public class Injurycase implements java.io.Serializable {
 	private Integer isRelated; // 是否已串并案
 	private String videoPath; // 视频
 	private String thumbPath; // 缩略图路径
+	private String casePlace;//案发地点
+	private String startTime;//案发时间
 
 	// Constructors
 
@@ -69,7 +71,7 @@ public class Injurycase implements java.io.Serializable {
 			List<Troubleshooting> troubleshootings, List<Judge> judges,
 			String joinDate, Integer handleState, Integer itype,
 			String imageCase, Integer isCanvas, String pids, String caseIds,
-			Integer isRelated, String videoPath, String thumbPath) {
+			Integer isRelated, String videoPath, String thumbPath,String casePlace, String startTime) {
 		this.userRole = userRole;
 		this.caseNumber = caseNumber;
 		this.caseType = caseType;
@@ -97,6 +99,8 @@ public class Injurycase implements java.io.Serializable {
 		this.isRelated = isRelated;
 		this.videoPath = videoPath;
 		this.thumbPath = thumbPath;
+		this.casePlace = casePlace;
+		this.startTime = startTime;
 	}
 
 	/** full constructor */
@@ -124,6 +128,11 @@ public class Injurycase implements java.io.Serializable {
 	@Column(name = "caseNumber", length = 30)
 	public String getCaseNumber() {
 		return this.caseNumber;
+	}
+
+	@Column(name = "casePlace", length = 100)
+	public String getCasePlace() {
+		return casePlace;
 	}
 
 	@Column(name = "caseType", length = 30)
@@ -219,6 +228,11 @@ public class Injurycase implements java.io.Serializable {
 		return pids;
 	}
 
+	@Column(name = "startTime", length = 30)
+	public String getStartTime() {
+		return startTime;
+	}
+
 	@Column(name = "telphone", length = 30)
 	public String getTelphone() {
 		return this.telphone;
@@ -263,6 +277,10 @@ public class Injurycase implements java.io.Serializable {
 
 	public void setCaseNumber(String caseNumber) {
 		this.caseNumber = caseNumber;
+	}
+
+	public void setCasePlace(String casePlace) {
+		this.casePlace = casePlace;
 	}
 
 	public void setCaseType(String caseType) {
@@ -337,6 +355,10 @@ public class Injurycase implements java.io.Serializable {
 		this.pids = pids;
 	}
 
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
 	public void setTelphone(String telphone) {
 		this.telphone = telphone;
 	}
@@ -356,5 +378,7 @@ public class Injurycase implements java.io.Serializable {
 	public void setVideoPath(String videoPath) {
 		this.videoPath = videoPath;
 	}
+	
+	
 
 }

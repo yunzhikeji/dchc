@@ -82,19 +82,16 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		
 		if(con!=0&&convalue!=null&&!convalue.equals("")){
 			if(con==1){
-				queryString += "and mo.casenumber like ? "; 
+				queryString += "and mo.caseName like ? "; 
 			}
 			if(con==2){
-				queryString += "and mo.casename like ? "; 
+				queryString += "and mo.caseNumber like ? "; 
 			}
 			if(con==3){
-				queryString += "and mo.fillunit like ? "; 
+				queryString += "and mo.casePlace like ? "; 
 			}
 			if(con==4){
 				queryString += "and mo.userRole.realname like ? "; 
-			}
-			if(con==5){
-				queryString += "and mo.appraiser like ? "; 
 			}
 			p = new Object[]{'%'+convalue+'%'};
 		}	
@@ -102,10 +99,10 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 			queryString += " and mo.handleState ="+queryState;
 		}
 		if(starttime!=null&&!starttime.equals("")){
-			queryString += " and mo.joinDate>='"+starttime+"'";
+			queryString += " and mo.startTime>='"+starttime+"'";
 		}
 		if(endtime!=null&&!endtime.equals("")){
-			queryString += " and mo.joinDate<='"+endtime+"'";
+			queryString += " and mo.startTime<='"+endtime+"'";
 		}
 		return injurycaseDao.getUniqueResult(queryString,p);
 	}
@@ -143,19 +140,16 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		Object[] p = null;
 		if(con!=0&&convalue!=null&&!convalue.equals("")){
 			if(con==1){
-				queryString += "and mo.casenumber like ? "; 
+				queryString += "and mo.caseName like ? "; 
 			}
 			if(con==2){
-				queryString += "and mo.casename like ? "; 
+				queryString += "and mo.caseNumber like ? "; 
 			}
 			if(con==3){
-				queryString += "and mo.fillunit like ? "; 
+				queryString += "and mo.casePlace like ? "; 
 			}
 			if(con==4){
 				queryString += "and mo.userRole.realname like ? "; 
-			}
-			if(con==5){
-				queryString += "and mo.appraiser like ? "; 
 			}
 			p = new Object[]{'%'+convalue+'%'};
 		}
@@ -164,10 +158,10 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 			queryString += " and mo.handleState ="+queryState;
 		}
 		if(starttime!=null&&!starttime.equals("")){
-			queryString += " and mo.joinDate>='"+starttime+"'";
+			queryString += " and mo.startTime>='"+starttime+"'";
 		}
 		if(endtime!=null&&!endtime.equals("")){
-			queryString += " and mo.joinDate<='"+endtime+"'";
+			queryString += " and mo.startTime<='"+endtime+"'";
 		}
 		return injurycaseDao.pageList(queryString,p,page,size);
 	}

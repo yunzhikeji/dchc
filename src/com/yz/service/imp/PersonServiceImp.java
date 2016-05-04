@@ -222,7 +222,6 @@ public class PersonServiceImp implements IPersonService {
 		} else {
 			queryString += " and mo.id in (0)";
 		}
-		System.out.println(queryString);
 		return personDao.pageList(queryString, p, page, size);
 	}
 

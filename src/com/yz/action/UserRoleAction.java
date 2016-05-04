@@ -588,7 +588,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		userRoleo.setPassword(password);
+		userRoleo.setPassword(MD5Util.convertMD5(MD5Util.string2MD5(password)));
 		userRoleService.update(userRoleo);
 		arg[0] = "userRoleAction!list";
 		arg[1] = "用户管理";
@@ -638,7 +638,8 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		}
 		if(password1!=null&&!password1.replace(" ", "").equals("")&&password2!=null&&!password2.replace(" ", "").equals(""))
 		{
-			userRole.setPassword(password1);
+			
+			userRole.setPassword(MD5Util.convertMD5(MD5Util.string2MD5(password1)));
 		}
 		userRoleService.update(userRole);
 		arg[0] = "userRoleAction!currentUserRole";

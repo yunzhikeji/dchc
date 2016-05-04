@@ -67,7 +67,7 @@
 							</td>
 							<td align="right" style="padding-right: 30%;">
 								信息状态:
-								<s:select list="#{1:'未办理',2:'已办理',3:'已完结'}"
+								<s:select list="#{1:'未办理',2:'在办理',3:'已完结'}"
 									cssClass="input-text" name="queryState" listKey="key"
 									listValue="value" cssStyle="width:180px"></s:select>
 							</td>
@@ -186,7 +186,7 @@
 								<td>
 									<s:if test="handleState==0">未办理</s:if>
 									<s:if test="handleState==1">未办理</s:if>
-									<s:if test="handleState==2">已办理</s:if>
+									<s:if test="handleState==2">在办理</s:if>
 									<s:if test="handleState==3">已完结</s:if>
 									
 								</td>

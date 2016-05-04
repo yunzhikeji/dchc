@@ -183,7 +183,7 @@
 					<div class="formControls col-4">
 						<input type="password" class="input-text" autocomplete="off"
 							placeholder="不修改请留空" name="password1" id="new-password"
-							datatype="*6-18" ignore="ignore">
+							datatype="*1-18" ignore="ignore">
 					</div>
 					<div class="col-4">
 					</div>

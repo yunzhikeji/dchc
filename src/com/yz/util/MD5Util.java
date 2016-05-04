@@ -53,7 +53,7 @@ public class MD5Util {
         System.out.println("原始：" + s);  
         System.out.println("MD5后：" + string2MD5(s));
         
-        
+        System.out.println(convertMD5(MD5Util.string2MD5("test")));
         
         System.out.println("加密的1：" + convertMD5(string2MD5(s)));
         System.out.println("加密的2：" + convertMD5(string2MD5(s)));

@@ -61,7 +61,7 @@ public class Person implements java.io.Serializable {
 	private List<Troubleshooting> troubleshootings = new ArrayList<Troubleshooting>();//疑难解答
 	private List<Judge> judges = new ArrayList<Judge>();//研判情况
 	private String joinDate;//录入时间
-	private Integer handleState;//办理状态(1:未办理 2：已办理 3：已完结)
+	private Integer handleState;//办理状态(1:未办理 2：在办理 3：已完结)
 	private String photoImg;//照片
 	// Constructors
 

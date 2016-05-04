@@ -181,6 +181,27 @@
 										</div>
 									</div>
 								</div>
+									<div class="row cl mb-10">
+									<div class="col-2">
+										<label class="form-label text-r">
+											案发地址：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:textfield name="injurycase.casePlace"
+											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+									</div>
+									<div class="col-2">
+										<label class="form-label text-r">
+											案发时间：
+										</label>
+									</div>
+									<div class="col-4">
+										<input type="text" name="injurycase.startTime" value="<s:property value="injurycase.startTime"/>"
+											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})"
+											id="logmin" class="input-text Wdate" style="width: 200px;">
+									</div>
+								</div>
 								<div class="row cl mb-10">
 									<div class="col-2">
 										<label class="form-label text-r">

@@ -38,7 +38,8 @@
 	</package>
 
 	<package name="unit_json" extends="json-default">
-		<action name="deleteUnits" class="unitAction" method="deleteUnits" />
+		<action name="deleteUnits" class="unitAction"
+			method="deleteUnits" />
 	</package>
 
 	<package name="userRole" extends="struts-default">
@@ -82,7 +83,8 @@
 
 
 	<package name="userRole_json" extends="json-default">
-		<action name="deleteUserRoles" class="userRoleAction" method="deleteUserRoles" />
+		<action name="deleteUserRoles" class="userRoleAction"
+			method="deleteUserRoles" />
 	</package>
 
 	<package name="person" extends="struts-default">
@@ -169,7 +171,8 @@
 
 
 	<package name="person_json" extends="json-default">
-		<action name="deletePersons" class="personAction" method="deletePersons" />
+		<action name="deletePersons" class="personAction"
+			method="deletePersons" />
 	</package>
 
 
@@ -189,6 +192,8 @@
 			<result name="add">/injurycase_add.jsp</result>
 			<result name="load">/injurycase_update.jsp</result>
 			<result name="view">/injurycase_view.jsp</result>
+
+			<result name="listcba">/injurycase_listcba.jsp</result>
 			<result name="invalid.token">/op_failure_child.jsp</result>
 			<interceptor-ref name="defaultStack" />
 			<interceptor-ref name="token">
@@ -205,15 +210,6 @@
 			method="deleteInjurycases" />
 	</package>
 
-	<package name="chainingCase" extends="struts-default">
-		<action name="chainingCaseAction" class="chainingCaseAction" >
-		<result name="list">/cba.html</result>
-		<result name="addPage">/cba.html</result>
-		<result name="editPage">/cba.html</result>
-		<result name="toList">/cba.html</result>
-
-		</action>
-	</package>
 
 	<package name="clue" extends="struts-default">
 		<global-results>
@@ -244,7 +240,8 @@
 
 
 	<package name="clue_json" extends="json-default">
-		<action name="deleteClues" class="clueAction" method="deleteClues" />
+		<action name="deleteClues" class="clueAction"
+			method="deleteClues" />
 	</package>
 
 
@@ -278,7 +275,8 @@
 
 
 	<package name="pnotice_json" extends="json-default">
-		<action name="deletePnotices" class="pnoticeAction" method="deletePnotices" />
+		<action name="deletePnotices" class="pnoticeAction"
+			method="deletePnotices" />
 	</package>
 
 
@@ -311,7 +309,8 @@
 
 
 	<package name="lawcase_json" extends="json-default">
-		<action name="deleteLawcase" class="lawcaseAction" method="deleteLawcase" />
+		<action name="deleteLawcase" class="lawcaseAction"
+			method="deleteLawcase" />
 	</package>
 
 	<package name="judge" extends="struts-default">
@@ -343,8 +342,10 @@
 
 
 	<package name="judge_json" extends="json-default">
-		<action name="deleteJudge" class="judgeAction" method="deleteJudge" />
-		<action name="getUnitVOs" class="judgeAction" method="getUnitVOs" />
+		<action name="deleteJudge" class="judgeAction"
+			method="deleteJudge" />
+		<action name="getUnitVOs" class="judgeAction"
+			method="getUnitVOs" />
 	</package>
 
 
@@ -387,7 +388,8 @@
 			<result name="adminLogin">/login.jsp</result>
 			<result name="opsessiongo">/op_sessiongo.jsp</result>
 		</global-results>
-		<action name="troubleshootingAction" class="troubleshootingAction">
+		<action name="troubleshootingAction"
+			class="troubleshootingAction">
 			<result name="sessiongo">/op_sessiongo.jsp</result>
 			<result name="success_child">/op_success_child.jsp</result>
 			<result name="success">/op_success.jsp</result>
@@ -411,8 +413,8 @@
 
 
 	<package name="troubleshooting_json" extends="json-default">
-		<action name="deleteTroubleshooting" class="troubleshootingAction"
-			method="deleteTroubleshooting" />
+		<action name="deleteTroubleshooting"
+			class="troubleshootingAction" method="deleteTroubleshooting" />
 	</package>
 
 
@@ -421,7 +423,8 @@
 			<result name="adminLogin">/login.jsp</result>
 			<result name="opsessiongo">/op_sessiongo.jsp</result>
 		</global-results>
-		<action name="successexampleAction" class="successexampleAction">
+		<action name="successexampleAction"
+			class="successexampleAction">
 			<result name="sessiongo">/op_sessiongo.jsp</result>
 			<result name="success_child">/op_success_child.jsp</result>
 			<result name="success">/op_success.jsp</result>
@@ -445,8 +448,8 @@
 
 
 	<package name="successexample_json" extends="json-default">
-		<action name="deleteSuccessexamples" class="successexampleAction"
-			method="deleteSuccessexamples" />
+		<action name="deleteSuccessexamples"
+			class="successexampleAction" method="deleteSuccessexamples" />
 	</package>
 
 </struts>

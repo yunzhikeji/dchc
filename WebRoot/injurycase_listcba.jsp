@@ -1,4 +1,4 @@
-﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 <%
@@ -16,15 +16,16 @@
 		<meta name="viewport"
 			content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<link href="css/cba.css" rel="stylesheet" type="text/css" />
 		<link href="css/H-ui.min.css" rel="stylesheet" type="text/css" />
 		<link href="css/H-ui.admin.css" rel="stylesheet" type="text/css" />
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
-		<link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet"
+		<link href="lib/Hui-iconfont/1.0.7/iconfont.css" rel="stylesheet"
 			type="text/css" />
 		<link rel="stylesheet"
 			href="lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
 		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
-		<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
+		<script type="text/javascript" src="lib/layer/2.1/layer.js"></script>
 		<script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>
 		<script type="text/javascript"
 			src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
@@ -35,13 +36,12 @@
 		<script type="text/javascript" src="js/pageKit.js"></script>
 		<script type="text/javascript" src="js/checkUtil.js"></script>
 		<script type="text/javascript" src="js/commonUtil.js"></script>
-		<title>案件信息列表</title>
+		<title>串并案</title>
 	</head>
 	<body>
 		<nav class="breadcrumb">
 		<i class="Hui-iconfont">&#xe67f;</i> 首页
-		<span class="c-gray en">&gt;</span>
-		<s:property value="pageTileName" />
+		<span class="c-gray en">&gt;</span>串并案
 		<a class="btn btn-success radius r mr-20"
 			style="line-height: 1.6em; margin-top: 3px"
 			href="javascript:location.replace(location.href);" title="刷新"><i
@@ -51,14 +51,14 @@
 		<div class="pd-20">
 			<div class="text-c">
 				<form name="injurycaseListForm" method="post"
-					action="injurycaseAction!list" target="_self">
+					action="injurycaseAction!listcba" target="_self">
 					<s:hidden name="type"></s:hidden>
 					<table width="100%" border="0" cellspacing="0" cellpadding="0"
 						style="line-height: 35px;">
 						<tr height="35">
 							<td width="21%" align="right" style="padding-right: 50px;">
 								<s:select
-									list="#{0:'选择类型',1:'人员姓名',2:'人员编号',3:'身份证号',4:'录入人员姓名'}"
+									list="#{0:'选择类型',1:'案件名称',2:'案件编号',3:'案发地点',4:'录入人员姓名'}"
 									cssClass="input-text" name="con" listKey="key"
 									listValue="value" cssStyle="width:180px"></s:select>
 							</td>
@@ -74,7 +74,7 @@
 						</tr>
 						<tr>
 							<td colspan="2" align="right">
-								录入时间：
+								案发时间：
 								<input type="text" name="starttime"
 									value="<s:property value="starttime"/>"
 									onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\')||\'%y-%M-%d\'}'})"
@@ -100,123 +100,77 @@
 				</form>
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
-				<span class="l"> <s:if test="#session.userRoleo.userLimit==0">
-						<a href="javascript:;" onclick="deleteAllCheckedInjurys();"
-							class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>
-							批量删除</a>
-					</s:if> <a class="btn btn-primary radius"
-					onclick="childPageFull('新增<s:property value="pageTileName"/>','injurycaseAction!goToAdd?itype=<s:property value="itype"/>')"
-					href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 新增<s:property
-							value="pageTileName" />
-				</a> </span>
-				<span class="r">共有数据：<strong><s:property
-							value="totalCount" /> </strong> 条</span>
+				<span class="l"> <span class="r">共有数据：<strong><s:property
+								value="totalCount" /> </strong> 条</span>
 			</div>
-			<table class="table table-border table-bordered table-hover table-bg">
-				<thead>
-					<tr class="text-c">
-						<th width="41">
-							<input type="checkbox" name="" value="">
-						</th>
-						<th width="70">
-							序号ID
-						</th>
-						<th width="71">
-							案件名称
-						</th>
-						<th width="81">
-							案件类型
-						</th>
-						<th width="109">
-							录入单位
-						</th>
-						<th width="107">
-							录入民警
-						</th>
-						<th width="103">
-							录入时间
-						</th>
-						<th width="81">
-							办理状态
-						</th>
-						<th width="79">
-							操作
-						</th>
-					</tr>
-				</thead>
-				<tbody>
+			<div class="later-play-container" style="height: 680px">
+				<ul id="later-play-list" class="video-list clearfix" data-total="">
 					<s:iterator value="injurycases" var="injurycase" status="status">
-						<tr class="text-c va-m">
-							<td>
-								<input name="indexID" class="indexID" type="checkbox"
-									value="<s:property value="id"/>">
-							</td>
-							<td>
-								<s:property value="#status.index+1+(page-1)*10" />
-							</td>
-							<td>
-								<a style="text-decoration: none" class="ml-5"
-									onclick="childPageFull('查看案件','injurycaseAction!view?id=<s:property value="id"/>')"
-									href="javascript:;" title="查看"><s:property value="caseName" />
-								</a>
-							</td>
-							<td>
-								<s:if test="itype==1">一般案件</s:if>
-								<s:if test="itype==2">重伤案件</s:if>
-							</td>
-							<td>
-								<s:property value="userRole.unit.name" />
-							</td>
-							<td>
-								<s:property value="userRole.realname" />
-							</td>
-							<td>
-								<s:property value="joinDate" />
-							</td>
-							<td>
-								<s:if test="handleState==0">未办理</s:if>
-								<s:if test="handleState==1">未办理</s:if>
-								<s:if test="handleState==2">在办理</s:if>
-								<s:if test="handleState==3">已完结</s:if>
-							</td>
-							<td class="td-manage">
-								<a style="text-decoration: none" class="ml-5"
-									onclick="childPageFull('编辑案件','injurycaseAction!load?id=<s:property value="id"/>&itype=<s:property value="itype" />')"
-									href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i>
-								</a>
-								<s:if test="#session.userRoleo.userLimit==0">
-									<a style="text-decoration: none" class="ml-5"
-										href="injurycaseAction!delete?id=<s:property value="id" />&itype=<s:property value="itype" />"
-										onclick="return confirm('你确定删除该信息吗？')" title="删除"><i
-										class="Hui-iconfont">&#xe6e2;</i> </a>
-								</s:if>
-							</td>
-						</tr>
+						<li class="video-list-item video-no-tag " data-id="66666">
+							<a href="/66666" class="video-list-item-wrap" data-id="66666">
+								<div class="video-cover">
+									<img class="video-img video-img-lazy"
+										src="<%=basePath%><s:property value="imageCase"/>"
+										style="display: block;">
+									<ul class="show-list">
+										<li>
+											<div id="videoTitle" class="show-info">
+												案发地点：
+												<s:property value="casePlace" />
+												<div id="videoDesc" class="show-info">
+													案发时间：
+													<s:property value="startTime" />
+												</div>
+										</li>
+									</ul>
+									<div class="video-overlay"></div>
+									<div class="video-play"></div>
+								</div>
+								<div class="video-title">
+									<s:property value="caseName" />
+								</div>
+								<div class="video-info">
+									<span class="video-nickname"><s:property
+											value="userRole.username" />
+									</span>
+
+
+									<s:if test="handleState==0">
+										<span class="video-cate">未办理</span>
+									</s:if>
+									<s:if test="handleState==1">
+										<span class="video-cate">未办理</span>
+									</s:if>
+									<s:if test="handleState==2">
+										<span class="video-cate">在办理</span>
+									</s:if>
+									<s:if test="handleState==3">
+										<span class="video-cate">已完结</span>
+									</s:if>
+								</div> </a>
+						</li>
 					</s:iterator>
-				</tbody>
-			</table>
+				</ul>
+			</div>
 			<ul class="forminfo" style="line-height: 40px; font-size: 14px;">
 				<table width="98%" border="0" align="center" cellpadding="2"
 					cellspacing="1" bgcolor="#93CDF3" style="margin-top: 8px">
 					<tr align="right" bgcolor="#EEF4EA">
-						<td height="34" align="center" bgcolor="#FFFFFF">
-							&nbsp;
-						</td>
 						<td height="34" colspan="6" align="center" bgcolor="#FFFFFF">
 							<a
-								href="javascript:jumpInjurycasePage('injurycaseAction!list',1,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="itype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
+								href="javascript:jumpInjurycaseCbaPage('injurycaseAction!listcba',1,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="itype"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
 								target="rightFrame">首页</a>&nbsp;&nbsp;
 							<a
-								href="javascript:jumpInjurycasePage('injurycaseAction!list',<s:property value="page-1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="itype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
+								href="javascript:jumpInjurycaseCbaPage('injurycaseAction!listcba',<s:property value="page-1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
 								target="rightFrame">上一页</a>&nbsp;&nbsp;&nbsp;
 							<a
-								href="javascript:jumpInjurycasePage('injurycaseAction!list',<s:property value="page+1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="itype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
+								href="javascript:jumpInjurycaseCbaPage('injurycaseAction!listcba',<s:property value="page+1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
 								target="rightFrame">下一页</a>&nbsp;&nbsp;&nbsp;
 							<a
-								href="javascript:jumpInjurycasePage('injurycaseAction!list',<s:property value="pageCount"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="itype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
+								href="javascript:jumpInjurycaseCbaPage('injurycaseAction!listcba',<s:property value="pageCount"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
 								target="rightFrame">尾页</a>&nbsp;&nbsp;&nbsp;
 							<input type='button' class="btn btn-primary radius size-S"
-								onclick="jumpInjurycasePage('injurycaseAction!list',document.getElementById('page').value,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="itype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
+								onclick="javascript:jumpInjurycaseCbaPage('injurycaseAction!listcba',document.getElementById('page').value,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
 								value='转到' />
 							&nbsp; 当前页：
 							<input onpaste="return false"
@@ -231,6 +185,7 @@
 					</tr>
 				</table>
 			</ul>
+			F
 		</div>
 	</body>
 </html>

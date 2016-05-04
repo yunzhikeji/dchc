@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashSet;
 import java.util.List;
@@ -417,6 +418,47 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		}
 		injurycase = injurycaseService.loadById(id);
 		return "view";
+	}
+
+	/***************************************************************************
+	 * 串并案
+	 * 
+	 * @throws UnsupportedEncodingException
+	 */
+	public String listcba() throws UnsupportedEncodingException {
+		// 登陆验证
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
+		if (userRoleo == null) {
+			return "opsessiongo";
+		}
+
+		UserRole userRole = userRoleService.loadById(userRoleo.getId());
+
+		if (convalue != null && !convalue.equals("")) {
+			convalue = URLDecoder.decode(convalue, "utf-8");
+		}
+		if (starttime != null && !starttime.equals("")) {
+			starttime = URLDecoder.decode(starttime, "utf-8");
+		}
+		if (endtime != null && !endtime.equals("")) {
+			endtime = URLDecoder.decode(endtime, "utf-8");
+		}
+		if (page < 1) {
+			page = 1;
+		}
+		// 总记录数
+		totalCount = injurycaseService.getTotalCount(con, convalue, userRole,
+				queryState, starttime, endtime);
+		// 总页数
+		pageCount = injurycaseService.getPageCount(totalCount, 9);
+		if (page > pageCount && pageCount != 0) {
+			page = pageCount;
+		}
+		// 所有当前页记录对象
+		injurycases = injurycaseService.queryList(con, convalue, userRole,
+				page, 9,  queryState, starttime, endtime);
+
+		return "listcba";
 	}
 
 	// get、set-------------------------------------------
