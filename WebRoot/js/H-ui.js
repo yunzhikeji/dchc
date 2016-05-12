@@ -162,6 +162,23 @@ jQuery.Huitab =function(tabBar,tabCon,class_name,tabEvent,i){
 	});
 }
 
+jQuery.Huitab0511 =function(tabBar0511,tabCon0511,class_name,tabEvent,i){
+  	var $tab_menu=$(tabBar0511);
+	// 初始化操作
+	$tab_menu.removeClass(class_name);
+	$(tabBar0511).eq(i).addClass(class_name);
+	$(tabCon0511).hide();
+	$(tabCon0511).eq(i).show();
+	
+	$tab_menu.on(tabEvent,function(){
+		$tab_menu.removeClass(class_name);
+		$(this).addClass(class_name);
+		var index=$tab_menu.index(this);
+		$(tabCon0511).hide();
+		$(tabCon0511).eq(index).show();
+	});
+}
+
 /*折叠*/
 jQuery.Huifold = function(obj,obj_c,speed,obj_type,Event){
 	if(obj_type == 2){
