@@ -185,6 +185,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			pageName = "团伙系列案件";
 			break;
 		default:
+			pageName = "串并案";
 			break;
 		}
 		return pageName;
@@ -459,6 +460,24 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 				page, 9,  queryState, starttime, endtime);
 
 		return "listcba";
+	}
+	
+	
+	/**
+	 * 跳转到修改页面
+	 * 
+	 * @return
+	 */
+	public String loadcba() throws Exception {
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
+		if (userRoleo == null) {
+			return "opsessiongo";
+		}
+		pageTileName = selectTileName(3);
+
+		injurycase = injurycaseService.queryInjurycaseById(id);// 当前修改案件的id
+		return "loadcba";
+
 	}
 
 	// get、set-------------------------------------------

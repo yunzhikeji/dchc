@@ -107,7 +107,7 @@
 				<ul id="later-play-list" class="video-list clearfix" data-total="">
 					<s:iterator value="injurycases" var="injurycase" status="status">
 						<li class="video-list-item video-no-tag " data-id="66666">
-							<a href="/66666" class="video-list-item-wrap" data-id="66666">
+							<a href="injurycaseAction!loadcba?id=<s:property value="id"/>" class="video-list-item-wrap" data-id="66666">
 								<div class="video-cover">
 									<img class="video-img video-img-lazy"
 										src="<%=basePath%><s:property value="imageCase"/>"

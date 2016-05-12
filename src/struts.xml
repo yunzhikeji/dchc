@@ -194,6 +194,8 @@
 			<result name="view">/injurycase_view.jsp</result>
 
 			<result name="listcba">/injurycase_listcba.jsp</result>
+			<result name="loadcba">/injurycase_updatecba.jsp</result>
+			
 			<result name="invalid.token">/op_failure_child.jsp</result>
 			<interceptor-ref name="defaultStack" />
 			<interceptor-ref name="token">
