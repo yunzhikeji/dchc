@@ -18,6 +18,7 @@ public class Media {
 	private String src; // 媒体存放地址
 	private Integer mtype; // 媒体类型(0:图片，1：视频)
 	private String uptime; // 上传时间
+	private String picSrc;// 视频截图图片
 	private Injurycase injurycase;// 所属案件
 
 	@Column(name = "descript", length = 400)
@@ -56,6 +57,15 @@ public class Media {
 	@Column(name = "uptime", length = 40)
 	public String getUptime() {
 		return uptime;
+	}
+
+	@Column(name = "picSrc")
+	public String getPicSrc() {
+		return picSrc;
+	}
+
+	public void setPicSrc(String picSrc) {
+		this.picSrc = picSrc;
 	}
 
 	public void setDescript(String descript) {

@@ -51,18 +51,9 @@
 					</div>
 					<div style="width: 1800px; overflow: hidden">
 						<div class="index-slider-content clearfix">
-							<object type="application/x-shockwave-flash"
-								data="http://s9.pdim.gs/static/09d98839c42a00d2.swf"
-								width="1000" height="562" id="swf_play"
-								style="visibility: visible;">
-								<param name="allowFullScreen" value="true">
-								<param name="wMode" value="Opaque">
-								<param name="allowScriptAccess" value="always">
-								<param name="allowFullScreenInteractive" value="true">
-								<param name="bgColor" value="#000">
-								<param name="flashvars"
-									value="resource=http://s9.pdim.gs/static/09d98839c42a00d2.swf&amp;width=1000&amp;height=562&amp;sign=true&amp;videoId=8e1fb0264e0ac055613837177051e1b0&amp;roomUrl=http://www.panda.tv/357885&amp;plflag=2_3&amp;watermark_switch=2&amp;watermark_loc=1&amp;flashId=swf_play">
-							</object>
+							<video width="1000"
+								src="<%=basePath%>${injurycase.medias[0].src}" height="562"
+								id="swf_play" style="visibility: visible;" controls="controls"></video>
 							<div class="small-pic-container">
 								<div id="tab_demo0511" class="HuiTab0511">
 									<div class="tabBar0511 cl">
@@ -73,199 +64,28 @@
 										<div class="ugc_rec" id="secUGC"
 											style="height: 550px; overflow: auto">
 											<ul id="tjptList">
-												<li class="pack" index="0" data-stat-role="ck"
-													data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-													<div class="pic">
-														<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-															title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-																src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-														</a>
-														<div class="vtime">
-															<i class="bg"></i><em class="di">1:02:20</em>
-														</div>
-													</div>
-													<div class="txt">
-														<h6 class="caption">
-															<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-																href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-																class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-														</h6>
-														<p class="owner">
-															自频道：
-															<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-														</p>
-													</div>
 
-												</li>
-												<li class="pack" index="0" data-stat-role="ck"
-													data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-													<div class="pic">
-														<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-															title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-																src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-														</a>
-														<div class="vtime">
-															<i class="bg"></i><em class="di">1:02:20</em>
+												<s:iterator value="mediaVideos" var="media" status="status">
+													<li class="pack" index="0" data-stat-role="ck">
+														<div class="pic">
+															<video src="<%=basePath%>${src}" width="200px;"
+																height="92px;"></video>
 														</div>
-													</div>
-													<div class="txt">
-														<h6 class="caption">
-															<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-																href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-																class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-														</h6>
-														<p class="owner">
-															自频道：
-															<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-														</p>
-													</div>
-
-												</li>
-												<li class="pack" index="0" data-stat-role="ck"
-													data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-													<div class="pic">
-														<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-															title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-																src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-														</a>
-														<div class="vtime">
-															<i class="bg"></i><em class="di">1:02:20</em>
+														<div class="txt">
+															<h6 class="caption">
+																<a title="视频名称" href="#" class="link"><s:property
+																		value="title" />
+																</a>
+															</h6>
+															<p class="owner">
+																上传时间：
+																<s:property value="uptime" />
+															</p>
 														</div>
-													</div>
-													<div class="txt">
-														<h6 class="caption">
-															<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-																href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-																class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-														</h6>
-														<p class="owner">
-															自频道：
-															<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-														</p>
-													</div>
+													</li>
 
-												</li>
-												<li class="pack" index="0" data-stat-role="ck"
-													data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-													<div class="pic">
-														<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-															title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-																src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-														</a>
-														<div class="vtime">
-															<i class="bg"></i><em class="di">1:02:20</em>
-														</div>
-													</div>
-													<div class="txt">
-														<h6 class="caption">
-															<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-																href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-																class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-														</h6>
-														<p class="owner">
-															自频道：
-															<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-														</p>
-													</div>
-													说
+												</s:iterator>
 
-												</li>
-												<li class="pack" index="0" data-stat-role="ck"
-													data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-													<div class="pic">
-														<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-															title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-																src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-														</a>
-														<div class="vtime">
-															<i class="bg"></i><em class="di">1:02:20</em>
-														</div>
-													</div>
-													<div class="txt">
-														<h6 class="caption">
-															<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-																href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-																class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-														</h6>
-														<p class="owner">
-															自频道：
-															<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-														</p>
-													</div>
-
-												</li>
-												<li class="pack" index="0" data-stat-role="ck"
-													data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-													<div class="pic">
-														<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-															title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-																src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-														</a>
-														<div class="vtime">
-															<i class="bg"></i><em class="di">1:02:20</em>
-														</div>
-													</div>
-													<div class="txt">
-														<h6 class="caption">
-															<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-																href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-																class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-														</h6>
-														<p class="owner">
-															自频道：
-															<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-														</p>
-													</div>
-
-												</li>
-												<li class="pack" index="0" data-stat-role="ck"
-													data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-													<div class="pic">
-														<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-															title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-																src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-														</a>
-														<div class="vtime">
-															<i class="bg"></i><em class="di">1:02:20</em>
-														</div>
-													</div>
-													<div class="txt">
-														<h6 class="caption">
-															<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-																href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-																class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-														</h6>
-														<p class="owner">
-															自频道：
-															<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-														</p>
-													</div>
-
-												</li>
-												<li class="pack" index="0" data-stat-role="ck"
-													data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-													<div class="pic">
-														<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-															title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-																src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-														</a>
-														<div class="vtime">
-															<i class="bg"></i><em class="di">1:02:20</em>
-														</div>
-													</div>
-													<div class="txt">
-														<h6 class="caption">
-															<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-																href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-																class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-														</h6>
-														<p class="owner">
-															自频道：
-															<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-														</p>
-													</div>
-
-												</li>
 											</ul>
 										</div>
 									</div>
@@ -273,175 +93,27 @@
 										<div class="ugc_rec" id="secUGC"
 											style="height: 550px; overflow: auto">
 											<ul id="tjptList">
-												<li class="pack" index="0" data-stat-role="ck"
-													data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-													<div class="pic">
-														<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-															title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-																src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-														</a>
-													</div>
-													<div class="txt">
-														<h6 class="caption">
-															<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-																href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-																class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-														</h6>
-														<p class="owner">
-															自频道：
-															<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-														</p>
-													</div>
-												</li>
-												<li class="pack" index="0" data-stat-role="ck"
-													data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-													<div class="pic">
-														<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-															title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-																src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-														</a>
-													</div>
-													<div class="txt">
-														<h6 class="caption">
-															<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-																href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-																class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-														</h6>
-														<p class="owner">
-															自频道：
-															<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-														</p>
-													</div>
-												</li>
-												<li class="pack" index="0" data-stat-role="ck"
-													data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-													<div class="pic">
-														<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-															title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-																src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-														</a>
-													</div>
-													<div class="txt">
-														<h6 class="caption">
-															<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-																href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-																class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-														</h6>
-														<p class="owner">
-															自频道：
-															<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-														</p>
-													</div>
-												</li>
-												<li class="pack" index="0" data-stat-role="ck"
-													data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-													<div class="pic">
-														<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-															title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-																src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-														</a>
-													</div>
-													<div class="txt">
-														<h6 class="caption">
-															<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-																href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-																class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-														</h6>
-														<p class="owner">
-															自频道：
-															<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-														</p>
-													</div>
-												</li>
-												<li class="pack" index="0" data-stat-role="ck"
-													data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-													<div class="pic">
-														<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-															title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-																src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-														</a>
-													</div>
-													<div class="txt">
-														<h6 class="caption">
-															<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-																href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-																class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-														</h6>
-														<p class="owner">
-															自频道：
-															<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-														</p>
-													</div>
-												</li>
-												<li class="pack" index="0" data-stat-role="ck"
-													data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-													<div class="pic">
-														<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-															title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-																src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-														</a>
-													</div>
-													<div class="txt">
-														<h6 class="caption">
-															<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-																href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-																class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-														</h6>
-														<p class="owner">
-															自频道：
-															<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-														</p>
-													</div>
-												</li>
-												<li class="pack" index="0" data-stat-role="ck"
-													data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-													<div class="pic">
-														<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-															title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-																src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-														</a>
-													</div>
-													<div class="txt">
-														<h6 class="caption">
-															<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-																href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-																class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-														</h6>
-														<p class="owner">
-															自频道：
-															<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-														</p>
-													</div>
-												</li>
-												<li class="pack" index="0" data-stat-role="ck"
-													data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-													<div class="pic">
-														<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-															title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-																src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-														</a>
-													</div>
-													<div class="txt">
-														<h6 class="caption">
-															<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-																href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-																class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-														</h6>
-														<p class="owner">
-															自频道：
-															<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-														</p>
-													</div>
-												</li>
+												<s:iterator value="mediaImages" var="media" status="status">
+													<li class="pack" index="0" data-stat-role="ck">
+														<div class="pic">
+															<video src="<%=basePath%>${src}" width="200px;"
+																height="92px;"></video>
+														</div>
+														<div class="txt">
+															<h6 class="caption">
+																<a title="截图名称" href="#" class="link"><s:property
+																		value="title" />
+																</a>
+															</h6>
+														</div>
+													</li>
+
+												</s:iterator>
 											</ul>
 										</div>
 									</div>
 								</div>
-
-
 							</div>
-
-
 						</div>
 					</div>
 
@@ -449,26 +121,6 @@
 						<button type="submit" class="btn btn-primary radius size-L" id=""
 							name="">
 							<i class="Hui-iconfont">&#xe6df;</i> 编辑
-						</button>
-						&nbsp;
-						<button type="submit" class="btn btn-primary radius size-L" id=""
-							name="">
-							<i class="Hui-iconfont">&#xe642;</i> 上传
-						</button>
-						&nbsp;
-						<button type="submit" class="btn btn-primary radius size-L" id=""
-							name="">
-							<i class="Hui-iconfont">&#xe641;</i> 下载
-						</button>
-						&nbsp;
-						<button type="submit" class="btn btn-success radius size-L" id=""
-							name="">
-							<i class="iconfont">&#xe601;</i> 放大
-						</button>
-						&nbsp;
-						<button type="submit" class="btn btn-success radius size-L" id=""
-							name="">
-							<i class="iconfont">&#xe600;</i> 缩小
 						</button>
 						&nbsp;
 						<button type="submit" class="btn btn-success radius size-L" id=""
@@ -479,31 +131,6 @@
 						<button type="submit" class="btn btn-success radius size-L" id=""
 							name="">
 							<i class="Hui-iconfont">&#xe6d7;</i>
-						</button>
-						&nbsp;
-						<button type="submit" class="btn btn-success radius size-L" id=""
-							name="">
-							<i class="Hui-iconfont">&#xe6d6;</i>
-						</button>
-						&nbsp;
-						<button type="submit" class="btn btn-success radius size-L" id=""
-							name="">
-							<i class="Hui-iconfont">&#xe6d5;</i>
-						</button>
-						&nbsp;
-						<button type="submit" class="btn btn-primary radius size-L" id=""
-							name="">
-							<i class="Hui-iconfont">&#xe685;</i> 截图
-						</button>
-						&nbsp;
-						<button type="submit" class="btn btn-primary radius size-L" id=""
-							name="">
-							<i class="Hui-iconfont">&#xe6aa;</i> 分享
-						</button>
-						&nbsp;
-						<button type="submit" class="btn btn-danger radius size-L" id=""
-							name="">
-							<i class="Hui-iconfont">&#xe6e2;</i> 删除
 						</button>
 					</div>
 					<div class="col-12 mb-10 c-primary f-16"
@@ -641,7 +268,8 @@
 								</div>
 								<div class="col-4">
 									<s:textfield id="caseNumber" name="injurycase.caseNumber"
-										cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
+										cssClass="input-text radius size-M " cssStyle="width: 200px;"
+										readonly="true"></s:textfield>
 								</div>
 								<div class="col-2">
 									<label class="form-label text-r">
@@ -650,7 +278,8 @@
 								</div>
 								<div class="col-4">
 									<s:textfield id="caseName" name="injurycase.caseName"
-										cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
+										cssClass="input-text radius size-M " cssStyle="width: 200px;"
+										readonly="true"></s:textfield>
 								</div>
 							</div>
 						</div>
@@ -662,7 +291,8 @@
 							</div>
 							<div class="col-4">
 								<s:textfield name="injurycase.casePlace"
-									cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
+									cssClass="input-text radius size-M " cssStyle="width: 200px;"
+									readonly="true"></s:textfield>
 							</div>
 							<div class="col-2">
 								<label class="form-label text-r">
@@ -670,8 +300,9 @@
 								</label>
 							</div>
 							<div class="col-4">
-									<s:textfield name="injurycase.startTime"
-									cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
+								<s:textfield name="injurycase.startTime"
+									cssClass="input-text radius size-M " cssStyle="width: 200px;"
+									readonly="true"></s:textfield>
 							</div>
 						</div>
 						<div class="row cl mb-10">
@@ -682,7 +313,8 @@
 							</div>
 							<div class="col-4">
 								<s:textfield id="appraiser" name="injurycase.appraiser"
-									cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
+									cssClass="input-text radius size-M " cssStyle="width: 200px;"
+									readonly="true"></s:textfield>
 							</div>
 							<div class="col-2">
 								<label class="form-label text-r">
@@ -691,7 +323,8 @@
 							</div>
 							<div class="col-4">
 								<s:textfield id="telphone" name="injurycase.telphone"
-									cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
+									cssClass="input-text radius size-M " cssStyle="width: 200px;"
+									readonly="true"></s:textfield>
 							</div>
 						</div>
 						<div class="row cl mb-10">

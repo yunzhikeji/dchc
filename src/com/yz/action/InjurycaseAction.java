@@ -120,6 +120,9 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	private List<Judge> judges;
 	private List<UnitVO> unitVOs;
 	private List<Unit> units;
+	
+	private List<Media> mediaVideos;
+	private List<Media> mediaImages;
 
 	// 部门json
 	private String jsonUnits;
@@ -483,6 +486,11 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		pageTileName = selectTileName(3);
 
 		injurycase = injurycaseService.queryInjurycaseById(id);// 当前修改案件的id
+		
+		mediaVideos = mediaService.loadInjurycaseByTypeAndPid(1, id);//视频文件 
+		
+		mediaImages = mediaService.loadInjurycaseByTypeAndPid(0, id);//图像文件 
+		
 		return "loadcba";
 
 	}
@@ -911,6 +919,24 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	public void setMedias(List<Media> medias) {
 		this.medias = medias;
 	}
+
+	public List<Media> getMediaVideos() {
+		return mediaVideos;
+	}
+
+	public void setMediaVideos(List<Media> mediaVideos) {
+		this.mediaVideos = mediaVideos;
+	}
+
+	public List<Media> getMediaImages() {
+		return mediaImages;
+	}
+
+	public void setMediaImages(List<Media> mediaImages) {
+		this.mediaImages = mediaImages;
+	}
+	
+	
 
 	
 }
