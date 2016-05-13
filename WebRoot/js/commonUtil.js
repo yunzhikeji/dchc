@@ -219,6 +219,31 @@ function deleteOtherperson(otherid)
 		}
 }
 
+
+//删除案件视频
+function deleteMedia(mid)
+{
+		if(confirm('你确定删除该视频吗？'))
+		{
+			$.ajax({   
+			            url:'deleteMedia',//这里是你的action或者servlert的路径地址   
+			            type:'post', //数据发送方式   
+			            async:false,
+			            data: {"mid":mid},
+			            dataType:'json',
+			            error: function(msg)
+			            { //失败   
+			            	console.log('删除失败.');   
+			            },   
+			            success: function(msg)
+			            { //成功
+			            	alert(msg.message);
+			            	location.replace(location.href);
+						}
+					});
+		}
+}
+
 //通知公告
 function deleteAllCheckedPnotices()
 {

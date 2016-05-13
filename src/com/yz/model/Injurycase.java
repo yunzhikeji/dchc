@@ -24,7 +24,6 @@ import javax.persistence.Table;
 public class Injurycase implements java.io.Serializable {
 
 	// Fields
-
 	private Integer id;
 	private UserRole userRole;// 录入人员
 	private String caseNumber;// 案件编号
@@ -43,6 +42,7 @@ public class Injurycase implements java.io.Serializable {
 	private List<Otherperson> otherpersons = new ArrayList<Otherperson>();// 其他人员，包括（同案人，嫌疑人，关系人）
 	private List<Troubleshooting> troubleshootings = new ArrayList<Troubleshooting>();// 疑难解答
 	private List<Judge> judges = new ArrayList<Judge>();// 研判信息,部门查证，上报情况
+	private List<Media> medias = new ArrayList<Media>();//媒体
 	private String joinDate;// 录入时间
 	private Integer handleState;// 办理状态
 	private Integer itype;
@@ -55,6 +55,7 @@ public class Injurycase implements java.io.Serializable {
 	private String thumbPath; // 缩略图路径
 	private String casePlace;//案发地点
 	private String startTime;//案发时间
+	private String keywords;//串并案关键字
 
 	// Constructors
 
@@ -68,10 +69,10 @@ public class Injurycase implements java.io.Serializable {
 			String injuryAssess, String endSituation,
 			String comprehensiveJudge, String leaderInstruction,
 			List<Otherperson> otherpersons,
-			List<Troubleshooting> troubleshootings, List<Judge> judges,
+			List<Troubleshooting> troubleshootings, List<Judge> judges,List<Media> medias,
 			String joinDate, Integer handleState, Integer itype,
 			String imageCase, Integer isCanvas, String pids, String caseIds,
-			Integer isRelated, String videoPath, String thumbPath,String casePlace, String startTime) {
+			Integer isRelated, String videoPath, String thumbPath,String casePlace, String startTime, String keywords) {
 		this.userRole = userRole;
 		this.caseNumber = caseNumber;
 		this.caseType = caseType;
@@ -89,6 +90,7 @@ public class Injurycase implements java.io.Serializable {
 		this.otherpersons = otherpersons;
 		this.troubleshootings = troubleshootings;
 		this.judges = judges;
+		this.medias = medias;
 		this.joinDate = joinDate;
 		this.handleState = handleState;
 		this.itype = itype;
@@ -101,6 +103,7 @@ public class Injurycase implements java.io.Serializable {
 		this.thumbPath = thumbPath;
 		this.casePlace = casePlace;
 		this.startTime = startTime;
+		this.keywords = keywords;
 	}
 
 	/** full constructor */
@@ -207,15 +210,25 @@ public class Injurycase implements java.io.Serializable {
 	public String getJoinDate() {
 		return joinDate;
 	}
-
+	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "injurycase")
 	public List<Judge> getJudges() {
 		return this.judges;
 	}
 
+	@Column(name = "keywords")
+	public String getKeywords() {
+		return keywords;
+	}
+
 	@Column(name = "leaderInstruction")
 	public String getLeaderInstruction() {
 		return this.leaderInstruction;
+	}
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "injurycase")
+	public List<Media> getMedias() {
+		return medias;
 	}
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "injurycase")
@@ -343,8 +356,16 @@ public class Injurycase implements java.io.Serializable {
 		this.judges = judges;
 	}
 
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
+	}
+
 	public void setLeaderInstruction(String leaderInstruction) {
 		this.leaderInstruction = leaderInstruction;
+	}
+
+	public void setMedias(List<Media> medias) {
+		this.medias = medias;
 	}
 
 	public void setOtherpersons(List<Otherperson> otherpersons) {
@@ -378,6 +399,7 @@ public class Injurycase implements java.io.Serializable {
 	public void setVideoPath(String videoPath) {
 		this.videoPath = videoPath;
 	}
+	
 	
 	
 

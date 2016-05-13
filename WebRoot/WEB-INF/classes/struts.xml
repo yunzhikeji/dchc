@@ -195,7 +195,7 @@
 
 			<result name="listcba">/injurycase_listcba.jsp</result>
 			<result name="loadcba">/injurycase_updatecba.jsp</result>
-			
+
 			<result name="invalid.token">/op_failure_child.jsp</result>
 			<interceptor-ref name="defaultStack" />
 			<interceptor-ref name="token">
@@ -452,6 +452,41 @@
 	<package name="successexample_json" extends="json-default">
 		<action name="deleteSuccessexamples"
 			class="successexampleAction" method="deleteSuccessexamples" />
+	</package>
+
+
+
+	<package name="media" extends="struts-default">
+		<global-results>
+			<result name="adminLogin">/login.jsp</result>
+			<result name="opsessiongo">/op_sessiongo.jsp</result>
+		</global-results>
+		<action name="mediaAction" class="mediaAction">
+			<result name="sessiongo">/op_sessiongo.jsp</result>
+			<result name="success_child">/op_success_child.jsp</result>
+			<result name="success">/op_success.jsp</result>
+			<result name="fail">/op_failure.jsp</result>
+			<result name="operror">/op_error.jsp</result>
+
+			<result name="list">/media_manage.jsp</result>
+			<result name="add">/media_add.jsp</result>
+			<result name="load">/media_update.jsp</result>
+			<result name="view">/media_view.jsp</result>
+
+
+			<result name="invalid.token">/op_failure_child.jsp</result>
+			<interceptor-ref name="defaultStack" />
+			<interceptor-ref name="token">
+				<param name="includeMethods">add</param>
+				<param name="excludeMethods">default</param>
+			</interceptor-ref>
+		</action>
+	</package>
+
+
+	<package name="media_json" extends="json-default">
+		<action name="deleteMedia" class="mediaAction"
+			method="deleteMedia" />
 	</package>
 
 </struts>

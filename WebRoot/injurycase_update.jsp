@@ -250,6 +250,65 @@
 										</div>
 									</div>
 								</s:if>
+								
+								
+								<div class="row cl mt-20">
+									<div class="col-12 mb-0 c-primary f-16"
+										style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
+										上传视频信息
+										<input class="btn btn-primary radius mt-10 f-r" type="button"
+											onclick="addPage('新增视频','mediaAction!goToAdd?inid=<s:property value="id"/>&mtype=1','500','300')"
+											value="新增视频">
+									</div>
+									<div class="col-12">
+										<table class="table table-border table-bg">
+											<thead>
+												<tr>
+													<th>
+														序号
+													</th>
+													<th>
+														视频标题
+													</th>
+													<th>
+														视频描述
+													</th>
+													<th>
+														操作
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<s:if test="medias.size>0">
+													<s:iterator value="medias" var="media" status="status">
+														<tr>
+															<td>
+																<s:property value="#status.index+1" />
+															</td>
+															<td>
+																<a href="mediaAction!view?mid=<s:property value="id" />" onclick="javascript:void(0)"> <s:property
+																		value="title" /> </a>
+															</td>
+															<td>
+																<s:property value="descript" />
+															</td>
+															<td>
+																<a style="text-decoration: none" class="ml-5"
+																	onclick="addPage('编辑视频','mediaAction!load?mid=<s:property value="id" />','500','300')"
+																	href="javascript:;" title="编辑"><i
+																	class="Hui-iconfont">&#xe6df;</i> </a>
+																<a style="text-decoration: none" class="ml-5"
+																	href="javascript:;"
+																	onclick="deleteMedia(<s:property value="id" />);"
+																	title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
+															</td>
+														</tr>
+													</s:iterator>
+												</s:if>
+											</tbody>
+										</table>
+									</div>
+								
 
 								<div class="row cl mt-20">
 									<div class="col-12 mb-0 c-primary f-16"

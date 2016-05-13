@@ -31,6 +31,7 @@ import org.springframework.stereotype.Component;
 import com.opensymphony.xwork2.ActionSupport;
 import com.yz.model.Injurycase;
 import com.yz.model.Judge;
+import com.yz.model.Media;
 import com.yz.model.Otherperson;
 import com.yz.model.Successexample;
 import com.yz.model.Troubleshooting;
@@ -38,6 +39,7 @@ import com.yz.model.Unit;
 import com.yz.model.UserRole;
 import com.yz.service.IInjurycaseService;
 import com.yz.service.IJudgeService;
+import com.yz.service.IMediaService;
 import com.yz.service.IOtherpersonService;
 import com.yz.service.ISuccessexampleService;
 import com.yz.service.ITroubleshootingService;
@@ -96,6 +98,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	private IOtherpersonService otherpersonService;
 	private IJudgeService judgeService;
 	private ISuccessexampleService successexampleService;
+	private IMediaService mediaService;
 
 	private IUserRoleService userRoleService;
 
@@ -105,6 +108,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	private Injurycase injurycase;
 	private Judge judge;
 	private Successexample successexample;
+	private Media media;
 
 	private UnitVO unitVO;
 	private Unit unit;
@@ -112,6 +116,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	// list表对象
 	private List<Injurycase> injurycases;
 	private List<Otherperson> tars;// 同案人员
+	private List<Media> medias;
 	private List<Judge> judges;
 	private List<UnitVO> unitVOs;
 	private List<Unit> units;
@@ -369,6 +374,8 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		pageTileName = selectTileName(itype);
 
 		tars = otherpersonService.getInjurycaseOtherpersonByOtype(2, id);// 同案人
+		
+		medias = mediaService.loadInjurycaseByTypeAndPid(1, id);//视频文件 
 
 		injurycase = injurycaseService.queryInjurycaseById(id);// 当前修改案件的id
 		return "load";
@@ -880,4 +887,30 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		this.picture1FileName = picture1FileName;
 	}
 
+	public IMediaService getMediaService() {
+		return mediaService;
+	}
+
+	@Resource
+	public void setMediaService(IMediaService mediaService) {
+		this.mediaService = mediaService;
+	}
+
+	public Media getMedia() {
+		return media;
+	}
+
+	public void setMedia(Media media) {
+		this.media = media;
+	}
+
+	public List<Media> getMedias() {
+		return medias;
+	}
+
+	public void setMedias(List<Media> medias) {
+		this.medias = medias;
+	}
+
+	
 }

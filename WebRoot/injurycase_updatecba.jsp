@@ -641,7 +641,7 @@
 								</div>
 								<div class="col-4">
 									<s:textfield id="caseNumber" name="injurycase.caseNumber"
-										cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+										cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
 								</div>
 								<div class="col-2">
 									<label class="form-label text-r">
@@ -650,7 +650,7 @@
 								</div>
 								<div class="col-4">
 									<s:textfield id="caseName" name="injurycase.caseName"
-										cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+										cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
 								</div>
 							</div>
 						</div>
@@ -662,7 +662,7 @@
 							</div>
 							<div class="col-4">
 								<s:textfield name="injurycase.casePlace"
-									cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+									cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
 							</div>
 							<div class="col-2">
 								<label class="form-label text-r">
@@ -670,10 +670,8 @@
 								</label>
 							</div>
 							<div class="col-4">
-								<input type="text" name="injurycase.startTime"
-									value="<s:property value="injurycase.startTime"/>"
-									onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})"
-									id="logmin" class="input-text Wdate" style="width: 200px;">
+									<s:textfield name="injurycase.startTime"
+									cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
 							</div>
 						</div>
 						<div class="row cl mb-10">
@@ -684,7 +682,7 @@
 							</div>
 							<div class="col-4">
 								<s:textfield id="appraiser" name="injurycase.appraiser"
-									cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+									cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
 							</div>
 							<div class="col-2">
 								<label class="form-label text-r">
@@ -693,7 +691,7 @@
 							</div>
 							<div class="col-4">
 								<s:textfield id="telphone" name="injurycase.telphone"
-									cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+									cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
 							</div>
 						</div>
 						<div class="row cl mb-10">
@@ -705,7 +703,7 @@
 							<div class="col-10">
 								<s:textfield name="injurycase.briefCase" cssClass="input-text"
 									id="input9" cssStyle="width: 100%; height: 80px; float: left;"
-									placeholder="简要案情"></s:textfield>
+									placeholder="简要案情" readonly="true"></s:textfield>
 							</div>
 						</div>
 					</div>
