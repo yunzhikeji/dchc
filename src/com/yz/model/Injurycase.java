@@ -42,7 +42,7 @@ public class Injurycase implements java.io.Serializable {
 	private List<Otherperson> otherpersons = new ArrayList<Otherperson>();// 其他人员，包括（同案人，嫌疑人，关系人）
 	private List<Troubleshooting> troubleshootings = new ArrayList<Troubleshooting>();// 疑难解答
 	private List<Judge> judges = new ArrayList<Judge>();// 研判信息,部门查证，上报情况
-	private List<Media> medias = new ArrayList<Media>();//媒体
+	private List<Media> medias = new ArrayList<Media>();// 媒体
 	private String joinDate;// 录入时间
 	private Integer handleState;// 办理状态
 	private Integer itype;
@@ -51,11 +51,9 @@ public class Injurycase implements java.io.Serializable {
 	private String pids; // pids
 	private String caseIds; // caseIds
 	private Integer isRelated; // 是否已串并案
-	private String videoPath; // 视频
-	private String thumbPath; // 缩略图路径
-	private String casePlace;//案发地点
-	private String startTime;//案发时间
-	private String keywords;//串并案关键字
+	private String casePlace;// 案发地点
+	private String startTime;// 案发时间
+	private String keywords;// 串并案关键字
 
 	// Constructors
 
@@ -63,16 +61,18 @@ public class Injurycase implements java.io.Serializable {
 	public Injurycase() {
 	}
 
-	public Injurycase(UserRole userRole, String caseNumber, String caseType,
-			String caseName, String fillUnit, String fillName, String fillTime,
-			String briefCase, String appraiser, String telphone,
-			String injuryAssess, String endSituation,
+	public Injurycase(Integer id, UserRole userRole, String caseNumber,
+			String caseType, String caseName, String fillUnit, String fillName,
+			String fillTime, String briefCase, String appraiser,
+			String telphone, String injuryAssess, String endSituation,
 			String comprehensiveJudge, String leaderInstruction,
 			List<Otherperson> otherpersons,
-			List<Troubleshooting> troubleshootings, List<Judge> judges,List<Media> medias,
-			String joinDate, Integer handleState, Integer itype,
-			String imageCase, Integer isCanvas, String pids, String caseIds,
-			Integer isRelated, String videoPath, String thumbPath,String casePlace, String startTime, String keywords) {
+			List<Troubleshooting> troubleshootings, List<Judge> judges,
+			List<Media> medias, String joinDate, Integer handleState,
+			Integer itype, String imageCase, Integer isCanvas, String pids,
+			String caseIds, Integer isRelated, String casePlace,
+			String startTime, String keywords) {
+		this.id = id;
 		this.userRole = userRole;
 		this.caseNumber = caseNumber;
 		this.caseType = caseType;
@@ -99,8 +99,6 @@ public class Injurycase implements java.io.Serializable {
 		this.pids = pids;
 		this.caseIds = caseIds;
 		this.isRelated = isRelated;
-		this.videoPath = videoPath;
-		this.thumbPath = thumbPath;
 		this.casePlace = casePlace;
 		this.startTime = startTime;
 		this.keywords = keywords;
@@ -210,7 +208,7 @@ public class Injurycase implements java.io.Serializable {
 	public String getJoinDate() {
 		return joinDate;
 	}
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "injurycase")
 	public List<Judge> getJudges() {
 		return this.judges;
@@ -251,11 +249,6 @@ public class Injurycase implements java.io.Serializable {
 		return this.telphone;
 	}
 
-	@Column(name = "thumbPath")
-	public String getThumbPath() {
-		return thumbPath;
-	}
-
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "injurycase")
 	public List<Troubleshooting> getTroubleshootings() {
 		return this.troubleshootings;
@@ -265,11 +258,6 @@ public class Injurycase implements java.io.Serializable {
 	@JoinColumn(name = "uid")
 	public UserRole getUserRole() {
 		return this.userRole;
-	}
-
-	@Column(name = "videoPath")
-	public String getVideoPath() {
-		return videoPath;
 	}
 
 	public void setAppraiser(String appraiser) {
@@ -384,10 +372,6 @@ public class Injurycase implements java.io.Serializable {
 		this.telphone = telphone;
 	}
 
-	public void setThumbPath(String thumbPath) {
-		this.thumbPath = thumbPath;
-	}
-
 	public void setTroubleshootings(List<Troubleshooting> troubleshootings) {
 		this.troubleshootings = troubleshootings;
 	}
@@ -395,12 +379,5 @@ public class Injurycase implements java.io.Serializable {
 	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
 	}
-
-	public void setVideoPath(String videoPath) {
-		this.videoPath = videoPath;
-	}
-	
-	
-	
 
 }

@@ -28,7 +28,7 @@
 		<link rel="stylesheet"
 			href="lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
 		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
-		<script type="text/javascript" src="lib/layer/2.1/layer.js"></script>
+		<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
 		<script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>
 		<script type="text/javascript"
 			src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
@@ -40,6 +40,9 @@
 		<script type="text/javascript" src="js/checkUtil.js"></script>
 		<script type="text/javascript" src="js/commonUtil.js"></script>
 		<title>串并案</title>
+		<script type="text/javascript">
+			var mediaVideos=<s:property value="mediaVideos" escape="false" />;
+		</script>
 	</head>
 	<body>
 		<div class="pd-20">
@@ -51,9 +54,9 @@
 					</div>
 					<div style="width: 1800px; overflow: hidden">
 						<div class="index-slider-content clearfix">
-							<video width="1000"
-								src="<%=basePath%>${injurycase.medias[0].src}" height="562"
-								id="swf_play" style="visibility: visible;" controls="controls"></video>
+							<video width="1000" src="<%=basePath%>${mediaVideos[0].src}"
+								height="562" id="swf_play" style="visibility: visible;"
+								controls="controls"></video>
 							<div class="small-pic-container">
 								<div id="tab_demo0511" class="HuiTab0511">
 									<div class="tabBar0511 cl">
@@ -68,14 +71,14 @@
 												<s:iterator value="mediaVideos" var="media" status="status">
 													<li class="pack" index="0" data-stat-role="ck">
 														<div class="pic">
-															<video src="<%=basePath%>${src}" width="200px;"
-																height="92px;"></video>
+															<a href="javascript:void(0)" onclick="changeVideo(<s:property value="id"/>);">
+																<video src="<%=basePath%>${src}" width="200px;"
+																	height="92px;"></video> </a>
 														</div>
 														<div class="txt">
 															<h6 class="caption">
-																<a title="视频名称" href="#" class="link"><s:property
-																		value="title" />
-																</a>
+																视频名称：
+																<s:property value="title" />
 															</h6>
 															<p class="owner">
 																上传时间：
@@ -101,9 +104,8 @@
 														</div>
 														<div class="txt">
 															<h6 class="caption">
-																<a title="截图名称" href="#" class="link"><s:property
-																		value="title" />
-																</a>
+																图片名称
+																<s:property value="title" />
 															</h6>
 														</div>
 													</li>
@@ -143,25 +145,27 @@
 								关键字：
 							</label>
 							<input type="text" class="input-text radius size-M "
-								style="width: 500px">
-							<button type="submit"
-								class="btn btn-primary radius size-MINI ml-5" id="" name=""
-								title="导入">
-								确定
+								style="width: 200px">
+							<button type="button" class="btn btn-primary radius  ml-5" id=""
+								name="" title="查询">
+								查询
 							</button>
-							<button type="submit"
-								class="btn btn-warning radius size-MINI ml-5" id="" name=""
-								title="导入">
-								串并案
+							<label class="text-r">
+								串并案系列名称：
+							</label>
+							<input type="text" class="input-text radius size-M "
+								style="width: 200px">
+							<button type="button" class="btn btn-warning radius  ml-5" id=""
+								name="" title="串并">
+								串并案件
 							</button>
 						</div>
 
 
 						<div style="width: 13%; float: left">
-
 							<ul id="tjptList">
-								<input type="checkbox" class="check-box" id="checkbox-1"
-									style="z-index: 99">
+									<input name="indexID" class="indexID" type="checkbox"
+									value="<s:property value="id"/>">
 								<li class="pack" index="0" data-stat-role="ck"
 									data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
 									<div class="pic">

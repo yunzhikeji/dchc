@@ -4,11 +4,27 @@ $(document).ready(function() {
 	$("#clearButton").click(function(){
 		$("#convalue").val("");
 	});
+	
+	
+	
+	
 
 
 }); 
 
-$(document).ready()
+
+//修改视频路径
+function changeVideo(id)
+{
+	for(var i=0;i<mediaVideos.length;i++)
+	{
+		if(mediaVideos[i].id==id)
+		{
+			$("#swf_play").attr("src",mediaVideos[i].src);
+		}
+	}
+}
+
 
 function getCheckVal()
 {
@@ -21,6 +37,9 @@ function getCheckVal()
 		}
 	}
 }
+
+
+
 
 function deleteAllCheckedUnits()
 {

@@ -29,7 +29,7 @@
 	<body>
 		<form name="mediaUpdateForm" action="mediaAction!update" method="post"
 			enctype="multipart/form-data" onsubmit="">
-
+			<s:hidden name="media.id" />
 			<s:hidden name="media.injurycase.id" />
 			<s:hidden name="media.mtype" />
 			<s:hidden name="media.src" />

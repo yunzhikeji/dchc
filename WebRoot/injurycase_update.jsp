@@ -155,6 +155,16 @@
 											</tr>
 										</table>
 									</div>
+									<div class="col-2">
+											<label class="form-label text-r">
+												串并案系列名称：
+											</label>
+										</div>
+										<div class="col-4">
+											<s:textfield id="caseName" name="injurycase.keywords"
+												cssClass="input-text radius size-M "
+												cssStyle="width: 200px;"></s:textfield>
+										</div>
 								</div>
 								<div class="row cl">
 									<div class="row cl mb-10">
@@ -779,14 +789,14 @@ function article_save(obj,id){
 				<s:hidden name="injurycase.pids" title="pids"></s:hidden>
 				<s:hidden name="injurycase.caseIds" title="caseIds"></s:hidden>
 				<s:hidden name="injurycase.isRelated" title="是否已串并案"></s:hidden>
-				<s:hidden name="injurycase.videoPath" title="视频"></s:hidden>
-				<s:hidden name="injurycase.thumbPath" title="缩略图路径"></s:hidden>
 
 				<s:hidden name="injurycase.itype" title="案件类型"></s:hidden>
 				<s:hidden name="injurycase.id" title="案件id"></s:hidden>
 				<s:hidden name="injurycase.userRole.id" title="案件子表userRoleid"></s:hidden>
 				<s:hidden name="injurycase.handleState" title="办理状态"></s:hidden>
 				<s:hidden name="injurycase.joinDate" title="录入时间"></s:hidden>
+				
+				
 		</form>
 	</body>
 </html>

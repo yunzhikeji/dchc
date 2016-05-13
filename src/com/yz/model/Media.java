@@ -96,4 +96,9 @@ public class Media {
 		this.uptime = uptime;
 	}
 
+	public String toString() {
+		return "{id:" + this.id + "," + "title:" + "\"" + this.title + "\""
+				+ "," + "src:" + "\"" + this.src + "\"" + "}";
+	}
+
 }
