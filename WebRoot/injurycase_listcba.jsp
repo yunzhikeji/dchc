@@ -107,7 +107,8 @@
 				<ul id="later-play-list" class="video-list clearfix" data-total="">
 					<s:iterator value="injurycases" var="injurycase" status="status">
 						<li class="video-list-item video-no-tag " data-id="66666">
-							<a href="injurycaseAction!loadcba?id=<s:property value="id"/>" class="video-list-item-wrap" data-id="66666">
+							<a href="injurycaseAction!loadcba?id=<s:property value="id"/>"
+								class="video-list-item-wrap" data-id="66666">
 								<div class="video-cover">
 									<img class="video-img video-img-lazy"
 										src="<%=basePath%><s:property value="imageCase"/>"
@@ -115,24 +116,26 @@
 									<ul class="show-list">
 										<li>
 											<div id="videoTitle" class="show-info">
-												案发地点：
-												<s:property value="casePlace" />
+												案件名称：
+												<s:property value="caseName" />
 												<div id="videoDesc" class="show-info">
 													案发时间：
 													<s:property value="startTime" />
 												</div>
 										</li>
 									</ul>
-									<div class="video-overlay"></div>
-									<div class="video-play"></div>
 								</div>
 								<div class="video-title">
-									<s:property value="caseName" />
+									<s:if test="isRelated==1">
+										<span class="video-cate">串并案系列名称：<s:property value="series" /></span>
+									</s:if>
+									<s:else>
+										未串并
+									</s:else>
 								</div>
 								<div class="video-info">
 									<span class="video-nickname"><s:property
-											value="userRole.username" />
-									</span>
+											value="userRole.username" /> </span>
 
 
 									<s:if test="handleState==0">
@@ -147,7 +150,8 @@
 									<s:if test="handleState==3">
 										<span class="video-cate">已完结</span>
 									</s:if>
-								</div> </a>
+								</div> 
+								</a>
 						</li>
 					</s:iterator>
 				</ul>

@@ -54,8 +54,8 @@
 					</div>
 					<div style="width: 1800px; overflow: hidden">
 						<div class="index-slider-content clearfix">
-							<video width="1000" src="<%=basePath%>${mediaVideos[0].src}"
-								height="562" id="swf_play" style="visibility: visible;"
+							<video width="1000" src="<%=basePath%>${mediaVideos[0].src}" 
+								height="562" id="swf_play" style="visibility: visible;" 
 								controls="controls"></video>
 							<div class="small-pic-container">
 								<div id="tab_demo0511" class="HuiTab0511">
@@ -71,9 +71,10 @@
 												<s:iterator value="mediaVideos" var="media" status="status">
 													<li class="pack" index="0" data-stat-role="ck">
 														<div class="pic">
-															<a href="javascript:void(0)" onclick="changeVideo(<s:property value="id"/>);">
-																<video src="<%=basePath%>${src}" width="200px;"
-																	height="92px;"></video> </a>
+															<a href="javascript:void(0)"
+																onclick="changeVideo(<s:property value="id"/>);"> <video
+																	src="<%=basePath%>${src}" width="200px;" height="92px;"></video>
+															</a>
 														</div>
 														<div class="txt">
 															<h6 class="caption">
@@ -144,8 +145,9 @@
 							<label class="text-r">
 								关键字：
 							</label>
-							<input type="text" class="input-text radius size-M "
-								style="width: 200px">
+							<s:textfield cssClass="input-text radius size-M " name="keyword"
+								id="keyword" cssStyle="width: 200px">
+							</s:textfield>
 							<button type="button" class="btn btn-primary radius  ml-5" id=""
 								name="" title="查询">
 								查询
@@ -153,8 +155,9 @@
 							<label class="text-r">
 								串并案系列名称：
 							</label>
-							<input type="text" class="input-text radius size-M "
-								style="width: 200px">
+							<s:textfield cssClass="input-text radius size-M " name="series"
+								id="series" cssStyle="width: 200px">
+							</s:textfield>
 							<button type="button" class="btn btn-warning radius  ml-5" id=""
 								name="" title="串并">
 								串并案件
@@ -164,7 +167,7 @@
 
 						<div style="width: 13%; float: left">
 							<ul id="tjptList">
-									<input name="indexID" class="indexID" type="checkbox"
+								<input name="indexID" class="indexID" type="checkbox"
 									value="<s:property value="id"/>">
 								<li class="pack" index="0" data-stat-role="ck"
 									data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">

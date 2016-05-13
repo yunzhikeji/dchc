@@ -145,6 +145,15 @@
 											</tr>
 										</table>
 									</div>
+									<div class="col-2">
+										<label class="form-label text-r">
+											串并案系列名称：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:textfield id="series" name="injurycase.series"
+											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+									</div>
 								</div>
 								<div class="row cl">
 									<div class="row cl mb-10">
@@ -214,6 +223,18 @@
 								<div class="row cl mb-10">
 									<div class="col-2">
 										<label class="form-label text-r">
+											是否串并案：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:select list="#{0:'否',1:'是'}" cssClass="input-text"
+											name="injurycase.isRelated" listKey="key" listValue="value"
+											cssStyle="width:200px"></s:select>
+									</div>
+								</div>
+								<div class="row cl mb-10">
+									<div class="col-2">
+										<label class="form-label text-r">
 											简要案情：
 										</label>
 									</div>
@@ -224,7 +245,6 @@
 											placeholder="简要案情"></s:textfield>
 									</div>
 								</div>
-
 								<s:if test="itype==2">
 									<div class="row cl mb-10">
 										<div class="col-2">

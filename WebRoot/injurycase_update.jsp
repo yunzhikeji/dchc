@@ -140,8 +140,6 @@
 															     }
 															 }
 												</script>
-
-
 												</td>
 											</tr>
 											<tr>
@@ -156,15 +154,14 @@
 										</table>
 									</div>
 									<div class="col-2">
-											<label class="form-label text-r">
-												串并案系列名称：
-											</label>
-										</div>
-										<div class="col-4">
-											<s:textfield id="caseName" name="injurycase.keywords"
-												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
-										</div>
+										<label class="form-label text-r">
+											串并案系列名称：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:textfield id="series" name="injurycase.series"
+											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+									</div>
 								</div>
 								<div class="row cl">
 									<div class="row cl mb-10">
@@ -190,7 +187,7 @@
 										</div>
 									</div>
 								</div>
-									<div class="row cl mb-10">
+								<div class="row cl mb-10">
 									<div class="col-2">
 										<label class="form-label text-r">
 											案发地址：
@@ -206,7 +203,8 @@
 										</label>
 									</div>
 									<div class="col-4">
-										<input type="text" name="injurycase.startTime" value="<s:property value="injurycase.startTime"/>"
+										<input type="text" name="injurycase.startTime"
+											value="<s:property value="injurycase.startTime"/>"
 											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})"
 											id="logmin" class="input-text Wdate" style="width: 200px;">
 									</div>
@@ -229,6 +227,18 @@
 									<div class="col-4">
 										<s:textfield id="telphone" name="injurycase.telphone"
 											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+									</div>
+								</div>
+								<div class="row cl mb-10">
+									<div class="col-2">
+										<label class="form-label text-r">
+											是否串并案：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:select list="#{0:'否',1:'是'}" cssClass="input-text"
+											name="injurycase.isRelated" listKey="key" listValue="value"
+											cssStyle="width:200px"></s:select>
 									</div>
 								</div>
 								<div class="row cl mb-10">
@@ -260,8 +270,8 @@
 										</div>
 									</div>
 								</s:if>
-								
-								
+
+
 								<div class="row cl mt-20">
 									<div class="col-12 mb-0 c-primary f-16"
 										style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
@@ -296,7 +306,8 @@
 																<s:property value="#status.index+1" />
 															</td>
 															<td>
-																<a href="mediaAction!view?mid=<s:property value="id" />" onclick="javascript:void(0)"> <s:property
+																<a href="mediaAction!view?mid=<s:property value="id" />"
+																	onclick="javascript:void(0)"> <s:property
 																		value="title" /> </a>
 															</td>
 															<td>
@@ -318,95 +329,31 @@
 											</tbody>
 										</table>
 									</div>
-								
-
-								<div class="row cl mt-20">
-									<div class="col-12 mb-0 c-primary f-16"
-										style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
-										同案人员信息
-										<input class="btn btn-primary radius mt-10 f-r" type="button"
-											onclick="addPage('新增同案人员','otherpersonAction!goToAdd?inid=<s:property value="id"/>&otype=2','500','300')"
-											value="新增同案人员">
-									</div>
-									<div class="col-12">
-										<table class="table table-border table-bg">
-											<thead>
-												<tr>
-													<th>
-														序号
-													</th>
-													<th>
-														人员编号
-													</th>
-													<th>
-														姓名
-													</th>
-													<th>
-														身份证
-													</th>
-													<th>
-														操作
-													</th>
-												</tr>
-											</thead>
-											<tbody>
-												<s:if test="tars.size>0">
-													<s:iterator value="tars" var="otherperson" status="status">
-														<tr>
-															<td>
-																<s:property value="#status.index+1" />
-															</td>
-															<td>
-																<a href="#" onclick="javascript:void(0)"> <s:property
-																		value="number" /> </a>
-															</td>
-															<td>
-																<s:property value="name" />
-															</td>
-															<td>
-																<s:property value="idcard" />
-															</td>
-															<td>
-																<a style="text-decoration: none" class="ml-5"
-																	onclick="addPage('编辑同案人','otherpersonAction!load?otherid=<s:property value="id" />','500','300')"
-																	href="javascript:;" title="编辑"><i
-																	class="Hui-iconfont">&#xe6df;</i> </a>
-																<a style="text-decoration: none" class="ml-5"
-																	href="javascript:;"
-																	onclick="deleteOtherperson(<s:property value="id" />);"
-																	title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
-															</td>
-														</tr>
-													</s:iterator>
-												</s:if>
-											</tbody>
-										</table>
-									</div>
 
 
 									<div class="row cl mt-20">
 										<div class="col-12 mb-0 c-primary f-16"
 											style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
-											发起疑难
+											同案人员信息
 											<input class="btn btn-primary radius mt-10 f-r" type="button"
-												onclick="addPage('发起疑难','troubleshootingAction!goToAdd?inid=<s:property value="id"/>','500','300')"
-												value="发起疑难">
+												onclick="addPage('新增同案人员','otherpersonAction!goToAdd?inid=<s:property value="id"/>&otype=2','500','300')"
+												value="新增同案人员">
 										</div>
 										<div class="col-12">
-											<table class="table table-border table-bg mb-10">
+											<table class="table table-border table-bg">
 												<thead>
 													<tr>
 														<th>
 															序号
 														</th>
 														<th>
-															标题
+															人员编号
 														</th>
 														<th>
-															疑难问题
+															姓名
 														</th>
 														<th>
-															发布人
+															身份证
 														</th>
 														<th>
 															操作
@@ -414,96 +361,30 @@
 													</tr>
 												</thead>
 												<tbody>
-
-													<s:if test="injurycase.troubleshootings.size>0">
-														<s:iterator value="injurycase.troubleshootings"
-															var="troubleshooting" status="status">
+													<s:if test="tars.size>0">
+														<s:iterator value="tars" var="otherperson" status="status">
 															<tr>
 																<td>
 																	<s:property value="#status.index+1" />
 																</td>
 																<td>
 																	<a href="#" onclick="javascript:void(0)"> <s:property
-																			value="title" /> </a>
+																			value="number" /> </a>
 																</td>
 																<td>
-																	<s:property value="question" />
+																	<s:property value="name" />
 																</td>
 																<td>
-																	<s:property value="issuer" />
+																	<s:property value="idcard" />
 																</td>
 																<td>
 																	<a style="text-decoration: none" class="ml-5"
-																		onclick="addPage('编辑疑难解答','troubleshootingAction!load?troubid=<s:property value="id" />','500','300')"
+																		onclick="addPage('编辑同案人','otherpersonAction!load?otherid=<s:property value="id" />','500','300')"
 																		href="javascript:;" title="编辑"><i
 																		class="Hui-iconfont">&#xe6df;</i> </a>
 																	<a style="text-decoration: none" class="ml-5"
 																		href="javascript:;"
-																		onclick="deleteTroubleshooting(<s:property value="id" />);"
-																		title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
-																</td>
-															</tr>
-														</s:iterator>
-													</s:if>
-
-												</tbody>
-											</table>
-										</div>
-
-									</div>
-
-									<!--发起研判信息-->
-									<div class="row cl mt-20">
-										<div class="col-12 mb-0 c-primary f-16"
-											style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
-											发起研判信息
-											<input class="btn btn-primary radius mt-10 f-r" type="button"
-												onclick="addPage('发起研判信息','judgeAction!goToAdd?inid=<s:property value="id"/>&jtype=1','650','300')"
-												value="发起研判信息">
-										</div>
-										<div class="col-12">
-											<table class="table table-border table-bg mb-10"
-												style="table-layout: fixed;">
-												<thead>
-													<tr>
-														<th width="7%">
-															研判次序
-														</th>
-														<th width="24%">
-															报送机构
-														</th>
-														<th width="57%">
-															研判要求
-														</th>
-														<th width="12%">
-															操作
-														</th>
-													</tr>
-												</thead>
-												<tbody>
-													<s:if test="injurycase.judges.size>0">
-														<s:iterator value="injurycase.judges" var="judge"
-															status="status">
-															<tr>
-																<td>
-																	<s:property value="indexNumber" />
-																</td>
-																<td>
-																	<s:property value="reportUnit" />
-																</td>
-																<td
-																	style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
-																	<a href="#" onclick="javascript:void(0)"> <s:property
-																			value="judgeRequirement" /> </a>
-																</td>
-																<td>
-																	<a style="text-decoration: none" class="ml-5"
-																		onclick="addPage('编辑研判信息','judgeAction!load?jid=<s:property value="id" />','500','300')"
-																		href="javascript:;" title="编辑"><i
-																		class="Hui-iconfont">&#xe6df;</i> </a>
-																	<a style="text-decoration: none" class="ml-5"
-																		href="javascript:;"
-																		onclick="deleteJudge(<s:property value="id" />);"
+																		onclick="deleteOtherperson(<s:property value="id" />);"
 																		title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
 																</td>
 															</tr>
@@ -512,150 +393,310 @@
 												</tbody>
 											</table>
 										</div>
-									</div>
-									<div class="row cl mt-20">
-										<div class="col-12 mb-0 c-primary f-16"
-											style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
-											研判情况
+
+
+										<div class="row cl mt-20">
+											<div class="col-12 mb-0 c-primary f-16"
+												style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
+												发起疑难
+												<input class="btn btn-primary radius mt-10 f-r"
+													type="button"
+													onclick="addPage('发起疑难','troubleshootingAction!goToAdd?inid=<s:property value="id"/>','500','300')"
+													value="发起疑难">
+											</div>
+											<div class="col-12">
+												<table class="table table-border table-bg mb-10">
+													<thead>
+														<tr>
+															<th>
+																序号
+															</th>
+															<th>
+																标题
+															</th>
+															<th>
+																疑难问题
+															</th>
+															<th>
+																发布人
+															</th>
+															<th>
+																操作
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+
+														<s:if test="injurycase.troubleshootings.size>0">
+															<s:iterator value="injurycase.troubleshootings"
+																var="troubleshooting" status="status">
+																<tr>
+																	<td>
+																		<s:property value="#status.index+1" />
+																	</td>
+																	<td>
+																		<a href="#" onclick="javascript:void(0)"> <s:property
+																				value="title" /> </a>
+																	</td>
+																	<td>
+																		<s:property value="question" />
+																	</td>
+																	<td>
+																		<s:property value="issuer" />
+																	</td>
+																	<td>
+																		<a style="text-decoration: none" class="ml-5"
+																			onclick="addPage('编辑疑难解答','troubleshootingAction!load?troubid=<s:property value="id" />','500','300')"
+																			href="javascript:;" title="编辑"><i
+																			class="Hui-iconfont">&#xe6df;</i> </a>
+																		<a style="text-decoration: none" class="ml-5"
+																			href="javascript:;"
+																			onclick="deleteTroubleshooting(<s:property value="id" />);"
+																			title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
+																	</td>
+																</tr>
+															</s:iterator>
+														</s:if>
+
+													</tbody>
+												</table>
+											</div>
+
 										</div>
-										<div class="col-12">
-											<table class="table table-border table-bg mb-10">
-												<thead>
-													<tr>
-														<th>
-															研判次序
-														</th>
-														<th align="center">
-															刑技研判
-														</th>
-														<th align="center">
-															网技研判
-														</th>
-														<th align="center">
-															情报研判
-														</th>
-														<th align="center">
-															图像侦查
-														</th>
-													</tr>
-												</thead>
-												<tbody>
-													<s:if test="injurycase.judges.size>0">
-														<s:iterator value="injurycase.judges" var="judge"
-															status="status">
-															<tr>
-																<td>
-																	<s:property value="indexNumber" />
-																</td>
-																<td>
-																	<s:textarea name="criminalJudge" cssClass="input-text"
-																		id="criminalJudge"
-																		cssStyle="width: 260px; height: 180px; float: left;"
-																		readonly="true"></s:textarea>
-																</td>
-																<td>
-																	<s:textarea name="networkJudge" cssClass="input-text"
-																		id="networkJudge"
-																		cssStyle="width: 260px; height: 180px; float: left;"
-																		readonly="true"></s:textarea>
-																</td>
-																<td>
-																	<s:textarea name="intelligenceJudge"
-																		cssClass="input-text" id="intelligenceJudge"
-																		cssStyle="width: 260px; height: 180px; float: left;"
-																		readonly="true"></s:textarea>
-																</td>
-																<td>
-																	<s:textarea name="imageJudge" cssClass="input-text"
-																		id="imageJudge"
-																		cssStyle="width: 260px; height: 180px; float: left;"
-																		readonly="true"></s:textarea>
-																</td>
-															</tr>
-														</s:iterator>
-													</s:if>
-												</tbody>
+
+										<!--发起研判信息-->
+										<div class="row cl mt-20">
+											<div class="col-12 mb-0 c-primary f-16"
+												style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
+												发起研判信息
+												<input class="btn btn-primary radius mt-10 f-r"
+													type="button"
+													onclick="addPage('发起研判信息','judgeAction!goToAdd?inid=<s:property value="id"/>&jtype=1','650','300')"
+													value="发起研判信息">
+											</div>
+											<div class="col-12">
+												<table class="table table-border table-bg mb-10"
+													style="table-layout: fixed;">
+													<thead>
+														<tr>
+															<th width="7%">
+																研判次序
+															</th>
+															<th width="24%">
+																报送机构
+															</th>
+															<th width="57%">
+																研判要求
+															</th>
+															<th width="12%">
+																操作
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														<s:if test="injurycase.judges.size>0">
+															<s:iterator value="injurycase.judges" var="judge"
+																status="status">
+																<tr>
+																	<td>
+																		<s:property value="indexNumber" />
+																	</td>
+																	<td>
+																		<s:property value="reportUnit" />
+																	</td>
+																	<td
+																		style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">
+																		<a href="#" onclick="javascript:void(0)"> <s:property
+																				value="judgeRequirement" /> </a>
+																	</td>
+																	<td>
+																		<a style="text-decoration: none" class="ml-5"
+																			onclick="addPage('编辑研判信息','judgeAction!load?jid=<s:property value="id" />','500','300')"
+																			href="javascript:;" title="编辑"><i
+																			class="Hui-iconfont">&#xe6df;</i> </a>
+																		<a style="text-decoration: none" class="ml-5"
+																			href="javascript:;"
+																			onclick="deleteJudge(<s:property value="id" />);"
+																			title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
+																	</td>
+																</tr>
+															</s:iterator>
+														</s:if>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<div class="row cl mt-20">
+											<div class="col-12 mb-0 c-primary f-16"
+												style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
+												研判情况
+											</div>
+											<div class="col-12">
+												<table class="table table-border table-bg mb-10">
+													<thead>
+														<tr>
+															<th>
+																研判次序
+															</th>
+															<th align="center">
+																刑技研判
+															</th>
+															<th align="center">
+																网技研判
+															</th>
+															<th align="center">
+																情报研判
+															</th>
+															<th align="center">
+																图像侦查
+															</th>
+														</tr>
+													</thead>
+													<tbody>
+														<s:if test="injurycase.judges.size>0">
+															<s:iterator value="injurycase.judges" var="judge"
+																status="status">
+																<tr>
+																	<td>
+																		<s:property value="indexNumber" />
+																	</td>
+																	<td>
+																		<s:textarea name="criminalJudge" cssClass="input-text"
+																			id="criminalJudge"
+																			cssStyle="width: 260px; height: 180px; float: left;"
+																			readonly="true"></s:textarea>
+																	</td>
+																	<td>
+																		<s:textarea name="networkJudge" cssClass="input-text"
+																			id="networkJudge"
+																			cssStyle="width: 260px; height: 180px; float: left;"
+																			readonly="true"></s:textarea>
+																	</td>
+																	<td>
+																		<s:textarea name="intelligenceJudge"
+																			cssClass="input-text" id="intelligenceJudge"
+																			cssStyle="width: 260px; height: 180px; float: left;"
+																			readonly="true"></s:textarea>
+																	</td>
+																	<td>
+																		<s:textarea name="imageJudge" cssClass="input-text"
+																			id="imageJudge"
+																			cssStyle="width: 260px; height: 180px; float: left;"
+																			readonly="true"></s:textarea>
+																	</td>
+																</tr>
+															</s:iterator>
+														</s:if>
+													</tbody>
+												</table>
+											</div>
+										</div>
+
+										<div class="row cl">
+											<div class="col-12 mb-10 c-primary f-16"
+												style="border-bottom: solid 2px #2DABF7">
+												完结情况
+											</div>
+											<table width="100%" border="0" cellspacing="0"
+												cellpadding="0" style="line-height: 45px;">
+												<tr>
+													<td width="86%" style="padding-left: 9%;">
+														<s:radio theme="simple" cssStyle="width:36px"
+															cssClass="check-box"
+															list='#{ 1:"抓获", 2:"死亡", 3:"撤销案件", 4:"释放", 5:"治安拘留", 6:"刑事拘留", 7:"留置盘问", 8:"其他" }'
+															name="injurycase.endSituation" />
+													</td>
+												</tr>
+											</table>
+
+										</div>
+										<div class="col-12 mb-10 c-primary f-16"
+											style="border-bottom: solid 2px #2DABF7">
+											综合情况
+										</div>
+
+										<div class="row cl">
+											<table width="100%" border="0" cellspacing="0"
+												cellpadding="0" style="line-height: 45px;">
+												<tr>
+													<td width="10%" valign="top">
+														<label class="form-label text-r">
+															综合情况：
+														</label>
+													</td>
+													<td>
+														<s:textfield name="injurycase.comprehensiveJudge"
+															cssClass="input-text" id="input9"
+															cssStyle="width: 100%; height: 80px; float: left;"
+															placeholder="根据以上研判信息填写综合情况"></s:textfield>
+													</td>
+												</tr>
+											</table>
+											<div class="col-12 mb-10 c-primary f-16"
+												style="border-bottom: solid 2px #2DABF7">
+												领导批示
+											</div>
+											<table width="100%" border="0" cellspacing="0"
+												cellpadding="0" style="line-height: 45px;">
+												<tr>
+													<td width="10%" valign="top">
+														<label class="form-label text-r">
+															领导批示：
+														</label>
+													</td>
+													<td>
+														<s:textfield name="injurycase.leaderInstruction"
+															cssClass="input-text" id="input9"
+															cssStyle="width: 100%; height: 80px; float: left;"
+															placeholder="领导批示填写"></s:textfield>
+													</td>
+												</tr>
 											</table>
 										</div>
 									</div>
-
-									<div class="row cl">
-										<div class="col-12 mb-10 c-primary f-16"
-											style="border-bottom: solid 2px #2DABF7">
-											完结情况
-										</div>
-										<table width="100%" border="0" cellspacing="0" cellpadding="0"
-											style="line-height: 45px;">
-											<tr>
-												<td width="86%" style="padding-left: 9%;">
-													<s:radio theme="simple" cssStyle="width:36px"
-														cssClass="check-box"
-														list='#{ 1:"抓获", 2:"死亡", 3:"撤销案件", 4:"释放", 5:"治安拘留", 6:"刑事拘留", 7:"留置盘问", 8:"其他" }'
-														name="injurycase.endSituation" />
-												</td>
-											</tr>
-										</table>
-
-									</div>
-									<div class="col-12 mb-10 c-primary f-16"
-										style="border-bottom: solid 2px #2DABF7">
-										综合情况
-									</div>
-
-									<div class="row cl">
-										<table width="100%" border="0" cellspacing="0" cellpadding="0"
-											style="line-height: 45px;">
-											<tr>
-												<td width="10%" valign="top">
-													<label class="form-label text-r">
-														综合情况：
-													</label>
-												</td>
-												<td>
-													<s:textfield name="injurycase.comprehensiveJudge"
-														cssClass="input-text" id="input9"
-														cssStyle="width: 100%; height: 80px; float: left;"
-														placeholder="根据以上研判信息填写综合情况"></s:textfield>
-												</td>
-											</tr>
-										</table>
-										<div class="col-12 mb-10 c-primary f-16"
-											style="border-bottom: solid 2px #2DABF7">
-											领导批示
-										</div>
-										<table width="100%" border="0" cellspacing="0" cellpadding="0"
-											style="line-height: 45px;">
-											<tr>
-												<td width="10%" valign="top">
-													<label class="form-label text-r">
-														领导批示：
-													</label>
-												</td>
-												<td>
-													<s:textfield name="injurycase.leaderInstruction"
-														cssClass="input-text" id="input9"
-														cssStyle="width: 100%; height: 80px; float: left;"
-														placeholder="领导批示填写"></s:textfield>
-												</td>
-											</tr>
-										</table>
-									</div>
 								</div>
 							</div>
-						</div>
-						<div class="tabCon">
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div
-										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-										<s:property value="injurycase.userRole.realname" />
-										：录入
+							<div class="tabCon">
+								<div class="row cl">
+									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+										<div
+											style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+											<s:property value="injurycase.userRole.realname" />
+											：录入
+										</div>
 									</div>
 								</div>
-							</div>
-							<s:if test="injurycase.judges.size>0">
-								<s:iterator value="injurycase.judges" var="judge"
-									status="status">
+								<s:if test="injurycase.judges.size>0">
+									<s:iterator value="injurycase.judges" var="judge"
+										status="status">
+										<div class="row cl">
+											<div class="col-offset-5 col-5-1 text-c"
+												style="padding: 5px;">
+												<div style="height: 25px; width: 200px; text-align: center">
+													<i class="Hui-iconfont f-18 ">&#xe674;</i>
+												</div>
+											</div>
+										</div>
+										<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+											<div
+												style="height: 100px; width: 200px; border: solid 1px #666">
+												<table width="100%" border="0" cellspacing="0"
+													cellpadding="0">
+													<tr>
+														<td>
+															研判次序
+															<s:property value="indexNumber" />
+															:
+															<s:property value="reportUnit" />
+														</td>
+													</tr>
+												</table>
+											</div>
+										</div>
+									</s:iterator>
+								</s:if>
+								<s:if
+									test="injurycase.comprehensiveJudge!=null&&injurycase.comprehensiveJudge!=''">
 									<div class="row cl">
 										<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
 											<div style="height: 25px; width: 200px; text-align: center">
@@ -665,58 +706,31 @@
 									</div>
 									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
 										<div
-											style="height: 100px; width: 200px; border: solid 1px #666">
-											<table width="100%" border="0" cellspacing="0"
-												cellpadding="0">
-												<tr>
-													<td>
-														研判次序
-														<s:property value="indexNumber" />
-														:
-														<s:property value="reportUnit" />
-													</td>
-												</tr>
-											</table>
+											style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+											完结
 										</div>
 									</div>
-								</s:iterator>
-							</s:if>
-							<s:if
-								test="injurycase.comprehensiveJudge!=null&&injurycase.comprehensiveJudge!=''">
-								<div class="row cl">
+								</s:if>
+								<s:if
+									test="injurycase.leaderInstruction!=null&&injurycase.leaderInstruction!=''">
+									<div class="row cl">
+										<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+											<div style="height: 25px; width: 200px; text-align: center">
+												<i class="Hui-iconfont f-18 ">&#xe674;</i>
+											</div>
+										</div>
+									</div>
 									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-										<div style="height: 25px; width: 200px; text-align: center">
-											<i class="Hui-iconfont f-18 ">&#xe674;</i>
+										<div
+											style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+											领导批示
 										</div>
 									</div>
-								</div>
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div
-										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-										完结
-									</div>
-								</div>
-							</s:if>
-							<s:if
-								test="injurycase.leaderInstruction!=null&&injurycase.leaderInstruction!=''">
-								<div class="row cl">
-									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-										<div style="height: 25px; width: 200px; text-align: center">
-											<i class="Hui-iconfont f-18 ">&#xe674;</i>
-										</div>
-									</div>
-								</div>
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div
-										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-										领导批示
-									</div>
-								</div>
-							</s:if>
+								</s:if>
+							</div>
 						</div>
 					</div>
-				</div>
-				<script type="text/javascript">
+					<script type="text/javascript">
 
 $(function(){
 $.Huitab("#tab_demo .tabBar span","#tab_demo .tabCon","current","click","0");
@@ -784,19 +798,16 @@ function article_save(obj,id){
 	});
 }
 </script>
-				<s:hidden name="injurycase.imageCase" title="案件图片"></s:hidden>
-				<s:hidden name="injurycase.isCanvas" title="水印"></s:hidden>
-				<s:hidden name="injurycase.pids" title="pids"></s:hidden>
-				<s:hidden name="injurycase.caseIds" title="caseIds"></s:hidden>
-				<s:hidden name="injurycase.isRelated" title="是否已串并案"></s:hidden>
+					<s:hidden name="injurycase.imageCase" title="案件图片"></s:hidden>
+					<s:hidden name="injurycase.isCanvas" title="水印"></s:hidden>
+					<s:hidden name="injurycase.pids" title="pids"></s:hidden>
+					<s:hidden name="injurycase.caseIds" title="caseIds"></s:hidden>
 
-				<s:hidden name="injurycase.itype" title="案件类型"></s:hidden>
-				<s:hidden name="injurycase.id" title="案件id"></s:hidden>
-				<s:hidden name="injurycase.userRole.id" title="案件子表userRoleid"></s:hidden>
-				<s:hidden name="injurycase.handleState" title="办理状态"></s:hidden>
-				<s:hidden name="injurycase.joinDate" title="录入时间"></s:hidden>
-				
-				
+					<s:hidden name="injurycase.itype" title="案件类型"></s:hidden>
+					<s:hidden name="injurycase.id" title="案件id"></s:hidden>
+					<s:hidden name="injurycase.userRole.id" title="案件子表userRoleid"></s:hidden>
+					<s:hidden name="injurycase.handleState" title="办理状态"></s:hidden>
+					<s:hidden name="injurycase.joinDate" title="录入时间"></s:hidden>
 		</form>
 	</body>
 </html>

@@ -53,7 +53,7 @@ public class Injurycase implements java.io.Serializable {
 	private Integer isRelated; // 是否已串并案
 	private String casePlace;// 案发地点
 	private String startTime;// 案发时间
-	private String keywords;// 串并案关键字
+	private String series;// 串并案关键字
 
 	// Constructors
 
@@ -71,7 +71,7 @@ public class Injurycase implements java.io.Serializable {
 			List<Media> medias, String joinDate, Integer handleState,
 			Integer itype, String imageCase, Integer isCanvas, String pids,
 			String caseIds, Integer isRelated, String casePlace,
-			String startTime, String keywords) {
+			String startTime, String series) {
 		this.id = id;
 		this.userRole = userRole;
 		this.caseNumber = caseNumber;
@@ -101,7 +101,7 @@ public class Injurycase implements java.io.Serializable {
 		this.isRelated = isRelated;
 		this.casePlace = casePlace;
 		this.startTime = startTime;
-		this.keywords = keywords;
+		this.series = series;
 	}
 
 	/** full constructor */
@@ -214,9 +214,9 @@ public class Injurycase implements java.io.Serializable {
 		return this.judges;
 	}
 
-	@Column(name = "keywords")
-	public String getKeywords() {
-		return keywords;
+	@Column(name = "series")
+	public String getSeries() {
+		return series;
 	}
 
 	@Column(name = "leaderInstruction")
@@ -344,8 +344,8 @@ public class Injurycase implements java.io.Serializable {
 		this.judges = judges;
 	}
 
-	public void setKeywords(String keywords) {
-		this.keywords = keywords;
+	public void setSeries(String series) {
+		this.series = series;
 	}
 
 	public void setLeaderInstruction(String leaderInstruction) {

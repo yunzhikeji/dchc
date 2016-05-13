@@ -120,7 +120,9 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	private List<Judge> judges;
 	private List<UnitVO> unitVOs;
 	private List<Unit> units;
-	
+	//同系列案件
+	private List<Injurycase> injurycaseSeries;
+
 	private List<Media> mediaVideos;
 	private List<Media> mediaImages;
 
@@ -131,6 +133,12 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	private File picture1;
 	private String picture1ContentType;
 	private String picture1FileName;
+
+	// 串并案查询案件关键字
+	private String keyword;
+	// 串并案系列名称
+	private String series;
+	
 
 	/**
 	 * 人员管理
@@ -210,7 +218,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-
 		return "add";
 	}
 
@@ -377,12 +384,30 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		pageTileName = selectTileName(itype);
 
 		tars = otherpersonService.getInjurycaseOtherpersonByOtype(2, id);// 同案人
-		
-		medias = mediaService.loadInjurycaseByTypeAndPid(1, id);//视频文件 
+
+		medias = mediaService.loadInjurycaseByTypeAndPid(1, id);// 视频文件
 
 		injurycase = injurycaseService.queryInjurycaseById(id);// 当前修改案件的id
+		
+		series = injurycase.getSeries();
+		
+		if(series!=null&&!series.replace("", " ").equals(""))
+		{
+			injurycaseSeries = injurycaseService.queryInjurycaseBySeries(series);//获得同系列案件
+		}
+			
 		return "load";
 
+	}
+	
+	//查询关键字获得未串并的案件
+	private List<Injurycase> getInjurycaseByKeyword(String keyword)
+	{
+		
+		injurycases = injurycaseService.queryInjurycaseByKeyword(keyword);//获得模糊查询未串并的案件
+		
+		return injurycases;
+		
 	}
 
 	/**
@@ -467,12 +492,11 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		}
 		// 所有当前页记录对象
 		injurycases = injurycaseService.queryList(con, convalue, userRole,
-				page, 9,  queryState, starttime, endtime);
+				page, 9, queryState, starttime, endtime);
 
 		return "listcba";
 	}
-	
-	
+
 	/**
 	 * 跳转到修改页面
 	 * 
@@ -486,11 +510,11 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		pageTileName = selectTileName(3);
 
 		injurycase = injurycaseService.queryInjurycaseById(id);// 当前修改案件的id
-		
-		mediaVideos = mediaService.loadInjurycaseByTypeAndPid(1, id);//视频文件 
-		
-		mediaImages = mediaService.loadInjurycaseByTypeAndPid(0, id);//图像文件 
-		
+
+		mediaVideos = mediaService.loadInjurycaseByTypeAndPid(1, id);// 视频文件
+
+		mediaImages = mediaService.loadInjurycaseByTypeAndPid(0, id);// 图像文件
+
 		return "loadcba";
 
 	}
@@ -935,8 +959,31 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	public void setMediaImages(List<Media> mediaImages) {
 		this.mediaImages = mediaImages;
 	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
+	public String getSeries() {
+		return series;
+	}
+
+	public void setSeries(String series) {
+		this.series = series;
+	}
+
+	public List<Injurycase> getInjurycaseSeries() {
+		return injurycaseSeries;
+	}
+
+	public void setInjurycaseSeries(List<Injurycase> injurycaseSeries) {
+		this.injurycaseSeries = injurycaseSeries;
+	}
 	
 	
 
-	
 }
