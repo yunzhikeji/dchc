@@ -157,7 +157,7 @@
 				</div>
 
 				<div class="col-12" style="padding-top: 10px; padding-bottom: 10px">
-					<button type="submit" class="btn btn-primary radius size-L"
+					<button type="button" class="btn btn-primary radius size-L"
 						id="capture" name="">
 						<i class="Hui-iconfont">&#xe6df;</i> 截图
 					</button>
@@ -176,35 +176,8 @@
 				<div id="output"></div>
 				<div class="col-12 mb-10 c-primary f-16"
 					style="border-bottom: solid 2px #ddd; color: #999">
-
-<<<<<<< HEAD
 					<div class="col-12 mb-10  c-primary f-16"
 						style="border-bottom: solid 2px #2DABF7">串并案</div>
-=======
-					<div class="col-12" style="padding-top: 10px; padding-bottom: 10px">
-						<button type="submit" class="btn btn-primary radius size-L" id="capture" 
-							name="">
-							<i class="Hui-iconfont">&#xe6df;</i> 截图
-						</button>
-						&nbsp;
-						<button type="submit" class="btn btn-success radius size-L" id=""
-							name="" onclick="skip(-10)">
-							<i class="Hui-iconfont">&#xe6d4;</i>
-						</button>
-						&nbsp;
-						<button type="submit" class="btn btn-success radius size-L" id=""
-							name="" onclick="skip(10)">
-							<i class="Hui-iconfont">&#xe6d7;</i>
-						</button>
-					</div>
-					<div id="output"></div>
-					<div class="col-12 mb-10 c-primary f-16"
-						style="border-bottom: solid 2px #ddd; color: #999">
-					<div class="col-12 mb-10  c-primary f-16"
-						style="border-bottom: solid 2px #2DABF7">
-						串并案
-					</div>
->>>>>>> origin/master
 					<div class="col-12" style="padding-top: 10px; padding-bottom: 10px">
 						<div style="padding-bottom: 20px">
 							<form action="injurycaseAction!loadcba" method="post">
@@ -314,7 +287,7 @@
 								</div>
 								<div class="col-4">
 									<img id="myimage1" src="<%=basePath%>${injurycase.imageCase}"
-										class="img-responsive thumbnail" width="176px" height="220px"
+										class="img-responsive thumbnail" width="200px" height="auto"
 										alt="暂无案件图片" />
 								</div>
 								<div class="col-2">
