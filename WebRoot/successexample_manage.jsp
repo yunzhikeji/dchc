@@ -62,7 +62,7 @@
 									cssClass="input-text" name="con" listKey="key"
 									listValue="value" cssStyle="width:180px"></s:select>
 							</td>
-							<td width="310px;">
+							<td width="22%">
 								<s:textfield name="convalue" id="convalue" cssClass="input-text"></s:textfield>
 							</td>
 						</tr>

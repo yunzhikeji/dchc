@@ -87,7 +87,7 @@ public class ClueAction extends ActionSupport implements RequestAware,
 	private ITroubleshootingService troubleshootingService;
 
 	private IJudgeService judgeService;
-	
+
 	private IUserRoleService userRoleService;
 
 	// 单个表对象
@@ -122,8 +122,8 @@ public class ClueAction extends ActionSupport implements RequestAware,
 			return "opsessiongo";
 		}
 
-		UserRole  userRole = userRoleService.loadById(userRoleo.getId());
-		
+		UserRole userRole = userRoleService.loadById(userRoleo.getId());
+
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
 		}
@@ -199,49 +199,45 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo_child";
 		}
-		
-		UserRole  userRole = userRoleService.loadById(userRoleo.getId());
+
+		UserRole userRole = userRoleService.loadById(userRoleo.getId());
 		clue.setUserRole(userRole);// 设置录入人员
 		clue.setJoinDate(DateTimeKit.getLocalDate());// 设置录入时间
 		clue.setHandleState(1);// 初始化处理状态
 		clueService.add(clue);
-		
-		//添加当前线索id到部门cids
-		if(userRole.getUnit()!=null)
-		{
+
+		// 添加当前线索id到部门cids
+		if (userRole.getUnit() != null) {
 			int uid = userRole.getUnit().getId();
 			Unit un = unitService.loadById(uid);
-			
-			if(un.getCids()!=null&&un.getCids()!="")
-			{
-				un.setCids(handleIDs(un.getCids(),clue.getId()+""));
-			}else
-			{
-				un.setCids(clue.getId()+",");
+
+			if (un.getCids() != null && un.getCids() != "") {
+				un.setCids(handleIDs(un.getCids(), clue.getId() + ""));
+			} else {
+				un.setCids(clue.getId() + ",");
 			}
 			unitService.update(un);
 		}
-		
+
 		arg[0] = "clueAction!list?ctype=" + clue.getCtype();
 		arg[1] = "线索管理";
 		return "success_child";
 	}
-	
-	//处理ids
-	private String handleIDs(String objIDs,String objID) {
+
+	// 处理ids
+	private String handleIDs(String objIDs, String objID) {
 		// TODO Auto-generated method stub
 		Set<String> ids = new HashSet<String>();
 		String newIDs = "";
 		String[] arrayIDs = objIDs.split(",");
-		for(int i=0;i<arrayIDs.length;i++)
-		{
+		for (int i = 0; i < arrayIDs.length; i++) {
 			ids.add(arrayIDs[i]);
 		}
 		ids.add(objID);
-		
-		for (String id : ids) {  
-		      newIDs= newIDs+id+",";
-		} 
+
+		for (String id : ids) {
+			newIDs = newIDs + id + ",";
+		}
 		System.out.println(newIDs);
 		return newIDs;
 	}
@@ -319,6 +315,10 @@ public class ClueAction extends ActionSupport implements RequestAware,
 			return "opsessiongo_child";
 		}
 
+		if (clue.getUserRole() == null) {
+			UserRole userRole = userRoleService.loadById(userRoleo.getId());
+			clue.setUserRole(userRole);// 设置录入人员
+		}
 		clueService.update(clue);
 
 		arg[0] = "clueAction!list?ctype=" + clue.getCtype();
@@ -673,7 +673,5 @@ public class ClueAction extends ActionSupport implements RequestAware,
 	public void setUserRoleService(IUserRoleService userRoleService) {
 		this.userRoleService = userRoleService;
 	}
-	
-	
 
 }

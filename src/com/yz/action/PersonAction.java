@@ -1202,6 +1202,12 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		if (person.getEndSituation() != null && person.getEndSituation() != "") {
 			person.setHandleState(3);// 完结
 		}
+		
+		if (person.getUserRole() == null) {
+			UserRole userRole = userRoleService.loadById(userRoleo.getId());
+			person.setUserRole(userRole);// 设置录入人员
+		}
+		
 		personService.update(person);
 
 		arg[0] = "personAction!list?type=" + person.getType();

@@ -421,6 +421,12 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			photofile.delete();
 			injurycase.setImageCase("case" + "/" + imageName);
 		}
+		
+		if (injurycase.getUserRole() == null) {
+			UserRole userRole = userRoleService.loadById(userRoleo.getId());
+			injurycase.setUserRole(userRole);// 设置录入人员
+		}
+		
 		injurycaseService.update(injurycase);
 
 		arg[0] = "injurycaseAction!list?itype=" + injurycase.getItype();
