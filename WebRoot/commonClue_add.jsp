@@ -176,7 +176,8 @@
 											<tr>
 												<td align="center">
 													<img id="myimage1" class="img-responsive thumbnail"
-														width="176px" height="220px" alt="户籍照片" />
+														width="200px"
+															height="auto" alt="户籍照片" />
 													<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),
@@ -185,6 +186,7 @@
 															     // gif在IE浏览器暂时无法显示
 															     if(ext1!='png'&&ext1!='jpg'&&ext1!='jpeg'){
 															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
+															         file1.value="";
 															         return;
 															     }
 															     var isIE = navigator.userAgent.match(/MSIE/)!= null,
@@ -222,7 +224,6 @@
 											<tr>
 												<td align="center">
 													<s:file name="picture1"
-														cssClass="btn btn-primary radius mt-10"
 														accept="image/jpeg,image/png,image/jpg"
 														onchange="change1();" id="myfile1"></s:file>
 												</td>
@@ -235,7 +236,8 @@
 											<tr>
 												<td align="center">
 													<img id="myimage2" class="img-responsive thumbnail"
-														width="176px" height="220px" alt="前科照片" />
+														width="200px"
+															height="auto" alt="前科照片" />
 													<script type="text/javascript">
 															function change2() {
 															    var pic2 = document.getElementById("myimage2"),
@@ -244,6 +246,7 @@
 															     // gif在IE浏览器暂时无法显示
 															     if(ext2!='png'&&ext2!='jpg'&&ext2!='jpeg'){
 															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
+															         file2.value="";
 															         return;
 															     }
 															     var isIE = navigator.userAgent.match(/MSIE/)!= null,
@@ -281,7 +284,6 @@
 											<tr>
 												<td align="center">
 													<s:file name="picture2"
-														cssClass="btn btn-primary radius mt-10"
 														accept="image/jpeg,image/png,image/jpg"
 														onchange="change2();" id="myfile2"></s:file>
 												</td>

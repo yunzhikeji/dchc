@@ -85,8 +85,8 @@
 										<tr>
 											<td align="center">
 												<img id="myimage1" class="img-responsive thumbnail"
-													src="<%=basePath%>${disappearman.photo1}" width="176px"
-													height="220px" alt="照片1" />
+													src="<%=basePath%>${disappearman.photo1}" width="200px"
+															height="auto" alt="照片1" />
 												<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),
@@ -95,6 +95,7 @@
 															     // gif在IE浏览器暂时无法显示
 															     if(ext1!='png'&&ext1!='jpg'&&ext1!='jpeg'){
 															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
+															         file1.value="";
 															         return;
 															     }
 															     var isIE = navigator.userAgent.match(/MSIE/)!= null,
@@ -134,7 +135,6 @@
 										<tr>
 											<td align="center">
 												<s:file name="picture1"
-													cssClass="btn btn-primary radius mt-10"
 													accept="image/jpeg,image/png,image/jpg"
 													onchange="change1();" id="myfile1"></s:file>
 
@@ -149,8 +149,8 @@
 											<td align="center">
 
 												<img id="myimage2" class="img-responsive thumbnail"
-													src="<%=basePath%>${disappearman.photo2}" width="176px"
-													height="220px" alt="照片2" />
+													src="<%=basePath%>${disappearman.photo2}" width="200px"
+															height="auto" alt="照片2" />
 												<script type="text/javascript">
 															function change2() {
 															    var pic2 = document.getElementById("myimage2"),
@@ -159,6 +159,7 @@
 															     // gif在IE浏览器暂时无法显示
 															     if(ext2!='png'&&ext2!='jpg'&&ext2!='jpeg'){
 															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
+															         file2.value="";
 															         return;
 															     }
 															     var isIE = navigator.userAgent.match(/MSIE/)!= null,
@@ -198,7 +199,6 @@
 										<tr>
 											<td align="center">
 												<s:file name="picture2"
-													cssClass="btn btn-primary radius mt-10"
 													accept="image/jpeg,image/png,image/jpg"
 													onchange="change2();" id="myfile2"></s:file>
 											</td>
@@ -210,8 +210,8 @@
 										<tr>
 											<td align="center">
 												<img id="myimage3" class="img-responsive thumbnail"
-													src="<%=basePath%>${disappearman.photo3}" width="176px"
-													height="220px" alt="照片3" />
+													src="<%=basePath%>${disappearman.photo3}" width="200px"
+															height="auto" alt="照片3" />
 												<script type="text/javascript">
 															function change3() {
 															    var pic3 = document.getElementById("myimage3"),
@@ -220,6 +220,7 @@
 															     // gif在IE浏览器暂时无法显示
 															     if(ext3!='png'&&ext3!='jpg'&&ext3!='jpeg'){
 															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
+															         file3.value="";
 															         return;
 															     }
 															     var isIE = navigator.userAgent.match(/MSIE/)!= null,
@@ -257,7 +258,6 @@
 										<tr>
 											<td align="center">
 												<s:file name="picture3"
-													cssClass="btn btn-primary radius mt-10"
 													accept="image/jpeg,image/png,image/jpg"
 													onchange="change3();" id="myfile3"></s:file>
 											</td>

@@ -98,8 +98,8 @@
 												<td align="center">
 													<img id="myimage1"
 														src="<%=basePath%>${injurycase.imageCase}"
-														class="img-responsive thumbnail" width="176px"
-														height="220px" alt="案件图片" />
+														class="img-responsive thumbnail" width="200px"
+														height="auto" alt="案件图片" />
 													<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),
@@ -145,10 +145,8 @@
 											<tr>
 												<td align="center">
 													<s:file name="picture1"
-														cssClass="btn btn-primary radius mt-10"
 														accept="image/jpeg,image/png,image/jpg"
 														onchange="change1();" id="myfile1"></s:file>
-
 												</td>
 											</tr>
 										</table>
