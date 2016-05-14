@@ -155,6 +155,28 @@
 											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
 									</div>
 								</div>
+									<div class="row cl mb-10">
+									<div class="col-2">
+										<label class="form-label text-r">
+											是否串并案：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:select list="#{0:'否',1:'是'}" cssClass="input-text"
+											name="injurycase.isRelated" listKey="key" listValue="value"
+											cssStyle="width:200px"></s:select>
+									</div>
+									<div class="col-2">
+										<label class="form-label text-r">
+											案件分类：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:if test="itype==1">一般案件</s:if>
+										<s:if test="itype==2">重伤案件</s:if>
+										<s:if test="itype==3">团伙系列案件</s:if>
+									</div>
+								</div>
 								<div class="row cl">
 									<div class="row cl mb-10">
 										<div class="col-2">
@@ -218,18 +240,6 @@
 									<div class="col-4">
 										<s:textfield id="telphone" name="injurycase.telphone"
 											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
-									</div>
-								</div>
-								<div class="row cl mb-10">
-									<div class="col-2">
-										<label class="form-label text-r">
-											是否串并案：
-										</label>
-									</div>
-									<div class="col-4">
-										<s:select list="#{0:'否',1:'是'}" cssClass="input-text"
-											name="injurycase.isRelated" listKey="key" listValue="value"
-											cssStyle="width:200px"></s:select>
 									</div>
 								</div>
 								<div class="row cl mb-10">

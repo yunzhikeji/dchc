@@ -136,8 +136,6 @@
 								<div class="video-info">
 									<span class="video-nickname"><s:property
 											value="userRole.username" /> </span>
-
-
 									<s:if test="handleState==0">
 										<span class="video-cate">未办理</span>
 									</s:if>

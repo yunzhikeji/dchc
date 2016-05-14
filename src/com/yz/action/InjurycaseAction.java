@@ -120,7 +120,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	private List<Judge> judges;
 	private List<UnitVO> unitVOs;
 	private List<Unit> units;
-	//同系列案件
+	// 同系列案件
 	private List<Injurycase> injurycaseSeries;
 
 	private List<Media> mediaVideos;
@@ -138,7 +138,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	private String keyword;
 	// 串并案系列名称
 	private String series;
-	
 
 	/**
 	 * 人员管理
@@ -345,7 +344,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
 		for (int i = 0; i < ids.length; i++) {
-			injurycase = injurycaseService.loadById(id);
+			injurycase = injurycaseService.loadById(ids[i]);
 			if (injurycase.getImageCase() != null
 					&& !injurycase.getImageCase().replace(" ", "").equals("")) {
 				File photofile = new File(ServletActionContext
@@ -388,33 +387,9 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		medias = mediaService.loadInjurycaseByTypeAndPid(1, id);// 视频文件
 
 		injurycase = injurycaseService.queryInjurycaseById(id);// 当前修改案件的id
-		
-		series = injurycase.getSeries();
-		
-		if(series!=null&&!series.replace("", " ").equals(""))
-		{
-			injurycaseSeries = injurycaseService.queryInjurycaseBySeries(series);//获得同系列案件(已串并案)
-		}
-			
-		getInjurycaseByKeyword("");
-		
+
 		return "load";
 
-	}
-	
-	//查询关键字获得未串并的案件
-	private List<Injurycase> getInjurycaseByKeyword(String keyword)
-	{
-		
-		injurycases = injurycaseService.queryInjurycaseByKeyword(keyword);//获得模糊查询未串并的案件
-		
-		if(injurycases!=null&&injurycases.size()>=5)
-		{
-			injurycases = injurycases.subList(0, 6);//获取前五条记录
-		}
-		
-		return injurycases;
-		
 	}
 
 	/**
@@ -522,8 +497,78 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 		mediaImages = mediaService.loadInjurycaseByTypeAndPid(0, id);// 图像文件
 
+		injurycaseSeries = injurycaseService.queryInjurycaseBySeries(injurycase
+				.getSeries(), id);// 获得同系列案件(已串并案)
+		getInjurycaseByKeyword(keyword, id);
+
 		return "loadcba";
 
+	}
+
+	// 查询关键字获得未串并的案件
+	private List<Injurycase> getInjurycaseByKeyword(String keyword, int id) {
+		injurycases = injurycaseService.queryInjurycaseByKeyword(keyword, id);// 获得模糊查询其他的案件
+
+		if (injurycases != null && injurycases.size() >= 6) {
+			injurycases = injurycases.subList(0, 6);// 获取前五条记录
+		}
+		return injurycases;
+
+	}
+
+	/**
+	 * 案件串并操作
+	 * 
+	 * @return
+	 */
+	public String handleInjurycaseSeries() throws Exception {
+
+		if (series != null && !series.equals("")) {
+			series = URLDecoder.decode(series, "utf-8");
+		}
+		// ---------------------------修改当前案件串并属性
+		injurycase = injurycaseService.loadById(id);
+		if (injurycase != null) {
+			if (injurycase.getIsRelated() == null
+					|| injurycase.getIsRelated() != 1) {
+				injurycase.setIsRelated(1);
+			}
+			if (injurycase.getSeries() == null
+					|| !injurycase.getSeries().equals(series)) {
+				injurycase.setSeries(series);
+			}
+			injurycaseService.update(injurycase);
+		}
+
+		// ---------------------------修改其他案件串并属性
+		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
+		for (int i = 0; i < ids.length; i++) {
+			injurycase = injurycaseService.loadById(ids[i]);
+			if (injurycase.getIsRelated() == null
+					|| injurycase.getIsRelated() != 1) {
+				injurycase.setIsRelated(1);
+			}
+			if (injurycase.getSeries() == null
+					|| !injurycase.getSeries().equals(series)) {
+				injurycase.setSeries(series);
+			}
+			injurycaseService.update(injurycase);
+		}
+
+		AjaxMsgVO msgVO = new AjaxMsgVO();
+		msgVO.setMessage("串并案操作成功成功.");
+		JSONObject jsonObj = JSONObject.fromObject(msgVO);
+		PrintWriter out;
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+			out = response.getWriter();
+			out.print(jsonObj.toString());
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	// get、set-------------------------------------------
@@ -990,7 +1035,5 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	public void setInjurycaseSeries(List<Injurycase> injurycaseSeries) {
 		this.injurycaseSeries = injurycaseSeries;
 	}
-	
-	
 
 }

@@ -102,8 +102,8 @@
           <li><a href="#"><i class="Hui-iconfont ">&#xe636;</i> 案件管理<img class="more" src="images/more.png"/></a>
 			   <ul class="er">
 			  	 <li><a _href="injurycaseAction!list?itype=1" href="javascript:void(0)">一般案件</a></li>
-				 <li><a _href="injurycaseAction!list?itype=3" href="javascript:void(0)">团伙系列案件</a></li>
 				 <li><a _href="injurycaseAction!list?itype=2" href="javascript:void(0)">重伤案件</a></li>
+				 <li><a _href="injurycaseAction!list?itype=3" href="javascript:void(0)">团伙系列案件</a></li>
 				 <li><a _href="injurycaseAction!listcba" href="javascript:void(0)">串并案</a></li>
 			   </ul>
 		  </li>          

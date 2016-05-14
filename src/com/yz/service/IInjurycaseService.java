@@ -53,7 +53,7 @@ public interface IInjurycaseService {
 	public abstract List<Injurycase> getInjurycaseByTypeAndHandleState(
 			int itype, int handleState, UserRole userRole);
 
-	public abstract List<Injurycase> queryInjurycaseBySeries(String series);
+	public abstract List<Injurycase> queryInjurycaseBySeries(String series, int id);
 
-	public abstract List<Injurycase> queryInjurycaseByKeyword(String keyword);
+	public abstract List<Injurycase> queryInjurycaseByKeyword(String keyword, int id);
 }
