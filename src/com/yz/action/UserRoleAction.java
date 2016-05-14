@@ -184,6 +184,36 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		}
 	}
 	
+	
+	public String changeUserRolesPassword()
+	{
+		int backNumber = -1;
+		userRoles = userRoleService.getUserRoles();
+		if(userRoles!=null&&userRoles.size()>0)
+		{
+			for (int i = 0; i < userRoles.size(); i++) {
+				
+				UserRole userRole = userRoles.get(i);
+				String newpsw = userRole.getPassword();
+				userRole.setPassword(MD5Util.convertMD5(MD5Util.string2MD5(newpsw)));
+				userRoleService.update(userRole);
+			}
+			backNumber = 1;
+		}
+		PrintWriter out;
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+			out = response.getWriter();
+			out.print(backNumber);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+		
+	}
+	
 	public String welcome()
 	{
 		// 登陆验证
@@ -638,7 +668,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		}
 		if(password1!=null&&!password1.replace(" ", "").equals("")&&password2!=null&&!password2.replace(" ", "").equals(""))
 		{
-			
 			userRole.setPassword(MD5Util.convertMD5(MD5Util.string2MD5(password1)));
 		}
 		userRoleService.update(userRole);
