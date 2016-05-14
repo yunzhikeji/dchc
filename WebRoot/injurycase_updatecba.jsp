@@ -63,7 +63,7 @@
 		     (function() {
 		  "use strict";
 		  var video, $output;
-		  var scale = 0.25;
+		  var scale = 0.45;
 		  var initialize = function() {
 		    $output = $("#output");
 		    video = $("#swf_play").get(0);
@@ -77,7 +77,6 @@
 		       .drawImage(video, 0, 0, canvas.width, canvas.height);
 		    var img = document.createElement("img");
 		    img.src = canvas.toDataURL();
-		    $output.prepend(img);
 		    window.showModalDialog("a2.html",img,"status:no;resizable:yes;dialogHeight:400px;dialogWidth:500px;unadorne:yes;help:no");
 		  };
 		  $(initialize);      
@@ -173,14 +172,12 @@
 					</button>
 				</div>
 
-				<div id="output"></div>
 				<div class="col-12 mb-10 c-primary f-16"
 					style="border-bottom: solid 2px #ddd; color: #999">
 
-<<<<<<< HEAD
 					<div class="col-12 mb-10  c-primary f-16"
 						style="border-bottom: solid 2px #2DABF7">串并案</div>
-=======
+
 					<div class="col-12" style="padding-top: 10px; padding-bottom: 10px">
 						<button type="submit" class="btn btn-primary radius size-L" id="capture" 
 							name="">
@@ -204,7 +201,7 @@
 						style="border-bottom: solid 2px #2DABF7">
 						串并案
 					</div>
->>>>>>> origin/master
+
 					<div class="col-12" style="padding-top: 10px; padding-bottom: 10px">
 						<div style="padding-bottom: 20px">
 							<form action="injurycaseAction!loadcba" method="post">
