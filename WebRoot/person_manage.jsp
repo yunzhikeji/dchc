@@ -40,12 +40,12 @@
 	<body>
 		<nav class="breadcrumb">
 		<i class="Hui-iconfont">&#xe67f;</i> 首页
-		<span class="c-gray en">&gt;</span><s:property value="pageTileName"/>
+		<span class="c-gray en">&gt;</span>
+		<s:property value="pageTileName" />
 		<a class="btn btn-success radius r mr-20"
 			style="line-height: 1.6em; margin-top: 3px"
 			href="javascript:location.replace(location.href);" title="刷新"><i
-			class="Hui-iconfont">&#xe68f;</i>
-		</a>
+			class="Hui-iconfont">&#xe68f;</i> </a>
 		</nav>
 
 		<div class="pd-20">
@@ -75,11 +75,13 @@
 						<tr>
 							<td colspan="2" align="right">
 								录入时间：
-								<input type="text" name="starttime" value="<s:property value="starttime"/>"
+								<input type="text" name="starttime"
+									value="<s:property value="starttime"/>"
 									onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\')||\'%y-%M-%d\'}'})"
 									id="logmin" class="input-text Wdate" style="width: 150px;">
 								-
-								<input type="text" name="endtime" value="<s:property value="endtime"/>"
+								<input type="text" name="endtime"
+									value="<s:property value="endtime"/>"
 									onFocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\')}',maxDate:'%y-%M-%d'})"
 									id="endtime" class="input-text Wdate" style="width: 150px;">
 							</td>
@@ -98,19 +100,27 @@
 				</form>
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
-					<span class="l"><a href="javascript:;" onclick="deleteAllCheckedPersons();"
-						class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>
-							批量删除</a> <a class="btn btn-primary radius"
-						onclick="childPageFull('新增<s:property value="pageTileName"/>','personAction!goToAdd?type=<s:property value="type"/>')" href="javascript:;"><i
-							class="Hui-iconfont">&#xe600;</i> 新增<s:property value="pageTileName"/></a><s:if test="type==15"> <a class="btn btn-primary radius"
-						onclick="childPageFull('新增<s:property value="pageTileName"/>','personAction!importExcel')" href="javascript:;"><i
-							class="Hui-iconfont">&#xe600;</i> 批量导入<s:property value="pageTileName"/></a> </s:if></span>
-					
-					
-					<span class="r">共有数据：<strong><s:property
-								value="totalCount" />
-					</strong> 条</span>
-				</div>
+				<span class="l"><a href="javascript:;"
+					onclick="deleteAllCheckedPersons();" class="btn btn-danger radius"><i
+						class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a
+					class="btn btn-primary radius"
+					onclick="childPageFull('新增<s:property value="pageTileName"/>','personAction!goToAdd?type=<s:property value="type"/>')"
+					href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 新增<s:property
+							value="pageTileName" />
+				</a>
+				<s:if test="type==15">
+						<a class="btn btn-primary radius"
+							onclick="childPageFull('新增<s:property value="pageTileName"/>','personAction!importExcel')"
+							href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 批量导入<s:property
+								value="pageTileName" />
+						</a>
+					</s:if>
+				</span>
+
+
+				<span class="r">共有数据：<strong><s:property
+							value="totalCount" /> </strong> 条</span>
+			</div>
 			<table class="table table-border table-bordered table-hover table-bg">
 				<thead>
 					<tr class="text-c">
@@ -145,62 +155,69 @@
 				</thead>
 				<tbody>
 					<s:iterator value="persons" var="person" status="status">
-							<tr class="text-c va-m">
-								<td>
-									<input name="indexID" class="indexID" type="checkbox" value="<s:property value="id"/>">
-								</td>
-								<td>
-										<s:property value="#status.index+1+(page-1)*10" />
-								</td>
-								<td>
+						<tr class="text-c va-m">
+							<td>
+								<input name="indexID" class="indexID" type="checkbox"
+									value="<s:property value="id"/>">
+							</td>
+							<td>
+								<s:property value="#status.index+1+(page-1)*10" />
+							</td>
+							<td>
+								<a style="text-decoration: none" class="ml-5"
+									onclick="childPageFull('查看人员','personAction!view?id=<s:property value="id"/>')"
+									href="javascript:;" title="查看"><s:property value="name" />
+								</a>
+							</td>
+							<td>
+								<s:if test="type==1">赌博人员</s:if>
+								<s:if test="type==2">涉恶人员</s:if>
+								<s:if test="type==3">涉黄人员</s:if>
+								<s:if test="type==4">食药环人员</s:if>
+								<s:if test="type==5">涉毒人员</s:if>
+								<s:if test="type==6">留置盘问</s:if>
+								<s:if test="type==7">侵财人员</s:if>
+								<s:if test="type==8">刑事传唤</s:if>
+								<s:if test="type==9">负案在逃人员</s:if>
+								<s:if test="type==10">维稳人员</s:if>
+								<s:if test="type==11">失踪人员</s:if>
+								<s:if test="type==12">侵财人员分析</s:if>
+								<s:if test="type==13">技术比中人员</s:if>
+								<s:if test="type==14">普通线索</s:if>
+								<s:if test="type==15">社会人员</s:if>
+							</td>
+							<td>
+								<s:property value="userRole.unit.name" />
+							</td>
+							<td>
+								<s:property value="userRole.realname" />
+							</td>
+							<td>
+								<s:property value="joinDate" />
+							</td>
+							<td>
+								<s:if test="handleState==0">未办理</s:if>
+								<s:if test="handleState==1">未办理</s:if>
+								<s:if test="handleState==2">在办理</s:if>
+								<s:if test="handleState==3">已完结</s:if>
+
+							</td>
+							<td class="td-manage">
+								<a style="text-decoration: none" class="ml-5"
+									onclick="childPageFull('编辑人员','personAction!load?id=<s:property value="id"/>&type=<s:property value="type" />')"
+									href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i>
+								</a>
+
+								<s:if test="#session.userRoleo.userLimit==0">
 									<a style="text-decoration: none" class="ml-5"
-										onclick="childPageFull('查看人员','personAction!view?id=<s:property value="id"/>')"
-										href="javascript:;" title="查看"><s:property value="name" /></a>
-								</td>
-								<td>
-									<s:if test="type==1">赌博人员</s:if>
-									<s:if test="type==2">涉恶人员</s:if>
-									<s:if test="type==3">涉黄人员</s:if>
-									<s:if test="type==4">食药环人员</s:if>
-									<s:if test="type==5">涉毒人员</s:if>
-									<s:if test="type==6">留置盘问</s:if>
-									<s:if test="type==7">侵财人员</s:if>
-									<s:if test="type==8">刑事传唤</s:if>
-									<s:if test="type==9">负案在逃人员</s:if>
-									<s:if test="type==10">维稳人员</s:if>
-									<s:if test="type==11">失踪人员</s:if>
-									<s:if test="type==12">侵财人员分析</s:if>
-									<s:if test="type==13">技术比中人员</s:if>
-									<s:if test="type==14">普通线索</s:if>
-									<s:if test="type==15">社会人员</s:if>
-								</td>
-								<td>
-									<s:property value="userRole.unit.name" />
-								</td>
-								<td>
-									<s:property value="userRole.realname" />
-								</td>
-								<td>
-									<s:property value="joinDate" />
-								</td>
-								<td>
-									<s:if test="handleState==0">未办理</s:if>
-									<s:if test="handleState==1">未办理</s:if>
-									<s:if test="handleState==2">在办理</s:if>
-									<s:if test="handleState==3">已完结</s:if>
-									
-								</td>
-								<td class="td-manage">
-									<a style="text-decoration: none" class="ml-5"
-										onclick="childPageFull('编辑人员','personAction!load?id=<s:property value="id"/>&type=<s:property value="type" />')"
-										href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i>
-									</a>
-									<a style="text-decoration: none" class="ml-5"
-										href="personAction!delete?id=<s:property value="id" />&type=<s:property value="type" />" onclick="return confirm('你确定删除该信息吗？')"
-										title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
-								</td>
-							</tr>
-						</s:iterator>
+										href="personAction!delete?id=<s:property value="id" />&type=<s:property value="type" />"
+										onclick="return confirm('你确定删除该信息吗？')" title="删除"><i
+										class="Hui-iconfont">&#xe6e2;</i> </a>
+								</s:if>
+
+							</td>
+						</tr>
+					</s:iterator>
 				</tbody>
 			</table>
 			<ul class="forminfo" style="line-height: 40px; font-size: 14px;">
