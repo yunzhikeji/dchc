@@ -6,7 +6,14 @@ $(document).ready(function() {
 	});
 	
 	
-	
+	$(".indexID").click(function(){
+		var indexID = $(this).val();
+		var series = $("#series"+indexID).html();
+		if(series!=undefined&&series.replace(""," ")!="")
+		{	
+			$("#series").val(series);
+		}
+	});
 	
 
 
@@ -26,15 +33,80 @@ function changeVideo(id)
 }
 
 
+
+function handleInjurycaseSeries()
+{
+	var series = $("#series").val();
+	var id = $("#injurycaseId").val();
+	
+	if(series==''||series==null)
+	{
+		alert("串并案系列名称不能为空");
+		return false;
+	}
+	if(confirm('你确定串并这些案件为同一系列案件吗？'))
+	{
+		var checkedIDs='';
+		for(var i =0;i<$(".indexID").length;i++)
+		{
+			if($(".indexID")[i].checked)
+			{
+				checkedIDs = checkedIDs+$(".indexID")[i].value+",";
+			}
+		}
+		console.log(checkedIDs);
+		console.log(series);
+		console.log(id);
+		$.ajax({   
+			            url:'handleInjurycaseSeries',//这里是你的action或者servlert的路径地址   
+			            type:'post', //数据发送方式   
+			            async:false,
+			            data: {"checkedIDs":checkedIDs,"series":series,"id":id},
+			            dataType:'json',
+			            error: function(msg)
+			            { //失败   
+			            	console.log('操作失败.');   
+			            },   
+			            success: function(msg)
+			            { //成功
+			            	alert(msg.message);
+			            	location.replace(location.href);
+						}
+					});
+	}
+	
+	
+}
+
+
 function getCheckVal()
 {
-	var checkedIDs='';
-	for(var i =0;i<$(".indexID").length;i++)
+	if(confirm('你确定串并这些案件吗？'))
 	{
-		if($(".indexID")[i].checked)
+		var checkedIDs='';
+		for(var i =0;i<$(".indexID").length;i++)
 		{
-			checkedIDs = checkedIDs+$(".indexID")[i].value+",";
+			if($(".indexID")[i].checked)
+			{
+				checkedIDs = checkedIDs+$(".indexID")[i].value+",";
+			}
 		}
+		$.ajax({   
+			            url:'deleteUnits',//这里是你的action或者servlert的路径地址   
+			            type:'post', //数据发送方式   
+			            async:false,
+			            data: {"checkedIDs":checkedIDs},
+			            dataType:'json',
+			            error: function(msg)
+			            { //失败   
+			            	console.log('删除失败.');   
+			            },   
+			            success: function(msg)
+			            { //成功
+			            	alert(msg.message);
+			            	location.replace(location.href);
+						}
+					});
 	}
 }
 

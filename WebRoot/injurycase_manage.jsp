@@ -163,6 +163,7 @@
 							<td>
 								<s:if test="itype==1">一般案件</s:if>
 								<s:if test="itype==2">重伤案件</s:if>
+								<s:if test="itype==3">团伙系列案件</s:if>
 							</td>
 							<td>
 								<s:property value="userRole.unit.name" />

@@ -54,8 +54,8 @@
 					</div>
 					<div style="width: 1800px; overflow: hidden">
 						<div class="index-slider-content clearfix">
-							<video width="1000" src="<%=basePath%>${mediaVideos[0].src}" 
-								height="562" id="swf_play" style="visibility: visible;" 
+							<video width="1000" src="<%=basePath%>${mediaVideos[0].src}"
+								height="562" id="swf_play" style="visibility: visible;"
 								controls="controls"></video>
 							<div class="small-pic-container">
 								<div id="tab_demo0511" class="HuiTab0511">
@@ -110,7 +110,6 @@
 															</h6>
 														</div>
 													</li>
-
 												</s:iterator>
 											</ul>
 										</div>
@@ -136,137 +135,187 @@
 							<i class="Hui-iconfont">&#xe6d7;</i>
 						</button>
 					</div>
-					<div class="col-12 mb-10 c-primary f-16"
-						style="border-bottom: solid 2px #ddd; color: #999">
+					<div class="col-12 mb-10  c-primary f-16"
+						style="border-bottom: solid 2px #2DABF7">
 						串并案
 					</div>
 					<div class="col-12" style="padding-top: 10px; padding-bottom: 10px">
 						<div style="padding-bottom: 20px">
-							<label class="text-r">
-								关键字：
-							</label>
-							<s:textfield cssClass="input-text radius size-M " name="keyword"
-								id="keyword" cssStyle="width: 200px">
-							</s:textfield>
-							<button type="button" class="btn btn-primary radius  ml-5" id=""
-								name="" title="查询">
-								查询
-							</button>
+							<form action="injurycaseAction!loadcba" method="post">
+								<label class="text-r">
+									案件查询关键字：
+								</label>
+								<s:textfield cssClass="input-text radius size-M " name="keyword"
+									id="keyword" cssStyle="width: 200px">
+								</s:textfield>
+								<input type="hidden" name="id" id="injurycaseId"
+									value="<s:property value="injurycase.id"/>" />
+								<button type="submit" class="btn btn-primary radius  ml-5" id=""
+									name="" title="查 询">
+									查询
+								</button>
+							</form>
+						</div>
+
+						<div style="padding-bottom: 20px">
 							<label class="text-r">
 								串并案系列名称：
 							</label>
-							<s:textfield cssClass="input-text radius size-M " name="series"
-								id="series" cssStyle="width: 200px">
+							<s:textfield name="injurycase.series"
+								cssClass="input-text radius size-M " id="series"
+								cssStyle="width: 200px">
 							</s:textfield>
-							<button type="button" class="btn btn-warning radius  ml-5" id=""
-								name="" title="串并">
+							<button type="button" onclick="handleInjurycaseSeries();"
+								class="btn btn-warning radius  ml-5" id="" name="" title="串并">
 								串并案件
 							</button>
 						</div>
-
-
-						<div style="width: 13%; float: left">
-							<ul id="tjptList">
-								<input name="indexID" class="indexID" type="checkbox"
-									value="<s:property value="id"/>">
-								<li class="pack" index="0" data-stat-role="ck"
-									data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-									<div class="pic">
-										<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-											title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-												src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-										</a>
-										<div class="vtime" style="float: right; margin-bottom: 42px">
-											<i class="bg"></i><em class="di">1:02:20</em>
+						<s:if test="injurycases==null||injurycases.size<1">
+							<div class="col-12 mb-10  c-primary f-16" id="injurycases"
+								style="font-size: 20px; font-family: serif; color: red;">
+								未查询到相关案件
+							</div>
+						</s:if>
+						<s:iterator value="injurycases" var="injurycase" status="status">
+							<div style="width: 20%; float: left">
+								<ul id="tjptList">
+									<li class="pack" index="0" data-stat-role="ck">
+										<div class="pic">
+											<a
+												href="injurycaseAction!loadcba?id=<s:property value="id"/>"
+												title="单个案件" class="link"><img
+													src="<%=basePath%><s:property value="imageCase"/>"> </a>
 										</div>
-									</div>
-									<div class="txt">
-										<h6 class="caption">
-											<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-												href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-												class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-										</h6>
-										<p class="owner">
-											自频道：
-											<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-										</p>
-									</div>
-
-								</li>
-							</ul>
-						</div>
-						<div style="width: 13%; float: left">
-
-							<ul id="tjptList">
-								<input type="checkbox" class="check-box" id="checkbox-1"
-									style="z-index: 99">
-								<li class="pack" index="0" data-stat-role="ck"
-									data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-									<div class="pic">
-										<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-											title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-												src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-										</a>
-										<div class="vtime" style="float: right; margin-bottom: 42px">
-											<i class="bg"></i><em class="di">1:02:20</em>
+										<div class="txt">
+											<h6 class="caption">
+												案件名称：
+												<s:property value="caseName" />
+											</h6>
+											<p class="owner">
+												<s:if test="isRelated==1">
+													串并案系列名称：<span class="video-cate"
+														id="series<s:property value="id"/>"><s:property
+															value="series" /> </span>
+												</s:if>
+												<s:else>
+										未串并
+									</s:else>
+											</p>
 										</div>
-									</div>
-									<div class="txt">
-										<h6 class="caption">
-											<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-												href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-												class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-										</h6>
-										<p class="owner">
-											自频道：
-											<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-										</p>
-									</div>
-
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-12 mb-10 c-primary f-16"
-						style="border-bottom: solid 2px #ddd; color: #999">
-						已串并案
-					</div>
-					<div class="col-12" style="padding-top: 10px; padding-bottom: 10px">
-						<div style="width: 13%; float: left">
-
-							<ul id="tjptList">
-								<li class="pack" index="0" data-stat-role="ck"
-									data-stat-href="http://www.tudou.com/programs/view/J1czfHrgg-0/">
-									<div class="pic">
-										<a href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-											title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊" class="link"><img
-												src="http://g2.tdimg.com/f5e448863e1c8042d0f3ba1909805dc9/t_2.jpg">
-										</a>
-										<div class="vtime" style="float: right; margin-bottom: 42px">
-											<i class="bg"></i><em class="di">1:02:20</em>
+										<div style="text-align: center;">
+											<input name="indexID" class="indexID" type="checkbox"
+												class="indexID" value="<s:property value="id"/>">
 										</div>
-									</div>
-									<div class="txt">
-										<h6 class="caption">
-											<a title="邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊"
-												href="http://www.tudou.com/programs/view/J1czfHrgg-0/"
-												class="link">邵东跳跳乐中老年第十套健身操 2721919 邵东浪漫花屋 影尚传媒黄磊</a>
-										</h6>
-										<p class="owner">
-											自频道：
-											<a href="/home/_414378900" target="_blank">小土豆414378900</a>
-										</p>
-									</div>
+									</li>
+								</ul>
+							</div>
+						</s:iterator>
 
-								</li>
-							</ul>
+
+						<div class="col-12 mb-10  c-primary f-16"
+							style="border-bottom: solid 2px #2DABF7">
+							已串并案件
 						</div>
+						<s:if test="injurycaseSeries==null||injurycaseSeries.size<1">
+							<div class="col-12 mb-10  c-primary f-16" id="injurycaseSeries"
+								style="font-size: 20px; font-family: serif; color: red;">
+								没有已串并案件
+							</div>
+						</s:if>
+						<s:iterator value="injurycaseSeries" var="injurycase"
+							status="status">
+							<div style="width: 20%; float: left">
+								<ul id="tjptList">
+									<li class="pack" index="0" data-stat-role="ck">
+										<div class="pic">
+											<a
+												href="injurycaseAction!loadcba?id=<s:property value="id"/>"
+												title="单个案件" class="link"><img
+													src="<%=basePath%><s:property value="imageCase"/>"> </a>
+										</div>
+										<div class="txt">
+											<h6 class="caption">
+												<s:property value="caseName" />
+											</h6>
+											<p class="owner">
+												<s:if test="isRelated==1">
+													串并案系列名称：<span class="video-cate"><s:property
+															value="series" /> </span>
+												</s:if>
+												<s:else>
+										未串并
+									</s:else>
+											</p>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</s:iterator>
 
 						<div class="col-12 mb-10  c-primary f-16"
 							style="border-bottom: solid 2px #2DABF7">
 							案件基本信息
 						</div>
 						<div class="row cl">
+							<div class="row cl mb-10">
+								<div class="col-2">
+									<label class="form-label text-r">
+										案件照片：
+									</label>
+								</div>
+								<div class="col-4">
+									<img id="myimage1" src="<%=basePath%>${injurycase.imageCase}"
+										class="img-responsive thumbnail" width="176px" height="220px"
+										alt="暂无案件图片" />
+								</div>
+								<div class="col-2">
+									<label class="form-label text-r">
+										串并案系列名称：
+									</label>
+								</div>
+								<div class="col-4">
+									<s:textfield name="injurycase.series"
+										cssClass="input-text radius size-M " cssStyle="width: 200px;"
+										readonly="true"></s:textfield>
+								</div>
+							</div>
+							<div class="row cl mb-10">
+								<div class="col-2">
+									<label class="form-label text-r">
+										是否串并案：
+									</label>
+								</div>
+								<div class="col-4">
+									<s:if test="injurycase.sisRelated==1">
+										<s:textfield value="是" cssClass="input-text radius size-M "
+											cssStyle="width: 200px;" readonly="true"></s:textfield>
+									</s:if>
+									<s:else>
+										<s:textfield value="否" cssClass="input-text radius size-M "
+											cssStyle="width: 200px;" readonly="true"></s:textfield>
+									</s:else>
+								</div>
+								<div class="col-2">
+									<label class="form-label text-r">
+										案件分类：
+									</label>
+								</div>
+								<div class="col-4">
+									<s:if test="injurycase.itype==1">
+										<s:textfield value="一般案件" cssClass="input-text radius size-M "
+											cssStyle="width: 200px;" readonly="true"></s:textfield>
+									</s:if>
+									<s:if test="injurycase.itype==2">
+										<s:textfield value="重伤案件" cssClass="input-text radius size-M "
+											cssStyle="width: 200px;" readonly="true"></s:textfield>
+									</s:if>
+									<s:if test="injurycase.itype==3">
+										<s:textfield value="团伙系列案件"
+											cssClass="input-text radius size-M " cssStyle="width: 200px;"
+											readonly="true"></s:textfield>
+									</s:if>
+								</div>
+							</div>
 							<div class="row cl mb-10">
 								<div class="col-2">
 									<label class="form-label text-r">

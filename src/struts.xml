@@ -210,6 +210,8 @@
 	<package name="injurycase_json" extends="json-default">
 		<action name="deleteInjurycases" class="injurycaseAction"
 			method="deleteInjurycases" />
+		<action name="handleInjurycaseSeries" class="injurycaseAction"
+			method="handleInjurycaseSeries" />
 	</package>
 
 

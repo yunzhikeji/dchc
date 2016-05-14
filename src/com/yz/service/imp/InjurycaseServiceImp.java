@@ -321,16 +321,16 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		return injurycaseDao.queryList(queryString);
 	}
 
-	public List<Injurycase> queryInjurycaseBySeries(String series) {
-		String queryString = "from Injurycase mo where mo.series=:series and mo.isRelated=1";
+	public List<Injurycase> queryInjurycaseBySeries(String series, int id) {
+		String queryString = "from Injurycase mo where mo.series=:series and mo.isRelated=1 and mo.id!="+id;
 		String[] paramNames = new String[] { "series" };
 		Object[] values = new Object[] { series };
 		return injurycaseDao.queryList(queryString, paramNames, values);
 	}
 
-	public List<Injurycase> queryInjurycaseByKeyword(String param) {
+	public List<Injurycase> queryInjurycaseByKeyword(String param,int id) {
 
-		String queryString = "from Injurycase mo where mo.isRelated=0 ";
+		String queryString = "from Injurycase mo where  mo.id!="+id;
 		Object[] p = null;
 		if (param != null && !param.equals("")) {
 			queryString += "and  (mo.caseNumber like ?  or mo.caseType like ? or mo.caseName like ? ) ";

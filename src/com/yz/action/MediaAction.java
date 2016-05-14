@@ -97,8 +97,28 @@ public class MediaAction extends ActionSupport implements RequestAware,
 			this.upload("/media", imageName, picture1);
 			media.setSrc("media" + "/" + imageName);
 		}
+		
+		if (media.getInjurycase()!= null) {
+			changeInjurycaseHandleState(media.getInjurycase().getId());
+		}
+		
 		mediaService.add(media);
 		return "success_child";
+	}
+	
+	
+	/*
+	 * 修改案件状态
+	 */
+	private void changeInjurycaseHandleState(Integer inid) {
+
+		Injurycase injurycase = injurycaseService.loadById(inid);
+		if (injurycase != null) {
+			if (injurycase.getHandleState() == 1) {
+				injurycase.setHandleState(2);
+				injurycaseService.update(injurycase);
+			}
+		}
 	}
 
 	// 上传视频
