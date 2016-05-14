@@ -156,6 +156,7 @@
 															     // gif在IE浏览器暂时无法显示
 															     if(ext1!='png'&&ext1!='jpg'&&ext1!='jpeg'){
 															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
+															          file1.value=""; 
 															         return;
 															     }
 															     var isIE = navigator.userAgent.match(/MSIE/)!= null,
@@ -195,7 +196,6 @@
 								<tr>
 									<td align="center">
 										<s:file name="picture1"
-											cssClass="btn btn-primary radius mt-10"
 											accept="image/jpeg,image/png,image/jpg" onchange="change1();"
 											id="myfile1"></s:file>
 									</td>
@@ -216,7 +216,8 @@
 															    var ext2=file2.value.substring(file2.value.lastIndexOf(".")+1).toLowerCase();
 															     // gif在IE浏览器暂时无法显示
 															     if(ext2!='png'&&ext2!='jpg'&&ext2!='jpeg'){
-															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
+															         alert("图片的格式必须为png或者jpg或者jpeg格式！");
+															          file2.value="";  
 															         return;
 															     }
 															     var isIE = navigator.userAgent.match(/MSIE/)!= null,
@@ -254,7 +255,6 @@
 								<tr>
 									<td align="center">
 										<s:file name="picture2"
-											cssClass="btn btn-primary radius mt-10"
 											accept="image/jpeg,image/png,image/jpg" onchange="change2();"
 											id="myfile2"></s:file>
 									</td>
@@ -276,6 +276,7 @@
 															     // gif在IE浏览器暂时无法显示
 															     if(ext3!='png'&&ext3!='jpg'&&ext3!='jpeg'){
 															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
+															          file3.value=""; 
 															         return;
 															     }
 															     var isIE = navigator.userAgent.match(/MSIE/)!= null,
@@ -313,7 +314,6 @@
 								<tr>
 									<td align="center">
 										<s:file name="picture3"
-											cssClass="btn btn-primary radius mt-10"
 											accept="image/jpeg,image/png,image/jpg" onchange="change3();"
 											id="myfile3"></s:file>
 									</td>
