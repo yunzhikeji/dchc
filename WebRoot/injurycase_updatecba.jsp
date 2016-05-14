@@ -176,14 +176,11 @@
 							<i class="Hui-iconfont">&#xe6d7;</i>
 						</button>
 					</div>
-<<<<<<< HEAD
 					<div id="output"></div>
 					<div class="col-12 mb-10 c-primary f-16"
 						style="border-bottom: solid 2px #ddd; color: #999">
-=======
 					<div class="col-12 mb-10  c-primary f-16"
 						style="border-bottom: solid 2px #2DABF7">
->>>>>>> origin/master
 						串并案
 					</div>
 					<div class="col-12" style="padding-top: 10px; padding-bottom: 10px">

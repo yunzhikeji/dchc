@@ -9,7 +9,9 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -48,6 +50,7 @@ import com.yz.service.IUserRoleService;
 import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
+import com.yz.vo.InjurycaseVO;
 import com.yz.vo.UnitVO;
 
 @Component("injurycaseAction")
@@ -115,6 +118,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 	// list表对象
 	private List<Injurycase> injurycases;
+	private List<InjurycaseVO> injurycaseVOs;
 	private List<Otherperson> tars;// 同案人员
 	private List<Media> medias;
 	private List<Judge> judges;
@@ -178,7 +182,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		// 所有当前页记录对象
 		injurycases = injurycaseService.queryList(con, convalue, userRole,
 				page, size, itype, queryState, starttime, endtime);
-
+		
 		return "list";
 	}
 
@@ -475,7 +479,37 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		// 所有当前页记录对象
 		injurycases = injurycaseService.queryList(con, convalue, userRole,
 				page, 9, queryState, starttime, endtime);
-
+		
+		if(injurycases!=null&&injurycases.size()>0)
+		{
+			injurycaseVOs = new ArrayList<InjurycaseVO>();
+			for (int i = 0; i < injurycases.size(); i++) {
+				InjurycaseVO injurycaseVO = new InjurycaseVO();
+				int vNumber = 0;
+				int iNumber = 0;
+				injurycaseVO.setId(injurycases.get(i).getId());
+				injurycaseVO.setCaseName(injurycases.get(i).getCaseName());
+				injurycaseVO.setHandleState(injurycases.get(i).getHandleState());
+				injurycaseVO.setImageCase(injurycases.get(i).getImageCase());
+				injurycaseVO.setIsRelated(injurycases.get(i).getIsRelated());
+				injurycaseVO.setSeries(injurycases.get(i).getSeries());
+				injurycaseVO.setStartTime(injurycases.get(i).getStartTime());
+				injurycaseVO.setUserRole(injurycases.get(i).getUserRole());
+				for(Media media:injurycases.get(i).getMedias())
+				{
+					if(media.getMtype()==1)
+					{
+						vNumber++;
+					}else if(media.getMtype()==0)
+					{
+						iNumber++;
+					}
+				}
+				injurycaseVO.setVideoNumber(vNumber);
+				injurycaseVO.setImageNumher(iNumber);
+				injurycaseVOs.add(injurycaseVO);
+			}
+		}
 		return "listcba";
 	}
 
@@ -1035,5 +1069,15 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	public void setInjurycaseSeries(List<Injurycase> injurycaseSeries) {
 		this.injurycaseSeries = injurycaseSeries;
 	}
+
+	public List<InjurycaseVO> getInjurycaseVOs() {
+		return injurycaseVOs;
+	}
+
+	public void setInjurycaseVOs(List<InjurycaseVO> injurycaseVOs) {
+		this.injurycaseVOs = injurycaseVOs;
+	}
+	
+	
 
 }
