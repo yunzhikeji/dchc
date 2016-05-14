@@ -604,7 +604,10 @@
 
 						<s:hidden name="clue.ctype" title="线索类型"></s:hidden>
 						<s:hidden name="clue.id" title="线索id"></s:hidden>
+						
+						<s:if test="clue.userRole!=null">
 						<s:hidden name="clue.userRole.id" title="线索子表userRoleid"></s:hidden>
+						</s:if>
 						<s:hidden name="clue.handleState" title="办理状态"></s:hidden>
 						<s:hidden name="clue.joinDate" title="录入时间"></s:hidden>
 						<script type="text/javascript">

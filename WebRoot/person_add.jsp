@@ -1341,7 +1341,7 @@
 															     // gif在IE浏览器暂时无法显示
 															     if(ext3!='png'&&ext3!='jpg'&&ext3!='jpeg'){
 															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
-															         file1.value="";
+															         file3.value="";
 															         return;
 															     }
 															     var isIE = navigator.userAgent.match(/MSIE/)!= null,

@@ -359,7 +359,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			// pageName = "留置盘问";
 		case 7:
 			// pageName = "侵财人员";
-
 		case 8:
 			// pageName = "刑事传唤";
 			if (gamblingCriminalMan == null) {

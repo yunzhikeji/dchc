@@ -57,7 +57,7 @@
 				<div style="width: 100%">
 					<div id="tab_demo" class="HuiTab">
 						<div class="tabBar cl">
-							<span>信息录入</span>
+							<span>信息录入123123</span>
 						</div>
 						<div class="tabCon">
 							<div class="row cl text-c">
@@ -109,7 +109,7 @@
 															     // gif在IE浏览器暂时无法显示
 															     if(ext!='png'&&ext!='jpg'&&ext!='jpeg'){
 															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
-															         file1.value="";
+															         file.value="";
 															         return;
 															     }
 															     var isIE = navigator.userAgent.match(/MSIE/)!= null,

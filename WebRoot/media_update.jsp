@@ -82,11 +82,9 @@
 								id="myfile1"></s:file>
 							<script type="text/javascript">
 								function change1() {
-									 console.log("change1 is defined");
 								   var     file1 = document.getElementById("myfile1");
 								    var ext1=file1.value.substring(file1.value.lastIndexOf(".")+1).toLowerCase();
 								     // gif在IE浏览器暂时无法显示
-								     console.log(ext1);
 								     if(ext1!='mp4'&&ext1!='avi'){
 								         alert("视频的格式必须为mp4或者avi！");
 								         file1.value=""; 

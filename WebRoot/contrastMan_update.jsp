@@ -700,7 +700,9 @@ function article_save(obj,id){
 				<s:hidden name="contrastMan.criminalRecordPhoto" title="前科照片"></s:hidden>
 				<s:hidden name="person.type" title="人员类型"></s:hidden>
 				<s:hidden name="person.id" title="人员id"></s:hidden>
-				<s:hidden name="person.userRole.id" title="人员子表userRoleid"></s:hidden>
+				<s:if test="person.userRole!=null">
+					<s:hidden name="person.userRole.id" title="人员子表userRoleid"></s:hidden>
+				</s:if>
 				<s:hidden name="person.photoImg" title="人员照片"></s:hidden>
 				<s:hidden name="person.handleState" title="办理状态"></s:hidden>
 				<s:hidden name="person.joinDate" title="录入时间"></s:hidden>

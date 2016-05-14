@@ -81,7 +81,6 @@
 								function change1() {
 								   var     file1 = document.getElementById("myfile1");
 								    var ext1=file1.value.substring(file1.value.lastIndexOf(".")+1).toLowerCase();
-								    alert(ext1);
 								     // gif在IE浏览器暂时无法显示
 								     if(ext1!='mp4'&&ext1!='avi'){
 								         alert("视频的格式必须为mp4或者avi！");
