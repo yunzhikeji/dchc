@@ -57,6 +57,10 @@ function handleInjurycaseSeries()
 		console.log(checkedIDs);
 		console.log(series);
 		console.log(id);
+		if(checkedIDs=='')
+		{
+			return false;
+		}
 		$.ajax({   
 			            url:'handleInjurycaseSeries',//这里是你的action或者servlert的路径地址   
 			            type:'post', //数据发送方式   

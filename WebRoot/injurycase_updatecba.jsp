@@ -233,7 +233,7 @@
 									</s:else>
 											</p>
 										</div>
-										<div style="text-align: center;">
+										<div style="text-align: center;height: 10%;" >
 											<input name="indexID" class="indexID" type="checkbox"
 												class="indexID" value="<s:property value="id"/>">
 										</div></li>
@@ -287,7 +287,7 @@
 								</div>
 								<div class="col-4">
 									<img id="myimage1" src="<%=basePath%>${injurycase.imageCase}"
-										class="img-responsive thumbnail" width="176px" height="220px"
+										class="img-responsive thumbnail" width="200px" height="auto"
 										alt="暂无案件图片" />
 								</div>
 								<div class="col-2">
