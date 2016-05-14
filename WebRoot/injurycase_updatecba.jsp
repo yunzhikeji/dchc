@@ -42,6 +42,47 @@
 		<title>串并案</title>
 		<script type="text/javascript">
 			var mediaVideos=<s:property value="mediaVideos" escape="false" />;
+			
+			  function cp() {
+		            var video = document.getElementById("swf_play");
+		            var button = document.getElementById("play");
+		            if(video.paused) {
+		                video.play();
+		                button.textContent ="||";
+		            }else{
+		                video.pause();
+		                button.textContent =">";
+		            }
+		        }
+		        function restart() {var video = document.getElementById("swf_play");
+		            video.currentTime = 0;
+		        }function skip(value) {var video = document.getElementById("swf_play");
+		            video.currentTime += value;
+		        };
+
+		     (function() {
+		  "use strict";
+		  var video, $output;
+		  var scale = 0.25;
+		  var initialize = function() {
+		    $output = $("#output");
+		    video = $("#swf_play").get(0);
+		    $("#capture").click(captureImage);        
+		  };
+		  var captureImage = function() {
+		    var canvas = document.createElement("canvas");
+		    canvas.width = video.videoWidth * scale;
+		    canvas.height = video.videoHeight * scale;
+		    canvas.getContext('2d')
+		       .drawImage(video, 0, 0, canvas.width, canvas.height);
+		    var img = document.createElement("img");
+		    img.src = canvas.toDataURL();
+		    $output.prepend(img);
+		    window.showModalDialog("a2.html",img,"status:no;resizable:yes;dialogHeight:400px;dialogWidth:500px;unadorne:yes;help:no");
+		  };
+		  $(initialize);      
+		}());
+
 		</script>
 	</head>
 	<body>
@@ -121,21 +162,22 @@
 					</div>
 
 					<div class="col-12" style="padding-top: 10px; padding-bottom: 10px">
-						<button type="submit" class="btn btn-primary radius size-L" id=""
+						<button type="submit" class="btn btn-primary radius size-L" id="capture" 
 							name="">
-							<i class="Hui-iconfont">&#xe6df;</i> 编辑
+							<i class="Hui-iconfont">&#xe6df;</i> 截图
 						</button>
 						&nbsp;
 						<button type="submit" class="btn btn-success radius size-L" id=""
-							name="">
+							name="" onclick="skip(-10)">
 							<i class="Hui-iconfont">&#xe6d4;</i>
 						</button>
 						&nbsp;
 						<button type="submit" class="btn btn-success radius size-L" id=""
-							name="">
+							name="" onclick="skip(10)">
 							<i class="Hui-iconfont">&#xe6d7;</i>
 						</button>
 					</div>
+					<div id="output"></div>
 					<div class="col-12 mb-10 c-primary f-16"
 						style="border-bottom: solid 2px #ddd; color: #999">
 						串并案

@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title>a.html</title>
+	
+    <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+    <meta http-equiv="description" content="this is my page">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  </head>
+  <script language="JavaScript">
+  		function openWin(){
+			/*
+			 * window.showModalDialog(sURL,vArguments,sFeatures)
+			 * 		* 现实弹出窗口
+			 * 		* sURL：字符串(String)。指定要载入和显示的 URL 。请求路径
+			 * 		* vArguments：指定供显示文档时使用的变量。利用这个参数可以传递任何类型的值，包括包含多个值得的数组。
+			 * 						是可以任何类型的参数。
+			 * 		* sFeatures：字符串(String)。指定对话框的窗口装饰。
+			 */
+			window.showModalDialog("a2.html",window,"status:no;resizable:yes;dialogHeight:210px;dialogWidth:360px;unadorne:yes;help:no");
+		}
+  
+  </script>
+  
+  <body>
+	   <form name="form1" action="test.html" method="post" >
+  	   	     客户id: <input type="text" name="cid" value=""  id="cid"  ><br>
+		    客户名称<input type="text" name="cname" value=""  id="cname"  >
+		  <input type="button" name="ok" value="请选择客户" onclick="openWin();"/>
+  	   </form>
+</body>
+  
+</html>
