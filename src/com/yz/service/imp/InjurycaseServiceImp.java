@@ -322,7 +322,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 	}
 
 	public List<Injurycase> queryInjurycaseBySeries(String series) {
-		String queryString = "from Injurycase mo where mo.series=:series";
+		String queryString = "from Injurycase mo where mo.series=:series and mo.isRelated=1";
 		String[] paramNames = new String[] { "series" };
 		Object[] values = new Object[] { series };
 		return injurycaseDao.queryList(queryString, paramNames, values);

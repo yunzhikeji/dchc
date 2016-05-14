@@ -393,9 +393,11 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		
 		if(series!=null&&!series.replace("", " ").equals(""))
 		{
-			injurycaseSeries = injurycaseService.queryInjurycaseBySeries(series);//获得同系列案件
+			injurycaseSeries = injurycaseService.queryInjurycaseBySeries(series);//获得同系列案件(已串并案)
 		}
 			
+		getInjurycaseByKeyword("");
+		
 		return "load";
 
 	}
@@ -405,6 +407,11 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	{
 		
 		injurycases = injurycaseService.queryInjurycaseByKeyword(keyword);//获得模糊查询未串并的案件
+		
+		if(injurycases!=null&&injurycases.size()>=5)
+		{
+			injurycases = injurycases.subList(0, 6);//获取前五条记录
+		}
 		
 		return injurycases;
 		
