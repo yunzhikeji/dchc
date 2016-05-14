@@ -9,38 +9,38 @@
 %>
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="renderer" content="webkit|ie-comp|ie-stand">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport"
-			content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-		<meta http-equiv="Cache-Control" content="no-siteapp" />
-		<link href="css/cba.css" rel="stylesheet" type="text/css" />
-		<link href="css/H-ui.min.css" rel="stylesheet" type="text/css" />
-		<link href="css/H-ui.admin.css" rel="stylesheet" type="text/css" />
-		<link href="css/style.css" rel="stylesheet" type="text/css" />
-		<link href="css/ncss.css" rel="stylesheet" type="text/css" />
-		<link href="css/cba-add.css" rel="stylesheet" type="text/css" />
-		<link href="css/cba-vd.css" rel="stylesheet" type="text/css" />
-		<link href="lib/Hui-iconfont/1.0.7/iconfont.css" rel="stylesheet"
-			type="text/css" />
-		<link rel="stylesheet"
-			href="lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
-		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
-		<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
-		<script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>
-		<script type="text/javascript"
-			src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-		<script type="text/javascript"
-			src="lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
-		<script type="text/javascript" src="js/H-ui.js"></script>
-		<script type="text/javascript" src="js/H-ui.admin.js"></script>
-		<script type="text/javascript" src="js/pageKit.js"></script>
-		<script type="text/javascript" src="js/checkUtil.js"></script>
-		<script type="text/javascript" src="js/commonUtil.js"></script>
-		<title>串并案</title>
-		<script type="text/javascript">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<link href="css/cba.css" rel="stylesheet" type="text/css" />
+<link href="css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<link href="css/ncss.css" rel="stylesheet" type="text/css" />
+<link href="css/cba-add.css" rel="stylesheet" type="text/css" />
+<link href="css/cba-vd.css" rel="stylesheet" type="text/css" />
+<link href="lib/Hui-iconfont/1.0.7/iconfont.css" rel="stylesheet"
+	type="text/css" />
+<link rel="stylesheet" href="lib/zTree/v3/css/zTreeStyle/zTreeStyle.css"
+	type="text/css">
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript"
+	src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript"
+	src="lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+<script type="text/javascript" src="js/H-ui.js"></script>
+<script type="text/javascript" src="js/H-ui.admin.js"></script>
+<script type="text/javascript" src="js/pageKit.js"></script>
+<script type="text/javascript" src="js/checkUtil.js"></script>
+<script type="text/javascript" src="js/commonUtil.js"></script>
+<title>串并案</title>
+<script type="text/javascript">
 			var mediaVideos=<s:property value="mediaVideos" escape="false" />;
 			
 			  function cp() {
@@ -84,144 +84,129 @@
 		}());
 
 		</script>
-	</head>
-	<body>
-		<div class="pd-20">
-			<div style="width: 100%">
-				<div class="row cl">
-					<div class="col-12 mb-10 c-primary f-16"
-						style="border-bottom: solid 2px #2DABF7">
-						案件视频信息
-					</div>
-					<div style="width: 1800px; overflow: hidden">
-						<div class="index-slider-content clearfix">
-							<video width="1000" src="<%=basePath%>${mediaVideos[0].src}"
-								height="562" id="swf_play" style="visibility: visible;"
-								controls="controls"></video>
-							<div class="small-pic-container">
-								<div id="tab_demo0511" class="HuiTab0511">
-									<div class="tabBar0511 cl">
-										<span style="width: 100px; text-align: center">同案视频</span>
-										<span style="width: 100px; text-align: center">同案图片</span>
+</head>
+<body>
+	<div class="pd-20">
+		<div style="width: 100%">
+			<div class="row cl">
+				<div class="col-12 mb-10 c-primary f-16"
+					style="border-bottom: solid 2px #2DABF7">案件视频信息</div>
+				<div style="width: 1800px; overflow: hidden">
+					<div class="index-slider-content clearfix">
+						<video width="1000" src="<%=basePath%>${mediaVideos[0].src}"
+							height="562" id="swf_play" style="visibility: visible;"
+							controls="controls"></video>
+						<div class="small-pic-container">
+							<div id="tab_demo0511" class="HuiTab0511">
+								<div class="tabBar0511 cl">
+									<span style="width: 100px; text-align: center">同案视频</span> <span
+										style="width: 100px; text-align: center">同案图片</span>
+								</div>
+								<div class="tabCon0511">
+									<div class="ugc_rec" id="secUGC"
+										style="height: 550px; overflow: auto">
+										<ul id="tjptList">
+
+											<s:iterator value="mediaVideos" var="media" status="status">
+												<li class="pack" index="0" data-stat-role="ck">
+													<div class="pic">
+														<a href="javascript:void(0)"
+															onclick="changeVideo(<s:property value="id"/>);"> <video
+																src="<%=basePath%>${src}" width="200px;" height="92px;"></video>
+														</a>
+													</div>
+													<div class="txt">
+														<h6 class="caption">
+															视频名称：
+															<s:property value="title" />
+														</h6>
+														<p class="owner">
+															上传时间：
+															<s:property value="uptime" />
+														</p>
+													</div></li>
+
+											</s:iterator>
+
+										</ul>
 									</div>
-									<div class="tabCon0511">
-										<div class="ugc_rec" id="secUGC"
-											style="height: 550px; overflow: auto">
-											<ul id="tjptList">
-
-												<s:iterator value="mediaVideos" var="media" status="status">
-													<li class="pack" index="0" data-stat-role="ck">
-														<div class="pic">
-															<a href="javascript:void(0)"
-																onclick="changeVideo(<s:property value="id"/>);"> <video
-																	src="<%=basePath%>${src}" width="200px;" height="92px;"></video>
-															</a>
-														</div>
-														<div class="txt">
-															<h6 class="caption">
-																视频名称：
-																<s:property value="title" />
-															</h6>
-															<p class="owner">
-																上传时间：
-																<s:property value="uptime" />
-															</p>
-														</div>
-													</li>
-
-												</s:iterator>
-
-											</ul>
-										</div>
-									</div>
-									<div class="tabCon0511">
-										<div class="ugc_rec" id="secUGC"
-											style="height: 550px; overflow: auto">
-											<ul id="tjptList">
-												<s:iterator value="mediaImages" var="media" status="status">
-													<li class="pack" index="0" data-stat-role="ck">
-														<div class="pic">
-															<video src="<%=basePath%>${src}" width="200px;"
-																height="92px;"></video>
-														</div>
-														<div class="txt">
-															<h6 class="caption">
-																图片名称
-																<s:property value="title" />
-															</h6>
-														</div>
-													</li>
-												</s:iterator>
-											</ul>
-										</div>
+								</div>
+								<div class="tabCon0511">
+									<div class="ugc_rec" id="secUGC"
+										style="height: 550px; overflow: auto">
+										<ul id="tjptList">
+											<s:iterator value="mediaImages" var="media" status="status">
+												<li class="pack" index="0" data-stat-role="ck">
+													<div class="pic">
+														<video src="<%=basePath%>${src}" width="200px;"
+															height="92px;"></video>
+													</div>
+													<div class="txt">
+														<h6 class="caption">
+															图片名称
+															<s:property value="title" />
+														</h6>
+													</div></li>
+											</s:iterator>
+										</ul>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+				</div>
 
-					<div class="col-12" style="padding-top: 10px; padding-bottom: 10px">
-						<button type="submit" class="btn btn-primary radius size-L" id="capture" 
-							name="">
-							<i class="Hui-iconfont">&#xe6df;</i> 截图
-						</button>
-						&nbsp;
-						<button type="submit" class="btn btn-success radius size-L" id=""
-							name="" onclick="skip(-10)">
-							<i class="Hui-iconfont">&#xe6d4;</i>
-						</button>
-						&nbsp;
-						<button type="submit" class="btn btn-success radius size-L" id=""
-							name="" onclick="skip(10)">
-							<i class="Hui-iconfont">&#xe6d7;</i>
-						</button>
-					</div>
-<<<<<<< HEAD
-					<div id="output"></div>
-					<div class="col-12 mb-10 c-primary f-16"
-						style="border-bottom: solid 2px #ddd; color: #999">
-=======
+				<div class="col-12" style="padding-top: 10px; padding-bottom: 10px">
+					<button type="submit" class="btn btn-primary radius size-L"
+						id="capture" name="">
+						<i class="Hui-iconfont">&#xe6df;</i> 截图
+					</button>
+					&nbsp;
+					<button type="submit" class="btn btn-success radius size-L" id=""
+						name="" onclick="skip(-10)">
+						<i class="Hui-iconfont">&#xe6d4;</i>
+					</button>
+					&nbsp;
+					<button type="submit" class="btn btn-success radius size-L" id=""
+						name="" onclick="skip(10)">
+						<i class="Hui-iconfont">&#xe6d7;</i>
+					</button>
+				</div>
+
+				<div id="output"></div>
+				<div class="col-12 mb-10 c-primary f-16"
+					style="border-bottom: solid 2px #ddd; color: #999">
+
 					<div class="col-12 mb-10  c-primary f-16"
-						style="border-bottom: solid 2px #2DABF7">
->>>>>>> origin/master
-						串并案
-					</div>
+						style="border-bottom: solid 2px #2DABF7">串并案</div>
 					<div class="col-12" style="padding-top: 10px; padding-bottom: 10px">
 						<div style="padding-bottom: 20px">
 							<form action="injurycaseAction!loadcba" method="post">
-								<label class="text-r">
-									案件查询关键字：
-								</label>
+								<label class="text-r"> 案件查询关键字： </label>
 								<s:textfield cssClass="input-text radius size-M " name="keyword"
 									id="keyword" cssStyle="width: 200px">
 								</s:textfield>
 								<input type="hidden" name="id" id="injurycaseId"
 									value="<s:property value="injurycase.id"/>" />
 								<button type="submit" class="btn btn-primary radius  ml-5" id=""
-									name="" title="查 询">
-									查询
-								</button>
+									name="" title="查 询">查询</button>
 							</form>
 						</div>
 
 						<div style="padding-bottom: 20px">
-							<label class="text-r">
-								串并案系列名称：
-							</label>
+							<label class="text-r"> 串并案系列名称： </label>
 							<s:textfield name="injurycase.series"
 								cssClass="input-text radius size-M " id="series"
 								cssStyle="width: 200px">
 							</s:textfield>
 							<button type="button" onclick="handleInjurycaseSeries();"
 								class="btn btn-warning radius  ml-5" id="" name="" title="串并">
-								串并案件
-							</button>
+								串并案件</button>
 						</div>
 						<s:if test="injurycases==null||injurycases.size<1">
 							<div class="col-12 mb-10  c-primary f-16" id="injurycases"
 								style="font-size: 20px; font-family: serif; color: red;">
-								未查询到相关案件
-							</div>
+								未查询到相关案件</div>
 						</s:if>
 						<s:iterator value="injurycases" var="injurycase" status="status">
 							<div style="width: 20%; float: left">
@@ -231,7 +216,7 @@
 											<a
 												href="injurycaseAction!loadcba?id=<s:property value="id"/>"
 												title="单个案件" class="link"><img
-													src="<%=basePath%><s:property value="imageCase"/>"> </a>
+												src="<%=basePath%><s:property value="imageCase"/>"> </a>
 										</div>
 										<div class="txt">
 											<h6 class="caption">
@@ -252,22 +237,18 @@
 										<div style="text-align: center;">
 											<input name="indexID" class="indexID" type="checkbox"
 												class="indexID" value="<s:property value="id"/>">
-										</div>
-									</li>
+										</div></li>
 								</ul>
 							</div>
 						</s:iterator>
 
 
 						<div class="col-12 mb-10  c-primary f-16"
-							style="border-bottom: solid 2px #2DABF7">
-							已串并案件
-						</div>
+							style="border-bottom: solid 2px #2DABF7">已串并案件</div>
 						<s:if test="injurycaseSeries==null||injurycaseSeries.size<1">
 							<div class="col-12 mb-10  c-primary f-16" id="injurycaseSeries"
 								style="font-size: 20px; font-family: serif; color: red;">
-								没有已串并案件
-							</div>
+								没有已串并案件</div>
 						</s:if>
 						<s:iterator value="injurycaseSeries" var="injurycase"
 							status="status">
@@ -278,7 +259,7 @@
 											<a
 												href="injurycaseAction!loadcba?id=<s:property value="id"/>"
 												title="单个案件" class="link"><img
-													src="<%=basePath%><s:property value="imageCase"/>"> </a>
+												src="<%=basePath%><s:property value="imageCase"/>"> </a>
 										</div>
 										<div class="txt">
 											<h6 class="caption">
@@ -293,22 +274,17 @@
 										未串并
 									</s:else>
 											</p>
-										</div>
-									</li>
+										</div></li>
 								</ul>
 							</div>
 						</s:iterator>
 
 						<div class="col-12 mb-10  c-primary f-16"
-							style="border-bottom: solid 2px #2DABF7">
-							案件基本信息
-						</div>
+							style="border-bottom: solid 2px #2DABF7">案件基本信息</div>
 						<div class="row cl">
 							<div class="row cl mb-10">
 								<div class="col-2">
-									<label class="form-label text-r">
-										案件照片：
-									</label>
+									<label class="form-label text-r"> 案件照片： </label>
 								</div>
 								<div class="col-4">
 									<img id="myimage1" src="<%=basePath%>${injurycase.imageCase}"
@@ -316,9 +292,7 @@
 										alt="暂无案件图片" />
 								</div>
 								<div class="col-2">
-									<label class="form-label text-r">
-										串并案系列名称：
-									</label>
+									<label class="form-label text-r"> 串并案系列名称： </label>
 								</div>
 								<div class="col-4">
 									<s:textfield name="injurycase.series"
@@ -328,9 +302,7 @@
 							</div>
 							<div class="row cl mb-10">
 								<div class="col-2">
-									<label class="form-label text-r">
-										是否串并案：
-									</label>
+									<label class="form-label text-r"> 是否串并案： </label>
 								</div>
 								<div class="col-4">
 									<s:if test="injurycase.sisRelated==1">
@@ -343,9 +315,7 @@
 									</s:else>
 								</div>
 								<div class="col-2">
-									<label class="form-label text-r">
-										案件分类：
-									</label>
+									<label class="form-label text-r"> 案件分类： </label>
 								</div>
 								<div class="col-4">
 									<s:if test="injurycase.itype==1">
@@ -365,9 +335,7 @@
 							</div>
 							<div class="row cl mb-10">
 								<div class="col-2">
-									<label class="form-label text-r">
-										案件编号：
-									</label>
+									<label class="form-label text-r"> 案件编号： </label>
 								</div>
 								<div class="col-4">
 									<s:textfield id="caseNumber" name="injurycase.caseNumber"
@@ -375,9 +343,7 @@
 										readonly="true"></s:textfield>
 								</div>
 								<div class="col-2">
-									<label class="form-label text-r">
-										案件名称：
-									</label>
+									<label class="form-label text-r"> 案件名称： </label>
 								</div>
 								<div class="col-4">
 									<s:textfield id="caseName" name="injurycase.caseName"
@@ -388,9 +354,7 @@
 						</div>
 						<div class="row cl mb-10">
 							<div class="col-2">
-								<label class="form-label text-r">
-									案发地址：
-								</label>
+								<label class="form-label text-r"> 案发地址： </label>
 							</div>
 							<div class="col-4">
 								<s:textfield name="injurycase.casePlace"
@@ -398,9 +362,7 @@
 									readonly="true"></s:textfield>
 							</div>
 							<div class="col-2">
-								<label class="form-label text-r">
-									案发时间：
-								</label>
+								<label class="form-label text-r"> 案发时间： </label>
 							</div>
 							<div class="col-4">
 								<s:textfield name="injurycase.startTime"
@@ -410,9 +372,7 @@
 						</div>
 						<div class="row cl mb-10">
 							<div class="col-2">
-								<label class="form-label text-r">
-									鉴定人：
-								</label>
+								<label class="form-label text-r"> 鉴定人： </label>
 							</div>
 							<div class="col-4">
 								<s:textfield id="appraiser" name="injurycase.appraiser"
@@ -420,9 +380,7 @@
 									readonly="true"></s:textfield>
 							</div>
 							<div class="col-2">
-								<label class="form-label text-r">
-									联系电话：
-								</label>
+								<label class="form-label text-r"> 联系电话： </label>
 							</div>
 							<div class="col-4">
 								<s:textfield id="telphone" name="injurycase.telphone"
@@ -432,9 +390,7 @@
 						</div>
 						<div class="row cl mb-10">
 							<div class="col-2">
-								<label class="form-label text-r">
-									简要案情：
-								</label>
+								<label class="form-label text-r"> 简要案情： </label>
 							</div>
 							<div class="col-10">
 								<s:textfield name="injurycase.briefCase" cssClass="input-text"
@@ -487,5 +443,5 @@ function article_save(obj,id){
 	});
 }
 </script>
-	</body>
+</body>
 </html>

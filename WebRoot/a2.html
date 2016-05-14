@@ -7,6 +7,9 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 </head>
 <script language="JavaScript">
+var sData = window.dialogArguments;
+window.alert(sData);
+window.document.getElementById("output").appendChild(sData);
 	function viewData(cid, cname) {
 		/*
 		 * 现在要做的就是把a2页面的window对象换成a1页面的window对象
@@ -16,10 +19,10 @@
 		 * 	* sData变量就代表了a1页面的window对象
 		 * 	* sData变量调用相关属性及方法，操作的就是a1页面的元素
 		 */
-		var sData = window.dialogArguments;
+		
+		var sData = window.dialogArguments; 
+		window.document.getElementById("output").appendChild(sData);
 
-		sData.document.getElementById("cid").setAttribute("value", cid);
-		sData.document.getElementById("cname").setAttribute("value", cname);
 
 		window.close();
 
