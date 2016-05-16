@@ -77,7 +77,7 @@
 		       .drawImage(video, 0, 0, canvas.width, canvas.height);
 		    var img = document.createElement("img");
 		    img.src = canvas.toDataURL();
-		    window.showModalDialog("capture.jsp?inid="+inid,img,"status:no;resizable:yes;dialogHeight:400px;dialogWidth:500px;unadorne:yes;help:no");
+		    window.showModalDialog("capture.jsp?inid="+inid,img,"status:no;resizable:yes;dialogHeight:600px;dialogWidth:900px;unadorne:yes;help:no");
 		  };
 		  $(initialize);      
 		}());

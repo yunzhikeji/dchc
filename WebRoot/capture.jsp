@@ -7,38 +7,90 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML>
 <html>
 <head>
-<title>capture</title>
-<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-<meta http-equiv="description" content="this is my page">
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>媒体视频</title>
+<link href="css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+<link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet"
+	type="text/css" />
+
 <script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript"
+	src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="js/pageKit.js"></script>
 </head>
 <script language="JavaScript">
-var params = window.location.search;
-	alert(params);
-	function viewData() {		
-		var sData = window.dialogArguments; 
+	var params = window.location.search;
+	function viewData() {
+		var sData = window.dialogArguments;
 
 		window.document.getElementById("output").appendChild(sData);
-		
-		var picSrc = document.getElementById("canvasCapture");
-		
-
-
+		document.getElementById("sData").setAttribute("value",sData.src);
 	}
 	window.onload = viewData;
+
 </script>
 <body>
-	<form name="form1" action="mediaAction!add" method="post">
-		<div id="output"></div>
-	 <input type="submit" value="保存并提交" /> 
-						<button onclick="window.close();" type="button">
-							&nbsp;&nbsp;取消&nbsp;&nbsp;
-						</button>
+	<form name="mediaAddForm" action="mediaAction!add" method="post"
+		enctype="multipart/form-data" onsubmit="">
+		<input type="hidden" name="media.injurycase.id" value="${inid}" /> 
+		<input type="hidden" name="media.mtype" value="0" />
+		<input id="sData" type="hidden" name="media.picSrc" value="">
+		<div class="pd-20">
+			<div class="row cl mb-10">
+				<div class="col-2">
+					<label class="form-label text-r"> 媒体名称： </label>
+				</div>
+				<div class="col-4">
+					<s:textfield id="number" cssClass="input-text radius size-M"
+						cssStyle="width:200px;" name="media.title"></s:textfield>
+				</div>
+			</div>
+			<div class="row cl mb-10">
+				<div class="col-2">
+					<label class="form-label text-r"> 媒体描述： </label>
+				</div>
+				<div class="col-4">
+					<s:textarea name="media.descript" cssClass="input-text"
+						cssStyle="width: 260px; height: 180px; float: left;"></s:textarea>
+				</div>
+			</div>
+			<div class="row cl mb-10">
+				<div class="col-2">
+					<label class="form-label text-r"> 上传时间： </label>
+				</div>
+				<div class="col-4">
+					<input type="text" name="media.uptime"
+						onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})"
+						id="logmin" class="input-text Wdate" style="width: 200px;">
+				</div>
+			</div>
+
+			<div class="row cl mb-10">
+				<div class="col-2">
+					<label class="form-label text-r"> 截图： </label>
+				</div>
+				<div class="col-10">
+					<div class="col-3">
+						<div id="output"></div>
+
+					</div>
+				</div>
+			</div>
+			<div class="row cl">
+				<s:token></s:token>
+				<div class="col-10 col-offset-2">
+					<input type="submit" class="btn btn-primary radius" value="保存并提交" />
+					<button onclick="childPage_close();" class="btn btn-default radius"
+						type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+				</div>
+			</div>
 	</form>
 </body>
-
 </html>

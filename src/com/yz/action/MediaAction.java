@@ -97,7 +97,6 @@ public class MediaAction extends ActionSupport implements RequestAware,
 			this.upload("/media", imageName, picture1);
 			media.setSrc("media" + "/" + imageName);
 		}
-		
 		if (media.getInjurycase()!= null) {
 			changeInjurycaseHandleState(media.getInjurycase().getId());
 		}
