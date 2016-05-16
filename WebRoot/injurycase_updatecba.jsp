@@ -92,7 +92,7 @@
 					style="border-bottom: solid 2px #2DABF7">案件视频信息</div>
 				<div style="width: 100%; overflow: hidden">
 					<div class="index-slider-content clearfix">
-						<video width="75%" src="<%=basePath%>${mediaVideos[0].src}"
+						<video width="1000px" src="<%=basePath%>${mediaVideos[0].src}"
 							height="562" id="swf_play" style="visibility: visible;"
 							controls="controls"></video>
 						<div class="small-pic-container">
@@ -215,7 +215,7 @@
 											<a
 												href="injurycaseAction!loadcba?id=<s:property value="id"/>"
 												title="单个案件" class="link"><img
-												src="<%=basePath%><s:property value="imageCase"/>"> </a>
+												src="<%=basePath%><s:property value="imageCase"/>"  alt="暂无图片"> </a>
 										</div>
 										<div class="txt">
 											<h6 class="caption">

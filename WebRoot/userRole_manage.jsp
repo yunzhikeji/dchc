@@ -121,9 +121,7 @@
 									<s:property value="unit.name" />
 								</td>
 								<td>
-									<a style="text-decoration: none" class="ml-5"
-										onclick="childPage('查看角色','userRoleAction!view?id=<s:property value="id"/>')"
-										href="javascript:;" title="查看"><s:property value="realname" /></a>
+									<s:property value="realname" />
 								</td>
 								<td>
 									<s:property value="number" />

@@ -48,14 +48,14 @@
      <div class="col-2" >
     <label class="form-label text-r">登陆平台账号：</label></div>
      <div class="col-10" >
-      <s:textfield id="username" cssClass="input-text radius size-M" cssStyle="width:200px;" name="userRole.username"  ></s:textfield>
+      <s:textfield id="username" cssClass="input-text radius size-M" cssStyle="width:200px;" name="uname"  ></s:textfield>
      </div>
   </div>
   <div class="row cl mb-10">
      <div class="col-2" >
     <label class="form-label text-r">登陆平台密码：</label></div>
      <div class="col-10" >
-     	<input  type="password" id="password" class="input-text radius size-M" style="width:200px;" name="userRole.password"/>
+     	<input  type="text" id="password" class="input-text radius size-M" style="width:200px;" name="pword"/>
      </div>
   </div>
 <div class="row cl mb-10">

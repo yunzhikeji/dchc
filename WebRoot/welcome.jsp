@@ -21,6 +21,9 @@
 		<link href="css/ncss.css" rel="stylesheet" type="text/css" />
 		<link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet"
 			type="text/css" />
+		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
+		<script type="text/javascript" src="js/pageKit.js"></script>
 		<title>我的桌面</title>
 	</head>
 	<body>
@@ -90,16 +93,16 @@
 											赌博人员
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(0).number1"/>
+											<s:property value="personNumberVOs.get(0).number1" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(0).number2"/>
+											<s:property value="personNumberVOs.get(0).number2" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(0).number3"/>
+											<s:property value="personNumberVOs.get(0).number3" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(0).totalNumber"/>
+											<s:property value="personNumberVOs.get(0).totalNumber" />
 										</td>
 									</tr>
 									<tr class="text-c">
@@ -107,16 +110,16 @@
 											涉恶人员
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(1).number1"/>
+											<s:property value="personNumberVOs.get(1).number1" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(1).number2"/>
+											<s:property value="personNumberVOs.get(1).number2" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(1).number3"/>
+											<s:property value="personNumberVOs.get(1).number3" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(1).totalNumber"/>
+											<s:property value="personNumberVOs.get(1).totalNumber" />
 										</td>
 									</tr>
 									<tr class="text-c">
@@ -124,16 +127,16 @@
 											涉黄人员
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(2).number1"/>
+											<s:property value="personNumberVOs.get(2).number1" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(2).number2"/>
+											<s:property value="personNumberVOs.get(2).number2" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(2).number3"/>
+											<s:property value="personNumberVOs.get(2).number3" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(2).totalNumber"/>
+											<s:property value="personNumberVOs.get(2).totalNumber" />
 										</td>
 									</tr>
 									<tr class="text-c">
@@ -141,16 +144,16 @@
 											食药环人员
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(3).number1"/>
+											<s:property value="personNumberVOs.get(3).number1" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(3).number2"/>
+											<s:property value="personNumberVOs.get(3).number2" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(3).number3"/>
+											<s:property value="personNumberVOs.get(3).number3" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(3).totalNumber"/>
+											<s:property value="personNumberVOs.get(3).totalNumber" />
 										</td>
 									</tr>
 
@@ -189,16 +192,16 @@
 											涉毒人员
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(4).number1"/>
+											<s:property value="personNumberVOs.get(4).number1" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(4).number2"/>
+											<s:property value="personNumberVOs.get(4).number2" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(4).number3"/>
+											<s:property value="personNumberVOs.get(4).number3" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(4).totalNumber"/>
+											<s:property value="personNumberVOs.get(4).totalNumber" />
 										</td>
 									</tr>
 									<tr class="text-c">
@@ -206,16 +209,16 @@
 											负案在逃人员
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(8).number1"/>
+											<s:property value="personNumberVOs.get(8).number1" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(8).number2"/>
+											<s:property value="personNumberVOs.get(8).number2" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(8).number3"/>
+											<s:property value="personNumberVOs.get(8).number3" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(8).totalNumber"/>
+											<s:property value="personNumberVOs.get(8).totalNumber" />
 										</td>
 									</tr>
 									<tr class="text-c">
@@ -223,16 +226,16 @@
 											留置盘问人员
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(5).number1"/>
+											<s:property value="personNumberVOs.get(5).number1" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(5).number2"/>
+											<s:property value="personNumberVOs.get(5).number2" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(5).number3"/>
+											<s:property value="personNumberVOs.get(5).number3" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(5).totalNumber"/>
+											<s:property value="personNumberVOs.get(5).totalNumber" />
 										</td>
 									</tr>
 									<tr class="text-c">
@@ -240,16 +243,16 @@
 											侵财人员
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(8).number1"/>
+											<s:property value="personNumberVOs.get(8).number1" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(8).number2"/>
+											<s:property value="personNumberVOs.get(8).number2" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(8).number3"/>
+											<s:property value="personNumberVOs.get(8).number3" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(8).totalNumber"/>
+											<s:property value="personNumberVOs.get(8).totalNumber" />
 										</td>
 									</tr>
 									<tr class="text-c">
@@ -257,16 +260,16 @@
 											刑事传唤人员
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(7).number1"/>
+											<s:property value="personNumberVOs.get(7).number1" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(7).number2"/>
+											<s:property value="personNumberVOs.get(7).number2" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(7).number3"/>
+											<s:property value="personNumberVOs.get(7).number3" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(7).totalNumber"/>
+											<s:property value="personNumberVOs.get(7).totalNumber" />
 										</td>
 									</tr>
 								</table>
@@ -303,16 +306,16 @@
 											失踪人员
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(10).number1"/>
+											<s:property value="personNumberVOs.get(10).number1" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(10).number2"/>
+											<s:property value="personNumberVOs.get(10).number2" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(10).number3"/>
+											<s:property value="personNumberVOs.get(10).number3" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(10).totalNumber"/>
+											<s:property value="personNumberVOs.get(10).totalNumber" />
 										</td>
 									</tr>
 									<tr class="text-c">
@@ -320,16 +323,16 @@
 											维稳人员
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(9).number1"/>
+											<s:property value="personNumberVOs.get(9).number1" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(9).number2"/>
+											<s:property value="personNumberVOs.get(9).number2" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(9).number3"/>
+											<s:property value="personNumberVOs.get(9).number3" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(9).totalNumber"/>
+											<s:property value="personNumberVOs.get(9).totalNumber" />
 										</td>
 									</tr>
 									<tr class="text-c">
@@ -337,16 +340,16 @@
 											侵财人员分析
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(11).number1"/>
+											<s:property value="personNumberVOs.get(11).number1" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(11).number2"/>
+											<s:property value="personNumberVOs.get(11).number2" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(11).number3"/>
+											<s:property value="personNumberVOs.get(11).number3" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(11).totalNumber"/>
+											<s:property value="personNumberVOs.get(11).totalNumber" />
 										</td>
 									</tr>
 									<tr class="text-c">
@@ -354,22 +357,22 @@
 											技术比中人员
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(12).number1"/>
+											<s:property value="personNumberVOs.get(12).number1" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(12).number2"/>
+											<s:property value="personNumberVOs.get(12).number2" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(12).number3"/>
+											<s:property value="personNumberVOs.get(12).number3" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(12).totalNumber"/>
+											<s:property value="personNumberVOs.get(12).totalNumber" />
 										</td>
 									</tr>
 								</table>
 							</div>
 
-						
+
 							<div class="tabCon">
 								<div class="tit">
 									事项办理情况统计表
@@ -401,16 +404,16 @@
 											普通线索
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(13).number1"/>
+											<s:property value="personNumberVOs.get(13).number1" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(13).number2"/>
+											<s:property value="personNumberVOs.get(13).number2" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(13).number3"/>
+											<s:property value="personNumberVOs.get(13).number3" />
 										</td>
 										<td>
-											<s:property value="personNumberVOs.get(13).totalNumber"/>
+											<s:property value="personNumberVOs.get(13).totalNumber" />
 										</td>
 									</tr>
 									<tr class="text-c">
@@ -418,16 +421,16 @@
 											刑侦线索
 										</td>
 										<td>
-											<s:property value="clueNumberVOs.get(0).number1"/>
+											<s:property value="clueNumberVOs.get(0).number1" />
 										</td>
 										<td>
-											<s:property value="clueNumberVOs.get(0).number2"/>
+											<s:property value="clueNumberVOs.get(0).number2" />
 										</td>
 										<td>
-											<s:property value="clueNumberVOs.get(0).number3"/>
+											<s:property value="clueNumberVOs.get(0).number3" />
 										</td>
 										<td>
-											<s:property value="clueNumberVOs.get(0).totalNumber"/>
+											<s:property value="clueNumberVOs.get(0).totalNumber" />
 										</td>
 									</tr>
 								</table>
@@ -465,16 +468,16 @@
 											一般案件
 										</td>
 										<td>
-											<s:property value="injurycaseNumberVOs.get(0).number1"/>
+											<s:property value="injurycaseNumberVOs.get(0).number1" />
 										</td>
 										<td>
-											<s:property value="injurycaseNumberVOs.get(0).number2"/>
+											<s:property value="injurycaseNumberVOs.get(0).number2" />
 										</td>
 										<td>
-											<s:property value="injurycaseNumberVOs.get(0).number3"/>
+											<s:property value="injurycaseNumberVOs.get(0).number3" />
 										</td>
 										<td>
-											<s:property value="injurycaseNumberVOs.get(0).totalNumber"/>
+											<s:property value="injurycaseNumberVOs.get(0).totalNumber" />
 										</td>
 									</tr>
 									<tr class="text-c">
@@ -482,16 +485,16 @@
 											团伙系列案件
 										</td>
 										<td>
-											<s:property value="injurycaseNumberVOs.get(2).number1"/>
+											<s:property value="injurycaseNumberVOs.get(2).number1" />
 										</td>
 										<td>
-											<s:property value="injurycaseNumberVOs.get(2).number2"/>
+											<s:property value="injurycaseNumberVOs.get(2).number2" />
 										</td>
 										<td>
-											<s:property value="injurycaseNumberVOs.get(2).number3"/>
+											<s:property value="injurycaseNumberVOs.get(2).number3" />
 										</td>
 										<td>
-											<s:property value="injurycaseNumberVOs.get(2).totalNumber"/>
+											<s:property value="injurycaseNumberVOs.get(2).totalNumber" />
 										</td>
 									</tr>
 									<tr class="text-c">
@@ -499,16 +502,16 @@
 											重伤案件
 										</td>
 										<td>
-											<s:property value="injurycaseNumberVOs.get(1).number1"/>
+											<s:property value="injurycaseNumberVOs.get(1).number1" />
 										</td>
 										<td>
-											<s:property value="injurycaseNumberVOs.get(1).number2"/>
+											<s:property value="injurycaseNumberVOs.get(1).number2" />
 										</td>
 										<td>
-											<s:property value="injurycaseNumberVOs.get(1).number3"/>
+											<s:property value="injurycaseNumberVOs.get(1).number3" />
 										</td>
 										<td>
-											<s:property value="injurycaseNumberVOs.get(1).totalNumber"/>
+											<s:property value="injurycaseNumberVOs.get(1).totalNumber" />
 										</td>
 									</tr>
 								</table>
@@ -518,18 +521,18 @@
 					</div>
 
 				</div>
-				
-				
+
+
 				<div class="col-6" style="padding: 5px;">
 					<div class="panel panel-default">
 						<div class="panel-header">
 							通知公告
 						</div>
-						<s:iterator value="pnotices" var="pnotice"
-							status="status">
+						<s:iterator value="pnotices" var="pnotice" status="status">
 							<li class="box-1">
-								<a
-									href="pnoticeAction!view?id=<s:property value="id"/>"><time>[<s:property
+								<a style="text-decoration: none" class="ml-5"
+									onclick="childPageFull('查看通知公告','pnoticeAction!view?id=<s:property value="id"/>')"
+									href="javascript:;" title="查看"><time>[<s:property
 										value="releaseTime" />]</time> <s:property value="title" /> </a>
 							</li>
 						</s:iterator>
@@ -547,8 +550,9 @@
 								<s:iterator value="successexamples" var="successexample"
 									status="status">
 									<li class="box-1">
-										<a
-											href="successexampleAction!view?id=<s:property value="id"/>"><time>[<s:property
+										<a style="text-decoration: none" class="ml-5"
+											onclick="childPageFull('查看成功案例','successexampleAction!view?id=<s:property value="id"/>')"
+											href="javascript:;" title="查看"><time>[<s:property
 												value="releaseTime" />]</time> <s:property value="title" /> </a>
 									</li>
 								</s:iterator>
@@ -565,8 +569,10 @@
 						<s:iterator value="troubleshootings" var="troubleshooting"
 							status="status">
 							<li class="box-1">
-								<a
-									href="troubleshootingAction!load?troubid=<s:property value="id"/>"><time>[<s:property
+								<a style="text-decoration: none" class="ml-5"
+											onclick="childPageFull('查看疑难解答','troubleshootingAction!load?troubid=<s:property value="id"/>')"
+											href="javascript:;" title="查看">
+								<time>[<s:property
 										value="releaseTime" />]</time> <s:property value="title" /> </a>
 							</li>
 						</s:iterator>

@@ -9,97 +9,127 @@
 %>
 <!DOCTYPE HTML>
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>修改角色</title>
-<link href="css/H-ui.min.css" rel="stylesheet" type="text/css" />
-<link href="css/H-ui.admin.css" rel="stylesheet" type="text/css" />
-<link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
-<script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>
-<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
-<script type="text/javascript" src="js/H-ui.js"></script>
-<script type="text/javascript" src="js/H-ui.admin.js"></script>
-<script type="text/javascript" src="js/pageKit.js"></script>
-<script type="text/javascript" src="js/checkUtil.js"></script>
-<script type="text/javascript">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>修改角色</title>
+		<link href="css/H-ui.min.css" rel="stylesheet" type="text/css" />
+		<link href="css/H-ui.admin.css" rel="stylesheet" type="text/css" />
+		<link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet"
+			type="text/css" />
+		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+		<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
+		<script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>
+		<script type="text/javascript"
+			src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+		<script type="text/javascript"
+			src="lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
+		<script type="text/javascript" src="js/H-ui.js"></script>
+		<script type="text/javascript" src="js/H-ui.admin.js"></script>
+		<script type="text/javascript" src="js/pageKit.js"></script>
+		<script type="text/javascript" src="js/checkUtil.js"></script>
+		<script type="text/javascript">
 
 </script>
-</head>
+	</head>
 
-<body>
+	<body>
 
-<form name="userRoleUpdateForm" action="userRoleAction!update" method="post" enctype="multipart/form-data"  onsubmit="return checkUserRole();" >
-	<s:hidden name="userRole.id"/>
-	<s:hidden name="userRole.photo"/>
-<div class="pd-20">
-	<div class="row cl mb-10">
-     <div class="col-2" >
-    <label class="form-label text-r">所属机构：</label></div>
-     <div class="col-4" >
-        <s:select list="units" cssClass="input-text radius size-M" cssStyle="width:200px;" listValue="name" listKey="id"  name="userRole.unit.id" 
-             headerKey="0l"  id="userRoleUnit" value=""
-           ></s:select> 
-     </div>
-	</div>
-	<div class="row cl mb-10">
-     <div class="col-2" >
-    <label class="form-label text-r">登陆平台账号：</label></div>
-     <div class="col-10" >
-      <s:textfield id="username" cssClass="input-text radius size-M" cssStyle="width:200px;" name="userRole.username"  ></s:textfield>
-     </div>
-  </div>
-  <div class="row cl mb-10">
-     <div class="col-2" >
-    <label class="form-label text-r">登陆平台密码：</label></div>
-     <div class="col-10" >
-     	<input  type="password" id="password" class="input-text radius size-M" style="width:200px;" name="userRole.password"/>
-       </div>
-  </div>
-<div class="row cl mb-10">
-     <div class="col-2" >
-    <label class="form-label text-r">姓名：</label></div>
-     <div class="col-4" >
-       <s:textfield id="userRoleRealname" cssClass="input-text radius size-M" cssStyle="width:200px;" name="userRole.realname" ></s:textfield>
-    
-     </div>
-</div>
-<div class="row cl mb-10">
-     <div class="col-2" >
-    <label class="form-label text-r">性别：</label></div>
-     <div class="col-4" >
-       <s:select list="#{1:'男',0:'女'}" cssClass="input-text" cssStyle="width:200px;"
-							name="userRole.sex" listKey="key" listValue="value"></s:select>
-     </div>
-</div>
-<div class="row cl mb-10">
-     <div class="col-2" >
-    <label class="form-label text-r">用户权限：</label></div>
-     <div class="col-10" >
-     <s:select list="#{0:'普通用户',1:'管理员',2:'超级管理员'}" cssClass="input-text" cssStyle="width:200px;"
+		<form name="userRoleUpdateForm" action="userRoleAction!update"
+			method="post" enctype="multipart/form-data">
+			<s:hidden name="userRole.id" />
+			<s:hidden name="userRole.photo" />
+			<s:hidden name="userRole.username" />
+			<s:hidden name="userRole.password" />
+			<div class="pd-20">
+				<div class="row cl mb-10">
+					<div class="col-2">
+						<label class="form-label text-r">
+							所属机构：
+						</label>
+					</div>
+					<div class="col-4">
+						<s:select list="units" cssClass="input-text radius size-M"
+							cssStyle="width:200px;" listValue="name" listKey="id"
+							name="userRole.unit.id" headerKey="0l" id="userRoleUnit" value=""></s:select>
+					</div>
+				</div>
+				<div class="row cl mb-10">
+					<div class="col-2">
+						<label class="form-label text-r">
+							姓名：
+						</label>
+					</div>
+					<div class="col-4">
+						<s:textfield id="userRoleRealname"
+							cssClass="input-text radius size-M" cssStyle="width:200px;"
+							name="userRole.realname"></s:textfield>
+
+					</div>
+				</div>
+				<div class="row cl mb-10">
+					<div class="col-2">
+						<label class="form-label text-r">
+							性别：
+						</label>
+					</div>
+					<div class="col-4">
+						<s:select list="#{1:'男',0:'女'}" cssClass="input-text"
+							cssStyle="width:200px;" name="userRole.sex" listKey="key"
+							listValue="value"></s:select>
+					</div>
+				</div>
+				<div class="row cl mb-10">
+					<div class="col-2">
+						<label class="form-label text-r">
+							用户权限：
+						</label>
+					</div>
+					<div class="col-10">
+						<s:select list="#{0:'普通用户',1:'管理员',2:'超级管理员'}"
+							cssClass="input-text" cssStyle="width:200px;"
 							name="userRole.userLimit" listKey="key" listValue="value"></s:select>
-     </div>
-  </div>
-  <div class="row cl mb-10">
-     <div class="col-2" >
-    <label class="form-label text-r">电话：</label></div>
-     <div class="col-10" >
-      <s:textfield id="userRoleTelphone" cssClass="input-text radius size-M" cssStyle="width:200px;" name="userRole.telphone"  ></s:textfield>
-     </div>
-  </div>
-  <div class="row cl mb-10" >
-     <div class="col-2" >
-    <label class="form-label text-r">照片：</label></div>
-     <div class="col-10" style="margin-bottom: 10px;">
-       <div class="col-3">
-  <table width="100%" border="0" cellspacing="0" cellpadding="0">
-  <tr >
-    <td align="center" >
-    <img src="<%=basePath%>${userRole.photo }" id="myimage" class="img-responsive thumbnail" width="100px" height="120px" alt="正面照片"/>
-				<script type="text/javascript">
+					</div>
+				</div>
+				<div class="row cl mb-10">
+					<div class="col-2">
+						<label class="form-label text-r">
+							警员编号：
+						</label>
+					</div>
+					<div class="col-10">
+						<s:textfield id="userRoleNumber"
+							cssClass="input-text radius size-M" cssStyle="width:200px;"
+							name="userRole.number"></s:textfield>
+					</div>
+				</div>
+				<div class="row cl mb-10">
+					<div class="col-2">
+						<label class="form-label text-r">
+							电话：
+						</label>
+					</div>
+					<div class="col-10">
+						<s:textfield id="userRoleTelphone"
+							cssClass="input-text radius size-M" cssStyle="width:200px;"
+							name="userRole.telphone"></s:textfield>
+					</div>
+				</div>
+				<div class="row cl mb-10">
+					<div class="col-2">
+						<label class="form-label text-r">
+							照片：
+						</label>
+					</div>
+					<div class="col-10" style="margin-bottom: 10px;">
+						<div class="col-3">
+							<table width="100%" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+									<td align="center">
+										<img src="<%=basePath%>${userRole.photo }" id="myimage"
+											class="img-responsive thumbnail" width="100px" height="120px"
+											alt="正面照片" />
+										<script type="text/javascript">
 							function change() {
 							    var pic = document.getElementById("myimage"),
 							        file = document.getElementById("myfile");
@@ -141,25 +171,31 @@
 							     }
 							 }
 				</script>
-    </td>
-  </tr>
-  <tr>
-    <td align="center">
-    	 <s:file name="picture"  cssStyle="width:80%" accept="image/jpeg,image/png,image/jpg" onchange="change();" id="myfile"></s:file>
-    </td>
-  </tr>
-</table>
-  </div>
+									</td>
+								</tr>
+								<tr>
+									<td align="center">
+										<s:file name="picture" cssStyle="width:80%"
+											accept="image/jpeg,image/png,image/jpg" onchange="change();"
+											id="myfile"></s:file>
+									</td>
+								</tr>
+							</table>
+						</div>
 
-</div>
-<div class="row cl">
-	    <s:token></s:token>
-    <div class="col-10 col-offset-2">
-      <input type="submit"  class="btn btn-primary radius" value="保存并提交"> </input>
-      <button onclick="childPage_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
-    </div>
-  </div>
-  </div>
-  </form>
-</body>
+					</div>
+					<div class="row cl">
+						<s:token></s:token>
+						<div class="col-10 col-offset-2">
+							<input type="submit" class="btn btn-primary radius" value="保存并提交">
+							</input>
+							<button onclick="childPage_close();"
+								class="btn btn-default radius" type="button">
+								&nbsp;&nbsp;取消&nbsp;&nbsp;
+							</button>
+						</div>
+					</div>
+				</div>
+		</form>
+	</body>
 </html>

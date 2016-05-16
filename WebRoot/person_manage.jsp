@@ -100,9 +100,16 @@
 				</form>
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
-				<span class="l"><a href="javascript:;"
+				<span class="l">
+				
+				<s:if test="#session.userRoleo.userLimit==0">
+				<a href="javascript:;"
 					onclick="deleteAllCheckedPersons();" class="btn btn-danger radius"><i
-						class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> <a
+						class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
+						</s:if>
+						
+						
+						<a
 					class="btn btn-primary radius"
 					onclick="childPageFull('新增<s:property value="pageTileName"/>','personAction!goToAdd?type=<s:property value="type"/>')"
 					href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 新增<s:property

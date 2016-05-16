@@ -112,7 +112,7 @@
 								<div class="video-cover">
 									<img class="video-img video-img-lazy"
 										src="<%=basePath%><s:property value="imageCase"/>"
-										style="display: block;">
+										style="display: block;" alt="暂无图片">
 									<ul class="show-list">
 										<li>
 											<div id="videoTitle" class="show-info">

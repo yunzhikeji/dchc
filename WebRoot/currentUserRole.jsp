@@ -197,7 +197,7 @@
 					<div class="formControls col-4">
 						<input type="password" class="input-text" autocomplete="off"
 							placeholder="不修改请留空" name="password2" id="new-password2"
-							recheck="password1" datatype="*6-18" errormsg="您两次输入的密码不一致！"
+							recheck="password1" datatype="*1-18" errormsg="您两次输入的密码不一致！"
 							ignore="ignore">
 					</div>
 					<div class="col-4">
