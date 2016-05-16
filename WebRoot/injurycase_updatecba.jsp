@@ -42,7 +42,7 @@
 <title>串并案</title>
 <script type="text/javascript">
 			var mediaVideos=<s:property value="mediaVideos" escape="false" />;
-			
+			var inid=<s:property value="injurycase.id" />;
 			  function cp() {
 		            var video = document.getElementById("swf_play");
 		            var button = document.getElementById("play");
@@ -77,7 +77,7 @@
 		       .drawImage(video, 0, 0, canvas.width, canvas.height);
 		    var img = document.createElement("img");
 		    img.src = canvas.toDataURL();
-		    window.showModalDialog("a2.html",img,"status:no;resizable:yes;dialogHeight:400px;dialogWidth:500px;unadorne:yes;help:no");
+		    window.showModalDialog("capture.jsp?inid="+inid,img,"status:no;resizable:yes;dialogHeight:400px;dialogWidth:500px;unadorne:yes;help:no");
 		  };
 		  $(initialize);      
 		}());
