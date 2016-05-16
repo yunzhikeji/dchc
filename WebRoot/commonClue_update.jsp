@@ -375,7 +375,7 @@
 										style="table-layout: fixed;">
 										<thead>
 											<tr>
-												<th width="7%">
+												<th>
 													查证次序
 												</th>
 												<th width="24%">

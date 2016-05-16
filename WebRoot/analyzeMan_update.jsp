@@ -653,16 +653,16 @@
 										style="table-layout: fixed;">
 										<thead>
 											<tr>
-												<th width="7%">
+												<th>
 													研判次序
 												</th>
-												<th width="24%">
+												<th>
 													报送机构
 												</th>
-												<th width="57%">
+												<th >
 													研判要求
 												</th>
-												<th width="12%">
+												<th>
 													操作
 												</th>
 											</tr>

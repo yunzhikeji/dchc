@@ -62,10 +62,10 @@
 									cssClass="input-text" name="con" listKey="key"
 									listValue="value" cssStyle="width:180px"></s:select>
 							</td>
-							<td width="310px;">
+							<td width="22%">
 								<s:textfield name="convalue" id="convalue" cssClass="input-text"></s:textfield>
 							</td>
-							<td align="right" style="padding-right: 30%;">
+							<td align="left" style="padding-left: 50px;">
 								信息状态:
 								<s:select list="#{1:'未办理',2:'在办理',3:'已完结'}"
 									cssClass="input-text" name="queryState" listKey="key"
@@ -101,7 +101,7 @@
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
 				<span class="l"> <s:if test="#session.userRoleo.userLimit==0">
-						<a href="javascript:;" onclick="deleteAllCheckedInjurys();"
+						<a href="javascript:;" onclick="deleteAllCheckedInjurycases();"
 							class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>
 							批量删除</a>
 					</s:if> <a class="btn btn-primary radius"

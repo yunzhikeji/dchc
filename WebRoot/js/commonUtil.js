@@ -402,7 +402,6 @@ function deleteAllCheckedSuccessexamples()
 		}
 }
 
-
 function deleteAllCheckedInjurycases()
 {
 		if(confirm('你确定删除这些案件吗？'))

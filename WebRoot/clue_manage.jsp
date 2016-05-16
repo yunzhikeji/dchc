@@ -65,7 +65,7 @@
 							<td width="22%">
 								<s:textfield name="convalue" id="convalue" cssClass="input-text"></s:textfield>
 							</td>
-							<td align="right" style="padding-right: 30%;">
+							<td align="left" style="padding-left: 50px;" >
 								信息状态:
 								<s:select list="#{1:'未办理',2:'在办理',3:'已完结'}"
 									cssClass="input-text" name="queryState" listKey="key"

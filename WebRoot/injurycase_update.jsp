@@ -487,16 +487,16 @@
 													style="table-layout: fixed;">
 													<thead>
 														<tr>
-															<th width="7%">
+															<th>
 																研判次序
 															</th>
-															<th width="24%">
+															<th>
 																报送机构
 															</th>
-															<th width="57%">
+															<th>
 																研判要求
 															</th>
-															<th width="12%">
+															<th>
 																操作
 															</th>
 														</tr>
@@ -813,10 +813,10 @@ function article_save(obj,id){
 
 					<s:hidden name="injurycase.itype" title="案件类型"></s:hidden>
 					<s:hidden name="injurycase.id" title="案件id"></s:hidden>
-					
+
 					<s:if test="injurycase.userRole!=null">
 						<s:hidden name="injurycase.userRole.id" title="案件子表userRoleid"></s:hidden>
-						</s:if>
+					</s:if>
 					<s:hidden name="injurycase.handleState" title="办理状态"></s:hidden>
 					<s:hidden name="injurycase.joinDate" title="录入时间"></s:hidden>
 		</form>

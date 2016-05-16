@@ -1522,7 +1522,7 @@
 									<table class="table table-border table-bg mb-10">
 										<thead>
 											<tr>
-												<th width="7%">
+												<th>
 													研判序号
 												</th>
 												<th width="14%">
