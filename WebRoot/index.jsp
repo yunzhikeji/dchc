@@ -213,7 +213,7 @@
 							class="more" src="images/more.png" />
 					</a>
 					<ul class="er">
-						<s:if test="#session.userRoleo.userLimit==0">
+						<s:if test="#session.userRoleo.userLimit==2">
 							<li>
 								<a _href="unitAction!list" href="javascript:void(0)">机构管理</a>
 							</li>

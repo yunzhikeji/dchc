@@ -177,7 +177,7 @@
 												<td align="center">
 													<img id="myimage1" class="img-responsive thumbnail"
 														width="200px"
-															height="auto" alt="户籍照片" />
+															height="180px;" alt="户籍照片" />
 													<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),
@@ -237,7 +237,7 @@
 												<td align="center">
 													<img id="myimage2" class="img-responsive thumbnail"
 														width="200px"
-															height="auto" alt="前科照片" />
+															height="180px;" alt="前科照片" />
 													<script type="text/javascript">
 															function change2() {
 															    var pic2 = document.getElementById("myimage2"),

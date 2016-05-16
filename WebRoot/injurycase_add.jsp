@@ -92,7 +92,7 @@
 												<td align="center">
 													<img id="myimage1" class="img-responsive thumbnail"
 														width="200px"
-															height="auto" alt="案件图片" />
+															height="180px;" alt="案件图片" />
 													<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),

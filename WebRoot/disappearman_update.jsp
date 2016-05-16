@@ -86,7 +86,7 @@
 											<td align="center">
 												<img id="myimage1" class="img-responsive thumbnail"
 													src="<%=basePath%>${disappearman.photo1}" width="200px"
-															height="auto" alt="照片1" />
+															height="180px;" alt="照片1" />
 												<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),
@@ -150,7 +150,7 @@
 
 												<img id="myimage2" class="img-responsive thumbnail"
 													src="<%=basePath%>${disappearman.photo2}" width="200px"
-															height="auto" alt="照片2" />
+															height="180px;" alt="照片2" />
 												<script type="text/javascript">
 															function change2() {
 															    var pic2 = document.getElementById("myimage2"),
@@ -211,7 +211,7 @@
 											<td align="center">
 												<img id="myimage3" class="img-responsive thumbnail"
 													src="<%=basePath%>${disappearman.photo3}" width="200px"
-															height="auto" alt="照片3" />
+															height="180px;" alt="照片3" />
 												<script type="text/javascript">
 															function change3() {
 															    var pic3 = document.getElementById("myimage3"),

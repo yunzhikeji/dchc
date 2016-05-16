@@ -99,7 +99,7 @@
 													<img id="myimage1"
 														src="<%=basePath%>${injurycase.imageCase}"
 														class="img-responsive thumbnail" width="200px"
-														height="auto" alt="案件图片" />
+														height="180px;" alt="案件图片" />
 													<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),

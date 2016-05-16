@@ -46,7 +46,7 @@
 								<td width="176" align="center">
 									<img id="myimage" class="img-responsive thumbnail"   src="<%=basePath%>${userRole.photo }"
 										width="200px"
-															height="auto" alt="人员照片" />
+															height="180px;" alt="人员照片" />
 									<script type="text/javascript">
 															function change() {
 															    var pic = document.getElementById("myimage"),

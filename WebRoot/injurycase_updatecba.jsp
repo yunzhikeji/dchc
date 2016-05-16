@@ -94,7 +94,7 @@
 					<div class="index-slider-content clearfix">
 						<video width="1000px" src="<%=basePath%>${mediaVideos[0].src}"
 							height="562" id="swf_play" style="visibility: visible;"
-							controls="controls"></video>
+							controls="controls">暂无视频</video>
 						<div class="small-pic-container">
 							<div id="tab_demo0511" class="HuiTab0511">
 								<div class="tabBar0511 cl">
@@ -138,7 +138,7 @@
 												<li class="pack" index="0" data-stat-role="ck">
 													<div class="pic">
 														<video src="<%=basePath%>${src}" width="200px;"
-															height="92px;"></video>
+															height="92px;" >暂无视频</video>
 													</div>
 													<div class="txt">
 														<h6 class="caption">
@@ -287,7 +287,7 @@
 								</div>
 								<div class="col-4">
 									<img id="myimage1" src="<%=basePath%>${injurycase.imageCase}"
-										class="img-responsive thumbnail" width="200px" height="auto"
+										class="img-responsive thumbnail" width="200px" height="180px;"
 										alt="暂无案件图片" />
 								</div>
 								<div class="col-2">

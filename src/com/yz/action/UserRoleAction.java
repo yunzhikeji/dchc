@@ -61,7 +61,7 @@ import com.yz.vo.ClueNumberVO;
 import com.yz.vo.InjurycaseNumberVO;
 import com.yz.vo.PersonNumberVO;
 
-@Component("userRoleAction")  
+@Component("userRoleAction")
 @Scope("prototype")
 public class UserRoleAction extends ActionSupport implements RequestAware,
 		SessionAware, ServletResponseAware, ServletRequestAware {
@@ -85,16 +85,15 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	private String convalue;
 	private int status;// 按状态
 	private int pid;// 按用户id
-	
-	
+
 	// 登陆
 	private String username;
 	private String password;
 
-	//批量删除
+	// 批量删除
 	private String checkedIDs;
-	
-	//service层对象
+
+	// service层对象
 	private IUnitService unitService;
 	private IUserRoleService userRoleService;
 	private IPnoticeService pnoticeService;
@@ -104,16 +103,16 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	private IAnalyzeManService analyzeManService;
 	private IContrastManService contrastManService;
 	private ICommonClueService commonClueService;
-	
+
 	private ITroubleshootingService troubleshootingService;
 	private IPersonService personService;
 	private IClueService clueService;
 	private IInjurycaseService injurycaseService;
 
-	//单个对象
+	// 单个对象
 	private UserRole userRole;
 
-	//list对象
+	// list对象
 	private List<UserRole> userRoles;
 	private List<Unit> units;
 	private List<Pnotice> pnotices;
@@ -124,37 +123,41 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	private List<AnalyzeMan> analyzeMans;
 	private List<ContrastMan> contrastMans;
 	private List<CommonClue> commonClues;
-	
+
 	private List<Clue> clues;
 	private List<Injurycase> injurycases;
-	
-	
+
 	private List<Troubleshooting> troubleshootings;
-	
-	//处理主界面人员数量信息
+
+	// 处理主界面人员数量信息
 	private List<PersonNumberVO> personNumberVOs;
 	private List<InjurycaseNumberVO> injurycaseNumberVOs;
 	private List<ClueNumberVO> clueNumberVOs;
 
-	
-	//个人资料新旧密码
+	// 个人资料新旧密码
 	private String password1;
 	private String password2;
 
+	// 新增用户名,密码
+	private String uname;
+	private String pword;
+
 	/**
 	 * 用户登陆
-	 * @throws Exception 
+	 * 
+	 * @throws Exception
 	 */
 	public String login() throws Exception {
-		
-		if(checkDatebase())//检查数据库
+
+		if (checkDatebase())// 检查数据库
 		{
 			UserRole userRoleTest = new UserRole();
 			userRoleTest.setNumber("测试人员");
 			userRoleTest.setUsername("test");
-			
-			userRoleTest.setPassword(MD5Util.convertMD5(MD5Util.string2MD5("test")));
-			
+
+			userRoleTest.setPassword(MD5Util.convertMD5(MD5Util
+					.string2MD5("test")));
+
 			userRoleTest.setUserLimit(1);
 			userRoleService.add(userRoleTest);
 			session.put("userRoleo", userRoleTest);
@@ -167,35 +170,33 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 			return "adminLogin";
 		}
 		password = MD5Util.convertMD5(MD5Util.string2MD5(password));
-		UserRole userRoleLogin = userRoleService.userRolelogin(username, password);
+		UserRole userRoleLogin = userRoleService.userRolelogin(username,
+				password);
 		if (userRoleLogin == null) {
 			String loginfail = "用户名或密码输入有误";
 			request.put("loginFail", loginfail);
 			return "adminLogin";
 		} else {
-			//设置登陆时间
-			if(session.get("userRoleo")==null)
-			{
+			// 设置登陆时间
+			if (session.get("userRoleo") == null) {
 				setLoginTime(userRoleLogin);
 				session.put("userRoleo", userRoleLogin);
 			}
-			//checkIP();//检查IP地址
+			// checkIP();//检查IP地址
 			return "loginSucc";
 		}
 	}
-	
-	
-	public String changeUserRolesPassword()
-	{
+
+	public String changeUserRolesPassword() {
 		int backNumber = -1;
 		userRoles = userRoleService.getUserRoles();
-		if(userRoles!=null&&userRoles.size()>0)
-		{
+		if (userRoles != null && userRoles.size() > 0) {
 			for (int i = 0; i < userRoles.size(); i++) {
-				
+
 				UserRole userRole = userRoles.get(i);
 				String newpsw = userRole.getPassword();
-				userRole.setPassword(MD5Util.convertMD5(MD5Util.string2MD5(newpsw)));
+				userRole.setPassword(MD5Util.convertMD5(MD5Util
+						.string2MD5(newpsw)));
 				userRoleService.update(userRole);
 			}
 			backNumber = 1;
@@ -211,43 +212,40 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 			e.printStackTrace();
 		}
 		return null;
-		
+
 	}
-	
-	public String welcome()
-	{
+
+	public String welcome() {
 		// 登陆验证
 		UserRole userRoleo = (UserRole) session.get("userRoleo");
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		UserRole  userRoleWelcome = userRoleService.loadById(userRoleo.getId());
-		//欢迎界面
+		UserRole userRoleWelcome = userRoleService.loadById(userRoleo.getId());
+		// 欢迎界面
 		pnotices = pnoticeService.getPnotices();
-		successexamples = successexampleService.getSuccessexamples();//所有
-		troubleshootings = troubleshootingService.getTroubleshootings();//所有
-		
+		successexamples = successexampleService.getSuccessexamples();// 所有
+		troubleshootings = troubleshootingService.getTroubleshootings();// 所有
+
 		persons = personService.getPersons();
 		setMainPersonJspNumber(userRoleWelcome);
 		setMainInjurycaseJspNumber(userRoleWelcome);
 		setMainClueJspNumber(userRoleWelcome);
-		
+
 		return "welcome";
 	}
 
-	
 	private void setMainClueJspNumber(UserRole userRole) {
 		// TODO Auto-generated method stub
 		clueNumberVOs = new ArrayList<ClueNumberVO>();
-		
-		for(int i =1;i<=1;i++)
-		{
+
+		for (int i = 1; i <= 1; i++) {
 			ClueNumberVO clueNumberVO = new ClueNumberVO();
 			clueNumberVO.setCtype(i);
-			int number1 = getCurrentClueVONumber(i,1,userRole);
-			int number2 = getCurrentClueVONumber(i,2,userRole);
-			int number3 = getCurrentClueVONumber(i,3,userRole);
-			int number4 = number1+number2+number3;
+			int number1 = getCurrentClueVONumber(i, 1, userRole);
+			int number2 = getCurrentClueVONumber(i, 2, userRole);
+			int number3 = getCurrentClueVONumber(i, 3, userRole);
+			int number4 = number1 + number2 + number3;
 			clueNumberVO.setNumber1(number1);
 			clueNumberVO.setNumber2(number2);
 			clueNumberVO.setNumber3(number3);
@@ -256,20 +254,17 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		}
 	}
 
-	
-
 	private void setMainInjurycaseJspNumber(UserRole userRole) {
 		// TODO Auto-generated method stub
 		injurycaseNumberVOs = new ArrayList<InjurycaseNumberVO>();
-		
-		for(int i =1;i<=3;i++)
-		{
+
+		for (int i = 1; i <= 3; i++) {
 			InjurycaseNumberVO injurycaseNumberVO = new InjurycaseNumberVO();
 			injurycaseNumberVO.setItype(i);
-			int number1 = getCurrentInjurycaseVONumber(i,1,userRole);
-			int number2 = getCurrentInjurycaseVONumber(i,2,userRole);
-			int number3 = getCurrentInjurycaseVONumber(i,3,userRole);
-			int number4 = number1+number2+number3;
+			int number1 = getCurrentInjurycaseVONumber(i, 1, userRole);
+			int number2 = getCurrentInjurycaseVONumber(i, 2, userRole);
+			int number3 = getCurrentInjurycaseVONumber(i, 3, userRole);
+			int number4 = number1 + number2 + number3;
 			injurycaseNumberVO.setNumber1(number1);
 			injurycaseNumberVO.setNumber2(number2);
 			injurycaseNumberVO.setNumber3(number3);
@@ -278,19 +273,18 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		}
 	}
 
-	//设置人员前端显示
+	// 设置人员前端显示
 	private void setMainPersonJspNumber(UserRole userRole) {
 		// TODO Auto-generated method stub
 		personNumberVOs = new ArrayList<PersonNumberVO>();
-		
-		for(int i =1;i<=14;i++)
-		{
+
+		for (int i = 1; i <= 14; i++) {
 			PersonNumberVO personNumberVO = new PersonNumberVO();
 			personNumberVO.setType(i);
-			int number1 = getCurrentVONumber(i,1,userRole);
-			int number2 = getCurrentVONumber(i,2,userRole);
-			int number3 = getCurrentVONumber(i,3,userRole);
-			int number4 = number1+number2+number3;
+			int number1 = getCurrentVONumber(i, 1, userRole);
+			int number2 = getCurrentVONumber(i, 2, userRole);
+			int number3 = getCurrentVONumber(i, 3, userRole);
+			int number4 = number1 + number2 + number3;
 			personNumberVO.setNumber1(number1);
 			personNumberVO.setNumber2(number2);
 			personNumberVO.setNumber3(number3);
@@ -298,54 +292,51 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 			personNumberVOs.add(personNumberVO);
 		}
 	}
-	
-	private int getCurrentVONumber(int type,int handleState,UserRole userRole)
-	{
-		persons = personService.getPersonsByTypeAndHandleState(type,handleState,userRole);
-		if(persons!=null)
-		{
+
+	private int getCurrentVONumber(int type, int handleState, UserRole userRole) {
+		persons = personService.getPersonsByTypeAndHandleState(type,
+				handleState, userRole);
+		if (persons != null) {
 			return persons.size();
-		}else
-		{
+		} else {
 			return 0;
 		}
-	
-	}
-	
-	private int getCurrentClueVONumber(int ctype, int handleState,UserRole userRole) {
-		// TODO Auto-generated method stub
-		clues = clueService.getCluesByTypeAndHandleState(ctype,handleState,userRole);
-		if(clues!=null)
-		{
-			return clues.size();
-		}else
-		{
-			return 0;
-		}
-	}
-	
-	private int getCurrentInjurycaseVONumber(int itype,int handleState,UserRole userRole)
-	{
-		injurycases = injurycaseService.getInjurycaseByTypeAndHandleState(itype,handleState,userRole);
-		if(injurycases!=null)
-		{
-			return injurycases.size();
-		}else
-		{
-			return 0;
-		}
-	
+
 	}
 
-	//设置登陆时间
+	private int getCurrentClueVONumber(int ctype, int handleState,
+			UserRole userRole) {
+		// TODO Auto-generated method stub
+		clues = clueService.getCluesByTypeAndHandleState(ctype, handleState,
+				userRole);
+		if (clues != null) {
+			return clues.size();
+		} else {
+			return 0;
+		}
+	}
+
+	private int getCurrentInjurycaseVONumber(int itype, int handleState,
+			UserRole userRole) {
+		injurycases = injurycaseService.getInjurycaseByTypeAndHandleState(
+				itype, handleState, userRole);
+		if (injurycases != null) {
+			return injurycases.size();
+		} else {
+			return 0;
+		}
+
+	}
+
+	// 设置登陆时间
 	private void setLoginTime(UserRole userRoleLogin) {
 		// TODO Auto-generated method stub
-		if(userRoleLogin.getBeforeLoginTime()==""||userRoleLogin.getBeforeLoginTime()==null)
-		{
+		if (userRoleLogin.getBeforeLoginTime() == ""
+				|| userRoleLogin.getBeforeLoginTime() == null) {
 			userRoleLogin.setBeforeLoginTime(DateTimeKit.getLocalTime());
-		}else
-		{
-			userRoleLogin.setBeforeLoginTime(userRoleLogin.getCurrentLoginTime());
+		} else {
+			userRoleLogin.setBeforeLoginTime(userRoleLogin
+					.getCurrentLoginTime());
 		}
 		userRoleLogin.setCurrentLoginTime(DateTimeKit.getLocalTime());
 		userRoleService.update(userRoleLogin);
@@ -355,18 +346,16 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		// TODO Auto-generated method stub
 		units = unitService.getUnits();
 		userRoles = userRoleService.getUserRoles();
-		if(units.size()==0&&userRoles.size()==0)
-		{
+		if (units.size() == 0 && userRoles.size() == 0) {
 			return true;
-		}else
-		{
+		} else {
 			return false;
 		}
 	}
 
 	private void checkIP() {
 		// TODO Auto-generated method stub
-		//String ip = getIpAddr(req);
+		// String ip = getIpAddr(req);
 	}
 
 	/*
@@ -400,7 +389,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		return "adminLogin";
 	}
 
-
 	/**
 	 * 用户管理
 	 */
@@ -424,10 +412,10 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 			page = pageCount;
 		}
 		// 所有当前页记录对象
-		userRoles = userRoleService.queryList(con, convalue, userRoleo, page, size);
+		userRoles = userRoleService.queryList(con, convalue, userRoleo, page,
+				size);
 		return "list";
 	}
-
 
 	/**
 	 * 跳转到添加页面
@@ -435,7 +423,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	 * @return
 	 */
 	public String goToAdd() {
-		
+
 		units = unitService.getUnits();
 		return "add";
 	}
@@ -448,51 +436,58 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	 */
 
 	public String add() throws Exception {
-		//判断回话是否失效
+		// 判断回话是否失效
 		UserRole userRoleo = (UserRole) session.get("userRoleo");
 		if (userRoleo == null) {
 			return "opsessiongo_child";
 		}
-		if(picture!=null&&pictureFileName!=null&&!pictureFileName.replace(" ", "").equals("")){
-			String imageName=DateTimeKit.getDateRandom()+pictureFileName.substring(pictureFileName.indexOf("."));
-			this.upload("/userRole",imageName,picture);
-			userRole.setPhoto("userRole"+"/"+imageName);
+		if (picture != null && pictureFileName != null
+				&& !pictureFileName.replace(" ", "").equals("")) {
+			String imageName = DateTimeKit.getDateRandom()
+					+ pictureFileName.substring(pictureFileName.indexOf("."));
+			this.upload("/userRole", imageName, picture);
+			userRole.setPhoto("userRole" + "/" + imageName);
 		}
+
+		userRole.setUsername(uname);
+		userRole.setPassword(MD5Util.convertMD5(MD5Util.string2MD5(pword)));
 		userRoleService.add(userRole);
 
 		arg[0] = "userRoleAction!list";
 		arg[1] = "用户管理";
 		return "success_child";
 	}
-	
-	//上传照片
+
+	// 上传照片
 	private File picture;
 	private String pictureContentType;
 	private String pictureFileName;
-	//文件上传
-	public void upload(String fileName,String imageName,File picture) throws Exception{
-		File saved=new File(ServletActionContext.getServletContext().getRealPath(fileName),imageName);
-		InputStream ins=null;
-		OutputStream ous=null;
+
+	// 文件上传
+	public void upload(String fileName, String imageName, File picture)
+			throws Exception {
+		File saved = new File(ServletActionContext.getServletContext()
+				.getRealPath(fileName), imageName);
+		InputStream ins = null;
+		OutputStream ous = null;
 		try {
 			saved.getParentFile().mkdirs();
-			ins=new FileInputStream(picture);
-			ous=new FileOutputStream(saved);
-			byte[] b=new byte[1024];
+			ins = new FileInputStream(picture);
+			ous = new FileOutputStream(saved);
+			byte[] b = new byte[1024];
 			int len = 0;
-			while((len=ins.read(b))!=-1){
-				ous.write(b,0,len);
+			while ((len = ins.read(b)) != -1) {
+				ous.write(b, 0, len);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally{
-			if(ous!=null)
+		} finally {
+			if (ous != null)
 				ous.close();
-			if(ins!=null) 
+			if (ins != null)
 				ins.close();
 		}
 	}
-	
 
 	/**
 	 * 删除一
@@ -501,39 +496,40 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	 */
 	public String delete() {
 		// 判断会话是否失效
-		UserRole userRoleo = (UserRole) session.get("userRole");
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		
+
 		userRole = userRoleService.loadById(id);
-		//删除照片
-		File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+userRole.getPhoto());
+		// 删除照片
+		File photofile = new File(ServletActionContext.getServletContext()
+				.getRealPath("/")
+				+ userRole.getPhoto());
 		photofile.delete();
-		
+
 		userRoleService.delete(userRole);
-		
-		userRoleService.deleteById(id);
 		arg[0] = "userRoleAction!list";
 		arg[1] = "用户管理";
 		return SUCCESS;
 	}
-	
+
 	/**
 	 * 删除二(批量删除)
 	 * 
 	 * @return
 	 */
 	public String deleteUserRoles() {
-		
+
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
-		for(int i=0;i<ids.length;i++)
-		{
+		for (int i = 0; i < ids.length; i++) {
 			userRole = userRoleService.loadById(ids[i]);
-			//删除照片
-			File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+userRole.getPhoto());
+			// 删除照片
+			File photofile = new File(ServletActionContext.getServletContext()
+					.getRealPath("/")
+					+ userRole.getPhoto());
 			photofile.delete();
-			
+
 			userRoleService.delete(userRole);
 		}
 		AjaxMsgVO msgVO = new AjaxMsgVO();
@@ -551,20 +547,19 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		}
 		return null;
 	}
-	
 
 	/**
 	 * 跳转到修改页面
 	 * 
 	 * @return
 	 */
-	public String load(){
-		
+	public String load() {
+
 		userRole = userRoleService.loadById(id);
 		units = unitService.getUnits();
 		return "load";
 	}
-	
+
 	/**
 	 * 修改
 	 * 
@@ -576,12 +571,16 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo_child";
 		}
-		if(picture!=null&&pictureFileName!=null&&!pictureFileName.replace(" ", "").equals("")){
-			String imageName=DateTimeKit.getDateRandom()+pictureFileName.substring(pictureFileName.indexOf("."));
-			this.upload("/userRole",imageName,picture);
-			File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+userRole.getPhoto());
+		if (picture != null && pictureFileName != null
+				&& !pictureFileName.replace(" ", "").equals("")) {
+			String imageName = DateTimeKit.getDateRandom()
+					+ pictureFileName.substring(pictureFileName.indexOf("."));
+			this.upload("/userRole", imageName, picture);
+			File photofile = new File(ServletActionContext.getServletContext()
+					.getRealPath("/")
+					+ userRole.getPhoto());
 			photofile.delete();
-			userRole.setPhoto("userRole"+"/"+imageName);
+			userRole.setPhoto("userRole" + "/" + imageName);
 		}
 
 		userRoleService.update(userRole);
@@ -589,9 +588,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		arg[1] = "用户管理";
 		return "success_child";
 	}
-	
-	
-	
 
 	/**
 	 * 跳转到修改秒页面
@@ -638,44 +634,47 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		userRole = userRoleService.loadById(id);
 		return "view";
 	}
-	
+
 	/**
 	 * 个人资料
 	 */
-	public String currentUserRole()
-	{
+	public String currentUserRole() {
 		UserRole userRoleo = (UserRole) session.get("userRoleo");
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		userRole = userRoleService.loadById(userRoleo.getId());;
+		userRole = userRoleService.loadById(userRoleo.getId());
+		;
 		units = unitService.getUnits();
 		return "currentUserRole";
 	}
-	
-	public String updateCurrentUserRole() throws Exception
-	{
+
+	public String updateCurrentUserRole() throws Exception {
 		UserRole userRoleo = (UserRole) session.get("userRoleo");
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		if(picture!=null&&pictureFileName!=null&&!pictureFileName.replace(" ", "").equals("")){
-			String imageName=DateTimeKit.getDateRandom()+pictureFileName.substring(pictureFileName.indexOf("."));
-			this.upload("/userRole",imageName,picture);
-			File photofile=new File(ServletActionContext.getServletContext().getRealPath("/")+userRole.getPhoto());
+		if (picture != null && pictureFileName != null
+				&& !pictureFileName.replace(" ", "").equals("")) {
+			String imageName = DateTimeKit.getDateRandom()
+					+ pictureFileName.substring(pictureFileName.indexOf("."));
+			this.upload("/userRole", imageName, picture);
+			File photofile = new File(ServletActionContext.getServletContext()
+					.getRealPath("/")
+					+ userRole.getPhoto());
 			photofile.delete();
-			userRole.setPhoto("userRole"+"/"+imageName);
+			userRole.setPhoto("userRole" + "/" + imageName);
 		}
-		if(password1!=null&&!password1.replace(" ", "").equals("")&&password2!=null&&!password2.replace(" ", "").equals(""))
-		{
-			userRole.setPassword(MD5Util.convertMD5(MD5Util.string2MD5(password1)));
+		if (password1 != null && !password1.replace(" ", "").equals("")
+				&& password2 != null && !password2.replace(" ", "").equals("")) {
+			userRole.setPassword(MD5Util.convertMD5(MD5Util
+					.string2MD5(password1)));
 		}
 		userRoleService.update(userRole);
 		arg[0] = "userRoleAction!currentUserRole";
 		arg[1] = "个人资料";
 		return SUCCESS;
 	}
-
 
 	// get、set-------------------------------------------
 
@@ -816,7 +815,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 
 	public javax.servlet.http.HttpServletResponse getResponse() {
 		return response;
@@ -1103,7 +1101,8 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		return injurycaseNumberVOs;
 	}
 
-	public void setInjurycaseNumberVOs(List<InjurycaseNumberVO> injurycaseNumberVOs) {
+	public void setInjurycaseNumberVOs(
+			List<InjurycaseNumberVO> injurycaseNumberVOs) {
 		this.injurycaseNumberVOs = injurycaseNumberVOs;
 	}
 
@@ -1114,7 +1113,21 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	public void setClueNumberVOs(List<ClueNumberVO> clueNumberVOs) {
 		this.clueNumberVOs = clueNumberVOs;
 	}
-	
-	
+
+	public String getUname() {
+		return uname;
+	}
+
+	public void setUname(String uname) {
+		this.uname = uname;
+	}
+
+	public String getPword() {
+		return pword;
+	}
+
+	public void setPword(String pword) {
+		this.pword = pword;
+	}
 
 }

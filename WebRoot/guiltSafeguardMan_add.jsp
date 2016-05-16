@@ -101,7 +101,7 @@
 													<td width="176" align="center">
 														<img id="myimage" class="img-responsive thumbnail"
 															width="200px"
-															height="auto" alt="人员照片" />
+															height="180px;" alt="人员照片" />
 														<script type="text/javascript">
 															function change() {
 															    var pic = document.getElementById("myimage"),
@@ -310,7 +310,7 @@
 
 												<img id="myimage1" class="img-responsive thumbnail"
 													width="200px"
-															height="auto" alt="前科照片1" />
+															height="180px;" alt="前科照片1" />
 												<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),
@@ -373,7 +373,7 @@
 											<td align="center">
 												<img id="myimage2" class="img-responsive thumbnail"
 													width="200px"
-															height="auto" alt="前科照片2" />
+															height="180px;" alt="前科照片2" />
 												<script type="text/javascript">
 															function change2() {
 															    var pic2 = document.getElementById("myimage2"),
@@ -432,7 +432,7 @@
 											<td align="center">
 												<img id="myimage3" class="img-responsive thumbnail"
 													width="200px"
-															height="auto" alt="前科照片3" />
+															height="180px;" alt="前科照片3" />
 												<script type="text/javascript">
 															function change3() {
 															    var pic3 = document.getElementById("myimage3"),

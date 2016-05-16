@@ -117,7 +117,7 @@
 													<td width="176" align="center">
 														<img src="<%=basePath%>${person.photoImg}" id="myimage"
 															class="img-responsive thumbnail" width="200px"
-															height="auto" alt="人员照片" />
+															height="180px;" alt="人员照片" />
 														<script type="text/javascript">
 															function change() {
 															    var pic = document.getElementById("myimage"),
@@ -311,7 +311,7 @@
 											<img
 												src="<%=basePath%>${guiltSafeguardMan.criminalRecordPhoto1}"
 												id="myimage1" class="img-responsive thumbnail"width="200px"
-															height="auto" alt="前科照片1" />
+															height="180px;" alt="前科照片1" />
 											<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),
@@ -371,7 +371,7 @@
 										<td align="center">
 											<img id="myimage2" class="img-responsive thumbnail"
 												src="<%=basePath%>${guiltSafeguardMan.criminalRecordPhoto2}"
-												width="200px" height="auto" alt="前科照片2" />
+												width="200px" height="180px;" alt="前科照片2" />
 											<script type="text/javascript">
 															function change2() {
 															    var pic2 = document.getElementById("myimage2"),
@@ -431,7 +431,7 @@
 											<img
 												src="<%=basePath%>${guiltSafeguardMan.criminalRecordPhoto3}"
 												id="myimage3" class="img-responsive thumbnail" width="200px"
-															height="auto" alt="前科照片3" />
+															height="180px;" alt="前科照片3" />
 											<script type="text/javascript">
 															function change3() {
 															    var pic3 = document.getElementById("myimage3"),
