@@ -20,6 +20,7 @@ public class Media {
 	private String uptime; // 上传时间
 	private String picSrc;// 视频截图图片
 	private Injurycase injurycase;// 所属案件
+	private String captureSrc;
 
 	@Column(name = "descript", length = 400)
 	public String getDescript() {
@@ -99,6 +100,14 @@ public class Media {
 	public String toString() {
 		return "{id:" + this.id + "," + "title:" + "\"" + this.title + "\""
 				+ "," + "src:" + "\"" + this.src + "\"" + "}";
+	}
+	@Column(name = "captureSrc")
+	public String getCaptureSrc() {
+		return captureSrc;
+	}
+
+	public void setCaptureSrc(String captureSrc) {
+		this.captureSrc = captureSrc;
 	}
 
 }

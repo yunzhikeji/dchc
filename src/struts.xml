@@ -19,6 +19,7 @@
 		<action name="unitAction" class="unitAction">
 			<result name="sessiongo">/op_sessiongo.jsp</result>
 			<result name="success_child">/op_success_child.jsp</result>
+			
 			<result name="success">/op_success.jsp</result>
 			<result name="fail">/op_failure.jsp</result>
 			<result name="operror">/op_error.jsp</result>
@@ -466,6 +467,7 @@
 		<action name="mediaAction" class="mediaAction">
 			<result name="sessiongo">/op_sessiongo.jsp</result>
 			<result name="success_child">/op_success_child.jsp</result>
+			<result name="success_child1">/op_success_child1.jsp</result>
 			<result name="success">/op_success.jsp</result>
 			<result name="fail">/op_failure.jsp</result>
 			<result name="operror">/op_error.jsp</result>

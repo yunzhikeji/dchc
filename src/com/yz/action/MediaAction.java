@@ -1,5 +1,9 @@
 package com.yz.action;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,10 +11,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.annotation.Resource;
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,15 +32,15 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import sun.misc.BASE64Decoder;
+
 import com.opensymphony.xwork2.ActionSupport;
-import com.yz.model.Clue;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
 import com.yz.model.Injurycase;
 import com.yz.model.Media;
-import com.yz.model.Person;
-import com.yz.service.IClueService;
 import com.yz.service.IInjurycaseService;
 import com.yz.service.IMediaService;
-import com.yz.service.IPersonService;
 import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
 
@@ -71,6 +79,7 @@ public class MediaAction extends ActionSupport implements RequestAware,
 
 	// list表对象
 	private List<Media> medias;
+	private String capture;
 	private String picSrc;
 
 
@@ -100,19 +109,62 @@ public class MediaAction extends ActionSupport implements RequestAware,
 		}
 		
 		if (media.getInjurycase()!= null) {
+			
+			
+			changeInjurycaseHandleState(media.getInjurycase().getId());
+		}
+		mediaService.add(media);
+		return "success_child";
+	}
+	
+	
+	public String add1() throws Exception {
+		String serverPath = ServletActionContext.getServletContext().getRealPath("/");
+		BASE64Decoder decoder = new BASE64Decoder();
+		if (media.getInjurycase()!= null) {
+			
+			
 			changeInjurycaseHandleState(media.getInjurycase().getId());
 		}
 		
+		byte[] bs = decoder.decodeBuffer(media.getPicSrc().substring("data:image/png;base64,".length()));  //picSrc为Base64字符串
+		InputStream is = new ByteArrayInputStream(bs); 
+		String fileName = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+		Random random = new Random();
+		for(int i = 0; i < 3; i++){
+			fileName = fileName + random.nextInt(10);
+		}
+		
+		String realPath = serverPath + "\\media\\" + fileName + ".png";
+		String relativePath = "media/" + fileName + ".png";
+		
+        double ratio = 1.0;  
+        BufferedImage image = ImageIO.read(is);  
+        int newWidth = (int) (image.getWidth() * ratio);  
+        int newHeight = (int) (image.getHeight() * ratio);  
+        Image newimage = image.getScaledInstance(newWidth, newHeight,  
+        Image.SCALE_SMOOTH);  
+        BufferedImage tag = new BufferedImage(newWidth, newHeight,  
+                BufferedImage.TYPE_INT_RGB);  
+        Graphics g = tag.getGraphics();  
+        g.drawImage(newimage, 0, 0, null);  
+        g.dispose();  
+        ImageIO.write(tag, "png", new File(realPath));  
+
+		media.setSrc(relativePath);
+        
 		mediaService.add(media);
-		return "success_child";
+
+		return "success_child1";
 	}
 	
 	
 	/*
 	 * 修改案件状态
 	 */
-	private void changeInjurycaseHandleState(Integer inid) {
-
+	private void changeInjurycaseHandleState(int inid) {
+		System.out.println(inid);
+		System.out.println(injurycaseService);
 		Injurycase injurycase = injurycaseService.loadById(inid);
 		if (injurycase != null) {
 			if (injurycase.getHandleState() == 1) {
@@ -482,6 +534,14 @@ public class MediaAction extends ActionSupport implements RequestAware,
 
 	public void setMtype(int mtype) {
 		this.mtype = mtype;
+	}
+
+	public String getCapture() {
+		return capture;
+	}
+
+	public void setCapture(String capture) {
+		this.capture = capture;
 	}
 	
 	

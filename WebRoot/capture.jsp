@@ -23,25 +23,31 @@
 <script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>
 <script type="text/javascript"
 	src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
 <script type="text/javascript" src="js/pageKit.js"></script>
+
 </head>
 <script language="JavaScript">
 	var params = window.location.search;
+	console.log(params);
+	params = params.substring(6);
+	console.log(params);
 	function viewData() {
 		var sData = window.dialogArguments;
 
 		window.document.getElementById("output").appendChild(sData);
-		document.getElementById("sData").setAttribute("value",sData.src);
+		document.getElementById("sData").setAttribute("value", sData.src);
+		document.getElementById("inid").setAttribute("value", params);
 	}
 	window.onload = viewData;
-
 </script>
 <body>
-	<form name="mediaAddForm" action="mediaAction!add" method="post"
+	<input id="sData1" type="text" name="media.picSrc" />
+	<form name="mediaAddForm" action="mediaAction!add1" method="post"
 		enctype="multipart/form-data" onsubmit="">
-		<input type="hidden" name="media.injurycase.id" value="${inid}" /> 
-		<input type="hidden" name="media.mtype" value="0" />
-		<input id="sData" type="hidden" name="media.picSrc" value="">
+		<input id="inid" type="text" name="media.injurycase.id" /> <input
+			type="hidden" name="media.mtype" value="0" /> <input id="sData"
+			type="hidden" name="media.picSrc" />
 		<div class="pd-20">
 			<div class="row cl mb-10">
 				<div class="col-2">

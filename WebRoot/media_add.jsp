@@ -12,7 +12,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>媒体视频</title>
+		<title>视频截图</title>
 		<link href="css/H-ui.min.css" rel="stylesheet" type="text/css" />
 		<link href="css/H-ui.admin.css" rel="stylesheet" type="text/css" />
 		<link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet"
@@ -96,7 +96,7 @@
 					<s:token></s:token>
 					<div class="col-10 col-offset-2">
 						<input type="submit" class="btn btn-primary radius" value="保存并提交" />
-						<button onclick="childPage_close();"
+						<button onclick="window.close();"
 							class="btn btn-default radius" type="button">
 							&nbsp;&nbsp;取消&nbsp;&nbsp;
 						</button>

@@ -63,7 +63,7 @@
 		     (function() {
 		  "use strict";
 		  var video, $output;
-		  var scale = 0.45;
+		  var scale = 0.25;
 		  var initialize = function() {
 		    $output = $("#output");
 		    video = $("#swf_play").get(0);

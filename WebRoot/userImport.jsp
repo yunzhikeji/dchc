@@ -4,8 +4,12 @@
 <html>
 <head>
 <title>导入文件</title>
+
 <link href="${pageContext.request.contextPath }/css/Style.css"
 	type="text/css" rel="stylesheet">
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
+<script type="text/javascript" src="js/pageKit.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/function.js"></script>
 <SCRIPT language="javascript">
@@ -23,7 +27,8 @@
 				<td class="ta_01" align="center"
 					background="${pageContext.request.contextPath }/images/b-info.gif"
 					colspan="4"><font face="宋体" size="2"><strong>Excel文件数据导入</strong>
-				</font></td>
+				</font>
+				</td>
 			</tr>
 			<tr>
 				<td width="1%" height=30></td>
@@ -37,12 +42,13 @@
 				<td width="83%" align="left">
 					<!--  
           <input type="file" name="socialManForm.file" style="width:365px"/>
-          --> <input type="file" name="file" style="width:365px" />
-				</td>
+          --> <input type="file" name="file" style="width:365px" /></td>
 				<td width="1%"></td>
 			</tr>
 			<tr height=50>
-				<td colspan=4></td>
+				<td colspan=4><a
+					href="${pageContext.request.contextPath }/template/template.xls">下载导入excel模板</a>
+				</td>
 			</tr>
 			<tr height=2>
 				<td colspan=4
@@ -55,7 +61,7 @@
 				<td align="center" colspan=4><s:submit name="import" value="导入"
 						cssStyle="width: 60px; font-size:12px; color:black; height=22"></s:submit>
 					<INPUT type="button" name="Reset1" id="save" value="关闭"
-					onClick="window.opener.reflash(); window.close();"
+					onClick="childPage_close();"
 					style="width: 60px; font-size:12px; color:black; height=22">
 				</td>
 			</tr>
