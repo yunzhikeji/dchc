@@ -49,6 +49,15 @@
 							<input type="submit" class="btn btn-success radius" id="button"
 								value="保存并提交"></input>
 						</div>
+						<s:if
+							test="person.getEndSituation()!=null&&person.getEndSituation()!='0'">
+							<div class=" f-r pr-5">
+								<button type="button" class="btn btn-success radius" id="button"
+									onclick="addPage('发布案例','successexampleAction!goToAdd?pid=<s:property value="id"/>','500','300')">
+									<i class="Hui-iconfont">&#xe6bf;</i> 发布案例
+								</button>
+							</div>
+						</s:if>
 					</div>
 				</div>
 
@@ -60,7 +69,7 @@
 						<div class="tabCon">
 							<div class="row cl text-c">
 								<h1 style="line-height: 80px;">
-									<small style="color: #000;">线索流转</small>
+									<small style="color: #000;">普通线索</small>
 								</h1>
 							</div>
 							<div class="col-12 mb-10 c-primary f-16"
@@ -536,10 +545,10 @@
 											</label>
 										</td>
 										<td>
-											<s:textfield name="person.comprehensiveJudge"
+											<s:textarea name="person.comprehensiveJudge"
 												cssClass="input-text" id="input9"
 												cssStyle="width: 100%; height: 80px; float: left;"
-												placeholder="根据以上研判信息填写综合情况"></s:textfield>
+												placeholder="根据以上研判信息填写综合情况"></s:textarea>
 										</td>
 									</tr>
 								</table>
@@ -556,10 +565,10 @@
 											</label>
 										</td>
 										<td>
-											<s:textfield name="person.leaderInstruction"
+											<s:textarea name="person.leaderInstruction"
 												cssClass="input-text" id="input9"
 												cssStyle="width: 100%; height: 80px; float: left;"
-												placeholder="领导批示填写"></s:textfield>
+												placeholder="领导批示填写"></s:textarea>
 										</td>
 									</tr>
 								</table>

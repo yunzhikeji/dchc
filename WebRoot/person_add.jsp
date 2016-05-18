@@ -1673,9 +1673,9 @@
 											</label>
 										</td>
 										<td>
-												<s:textfield name="person.comprehensiveJudge" cssClass="input-text" id="input9"
+												<s:textarea name="person.comprehensiveJudge" cssClass="input-text" id="input9"
 												cssStyle="width: 800px; height: 80px; float: left;"
-												placeholder="根据以上研判信息填写综合情况"></s:textfield>
+												placeholder="根据以上研判信息填写综合情况"></s:textarea>
 										</td>
 									</tr>
 								</table>

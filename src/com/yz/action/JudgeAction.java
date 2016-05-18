@@ -204,12 +204,12 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 
 				Unit unit = unitService.getUnitByName(uname);
 				if (unit != null) {
-					if (unit.getPids() != null && unit.getPids() != "") {
-						unit.setPids(handleIDs(unit.getPids(), judge
-								.getPerson().getId()
+					if (unit.getInids() != null && unit.getInids() != "") {
+						unit.setInids(handleIDs(unit.getInids(), judge
+								.getInjurycase().getId()
 								+ ""));
 					} else {
-						unit.setPids(judge.getPerson().getId() + ",");
+						unit.setInids(judge.getInjurycase().getId() + ",");
 					}
 				}
 			}
@@ -233,12 +233,12 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 
 				Unit unit = unitService.getUnitByName(uname);
 				if (unit != null) {
-					if (unit.getPids() != null && unit.getPids() != "") {
-						unit.setPids(handleIDs(unit.getPids(), judge
-								.getPerson().getId()
+					if (unit.getCids() != null && unit.getCids() != "") {
+						unit.setCids(handleIDs(unit.getCids(), judge
+								.getClue().getId()
 								+ ""));
 					} else {
-						unit.setPids(judge.getPerson().getId() + ",");
+						unit.setCids(judge.getClue().getId() + ",");
 					}
 				}
 			}

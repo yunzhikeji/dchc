@@ -52,13 +52,13 @@
 			<div class="text-c">
 				<form name="injurycaseListForm" method="post"
 					action="injurycaseAction!list" target="_self">
-					<s:hidden name="type"></s:hidden>
+					<s:hidden name="itype"></s:hidden>
 					<table width="100%" border="0" cellspacing="0" cellpadding="0"
 						style="line-height: 35px;">
 						<tr height="35">
 							<td width="21%" align="right" style="padding-right: 50px;">
 								<s:select
-									list="#{0:'选择类型',1:'人员姓名',2:'人员编号',3:'身份证号',4:'录入人员姓名'}"
+									list="#{0:'选择类型',1:'案发编号',2:'案件地址',3:'案件名称',4:'录入人员姓名'}"
 									cssClass="input-text" name="con" listKey="key"
 									listValue="value" cssStyle="width:180px"></s:select>
 							</td>
@@ -67,7 +67,7 @@
 							</td>
 							<td align="left" style="padding-left: 50px;">
 								信息状态:
-								<s:select list="#{1:'未办理',2:'在办理',3:'已完结'}"
+								<s:select list="#{0:'全部',1:'未办理',2:'在办理',3:'已完结'}"
 									cssClass="input-text" name="queryState" listKey="key"
 									listValue="value" cssStyle="width:180px"></s:select>
 							</td>

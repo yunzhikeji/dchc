@@ -1888,8 +1888,11 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
+		
 		person = new Person();
 		personService.saveSocialManWithExcel(person, file, userRoleo);
+		
+		
 		return "importdata";
 	}
 

@@ -101,13 +101,13 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 
 		if (con != 0 && convalue != null && !convalue.equals("")) {
 			if (con == 1) {
-				queryString += "and mo.caseName like ? ";
-			}
-			if (con == 2) {
 				queryString += "and mo.caseNumber like ? ";
 			}
-			if (con == 3) {
+			if (con == 2) {
 				queryString += "and mo.casePlace like ? ";
+			}
+			if (con == 3) {
+				queryString += "and mo.caseName like ? ";
 			}
 			if (con == 4) {
 				queryString += "and mo.userRole.realname like ? ";
@@ -167,13 +167,13 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		Object[] p = null;
 		if (con != 0 && convalue != null && !convalue.equals("")) {
 			if (con == 1) {
-				queryString += "and mo.caseName like ? ";
-			}
-			if (con == 2) {
 				queryString += "and mo.caseNumber like ? ";
 			}
-			if (con == 3) {
+			if (con == 2) {
 				queryString += "and mo.casePlace like ? ";
+			}
+			if (con == 3) {
+				queryString += "and mo.caseName like ? ";
 			}
 			if (con == 4) {
 				queryString += "and mo.userRole.realname like ? ";
@@ -209,13 +209,13 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 
 		if (con != 0 && convalue != null && !convalue.equals("")) {
 			if (con == 1) {
-				queryString += "and mo.name like ? ";
+				queryString += "and mo.caseNumber like ? ";
 			}
 			if (con == 2) {
-				queryString += "and mo.number like ? ";
+				queryString += "and mo.casePlace like ? ";
 			}
 			if (con == 3) {
-				queryString += "and mo.idcard like ? ";
+				queryString += "and mo.caseName like ? ";
 			}
 			if (con == 4) {
 				queryString += "and mo.userRole.realname like ? ";
@@ -255,13 +255,13 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		Object[] p = null;
 		if (con != 0 && convalue != null && !convalue.equals("")) {
 			if (con == 1) {
-				queryString += "and mo.name like ? ";
+				queryString += "and mo.caseNumber like ? ";
 			}
 			if (con == 2) {
-				queryString += "and mo.number like ? ";
+				queryString += "and mo.casePlace like ? ";
 			}
 			if (con == 3) {
-				queryString += "and mo.idcard like ? ";
+				queryString += "and mo.caseName like ? ";
 			}
 			if (con == 4) {
 				queryString += "and mo.userRole.realname like ? ";

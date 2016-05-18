@@ -52,7 +52,7 @@
 			<div class="text-c">
 				<form name="clueListForm" method="post" action="clueAction!list"
 					target="_self">
-					<s:hidden name="type"></s:hidden>
+					<s:hidden name="ctype"></s:hidden>
 					<table width="100%" border="0" cellspacing="0" cellpadding="0"
 						style="line-height: 35px;">
 						<tr height="35">
@@ -67,7 +67,7 @@
 							</td>
 							<td align="left" style="padding-left: 50px;" >
 								信息状态:
-								<s:select list="#{1:'未办理',2:'在办理',3:'已完结'}"
+								<s:select list="#{0:'全部',1:'未办理',2:'在办理',3:'已完结'}"
 									cssClass="input-text" name="queryState" listKey="key"
 									listValue="value" cssStyle="width:180px"></s:select>
 							</td>

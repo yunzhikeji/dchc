@@ -209,6 +209,33 @@ function checkCase()
 	
 }
 
+//lawcase_*.jsp
+function checkLawcase()
+{
+	var caseNumber = $("#caseNumber").val();
+	
+	if(caseNumber==''||caseNumber==null)
+	{
+		alert("案件编号不能为空.");
+		return false;
+	}	
+	
+}
+
+
+
+//success_*.jsp
+function checkSuccess()
+{
+	var title = $("#title").val();
+	
+	if(title==''||title==null)
+	{
+		alert("标题不能为空.");
+		return false;
+	}	
+	
+}
 
 //user_add.jsp 
 function changeProject_add()

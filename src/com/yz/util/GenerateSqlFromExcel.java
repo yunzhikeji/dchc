@@ -41,7 +41,7 @@ public class GenerateSqlFromExcel {
 				for (int i = 0; i < sheet.length; i++) {
 					if (sheet[i].getName().equalsIgnoreCase("Sheet1")) {
 						for (int j = 1; j < sheet[i].getRows(); j++) {
-							String[] valStr = new String[8];
+							String[] valStr = new String[sheet[i].getColumns()];
 							for (int k = 0; k < sheet[i].getColumns(); k++) {
 								Cell cell = sheet[i].getCell(k, j);
 								String content = "";

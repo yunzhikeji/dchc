@@ -494,10 +494,10 @@
 											</label>
 										</td>
 										<td>
-											<s:textfield name="clue.comprehensiveJudge"
+											<s:textarea name="clue.comprehensiveJudge"
 												cssClass="input-text" id="input9"
 												cssStyle="width: 100%; height: 80px; float: left;"
-												placeholder="根据以上研判信息填写综合情况"></s:textfield>
+												placeholder="根据以上研判信息填写综合情况"></s:textarea>
 										</td>
 									</tr>
 								</table>
@@ -514,10 +514,10 @@
 											</label>
 										</td>
 										<td>
-											<s:textfield name="clue.leaderInstruction"
+											<s:textarea name="clue.leaderInstruction"
 												cssClass="input-text" id="input9"
 												cssStyle="width: 100%; height: 80px; float: left;"
-												placeholder="领导批示填写"></s:textfield>
+												placeholder="领导批示填写"></s:textarea>
 										</td>
 									</tr>
 								</table>
@@ -528,13 +528,13 @@
 								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
 									<div
 										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-										<s:property value="injurycase.userRole.realname" />
+										<s:property value="clue.userRole.realname" />
 										：录入
 									</div>
 								</div>
 							</div>
-							<s:if test="injurycase.judges.size>0">
-								<s:iterator value="injurycase.judges" var="judge"
+							<s:if test="clue.judges.size>0">
+								<s:iterator value="clue.judges" var="judge"
 									status="status">
 									<div class="row cl">
 										<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">

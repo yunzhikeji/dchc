@@ -537,10 +537,10 @@
 											</label>
 										</td>
 										<td>
-											<s:textfield name="person.comprehensiveJudge"
+											<s:textarea name="person.comprehensiveJudge"
 												cssClass="input-text" id="input9"
 												cssStyle="width: 100%; height: 80px; float: left;"
-												placeholder="根据以上研判信息填写综合情况"></s:textfield>
+												placeholder="根据以上研判信息填写综合情况"></s:textarea>
 										</td>
 									</tr>
 								</table>
@@ -557,10 +557,10 @@
 											</label>
 										</td>
 										<td>
-											<s:textfield name="person.leaderInstruction"
+											<s:textarea name="person.leaderInstruction"
 												cssClass="input-text" id="input9"
 												cssStyle="width: 100%; height: 80px; float: left;"
-												placeholder="领导批示填写"></s:textfield>
+												placeholder="领导批示填写"></s:textarea>
 										</td>
 									</tr>
 								</table>

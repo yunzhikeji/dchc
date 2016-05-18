@@ -22,13 +22,13 @@
 		<script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>
 		<script type="text/javascript"
 			src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
-
+	<script type="text/javascript" src="js/checkUtil.js"></script>
 	</head>
 
 	<body>
 		<div class="pd-20">
 			<form name="successexampleAddForm" action="successexampleAction!update" method="post"
-				class="form form-horizontal" id="form-article-add"  onsubmit="">
+				class="form form-horizontal" id="form-article-add"  onsubmit="return checkSuccess();">
 				<div class="row cl">
 					<div class="row cl">
 						<label class="form-label col-2">

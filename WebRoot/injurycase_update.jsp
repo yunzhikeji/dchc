@@ -41,7 +41,8 @@
 	</head>
 	<body>
 		<form name="injurycaseAddForm" action="injurycaseAction!update"
-			method="post" enctype="multipart/form-data" onsubmit="return checkCase();">
+			method="post" enctype="multipart/form-data"
+			onsubmit="return checkCase();">
 			<div class="pd-20">
 				<div class="row cl">
 					<div class="col-6 col-offset-6 ">
@@ -634,10 +635,10 @@
 														</label>
 													</td>
 													<td>
-														<s:textfield name="injurycase.comprehensiveJudge"
+														<s:textarea name="injurycase.comprehensiveJudge"
 															cssClass="input-text" id="input9"
 															cssStyle="width: 100%; height: 80px; float: left;"
-															placeholder="根据以上研判信息填写综合情况"></s:textfield>
+															placeholder="根据以上研判信息填写综合情况"></s:textarea>
 													</td>
 												</tr>
 											</table>
@@ -654,10 +655,10 @@
 														</label>
 													</td>
 													<td>
-														<s:textfield name="injurycase.leaderInstruction"
+														<s:textarea name="injurycase.leaderInstruction"
 															cssClass="input-text" id="input9"
 															cssStyle="width: 100%; height: 80px; float: left;"
-															placeholder="领导批示填写"></s:textfield>
+															placeholder="领导批示填写"></s:textarea>
 													</td>
 												</tr>
 											</table>
@@ -665,81 +666,81 @@
 									</div>
 								</div>
 							</div>
-							<div class="tabCon">
-								<div class="row cl">
+						</div>
+						<div class="tabCon">
+							<div class="row cl">
+								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+									<div
+										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+										<s:property value="injurycase.userRole.realname" />
+										：录入
+									</div>
+								</div>
+							</div>
+							<s:if test="injurycase.judges.size>0">
+								<s:iterator value="injurycase.judges" var="judge"
+									status="status">
+									<div class="row cl">
+										<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+											<div style="height: 25px; width: 200px; text-align: center">
+												<i class="Hui-iconfont f-18 ">&#xe674;</i>
+											</div>
+										</div>
+									</div>
 									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
 										<div
-											style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-											<s:property value="injurycase.userRole.realname" />
-											：录入
+											style="height: 100px; width: 200px; border: solid 1px #666">
+											<table width="100%" border="0" cellspacing="0"
+												cellpadding="0">
+												<tr>
+													<td>
+														研判次序
+														<s:property value="indexNumber" />
+														:
+														<s:property value="reportUnit" />
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</s:iterator>
+							</s:if>
+							<s:if
+								test="injurycase.comprehensiveJudge!=null&&injurycase.comprehensiveJudge!=''">
+								<div class="row cl">
+									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+										<div style="height: 25px; width: 200px; text-align: center">
+											<i class="Hui-iconfont f-18 ">&#xe674;</i>
 										</div>
 									</div>
 								</div>
-								<s:if test="injurycase.judges.size>0">
-									<s:iterator value="injurycase.judges" var="judge"
-										status="status">
-										<div class="row cl">
-											<div class="col-offset-5 col-5-1 text-c"
-												style="padding: 5px;">
-												<div style="height: 25px; width: 200px; text-align: center">
-													<i class="Hui-iconfont f-18 ">&#xe674;</i>
-												</div>
-											</div>
-										</div>
-										<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-											<div
-												style="height: 100px; width: 200px; border: solid 1px #666">
-												<table width="100%" border="0" cellspacing="0"
-													cellpadding="0">
-													<tr>
-														<td>
-															研判次序
-															<s:property value="indexNumber" />
-															:
-															<s:property value="reportUnit" />
-														</td>
-													</tr>
-												</table>
-											</div>
-										</div>
-									</s:iterator>
-								</s:if>
-								<s:if
-									test="injurycase.comprehensiveJudge!=null&&injurycase.comprehensiveJudge!=''">
-									<div class="row cl">
-										<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-											<div style="height: 25px; width: 200px; text-align: center">
-												<i class="Hui-iconfont f-18 ">&#xe674;</i>
-											</div>
-										</div>
+								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+									<div
+										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+										完结
 									</div>
+								</div>
+							</s:if>
+							<s:if
+								test="injurycase.leaderInstruction!=null&&injurycase.leaderInstruction!=''">
+								<div class="row cl">
 									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-										<div
-											style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-											完结
+										<div style="height: 25px; width: 200px; text-align: center">
+											<i class="Hui-iconfont f-18 ">&#xe674;</i>
 										</div>
 									</div>
-								</s:if>
-								<s:if
-									test="injurycase.leaderInstruction!=null&&injurycase.leaderInstruction!=''">
-									<div class="row cl">
-										<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-											<div style="height: 25px; width: 200px; text-align: center">
-												<i class="Hui-iconfont f-18 ">&#xe674;</i>
-											</div>
-										</div>
+								</div>
+								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+									<div
+										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+										领导批示
 									</div>
-									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-										<div
-											style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-											领导批示
-										</div>
-									</div>
-								</s:if>
-							</div>
+								</div>
+							</s:if>
 						</div>
 					</div>
-					<script type="text/javascript">
+				</div>
+				<script type="text/javascript">
 
 $(function(){
 $.Huitab("#tab_demo .tabBar span","#tab_demo .tabCon","current","click","0");
@@ -807,19 +808,19 @@ function article_save(obj,id){
 	});
 }
 </script>
-					<s:hidden name="injurycase.imageCase" title="案件图片"></s:hidden>
-					<s:hidden name="injurycase.isCanvas" title="水印"></s:hidden>
-					<s:hidden name="injurycase.pids" title="pids"></s:hidden>
-					<s:hidden name="injurycase.caseIds" title="caseIds"></s:hidden>
+				<s:hidden name="injurycase.imageCase" title="案件图片"></s:hidden>
+				<s:hidden name="injurycase.isCanvas" title="水印"></s:hidden>
+				<s:hidden name="injurycase.pids" title="pids"></s:hidden>
+				<s:hidden name="injurycase.caseIds" title="caseIds"></s:hidden>
 
-					<s:hidden name="injurycase.itype" title="案件类型"></s:hidden>
-					<s:hidden name="injurycase.id" title="案件id"></s:hidden>
+				<s:hidden name="injurycase.itype" title="案件类型"></s:hidden>
+				<s:hidden name="injurycase.id" title="案件id"></s:hidden>
 
-					<s:if test="injurycase.userRole!=null">
-						<s:hidden name="injurycase.userRole.id" title="案件子表userRoleid"></s:hidden>
-					</s:if>
-					<s:hidden name="injurycase.handleState" title="办理状态"></s:hidden>
-					<s:hidden name="injurycase.joinDate" title="录入时间"></s:hidden>
+				<s:if test="injurycase.userRole!=null">
+					<s:hidden name="injurycase.userRole.id" title="案件子表userRoleid"></s:hidden>
+				</s:if>
+				<s:hidden name="injurycase.handleState" title="办理状态"></s:hidden>
+				<s:hidden name="injurycase.joinDate" title="录入时间"></s:hidden>
 		</form>
 	</body>
 </html>

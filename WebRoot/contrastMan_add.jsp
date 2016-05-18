@@ -81,6 +81,15 @@
 											name="contrastMan.contrastType" listKey="key"
 											listValue="value" cssStyle="width:200px"></s:select>
 									</div>
+									<div class="col-2">
+										<label class="form-label text-r">
+											人员编号：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:textfield name="person.number" id="number"
+											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+									</div>
 								</div>
 								<div class="row cl mb-10">
 									<div class="col-2">

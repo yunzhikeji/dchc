@@ -67,7 +67,7 @@
 							</td>
 							<td align="left" style="padding-left: 50px;">
 								信息状态:
-								<s:select list="#{1:'未办理',2:'在办理',3:'已完结'}"
+								<s:select list="#{0:'全部',1:'未办理',2:'在办理',3:'已完结'}"
 									cssClass="input-text" name="queryState" listKey="key"
 									listValue="value" cssStyle="width:180px"></s:select>
 							</td>

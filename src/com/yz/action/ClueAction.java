@@ -319,6 +319,11 @@ public class ClueAction extends ActionSupport implements RequestAware,
 			UserRole userRole = userRoleService.loadById(userRoleo.getId());
 			clue.setUserRole(userRole);// 设置录入人员
 		}
+		
+		if (clue.getEndSituation() != null
+				&& clue.getEndSituation() != "") {
+			clue.setHandleState(3);// 完结
+		}
 		clueService.update(clue);
 
 		arg[0] = "clueAction!list?ctype=" + clue.getCtype();

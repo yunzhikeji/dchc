@@ -23,11 +23,12 @@
 		<script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>
 		<script type="text/javascript" src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="js/pageKit.js"></script>
+		<script type="text/javascript" src="js/checkUtil.js"></script>
 	</head>
 
 	<body>
 		<form name="lawcaseUpdateForm" action="lawcaseAction!update" method="post"
-			onsubmit="">
+			onsubmit="return checkLawcase();">
 			<s:hidden name="lawcase.id"></s:hidden>
 			
 			<s:if test="lawcase.person!=null">
