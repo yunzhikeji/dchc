@@ -42,10 +42,10 @@
 	window.onload = viewData;
 </script>
 <body>
-	<input id="sData1" type="text" name="media.picSrc" />
+	<input id="sData1" type="hidden" name="media.picSrc" />
 	<form name="mediaAddForm" action="mediaAction!add1" method="post"
 		enctype="multipart/form-data" onsubmit="">
-		<input id="inid" type="text" name="media.injurycase.id" /> <input
+		<input id="inid" type="hidden" name="media.injurycase.id" /> <input
 			type="hidden" name="media.mtype" value="0" /> <input id="sData"
 			type="hidden" name="media.picSrc" />
 		<div class="pd-20">
@@ -93,7 +93,7 @@
 				<s:token></s:token>
 				<div class="col-10 col-offset-2">
 					<input type="submit" class="btn btn-primary radius" value="保存并提交" />
-					<button onclick="childPage_close();" class="btn btn-default radius"
+					<button onclick="window.close();" class="btn btn-default radius"
 						type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 				</div>
 			</div>
