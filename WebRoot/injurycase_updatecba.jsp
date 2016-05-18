@@ -165,8 +165,7 @@
 																</h6>
 															</div>
 															<div class="txt">
-																<a  class="ml-5"
-																	href="javascript:;"
+																<a class="ml-5" href="javascript:;"
 																	onclick="deleteMedia(<s:property value="id" />);"
 																	title="删除图片"><i class="Hui-iconfont">&#xe6e2;</i> </a>
 															</div>
@@ -476,8 +475,7 @@
 										placeholder="简要案情" readonly="true"></s:textarea>
 								</div>
 							</div>
-						</div>
-						<script type="text/javascript">
+							<script type="text/javascript">
 
 $(function(){
 $.Huitab("#tab_demo .tabBar span","#tab_demo .tabCon","current","click","0");
