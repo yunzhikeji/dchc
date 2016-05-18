@@ -25,6 +25,7 @@
 	src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
 <script type="text/javascript" src="js/pageKit.js"></script>
+<script type="text/javascript" src="js/checkUtil.js"></script>
 
 </head>
 <script language="JavaScript">
@@ -44,7 +45,7 @@
 <body>
 	<input id="sData1" type="hidden" name="media.picSrc" />
 	<form name="mediaAddForm" action="mediaAction!add1" method="post"
-		enctype="multipart/form-data" onsubmit="">
+		enctype="multipart/form-data" onsubmit="return checkMedia();">
 		<input id="inid" type="hidden" name="media.injurycase.id" /> <input
 			type="hidden" name="media.mtype" value="0" /> <input id="sData"
 			type="hidden" name="media.picSrc" />

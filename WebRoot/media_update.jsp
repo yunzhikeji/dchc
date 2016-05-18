@@ -24,11 +24,12 @@
 		<script type="text/javascript"
 			src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="js/pageKit.js"></script>
+		<script type="text/javascript" src="js/checkUtil.js"></script>
 	</head>
 
 	<body>
 		<form name="mediaUpdateForm" action="mediaAction!update" method="post"
-			enctype="multipart/form-data" onsubmit="">
+			enctype="multipart/form-data" onsubmit="return checkMedia();">
 			<s:hidden name="media.id" />
 			<s:hidden name="media.injurycase.id" />
 			<s:hidden name="media.mtype" />
@@ -41,7 +42,7 @@
 						</label>
 					</div>
 					<div class="col-4">
-						<s:textfield id="number" cssClass="input-text radius size-M"
+						<s:textfield id="title" cssClass="input-text radius size-M"
 							cssStyle="width:200px;" name="media.title"></s:textfield>
 					</div>
 				</div>

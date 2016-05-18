@@ -176,6 +176,20 @@ function checkClue()
 }
 
 
+//media_*.jsp
+function checkMedia()
+{
+	var title = $("#title").val();
+	
+	if(title==''||title==null)
+	{
+		alert("媒体名称不能为空.");
+		return false;
+	}	
+	
+}
+
+
 //case_*.jsp
 function checkCase()
 {

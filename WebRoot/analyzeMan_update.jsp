@@ -892,12 +892,6 @@
 					src="lib/Validform/5.3.2/Validform.min.js"></script>
 				<script type="text/javascript"
 					src="lib/webuploader/0.1.5/webuploader.min.js"></script>
-				<script type="text/javascript"
-					src="lib/ueditor/1.4.3/ueditor.config.js"></script>
-				<script type="text/javascript"
-					src="lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
-				<script type="text/javascript"
-					src="lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
 				<script type="text/javascript" src="js/H-ui.js"></script>
 				<script type="text/javascript" src="js/H-ui.admin.js"></script>
 				<script type="text/javascript">

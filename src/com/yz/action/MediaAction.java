@@ -122,7 +122,10 @@ public class MediaAction extends ActionSupport implements RequestAware,
 			
 			changeInjurycaseHandleState(media.getInjurycase().getId());
 		}
-		
+		if(!media.getPicSrc().contains("data:image/png;base64"))
+		{
+			return "success_child1";
+		}
 		byte[] bs = decoder.decodeBuffer(media.getPicSrc().substring("data:image/png;base64,".length()));  //picSrc为Base64字符串
 		InputStream is = new ByteArrayInputStream(bs); 
 		String fileName = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
@@ -159,8 +162,6 @@ public class MediaAction extends ActionSupport implements RequestAware,
 	 * 修改案件状态
 	 */
 	private void changeInjurycaseHandleState(int inid) {
-		System.out.println(inid);
-		System.out.println(injurycaseService);
 		Injurycase injurycase = injurycaseService.loadById(inid);
 		if (injurycase != null) {
 			if (injurycase.getHandleState() == 1) {
