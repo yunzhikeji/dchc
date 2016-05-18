@@ -44,9 +44,22 @@
 						<table width="176" border="0" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="176" align="center">
-									<img id="myimage" class="img-responsive thumbnail"   src="<%=basePath%>${userRole.photo }"
+								
+								
+										<s:if
+														test="userRole.photo==null||userRole.photo==''">
+														<img class="img-responsive thumbnail"
+															src="images/noimages.gif" width="200px" height="180px;" />
+													</s:if>
+													<s:else>
+														<img id="myimage" class="img-responsive thumbnail"   src="<%=basePath%>${userRole.photo }"
 										width="200px"
 															height="180px;" alt="人员照片" />
+													</s:else>
+									
+															
+															
+															
 									<script type="text/javascript">
 															function change() {
 															    var pic = document.getElementById("myimage"),

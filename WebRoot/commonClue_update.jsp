@@ -174,10 +174,21 @@
 										<table width="100%" border="0" cellspacing="0" cellpadding="0">
 											<tr>
 												<td align="center">
-													<img id="myimage1" class="img-responsive thumbnail"
-														src="<%=basePath%>${commonClue.registerAddressPhoto}"
-														width="200px"
-															height="180px;" alt="户籍照片" />
+
+													<s:if
+														test="commonClue.registerAddressPhoto==null||commonClue.registerAddressPhoto==''">
+														<img class="img-responsive thumbnail"
+															src="images/noimages.gif" width="200px" height="180px;" />
+													</s:if>
+													<s:else>
+														<img id="myimage1" class="img-responsive thumbnail"
+															src="<%=basePath%>${commonClue.registerAddressPhoto}"
+															width="200px" height="180px;" alt="户籍照片" />
+													</s:else>
+
+
+
+
 													<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),
@@ -234,10 +245,16 @@
 										<table width="100%" border="0" cellspacing="0" cellpadding="0">
 											<tr>
 												<td align="center">
-													<img id="myimage2" class="img-responsive thumbnail"
-														src="<%=basePath%>${commonClue.criminalRecordPhoto}"
-														width="200px"
-															height="180px;" alt="前科照片" />
+													<s:if
+														test="commonClue.criminalRecordPhoto==null||commonClue.criminalRecordPhoto==''">
+														<img class="img-responsive thumbnail"
+															src="images/noimages.gif" width="200px" height="180px;" />
+													</s:if>
+													<s:else>
+														<img id="myimage2" class="img-responsive thumbnail"
+															src="<%=basePath%>${commonClue.criminalRecordPhoto}"
+															width="200px" height="180px;" alt="前科照片" />
+													</s:else>
 													<script type="text/javascript">
 															function change2() {
 															    var pic2 = document.getElementById("myimage2"),
@@ -548,90 +565,96 @@
 								</table>
 							</div>
 						</div>
-					<div class="tabCon">
+						<div class="tabCon">
 							<div class="row cl">
 								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
 									<div
 										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-										<s:property value="person.userRole.realname"/>：录入
+										<s:property value="person.userRole.realname" />
+										：录入
 									</div>
 								</div>
 							</div>
 							<s:if test="person.judges.size>0">
-												<s:iterator value="person.judges" var="judge"
-													status="status">
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div style="height: 25px; width: 200px; text-align: center">
-										<i class="Hui-iconfont f-18 ">&#xe674;</i>
+								<s:iterator value="person.judges" var="judge" status="status">
+									<div class="row cl">
+										<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+											<div style="height: 25px; width: 200px; text-align: center">
+												<i class="Hui-iconfont f-18 ">&#xe674;</i>
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-								<div style="height: 100px; width: 200px; border: solid 1px #666">
-									<table width="100%" border="0" cellspacing="0" cellpadding="0">
-										<tr>
-											<td>
-												部门查证<s:property value="indexNumber" />: <s:property value="reportUnit" />
-											</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-							</s:iterator>
+									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+										<div
+											style="height: 100px; width: 200px; border: solid 1px #666">
+											<table width="100%" border="0" cellspacing="0"
+												cellpadding="0">
+												<tr>
+													<td>
+														部门查证
+														<s:property value="indexNumber" />
+														:
+														<s:property value="reportUnit" />
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</s:iterator>
 							</s:if>
-							<s:if test="person.comprehensiveJudge!=null&&person.comprehensiveJudge!=''">
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div style="height: 25px; width: 200px; text-align: center">
-										<i class="Hui-iconfont f-18 ">&#xe674;</i>
+							<s:if
+								test="person.comprehensiveJudge!=null&&person.comprehensiveJudge!=''">
+								<div class="row cl">
+									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+										<div style="height: 25px; width: 200px; text-align: center">
+											<i class="Hui-iconfont f-18 ">&#xe674;</i>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-								<div
-									style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-									完结
+								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+									<div
+										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+										完结
+									</div>
 								</div>
-							</div>
 							</s:if>
-							<s:if test="person.leaderInstruction!=null&&person.leaderInstruction!=''">
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div style="height: 25px; width: 200px; text-align: center">
-										<i class="Hui-iconfont f-18 ">&#xe674;</i>
+							<s:if
+								test="person.leaderInstruction!=null&&person.leaderInstruction!=''">
+								<div class="row cl">
+									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+										<div style="height: 25px; width: 200px; text-align: center">
+											<i class="Hui-iconfont f-18 ">&#xe674;</i>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-								<div
-									style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-									领导批示
+								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+									<div
+										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+										领导批示
+									</div>
 								</div>
-							</div>
 							</s:if>
 						</div>
 					</div>
-					</div>
-					<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
-					<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
-					<script type="text/javascript"
-						src="lib/My97DatePicker/WdatePicker.js"></script>
-					<script type="text/javascript"
-						src="lib/icheck/jquery.icheck.min.js"></script>
-					<script type="text/javascript"
-						src="lib/Validform/5.3.2/Validform.min.js"></script>
-					<script type="text/javascript"
-						src="lib/webuploader/0.1.5/webuploader.min.js"></script>
-					<script type="text/javascript"
-						src="lib/ueditor/1.4.3/ueditor.config.js"></script>
-					<script type="text/javascript"
-						src="lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
-					<script type="text/javascript"
-						src="lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
-					<script type="text/javascript" src="js/H-ui.js"></script>
-					<script type="text/javascript" src="js/H-ui.admin.js"></script>
-					<script type="text/javascript">
+				</div>
+				<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+				<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
+				<script type="text/javascript"
+					src="lib/My97DatePicker/WdatePicker.js"></script>
+				<script type="text/javascript" src="lib/icheck/jquery.icheck.min.js"></script>
+				<script type="text/javascript"
+					src="lib/Validform/5.3.2/Validform.min.js"></script>
+				<script type="text/javascript"
+					src="lib/webuploader/0.1.5/webuploader.min.js"></script>
+				<script type="text/javascript"
+					src="lib/ueditor/1.4.3/ueditor.config.js"></script>
+				<script type="text/javascript"
+					src="lib/ueditor/1.4.3/ueditor.all.min.js"> </script>
+				<script type="text/javascript"
+					src="lib/ueditor/1.4.3/lang/zh-cn/zh-cn.js"></script>
+				<script type="text/javascript" src="js/H-ui.js"></script>
+				<script type="text/javascript" src="js/H-ui.admin.js"></script>
+				<script type="text/javascript">
 
 $(function(){
 $.Huitab("#tab_demo .tabBar span","#tab_demo .tabCon","current","click","0");
@@ -699,17 +722,17 @@ function article_save(obj,id){
 	});
 }
 </script>
-					<s:hidden name="commonClue.id" title="人员子表自身id"></s:hidden>
-					<s:hidden name="commonClue.registerAddressPhoto" title="户籍照片"></s:hidden>
-					<s:hidden name="commonClue.criminalRecordPhoto" title="前科照片"></s:hidden>
-					<s:hidden name="person.type" title="人员类型"></s:hidden>
-					<s:hidden name="person.id" title="人员id"></s:hidden>
-					<s:if test="person.userRole!=null">
+				<s:hidden name="commonClue.id" title="人员子表自身id"></s:hidden>
+				<s:hidden name="commonClue.registerAddressPhoto" title="户籍照片"></s:hidden>
+				<s:hidden name="commonClue.criminalRecordPhoto" title="前科照片"></s:hidden>
+				<s:hidden name="person.type" title="人员类型"></s:hidden>
+				<s:hidden name="person.id" title="人员id"></s:hidden>
+				<s:if test="person.userRole!=null">
 					<s:hidden name="person.userRole.id" title="人员子表userRoleid"></s:hidden>
 				</s:if>
-					<s:hidden name="person.photoImg" title="人员照片"></s:hidden>
-					<s:hidden name="person.handleState" title="办理状态"></s:hidden>
-					<s:hidden name="person.joinDate" title="录入时间"></s:hidden>
+				<s:hidden name="person.photoImg" title="人员照片"></s:hidden>
+				<s:hidden name="person.handleState" title="办理状态"></s:hidden>
+				<s:hidden name="person.joinDate" title="录入时间"></s:hidden>
 		</form>
 	</body>
 </html>

@@ -239,10 +239,20 @@
 										<table width="100%" border="0" cellspacing="0" cellpadding="0">
 											<tr>
 												<td align="center">
-													<img id="myimage1" class="img-responsive thumbnail"
-														src="<%=basePath%>${contrastMan.registerAddressPhoto}"
-														width="200px"
-															height="180px;" alt="户籍照片" />
+
+													<s:if
+														test="contrastMan.registerAddressPhoto==null||contrastMan.registerAddressPhoto==''">
+														<img class="img-responsive thumbnail"
+															src="images/noimages.gif" width="200px" height="180px;" />
+													</s:if>
+													<s:else>
+														<img id="myimage1" class="img-responsive thumbnail"
+															src="<%=basePath%>${contrastMan.registerAddressPhoto}"
+															width="200px" height="180px;" alt="户籍照片" />
+													</s:else>
+
+
+
 													<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),
@@ -300,10 +310,21 @@
 										<table width="100%" border="0" cellspacing="0" cellpadding="0">
 											<tr>
 												<td align="center">
-													<img id="myimage2" class="img-responsive thumbnail"
-														src="<%=basePath%>${contrastMan.criminalRecordPhoto}"
-														width="200px"
-															height="180px;" alt="前科照片" />
+
+													<s:if
+														test="contrastMan.criminalRecordPhoto==null||contrastMan.criminalRecordPhoto==''">
+														<img class="img-responsive thumbnail"
+															src="images/noimages.gif" width="200px" height="180px;" />
+													</s:if>
+													<s:else>
+														<img id="myimage2" class="img-responsive thumbnail"
+															src="<%=basePath%>${contrastMan.criminalRecordPhoto}"
+															width="200px" height="180px;" alt="前科照片" />
+													</s:else>
+
+
+
+
 													<script type="text/javascript">
 															function change2() {
 															    var pic2 = document.getElementById("myimage2"),
@@ -545,67 +566,74 @@
 								</table>
 							</div>
 						</div>
-					<div class="tabCon">
+						<div class="tabCon">
 							<div class="row cl">
 								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
 									<div
 										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-										<s:property value="person.userRole.realname"/>：录入
+										<s:property value="person.userRole.realname" />
+										：录入
 									</div>
 								</div>
 							</div>
 							<s:if test="person.judges.size>0">
-												<s:iterator value="person.judges" var="judge"
-													status="status">
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div style="height: 25px; width: 200px; text-align: center">
-										<i class="Hui-iconfont f-18 ">&#xe674;</i>
+								<s:iterator value="person.judges" var="judge" status="status">
+									<div class="row cl">
+										<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+											<div style="height: 25px; width: 200px; text-align: center">
+												<i class="Hui-iconfont f-18 ">&#xe674;</i>
+											</div>
+										</div>
 									</div>
-								</div>
-							</div>
-							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-								<div style="height: 100px; width: 200px; border: solid 1px #666">
-									<table width="100%" border="0" cellspacing="0" cellpadding="0">
-										<tr>
-											<td>
-												部门查证<s:property value="indexNumber" />: <s:property value="reportUnit" />
-											</td>
-										</tr>
-									</table>
-								</div>
-							</div>
-							</s:iterator>
+									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+										<div
+											style="height: 100px; width: 200px; border: solid 1px #666">
+											<table width="100%" border="0" cellspacing="0"
+												cellpadding="0">
+												<tr>
+													<td>
+														部门查证
+														<s:property value="indexNumber" />
+														:
+														<s:property value="reportUnit" />
+													</td>
+												</tr>
+											</table>
+										</div>
+									</div>
+								</s:iterator>
 							</s:if>
-							<s:if test="person.comprehensiveJudge!=null&&person.comprehensiveJudge!=''">
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div style="height: 25px; width: 200px; text-align: center">
-										<i class="Hui-iconfont f-18 ">&#xe674;</i>
+							<s:if
+								test="person.comprehensiveJudge!=null&&person.comprehensiveJudge!=''">
+								<div class="row cl">
+									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+										<div style="height: 25px; width: 200px; text-align: center">
+											<i class="Hui-iconfont f-18 ">&#xe674;</i>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-								<div
-									style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-									完结
+								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+									<div
+										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+										完结
+									</div>
 								</div>
-							</div>
 							</s:if>
-							<s:if test="person.leaderInstruction!=null&&person.leaderInstruction!=''">
-							<div class="row cl">
-								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-									<div style="height: 25px; width: 200px; text-align: center">
-										<i class="Hui-iconfont f-18 ">&#xe674;</i>
+							<s:if
+								test="person.leaderInstruction!=null&&person.leaderInstruction!=''">
+								<div class="row cl">
+									<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+										<div style="height: 25px; width: 200px; text-align: center">
+											<i class="Hui-iconfont f-18 ">&#xe674;</i>
+										</div>
 									</div>
 								</div>
-							</div>
-							<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
-								<div
-									style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
-									领导批示
+								<div class="col-offset-5 col-5-1 text-c" style="padding: 5px;">
+									<div
+										style="height: 30px; width: 200px; line-height: 30px; border: solid 1px #666">
+										领导批示
+									</div>
 								</div>
-							</div>
 							</s:if>
 						</div>
 					</div>
