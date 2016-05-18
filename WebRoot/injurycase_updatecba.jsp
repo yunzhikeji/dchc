@@ -165,7 +165,7 @@
 																</h6>
 															</div>
 															<div class="txt">
-																<a style="text-decoration: none" class="ml-5"
+																<a  class="ml-5"
 																	href="javascript:;"
 																	onclick="deleteMedia(<s:property value="id" />);"
 																	title="删除图片"><i class="Hui-iconfont">&#xe6e2;</i> </a>
@@ -471,9 +471,9 @@
 									</label>
 								</div>
 								<div class="col-10">
-									<s:textfield name="injurycase.briefCase" cssClass="input-text"
+									<s:textarea name="injurycase.briefCase" cssClass="input-text"
 										id="input9" cssStyle="width: 100%; height: 80px; float: left;"
-										placeholder="简要案情" readonly="true"></s:textfield>
+										placeholder="简要案情" readonly="true"></s:textarea>
 								</div>
 							</div>
 						</div>

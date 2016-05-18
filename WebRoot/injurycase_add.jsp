@@ -250,10 +250,10 @@
 										</label>
 									</div>
 									<div class="col-10">
-										<s:textfield name="injurycase.briefCase" cssClass="input-text"
+										<s:textarea name="injurycase.briefCase" cssClass="input-text"
 											id="input9"
 											cssStyle="width: 100%; height: 80px; float: left;"
-											placeholder="简要案情"></s:textfield>
+											placeholder="简要案情"></s:textarea>
 									</div>
 								</div>
 								<s:if test="itype==2">

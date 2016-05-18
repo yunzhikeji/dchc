@@ -107,8 +107,6 @@ public class MediaAction extends ActionSupport implements RequestAware,
 		}
 		
 		if (media.getInjurycase()!= null) {
-			
-			
 			changeInjurycaseHandleState(media.getInjurycase().getId());
 		}
 		mediaService.add(media);
