@@ -35,8 +35,6 @@ import org.springframework.stereotype.Component;
 import sun.misc.BASE64Decoder;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
 import com.yz.model.Injurycase;
 import com.yz.model.Media;
 import com.yz.service.IInjurycaseService;

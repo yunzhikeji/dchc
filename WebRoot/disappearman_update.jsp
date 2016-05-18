@@ -49,14 +49,15 @@
 							<input type="submit" class="btn btn-success radius" id="button"
 								value="保存并提交"></input>
 						</div>
-						<s:if test="person.getEndSituation()!=null&&person.getEndSituation()!='0'">
-						<div class=" f-r pr-5">
-							<button type="button" class="btn btn-success radius" id="button"
-								name=""
-								onclick="addPage('发布案例','successexampleAction!goToAdd?pid=<s:property value="id"/>','500','300')">
-								<i class="Hui-iconfont">&#xe6bf;</i> 发布案例
-							</button>
-						</div>
+						<s:if
+							test="person.getEndSituation()!=null&&person.getEndSituation()!='0'">
+							<div class=" f-r pr-5">
+								<button type="button" class="btn btn-success radius" id="button"
+									name=""
+									onclick="addPage('发布案例','successexampleAction!goToAdd?pid=<s:property value="id"/>','500','300')">
+									<i class="Hui-iconfont">&#xe6bf;</i> 发布案例
+								</button>
+							</div>
 						</s:if>
 					</div>
 				</div>
@@ -84,9 +85,20 @@
 									<table width="100%" border="0" cellspacing="0" cellpadding="0">
 										<tr>
 											<td align="center">
-												<img id="myimage1" class="img-responsive thumbnail"
-													src="<%=basePath%>${disappearman.photo1}" width="200px"
-															height="180px;" alt="照片1" />
+
+												<s:if
+													test="disappearman.photo1==null||disappearman.photo1==''">
+													<img class="img-responsive thumbnail"
+														src="images/noimages.gif" width="200px" height="180px;" />
+												</s:if>
+												<s:else>
+													<img id="myimage1" class="img-responsive thumbnail"
+														src="<%=basePath%>${disappearman.photo1}" width="200px"
+														height="180px;" alt="照片1" />
+												</s:else>
+
+
+
 												<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),
@@ -148,9 +160,16 @@
 										<tr>
 											<td align="center">
 
-												<img id="myimage2" class="img-responsive thumbnail"
-													src="<%=basePath%>${disappearman.photo2}" width="200px"
-															height="180px;" alt="照片2" />
+												<s:if
+													test="disappearman.photo2==null||disappearman.photo2==''">
+													<img class="img-responsive thumbnail"
+														src="images/noimages.gif" width="200px" height="180px;" />
+												</s:if>
+												<s:else>
+													<img id="myimage2" class="img-responsive thumbnail"
+														src="<%=basePath%>${disappearman.photo2}" width="200px"
+														height="180px;" alt="照片2" />
+												</s:else>
 												<script type="text/javascript">
 															function change2() {
 															    var pic2 = document.getElementById("myimage2"),
@@ -208,11 +227,19 @@
 								<div class="col-3">
 									<table width="100%" border="0" cellspacing="0" cellpadding="0">
 										<tr>
-											<td align="center">
-												<img id="myimage3" class="img-responsive thumbnail"
-													src="<%=basePath%>${disappearman.photo3}" width="200px"
-															height="180px;" alt="照片3" />
-												<script type="text/javascript">
+
+
+											<s:if
+												test="disappearman.photo3==null||disappearman.photo3==''">
+												<img class="img-responsive thumbnail"
+													src="images/noimages.gif" width="200px" height="180px;" />
+											</s:if>
+											<s:else>
+												<td align="center">
+													<img id="myimage3" class="img-responsive thumbnail"
+														src="<%=basePath%>${disappearman.photo3}" width="200px"
+														height="180px;" alt="照片3" />
+													<script type="text/javascript">
 															function change3() {
 															    var pic3 = document.getElementById("myimage3"),
 															        file3 = document.getElementById("myfile3");
@@ -253,7 +280,8 @@
 															     }
 															 }
 															 </script>
-											</td>
+												</td>
+											</s:else>
 										</tr>
 										<tr>
 											<td align="center">

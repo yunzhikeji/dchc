@@ -139,7 +139,7 @@
 										</label>
 									</div>
 									<div class="col-4">
-									<s:textfield name="commonClue.virtualId"
+										<s:textfield name="commonClue.virtualId"
 											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
 									</div>
 									<div class="col-2">
@@ -175,9 +175,10 @@
 										<table width="100%" border="0" cellspacing="0" cellpadding="0">
 											<tr>
 												<td align="center">
+
 													<img id="myimage1" class="img-responsive thumbnail"
-														width="200px"
-															height="180px;" alt="户籍照片" />
+														width="200px" height="180px;" alt="添加户籍照片" />
+
 													<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),
@@ -236,8 +237,7 @@
 											<tr>
 												<td align="center">
 													<img id="myimage2" class="img-responsive thumbnail"
-														width="200px"
-															height="180px;" alt="前科照片" />
+														width="200px" height="180px;" alt="添加前科照片" />
 													<script type="text/javascript">
 															function change2() {
 															    var pic2 = document.getElementById("myimage2"),

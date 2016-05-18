@@ -110,9 +110,15 @@
 							<a href="injurycaseAction!loadcba?id=<s:property value="id"/>"
 								class="video-list-item-wrap" data-id="66666">
 								<div class="video-cover">
-									<img class="video-img video-img-lazy"
-										src="<%=basePath%><s:property value="imageCase"/>"
-										style="display: block;" alt="暂无图片">
+									<s:if test="imageCase==null||imageCase==''">
+										<img class="video-img video-img-lazy"
+											src="images/noimages.gif" style="display: block;" alt="暂无图片" />
+									</s:if>
+									<s:else>
+										<img class="video-img video-img-lazy"
+											src="<%=basePath%><s:property value="imageCase"/>"
+											style="display: block;" alt="暂无图片">
+									</s:else>
 									<ul class="show-list">
 										<li>
 											<div id="videoTitle" class="show-info">

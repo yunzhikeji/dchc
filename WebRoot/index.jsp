@@ -40,24 +40,21 @@
 	<body>
 		<header class="Hui-header cl">
 		<a class="Hui-logo l" href="#"><img src="images/logo.png"
-				width="489" height="70">
-		</a>
+				width="489" height="70"> </a>
 		<ul class="nav" style="margin-right: 30px;">
 			<li>
 				<a data-toggle="modal" href="#search" title="一键搜索"><img
 						src="images/icon02.png" title="一键搜索" />
 					<h4>
 						一键搜索
-					</h4>
-				</a>
+					</h4> </a>
 			</li>
 			<li>
 				<a href="javascript:;" onClick="" title="待办任务"><img
 						src="images/icon05.png" title="待办任务" />
 					<h4>
 						待办任务
-					</h4>
-				</a>
+					</h4> </a>
 			</li>
 			<li>
 				<a href="javascript:;"
@@ -65,16 +62,14 @@
 						src="images/icon04.png" title="研判工具" />
 					<h4>
 						研判工具
-					</h4>
-				</a>
+					</h4> </a>
 			</li>
 			<li>
 				<a href="javascript:;" onClick="location='userRoleAction!logout'"
 					title="注销"><img src="images/icon06.png" title="注销" />
 					<h4>
 						注销
-					</h4>
-				</a>
+					</h4> </a>
 			</li>
 		</ul>
 
@@ -86,7 +81,14 @@
 			<div class="my-profile dropDown dropDown_click ">
 				<a href="javascript:;" class="my-profile-pic dropDown_A"
 					aria-expanded="false" aria-haspopup="true" data-toggle="dropdown">
-					<img src="<%=basePath%>${session.userRoleo.photo}" alt="暂无照片" /> </a>
+
+
+					<s:if
+						test="session.userRoleo.photo==null||session.userRoleo.photo==''">
+						<img class="img-responsive thumbnail" src="images/noimages.gif" />
+					</s:if> <s:else>
+						<img src="<%=basePath%>${session.userRoleo.photo}" alt="暂无照片" />
+					</s:else> </a>
 				<div class="dropDown-menu box-shadow text-c pt-10 mr-10">
 					<ul style="color: #333; text-shadow: none">
 						<p>
@@ -107,14 +109,12 @@
 			<ul class="ce">
 				<li>
 					<a href="#"><i class="Hui-iconfont ">&#xe62c;</i> 涉案人员<img
-							class="more" src="images/more.png" />
-					</a>
+							class="more" src="images/more.png" /> </a>
 					<ul class="er" style="display: block;">
 						<li class="e_li">
 							<a href="#">治安人员<i
 								class="Hui-iconfont menu_dropdown-arrow f-r"
-								style="margin-right: 20px;">&#xe6d5;</i>
-							</a>
+								style="margin-right: 20px;">&#xe6d5;</i> </a>
 							<ul class="thr">
 								<li>
 									<a _href="personAction!list?type=1" href="javascript:void(0)">赌博人员</a>
@@ -135,8 +135,7 @@
 						<li class="e_li">
 							<a href="#">刑事人员<i
 								class="Hui-iconfont menu_dropdown-arrow f-r"
-								style="margin-right: 20px;">&#xe6d5;</i>
-							</a>
+								style="margin-right: 20px;">&#xe6d5;</i> </a>
 							<ul class="thr">
 								<li>
 									<a _href="personAction!list?type=5" href="javascript:void(0)">涉毒人员</a>
@@ -175,8 +174,7 @@
 				</li>
 				<li>
 					<a href="#"><i class="Hui-iconfont ">&#xe665;</i> 线索管理<img
-							class="more" src="images/more.png" />
-					</a>
+							class="more" src="images/more.png" /> </a>
 					<ul class="er">
 						<li>
 							<a _href="personAction!list?type=14" href="javascript:void(0)">普通线索</a>
@@ -188,8 +186,7 @@
 				</li>
 				<li>
 					<a href="#"><i class="Hui-iconfont ">&#xe636;</i> 案件管理<img
-							class="more" src="images/more.png" />
-					</a>
+							class="more" src="images/more.png" /> </a>
 					<ul class="er">
 						<li>
 							<a _href="injurycaseAction!list?itype=1"
@@ -210,8 +207,7 @@
 				</li>
 				<li>
 					<a href="#"><i class="Hui-iconfont ">&#xe61d;</i> 系统管理<img
-							class="more" src="images/more.png" />
-					</a>
+							class="more" src="images/more.png" /> </a>
 					<ul class="er">
 						<s:if test="#session.userRoleo.userLimit==2">
 							<li>
@@ -261,14 +257,11 @@
 			</div>
 			<div class="Hui-tabNav-more btn-group">
 				<a id="js-tabNav-del" class="btn radius btn-default size-S"
-					href="javascript:;"><i class="Hui-iconfont">&#xe6a6;</i>
-				</a>
+					href="javascript:;"><i class="Hui-iconfont">&#xe6a6;</i> </a>
 				<a id="js-tabNav-prev" class="btn radius btn-default size-S"
-					href="javascript:;"><i class="Hui-iconfont">&#xe6d4;</i>
-				</a>
+					href="javascript:;"><i class="Hui-iconfont">&#xe6d4;</i> </a>
 				<a id="js-tabNav-next" class="btn radius btn-default size-S"
-					href="javascript:;"><i class="Hui-iconfont">&#xe6d7;</i>
-				</a>
+					href="javascript:;"><i class="Hui-iconfont">&#xe6d7;</i> </a>
 			</div>
 		</div>
 		</section>
