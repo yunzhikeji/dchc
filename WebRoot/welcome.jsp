@@ -41,7 +41,9 @@
 						<ul id="abc">
 							<s:iterator value="pnotices" var="pnotice" status="status">
 								<li>
-									<a href="pnoticeAction!view?id=<s:property value="id" />">【<s:property
+									<a style="text-decoration: none" class="ml-5"
+									onclick="childPageFull('查看通知公告','pnoticeAction!view?id=<s:property value="id"/>')"
+									href="javascript:;" title="查看">【<s:property
 											value="releaseTime" />】<s:property value="title" /> </a>
 								</li>
 							</s:iterator>

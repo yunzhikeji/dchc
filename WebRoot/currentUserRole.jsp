@@ -25,41 +25,41 @@
 			<img src="images/user.png" alt="" class="avatar size-XL l">
 			<dl style="margin-left: 80px; padding-top: 13px; color: #fff">
 				<dt>
-					<span class="f-18">权限：
-					<s:if test="userRole.userLimit==0">普通用户</s:if>
-					<s:if test="userRole.userLimit==1">普通管理员</s:if>
-					<s:if test="userRole.userLimit==2">超级管理员</s:if>
-					</span>
+					<span class="f-18">权限： <s:if test="userRole.userLimit==0">普通用户</s:if>
+						<s:if test="userRole.userLimit==1">普通管理员</s:if> <s:if
+							test="userRole.userLimit==2">超级管理员</s:if> </span>
 				</dt>
 			</dl>
 		</div>
 		<div class="pd-20">
-		<form name="userRoleUpdateForm" id="form-change-password" class="form form-horizontal" action="userRoleAction!updateCurrentUserRole" method="post" enctype="multipart/form-data"  onsubmit="" >
-				<s:hidden name="userRole.id"/>
-				<s:hidden name="userRole.photo"/>
-				<s:hidden name="userRole.password"/>
-				<s:hidden name="userRole.userLimit"/>
+			<form name="userRoleUpdateForm" id="form-change-password"
+				class="form form-horizontal"
+				action="userRoleAction!updateCurrentUserRole" method="post"
+				enctype="multipart/form-data" onsubmit="">
+				<s:hidden name="userRole.id" />
+				<s:hidden name="userRole.photo" />
+				<s:hidden name="userRole.password" />
+				<s:hidden name="userRole.userLimit" />
 				<div class="row cl" style="padding-left: 35%">
 					<div class="col-3">
 						<table width="176" border="0" cellpadding="0" cellspacing="0">
 							<tr>
 								<td width="176" align="center">
-								
-								
-										<s:if
-														test="userRole.photo==null||userRole.photo==''">
-														<img class="img-responsive thumbnail"
-															src="images/noimages.gif" width="200px" height="180px;" />
-													</s:if>
-													<s:else>
-														<img id="myimage" class="img-responsive thumbnail"   src="<%=basePath%>${userRole.photo }"
-										width="200px"
-															height="180px;" alt="人员照片" />
-													</s:else>
-									
-															
-															
-															
+
+
+									<s:if test="userRole.photo==null||userRole.photo==''">
+										<img class="img-responsive thumbnail"
+											src="images/noimages.gif" width="200px" height="180px;" />
+									</s:if>
+									<s:else>
+										<img id="myimage" class="img-responsive thumbnail"
+											src="<%=basePath%>${userRole.photo }" width="200px"
+											height="180px;" alt="人员照片" />
+									</s:else>
+
+
+
+
 									<script type="text/javascript">
 															function change() {
 															    var pic = document.getElementById("myimage"),
@@ -105,9 +105,8 @@
 							</tr>
 							<tr>
 								<td width="176" align="center">
-									<s:file name="picture"  
-									accept="image/jpeg,image/png,image/jpg" onchange="change();"
-										id="myfile"></s:file>
+									<s:file name="picture" accept="image/jpeg,image/png,image/jpg"
+										onchange="change();" id="myfile"></s:file>
 								</td>
 							</tr>
 						</table>
@@ -185,8 +184,8 @@
 						<span class="c-red">*</span>登录用户名：
 					</label>
 					<div class="formControls col-4">
-					<s:textfield id="username" name="userRole.username"
-							cssClass="input-text radius size-M "></s:textfield>
+						<s:hidden name="userRole.username"></s:hidden>
+						<s:property value="userRole.username" />
 					</div>
 					<div class="col-4">
 					</div>

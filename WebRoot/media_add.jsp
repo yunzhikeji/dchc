@@ -96,7 +96,7 @@
 					<s:token></s:token>
 					<div class="col-10 col-offset-2">
 						<input type="submit" class="btn btn-primary radius" value="保存并提交" />
-						<button onclick="window.close();"
+						<button onclick="childPage_close();"
 							class="btn btn-default radius" type="button">
 							&nbsp;&nbsp;取消&nbsp;&nbsp;
 						</button>

@@ -31,7 +31,6 @@
 	</head>
 
 	<body>
-
 		<form name="userRoleUpdateForm" action="userRoleAction!update"
 			method="post" enctype="multipart/form-data">
 			<s:hidden name="userRole.id" />
@@ -168,31 +167,31 @@
 							     }
 							 }
 				</script>
-		</td>
-		</tr>
-		<tr>
-			<td align="center">
-				<s:file name="picture" cssStyle="width:80%"
-					accept="image/jpeg,image/png,image/jpg" onchange="change();"
-					id="myfile"></s:file>
-			</td>
-		</tr>
-		</table>
-		</div>
+									</td>
+								</tr>
+								<tr>
+									<td align="center">
+										<s:file name="picture" cssStyle="width:80%"
+											accept="image/jpeg,image/png,image/jpg" onchange="change();"
+											id="myfile"></s:file>
+									</td>
+								</tr>
+							</table>
+						</div>
 
-		</div>
-		<div class="row cl">
-			<s:token></s:token>
-			<div class="col-10 col-offset-2">
-				<input type="submit" class="btn btn-primary radius" value="保存并提交">
-				</input>
-				<button onclick="childPage_close();" class="btn btn-default radius"
-					type="button">
-					&nbsp;&nbsp;取消&nbsp;&nbsp;
-				</button>
-			</div>
-		</div>
-		</div>
+					</div>
+					<div class="row cl">
+						<s:token></s:token>
+						<div class="col-10 col-offset-2">
+							<input type="submit" class="btn btn-primary radius" value="保存并提交">
+							</input>
+							<button onclick="childPage_close();"
+								class="btn btn-default radius" type="button">
+								&nbsp;&nbsp;取消&nbsp;&nbsp;
+							</button>
+						</div>
+					</div>
+				</div>
 		</form>
 	</body>
 </html>

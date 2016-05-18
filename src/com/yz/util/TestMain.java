@@ -13,14 +13,17 @@ public class TestMain {
 		// TODO Auto-generated method stub
 		//System.out.println("系统管理".contains("超级"));
 //		System.out.println(NumberUtils.isNumber("adfadf"));
-		String msg = "提取手机信息,提取银行卡信息,提取DNA,提取指纹,提取鞋印";
+		/*String msg = "提取手机信息,提取银行卡信息,提取DNA,提取指纹,提取鞋印";
 			
 		handleInfoExtractionMsg(msg);
 
 
 		System.out.println(infoExtractionMsg);
-
-
+		
+*/
+		String msg =",";
+		boolean isTrue = (msg==",");
+		System.out.println(isTrue);
 		
 	}
 	

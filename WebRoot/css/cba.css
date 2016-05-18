@@ -18,7 +18,7 @@
 .list-header .list-header-hots a.selected{color:#fff;border:1px solid #00a0ff;background-color:#00a0ff}
 .video-list{margin:15px -15px 5px 0}
 .video-list-item{float:left;position:relative;overflow:hidden;width:255px;margin:0 15px 12px 0;border-bottom:3px solid transparent;-webkit-transition:border 400ms ease-in-out;-ms-transition:border 400ms ease-in-out;transition:border 400ms ease-in-out}
-.video-list-item.video-no-cate .video-title{right:5px}
+.video-list-item.video-no-cate .video-title{right:5px;}
 .video-list-item.video-no-cate .video-info .video-cate{display:none}
 .video-list-item:hover{border-bottom:3px solid #d1d1d1}
 .video-list-item:hover .video-cover .video-overlay{opacity:.5;-ms-filter:"alpha(opacity=50)";filter:alpha(opacity=50)}
@@ -32,7 +32,7 @@
 .video-list-item .video-cover .video-img{display:block;width:100%;height:144px}
 .video-list-item .video-cover .video-overlay{position:absolute;z-index:9;left:0;right:0;top:0;bottom:0;opacity:0;-ms-filter:"alpha(opacity=0)";filter:alpha(opacity=0);background-color:#000;-webkit-transition:all ease-out 250ms;-ms-transition:all ease-out 250ms;transition:all ease-out 250ms}
 .video-list-item .video-cover .video-play{position:absolute;z-index:10;top:50%;left:50%;margin-left:-25px;margin-top:-25px;width:50px;height:50px;opacity:0;-ms-filter:"alpha(opacity=0)";filter:alpha(opacity=0);background-image:url("http://i9.pdim.gs/8d743bdec3c8a4b6730d1bc6b0cfab18.png");-webkit-transform:scale(2);-ms-transform:scale(2);-webkit-transform:scale(2);-webkit-transition:all ease-out 250ms;-ms-transition:all ease-out 250ms;transition:all ease-out 250ms}
-.video-list-item .video-title{position:absolute;z-index:9;left:5px;right:80px;bottom:30px;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;-webkit-transition:all ease-out 250ms;-ms-transition:all ease-out 250ms;transition:all ease-out 250ms}
+.video-list-item .video-title{height:22px;line-height:normal;position:absolute;z-index:9;left:5px;right:80px;bottom:30px;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;-webkit-transition:all ease-out 250ms;-ms-transition:all ease-out 250ms;transition:all ease-out 250ms}
 .video-list-item .video-info{position:absolute;left:0;right:0;bottom:0;height:55px;font-size:12px;overflow:hidden}
 .video-list-item .video-info .video-nickname{position:absolute;left:5px;right:88px;bottom:7px;padding-left:15px;background:url("http://i8.pdim.gs/215adf54fcfe0cc52e924a670373eca2.png") 0 3px no-repeat;color:#787878;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .video-list-item .video-info .video-number{position:absolute;right:5px;bottom:7px;padding-left:17px;background:url("http://i9.pdim.gs/5e2630d66e51d54abb59f49198fa5dd1.png") 0 3px no-repeat;color:#787878}

@@ -31,8 +31,6 @@ public class Person implements java.io.Serializable {
 	private Integer id;//
 	private UserRole userRole; //录入人员
 	private SocialMan socialMan;
-
-
 	private CommonClue commonClue;//普通线索人员(普通线索)
 	private DisappearMan disappearMan;//失踪人员
 	private AnalyzeMan analyzeMan;//侵财分析人员

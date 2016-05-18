@@ -236,19 +236,15 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
 		// 用户所在机构不为空
-		if (userRole.getUnit() != null && userRole.getUnit().getInids() != null
-				&& userRole.getUnit().getInids().replace(" ", "") != "") {
-			String inids = userRole.getUnit().getInids();
-			String lastChar = inids.substring(inids.length() - 1, inids
-					.length());
-			if (lastChar.equals(",")) {
-				inids = inids.substring(0, inids.length() - 1);
-			}
-			queryString += " and mo.id in (" + inids + ")";
-		} else {
+		String inids = "";
+		if(userRole!=null&&userRole.getUnit()!=null&&userRole.getUnit().getInids()!=null)
+		{
+			inids = userRole.getUnit().getInids().replace(" ", "");
+			queryString = setStringIds(queryString,inids);
+		}else
+		{
 			queryString += " and mo.id in (0)";
 		}
-		System.out.println(queryString);
 		return injurycaseDao.getUniqueResult(queryString, p);
 	}
 
@@ -285,16 +281,13 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
 		// 用户所在机构不为空
-		if (userRole.getUnit() != null && userRole.getUnit().getInids() != null
-				&& userRole.getUnit().getInids().replace(" ", "") != "") {
-			String inids = userRole.getUnit().getInids();
-			String lastChar = inids.substring(inids.length() - 1, inids
-					.length());
-			if (lastChar.equals(",")) {
-				inids = inids.substring(0, inids.length() - 1);
-			}
-			queryString += " and mo.id in (" + inids + ")";
-		} else {
+		String inids = "";
+		if(userRole!=null&&userRole.getUnit()!=null&&userRole.getUnit().getInids()!=null)
+		{
+			inids = userRole.getUnit().getInids().replace(" ", "");
+			queryString = setStringIds(queryString,inids);
+		}else
+		{
 			queryString += " and mo.id in (0)";
 		}
 		return injurycaseDao.pageList(queryString, p, page, size);
@@ -306,16 +299,13 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		String queryString = "from Injurycase mo where mo.itype=" + itype
 				+ " and mo.handleState=" + handleState;
 		// 用户所在机构不为空
-		if (userRole.getUnit() != null && userRole.getUnit().getInids() != null
-				&& userRole.getUnit().getInids().replace(" ", "") != "") {
-			String inids = userRole.getUnit().getInids();
-			String lastChar = inids.substring(inids.length() - 1, inids
-					.length());
-			if (lastChar.equals(",")) {
-				inids = inids.substring(0, inids.length() - 1);
-			}
-			queryString += " and mo.id in (" + inids + ")";
-		} else {
+		String inids = "";
+		if(userRole!=null&&userRole.getUnit()!=null&&userRole.getUnit().getInids()!=null)
+		{
+			inids = userRole.getUnit().getInids().replace(" ", "");
+			queryString = setStringIds(queryString,inids);
+		}else
+		{
 			queryString += " and mo.id in (0)";
 		}
 		return injurycaseDao.queryList(queryString);
@@ -340,6 +330,24 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		queryString += " order by mo.id desc ";
 		return injurycaseDao.getObjectsByCondition(queryString, p);
 
+	}
+	
+	private String setStringIds(String queryString,String inids) {
+		// TODO Auto-generated method stub
+		//用户所在机构不为空
+		if(inids!=""&&!inids.equals(","))
+		{
+			String lastChar = inids.substring(inids.length()-1, inids.length());
+			if(lastChar.equals(","))
+			{
+				inids = inids.substring(0, inids.length()-1);
+			}
+			queryString += " and mo.id in ("+inids+")";
+		}else
+		{
+			queryString += " and mo.id in (0)";
+		}
+		return queryString;
 	}
 
 }

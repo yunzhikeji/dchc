@@ -139,7 +139,7 @@
 				<span class="form-label col-4"> 
 					<input type="button" id="citySel" onclick="showMenu();" class="btn btn-primary radius" value="选择部门">
 				</span>
-				<div id="menuContent" class="menuContent" style="display:none; position: absolute;">
+				<div id="menuContent" class="menuContent" style="display:none; position: absolute;z-index: 99;">
 						<ul id="treeDemo" class="ztree" style="margin-top:0; width:180px; height: 300px;margin-right: 0;"></ul>
 					</div>
 					</div>

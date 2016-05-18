@@ -100,7 +100,7 @@
 				</form>
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
-				<span class="l"> <span class="r">共有数据：<strong><s:property
+			 <span class="r">共有数据：<strong><s:property
 								value="totalCount" /> </strong> 条</span>
 			</div>
 			<div class="later-play-container" style="height: 680px">
@@ -131,7 +131,7 @@
 										</li>
 									</ul>
 								</div>
-								<div class="video-title">
+								<div class="video-title" >
 									<s:if test="isRelated==1">
 										<span class="video-cate">串并案系列名称：<s:property
 												value="series" /> </span>
