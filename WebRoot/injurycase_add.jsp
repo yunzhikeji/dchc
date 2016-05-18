@@ -44,10 +44,11 @@
 		<script type="text/javascript" src="js/checkUtil.js"></script>
 		<script type="text/javascript" src="js/commonUtil.js"></script>
 		<title>新增案件</title>
+		
 	</head>
 	<body>
 		<form name="injurycaseAddForm" action="injurycaseAction!add"
-			method="post" enctype="multipart/form-data" onsubmit="">
+			method="post" enctype="multipart/form-data" onsubmit="return checkCase();">
 			<input type="hidden" name="injurycase.itype"
 				value="<s:property value="itype"/>" />
 			<div class="pd-20">

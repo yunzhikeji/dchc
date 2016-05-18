@@ -67,6 +67,10 @@ public class UnitAction extends ActionSupport implements RequestAware,
 
 	//权限
 	private int ulimit;
+	
+	//部门名称
+	private String unitName;
+	private String unitNumber;
 
 
 
@@ -129,6 +133,59 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		arg[0] = "unitAction!list";
 		arg[1] = "机构管理";
 		return "success_child";
+	}
+	
+	
+
+	/*检查部门编号
+	 * 
+	 */
+	public String checkUnitNumber()
+	{
+		unit = unitService.getUnitByNumber(unitNumber);
+		if(unit!=null)
+		{
+			AjaxMsgVO msgVO = new AjaxMsgVO();
+			msgVO.setMessage("该组织机构编号已经存在,请重新输入.");
+			JSONObject jsonObj = JSONObject.fromObject(msgVO);
+			PrintWriter out;
+			try {
+				response.setContentType("text/html;charset=UTF-8");
+				out = response.getWriter();
+				out.print(jsonObj.toString());
+				out.flush();
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return  null;
+	}
+	
+
+	/*检查部门名称
+	 * 
+	 */
+	public String checkUnitName()
+	{
+		unit = unitService.getUnitByName(unitName);
+		if(unit!=null)
+		{
+			AjaxMsgVO msgVO = new AjaxMsgVO();
+			msgVO.setMessage("该组织机构已经存在,请重新输入.");
+			JSONObject jsonObj = JSONObject.fromObject(msgVO);
+			PrintWriter out;
+			try {
+				response.setContentType("text/html;charset=UTF-8");
+				out = response.getWriter();
+				out.print(jsonObj.toString());
+				out.flush();
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return  null;
 	}
 
 	/**
@@ -384,5 +441,27 @@ public class UnitAction extends ActionSupport implements RequestAware,
 	public void setReq(javax.servlet.http.HttpServletRequest req) {
 		this.req = req;
 	}
+
+
+	public String getUnitName() {
+		return unitName;
+	}
+
+
+	public void setUnitName(String unitName) {
+		this.unitName = unitName;
+	}
+
+
+	public String getUnitNumber() {
+		return unitNumber;
+	}
+
+
+	public void setUnitNumber(String unitNumber) {
+		this.unitNumber = unitNumber;
+	}
+	
+	
 
 }

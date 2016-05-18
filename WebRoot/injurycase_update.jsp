@@ -47,7 +47,7 @@
 	</head>
 	<body>
 		<form name="injurycaseAddForm" action="injurycaseAction!update"
-			method="post" enctype="multipart/form-data" onsubmit="">
+			method="post" enctype="multipart/form-data" onsubmit="return checkCase();">
 			<div class="pd-20">
 				<div class="row cl">
 					<div class="col-6 col-offset-6 ">

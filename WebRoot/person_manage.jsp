@@ -100,29 +100,19 @@
 				</form>
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
-				<span class="l">
-				
-				<s:if test="#session.userRoleo.userLimit==2">
-				<a href="javascript:;"
-					onclick="deleteAllCheckedPersons();" class="btn btn-danger radius"><i
-						class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> 
-						</s:if>
-						
-						
-						<a
-					class="btn btn-primary radius"
+				<span class="l"> <s:if test="#session.userRoleo.userLimit==2">
+						<a href="javascript:;" onclick="deleteAllCheckedPersons();"
+							class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>
+							批量删除</a>
+					</s:if> <a class="btn btn-primary radius"
 					onclick="childPageFull('新增<s:property value="pageTileName"/>','personAction!goToAdd?type=<s:property value="type"/>')"
 					href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 新增<s:property
-							value="pageTileName" />
-				</a>
-				<s:if test="type==15">
+							value="pageTileName" /> </a> <s:if test="type==15">
 						<a class="btn btn-primary radius"
 							onclick="childPageFull('新增<s:property value="pageTileName"/>','personAction!importExcel')"
 							href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 批量导入<s:property
-								value="pageTileName" />
-						</a>
-					</s:if>
-				</span>
+								value="pageTileName" /> </a>
+					</s:if> </span>
 
 
 				<span class="r">共有数据：<strong><s:property
@@ -171,10 +161,7 @@
 								<s:property value="#status.index+1+(page-1)*10" />
 							</td>
 							<td>
-								<a style="text-decoration: none" class="ml-5"
-									onclick="childPageFull('查看人员','personAction!view?id=<s:property value="id"/>')"
-									href="javascript:;" title="查看"><s:property value="name" />
-								</a>
+								<s:property value="name" />
 							</td>
 							<td>
 								<s:if test="type==1">赌博人员</s:if>

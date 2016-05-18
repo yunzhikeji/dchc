@@ -130,7 +130,7 @@
 						<span class="c-red">*</span>报送机构：
 					</label>
 					<span class="form-label col-6"> 
-						<span class="formControls col-12"> 
+						<span class="formControls col-10"> 
 						<input type="text" class="input-text" id="showVal"  onclick="showMenu();" value="" placeholder="报送机构" id="input2"
 							name="judge.reportUnit" style="width:140%" readonly="readonly"/> 
 						</span> 
@@ -140,7 +140,7 @@
 					<input type="button" id="citySel" onclick="showMenu();" class="btn btn-primary radius" value="选择部门">
 				</span>
 				<div id="menuContent" class="menuContent" style="display:none; position: absolute;">
-						<ul id="treeDemo" class="ztree" style="margin-top:0; width:180px; height: 300px;"></ul>
+						<ul id="treeDemo" class="ztree" style="margin-top:0; width:180px; height: 300px;margin-right: 0;"></ul>
 					</div>
 					</div>
 				<div class="row cl">

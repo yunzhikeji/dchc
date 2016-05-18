@@ -457,6 +457,31 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		arg[1] = "用户管理";
 		return "success_child";
 	}
+	
+	/*检查用户名是否存在
+	 * 
+	 */
+	public String checkUsername()
+	{
+		userRole = userRoleService.getUserRoleByUserRolename(username);
+		if(userRole!=null)
+		{
+			AjaxMsgVO msgVO = new AjaxMsgVO();
+			msgVO.setMessage("该用户名已经存在,请重新输入.");
+			JSONObject jsonObj = JSONObject.fromObject(msgVO);
+			PrintWriter out;
+			try {
+				response.setContentType("text/html;charset=UTF-8");
+				out = response.getWriter();
+				out.print(jsonObj.toString());
+				out.flush();
+				out.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return  null;
+	}
 
 	// 上传照片
 	private File picture;

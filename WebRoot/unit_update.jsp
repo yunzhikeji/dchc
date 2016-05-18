@@ -26,13 +26,14 @@
 <script type="text/javascript" src="js/pageKit.js"></script>
 <script type="text/javascript" src="js/checkUtil.js"></script>
 <script type="text/javascript">
-
+		var jspState = 1;
+		var oldUnitName = '<s:property value="unit.name"/>';
 </script>
 </head>
 
 <body>
 
-<form name="unitUpdateForm" action="unitAction!update" method="post" onsubmit="return changeUnit();">
+<form name="unitUpdateForm" action="unitAction!update" method="post" onsubmit="return checkUnit();">
 <s:hidden name="unit.id"></s:hidden>
 <s:hidden name="unit.unitLimit"></s:hidden>
 <s:hidden name="unit.pids"></s:hidden>

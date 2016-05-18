@@ -155,10 +155,7 @@
 								<s:property value="#status.index+1+(page-1)*10" />
 							</td>
 							<td>
-								<a style="text-decoration: none" class="ml-5"
-									onclick="childPageFull('查看案件','injurycaseAction!view?id=<s:property value="id"/>')"
-									href="javascript:;" title="查看"><s:property value="caseName" />
-								</a>
+								<s:property value="caseName" />
 							</td>
 							<td>
 								<s:if test="itype==1">一般案件</s:if>

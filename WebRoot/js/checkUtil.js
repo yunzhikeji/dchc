@@ -6,6 +6,67 @@ function checkUnit()
 {
 	var unitName = $("#unitName").val();
 	var unitNumber = $("#unitNumber").val();
+	
+	if(jspState==1)
+	{
+		if(unitName!=oldUnitName)
+		{
+			jspState = 0;
+		}
+	}
+	
+	if(jspState==0)
+	{
+		$.ajax({   
+	            url:'checkUnitName',//这里是你的action或者servlert的路径地址   
+	            type:'post', //数据发送方式   
+	            async:false,
+	            data:{"unitName":unitName},
+	            dataType:'json',
+	            error: function(msg)
+	            { //失败   
+	            },   
+	            success: function(msg)
+	            { //成功
+					 if(msg!=null)
+					 {
+					 	alert(msg.message);
+				 		$(document).ready(function(){ 
+				 			$("#unitName").val('');
+				 			unitName = '';
+				 		});
+				 		booleanBack =false;
+					 }
+				}
+			});
+			
+			$.ajax({   
+	            url:'checkUnitNumber',//这里是你的action或者servlert的路径地址   
+	            type:'post', //数据发送方式   
+	            async:false,
+	            data:{"unitNumber":unitNumber},
+	            dataType:'json',
+	            error: function(msg)
+	            { //失败   
+	            },   
+	            success: function(msg)
+	            { //成功
+					 if(msg!=null)
+					 {
+					 	alert(msg.message);
+				 		$(document).ready(function(){ 
+				 			$("#unitNumber").val('');
+				 			unitNumber = '';
+				 		});
+				 		booleanBack =false;
+					 }
+				}
+			});
+	
+	}
+	
+	
+	
 	if(unitName==''||unitName==null)
 	{
 		alert("机构名称不能为空.");
@@ -26,6 +87,31 @@ function checkUserRole()
 	var userRoleRealname = $("#userRoleRealname").val();
 	var userRoleNumber = $("#userRoleNumber").val();
 	var userRoleTelphone = $("#userRoleTelphone").val();
+	
+	
+	$.ajax({   
+	            url:'checkUsername',//这里是你的action或者servlert的路径地址   
+	            type:'post', //数据发送方式   
+	            async:false,
+	            data:{"username":username},
+	            dataType:'json',
+	            error: function(msg)
+	            { //失败   
+	            	console.log('post失败');   
+	            },   
+	            success: function(msg)
+	            { //成功
+					 if(msg!=null)
+					 {
+					 	alert(msg.message);
+				 		$(document).ready(function(){ 
+				 			$("#username").val('');
+				 			username = '';
+				 		});
+				 		booleanBack =false;
+					 }
+				}
+			});
 	
 	if(username==''||username==null)
 	{
@@ -70,6 +156,40 @@ function checkPerson()
 	if(name==''||name==null)
 	{
 		alert("人员姓名不能为空.");
+		return false;
+	}
+	
+}
+
+
+//clue_*.jsp
+function checkClue()
+{
+	var number = $("#number").val();
+	
+	if(number==''||number==null)
+	{
+		alert("线索编号不能为空.");
+		return false;
+	}	
+	
+}
+
+
+//case_*.jsp
+function checkCase()
+{
+	var caseNumber = $("#caseNumber").val();
+	var caseName = $("#caseName").val();
+	
+	if(caseName==''||caseName==null)
+	{
+		alert("案件名称不能为空.");
+		return false;
+	}	
+	if(caseNumber==''||caseNumber==null)
+	{
+		alert("案件编号不能为空.");
 		return false;
 	}
 	
@@ -471,101 +591,10 @@ function changePassword()
 
 $(document).ready(function(){
 	
-	$(".ck").on('blur',function(){
-		console.log($(this));
-		var ckvalue = $(this).val();
-		var ckid = $(this).attr("id");
-		if(ckid!=null&&ckid=='lng')
-		{
-			ckvalue = parseFloat(ckvalue);
-			if(isNaN(ckvalue))
-			{
-				alert("经度输入不正确,请输入正确数字");
-				$(this).val(0);
-				return;
-			}
-		}
-		else if(ckid!=null&&ckid=='lat')
-		{
-		
-			ckvalue = parseFloat(ckvalue);
-			if(isNaN(ckvalue))
-			{
-					alert("纬度输入不正确,请输入正确数字");
-				$(this).val(0);
-				return;
-			}
-		}
-		else if(ckid!=null&&ckid=='orderid')
-		{
-			if(ckvalue=='')
-			{
-				alert("排序编号不能为空");
-				$(this).val(0);
-				return;
-			}
-			ckvalue = Number(ckvalue);
-			if(isNaN(ckvalue))
-			{
-				alert("排序编号输入不正确,请输入正确数字");
-				$(this).val(0);
-				return;
-			}
-		
-		}
-		else if(ckid!=null&&ckid=='gateaddress')
-		{
-			ckvalue = Number(ckvalue);
-			if(isNaN(ckvalue))
-			{
-				alert("网关地址输入不正确,请输入正确数字");
-				$(this).val(0);
-				return;
-			}
-		
-		}
-		else if(ckid!=null&&ckid=='channel')
-		{
-			ckvalue = Number(ckvalue);
-			if(isNaN(ckvalue))
-			{
-				alert("无线数据通道输入不正确,请输入正确数字");
-				$(this).val(0);
-				return;
-			}
-		
-		}
-		else if(ckid!=null&&ckid=='phonenumber')
-		{
-		
-			if(!(/(^(\d{3,4}-)?\d{7,8})$|(^1[3|4|5|8][0-9]{9})/.test(ckvalue))){
-		        alert("不是正确的11位手机号或者正确的固话");
-		         $(this).val('');
-				return;
-		    }
-		  
-		}else 
-		{
-			ckvalue = Number(ckvalue);
-			if(ckvalue==0)
-			{
-				alert("无效数值自动清空.");
-				$(this).val('');
-				return;
-			}
-			if(isNaN(ckvalue))
-			{
-				alert("请输入正确数字");
-				$(this).val('');
-				return;
-			}
-		}
-		
-		$(this).val(ckvalue);
-		
-	});
-
+	
 });
+
+
 
 
 function checkRePassword()

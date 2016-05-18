@@ -47,7 +47,7 @@
 	</head>
 	<body>
 		<form name="clueAddForm" action="clueAction!update" method="post"
-			onsubmit="">
+			onsubmit="return  checkClue();">
 			<div class="pd-20">
 				<div class="row cl">
 					<div class="col-6 col-offset-6 ">

@@ -39,7 +39,7 @@
 	</head>
 	<body>
 		<form name="personAddForm" action="personAction!update" method="post"
-			enctype="multipart/form-data" onsubmit="">
+			enctype="multipart/form-data" onsubmit="return checkPerson();">
 			<div class="pd-20">
 				<div class="row cl">
 					<div class="col-6 col-offset-6 ">
@@ -124,9 +124,6 @@
 															<img src="<%=basePath%>${person.photoImg}" id="myimage"
 																class="img-responsive thumbnail" width="200px"
 																height="180px;" alt="人员照片" />
-														</s:else>
-
-
 
 
 														<script type="text/javascript">
@@ -170,6 +167,7 @@
 															     }
 															 }
 												</script>
+												</s:else>
 													</td>
 												</tr>
 												<tr>

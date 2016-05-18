@@ -27,12 +27,14 @@
 <script type="text/javascript" src="js/checkUtil.js"></script>
 <script type="text/javascript">
 
+	var jspState = 0;
+
 </script>
 </head>
 
 <body>
 
-<form name="unitAddForm" action="unitAction!add" method="post" onsubmit="return changeUnit();">
+<form name="unitAddForm" action="unitAction!add" method="post" onsubmit="return checkUnit();">
 <div class="pd-20">
 	<div class="row cl mb-10">
      <div class="col-2" >

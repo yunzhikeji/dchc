@@ -40,7 +40,7 @@
 	</head>
 	<body>
 		<form name="personAddForm" action="personAction!update" method="post"
-			enctype="multipart/form-data" onsubmit="">
+			enctype="multipart/form-data" onsubmit="return checkPerson();">
 			<div class="pd-20">
 				<div class="row cl">
 					<div class="col-6 col-offset-6 ">

@@ -38,7 +38,9 @@ public interface IUnitService {
 
 	public abstract Unit getUnitById(Integer upunitid);
 
-	public abstract List<Unit> getUnitByName(String uname);
+	public abstract Unit getUnitByName(String name);
+	
+	public abstract Unit getUnitByNumber(String number);
 
 	public abstract Unit queryByUid(int uid);
 

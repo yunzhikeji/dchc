@@ -118,11 +118,22 @@ public class UnitServiceImp implements IUnitService {
 		// TODO Auto-generated method stub
 		return unitDao.getUnitById(upunitid);
 	}
-	public List<Unit> getUnitByName(String uname) {
+	public Unit getUnitByName(String unitName) {
 		// TODO Auto-generated method stub
-		String queryString="from Unit mo where mo.name='"+uname+"'";
-		return unitDao.queryList(queryString);
+		String queryString = "from Unit mo where mo.name=:unitName";
+		String[] paramNames = new String[] { "unitName" };
+		Object[] values = new Object[] { unitName };
+		return unitDao.queryByNamedParam(queryString, paramNames, values);
 	}
+	
+	public Unit getUnitByNumber(String unitNumber) {
+		// TODO Auto-generated method stub
+		String queryString = "from Unit mo where mo.number=:unitNumber";
+		String[] paramNames = new String[] { "unitNumber" };
+		Object[] values = new Object[] { unitNumber };
+		return unitDao.queryByNamedParam(queryString, paramNames, values);
+	}
+	
 	public Unit queryByUid(int uid) {
 		String queryString = "from Unit mo where mo.id=:uid";
 		String[] paramNames = new String[] { "uid" };

@@ -159,10 +159,7 @@
 								<s:property value="#status.index+1+(page-1)*10" />
 							</td>
 							<td>
-								<a style="text-decoration: none" class="ml-5"
-									onclick="childPageFull('查看线索','clueAction!view?id=<s:property value="id"/>')"
-									href="javascript:;" title="查看"><s:property value="number" />
-								</a>
+								<s:property value="number" />
 							</td>
 							<td>
 								<s:if test="ctype==1">刑侦线索</s:if>

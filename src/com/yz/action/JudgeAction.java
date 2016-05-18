@@ -91,20 +91,17 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 	 * 发起研判模块
 	 */
 	public String goToAdd() {
-		
-		if(pid!=0)
-		{
+
+		if (pid != 0) {
 			person = personService.loadById(pid);
 		}
-		if(inid!=0)
-		{
+		if (inid != 0) {
 			injurycase = injurycaseService.loadById(inid);
 		}
-		if(cid!=0)
-		{
+		if (cid != 0) {
 			clue = clueService.loadById(cid);
 		}
-		
+
 		return "add";
 	}
 
@@ -139,151 +136,130 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo_child";
 		}
-		if (judge.getPerson()!= null) {
+		if (judge.getPerson() != null) {
 			changePersonHandleState(judge.getPerson().getId());
 			handlePersonJudgeIndex(judge.getJtype());
 			judge.getReportUnit();
-			setUnitPids(userRoleo,judge);
-			
+			setUnitPids(userRoleo, judge);
+
 		}
-		if (judge.getInjurycase()!= null) {
+		if (judge.getInjurycase() != null) {
 			changeInjurycaseHandleState(judge.getInjurycase().getId());
 			handleInjurycaseJudgeIndex(judge.getJtype());
-			setUnitInids(userRoleo,judge);
-			
+			setUnitInids(userRoleo, judge);
+
 		}
-		if (judge.getClue()!= null) {
+		if (judge.getClue() != null) {
 			changeClueHandleState(judge.getClue().getId());
 			handleClueJudgeIndex(judge.getJtype());
-			setUnitCids(userRoleo,judge);
-			
+			setUnitCids(userRoleo, judge);
+
 		}
 		judgeService.add(judge);
 		return "success_child";
 	}
-	
-	
 
-	//设置报送部门的pids
-	private void setUnitPids(UserRole userRoleo,Judge judge) {
+	// 设置报送部门的pids
+	private void setUnitPids(UserRole userRoleo, Judge judge) {
 		// TODO Auto-generated method stub
-		//报送的部门
-		if(judge.getReportUnit()!=null&&judge.getReportUnit().replace(" ", "")!="")
-		{
+		// 报送的部门
+		if (judge.getReportUnit() != null
+				&& judge.getReportUnit().replace(" ", "") != "") {
 			String reportUnit = judge.getReportUnit();
 			Set<String> unitNames = new HashSet<String>();
 			String[] arrayUnitNames = reportUnit.split(",");
-			for(int i=0;i<arrayUnitNames.length;i++)
-			{
+			for (int i = 0; i < arrayUnitNames.length; i++) {
 				unitNames.add(arrayUnitNames[i]);
 			}
-			for (String uname : unitNames) {  
-				
-				List<Unit> units = unitService.getUnitByName(uname);
-				if(units!=null&&units.size()>0)
-				{
-					Unit un = units.get(0);
-					
-					if(un.getPids()!=null&&un.getPids()!="")
-					{
-						un.setPids(handleIDs(un.getPids(),judge.getPerson().getId()+""));
-					}else
-					{
-						un.setPids(judge.getPerson().getId()+",");
-					}
-				}
-			} 
-			
-		}
-	}
-	
-	
-	//设置报送部门的inids
-	private void setUnitInids(UserRole userRoleo,Judge judge) {
-		// TODO Auto-generated method stub
-		//报送的部门
-		if(judge.getReportUnit()!=null&&judge.getReportUnit().replace(" ", "")!="")
-		{
-			String reportUnit = judge.getReportUnit();
-			Set<String> unitNames = new HashSet<String>();
-			String[] arrayUnitNames = reportUnit.split(",");
-			for(int i=0;i<arrayUnitNames.length;i++)
-			{
-				unitNames.add(arrayUnitNames[i]);
-			}
-			for (String uname : unitNames) {  
-				
-				List<Unit> units = unitService.getUnitByName(uname);
-				if(units!=null&&units.size()>0)
-				{
-					Unit un = units.get(0);
-					
-					if(un.getInids()!=null&&un.getInids()!="")
-					{
-						un.setInids(handleIDs(un.getInids(),judge.getInjurycase().getId()+""));
-					}else
-					{
-						un.setInids(judge.getInjurycase().getId()+",");
-					}
-				}
-			} 
-			
-		}
-	}
-	
-	
-	//设置报送部门的cids
-	private void setUnitCids(UserRole userRoleo,Judge judge) {
-		// TODO Auto-generated method stub
-		//报送的部门
-		if(judge.getReportUnit()!=null&&judge.getReportUnit().replace(" ", "")!="")
-		{
-			String reportUnit = judge.getReportUnit();
-			Set<String> unitNames = new HashSet<String>();
-			String[] arrayUnitNames = reportUnit.split(",");
-			for(int i=0;i<arrayUnitNames.length;i++)
-			{
-				unitNames.add(arrayUnitNames[i]);
-			}
-			for (String uname : unitNames) {  
-				
-				List<Unit> units = unitService.getUnitByName(uname);
-				if(units!=null&&units.size()>0)
-				{
-					Unit un = units.get(0);
-					
-					if(un.getCids()!=null&&un.getCids()!="")
-					{
-						un.setCids(handleIDs(un.getCids(),judge.getClue().getId()+""));
-					}else
-					{
-						un.setCids(judge.getClue().getId()+",");
-					}
-				}
-			} 
-			
-		}
-	}
-	
-	
-	
-	
+			for (String uname : unitNames) {
 
-	//处理ids
-	private String handleIDs(String objIDs,String objID) {
+				Unit unit = unitService.getUnitByName(uname);
+				if (unit != null) {
+					if (unit.getPids() != null && unit.getPids() != "") {
+						unit.setPids(handleIDs(unit.getPids(), judge
+								.getPerson().getId()
+								+ ""));
+					} else {
+						unit.setPids(judge.getPerson().getId() + ",");
+					}
+				}
+			}
+
+		}
+	}
+
+	// 设置报送部门的inids
+	private void setUnitInids(UserRole userRoleo, Judge judge) {
+		// TODO Auto-generated method stub
+		// 报送的部门
+		if (judge.getReportUnit() != null
+				&& judge.getReportUnit().replace(" ", "") != "") {
+			String reportUnit = judge.getReportUnit();
+			Set<String> unitNames = new HashSet<String>();
+			String[] arrayUnitNames = reportUnit.split(",");
+			for (int i = 0; i < arrayUnitNames.length; i++) {
+				unitNames.add(arrayUnitNames[i]);
+			}
+			for (String uname : unitNames) {
+
+				Unit unit = unitService.getUnitByName(uname);
+				if (unit != null) {
+					if (unit.getPids() != null && unit.getPids() != "") {
+						unit.setPids(handleIDs(unit.getPids(), judge
+								.getPerson().getId()
+								+ ""));
+					} else {
+						unit.setPids(judge.getPerson().getId() + ",");
+					}
+				}
+			}
+
+		}
+	}
+
+	// 设置报送部门的cids
+	private void setUnitCids(UserRole userRoleo, Judge judge) {
+		// TODO Auto-generated method stub
+		// 报送的部门
+		if (judge.getReportUnit() != null
+				&& judge.getReportUnit().replace(" ", "") != "") {
+			String reportUnit = judge.getReportUnit();
+			Set<String> unitNames = new HashSet<String>();
+			String[] arrayUnitNames = reportUnit.split(",");
+			for (int i = 0; i < arrayUnitNames.length; i++) {
+				unitNames.add(arrayUnitNames[i]);
+			}
+			for (String uname : unitNames) {
+
+				Unit unit = unitService.getUnitByName(uname);
+				if (unit != null) {
+					if (unit.getPids() != null && unit.getPids() != "") {
+						unit.setPids(handleIDs(unit.getPids(), judge
+								.getPerson().getId()
+								+ ""));
+					} else {
+						unit.setPids(judge.getPerson().getId() + ",");
+					}
+				}
+			}
+
+		}
+	}
+
+	// 处理ids
+	private String handleIDs(String objIDs, String objID) {
 		// TODO Auto-generated method stub
 		Set<String> ids = new HashSet<String>();
 		String newIDs = "";
 		String[] arrayIDs = objIDs.split(",");
-		for(int i=0;i<arrayIDs.length;i++)
-		{
+		for (int i = 0; i < arrayIDs.length; i++) {
 			ids.add(arrayIDs[i]);
 		}
 		ids.add(objID);
-		
-		for (String id : ids) {  
-		      newIDs= newIDs+id+",";
-		} 
+
+		for (String id : ids) {
+			newIDs = newIDs + id + ",";
+		}
 		return newIDs;
 	}
 
@@ -310,7 +286,7 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 			}
 		}
 	}
-	
+
 	private void changeClueHandleState(int clid) {
 
 		Clue clue = clueService.loadById(clid);
@@ -326,32 +302,32 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 	// 新增研判(查证)信息设置研判(查证)顺序
 	private void handlePersonJudgeIndex(int currentJtype) {
 		// TODO Auto-generated method stub
-		
-		judges = judgeService.loadByTypeAndPid(currentJtype, judge.getPerson().getId());
-		
-		
+
+		judges = judgeService.loadByTypeAndPid(currentJtype, judge.getPerson()
+				.getId());
+
 		if (judges != null) {
 			judge.setIndexNumber(judges.size() + 1);
 		}
 	}
-	
+
 	private void handleInjurycaseJudgeIndex(int currentJtype) {
 		// TODO Auto-generated method stub
-		
-		judges = judgeService.loadInjurycaseByTypeAndPid(currentJtype, judge.getInjurycase().getId());
-		
-		
+
+		judges = judgeService.loadInjurycaseByTypeAndPid(currentJtype, judge
+				.getInjurycase().getId());
+
 		if (judges != null) {
 			judge.setIndexNumber(judges.size() + 1);
 		}
 	}
-	
+
 	private void handleClueJudgeIndex(int currentJtype) {
 		// TODO Auto-generated method stub
-		
-		judges = judgeService.loadClueByTypeAndPid(currentJtype, judge.getClue().getId());
-		
-		
+
+		judges = judgeService.loadClueByTypeAndPid(currentJtype, judge
+				.getClue().getId());
+
 		if (judges != null) {
 			judge.setIndexNumber(judges.size() + 1);
 		}
@@ -633,7 +609,5 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 	public void setClue(Clue clue) {
 		this.clue = clue;
 	}
-	
-	
 
 }

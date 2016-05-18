@@ -33,14 +33,16 @@
 			src="lib/zTree/v3/js/jquery.ztree.all-3.5.min.js"></script>
 		<script type="text/javascript" src="js/H-ui.js"></script>
 		<script type="text/javascript" src="js/H-ui.admin.js"></script>
+		<script type="text/javascript" src="js/jquery-validate.js"></script>
 		<script type="text/javascript" src="js/pageKit.js"></script>
 		<script type="text/javascript" src="js/checkUtil.js"></script>
 		<script type="text/javascript" src="js/commonUtil.js"></script>
+		
 		<title>新增财产分析人员</title>
 	</head>
 	<body>
-		<form name="personAddForm" action="personAction!add" method="post"
-			 onsubmit="">
+		<form name="personAddForm" id="analyzeMan" action="personAction!add" method="post"
+			 onsubmit="return checkPerson();">
 			 <input type="hidden" name="person.type"
 				value="<s:property value="type"/>" />
 			<div class="pd-20">
@@ -80,7 +82,7 @@
 										<td colspan="2">
 											<s:textfield id="number" name="person.number"
 												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
+												cssStyle="width: 200px;" required="true"></s:textfield>
 										</td>
 										<td width="17%">
 											&nbsp;
@@ -113,7 +115,7 @@
 										</td>
 										<td>
 											<s:textfield name="person.name" id="name"
-												cssClass="input-text radius size-M "
+												cssClass="input-text radius size-M " required="true"
 												cssStyle="width: 200px;"></s:textfield>
 										</td>
 										<td width="14%">

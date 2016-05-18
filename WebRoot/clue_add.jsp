@@ -47,7 +47,7 @@
 	</head>
 	<body>
 		<form name="clueAddForm" action="clueAction!add" method="post"
-			onsubmit="">
+			onsubmit="return  checkClue();">
 			<input type="hidden" name="clue.ctype"
 				value="<s:property value="ctype"/>" />
 			<div class="pd-20">

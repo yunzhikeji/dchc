@@ -40,7 +40,7 @@
 	</head>
 	<body>
 		<form name="personAddForm" action="personAction!add" method="post"
-			enctype="multipart/form-data" onsubmit="">
+			enctype="multipart/form-data" onsubmit="return checkPerson();">
 			<input type="hidden" name="person.type"
 				value="<s:property value="type"/>" />
 			<div class="pd-20">
