@@ -1890,7 +1890,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		}
 		
 		person = new Person();
-		personService.saveSocialManWithExcel(person, file, userRoleo);
+		personService.saveSocialManWithExcel(file, userRoleo);
 		
 		
 		return "importdata";

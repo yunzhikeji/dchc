@@ -275,7 +275,7 @@ public class PersonServiceImp implements IPersonService {
 		return personDao.savereturn(person);
 	}
 
-	public void saveSocialManWithExcel(Person person, File file,
+	public void saveSocialManWithExcel(File file,
 			UserRole userRole) {
 		try {
 			GenerateSqlFromExcel generate = new GenerateSqlFromExcel();
@@ -284,6 +284,7 @@ public class PersonServiceImp implements IPersonService {
 
 			for (int i = 0; arrayList != null && i < arrayList.size(); i++) {
 				String[] data = arrayList.get(i);
+				Person person = new Person();
 				// 实例化PO对象，用PO对象进行保存
 				SocialMan socialMan = new SocialMan();
 				// 人员编号 姓名  出生日期 QQ 微信号 身份证号  户籍地址 户籍区域
