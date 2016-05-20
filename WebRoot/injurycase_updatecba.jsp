@@ -151,11 +151,11 @@
 
 																<s:if test="src==null||src==''">
 																	<img src="images/noimages.gif" width="200px;"
-																		height="92px;" />
+																		height="90px;" />
 																</s:if>
 																<s:else>
 																	<img src="<%=basePath%>${src}" width="200px;"
-																		height="92px;" />
+																		height="90px;" />
 																</s:else>
 															</div>
 															<div class="txt">
@@ -163,11 +163,11 @@
 																	图片名称
 																	<s:property value="title" />
 																</h6>
-															</div>
-															<div class="txt">
-																<a class="ml-5" href="javascript:;"
+																<p class="owner">
+																	<a href="javascript:;"
 																	onclick="deleteMedia(<s:property value="id" />);"
-																	title="删除图片"><i class="Hui-iconfont">&#xe6e2;</i> </a>
+																	title="删除图片">删除</a>
+																</p>
 															</div>
 														</li>
 													</s:iterator>

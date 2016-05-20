@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
@@ -61,6 +62,7 @@ import com.yz.service.IUnitService;
 import com.yz.service.IUserRoleService;
 import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
+import com.yz.util.ExcelHelper;
 import com.yz.vo.AjaxMsgVO;
 import com.yz.vo.SocialManForm;
 import com.yz.vo.UnitVO;
@@ -514,7 +516,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		person.setHandleState(1);// 初始化处理状态
 		personService.add(person);
 
-
 		// 添加当前用户id到部门pids
 		if (userRole.getUnit() != null) {
 			int uid = userRole.getUnit().getId();
@@ -719,16 +720,16 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			contrastMan = contrastManService.loadById(id);
 			if (contrastMan != null) {
 				if (contrastMan.getRegisterAddressPhoto() != null
-						&& !contrastMan.getRegisterAddressPhoto()
-								.replace(" ", "").equals("")) {
+						&& !contrastMan.getRegisterAddressPhoto().replace(" ",
+								"").equals("")) {
 					File photofile = new File(ServletActionContext
 							.getServletContext().getRealPath("/")
 							+ contrastMan.getRegisterAddressPhoto());
 					photofile.delete();
 				}
 				if (contrastMan.getCriminalRecordPhoto() != null
-						&& !contrastMan.getCriminalRecordPhoto()
-								.replace(" ", "").equals("")) {
+						&& !contrastMan.getCriminalRecordPhoto().replace(" ",
+								"").equals("")) {
 					File photofile = new File(ServletActionContext
 							.getServletContext().getRealPath("/")
 							+ contrastMan.getCriminalRecordPhoto());
@@ -741,8 +742,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			commonClue = commonClueService.loadById(id);
 			if (commonClue != null) {
 				if (commonClue.getRegisterAddressPhoto() != null
-						&& !commonClue.getRegisterAddressPhoto()
-								.replace(" ", "").equals("")) {
+						&& !commonClue.getRegisterAddressPhoto().replace(" ",
+								"").equals("")) {
 					File photofile = new File(ServletActionContext
 							.getServletContext().getRealPath("/")
 							+ commonClue.getRegisterAddressPhoto());
@@ -764,7 +765,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 		// 删除照片
 		File photofile = new File(ServletActionContext.getServletContext()
-				.getRealPath("/") + person.getPhotoImg());
+				.getRealPath("/")
+				+ person.getPhotoImg());
 		photofile.delete();
 		personService.delete(person);
 
@@ -865,16 +867,16 @@ public class PersonAction extends ActionSupport implements RequestAware,
 				contrastMan = contrastManService.loadById(id);
 				if (contrastMan != null) {
 					if (contrastMan.getRegisterAddressPhoto() != null
-							&& !contrastMan.getRegisterAddressPhoto()
-									.replace(" ", "").equals("")) {
+							&& !contrastMan.getRegisterAddressPhoto().replace(
+									" ", "").equals("")) {
 						File photofile = new File(ServletActionContext
 								.getServletContext().getRealPath("/")
 								+ contrastMan.getRegisterAddressPhoto());
 						photofile.delete();
 					}
 					if (contrastMan.getCriminalRecordPhoto() != null
-							&& !contrastMan.getCriminalRecordPhoto()
-									.replace(" ", "").equals("")) {
+							&& !contrastMan.getCriminalRecordPhoto().replace(
+									" ", "").equals("")) {
 						File photofile = new File(ServletActionContext
 								.getServletContext().getRealPath("/")
 								+ contrastMan.getCriminalRecordPhoto());
@@ -887,16 +889,16 @@ public class PersonAction extends ActionSupport implements RequestAware,
 				commonClue = commonClueService.loadById(id);
 				if (commonClue != null) {
 					if (commonClue.getRegisterAddressPhoto() != null
-							&& !commonClue.getRegisterAddressPhoto()
-									.replace(" ", "").equals("")) {
+							&& !commonClue.getRegisterAddressPhoto().replace(
+									" ", "").equals("")) {
 						File photofile = new File(ServletActionContext
 								.getServletContext().getRealPath("/")
 								+ commonClue.getRegisterAddressPhoto());
 						photofile.delete();
 					}
 					if (commonClue.getCriminalRecordPhoto() != null
-							&& !commonClue.getCriminalRecordPhoto()
-									.replace(" ", "").equals("")) {
+							&& !commonClue.getCriminalRecordPhoto().replace(
+									" ", "").equals("")) {
 						File photofile = new File(ServletActionContext
 								.getServletContext().getRealPath("/")
 								+ commonClue.getCriminalRecordPhoto());
@@ -909,7 +911,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			}
 
 			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/") + person.getPhotoImg());
+					.getRealPath("/")
+					+ person.getPhotoImg());
 			photofile.delete();
 			personService.delete(person);
 		}
@@ -1194,7 +1197,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 					+ pictureFileName.substring(pictureFileName.indexOf("."));
 			this.upload("/person", imageName, picture);
 			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/") + person.getPhotoImg());
+					.getRealPath("/")
+					+ person.getPhotoImg());
 			photofile.delete();
 			person.setPhotoImg("person" + "/" + imageName);
 		}
@@ -1202,12 +1206,12 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		if (person.getEndSituation() != null && person.getEndSituation() != "") {
 			person.setHandleState(3);// 完结
 		}
-		
+
 		if (person.getUserRole() == null) {
 			UserRole userRole = userRoleService.loadById(userRoleo.getId());
 			person.setUserRole(userRole);// 设置录入人员
 		}
-		
+
 		personService.update(person);
 
 		arg[0] = "personAction!list?type=" + person.getType();
@@ -1883,16 +1887,14 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return "importpage";
 	}
 
-	public String importdata() {
+	public String importdata() throws Exception {
 		UserRole userRoleo = (UserRole) session.get("userRoleo");
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		
-		person = new Person();
-		personService.saveSocialManWithExcel(person, file, userRoleo);
-		
-		
+
+		personService.saveSocialManWithExcel(file, userRoleo);
+
 		return "importdata";
 	}
 

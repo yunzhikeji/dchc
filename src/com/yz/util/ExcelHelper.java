@@ -48,10 +48,9 @@ public abstract class ExcelHelper {
 	 * @param sheetNum
 	 * @return
 	 */
-	public static List<Person> exportListFromExcel(File file, int sheetNum)
+	public static List<Person> exportListFromExcel(File file, String fileName,int sheetNum)
 			throws IOException {
-		return exportListFromExcel(new FileInputStream(file), FilenameUtils
-				.getExtension(file.getName()), sheetNum);
+		return exportListFromExcel(new FileInputStream(file), fileName, sheetNum);
 	}
 
 	/**
@@ -67,13 +66,11 @@ public abstract class ExcelHelper {
 			String extensionName, int sheetNum) throws IOException {
 
 		Workbook workbook = null;
-		System.out.println(sheetNum);
 		if (extensionName.toLowerCase().equals(XLS)) {
 			workbook = new HSSFWorkbook(is);
 		} else if (extensionName.toLowerCase().equals(XLSX)) {
 			workbook = new XSSFWorkbook(is);
 		}
-		System.out.println(sheetNum);
 		return exportListFromExcel(workbook, sheetNum);
 	}
 
@@ -90,7 +87,6 @@ public abstract class ExcelHelper {
 
 		Sheet sheet = workbook.getSheetAt(sheetNum);
 
-		System.out.println(sheetNum);
 		// 解析公式结果
 		FormulaEvaluator evaluator = workbook.getCreationHelper()
 				.createFormulaEvaluator();
@@ -119,82 +115,282 @@ public abstract class ExcelHelper {
 				//人员编号	姓名	性别	出生日期	QQ	微信号	身份证号	手机号码	户籍地址	户籍区域
 				// 经过公式解析，最后只存在Boolean、Numeric和String三种数据类型，此外就是Error了
 				// 其余数据类型，根据官方文档，完全可以忽略http://poi.apache.org/spreadsheet/eval.html
-				switch (cellValue.getCellType()) {
-				case Cell.CELL_TYPE_BOOLEAN:
-					break;
-				case Cell.CELL_TYPE_NUMERIC:
-					switch (colIx) {
-					case 0:
-						System.out.println("number0：" + cellValue.getNumberValue());
+				switch (colIx) {
+				case 0:
+					String colIx0 = "";
+					switch (cellValue.getCellType()) {
+					case Cell.CELL_TYPE_BOOLEAN:
+						System.out.println("BOOLEAN");
 						break;
-					case 1:
-						System.out.println("number1：" + cellValue.getNumberValue());
+					case Cell.CELL_TYPE_NUMERIC:
+						colIx0 = (int)cellValue.getNumberValue()+"";
+						break;
+					case Cell.CELL_TYPE_STRING:
+						colIx0 = cellValue.getStringValue();
+						break;
+					case Cell.CELL_TYPE_FORMULA:
+						System.out.println("FORMULA");
+						break;
+					case Cell.CELL_TYPE_BLANK:
+						System.out.println("BLANK");
+						break;
+					case Cell.CELL_TYPE_ERROR:
+						System.out.println("error");
 						break;
 					default:
 						break;
 					}
+					person.setNumber(colIx0);
 					break;
-				case Cell.CELL_TYPE_STRING:
-					switch (colIx) {
-					case 0:
-						System.out.println("String0：" + cellValue.getStringValue());
-						person.setNumber(cellValue.getStringValue());
+				case 1:
+					String colIx1 = "";
+					switch (cellValue.getCellType()) {
+					case Cell.CELL_TYPE_BOOLEAN:
+						System.out.println("BOOLEAN");
 						break;
-					case 1:
-						System.out.println("String1：" + cellValue.getStringValue());
-						person.setName(cellValue.getStringValue());
+					case Cell.CELL_TYPE_NUMERIC:
+						colIx1 = (int)cellValue.getNumberValue()+"";
 						break;
-					case 2:
-						System.out.println("String2：" + cellValue.getStringValue());
-						if(cellValue.getStringValue().contains("女"))
+					case Cell.CELL_TYPE_STRING:
+						colIx1 = cellValue.getStringValue();
+						break;
+					case Cell.CELL_TYPE_FORMULA:
+						System.out.println("FORMULA");
+						break;
+					case Cell.CELL_TYPE_BLANK:
+						System.out.println("BLANK");
+						break;
+					case Cell.CELL_TYPE_ERROR:
+						System.out.println("error");
+						break;
+					default:
+						break;
+					}
+					person.setName(colIx1);
+					break;
+				case 2:
+					switch (cellValue.getCellType()) {
+					case Cell.CELL_TYPE_BOOLEAN:
+						System.out.println("BOOLEAN");
+						break;
+					case Cell.CELL_TYPE_NUMERIC:
+						double sex = (int)cellValue.getNumberValue();
+						if(sex==1d)
+						{
+							person.setSex(1);
+						}else
 						{
 							person.setSex(0);
 						}
 						break;
-					case 3:
-						System.out.println("String3：" + cellValue.getStringValue());
-						person.setBirthday(cellValue.getStringValue());
+					case Cell.CELL_TYPE_STRING:
+						if(cellValue.getStringValue().contains("女"))
+						{
+							person.setSex(0);
+						}else
+						{
+							person.setSex(1);
+						}
 						break;
-					case 4: 
-						System.out.println("String4：" + cellValue.getStringValue());
-						person.setQq(cellValue.getStringValue());
+					case Cell.CELL_TYPE_FORMULA:
+						System.out.println("FORMULA");
 						break;
-					case 5:
-						System.out.println("String5：" + cellValue.getStringValue());
-						person.setWechat(cellValue.getStringValue());
+					case Cell.CELL_TYPE_BLANK:
+						System.out.println("BLANK");
 						break;
-					case 6:
-						System.out.println("String6：" + cellValue.getStringValue());
-						person.setIdcard(cellValue.getStringValue());
-						break;
-					case 7:
-						System.out.println("String7：" + cellValue.getStringValue());
-						person.setTelphone(cellValue.getStringValue());
-						break;
-					case 8:
-						System.out.println("String8：" + cellValue.getStringValue());
-						person.setRegisterAddress(cellValue.getStringValue());
-						break;
-					case 9:
-						System.out.println("String9：" + cellValue.getStringValue());
-						person.setRegisterAddressArea(cellValue.getStringValue());
+					case Cell.CELL_TYPE_ERROR:
+						System.out.println("error");
 						break;
 					default:
 						break;
 					}
 					break;
-				case Cell.CELL_TYPE_FORMULA:
-					System.out.println("FORMULA"+cellValue.getStringValue());
+				case 3:
+					String colIx3 = "";
+					switch (cellValue.getCellType()) {
+					case Cell.CELL_TYPE_BOOLEAN:
+						System.out.println("BOOLEAN");
+						break;
+					case Cell.CELL_TYPE_NUMERIC:
+						colIx3 = (int)cellValue.getNumberValue()+"";
+						break;
+					case Cell.CELL_TYPE_STRING:
+						colIx3 = cellValue.getStringValue();
+						break;
+					case Cell.CELL_TYPE_FORMULA:
+						System.out.println("FORMULA");
+						break;
+					case Cell.CELL_TYPE_BLANK:
+						System.out.println("BLANK");
+						break;
+					case Cell.CELL_TYPE_ERROR:
+						System.out.println("error");
+						break;
+					default:
+						break;
+					}
+					person.setBirthday(colIx3);
 					break;
-				case Cell.CELL_TYPE_BLANK:
-					System.out.println("BLANK"+cellValue.getStringValue());
+				case 4: 
+					String colIx4 = "";
+					switch (cellValue.getCellType()) {
+					case Cell.CELL_TYPE_BOOLEAN:
+						System.out.println("BOOLEAN");
+						break;
+					case Cell.CELL_TYPE_NUMERIC:
+						colIx4 = (int)cellValue.getNumberValue()+"";
+						break;
+					case Cell.CELL_TYPE_STRING:
+						colIx4 = cellValue.getStringValue();
+						break;
+					case Cell.CELL_TYPE_FORMULA:
+						System.out.println("FORMULA");
+						break;
+					case Cell.CELL_TYPE_BLANK:
+						System.out.println("BLANK");
+						break;
+					case Cell.CELL_TYPE_ERROR:
+						System.out.println("error");
+						break;
+					default:
+						break;
+					}
+					person.setQq(colIx4);
 					break;
-				case Cell.CELL_TYPE_ERROR:
-					System.out.println("error"+cellValue.getStringValue());
+				case 5:
+					String colIx5 = "";
+					switch (cellValue.getCellType()) {
+					case Cell.CELL_TYPE_BOOLEAN:
+						System.out.println("BOOLEAN");
+						break;
+					case Cell.CELL_TYPE_NUMERIC:
+						colIx5 = (int)cellValue.getNumberValue()+"";
+						break;
+					case Cell.CELL_TYPE_STRING:
+						colIx5 = cellValue.getStringValue();
+						break;
+					case Cell.CELL_TYPE_FORMULA:
+						System.out.println("FORMULA");
+						break;
+					case Cell.CELL_TYPE_BLANK:
+						System.out.println("BLANK");
+						break;
+					case Cell.CELL_TYPE_ERROR:
+						System.out.println("error");
+						break;
+					default:
+						break;
+					}
+					person.setWechat(colIx5);
+					break;
+				case 6:
+					String colIx6 = "";
+					switch (cellValue.getCellType()) {
+					case Cell.CELL_TYPE_BOOLEAN:
+						System.out.println("BOOLEAN");
+						break;
+					case Cell.CELL_TYPE_NUMERIC:
+						colIx6 = (int)cellValue.getNumberValue()+"";
+						break;
+					case Cell.CELL_TYPE_STRING:
+						colIx6 = cellValue.getStringValue();
+						break;
+					case Cell.CELL_TYPE_FORMULA:
+						System.out.println("FORMULA");
+						break;
+					case Cell.CELL_TYPE_BLANK:
+						System.out.println("BLANK");
+						break;
+					case Cell.CELL_TYPE_ERROR:
+						System.out.println("error");
+						break;
+					default:
+						break;
+					}
+					person.setIdcard(colIx6);
+					break;
+				case 7:
+					String colIx7 = "";
+					switch (cellValue.getCellType()) {
+					case Cell.CELL_TYPE_BOOLEAN:
+						System.out.println("BOOLEAN");
+						break;
+					case Cell.CELL_TYPE_NUMERIC:
+						colIx7 = (int)cellValue.getNumberValue()+"";
+						break;
+					case Cell.CELL_TYPE_STRING:
+						colIx7 = cellValue.getStringValue();
+						break;
+					case Cell.CELL_TYPE_FORMULA:
+						System.out.println("FORMULA");
+						break;
+					case Cell.CELL_TYPE_BLANK:
+						System.out.println("BLANK");
+						break;
+					case Cell.CELL_TYPE_ERROR:
+						System.out.println("error");
+						break;
+					default:
+						break;
+					}
+					person.setTelphone(colIx7);
+					break;
+				case 8:
+					String colIx8 = "";
+					switch (cellValue.getCellType()) {
+					case Cell.CELL_TYPE_BOOLEAN:
+						System.out.println("BOOLEAN");
+						break;
+					case Cell.CELL_TYPE_NUMERIC:
+						colIx8 = (int)cellValue.getNumberValue()+"";
+						break;
+					case Cell.CELL_TYPE_STRING:
+						colIx8 = cellValue.getStringValue();
+						break;
+					case Cell.CELL_TYPE_FORMULA:
+						System.out.println("FORMULA");
+						break;
+					case Cell.CELL_TYPE_BLANK:
+						System.out.println("BLANK");
+						break;
+					case Cell.CELL_TYPE_ERROR:
+						System.out.println("error");
+						break;
+					default:
+						break;
+					}
+					person.setRegisterAddress(colIx8);
+					break;
+				case 9:
+					String colIx9 = "";
+					switch (cellValue.getCellType()) {
+					case Cell.CELL_TYPE_BOOLEAN:
+						System.out.println("BOOLEAN");
+						break;
+					case Cell.CELL_TYPE_NUMERIC:
+						colIx9 = (int)cellValue.getNumberValue()+"";
+						break;
+					case Cell.CELL_TYPE_STRING:
+						colIx9 = cellValue.getStringValue();
+						break;
+					case Cell.CELL_TYPE_FORMULA:
+						System.out.println("FORMULA");
+						break;
+					case Cell.CELL_TYPE_BLANK:
+						System.out.println("BLANK");
+						break;
+					case Cell.CELL_TYPE_ERROR:
+						System.out.println("error");
+						break;
+					default:
+						break;
+					}
+					person.setRegisterAddressArea(colIx9);
 					break;
 				default:
 					break;
 				}
+				
 			}
 			list.add(person);
 		}

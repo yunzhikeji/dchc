@@ -47,7 +47,7 @@ public interface IPersonService {
 
 	public abstract int savereturn(Person person);
 
-	public abstract void saveSocialManWithExcel(Person person, File fileTest,UserRole userRole);
+	public abstract void saveSocialManWithExcel(File fileTest,UserRole userRole);
 
 
 }
