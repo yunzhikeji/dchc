@@ -287,7 +287,7 @@ public class PersonServiceImp implements IPersonService {
 				Person person = new Person();
 				// 实例化PO对象，用PO对象进行保存
 				SocialMan socialMan = new SocialMan();
-				// 人员编号 姓名 性别 出生日期 QQ 微信号 身份证号 手机号码 户籍地址 户籍区域
+				// 人员编号 姓名  出生日期 QQ 微信号 身份证号  户籍地址 户籍区域
 				person.setNumber(data[0].toString());
 				person.setName(data[1].toString());
 				person.setBirthday(data[2].toString());
