@@ -3,11 +3,6 @@ package com.yz.service.imp;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import org.springframework.stereotype.Component;
 
@@ -154,18 +149,4 @@ public class UserRoleServiceImp implements IUserRoleService {
 		return userRolemos;
 		
 	}*/
-	/**
-	 * 用户修改密码
-	 */
-	@GET
-	@Path("/updatepwd/{userRolename}/{oldpwd}/{newpwd}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public int updatePwd(@PathParam("userRolename") String userRolename,@PathParam("oldpwd") String oldpwd,@PathParam("newpwd") String newpwd){
-		int logined=0;
-		String queryString="update UserRole mo set mo.password=? where mo.userRolename=? and mo.password=?";
-		Object[] p=new Object[]{newpwd,userRolename,oldpwd};
-		logined=userRoleDao.updateUserRoleByhql(queryString,p);
-		return logined;
-		
-	}
 }

@@ -1,4 +1,4 @@
-package com.yz.util;
+/*package com.yz.util;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,41 +19,41 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.yz.model.Person;
 
-/**
+*//**
  * Excel组件
  * 
  * @author Snowolf
  * @version 1.0
  * @since 1.0
- */
+ *//*
 public abstract class ExcelHelper {
 
-	/**
+	*//**
 	 * Excel 2003
-	 */
+	 *//*
 	private final static String XLS = "xls";
-	/**
+	*//**
 	 * Excel 2007
-	 */
+	 *//*
 	private final static String XLSX = "xlsx";
-	/**
+	*//**
 	 * 分隔符
-	 */
+	 *//*
 	private final static String SEPARATOR = "|";
 
-	/**
+	*//**
 	 * 由Excel文件的Sheet导出至List
 	 * 
 	 * @param file
 	 * @param sheetNum
 	 * @return
-	 */
+	 *//*
 	public static List<Person> exportListFromExcel(File file, String fileName,int sheetNum)
 			throws IOException {
 		return exportListFromExcel(new FileInputStream(file), fileName, sheetNum);
 	}
 
-	/**
+	*//**
 	 * 由Excel流的Sheet导出至List
 	 * 
 	 * @param is
@@ -61,7 +61,7 @@ public abstract class ExcelHelper {
 	 * @param sheetNum
 	 * @return
 	 * @throws IOException
-	 */
+	 *//*
 	public static List<Person> exportListFromExcel(InputStream is,
 			String extensionName, int sheetNum) throws IOException {
 
@@ -74,14 +74,14 @@ public abstract class ExcelHelper {
 		return exportListFromExcel(workbook, sheetNum);
 	}
 
-	/**
+	*//**
 	 * 由指定的Sheet导出至List
 	 * 
 	 * @param workbook
 	 * @param sheetNum
 	 * @return
 	 * @throws IOException
-	 */
+	 *//*
 	private static List<Person> exportListFromExcel(Workbook workbook,
 			int sheetNum) {
 
@@ -396,4 +396,4 @@ public abstract class ExcelHelper {
 		}
 		return list;
 	}
-}
+}*/

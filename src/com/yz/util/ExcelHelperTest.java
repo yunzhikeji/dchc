@@ -1,4 +1,4 @@
-package com.yz.util;
+/*package com.yz.util;
 import static org.junit.Assert.fail;
 
 import java.io.File;
@@ -11,12 +11,12 @@ import org.junit.Test;
 import com.yz.model.Person;
 
 
-/**
+*//**
  * 
  * @author Snowolf
  * @version 1.0
  * @since 1.0
- */
+ *//*
 public class ExcelHelperTest {
 
 	@Test
@@ -39,4 +39,4 @@ public class ExcelHelperTest {
 		}
 
 	}
-}
+}*/

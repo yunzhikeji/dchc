@@ -2,12 +2,6 @@ package com.yz.service;
 
 import java.util.List;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
 import com.yz.model.UserRole;
 
 public interface IUserRoleService {
@@ -43,22 +37,6 @@ public interface IUserRoleService {
 	//用户登录
 	public abstract  UserRole userRolelogin(String username, String password) ;
 	
-	/**
-	 * 用户登录
-	 */
-/*	@GET
-	@Path("/userlogin/{username}/{password}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public List<UserRolemo> userLogin(@PathParam("username") String username,@PathParam("password") String password);
-	*/
-	/**
-	 * 用户修改密码
-	 */
-	@GET
-	@Path("/updatepwd/{username}/{oldpwd}/{newpwd}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public int updatePwd(@PathParam("username") String username,@PathParam("oldpwd") String oldpwd,@PathParam("newpwd") String newpwd);
-
 	public abstract UserRole getUserRoleByUserRolename(String username);
 
 }
