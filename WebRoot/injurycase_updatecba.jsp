@@ -63,7 +63,7 @@
 		     (function() {
 		  "use strict";
 		  var video, $output;
-		  var scale = 0.25;
+		  var scale = 0.5;
 		  var initialize = function() {
 		    $output = $("#output");
 		    video = $("#swf_play").get(0);
@@ -71,13 +71,12 @@
 		  };
 		  var captureImage = function() {
 		    var canvas = document.createElement("canvas");
+		    canvas.id = "_canvas";
 		    canvas.width = video.videoWidth * scale;
 		    canvas.height = video.videoHeight * scale;
 		    canvas.getContext('2d')
 		       .drawImage(video, 0, 0, canvas.width, canvas.height);
-		    var img = document.createElement("img");
-		    img.src = canvas.toDataURL();
-		    window.showModalDialog("capture.jsp?inid="+inid,img,"status:no;resizable:yes;dialogHeight:600px;dialogWidth:900px;unadorne:yes;help:no");
+		    window.showModalDialog("capture.jsp?inid="+inid,canvas,"status:no;resizable:yes;dialogHeight:700px;dialogWidth:900px;unadorne:yes;help:no");
 		  };
 		  $(initialize);      
 		}());
