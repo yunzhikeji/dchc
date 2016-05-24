@@ -119,12 +119,17 @@ paint();
 function mark(){
 	var thumb = document.getElementById("_canvas");
 	document.getElementById("sMark").setAttribute("value",thumb.toDataURL());
+	checkMedia();
+}
+
+</script>
 <body>
+
 	<input id="sData1" type="hidden" name="media.picSrc" />
 	<form name="mediaAddForm" action="mediaAction!add1" method="post"
-		enctype="multipart/form-data" onsubmit="return checkMedia();">
+		enctype="multipart/form-data" onsubmit="return mark();">
 		<input id="inid" type="hidden" name="media.injurycase.id" /> <input
-			type="hidden" name="media.mtype" value="0" /> <input id="sData"
+			type="hidden" name="media.mtype" value="0" /> <input id="sMark"
 			type="hidden" name="media.picSrc" />
 		<div class="pd-20">
 			<div class="row cl mb-10">
@@ -132,7 +137,7 @@ function mark(){
 					<label class="form-label text-r"> 媒体名称： </label>
 				</div>
 				<div class="col-4">
-					<s:textfield id="number" cssClass="input-text radius size-M"
+					<s:textfield id="title" cssClass="input-text radius size-M"
 						cssStyle="width:200px;" name="media.title"></s:textfield>
 				</div>
 			</div>
@@ -171,6 +176,8 @@ function mark(){
 				<s:token></s:token>
 				<div class="col-10 col-offset-2">
 					<input type="submit" class="btn btn-primary radius" value="保存并提交" />
+					<button onclick="viewPaint();" class="btn btn-primary radius"
+						type="button">&nbsp;&nbsp;画笔工具&nbsp;&nbsp;</button>
 					<button onclick="window.close();" class="btn btn-default radius"
 						type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
 				</div>
