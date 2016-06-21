@@ -115,18 +115,13 @@
 												<tr>
 													<td width="176" align="center">
 
-														<s:if test="person.photoImg==null||person.photoImg==''">
-															<img class="img-responsive thumbnail"
-																src="images/noimages.gif" width="200px" height="180px;" />
-														</s:if>
-														<s:else>
-															<img src="<%=basePath%>${person.photoImg}" id="myimage"
-																class="img-responsive thumbnail" width="200px"
-																height="180px;" alt="人员照片" />
-
+														<img src="<%=basePath%>${person.photoImg}" id="myimage"
+															class="img-responsive thumbnail" width="200px"
+															height="180px;" alt="人员照片" />
 
 														<script type="text/javascript">
 															function change() {
+																console.log("123");
 															    var pic = document.getElementById("myimage"),
 															        file = document.getElementById("myfile");
 															    var ext=file.value.substring(file.value.lastIndexOf(".")+1).toLowerCase();
@@ -166,7 +161,7 @@
 															     }
 															 }
 												</script>
-												</s:else>
+
 													</td>
 												</tr>
 												<tr>

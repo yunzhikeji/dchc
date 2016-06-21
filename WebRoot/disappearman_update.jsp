@@ -86,18 +86,9 @@
 										<tr>
 											<td align="center">
 
-												<s:if
-													test="disappearman.photo1==null||disappearman.photo1==''">
-													<img class="img-responsive thumbnail"
-														src="images/noimages.gif" width="200px" height="180px;" />
-												</s:if>
-												<s:else>
 													<img id="myimage1" class="img-responsive thumbnail"
 														src="<%=basePath%>${disappearman.photo1}" width="200px"
 														height="180px;" alt="照片1" />
-												</s:else>
-
-
 
 												<script type="text/javascript">
 															function change1() {
@@ -160,16 +151,10 @@
 										<tr>
 											<td align="center">
 
-												<s:if
-													test="disappearman.photo2==null||disappearman.photo2==''">
-													<img class="img-responsive thumbnail"
-														src="images/noimages.gif" width="200px" height="180px;" />
-												</s:if>
-												<s:else>
 													<img id="myimage2" class="img-responsive thumbnail"
 														src="<%=basePath%>${disappearman.photo2}" width="200px"
 														height="180px;" alt="照片2" />
-												</s:else>
+														
 												<script type="text/javascript">
 															function change2() {
 															    var pic2 = document.getElementById("myimage2"),
@@ -229,12 +214,6 @@
 										<tr>
 
 
-											<s:if
-												test="disappearman.photo3==null||disappearman.photo3==''">
-												<img class="img-responsive thumbnail"
-													src="images/noimages.gif" width="200px" height="180px;" />
-											</s:if>
-											<s:else>
 												<td align="center">
 													<img id="myimage3" class="img-responsive thumbnail"
 														src="<%=basePath%>${disappearman.photo3}" width="200px"
@@ -281,7 +260,6 @@
 															 }
 															 </script>
 												</td>
-											</s:else>
 										</tr>
 										<tr>
 											<td align="center">

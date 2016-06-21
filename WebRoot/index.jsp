@@ -81,14 +81,7 @@
 			<div class="my-profile dropDown dropDown_click ">
 				<a href="javascript:;" class="my-profile-pic dropDown_A"
 					aria-expanded="false" aria-haspopup="true" data-toggle="dropdown">
-
-
-					<s:if
-						test="session.userRoleo.photo==null||session.userRoleo.photo==''">
-						<img class="img-responsive thumbnail" src="images/noimages.gif" />
-					</s:if> <s:else>
-						<img src="<%=basePath%>${session.userRoleo.photo}" alt="暂无照片" />
-					</s:else> </a>
+					<img src="<%=basePath%>${session.userRoleo.photo}" alt="暂无照片" /> </a>
 				<div class="dropDown-menu box-shadow text-c pt-10 mr-10">
 					<ul style="color: #333; text-shadow: none">
 						<p>

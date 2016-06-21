@@ -148,14 +148,8 @@
 														<li class="pack" index="0" data-stat-role="ck">
 															<div class="pic">
 
-																<s:if test="src==null||src==''">
-																	<img src="images/noimages.gif" width="200px;"
-																		height="90px;" />
-																</s:if>
-																<s:else>
-																	<img src="<%=basePath%>${src}" width="200px;"
-																		height="90px;" />
-																</s:else>
+																<img src="<%=basePath%>${src}" width="200px;"
+																	height="90px;" />
 															</div>
 															<div class="txt">
 																<h6 class="caption">
@@ -164,8 +158,8 @@
 																</h6>
 																<p class="owner">
 																	<a href="javascript:;"
-																	onclick="deleteMedia(<s:property value="id" />);"
-																	title="删除图片">删除</a>
+																		onclick="deleteMedia(<s:property value="id" />);"
+																		title="删除图片">删除</a>
 																</p>
 															</div>
 														</li>
@@ -333,16 +327,9 @@
 									</div>
 									<div class="col-4">
 
-										<s:if
-											test="injurycase.imageCase==null||injurycase.imageCase==''">
-											<img class="img-responsive thumbnail"
-												src="images/noimages.gif" width="200px" height="180px;" />
-										</s:if>
-										<s:else>
-											<img id="myimage1" src="<%=basePath%>${injurycase.imageCase}"
-												class="img-responsive thumbnail" width="200px"
-												height="180px;" alt="暂无案件图片" />
-										</s:else>
+										<img id="myimage1" src="<%=basePath%>${injurycase.imageCase}"
+											class="img-responsive thumbnail" width="200px"
+											height="180px;" alt="暂无案件图片" />
 
 									</div>
 									<div class="col-2">

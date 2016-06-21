@@ -100,8 +100,8 @@
 				</form>
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
-			 <span class="r">共有数据：<strong><s:property
-								value="totalCount" /> </strong> 条</span>
+				<span class="r">共有数据：<strong><s:property
+							value="totalCount" /> </strong> 条</span>
 			</div>
 			<div class="later-play-container" style="height: 680px">
 				<ul id="later-play-list" class="video-list clearfix" data-total="">
@@ -110,15 +110,9 @@
 							<a href="injurycaseAction!loadcba?id=<s:property value="id"/>"
 								class="video-list-item-wrap" data-id="66666">
 								<div class="video-cover">
-									<s:if test="imageCase==null||imageCase==''">
-										<img class="video-img video-img-lazy"
-											src="images/noimages.gif" style="display: block;" alt="暂无图片" />
-									</s:if>
-									<s:else>
-										<img class="video-img video-img-lazy"
-											src="<%=basePath%><s:property value="imageCase"/>"
-											style="display: block;" alt="暂无图片">
-									</s:else>
+									<img class="video-img video-img-lazy"
+										src="<%=basePath%><s:property value="imageCase"/>"
+										style="display: block;" alt="暂无图片">
 									<ul class="show-list">
 										<li>
 											<div id="videoTitle" class="show-info">
@@ -131,7 +125,7 @@
 										</li>
 									</ul>
 								</div>
-								<div class="video-title" >
+								<div class="video-title">
 									<s:if test="isRelated==1">
 										<span class="video-cate">串并案系列名称：<s:property
 												value="series" /> </span>

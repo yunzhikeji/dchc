@@ -118,15 +118,9 @@
 													<td width="176" align="center">
 
 
-														<s:if test="person.photoImg==null||person.photoImg==''">
-															<img class="img-responsive thumbnail"
-																src="images/noimages.gif" width="200px" height="180px;" />
-														</s:if>
-														<s:else>
 															<img src="<%=basePath%>${person.photoImg}" id="myimage"
 																class="img-responsive thumbnail" width="200px"
 																height="180px;" alt="人员照片" />
-														</s:else>
 
 
 														<script type="text/javascript">
@@ -321,18 +315,10 @@
 											<td align="center">
 
 
-												<s:if
-													test="guiltSafeguardMan.criminalRecordPhoto1==null||guiltSafeguardMan.criminalRecordPhoto1==''">
-													<img class="img-responsive thumbnail"
-														src="images/noimages.gif" width="200px" height="180px;" />
-												</s:if>
-												<s:else>
 													<img
 														src="<%=basePath%>${guiltSafeguardMan.criminalRecordPhoto1}"
 														id="myimage1" class="img-responsive thumbnail"
 														width="200px" height="180px;" alt="前科照片1" />
-												</s:else>
-
 
 												<script type="text/javascript">
 															function change1() {
@@ -391,16 +377,9 @@
 									<table width="100%" border="0" cellspacing="0" cellpadding="0">
 										<tr>
 											<td align="center">
-												<s:if
-													test="guiltSafeguardMan.criminalRecordPhoto2==null||guiltSafeguardMan.criminalRecordPhoto2==''">
-													<img class="img-responsive thumbnail"
-														src="images/noimages.gif" width="200px" height="180px;" />
-												</s:if>
-												<s:else>
 													<img id="myimage2" class="img-responsive thumbnail"
 														src="<%=basePath%>${guiltSafeguardMan.criminalRecordPhoto2}"
 														width="200px" height="180px;" alt="前科照片2" />
-												</s:else>
 
 												<script type="text/javascript">
 															function change2() {
@@ -458,17 +437,10 @@
 									<table width="100%" border="0" cellspacing="0" cellpadding="0">
 										<tr>
 											<td align="center">
-												<s:if
-													test="guiltSafeguardMan.criminalRecordPhoto3==null||guiltSafeguardMan.criminalRecordPhoto3==''">
-													<img class="img-responsive thumbnail"
-														src="images/noimages.gif" width="200px" height="180px;" />
-												</s:if>
-												<s:else>
 														<img
 													src="<%=basePath%>${guiltSafeguardMan.criminalRecordPhoto3}"
 													id="myimage3" class="img-responsive thumbnail"
 													width="200px" height="180px;" alt="前科照片3" />
-												</s:else>
 											
 												<script type="text/javascript">
 															function change3() {

@@ -91,17 +91,10 @@
 										<table width="100%" border="0" cellspacing="0" cellpadding="0">
 											<tr>
 												<td align="center">
-													<s:if
-														test="injurycase.imageCase==null||injurycase.imageCase==''">
-														<img class="img-responsive thumbnail"
-															src="images/noimages.gif" width="200px" height="180px;" />
-													</s:if>
-													<s:else>
-														<img id="myimage1"
-															src="<%=basePath%>${injurycase.imageCase}"
-															class="img-responsive thumbnail" width="200px"
-															height="180px;" alt="案件图片" />
-													</s:else>
+													<img id="myimage1"
+														src="<%=basePath%>${injurycase.imageCase}"
+														class="img-responsive thumbnail" width="200px"
+														height="180px;" alt="案件图片" />
 													<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),

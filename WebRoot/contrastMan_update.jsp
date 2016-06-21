@@ -240,16 +240,9 @@
 											<tr>
 												<td align="center">
 
-													<s:if
-														test="contrastMan.registerAddressPhoto==null||contrastMan.registerAddressPhoto==''">
-														<img class="img-responsive thumbnail"
-															src="images/noimages.gif" width="200px" height="180px;" />
-													</s:if>
-													<s:else>
-														<img id="myimage1" class="img-responsive thumbnail"
-															src="<%=basePath%>${contrastMan.registerAddressPhoto}"
-															width="200px" height="180px;" alt="户籍照片" />
-													</s:else>
+													<img id="myimage1" class="img-responsive thumbnail"
+														src="<%=basePath%>${contrastMan.registerAddressPhoto}"
+														width="200px" height="180px;" alt="户籍照片" />
 
 
 
@@ -311,19 +304,9 @@
 											<tr>
 												<td align="center">
 
-													<s:if
-														test="contrastMan.criminalRecordPhoto==null||contrastMan.criminalRecordPhoto==''">
-														<img class="img-responsive thumbnail"
-															src="images/noimages.gif" width="200px" height="180px;" />
-													</s:if>
-													<s:else>
 														<img id="myimage2" class="img-responsive thumbnail"
 															src="<%=basePath%>${contrastMan.criminalRecordPhoto}"
 															width="200px" height="180px;" alt="前科照片" />
-													</s:else>
-
-
-
 
 													<script type="text/javascript">
 															function change2() {

@@ -184,18 +184,9 @@
 											<tr>
 												<td align="center">
 
-													<s:if
-														test="commonClue.registerAddressPhoto==null||commonClue.registerAddressPhoto==''">
-														<img class="img-responsive thumbnail"
-															src="images/noimages.gif" width="200px" height="180px;" />
-													</s:if>
-													<s:else>
 														<img id="myimage1" class="img-responsive thumbnail"
 															src="<%=basePath%>${commonClue.registerAddressPhoto}"
 															width="200px" height="180px;" alt="户籍照片" />
-													</s:else>
-
-
 
 
 													<script type="text/javascript">
@@ -254,16 +245,9 @@
 										<table width="100%" border="0" cellspacing="0" cellpadding="0">
 											<tr>
 												<td align="center">
-													<s:if
-														test="commonClue.criminalRecordPhoto==null||commonClue.criminalRecordPhoto==''">
-														<img class="img-responsive thumbnail"
-															src="images/noimages.gif" width="200px" height="180px;" />
-													</s:if>
-													<s:else>
 														<img id="myimage2" class="img-responsive thumbnail"
 															src="<%=basePath%>${commonClue.criminalRecordPhoto}"
 															width="200px" height="180px;" alt="前科照片" />
-													</s:else>
 													<script type="text/javascript">
 															function change2() {
 															    var pic2 = document.getElementById("myimage2"),
