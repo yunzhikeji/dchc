@@ -309,7 +309,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		for (String id : ids) {
 			newIDs = newIDs + id + ",";
 		}
-		System.out.println(newIDs);
 		return newIDs;
 	}
 
