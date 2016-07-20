@@ -196,7 +196,7 @@
 			</span> </span>
 		</div>
 		<s:if test="judge.jtype!=3">
-	<s:if test='%{#session.userRoleo.unit.name == "技术中队"}'>
+	<s:if test='%{#session.userRoleo.unit.number == "技术中队"}'>
 			<div class="row cl">
 			<label class="form-label col-2">
 				刑技<s:if test="judge.jtype==1">研判</s:if><s:if test="judge.jtype==2">查证</s:if>：
@@ -244,7 +244,7 @@
 			<s:hidden name="judge.imageJudge"></s:hidden>
 		</div>
 		</s:if>
-		<s:if test='%{#session.userRoleo.unit.name == "图像侦查"}'>
+		<s:if test='%{#session.userRoleo.unit.number == "图像侦查"}'>
 		<div class="row cl">
 			<label class="form-label col-2">
 				图像<s:if test="judge.jtype==1">研判</s:if><s:if test="judge.jtype==2">查证</s:if>：

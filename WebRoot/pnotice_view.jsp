@@ -39,14 +39,13 @@
 	</head>
 	<body>
 		<div class="pd-20">
-			<form class="form form-horizontal" id="form-article-add"  onsubmit="">
+			<form class="form form-horizontal" id="form-article-add" onsubmit="">
 				<div class="row cl">
 					<label class="form-label col-2">
 						<span class="c-red">*</span>标题：
 					</label>
 					<div class="formControls col-3">
-						<s:textfield id="title" name="pnotice.title"
-							cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
+						<s:property value="pnotice.title" />
 					</div>
 				</div>
 				<div class="row cl">
@@ -54,8 +53,7 @@
 						作者：
 					</label>
 					<div class="formControls col-3">
-							<input type="text" id="author" name="pnotice.author" value="<s:property value="pnotice.author"/>"
-							class="input-text radius size-M " style="width: 200px;" readonly="true"/>
+						<s:property value="pnotice.author" />
 					</div>
 				</div>
 				<div class="row cl">
@@ -63,9 +61,7 @@
 						填写时间：
 					</label>
 					<div class="formControls col-3">
-						<input type="text" name="pnotice.releaseTime"  style="width: 200px;" value="<s:property value="pnotice.releaseTime"/>"
-							onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',readOnly:true})"
-							id="releaseTime" class="input-text Wdate" readonly="true">
+						<s:property value="pnotice.releaseTime" />
 
 					</div>
 				</div>
@@ -74,8 +70,7 @@
 						内容：
 					</label>
 					<div class="formControls col-10">
-						<s:textarea name="pnotice.article"
-							cssStyle="width:95%;height:300px;"></s:textarea>
+						<s:property value="pnotice.article" escape="false" />
 					</div>
 				</div>
 

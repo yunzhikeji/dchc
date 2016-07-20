@@ -4,13 +4,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.springframework.stereotype.Component;
-
 import com.yz.dao.IJudgeDao;
 import com.yz.model.Judge;
 import com.yz.model.UserRole;
 import com.yz.service.IJudgeService;
-@Component("judgeService")
 public class JudgeServiceImp implements IJudgeService {
 	private IJudgeDao judgeDao;
 	public IJudgeDao getJudgeDao() {
@@ -136,5 +133,10 @@ public class JudgeServiceImp implements IJudgeService {
 		String[] paramNames=new String[]{"jtype","inid"};
 		Object[] values=new Object[]{jtype,inid};
 		return judgeDao.queryList(queryString, paramNames, values);
+	}
+	public void doJob() {
+		// TODO Auto-generated method stub
+		System.out.println("the job is done~");
+		
 	}
 }

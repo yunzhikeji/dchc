@@ -174,17 +174,17 @@
 					</div>
 
 					<div class="col-12" style="padding-top: 10px; padding-bottom: 10px">
-						<button type="submit" class="btn btn-primary radius size-L"
+						<button type="button" class="btn btn-primary radius size-L"
 							id="capture" name="">
 							<i class="Hui-iconfont">&#xe6df;</i> 截图
 						</button>
 						&nbsp;
-						<button type="submit" class="btn btn-success radius size-L" id=""
+						<button type="button" class="btn btn-success radius size-L" id=""
 							name="" onclick="skip(-10)">
 							<i class="Hui-iconfont">&#xe6d4;</i>
 						</button>
 						&nbsp;
-						<button type="submit" class="btn btn-success radius size-L" id=""
+						<button type="button" class="btn btn-success radius size-L" id=""
 							name="" onclick="skip(10)">
 							<i class="Hui-iconfont">&#xe6d7;</i>
 						</button>

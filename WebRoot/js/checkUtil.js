@@ -185,8 +185,8 @@ function checkMedia()
 	{
 		alert("媒体名称不能为空.");
 		return false;
-	}	
-	
+	}
+	alert("hello");
 }
 
 

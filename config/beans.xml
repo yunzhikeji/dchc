@@ -25,6 +25,29 @@
 	<context:annotation-config />
 	<context:component-scan base-package="com.yz" />
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	
+	<!-- 服务已经由compent自动注入,显然是不行滴 -->
+	<bean id="judgeService" class="com.yz.service.imp.JudgeServiceImp"></bean>
+
+	<!-- 要做的工作 -->
+	<bean id="helloJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="judgeService"></property>
+		<property name="targetMethod" value="doJob"></property>
+	</bean>
+	<!-- 调度工作 -->
+	<bean id="cronUserTigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="helloJob"></property>
+		<property name="cronExpression" value="0 19 10 * * ? "></property>
+	</bean>
+	
+	<!-- 启动工作 -->
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="cronUserTigger"></ref>
+			</list>
+		</property>
+	</bean>
 
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
