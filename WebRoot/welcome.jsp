@@ -42,8 +42,8 @@
 							<s:iterator value="pnotices" var="pnotice" status="status">
 								<li>
 									<a style="text-decoration: none" class="ml-5"
-									onclick="childPageFull('查看通知公告','pnoticeAction!view?id=<s:property value="id"/>')"
-									href="javascript:;" title="查看">【<s:property
+										onclick="childPageFull('查看通知公告','pnoticeAction!view?id=<s:property value="id"/>')"
+										href="javascript:;" title="查看">【<s:property
 											value="releaseTime" />】<s:property value="title" /> </a>
 								</li>
 							</s:iterator>
@@ -530,14 +530,18 @@
 						<div class="panel-header">
 							通知公告
 						</div>
-						<s:iterator value="pnotices" var="pnotice" status="status">
-							<li class="box-1">
-								<a style="text-decoration: none" class="ml-5"
-									onclick="childPageFull('查看通知公告','pnoticeAction!view?id=<s:property value="id"/>')"
-									href="javascript:;" title="查看"><time>[<s:property
-										value="releaseTime" />]</time> <s:property value="title" /> </a>
-							</li>
-						</s:iterator>
+						<div class="panel-body">
+							<ul class="tlist">
+								<s:iterator value="pnotices" var="pnotice" status="status">
+									<li class="box-1">
+										<a style="text-decoration: none" class="ml-5"
+											onclick="childPageFull('查看通知公告','pnoticeAction!view?id=<s:property value="id"/>')"
+											href="javascript:;" title="查看"><time>[<s:property
+												value="releaseTime" />]</time> <s:property value="title" /> </a>
+									</li>
+								</s:iterator>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -568,40 +572,42 @@
 						<div class="panel-header">
 							疑难解答
 						</div>
-						<s:iterator value="troubleshootings" var="troubleshooting"
-							status="status">
-							<li class="box-1">
-								<a style="text-decoration: none" class="ml-5"
+						<div class="panel-body">
+							<ul class="tlist">
+								<s:iterator value="troubleshootings" var="troubleshooting"
+									status="status">
+									<li class="box-1">
+										<a style="text-decoration: none" class="ml-5"
 											onclick="childPageFull('查看疑难解答','troubleshootingAction!load?troubid=<s:property value="id"/>')"
-											href="javascript:;" title="查看">
-								<time>[<s:property
-										value="releaseTime" />]</time> <s:property value="title" /> </a>
-							</li>
-						</s:iterator>
+											href="javascript:;" title="查看"> <time>[<s:property
+												value="releaseTime" />]</time> <s:property value="title" /> </a>
+									</li>
+								</s:iterator>
+							</ul>
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
-			<script type="text/javascript"
-				src="lib/Validform/5.3.2/Validform.min.js"></script>
-			<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
-			<script type="text/javascript" src="lib/icheck/jquery.icheck.min.js"></script>
-			<script type="text/javascript"
-				src="lib/Highcharts/4.1.7/js/highcharts.js"></script>
-			<script type="text/javascript"
-				src="lib/Highcharts/4.1.7/js/modules/exporting.js"></script>
-			<script type="text/javascript" src="js/H-ui.js"></script>
-			<script type="text/javascript" src="js/H-ui.admin.js"></script>
-			<script type="text/javascript" src="js/breakingnews.js"></script>
-			<script type="text/javascript">
+				<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+				<script type="text/javascript"
+					src="lib/Validform/5.3.2/Validform.min.js"></script>
+				<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
+				<script type="text/javascript" src="lib/icheck/jquery.icheck.min.js"></script>
+				<script type="text/javascript"
+					src="lib/Highcharts/4.1.7/js/highcharts.js"></script>
+				<script type="text/javascript"
+					src="lib/Highcharts/4.1.7/js/modules/exporting.js"></script>
+				<script type="text/javascript" src="js/H-ui.js"></script>
+				<script type="text/javascript" src="js/H-ui.admin.js"></script>
+				<script type="text/javascript" src="js/breakingnews.js"></script>
+				<script type="text/javascript">
 $(function(){
 $.Huitab("#tab_daiban .tabBar span","#tab_daiban .tabCon","current","click","1");
 
 $.Huitab("#tab_yanpan .tabBar span","#tab_yanpan .tabCon","current","click","1");
 });
 </script>
-			<script type="text/javascript">
+				<script type="text/javascript">
 $(function () {
     $('#container').highcharts({
         chart: {
@@ -670,7 +676,7 @@ $(function () {
 
 
 </script>
-			<script>
+				<script>
 $(function(){
 	$('#breakingnews').BreakingNews({
 		title: '通知公告',

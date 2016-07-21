@@ -188,6 +188,24 @@
 					</ul>
 				</li>
 				<li>
+					<a href="#"><i class="Hui-iconfont ">&#xe636;</i> 综合统计<img
+							class="more" src="images/more.png" /> </a>
+					<ul class="er">
+						<li>
+							<a _href="injurycaseAction!list?itype=1"
+								href="javascript:void(0)">人员统计</a>
+						</li>
+						<li>
+							<a _href="injurycaseAction!list?itype=2"
+								href="javascript:void(0)">案件统计</a>
+						</li>
+						<li>
+							<a _href="injurycaseAction!list?itype=3"
+								href="javascript:void(0)">线索统计</a>
+						</li>
+					</ul>
+				</li>
+				<li>
 					<a href="#"><i class="Hui-iconfont ">&#xe61d;</i> 系统管理<img
 							class="more" src="images/more.png" /> </a>
 					<ul class="er">
