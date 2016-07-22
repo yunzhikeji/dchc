@@ -67,8 +67,9 @@ public class MediaAction extends ActionSupport implements RequestAware,
 	private int mtype;
 
 	// service层对象
-
+	@Resource
 	private IMediaService mediaService;
+	@Resource
 	private IInjurycaseService injurycaseService;
 
 	// 单个表对象
@@ -479,7 +480,6 @@ public class MediaAction extends ActionSupport implements RequestAware,
 		return mediaService;
 	}
 
-	@Resource
 	public void setMediaService(IMediaService mediaService) {
 		this.mediaService = mediaService;
 	}
@@ -504,7 +504,6 @@ public class MediaAction extends ActionSupport implements RequestAware,
 		return injurycaseService;
 	}
 
-	@Resource
 	public void setInjurycaseService(IInjurycaseService injurycaseService) {
 		this.injurycaseService = injurycaseService;
 	}

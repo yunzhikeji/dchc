@@ -109,25 +109,35 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private String checkedIDs;
 
 	// service层对象
+	@Resource
 	private IUnitService unitService;
-
 	@Resource
 	private IPersonService personService;
+	@Resource
 	private IGamblingCriminalManService gamblingCriminalManService;
+	@Resource
 	private IGuiltSafeguardManService guiltSafeguardManService;
+	@Resource
 	private IDisappearManService disappearmanService;
+	@Resource
 	private IAnalyzeManService analyzeManService;
+	@Resource
 	private IContrastManService contrastManService;
+	@Resource
 	private ICommonClueService commonClueService;
-
+	@Resource
 	private ILawcaseService lawcaseService;
+	@Resource
 	private ITroubleshootingService troubleshootingService;
+	@Resource
 	private IJudgeService judgeService;
+	@Resource
 	private IOtherpersonService otherpersonService;
+	@Resource
 	private IInjurycaseService injurycaseService;
-
+	@Resource
 	private ISuccessexampleService successexampleService;
-
+	@Resource
 	private IUserRoleService userRoleService;
 
 	// 单个表对象
@@ -163,8 +173,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 	// 部门json
 	private String jsonUnits;
-	@Resource
-	private ISocialManService socialManService;
 
 	// 测试file
 	private File file;
@@ -198,7 +206,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		}
 
 		pageTileName = selectTileName(type);
-		System.out.println(personService);
 		// 总记录数
 		totalCount = personService.getTotalCount(con, convalue, userRole, type,
 				queryState, starttime, endtime);
@@ -1438,7 +1445,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return gamblingCriminalManService;
 	}
 
-	@Resource
 	public void setGamblingCriminalManService(
 			IGamblingCriminalManService gamblingCriminalManService) {
 		this.gamblingCriminalManService = gamblingCriminalManService;
@@ -1480,7 +1486,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return lawcaseService;
 	}
 
-	@Resource
 	public void setLawcaseService(ILawcaseService lawcaseService) {
 		this.lawcaseService = lawcaseService;
 	}
@@ -1513,7 +1518,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return troubleshootingService;
 	}
 
-	@Resource
 	public void setTroubleshootingService(
 			ITroubleshootingService troubleshootingService) {
 		this.troubleshootingService = troubleshootingService;
@@ -1539,7 +1543,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return judgeService;
 	}
 
-	@Resource
 	public void setJudgeService(IJudgeService judgeService) {
 		this.judgeService = judgeService;
 	}
@@ -1568,7 +1571,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return unitService;
 	}
 
-	@Resource
 	public void setUnitService(IUnitService unitService) {
 		this.unitService = unitService;
 	}
@@ -1613,7 +1615,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return guiltSafeguardManService;
 	}
 
-	@Resource
 	public void setGuiltSafeguardManService(
 			IGuiltSafeguardManService guiltSafeguardManService) {
 		this.guiltSafeguardManService = guiltSafeguardManService;
@@ -1631,7 +1632,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return disappearmanService;
 	}
 
-	@Resource
 	public void setDisappearmanService(IDisappearManService disappearmanService) {
 		this.disappearmanService = disappearmanService;
 	}
@@ -1648,7 +1648,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return analyzeManService;
 	}
 
-	@Resource
 	public void setAnalyzeManService(IAnalyzeManService analyzeManService) {
 		this.analyzeManService = analyzeManService;
 	}
@@ -1657,7 +1656,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return contrastManService;
 	}
 
-	@Resource
 	public void setContrastManService(IContrastManService contrastManService) {
 		this.contrastManService = contrastManService;
 	}
@@ -1666,7 +1664,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return commonClueService;
 	}
 
-	@Resource
 	public void setCommonClueService(ICommonClueService commonClueService) {
 		this.commonClueService = commonClueService;
 	}
@@ -1779,7 +1776,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return otherpersonService;
 	}
 
-	@Resource
 	public void setOtherpersonService(IOtherpersonService otherpersonService) {
 		this.otherpersonService = otherpersonService;
 	}
@@ -1844,7 +1840,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return successexampleService;
 	}
 
-	@Resource
 	public void setSuccessexampleService(
 			ISuccessexampleService successexampleService) {
 		this.successexampleService = successexampleService;
@@ -1862,7 +1857,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return injurycaseService;
 	}
 
-	@Resource
 	public void setInjurycaseService(IInjurycaseService injurycaseService) {
 		this.injurycaseService = injurycaseService;
 	}
@@ -1871,7 +1865,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return userRoleService;
 	}
 
-	@Resource
 	public void setUserRoleService(IUserRoleService userRoleService) {
 		this.userRoleService = userRoleService;
 	}

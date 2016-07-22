@@ -187,8 +187,9 @@
 						</li>
 					</ul>
 				</li>
+				<!-- 
 				<li>
-					<a href="#"><i class="Hui-iconfont ">&#xe636;</i> 综合统计<img
+					<a href="#"><i class="Hui-iconfont "><img src="images/statistics.png" /></i> 综合统计<img
 							class="more" src="images/more.png" /> </a>
 					<ul class="er">
 						<li>
@@ -205,6 +206,7 @@
 						</li>
 					</ul>
 				</li>
+				 -->
 				<li>
 					<a href="#"><i class="Hui-iconfont ">&#xe61d;</i> 系统管理<img
 							class="more" src="images/more.png" /> </a>

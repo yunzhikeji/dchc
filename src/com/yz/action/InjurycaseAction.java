@@ -95,14 +95,21 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	private String checkedIDs;
 
 	// service层对象
+	@Resource
 	private IUnitService unitService;
+	@Resource
 	private IInjurycaseService injurycaseService;
+	@Resource
 	private ITroubleshootingService troubleshootingService;
+	@Resource
 	private IOtherpersonService otherpersonService;
 	private IJudgeService judgeService;
+	@Resource
 	private ISuccessexampleService successexampleService;
+	@Resource
 	private IMediaService mediaService;
 
+	@Resource
 	private IUserRoleService userRoleService;
 
 	// 单个表对象
@@ -777,7 +784,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		return troubleshootingService;
 	}
 
-	@Resource
 	public void setTroubleshootingService(
 			ITroubleshootingService troubleshootingService) {
 		this.troubleshootingService = troubleshootingService;
@@ -815,7 +821,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		return otherpersonService;
 	}
 
-	@Resource
 	public void setOtherpersonService(IOtherpersonService otherpersonService) {
 		this.otherpersonService = otherpersonService;
 	}
@@ -840,7 +845,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		return successexampleService;
 	}
 
-	@Resource
 	public void setSuccessexampleService(
 			ISuccessexampleService successexampleService) {
 		this.successexampleService = successexampleService;
@@ -866,7 +870,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		return injurycaseService;
 	}
 
-	@Resource
 	public void setInjurycaseService(IInjurycaseService injurycaseService) {
 		this.injurycaseService = injurycaseService;
 	}
@@ -907,7 +910,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		return unitService;
 	}
 
-	@Resource
 	public void setUnitService(IUnitService unitService) {
 		this.unitService = unitService;
 	}
@@ -916,7 +918,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		return judgeService;
 	}
 
-	@Resource
 	public void setJudgeService(IJudgeService judgeService) {
 		this.judgeService = judgeService;
 	}
@@ -977,7 +978,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		return userRoleService;
 	}
 
-	@Resource
 	public void setUserRoleService(IUserRoleService userRoleService) {
 		this.userRoleService = userRoleService;
 	}
@@ -1014,7 +1014,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		return mediaService;
 	}
 
-	@Resource
 	public void setMediaService(IMediaService mediaService) {
 		this.mediaService = mediaService;
 	}

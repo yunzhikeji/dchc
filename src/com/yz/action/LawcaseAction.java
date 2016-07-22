@@ -56,10 +56,13 @@ public class LawcaseAction extends ActionSupport implements RequestAware,
 	private int lawid;// 涉及案件
 
 	// service层对象
+	@Resource
 	private IPersonService personService;
+	@Resource
 	private IInjurycaseService injurycaseService;
+	@Resource
 	private IClueService clueService;
-
+	@Resource
 	private ILawcaseService lawcaseService;
 
 	// 单个表对象
@@ -238,7 +241,6 @@ public class LawcaseAction extends ActionSupport implements RequestAware,
 		return personService;
 	}
 
-	@Resource
 	public void setPersonService(IPersonService personService) {
 		this.personService = personService;
 	}
@@ -279,7 +281,6 @@ public class LawcaseAction extends ActionSupport implements RequestAware,
 		return lawcaseService;
 	}
 
-	@Resource
 	public void setLawcaseService(ILawcaseService lawcaseService) {
 		this.lawcaseService = lawcaseService;
 	}
@@ -304,7 +305,6 @@ public class LawcaseAction extends ActionSupport implements RequestAware,
 		return injurycaseService;
 	}
 
-	@Resource
 	public void setInjurycaseService(IInjurycaseService injurycaseService) {
 		this.injurycaseService = injurycaseService;
 	}
@@ -329,7 +329,6 @@ public class LawcaseAction extends ActionSupport implements RequestAware,
 		return clueService;
 	}
 
-	@Resource
 	public void setClueService(IClueService clueService) {
 		this.clueService = clueService;
 	}

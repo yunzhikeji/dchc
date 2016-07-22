@@ -64,11 +64,13 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 	private int otype;// 其他人员类型 1：关系人员，2：同案人员
 
 	// service层对象
-
+	@Resource
 	private IPersonService personService;
-
+	@Resource
 	private IOtherpersonService otherpersonService;
+	@Resource
 	private IInjurycaseService injurycaseService;
+	@Resource
 	private IClueService clueService;
 
 	// 单个表对象
@@ -404,7 +406,6 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 		return personService;
 	}
 
-	@Resource
 	public void setPersonService(IPersonService personService) {
 		this.personService = personService;
 	}
@@ -553,7 +554,6 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 		return otherpersonService;
 	}
 
-	@Resource
 	public void setOtherpersonService(IOtherpersonService otherpersonService) {
 		this.otherpersonService = otherpersonService;
 	}
@@ -611,7 +611,6 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 		return injurycaseService;
 	}
 
-	@Resource
 	public void setInjurycaseService(IInjurycaseService injurycaseService) {
 		this.injurycaseService = injurycaseService;
 	}
@@ -636,7 +635,6 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 		return clueService;
 	}
 
-	@Resource
 	public void setClueService(IClueService clueService) {
 		this.clueService = clueService;
 	}

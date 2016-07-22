@@ -94,19 +94,31 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	private String checkedIDs;
 
 	// service层对象
+	@Resource
 	private IUnitService unitService;
+	@Resource
 	private IUserRoleService userRoleService;
+	@Resource
 	private IPnoticeService pnoticeService;
+	@Resource
 	private ISuccessexampleService successexampleService;
+	@Resource
 	private IGamblingCriminalManService gamblingCriminalManService;
+	@Resource
 	private IGuiltSafeguardManService guiltSafeguardManService;
+	@Resource
 	private IAnalyzeManService analyzeManService;
+	@Resource
 	private IContrastManService contrastManService;
+	@Resource
 	private ICommonClueService commonClueService;
-
+	@Resource
 	private ITroubleshootingService troubleshootingService;
+	@Resource
 	private IPersonService personService;
+	@Resource
 	private IClueService clueService;
+	@Resource
 	private IInjurycaseService injurycaseService;
 
 	// 单个对象
@@ -804,7 +816,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		return userRoleService;
 	}
 
-	@Resource
 	public void setUserRoleService(IUserRoleService userRoleService) {
 		this.userRoleService = userRoleService;
 	}
@@ -869,7 +880,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		return unitService;
 	}
 
-	@Resource
 	public void setUnitService(IUnitService unitService) {
 		this.unitService = unitService;
 	}
@@ -926,7 +936,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		return pnoticeService;
 	}
 
-	@Resource
 	public void setPnoticeService(IPnoticeService pnoticeService) {
 		this.pnoticeService = pnoticeService;
 	}
@@ -943,7 +952,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		return successexampleService;
 	}
 
-	@Resource
 	public void setSuccessexampleService(
 			ISuccessexampleService successexampleService) {
 		this.successexampleService = successexampleService;
@@ -953,7 +961,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		return gamblingCriminalManService;
 	}
 
-	@Resource
 	public void setGamblingCriminalManService(
 			IGamblingCriminalManService gamblingCriminalManService) {
 		this.gamblingCriminalManService = gamblingCriminalManService;
@@ -963,7 +970,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		return guiltSafeguardManService;
 	}
 
-	@Resource
 	public void setGuiltSafeguardManService(
 			IGuiltSafeguardManService guiltSafeguardManService) {
 		this.guiltSafeguardManService = guiltSafeguardManService;
@@ -973,7 +979,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		return analyzeManService;
 	}
 
-	@Resource
 	public void setAnalyzeManService(IAnalyzeManService analyzeManService) {
 		this.analyzeManService = analyzeManService;
 	}
@@ -982,7 +987,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		return contrastManService;
 	}
 
-	@Resource
 	public void setContrastManService(IContrastManService contrastManService) {
 		this.contrastManService = contrastManService;
 	}
@@ -991,7 +995,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		return commonClueService;
 	}
 
-	@Resource
 	public void setCommonClueService(ICommonClueService commonClueService) {
 		this.commonClueService = commonClueService;
 	}
@@ -1049,7 +1052,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		return troubleshootingService;
 	}
 
-	@Resource
 	public void setTroubleshootingService(
 			ITroubleshootingService troubleshootingService) {
 		this.troubleshootingService = troubleshootingService;
@@ -1067,7 +1069,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		return personService;
 	}
 
-	@Resource
 	public void setPersonService(IPersonService personService) {
 		this.personService = personService;
 	}
@@ -1092,7 +1093,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		return clueService;
 	}
 
-	@Resource
 	public void setClueService(IClueService clueService) {
 		this.clueService = clueService;
 	}
@@ -1101,7 +1101,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		return injurycaseService;
 	}
 
-	@Resource
 	public void setInjurycaseService(IInjurycaseService injurycaseService) {
 		this.injurycaseService = injurycaseService;
 	}

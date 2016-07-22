@@ -79,15 +79,17 @@ public class ClueAction extends ActionSupport implements RequestAware,
 	private String checkedIDs;
 
 	// service层对象
+	@Resource
 	private IUnitService unitService;
-
+	@Resource
 	private IClueService clueService;
-
+	@Resource
 	private ILawcaseService lawcaseService;
+	@Resource
 	private ITroubleshootingService troubleshootingService;
-
+	@Resource
 	private IJudgeService judgeService;
-
+	@Resource
 	private IUserRoleService userRoleService;
 
 	// 单个表对象
@@ -447,7 +449,6 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		return clueService;
 	}
 
-	@Resource
 	public void setClueService(IClueService clueService) {
 		this.clueService = clueService;
 	}
@@ -536,7 +537,6 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		return lawcaseService;
 	}
 
-	@Resource
 	public void setLawcaseService(ILawcaseService lawcaseService) {
 		this.lawcaseService = lawcaseService;
 	}
@@ -569,7 +569,6 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		return troubleshootingService;
 	}
 
-	@Resource
 	public void setTroubleshootingService(
 			ITroubleshootingService troubleshootingService) {
 		this.troubleshootingService = troubleshootingService;
@@ -595,7 +594,6 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		return judgeService;
 	}
 
-	@Resource
 	public void setJudgeService(IJudgeService judgeService) {
 		this.judgeService = judgeService;
 	}
@@ -624,7 +622,6 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		return unitService;
 	}
 
-	@Resource
 	public void setUnitService(IUnitService unitService) {
 		this.unitService = unitService;
 	}
@@ -673,7 +670,6 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		return userRoleService;
 	}
 
-	@Resource
 	public void setUserRoleService(IUserRoleService userRoleService) {
 		this.userRoleService = userRoleService;
 	}

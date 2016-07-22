@@ -65,9 +65,13 @@ public class SuccessexampleAction extends ActionSupport implements RequestAware,
 	private String checkedIDs;
 	
 	//service层对象
+	@Resource
 	private ISuccessexampleService successexampleService;
+	@Resource
 	private IPersonService personService;
+	@Resource
 	private IInjurycaseService injurycaseService;
+	@Resource
 	private IClueService clueService;
 
 	//单个表对象
@@ -361,7 +365,6 @@ public class SuccessexampleAction extends ActionSupport implements RequestAware,
 		return successexampleService;
 	}
 
-	@Resource
 	public void setSuccessexampleService(ISuccessexampleService successexampleService) {
 		this.successexampleService = successexampleService;
 	}
@@ -461,7 +464,6 @@ public class SuccessexampleAction extends ActionSupport implements RequestAware,
 		return personService;
 	}
 
-	@Resource
 	public void setPersonService(IPersonService personService) {
 		this.personService = personService;
 	}
@@ -472,7 +474,6 @@ public class SuccessexampleAction extends ActionSupport implements RequestAware,
 	}
 
 
-	@Resource
 	public void setInjurycaseService(IInjurycaseService injurycaseService) {
 		this.injurycaseService = injurycaseService;
 	}
@@ -483,7 +484,6 @@ public class SuccessexampleAction extends ActionSupport implements RequestAware,
 	}
 
 
-	@Resource
 	public void setClueService(IClueService clueService) {
 		this.clueService = clueService;
 	}

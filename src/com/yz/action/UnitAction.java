@@ -26,7 +26,7 @@ import com.yz.service.IUnitService;
 import com.yz.util.ConvertUtil;
 import com.yz.vo.AjaxMsgVO;
 
-@Component("unitAction")  
+@Component("unitAction")
 @Scope("prototype")
 public class UnitAction extends ActionSupport implements RequestAware,
 		SessionAware, ServletResponseAware, ServletRequestAware {
@@ -36,8 +36,7 @@ public class UnitAction extends ActionSupport implements RequestAware,
 	Map<String, Object> session;
 	private javax.servlet.http.HttpServletResponse response;
 	private javax.servlet.http.HttpServletRequest req;
-	
-	
+
 	// 分页显示
 	private String[] arg = new String[2];
 	private int page;
@@ -52,27 +51,26 @@ public class UnitAction extends ActionSupport implements RequestAware,
 	private int status;// 按状态
 	private int pid;// 按用户id
 
-	//批量删除
+	// 批量删除
 	private String checkedIDs;
-	
-	//service层对象
+
+	// service层对象
+	@Resource
 	private IUnitService unitService;
 
-	//单个表对象
+	// 单个表对象
 	private Unit unit;
-	
-	//list表对象
-	 
+
+	// list表对象
+
 	private List<Unit> units;
 
-	//权限
+	// 权限
 	private int ulimit;
-	
-	//部门名称
+
+	// 部门名称
 	private String unitName;
 	private String unitNumber;
-
-
 
 	/**
 	 * 机构管理
@@ -98,10 +96,9 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		}
 		// 所有当前页记录对象
 		units = unitService.queryList(con, convalue, userRoleo, page, size);
-		
+
 		return "list";
 	}
-
 
 	/**
 	 * 跳转到添加页面
@@ -134,17 +131,14 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		arg[1] = "机构管理";
 		return "success_child";
 	}
-	
-	
 
-	/*检查部门编号
+	/*
+	 * 检查部门编号
 	 * 
 	 */
-	public String checkUnitNumber()
-	{
+	public String checkUnitNumber() {
 		unit = unitService.getUnitByNumber(unitNumber);
-		if(unit!=null)
-		{
+		if (unit != null) {
 			AjaxMsgVO msgVO = new AjaxMsgVO();
 			msgVO.setMessage("该组织机构编号已经存在,请重新输入.");
 			JSONObject jsonObj = JSONObject.fromObject(msgVO);
@@ -159,18 +153,16 @@ public class UnitAction extends ActionSupport implements RequestAware,
 				e.printStackTrace();
 			}
 		}
-		return  null;
+		return null;
 	}
-	
 
-	/*检查部门名称
+	/*
+	 * 检查部门名称
 	 * 
 	 */
-	public String checkUnitName()
-	{
+	public String checkUnitName() {
 		unit = unitService.getUnitByName(unitName);
-		if(unit!=null)
-		{
+		if (unit != null) {
 			AjaxMsgVO msgVO = new AjaxMsgVO();
 			msgVO.setMessage("该组织机构已经存在,请重新输入.");
 			JSONObject jsonObj = JSONObject.fromObject(msgVO);
@@ -185,7 +177,7 @@ public class UnitAction extends ActionSupport implements RequestAware,
 				e.printStackTrace();
 			}
 		}
-		return  null;
+		return null;
 	}
 
 	/**
@@ -203,18 +195,16 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		arg[1] = "机构管理";
 		return SUCCESS;
 	}
-	
-	
+
 	/**
 	 * 删除二(批量删除)
 	 * 
 	 * @return
 	 */
 	public String deleteUnits() {
-		
+
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
-		for(int i=0;i<ids.length;i++)
-		{
+		for (int i = 0; i < ids.length; i++) {
 			unitService.deleteById(ids[i]);
 		}
 		AjaxMsgVO msgVO = new AjaxMsgVO();
@@ -232,9 +222,7 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		}
 		return null;
 	}
-	
-	
-	
+
 	/**
 	 * 跳转到修改页面
 	 * 
@@ -268,7 +256,6 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		return "success_child";
 	}
 
-
 	/**
 	 * 查看信息
 	 * 
@@ -282,7 +269,6 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		unit = unitService.loadById(id);
 		return "view";
 	}
-
 
 	// get、set-------------------------------------------
 
@@ -387,7 +373,6 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		return unitService;
 	}
 
-	@Resource
 	public void setUnitService(IUnitService unitService) {
 		this.unitService = unitService;
 	}
@@ -412,11 +397,9 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		return checkedIDs;
 	}
 
-
 	public void setCheckedIDs(String checkedIDs) {
 		this.checkedIDs = checkedIDs;
 	}
-
 
 	public int getUlimit() {
 		return ulimit;
@@ -442,26 +425,20 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		this.req = req;
 	}
 
-
 	public String getUnitName() {
 		return unitName;
 	}
-
 
 	public void setUnitName(String unitName) {
 		this.unitName = unitName;
 	}
 
-
 	public String getUnitNumber() {
 		return unitNumber;
 	}
 
-
 	public void setUnitNumber(String unitNumber) {
 		this.unitNumber = unitNumber;
 	}
-	
-	
 
 }

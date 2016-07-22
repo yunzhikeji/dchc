@@ -57,6 +57,7 @@ public class PnoticeAction extends ActionSupport implements RequestAware,Session
 	private String checkedIDs;
 	
 	//service层对象
+	@Resource
 	private IPnoticeService pnoticeService;
 
 	//单个表对象
@@ -337,7 +338,6 @@ public class PnoticeAction extends ActionSupport implements RequestAware,Session
 		return pnoticeService;
 	}
 
-	@Resource
 	public void setPnoticeService(IPnoticeService pnoticeService) {
 		this.pnoticeService = pnoticeService;
 	}

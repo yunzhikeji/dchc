@@ -31,15 +31,14 @@ import com.yz.vo.AjaxMsgVO;
 
 @Component("troubleshootingAction")
 @Scope("prototype")
-public class TroubleshootingAction extends ActionSupport implements RequestAware,
-		SessionAware, ServletResponseAware, ServletRequestAware {
+public class TroubleshootingAction extends ActionSupport implements
+		RequestAware, SessionAware, ServletResponseAware, ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
 	Map<String, Object> request;
 	Map<String, Object> session;
 	private javax.servlet.http.HttpServletResponse response;
 	private javax.servlet.http.HttpServletRequest req;
-	
 
 	// 分页显示
 	private String[] arg = new String[2];
@@ -53,72 +52,61 @@ public class TroubleshootingAction extends ActionSupport implements RequestAware
 	private int pid;// 人员id
 	private int inid; // 案件id
 	private int cid;// 刑侦线索
-	
-	private int troubid;//疑难问题
-	
-	
-	 //service层对象
+
+	private int troubid;// 疑难问题
+
+	// service层对象
+	@Resource
 	private IPersonService personService;
+	@Resource
 	private IInjurycaseService injurycaseService;
+	@Resource
 	private IClueService clueService;
-	
+	@Resource
 	private ITroubleshootingService troubleshootingService;
 
-	
-
-	//单个表对象
+	// 单个表对象
 	private Person person;
 	private Injurycase injurycase;
 	private Clue clue;
-	
-	private Troubleshooting troubleshooting;
-	
-	
 
-	//list表对象
+	private Troubleshooting troubleshooting;
+
+	// list表对象
 	private List<Person> persons;
 
-	
 	/**
 	 * 疑难解答模块
 	 */
-	public String goToAdd()
-	{
-		if(pid!=0)
-		{
+	public String goToAdd() {
+		if (pid != 0) {
 			person = personService.loadById(pid);
 		}
-		if(inid!=0)
-		{
+		if (inid != 0) {
 			injurycase = injurycaseService.loadById(inid);
 		}
-		if(cid!=0)
-		{
+		if (cid != 0) {
 			clue = clueService.loadById(cid);
 		}
 		return "add";
 	}
-	
-	public String add() throws Exception
-	{
-		
-		if(troubleshooting.getPerson()!=null)
-		{
+
+	public String add() throws Exception {
+
+		if (troubleshooting.getPerson() != null) {
 			changePersonHandleState(troubleshooting.getPerson().getId());
 		}
-		if(troubleshooting.getInjurycase()!=null)
-		{
+		if (troubleshooting.getInjurycase() != null) {
 			changeInjurycaseHandleState(troubleshooting.getInjurycase().getId());
 		}
-		if(troubleshooting.getClue()!=null)
-		{
+		if (troubleshooting.getClue() != null) {
 			changeClueHandleState(troubleshooting.getClue().getId());
 		}
 		troubleshootingService.add(troubleshooting);
 		return "success_child";
 	}
-	
-	public String deleteTroubleshooting() throws Exception{
+
+	public String deleteTroubleshooting() throws Exception {
 
 		troubleshooting = troubleshootingService.loadById(troubid);
 		troubleshootingService.delete(troubleshooting);
@@ -137,34 +125,30 @@ public class TroubleshootingAction extends ActionSupport implements RequestAware
 		}
 		return null;
 	}
-	
-	public String load()
-	{
+
+	public String load() {
 		troubleshooting = troubleshootingService.loadById(troubid);
 		return "load";
 	}
-	
-	public String update()
-	{
+
+	public String update() {
 		troubleshootingService.update(troubleshooting);
 		return "success_child";
 	}
 
-	//改变人员当前处理状态
+	// 改变人员当前处理状态
 	private void changePersonHandleState(int perid) {
-		
+
 		Person per = personService.loadById(perid);
-		if(per!=null)
-		{
-			if(per.getHandleState()==1)
-			{
+		if (per != null) {
+			if (per.getHandleState() == 1) {
 				per.setHandleState(2);
 				personService.update(per);
 			}
 		}
-		
+
 	}
-	
+
 	// 改变线索当前处理状态
 	private void changeClueHandleState(int clid) {
 
@@ -177,24 +161,18 @@ public class TroubleshootingAction extends ActionSupport implements RequestAware
 		}
 
 	}
-	
+
 	private void changeInjurycaseHandleState(Integer inid) {
-		
+
 		Injurycase injurycase = injurycaseService.loadById(inid);
-		if(injurycase!=null)
-		{
-			if(injurycase.getHandleState()==1)
-			{
+		if (injurycase != null) {
+			if (injurycase.getHandleState() == 1) {
 				injurycase.setHandleState(2);
 				injurycaseService.update(injurycase);
 			}
 		}
 	}
-	
-	
-	
 
-	
 	// 获得HttpServletResponse对象
 	public void setServletResponse(HttpServletResponse response) {
 		this.response = response;
@@ -252,7 +230,6 @@ public class TroubleshootingAction extends ActionSupport implements RequestAware
 		this.totalCount = totalCount;
 	}
 
-
 	public int getPid() {
 		return pid;
 	}
@@ -273,7 +250,6 @@ public class TroubleshootingAction extends ActionSupport implements RequestAware
 		return personService;
 	}
 
-	@Resource
 	public void setPersonService(IPersonService personService) {
 		this.personService = personService;
 	}
@@ -294,7 +270,6 @@ public class TroubleshootingAction extends ActionSupport implements RequestAware
 		this.persons = persons;
 	}
 
-
 	public javax.servlet.http.HttpServletResponse getResponse() {
 		return response;
 	}
@@ -311,7 +286,6 @@ public class TroubleshootingAction extends ActionSupport implements RequestAware
 		this.req = req;
 	}
 
-
 	public int getTroubid() {
 		return troubid;
 	}
@@ -324,8 +298,8 @@ public class TroubleshootingAction extends ActionSupport implements RequestAware
 		return troubleshootingService;
 	}
 
-	@Resource
-	public void setTroubleshootingService(ITroubleshootingService troubleshootingService) {
+	public void setTroubleshootingService(
+			ITroubleshootingService troubleshootingService) {
 		this.troubleshootingService = troubleshootingService;
 	}
 
@@ -337,12 +311,10 @@ public class TroubleshootingAction extends ActionSupport implements RequestAware
 		this.troubleshooting = troubleshooting;
 	}
 
-
 	public IInjurycaseService getInjurycaseService() {
 		return injurycaseService;
 	}
 
-	@Resource
 	public void setInjurycaseService(IInjurycaseService injurycaseService) {
 		this.injurycaseService = injurycaseService;
 	}
@@ -367,7 +339,6 @@ public class TroubleshootingAction extends ActionSupport implements RequestAware
 		return clueService;
 	}
 
-	@Resource
 	public void setClueService(IClueService clueService) {
 		this.clueService = clueService;
 	}
@@ -388,7 +359,4 @@ public class TroubleshootingAction extends ActionSupport implements RequestAware
 		this.clue = clue;
 	}
 
-	
-	
-	
 }

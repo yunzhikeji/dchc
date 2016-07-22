@@ -65,11 +65,15 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 	private int jtype;// 发起类型 1:研判信息 2：部门查证 3：上报情况
 
 	// service层对象
+	@Resource
 	private IPersonService personService;
+	@Resource
 	private IInjurycaseService injurycaseService;
+	@Resource
 	private IClueService clueService;
-
+	@Resource
 	private IJudgeService judgeService;
+	@Resource
 	private IUnitService unitService;
 
 	// 单个表对象
@@ -441,7 +445,6 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 		return personService;
 	}
 
-	@Resource
 	public void setPersonService(IPersonService personService) {
 		this.personService = personService;
 	}
@@ -490,7 +493,6 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 		return judgeService;
 	}
 
-	@Resource
 	public void setJudgeService(IJudgeService judgeService) {
 		this.judgeService = judgeService;
 	}
@@ -511,7 +513,6 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 		return unitService;
 	}
 
-	@Resource
 	public void setUnitService(IUnitService unitService) {
 		this.unitService = unitService;
 	}
@@ -564,7 +565,6 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 		return injurycaseService;
 	}
 
-	@Resource
 	public void setInjurycaseService(IInjurycaseService injurycaseService) {
 		this.injurycaseService = injurycaseService;
 	}
@@ -589,7 +589,6 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 		return clueService;
 	}
 
-	@Resource
 	public void setClueService(IClueService clueService) {
 		this.clueService = clueService;
 	}
