@@ -209,7 +209,7 @@
 					<a href="#"><i class="Hui-iconfont ">&#xe61d;</i> 系统管理<img
 							class="more" src="images/more.png" /> </a>
 					<ul class="er">
-						<s:if test="#session.userRoleo.userLimit==2">
+						<s:if test="#session.userRoleo.userLimit>0">
 							<li>
 								<a _href="unitAction!list" href="javascript:void(0)">机构管理</a>
 							</li>

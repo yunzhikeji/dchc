@@ -100,7 +100,7 @@
 				</form>
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
-				<span class="l"> <s:if test="#session.userRoleo.userLimit==2">
+				<span class="l"> <s:if test="#session.userRoleo.userLimit>0">
 						<a href="javascript:;" onclick="deleteAllCheckedInjurycases();"
 							class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>
 							批量删除</a>
@@ -182,7 +182,7 @@
 									onclick="childPageFull('编辑案件','injurycaseAction!load?id=<s:property value="id"/>&itype=<s:property value="itype" />')"
 									href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i>
 								</a>
-								<s:if test="#session.userRoleo.userLimit==2">
+								<s:if test="#session.userRoleo.userLimit>0">
 									<a style="text-decoration: none" class="ml-5"
 										href="injurycaseAction!delete?id=<s:property value="id" />&itype=<s:property value="itype" />"
 										onclick="return confirm('你确定删除该信息吗？')" title="删除"><i

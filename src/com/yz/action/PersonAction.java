@@ -111,6 +111,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	// service层对象
 	private IUnitService unitService;
 
+	@Resource
 	private IPersonService personService;
 	private IGamblingCriminalManService gamblingCriminalManService;
 	private IGuiltSafeguardManService guiltSafeguardManService;
@@ -197,7 +198,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		}
 
 		pageTileName = selectTileName(type);
-
+		System.out.println(personService);
 		// 总记录数
 		totalCount = personService.getTotalCount(con, convalue, userRole, type,
 				queryState, starttime, endtime);
@@ -1333,7 +1334,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		return personService;
 	}
 
-	@Resource
 	public void setPersonService(IPersonService personService) {
 		this.personService = personService;
 	}

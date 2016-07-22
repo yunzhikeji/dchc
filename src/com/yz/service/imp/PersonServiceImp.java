@@ -101,7 +101,7 @@ public class PersonServiceImp implements IPersonService {
 	 * (non-Javadoc)
 	 * 
 	 * @see com.yz.service.imp.IPersonServiceImp#getPageCount(int,
-	 * java.lang.String, int)
+	 *      java.lang.String, int)
 	 */
 	public int getPageCount(int totalCount, int size) {
 		return totalCount % size == 0 ? totalCount / size
@@ -113,7 +113,7 @@ public class PersonServiceImp implements IPersonService {
 	 * (non-Javadoc)
 	 * 
 	 * @see com.yz.service.imp.IPersonServiceImp#getTotalCount(int,
-	 * java.lang.String)
+	 *      java.lang.String)
 	 */
 	public int getTotalCount(int con, String convalue, UserRole userRole,
 			int type, int queryState, String starttime, String endtime) {
@@ -147,15 +147,17 @@ public class PersonServiceImp implements IPersonService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		// 用户所在机构不为空
-		String pids = "";
-		if(userRole!=null&&userRole.getUnit()!=null&&userRole.getUnit().getPids()!=null)
-		{
-			pids = userRole.getUnit().getPids().replace(" ", "");
-			queryString = setStringIds(queryString,pids);
-		}else
-		{
-			queryString += " and mo.id in (0)";
+		// 权限为超级管理员
+		if (userRole.getUserLimit() != 2) {
+			// 用户所在机构不为空
+			String pids = "";
+			if (userRole != null && userRole.getUnit() != null
+					&& userRole.getUnit().getPids() != null) {
+				pids = userRole.getUnit().getPids().replace(" ", "");
+				queryString = setStringIds(queryString, pids);
+			} else {
+				queryString += " and mo.id in (0)";
+			}
 		}
 		return personDao.getUniqueResult(queryString, p);
 	}
@@ -172,7 +174,7 @@ public class PersonServiceImp implements IPersonService {
 	 * (non-Javadoc)
 	 * 
 	 * @see com.yz.service.imp.IPersonServiceImp#queryList(int,
-	 * java.lang.String, int, int)
+	 *      java.lang.String, int, int)
 	 */
 	public List<Person> queryList(int con, String convalue, UserRole userRole,
 			int page, int size, int type, int queryState, String starttime,
@@ -206,16 +208,17 @@ public class PersonServiceImp implements IPersonService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		
-		// 用户所在机构不为空
-		String pids = "";
-		if(userRole!=null&&userRole.getUnit()!=null&&userRole.getUnit().getPids()!=null)
-		{
-			pids = userRole.getUnit().getPids().replace(" ", "");
-			queryString = setStringIds(queryString,pids);
-		}else
-		{
-			queryString += " and mo.id in (0)";
+		// 权限为超级管理员
+		if (userRole.getUserLimit() != 2) {
+			// 用户所在机构不为空
+			String pids = "";
+			if (userRole != null && userRole.getUnit() != null
+					&& userRole.getUnit().getPids() != null) {
+				pids = userRole.getUnit().getPids().replace(" ", "");
+				queryString = setStringIds(queryString, pids);
+			} else {
+				queryString += " and mo.id in (0)";
+			}
 		}
 		return personDao.pageList(queryString, p, page, size);
 	}
@@ -237,34 +240,33 @@ public class PersonServiceImp implements IPersonService {
 		// TODO Auto-generated method stub
 		String queryString = "from Person mo where mo.type=" + type
 				+ " and mo.handleState=" + handleState;
-		
-		// 用户所在机构不为空
-		String pids = "";
-		if(userRole!=null&&userRole.getUnit()!=null&&userRole.getUnit().getPids()!=null)
-		{
-			pids = userRole.getUnit().getPids().replace(" ", "");
-			queryString = setStringIds(queryString,pids);
-		}else
-		{
-			queryString += " and mo.id in (0)";
+
+		if (userRole.getUserLimit() != 2) {
+			// 用户所在机构不为空
+			String pids = "";
+			if (userRole != null && userRole.getUnit() != null
+					&& userRole.getUnit().getPids() != null) {
+				pids = userRole.getUnit().getPids().replace(" ", "");
+				queryString = setStringIds(queryString, pids);
+			} else {
+				queryString += " and mo.id in (0)";
+			}
+
 		}
-		
+
 		return personDao.queryList(queryString);
 	}
 
-	private String setStringIds(String queryString,String pids) {
+	private String setStringIds(String queryString, String pids) {
 		// TODO Auto-generated method stub
-		//用户所在机构不为空
-		if(pids!=""&&!pids.equals(","))
-		{
-			String lastChar = pids.substring(pids.length()-1, pids.length());
-			if(lastChar.equals(","))
-			{
-				pids = pids.substring(0, pids.length()-1);
+		// 用户所在机构不为空
+		if (pids != "" && !pids.equals(",")) {
+			String lastChar = pids.substring(pids.length() - 1, pids.length());
+			if (lastChar.equals(",")) {
+				pids = pids.substring(0, pids.length() - 1);
 			}
-			queryString += " and mo.id in ("+pids+")";
-		}else
-		{
+			queryString += " and mo.id in (" + pids + ")";
+		} else {
 			queryString += " and mo.id in (0)";
 		}
 		return queryString;
@@ -275,8 +277,7 @@ public class PersonServiceImp implements IPersonService {
 		return personDao.savereturn(person);
 	}
 
-	public void saveSocialManWithExcel(File file,
-			UserRole userRole) {
+	public void saveSocialManWithExcel(File file, UserRole userRole) {
 		try {
 			GenerateSqlFromExcel generate = new GenerateSqlFromExcel();
 			ArrayList<String[]> arrayList = generate
@@ -287,7 +288,7 @@ public class PersonServiceImp implements IPersonService {
 				Person person = new Person();
 				// 实例化PO对象，用PO对象进行保存
 				SocialMan socialMan = new SocialMan();
-				// 人员编号 姓名  出生日期 QQ 微信号 身份证号  户籍地址 户籍区域
+				// 人员编号 姓名 出生日期 QQ 微信号 身份证号 户籍地址 户籍区域
 				person.setNumber(data[0].toString());
 				person.setName(data[1].toString());
 				person.setBirthday(data[2].toString());
@@ -347,7 +348,6 @@ public class PersonServiceImp implements IPersonService {
 		this.socialManDao = socialManDao;
 	}
 
-
 	public IUnitService getUnitService() {
 		return unitService;
 	}
@@ -356,7 +356,5 @@ public class PersonServiceImp implements IPersonService {
 	public void setUnitService(IUnitService unitService) {
 		this.unitService = unitService;
 	}
-	
-	
 
 }

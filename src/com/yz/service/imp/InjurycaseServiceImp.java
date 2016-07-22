@@ -235,15 +235,16 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		// 用户所在机构不为空
-		String inids = "";
-		if(userRole!=null&&userRole.getUnit()!=null&&userRole.getUnit().getInids()!=null)
-		{
-			inids = userRole.getUnit().getInids().replace(" ", "");
-			queryString = setStringIds(queryString,inids);
-		}else
-		{
-			queryString += " and mo.id in (0)";
+		if (userRole.getUserLimit() != 2) {
+			// 用户所在机构不为空
+			String inids = "";
+			if (userRole != null && userRole.getUnit() != null
+					&& userRole.getUnit().getInids() != null) {
+				inids = userRole.getUnit().getInids().replace(" ", "");
+				queryString = setStringIds(queryString, inids);
+			} else {
+				queryString += " and mo.id in (0)";
+			}
 		}
 		return injurycaseDao.getUniqueResult(queryString, p);
 	}
@@ -280,15 +281,16 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		// 用户所在机构不为空
-		String inids = "";
-		if(userRole!=null&&userRole.getUnit()!=null&&userRole.getUnit().getInids()!=null)
-		{
-			inids = userRole.getUnit().getInids().replace(" ", "");
-			queryString = setStringIds(queryString,inids);
-		}else
-		{
-			queryString += " and mo.id in (0)";
+		if (userRole.getUserLimit() != 2) {
+			// 用户所在机构不为空
+			String inids = "";
+			if (userRole != null && userRole.getUnit() != null
+					&& userRole.getUnit().getInids() != null) {
+				inids = userRole.getUnit().getInids().replace(" ", "");
+				queryString = setStringIds(queryString, inids);
+			} else {
+				queryString += " and mo.id in (0)";
+			}
 		}
 		return injurycaseDao.pageList(queryString, p, page, size);
 	}
@@ -298,29 +300,31 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		// TODO Auto-generated method stub
 		String queryString = "from Injurycase mo where mo.itype=" + itype
 				+ " and mo.handleState=" + handleState;
-		// 用户所在机构不为空
-		String inids = "";
-		if(userRole!=null&&userRole.getUnit()!=null&&userRole.getUnit().getInids()!=null)
-		{
-			inids = userRole.getUnit().getInids().replace(" ", "");
-			queryString = setStringIds(queryString,inids);
-		}else
-		{
-			queryString += " and mo.id in (0)";
+		if (userRole.getUserLimit() != 2) {
+			// 用户所在机构不为空
+			String inids = "";
+			if (userRole != null && userRole.getUnit() != null
+					&& userRole.getUnit().getInids() != null) {
+				inids = userRole.getUnit().getInids().replace(" ", "");
+				queryString = setStringIds(queryString, inids);
+			} else {
+				queryString += " and mo.id in (0)";
+			}
 		}
 		return injurycaseDao.queryList(queryString);
 	}
 
 	public List<Injurycase> queryInjurycaseBySeries(String series, int id) {
-		String queryString = "from Injurycase mo where mo.series=:series and mo.isRelated=1 and mo.id!="+id;
+		String queryString = "from Injurycase mo where mo.series=:series and mo.isRelated=1 and mo.id!="
+				+ id;
 		String[] paramNames = new String[] { "series" };
 		Object[] values = new Object[] { series };
 		return injurycaseDao.queryList(queryString, paramNames, values);
 	}
 
-	public List<Injurycase> queryInjurycaseByKeyword(String param,int id) {
+	public List<Injurycase> queryInjurycaseByKeyword(String param, int id) {
 
-		String queryString = "from Injurycase mo where  mo.id!="+id;
+		String queryString = "from Injurycase mo where  mo.id!=" + id;
 		Object[] p = null;
 		if (param != null && !param.equals("")) {
 			queryString += "and  (mo.caseNumber like ?  or mo.caseType like ? or mo.caseName like ? ) ";
@@ -331,20 +335,18 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		return injurycaseDao.getObjectsByCondition(queryString, p);
 
 	}
-	
-	private String setStringIds(String queryString,String inids) {
+
+	private String setStringIds(String queryString, String inids) {
 		// TODO Auto-generated method stub
-		//用户所在机构不为空
-		if(inids!=""&&!inids.equals(","))
-		{
-			String lastChar = inids.substring(inids.length()-1, inids.length());
-			if(lastChar.equals(","))
-			{
-				inids = inids.substring(0, inids.length()-1);
+		// 用户所在机构不为空
+		if (inids != "" && !inids.equals(",")) {
+			String lastChar = inids.substring(inids.length() - 1, inids
+					.length());
+			if (lastChar.equals(",")) {
+				inids = inids.substring(0, inids.length() - 1);
 			}
-			queryString += " and mo.id in ("+inids+")";
-		}else
-		{
+			queryString += " and mo.id in (" + inids + ")";
+		} else {
 			queryString += " and mo.id in (0)";
 		}
 		return queryString;

@@ -101,7 +101,7 @@
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
 				<span class="l">
-				<s:if test="#session.userRoleo.userLimit==2">
+				<s:if test="#session.userRoleo.userLimit>0">
 				<a href="javascript:;"
 					onclick="deleteAllCheckedPersons();" class="btn btn-danger radius">
 					<i
@@ -185,7 +185,7 @@
 									onclick="childPageFull('编辑线索','clueAction!load?id=<s:property value="id"/>')"
 									href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i>
 								</a>
-								<s:if test="#session.userRoleo.userLimit==2">
+								<s:if test="#session.userRoleo.userLimit>0">
 								<a style="text-decoration: none" class="ml-5"
 									href="clueAction!delete?id=<s:property value="id" />"
 									onclick="return confirm('你确定删除该信息吗？')" title="删除"><i
