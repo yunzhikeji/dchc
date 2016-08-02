@@ -225,9 +225,9 @@ public class ClueDaoImp implements IClueDao {
 		//返回受影响的行数
 		return query.executeUpdate();
 	}
-	public Clue getClueById(Integer upclueid) {
+	public Clue getClueById(Integer cid) {
 		// TODO Auto-generated method stub
-		return (Clue) this.hibernateTemplate.get(Clue.class, upclueid);
+		return (Clue) this.hibernateTemplate.get(Clue.class, cid);
 	}
 
 }

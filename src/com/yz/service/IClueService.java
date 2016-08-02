@@ -36,10 +36,29 @@ public interface IClueService {
 			int size, int type, int queryState, String starttime, String endtime);
 
 
-	public abstract Clue getClueById(Integer upclueid);
+	public abstract Clue getClueById(Integer cid);
 
 	public abstract List<Clue> getCluesByTypeAndHandleState(int ctype,
 			int handleState, UserRole userRole);
+
+	public abstract List<Clue> getCluesByTypeAndHandleState(int con, String convalue,
+			String starttime, String endtime, int ctype, int state, UserRole userRole);
+
+	public abstract List<Clue> getCluesByHandleState(int con, String convalue,
+			String starttime, String endtime, int state, UserRole userRole);
+
+	public abstract List<Clue> getOutOfTimeCluesByType(int con, String convalue,
+			String starttime, String endtime, int ctype, UserRole userRole);
+
+	public abstract List<Clue> getOutOfTimeCluesByUserRole(int con, String convalue,
+			String starttime, String endtime, UserRole userRole);
+
+	public abstract List<Clue> getCluesByType(int con, String convalue,
+			String starttime, String endtime, int ctype, UserRole userRole);
+
+	public abstract List<Clue> getCluesByUserRole(int con, String convalue,
+			String starttime, String endtime, UserRole userRole);
+
 
 
 }

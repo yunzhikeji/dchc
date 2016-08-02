@@ -49,7 +49,7 @@
 
 		<div class="pd-20">
 			<div class="text-c">
-				<form name="personListForm" method="post" action="personAction!list"
+				<form name="countForm" method="post" action="countAction!personCount"
 					target="_self">
 					<s:hidden name="type"></s:hidden>
 					<table width="100%" border="0" cellspacing="0" cellpadding="0"
@@ -57,7 +57,7 @@
 						<tr height="35">
 							<td width="21%" align="right" style="padding-right: 50px;">
 								<s:select
-									list="#{0:'选择类型',1:'人员姓名',2:'人员编号',3:'身份证号',4:'录入人员姓名'}"
+									list="#{0:'选择类型',1:'录入人员姓名',2:'录入人员警号'}"
 									cssClass="input-text" name="con" listKey="key"
 									listValue="value" cssStyle="width:180px"></s:select>
 							</td>
@@ -298,102 +298,102 @@
 					</tr>
 					<tr class="text-c va-m">
 						<td>
-							超期办理
-						</td>
-						<td>
-							8
-						</td>
-						<td>
-							5
-						</td>
-						<td>
-							4
-						</td>
-						<td>
-							6
-						</td>
-						<td>
-							23
-						</td>
-						<td>
-							23
-						</td>
-						<td>
-							8
-						</td>
-						<td>
-							5
-						</td>
-						<td>
-							4
-						</td>
-						<td>
-							6
-						</td>
-						<td>
-							8
-						</td>
-						<td>
-							5
-						</td>
-						<td>
-							4
-						</td>
-						<td>
-							6
-						</td>
-						<td>
-							4
-						</td>
-					</tr>
-					<tr class="text-c va-m">
-						<td>
 							合计
 						</td>
 						<td>
-							8
+							<s:property value="personCounts.get(4)[0]"/>
 						</td>
 						<td>
-							5
+							<s:property value="personCounts.get(4)[1]"/>
 						</td>
 						<td>
-							4
+							<s:property value="personCounts.get(4)[2]"/>
 						</td>
 						<td>
-							6
+							<s:property value="personCounts.get(4)[3]"/>
 						</td>
 						<td>
-							23
+							<s:property value="personCounts.get(4)[4]"/>
 						</td>
 						<td>
-							23
+							<s:property value="personCounts.get(4)[5]"/>
 						</td>
 						<td>
-							23
+							<s:property value="personCounts.get(4)[6]"/>
 						</td>
 						<td>
-							8
+							<s:property value="personCounts.get(4)[7]"/>
 						</td>
 						<td>
-							5
+							<s:property value="personCounts.get(4)[8]"/>
 						</td>
 						<td>
-							4
+							<s:property value="personCounts.get(4)[9]"/>
 						</td>
 						<td>
-							6
+							<s:property value="personCounts.get(4)[10]"/>
 						</td>
 						<td>
-							8
+							<s:property value="personCounts.get(4)[11]"/>
 						</td>
 						<td>
-							5
+							<s:property value="personCounts.get(4)[12]"/>
 						</td>
 						<td>
-							4
+							<s:property value="personCounts.get(4)[13]"/>
 						</td>
 						<td>
-							6
+							<s:property value="personCounts.get(4)[14]"/>
+						</td>
+					</tr>
+					<tr class="text-c va-m" >
+						<td style="color:red">
+							超期办理
+						</td>
+						<td style="color:red">
+							<s:property value="personCounts.get(3)[0]"/>
+						</td>
+						<td style="color:red">
+							<s:property value="personCounts.get(3)[1]"/>
+						</td>
+						<td style="color:red">
+							<s:property value="personCounts.get(3)[2]"/>
+						</td>
+						<td style="color:red">
+							<s:property value="personCounts.get(3)[3]"/>
+						</td>
+						<td style="color:red">
+							<s:property value="personCounts.get(3)[4]"/>
+						</td>
+						<td style="color:red">
+							<s:property value="personCounts.get(3)[5]"/>
+						</td>
+						<td style="color:red">
+							<s:property value="personCounts.get(3)[6]"/>
+						</td>
+						<td style="color:red">
+							<s:property value="personCounts.get(3)[7]"/>
+						</td>
+						<td style="color:red">
+							<s:property value="personCounts.get(3)[8]"/>
+						</td>
+						<td style="color:red">
+							<s:property value="personCounts.get(3)[9]"/>
+						</td>
+						<td style="color:red">
+							<s:property value="personCounts.get(3)[10]"/>
+						</td>
+						<td style="color:red">
+							<s:property value="personCounts.get(3)[11]"/>
+						</td>
+						<td style="color:red">
+							<s:property value="personCounts.get(3)[12]"/>
+						</td>
+						<td style="color:red">
+							<s:property value="personCounts.get(3)[13]"/>
+						</td>
+						<td style="color:red">
+							<s:property value="personCounts.get(3)[14]"/>
 						</td>
 					</tr>
 				</tbody>

@@ -16,7 +16,7 @@ import com.yz.model.UserRole;
 import com.yz.service.IInjurycaseService;
 
 /**
- * @author jiang
+ * @author
  * 
  */
 @Component("injurycaseService")
@@ -235,17 +235,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		if (userRole.getUserLimit() != 2) {
-			// 用户所在机构不为空
-			String inids = "";
-			if (userRole != null && userRole.getUnit() != null
-					&& userRole.getUnit().getInids() != null) {
-				inids = userRole.getUnit().getInids().replace(" ", "");
-				queryString = setStringIds(queryString, inids);
-			} else {
-				queryString += " and mo.id in (0)";
-			}
-		}
+		queryString = setSqlLimit(queryString, userRole);
 		return injurycaseDao.getUniqueResult(queryString, p);
 	}
 
@@ -281,17 +271,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		if (userRole.getUserLimit() != 2) {
-			// 用户所在机构不为空
-			String inids = "";
-			if (userRole != null && userRole.getUnit() != null
-					&& userRole.getUnit().getInids() != null) {
-				inids = userRole.getUnit().getInids().replace(" ", "");
-				queryString = setStringIds(queryString, inids);
-			} else {
-				queryString += " and mo.id in (0)";
-			}
-		}
+		queryString = setSqlLimit(queryString, userRole);
 		return injurycaseDao.pageList(queryString, p, page, size);
 	}
 
@@ -300,17 +280,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		// TODO Auto-generated method stub
 		String queryString = "from Injurycase mo where mo.itype=" + itype
 				+ " and mo.handleState=" + handleState;
-		if (userRole.getUserLimit() != 2) {
-			// 用户所在机构不为空
-			String inids = "";
-			if (userRole != null && userRole.getUnit() != null
-					&& userRole.getUnit().getInids() != null) {
-				inids = userRole.getUnit().getInids().replace(" ", "");
-				queryString = setStringIds(queryString, inids);
-			} else {
-				queryString += " and mo.id in (0)";
-			}
-		}
+		queryString = setSqlLimit(queryString, userRole);
 		return injurycaseDao.queryList(queryString);
 	}
 
@@ -336,7 +306,133 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 
 	}
 
-	private String setStringIds(String queryString, String inids) {
+	public List<Injurycase> getInjurycaseByTypeAndHandleState(int con,
+			String convalue, String starttime, String endtime, int itype,
+			int handleState, UserRole userRole) {
+		// TODO Auto-generated method stub
+		String queryString = "from Injurycase mo where mo.itype=" + itype
+				+ " and mo.handleState=" + handleState;
+
+		queryString = setSqlParms(con, convalue, starttime, endtime,
+				queryString);
+
+		queryString = setSqlLimit(queryString, userRole);
+
+		return injurycaseDao.queryList(queryString);
+	}
+
+	public List<Injurycase> getInjurycasesByHandleState(int con,
+			String convalue, String starttime, String endtime, int state,
+			UserRole userRole) {
+		// TODO Auto-generated method stub
+		String queryString = "from Injurycase mo where  mo.handleState="
+				+ state;
+
+		queryString = setSqlParms(con, convalue, starttime, endtime,
+				queryString);
+
+		queryString = setSqlLimit(queryString, userRole);
+
+		return injurycaseDao.queryList(queryString);
+	}
+
+	public List<Injurycase> getInOutOfTimejurycasesByUserRole(int con,
+			String convalue, String starttime, String endtime, UserRole userRole) {
+		// TODO Auto-generated method stub
+		String queryString = "from Injurycase mo where  mo.isOutOfTime=1";
+
+		queryString = setSqlParms(con, convalue, starttime, endtime,
+				queryString);
+
+		queryString = setSqlLimit(queryString, userRole);
+
+		return injurycaseDao.queryList(queryString);
+	}
+
+	public List<Injurycase> getInjurycasesByType(int con, String convalue,
+			String starttime, String endtime, int itype, UserRole userRole) {
+		// TODO Auto-generated method stub
+		String queryString = "from Injurycase mo where  mo.itype=" + itype;
+
+		queryString = setSqlParms(con, convalue, starttime, endtime,
+				queryString);
+
+		queryString = setSqlLimit(queryString, userRole);
+
+		return injurycaseDao.queryList(queryString);
+	}
+
+	public List<Injurycase> getInjurycasesByUserRole(int con, String convalue,
+			String starttime, String endtime, UserRole userRole) {
+		// TODO Auto-generated method stub
+		String queryString = "from Injurycase mo where  1=1 ";
+
+		queryString = setSqlParms(con, convalue, starttime, endtime,
+				queryString);
+
+		queryString = setSqlLimit(queryString, userRole);
+
+		return injurycaseDao.queryList(queryString);
+	}
+
+	public List<Injurycase> getOutOfTimeInjurycasesByType(int con,
+			String convalue, String starttime, String endtime, int itype,
+			UserRole userRole) {
+		// TODO Auto-generated method stub
+		String queryString = "from Injurycase mo where   mo.itype=" + itype
+				+ " and mo.isOutOfTime=1";
+
+		queryString = setSqlParms(con, convalue, starttime, endtime,
+				queryString);
+
+		queryString = setSqlLimit(queryString, userRole);
+
+		return injurycaseDao.queryList(queryString);
+	}
+
+	// 设置 sql语句 参数配置
+	private String setSqlParms(int con, String convalue, String starttime,
+			String endtime, String queryString) {
+		if (con != 0 && convalue != null && !convalue.equals("")) {
+			if (con == 1) {
+				queryString += " and mo.userRole.realname like  '%" + convalue
+						+ "%' ";
+			}
+			if (con == 2) {
+				queryString += " and mo.userRole.number like  '%" + convalue
+						+ "%' ";
+			}
+		}
+		if (starttime != null && !starttime.equals("")) {
+			queryString += " and mo.joinDate>='" + starttime + "'";
+		}
+		if (endtime != null && !endtime.equals("")) {
+			queryString += " and mo.joinDate<='" + endtime + "'";
+		}
+
+		return queryString;
+	}
+
+	// 设置sql语句 关于权限分配
+	private String setSqlLimit(String queryString, UserRole userRole) {
+
+		if (userRole.getUserLimit() != 2) {
+			// 用户所在机构不为空
+			String inids = "";
+			if (userRole != null && userRole.getUnit() != null
+					&& userRole.getUnit().getInids() != null) {
+				inids = userRole.getUnit().getInids().replace(" ", "");
+				queryString = setSqlInids(queryString, inids);
+			} else {
+				queryString += " and mo.id in (0)";
+			}
+		}
+		return queryString;
+
+	}
+
+	// 设置sql语句 关于inid
+	private String setSqlInids(String queryString, String inids) {
 		// TODO Auto-generated method stub
 		// 用户所在机构不为空
 		if (inids != "" && !inids.equals(",")) {

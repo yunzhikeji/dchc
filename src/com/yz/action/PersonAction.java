@@ -950,7 +950,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		}
 		pageTileName = selectTileName(type);
 
-		person = personService.queryPersonById(id);// 当前修改人员的id
+		person = personService.getPersonById(id);// 当前修改人员的id
 
 		type = person.getType();
 		// 分类添加人员信息

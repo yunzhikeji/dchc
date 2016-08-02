@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import com.yz.dao.IPersonDao;
 import com.yz.dao.ISocialManDao;
-import com.yz.dao.IUnitDao;
 import com.yz.model.Person;
 import com.yz.model.SocialMan;
 import com.yz.model.Unit;
@@ -23,18 +22,10 @@ import com.yz.util.GenerateSqlFromExcel;
 
 @Component("personService")
 public class PersonServiceImp implements IPersonService {
+
 	private IPersonDao personDao;
 	private IUnitService unitService;
 	private ISocialManDao socialManDao;
-
-	public IPersonDao getPersonDao() {
-		return personDao;
-	}
-
-	@Resource
-	public void setPersonDao(IPersonDao personDao) {
-		this.personDao = personDao;
-	}
 
 	// 添加对象
 	/*
@@ -147,18 +138,7 @@ public class PersonServiceImp implements IPersonService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		// 权限为超级管理员
-		if (userRole.getUserLimit() != 2) {
-			// 用户所在机构不为空
-			String pids = "";
-			if (userRole != null && userRole.getUnit() != null
-					&& userRole.getUnit().getPids() != null) {
-				pids = userRole.getUnit().getPids().replace(" ", "");
-				queryString = setStringIds(queryString, pids);
-			} else {
-				queryString += " and mo.id in (0)";
-			}
-		}
+		queryString = setSqlLimit(queryString, userRole);
 		return personDao.getUniqueResult(queryString, p);
 	}
 
@@ -208,72 +188,44 @@ public class PersonServiceImp implements IPersonService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		// 权限为超级管理员
-		if (userRole.getUserLimit() != 2) {
-			// 用户所在机构不为空
-			String pids = "";
-			if (userRole != null && userRole.getUnit() != null
-					&& userRole.getUnit().getPids() != null) {
-				pids = userRole.getUnit().getPids().replace(" ", "");
-				queryString = setStringIds(queryString, pids);
-			} else {
-				queryString += " and mo.id in (0)";
-			}
-		}
+
+		queryString = setSqlLimit(queryString, userRole);
+
 		return personDao.pageList(queryString, p, page, size);
 	}
 
-	public Person getPersonById(Integer uppersonid) {
-		// TODO Auto-generated method stub
-		return personDao.getPersonById(uppersonid);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.yz.service.IPersonService#getPersonById(java.lang.Integer)
+	 */
+	public Person getPersonById(Integer personid) {
+		return personDao.getPersonById(personid);
 	}
 
-	public Person queryPersonById(int id) {
-		String queryString = "from Person mo where mo.id=:id";
-		String[] paramNames = new String[] { "id" };
-		Object[] values = new Object[] { id };
-		return personDao.queryByNamedParam(queryString, paramNames, values);
-	}
-
-	public List<Person> getPersonsByTypeAndHandleState(int type,
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.yz.service.IPersonService#getPersonsByTypeAndHandleState(int,
+	 *      java.lang.String, java.lang.String, java.lang.String, int, int,
+	 *      com.yz.model.UserRole)
+	 */
+	public List<Person> getPersonsByTypeAndHandleState(int con,
+			String convalue, String starttime, String endtime, int type,
 			int handleState, UserRole userRole) {
 		// TODO Auto-generated method stub
 		String queryString = "from Person mo where mo.type=" + type
-				+ " and mo.handleState=" + handleState;
-
-		if (userRole.getUserLimit() != 2) {
-			// 用户所在机构不为空
-			String pids = "";
-			if (userRole != null && userRole.getUnit() != null
-					&& userRole.getUnit().getPids() != null) {
-				pids = userRole.getUnit().getPids().replace(" ", "");
-				queryString = setStringIds(queryString, pids);
-			} else {
-				queryString += " and mo.id in (0)";
-			}
-
-		}
-
-		return personDao.queryList(queryString);
+				+ " and mo.handleState=" + handleState ;
+		return queryListBySql(con, convalue, starttime, endtime, userRole,
+				queryString);
 	}
 
-	private String setStringIds(String queryString, String pids) {
-		// TODO Auto-generated method stub
-		// 用户所在机构不为空
-		if (pids != "" && !pids.equals(",")) {
-			String lastChar = pids.substring(pids.length() - 1, pids.length());
-			if (lastChar.equals(",")) {
-				pids = pids.substring(0, pids.length() - 1);
-			}
-			queryString += " and mo.id in (" + pids + ")";
-		} else {
-			queryString += " and mo.id in (0)";
-		}
-		return queryString;
-	}
-
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.yz.service.IPersonService#savereturn(com.yz.model.Person)
+	 */
 	public int savereturn(Person person) {
-		// TODO Auto-generated method stub
 		return personDao.savereturn(person);
 	}
 
@@ -304,22 +256,150 @@ public class PersonServiceImp implements IPersonService {
 				if (userRole.getUnit() != null) {
 					int uid = userRole.getUnit().getId();
 					Unit un = unitService.queryByUid(uid);
-
 					if (un.getPids() != null && un.getPids() != "") {
 						un.setPids(handleIDs(un.getPids(), pid + ""));
 					} else {
 						un.setPids(pid + ",");
 					}
-					System.out.println(un.getPids());
 					unitService.update(un);
 				}
 			}
-
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+	}
+
+	/*
+	 * 条件查询人员列表
+	 * 
+	 * @see com.yz.service.IPersonService#getPersonsByHandleState(int,
+	 *      java.lang.String, java.lang.String, java.lang.String, int,
+	 *      com.yz.model.UserRole)
+	 */
+	public List<Person> getPersonsByHandleState(int con, String convalue,
+			String starttime, String endtime, int handleState, UserRole userRole) {
+		String queryString = "from Person mo where 1=1 and mo.handleState="
+				+ handleState;
+		return queryListBySql(con, convalue, starttime, endtime, userRole,
+				queryString);
+	}
+
+	/*
+	 * 条件查询超期办理人员列表
+	 * 
+	 * @see com.yz.service.IPersonService#getOutOfTimePersonsByType(int,
+	 *      java.lang.String, java.lang.String, java.lang.String, int,
+	 *      com.yz.model.UserRole)
+	 */
+	public List<Person> getOutOfTimePersonsByType(int con, String convalue,
+			String starttime, String endtime, int type, UserRole userRole) {
+		String queryString = "from Person mo where  mo.type=" + type
+				+ " and mo.isOutOfTime=1";
+		return queryListBySql(con, convalue, starttime, endtime, userRole,
+				queryString);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.yz.service.IPersonService#getOutOfTimePersons(int,
+	 *      java.lang.String, java.lang.String, java.lang.String,
+	 *      com.yz.model.UserRole)
+	 */
+	public List<Person> getOutOfTimePersons(int con, String convalue,
+			String starttime, String endtime, UserRole userRole) {
+		String queryString = "from Person mo where  mo.isOutOfTime=1";
+		return queryListBySql(con, convalue, starttime, endtime, userRole,
+				queryString);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.yz.service.IPersonService#getPersonsByType(int,
+	 *      java.lang.String, java.lang.String, java.lang.String, int,
+	 *      com.yz.model.UserRole)
+	 */
+	public List<Person> getPersonsByType(int con, String convalue,
+			String starttime, String endtime, int type, UserRole userRole) {
+		String queryString = "from Person mo where  mo.type=" + type;
+		return queryListBySql(con, convalue, starttime, endtime, userRole,
+				queryString);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see com.yz.service.IPersonService#getPersonsByUserRole(int,
+	 *      java.lang.String, java.lang.String, java.lang.String,
+	 *      com.yz.model.UserRole)
+	 */
+	public List<Person> getPersonsByUserRole(int con, String convalue,
+			String starttime, String endtime, UserRole userRole) {
+		String queryString = "from Person mo where  1=1";
+		return queryListBySql(con, convalue, starttime, endtime, userRole,
+				queryString);
+	}
+
+	/*
+	 * 提取方法
+	 */
+	public List<Person> queryListBySql(int con, String convalue,
+			String starttime, String endtime, UserRole userRole,
+			String queryString) {
+
+		if (con != 0 && convalue != null && !convalue.equals("")) {
+			if (con == 1) {
+				queryString += " and mo.userRole.realname like  '%" + convalue + "%' ";
+			}
+			if (con == 2) {
+				queryString += " and mo.userRole.number like  '%" + convalue + "%' ";
+			}
+		}
+		if (starttime != null && !starttime.equals("")) {
+			queryString += " and mo.joinDate>='" + starttime + "'";
+		}
+		if (endtime != null && !endtime.equals("")) {
+			queryString += " and mo.joinDate<='" + endtime + "'";
+		}
+
+		return personDao.queryList(setSqlLimit(queryString, userRole));
+	}
+
+	// 设置sql语句 关于权限分配
+	private String setSqlLimit(String queryString, UserRole userRole) {
+
+		if (userRole.getUserLimit() != 2) {
+			// 用户所在机构不为空
+			String pids = "";
+			if (userRole != null && userRole.getUnit() != null
+					&& userRole.getUnit().getPids() != null) {
+				pids = userRole.getUnit().getPids().replace(" ", "");
+				queryString = setSqlIds(queryString, pids);
+			} else {
+				queryString += " and mo.id in (0)";
+			}
+		}
+		return queryString;
+
+	}
+
+	// 设置sql语句 关于id
+	private String setSqlIds(String queryString, String pids) {
+		// TODO Auto-generated method stub
+		// 用户所在机构不为空
+		if (pids != "" && !pids.equals(",")) {
+			String lastChar = pids.substring(pids.length() - 1, pids.length());
+			if (lastChar.equals(",")) {
+				pids = pids.substring(0, pids.length() - 1);
+			}
+			queryString += " and mo.id in (" + pids + ")";
+		} else {
+			queryString += " and mo.id in (0)";
+		}
+		return queryString;
 	}
 
 	// 处理ids
@@ -357,21 +437,13 @@ public class PersonServiceImp implements IPersonService {
 		this.unitService = unitService;
 	}
 
-	public List<Person> getPersonsByHandleState(int handleState, UserRole userRole) {
-		String queryString = "from Person mo where 1=1 and mo.handleState=" + handleState;
-		if (userRole.getUserLimit() != 2) {
-			// 用户所在机构不为空
-			String pids = "";
-			if (userRole != null && userRole.getUnit() != null
-					&& userRole.getUnit().getPids() != null) {
-				pids = userRole.getUnit().getPids().replace(" ", "");
-				queryString = setStringIds(queryString, pids);
-			} else {
-				queryString += " and mo.id in (0)";
-			}
-		}
+	public IPersonDao getPersonDao() {
+		return personDao;
+	}
 
-		return personDao.queryList(queryString);
+	@Resource
+	public void setPersonDao(IPersonDao personDao) {
+		this.personDao = personDao;
 	}
 
 }

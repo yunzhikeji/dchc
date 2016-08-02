@@ -233,16 +233,19 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		UserRole userRoleWelcome = userRoleService.getUserRoleById(userRoleo.getId());
+		UserRole userRoleWelcome = userRoleService.getUserRoleById(userRoleo
+				.getId());
 		// 欢迎界面
 		pnotices = pnoticeService.getPnotices();
 		successexamples = successexampleService.getSuccessexamples();// 所有
 		troubleshootings = troubleshootingService.getTroubleshootings();// 所有
 
-		persons = personService.getPersons();
-		setMainPersonJspNumber(userRoleWelcome);
-		setMainInjurycaseJspNumber(userRoleWelcome);
-		setMainClueJspNumber(userRoleWelcome);
+		/*
+		 * persons = personService.getPersons();
+		 * setMainPersonJspNumber(userRoleWelcome);
+		 * setMainInjurycaseJspNumber(userRoleWelcome);
+		 * setMainClueJspNumber(userRoleWelcome);
+		 */
 
 		return "welcome";
 	}
@@ -306,8 +309,11 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	}
 
 	private int getCurrentVONumber(int type, int handleState, UserRole userRole) {
-		persons = personService.getPersonsByTypeAndHandleState(type,
-				handleState, userRole);
+
+		/*
+		 * persons = personService.getPersonsByTypeAndHandleState(type,
+		 * handleState, userRole);
+		 */
 		if (persons != null) {
 			return persons.size();
 		} else {
@@ -469,15 +475,14 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		arg[1] = "用户管理";
 		return "success_child";
 	}
-	
-	/*检查用户名是否存在
+
+	/*
+	 * 检查用户名是否存在
 	 * 
 	 */
-	public String checkUsername()
-	{
+	public String checkUsername() {
 		userRole = userRoleService.getUserRoleByUserRolename(username);
-		if(userRole!=null)
-		{
+		if (userRole != null) {
 			AjaxMsgVO msgVO = new AjaxMsgVO();
 			msgVO.setMessage("该用户名已经存在,请重新输入.");
 			JSONObject jsonObj = JSONObject.fromObject(msgVO);
@@ -492,7 +497,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 				e.printStackTrace();
 			}
 		}
-		return  null;
+		return null;
 	}
 
 	// 上传照片

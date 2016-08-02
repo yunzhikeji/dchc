@@ -99,58 +99,90 @@ public class CountAction extends ActionSupport implements RequestAware,
 			endtime = URLDecoder.decode(endtime, "utf-8");
 		}
 
-		// 1:未办理 2：在办理 3：已完结
-		for (int i = 1; i <= 3; i++) {
-			personCounts.add(personCountArray(i,userRole));
+		// 1:未办理 2：在办理 3：已完结 4:超期办理 5:合计
+		for (int i = 1; i <= 5; i++) {
+			personCounts.add(personCountArray(con, convalue,starttime, endtime,i, userRole));
 		}
-		// 超期办理
-
-		// 合计
 
 		return "personCount";
 	}
 
 	// 返回人员个数
-	private int getCount(List<Person> pers) {
-		if (pers != null) {
-			return pers.size();
+	private int getCount(List list) {
+		if (list != null) {
+			return list.size();
 		}
 		return 0;
 	}
 
 	/**
-	 * 
+	 * 拼装人员统计表
 	 * @param personCount
 	 * @param i
 	 * @param userRole
 	 * @return
 	 */
-	private Integer[] personCountArray(int i, UserRole userRole) {
+	private Integer[] personCountArray(int con,String convalue,String starttime,String endtime,int i, UserRole userRole) {
 		Integer[] personCount = new Integer[15];
+		int count = 0;
+		int commonClueCount = 0;
 		switch (i) {
 		case 0:
 			break;
 		case 1:
 		case 2:
 		case 3:
-			personCount = new Integer[15];
-			for (int j = 0; j < personCount.length; j++) {
+			for (int j = 0; j < personCount.length - 2; j++) {
 
 				personCount[j] = getCount(personService
-						.getPersonsByTypeAndHandleState(j + 1, i, userRole));
+						.getPersonsByTypeAndHandleState(con,convalue,starttime,endtime,j + 1, i, userRole));
 			}
-			personCount[13] = getCount(personService
-					.getPersonsByTypeAndHandleState(15, i, userRole));
+			personCount[personCount.length - 2] = getCount(personService
+					.getPersonsByTypeAndHandleState(con,convalue,starttime,endtime,personCount.length, i,
+							userRole));
 
-			int count = getCount(personService.getPersonsByHandleState(i,
-					userRole));
+			count = getCount(personService.getPersonsByHandleState(con,convalue,starttime,endtime,i, userRole));
 
-			int commonClueCount = getCount(personService
-					.getPersonsByTypeAndHandleState(14, i, userRole));
+			commonClueCount = getCount(personService
+					.getPersonsByTypeAndHandleState(con,convalue,starttime,endtime,personCount.length - 1, i,
+							userRole));
 
-			personCount[14] = count - commonClueCount;
+			personCount[personCount.length - 1] = count - commonClueCount;
 			break;
 		case 4:
+			for (int j = 0; j < personCount.length - 2; j++) {
+
+				personCount[j] = getCount(personService.getOutOfTimePersonsByType(con,convalue,starttime,endtime,
+						j + 1, userRole));
+			}
+			personCount[personCount.length - 2] = getCount(personService
+					.getOutOfTimePersonsByType(con,convalue,starttime,endtime,personCount.length,
+							userRole));
+
+			count = getCount(personService.getOutOfTimePersons(con,convalue,starttime,endtime,userRole));
+
+			commonClueCount = getCount(personService.getOutOfTimePersonsByType(con,convalue,starttime,endtime,
+					personCount.length - 1, userRole));
+
+			personCount[personCount.length - 1] = count - commonClueCount;
+
+			break;
+		case 5:
+			for (int j = 0; j < personCount.length - 2; j++) {
+
+				personCount[j] = getCount(personService.getPersonsByType(con,convalue,starttime,endtime,j + 1,
+						userRole));
+			}
+			personCount[personCount.length - 2] = getCount(personService
+					.getPersonsByType(con,convalue,starttime,endtime,personCount.length, userRole));
+
+			count = getCount(personService.getPersonsByUserRole(con,convalue,starttime,endtime,userRole));
+
+			commonClueCount = getCount(personService.getPersonsByType(con,convalue,starttime,endtime,
+					personCount.length - 1, userRole));
+
+			personCount[personCount.length - 1] = count - commonClueCount;
+
 			break;
 		default:
 			break;
@@ -183,8 +215,57 @@ public class CountAction extends ActionSupport implements RequestAware,
 		if (endtime != null && !endtime.equals("")) {
 			endtime = URLDecoder.decode(endtime, "utf-8");
 		}
-
+		
+		// 1:未办理 2：在办理 3：已完结 4:超期办理 5:合计
+		for (int i = 1; i <= 5; i++) {
+			injurycaseCounts.add(injurycaseCountArray(con, convalue,starttime, endtime,i, userRole));
+		}
 		return "injurycaseCount";
+	}
+
+	/**
+	 * 拼装案件统计表
+	 * @param con
+	 * @param convalue
+	 * @param starttime
+	 * @param endtime
+	 * @param i
+	 * @param userRole
+	 * @return
+	 */
+	private Integer[] injurycaseCountArray(int con, String convalue,
+			String starttime, String endtime, int i, UserRole userRole) {
+		Integer[] injurycaseCount = new Integer[4];
+		switch (i) {
+		case 0:
+			break;
+		case 1:
+		case 2:
+		case 3:
+			for (int j = 0; j < injurycaseCount.length - 1; j++) {
+				injurycaseCount[j] = getCount(injurycaseService.getInjurycaseByTypeAndHandleState(con,convalue,starttime,endtime,j + 1, i, userRole));
+			}
+			injurycaseCount[injurycaseCount.length - 1] = getCount(injurycaseService.getInjurycasesByHandleState(con,convalue,starttime,endtime,i,userRole));
+			break;
+		case 4:
+			for (int j = 0; j < injurycaseCount.length - 1; j++) {
+				injurycaseCount[j] = getCount(injurycaseService.getOutOfTimeInjurycasesByType(con,convalue,starttime,endtime,j + 1,
+						userRole));
+			}
+			injurycaseCount[injurycaseCount.length - 1] = getCount(injurycaseService.getInOutOfTimejurycasesByUserRole(con,convalue,starttime,endtime,userRole));
+			break;
+		case 5:
+			for (int j = 0; j < injurycaseCount.length - 1; j++) {
+				injurycaseCount[j] = getCount(injurycaseService.getInjurycasesByType(con,convalue,starttime,endtime,j + 1,
+						userRole));
+			}
+			injurycaseCount[injurycaseCount.length - 1] = getCount(injurycaseService.getInjurycasesByUserRole(con,convalue,starttime,endtime,userRole));
+			break;
+		default:
+			break;
+		}
+
+		return injurycaseCount;
 	}
 
 	/**
@@ -212,7 +293,52 @@ public class CountAction extends ActionSupport implements RequestAware,
 			endtime = URLDecoder.decode(endtime, "utf-8");
 		}
 
+		// 1:未办理 2：在办理 3：已完结 4:超期办理 5:合计
+		for (int i = 1; i <= 5; i++) {
+			clueCounts.add(clueCountArray(con, convalue,starttime, endtime,i, userRole));
+		}
+		
 		return "clueCount";
+	}
+	
+	/**
+	 * 线索拼接
+	 * @param con
+	 * @param convalue
+	 * @param starttime
+	 * @param endtime
+	 * @param i
+	 * @param userRole
+	 * @return
+	 */
+	private Integer[] clueCountArray(int con, String convalue,
+			String starttime, String endtime, int i, UserRole userRole) {
+		Integer[] clueCount = new Integer[3];
+		switch (i) {
+		case 0:
+			break;
+		case 1:
+		case 2:
+		case 3:
+			clueCount[0] = getCount(clueService.getCluesByTypeAndHandleState(con,convalue,starttime,endtime,1, i, userRole));
+			clueCount[1] = getCount(personService.getPersonsByTypeAndHandleState(con,convalue,starttime,endtime,14, i, userRole));
+			clueCount[2] = clueCount[0]+clueCount[1];
+			break;
+		case 4:
+			clueCount[0] = getCount(clueService.getOutOfTimeCluesByType(con,convalue,starttime,endtime,1,userRole));
+			clueCount[1] = getCount(personService.getOutOfTimePersonsByType(con,convalue,starttime,endtime,14,userRole));
+			clueCount[2] = clueCount[0]+clueCount[1];
+			break;
+		case 5:
+			clueCount[0] = getCount(clueService.getCluesByType(con,convalue,starttime,endtime,1,userRole));
+			clueCount[1] = getCount(personService.getPersonsByType(con,convalue,starttime,endtime,14,userRole));
+			clueCount[2] = clueCount[0]+clueCount[1];
+			break;
+		default:
+			break;
+		}
+
+		return clueCount;
 	}
 
 	/**

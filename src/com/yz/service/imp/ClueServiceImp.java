@@ -136,17 +136,7 @@ public class ClueServiceImp implements IClueService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		if (userRole.getUserLimit() != 2) {
-			// 用户所在机构不为空
-			String cids = "";
-			if (userRole != null && userRole.getUnit() != null
-					&& userRole.getUnit().getCids() != null) {
-				cids = userRole.getUnit().getPids().replace(" ", "");
-				queryString = setStringIds(queryString, cids);
-			} else {
-				queryString += " and mo.id in (0)";
-			}
-		}
+		queryString = setSqlLimit(queryString, userRole);
 
 		return clueDao.getUniqueResult(queryString, p);
 	}
@@ -197,23 +187,13 @@ public class ClueServiceImp implements IClueService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		if (userRole.getUserLimit() != 2) {
-			// 用户所在机构不为空
-			String cids = "";
-			if (userRole != null && userRole.getUnit() != null
-					&& userRole.getUnit().getCids() != null) {
-				cids = userRole.getUnit().getPids().replace(" ", "");
-				queryString = setStringIds(queryString, cids);
-			} else {
-				queryString += " and mo.id in (0)";
-			}
-		}
+		queryString = setSqlLimit(queryString, userRole);
 		return clueDao.pageList(queryString, p, page, size);
 	}
 
-	public Clue getClueById(Integer upclueid) {
+	public Clue getClueById(Integer cid) {
 		// TODO Auto-generated method stub
-		return clueDao.getClueById(upclueid);
+		return clueDao.getClueById(cid);
 	}
 
 	public List<Clue> getCluesByTypeAndHandleState(int ctype, int handleState,
@@ -221,21 +201,128 @@ public class ClueServiceImp implements IClueService {
 		// TODO Auto-generated method stub
 		String queryString = "from Clue mo where mo.ctype=" + ctype
 				+ " and mo.handleState=" + handleState;
+
+		queryString = setSqlLimit(queryString, userRole);
+
+		return clueDao.queryList(queryString);
+	}
+
+	public List<Clue> getCluesByHandleState(int con, String convalue,
+			String starttime, String endtime, int state, UserRole userRole) {
+		// TODO Auto-generated method stub
+		String queryString = "from Clue mo where  mo.handleState=" + state;
+
+		queryString = setSqlLimit(queryString, userRole);
+
+		queryString = setSqlParms(con, convalue, starttime, endtime,
+				queryString);
+		return clueDao.queryList(queryString);
+	}
+
+	public List<Clue> getCluesByType(int con, String convalue,
+			String starttime, String endtime, int ctype, UserRole userRole) {
+		// TODO Auto-generated method stub
+		String queryString = "from Clue mo where  mo.ctype=" + ctype;
+
+		queryString = setSqlLimit(queryString, userRole);
+
+		queryString = setSqlParms(con, convalue, starttime, endtime,
+				queryString);
+		return clueDao.queryList(queryString);
+	}
+
+	public List<Clue> getCluesByTypeAndHandleState(int con, String convalue,
+			String starttime, String endtime, int ctype, int state,
+			UserRole userRole) {
+		// TODO Auto-generated method stub
+		String queryString = "from Clue mo where mo.ctype=" + ctype
+		+ " and mo.handleState=" + state;
+
+		queryString = setSqlLimit(queryString, userRole);
+
+		queryString = setSqlParms(con, convalue, starttime, endtime,
+				queryString);
+		return clueDao.queryList(queryString);
+	}
+
+	public List<Clue> getCluesByUserRole(int con, String convalue,
+			String starttime, String endtime, UserRole userRole) {
+		// TODO Auto-generated method stub
+		String queryString = "from Clue mo where  1=1 ";
+
+		queryString = setSqlLimit(queryString, userRole);
+
+		queryString = setSqlParms(con, convalue, starttime, endtime,
+				queryString);
+		return clueDao.queryList(queryString);
+	}
+
+	public List<Clue> getOutOfTimeCluesByType(int con, String convalue,
+			String starttime, String endtime, int ctype, UserRole userRole) {
+		// TODO Auto-generated method stub
+		String queryString = "from Clue mo where mo.isOutOfTime=1 and mo.ctype=" + ctype;
+
+		queryString = setSqlLimit(queryString, userRole);
+
+		queryString = setSqlParms(con, convalue, starttime, endtime,
+				queryString);
+		return clueDao.queryList(queryString);
+	}
+
+	public List<Clue> getOutOfTimeCluesByUserRole(int con, String convalue,
+			String starttime, String endtime, UserRole userRole) {
+		// TODO Auto-generated method stub
+		String queryString = "from Clue mo where  mo.isOutOfTime=1 ";
+
+		queryString = setSqlLimit(queryString, userRole);
+
+		queryString = setSqlParms(con, convalue, starttime, endtime,
+				queryString);
+		return clueDao.queryList(queryString);
+	}
+
+	// 设置sql语句 关于权限分配
+	private String setSqlLimit(String queryString, UserRole userRole) {
+
 		if (userRole.getUserLimit() != 2) {
 			// 用户所在机构不为空
 			String cids = "";
 			if (userRole != null && userRole.getUnit() != null
 					&& userRole.getUnit().getCids() != null) {
 				cids = userRole.getUnit().getPids().replace(" ", "");
-				queryString = setStringIds(queryString, cids);
+				queryString = setSqlCids(queryString, cids);
 			} else {
 				queryString += " and mo.id in (0)";
 			}
 		}
-		return clueDao.queryList(queryString);
+		return queryString;
+
 	}
 
-	private String setStringIds(String queryString, String cids) {
+	// 设置 sql语句 参数配置
+	private String setSqlParms(int con, String convalue, String starttime,
+			String endtime, String queryString) {
+		if (con != 0 && convalue != null && !convalue.equals("")) {
+			if (con == 1) {
+				queryString += " and mo.userRole.realname like  '%" + convalue
+						+ "%' ";
+			}
+			if (con == 2) {
+				queryString += " and mo.userRole.number like  '%" + convalue
+						+ "%' ";
+			}
+		}
+		if (starttime != null && !starttime.equals("")) {
+			queryString += " and mo.joinDate>='" + starttime + "'";
+		}
+		if (endtime != null && !endtime.equals("")) {
+			queryString += " and mo.joinDate<='" + endtime + "'";
+		}
+
+		return queryString;
+	}
+
+	private String setSqlCids(String queryString, String cids) {
 		// TODO Auto-generated method stub
 		// 用户所在机构不为空
 		if (cids != "" && !cids.equals(",")) {
