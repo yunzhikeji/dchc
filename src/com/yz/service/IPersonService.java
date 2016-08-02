@@ -49,5 +49,8 @@ public interface IPersonService {
 
 	public abstract void saveSocialManWithExcel(File fileTest,UserRole userRole);
 
+	public abstract List<Person> getPersonsByHandleState(int i,
+			UserRole userRole);
+
 
 }

@@ -51,7 +51,7 @@ public class Unit implements java.io.Serializable {
 		this.userRoles = userRoles;
 	}
 
-	@Column(name = "cids", length = 100)
+	@Column(name = "cids")
 	public String getCids() {
 		return cids;
 	}
@@ -64,7 +64,7 @@ public class Unit implements java.io.Serializable {
 		return this.id;
 	}
 
-	@Column(name = "inids", length = 100)
+	@Column(name = "inids")
 	public String getInids() {
 		return inids;
 	}
@@ -80,7 +80,7 @@ public class Unit implements java.io.Serializable {
 	}
 	
 	
-	@Column(name = "pids", length = 100)
+	@Column(name = "pids")
 	public String getPids() {
 		return pids;
 	}

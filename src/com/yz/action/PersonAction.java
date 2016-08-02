@@ -190,7 +190,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			return "opsessiongo";
 		}
 
-		UserRole userRole = userRoleService.loadById(userRoleo.getId());
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
 
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
@@ -516,10 +516,11 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			person.setPhotoImg("person" + "/" + imageName);
 		}
 
-		UserRole userRole = userRoleService.loadById(userRoleo.getId());
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
 		person.setUserRole(userRole);// 设置录入人员
 		person.setJoinDate(DateTimeKit.getLocalDate());// 设置录入时间
 		person.setHandleState(1);// 初始化处理状态
+		person.setIsOutOfTime(0);
 		personService.add(person);
 
 		// 添加当前用户id到部门pids
@@ -1213,7 +1214,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		}
 
 		if (person.getUserRole() == null) {
-			UserRole userRole = userRoleService.loadById(userRoleo.getId());
+			UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
 			person.setUserRole(userRole);// 设置录入人员
 		}
 

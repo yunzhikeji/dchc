@@ -24,6 +24,32 @@
 		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
 		<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
 		<script type="text/javascript" src="js/pageKit.js"></script>
+		<script type="text/javascript">
+		
+		$(function(){
+					setInterval("get()",2000);
+				});
+				function ShowSigStatus(){
+					$.ajax({   
+			            url:'getUnitVOs',//这里是你的action或者servlert的路径地址   
+			            type:'post', //数据发送方式   
+			            async:false,
+			            dataType:'json',
+			            error: function(msg)
+			            { //失败   
+			            	console.log('请求报送单位失败.');   
+			            },   
+			            success: function(msg)
+			            { //成功
+				            if(msg.length>0)
+				            {
+				            	zNodes = msg;
+				            }
+						}
+					});    	 
+				}
+		
+		</script>
 		<title>我的桌面</title>
 	</head>
 	<body>
@@ -528,7 +554,7 @@
 				<div class="col-6" style="padding: 5px;">
 					<div class="panel panel-default">
 						<div class="panel-header">
-							通知公告
+							未办理
 						</div>
 						<div class="panel-body">
 							<ul class="tlist">

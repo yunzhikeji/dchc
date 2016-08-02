@@ -25,27 +25,29 @@ public class Clue implements java.io.Serializable {
 
 	// Fields
 
-	private Integer id;      
-	private UserRole userRole;                        // 录入人员
-	private String number;						     // 编号	
-	private String securityClassification;			//密级
-	private String intelligenceType;				//情报类型
-	private String title;							//	标题	
-	private String contactName;						//联系人
-	private String telphone;						//	电话号码
-	private String carrier;							//携带物品
-	private String carryTool;						//携带工具
-	private String clueMessage;						//线索信息
-	private String endSituation;					//完结情况	1抓获 2死亡 3撤销案件 4释放 5治安拘留 6刑事拘留 7留置盘问 8其它
-	private String comprehensiveJudge;				//综合研判情况
-	private String leaderInstruction;				//领导批示
-	private Integer ctype;							//类型
-	private List<Lawcase> lawcases = new ArrayList<Lawcase>();		
+	private Integer id;
+	private UserRole userRole; // 录入人员
+	private String number; // 编号
+	private String securityClassification; // 密级
+	private String intelligenceType; // 情报类型
+	private String title; // 标题
+	private String contactName; // 联系人
+	private String telphone; // 电话号码
+	private String carrier; // 携带物品
+	private String carryTool; // 携带工具
+	private String clueMessage; // 线索信息
+	private String endSituation; // 完结情况 1抓获 2死亡 3撤销案件 4释放 5治安拘留 6刑事拘留 7留置盘问
+									// 8其它
+	private String comprehensiveJudge; // 综合研判情况
+	private String leaderInstruction; // 领导批示
+	private Integer ctype; // 类型
+	private List<Lawcase> lawcases = new ArrayList<Lawcase>();
 	private List<Troubleshooting> troubleshootings = new ArrayList<Troubleshooting>();
 	private List<Otherperson> otherpersons = new ArrayList<Otherperson>();
 	private List<Judge> judges = new ArrayList<Judge>();
 	private String joinDate;
-	private Integer handleState;//办理状态
+	private Integer handleState;// 办理状态
+	private Integer isOutOfTime;// 是否超期办理
 
 	// Constructors
 
@@ -54,11 +56,13 @@ public class Clue implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Clue(UserRole userRole, String number, String securityClassification,
-			String title, String contactName, String telphone, String carrier,
-			String carryTool, String clueMessage, String endSituation,
-			String comprehensiveJudge, String leaderInstruction, Integer ctype,String joinDate,Integer handleState,
-			List<Lawcase> lawcases, List<Troubleshooting> troubleshootings,
+	public Clue(UserRole userRole, String number,
+			String securityClassification, String title, String contactName,
+			String telphone, String carrier, String carryTool,
+			String clueMessage, String endSituation, String comprehensiveJudge,
+			String leaderInstruction, Integer ctype, String joinDate,
+			Integer handleState, Integer isOutOfTime, List<Lawcase> lawcases,
+			List<Troubleshooting> troubleshootings,
 			List<Otherperson> otherpersons, List<Judge> judges) {
 		this.userRole = userRole;
 		this.number = number;
@@ -79,6 +83,7 @@ public class Clue implements java.io.Serializable {
 		this.troubleshootings = troubleshootings;
 		this.otherpersons = otherpersons;
 		this.judges = judges;
+		this.isOutOfTime = isOutOfTime;
 	}
 
 	@Column(name = "carrier")
@@ -124,7 +129,7 @@ public class Clue implements java.io.Serializable {
 		return this.id;
 	}
 
-	@Column(name = "joinDate",length=30)
+	@Column(name = "joinDate", length = 30)
 	public String getJoinDate() {
 		return joinDate;
 	}
@@ -168,7 +173,7 @@ public class Clue implements java.io.Serializable {
 	public List<Troubleshooting> getTroubleshootings() {
 		return this.troubleshootings;
 	}
-	
+
 	@Column(name = "ctype")
 	public Integer getCtype() {
 		return this.ctype;
@@ -180,10 +185,18 @@ public class Clue implements java.io.Serializable {
 		return this.userRole;
 	}
 
-	
 	@Column(name = "handleState")
 	public Integer getHandleState() {
 		return handleState;
+	}
+
+	@Column(name = "isOutOfTime", length = 11)
+	public Integer getIsOutOfTime() {
+		return isOutOfTime;
+	}
+
+	public void setIsOutOfTime(Integer isOutOfTime) {
+		this.isOutOfTime = isOutOfTime;
 	}
 
 	public void setHandleState(Integer handleState) {

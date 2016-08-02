@@ -54,6 +54,7 @@ public class Injurycase implements java.io.Serializable {
 	private String casePlace;// 案发地点
 	private String startTime;// 案发时间
 	private String series;// 串并案关键字
+	private Integer isOutOfTime;// 超期办理
 
 	// Constructors
 
@@ -70,8 +71,8 @@ public class Injurycase implements java.io.Serializable {
 			List<Troubleshooting> troubleshootings, List<Judge> judges,
 			List<Media> medias, String joinDate, Integer handleState,
 			Integer itype, String imageCase, Integer isCanvas, String pids,
-			String caseIds, Integer isRelated, String casePlace,
-			String startTime, String series) {
+			Integer isOutOfTime, String caseIds, Integer isRelated,
+			String casePlace, String startTime, String series) {
 		this.id = id;
 		this.userRole = userRole;
 		this.caseNumber = caseNumber;
@@ -102,6 +103,7 @@ public class Injurycase implements java.io.Serializable {
 		this.casePlace = casePlace;
 		this.startTime = startTime;
 		this.series = series;
+		this.isOutOfTime = isOutOfTime;
 	}
 
 	/** full constructor */
@@ -258,6 +260,15 @@ public class Injurycase implements java.io.Serializable {
 	@JoinColumn(name = "uid")
 	public UserRole getUserRole() {
 		return this.userRole;
+	}
+
+	@Column(name = "isOutOfTime", length = 11)
+	public Integer getIsOutOfTime() {
+		return isOutOfTime;
+	}
+
+	public void setIsOutOfTime(Integer isOutOfTime) {
+		this.isOutOfTime = isOutOfTime;
 	}
 
 	public void setAppraiser(String appraiser) {

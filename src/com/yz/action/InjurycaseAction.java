@@ -161,7 +161,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			return "opsessiongo";
 		}
 
-		UserRole userRole = userRoleService.loadById(userRoleo.getId());
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
 
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
@@ -245,7 +245,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			return "opsessiongo_child";
 		}
 
-		UserRole userRole = userRoleService.loadById(userRoleo.getId());
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
 		injurycase.setUserRole(userRole);// 设置录入人员
 		injurycase.setJoinDate(DateTimeKit.getLocalDate());// 设置录入时间
 		injurycase.setHandleState(1);// 初始化处理状态
@@ -429,7 +429,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		}
 		
 		if (injurycase.getUserRole() == null) {
-			UserRole userRole = userRoleService.loadById(userRoleo.getId());
+			UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
 			injurycase.setUserRole(userRole);// 设置录入人员
 		}
 		
@@ -466,7 +466,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			return "opsessiongo";
 		}
 
-		UserRole userRole = userRoleService.loadById(userRoleo.getId());
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
 
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");

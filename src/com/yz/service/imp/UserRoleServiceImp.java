@@ -124,6 +124,10 @@ public class UserRoleServiceImp implements IUserRoleService {
 		String[] paramNames=new String[]{"username","password"};
 		Object[] values=new Object[]{username,password};
 		return userRoleDao.queryByNamedParam(queryString,paramNames,values);
+	}
+	public UserRole getUserRoleById(Integer id) {
+		// TODO Auto-generated method stub
+		return userRoleDao.getUserRoleById(id);
 	} 
 	
 	//webservice部分

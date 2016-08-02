@@ -37,7 +37,7 @@
 	<!-- 调度工作 -->
 	<bean id="cronUserTigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="helloJob"></property>
-		<property name="cronExpression" value="0 19 10 * * ? "></property>
+		<property name="cronExpression" value="0 25 12 * * ? "></property>
 	</bean>
 	
 	<!-- 启动工作 -->

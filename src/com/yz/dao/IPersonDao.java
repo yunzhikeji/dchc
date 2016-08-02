@@ -65,6 +65,6 @@ public interface IPersonDao {
 	//根据hql批量修改
 	public abstract int updatePersonByhql(String queryString, Object[] p);
 
-	public abstract Person getPersonById(Integer uppersonid);
+	public abstract Person getPersonById(Integer personid);
 
 }

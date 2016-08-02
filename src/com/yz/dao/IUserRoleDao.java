@@ -65,4 +65,6 @@ public interface IUserRoleDao {
 	//根据hql批量修改
 	public abstract int updateUserRoleByhql(String queryString, Object[] p);
 
+	public abstract UserRole getUserRoleById(Integer id);
+
 }

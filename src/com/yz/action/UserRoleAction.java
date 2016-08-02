@@ -233,7 +233,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		UserRole userRoleWelcome = userRoleService.loadById(userRoleo.getId());
+		UserRole userRoleWelcome = userRoleService.getUserRoleById(userRoleo.getId());
 		// 欢迎界面
 		pnotices = pnoticeService.getPnotices();
 		successexamples = successexampleService.getSuccessexamples();// 所有
@@ -538,7 +538,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 			return "opsessiongo";
 		}
 
-		userRole = userRoleService.loadById(id);
+		userRole = userRoleService.getUserRoleById(id);
 		// 删除照片
 		File photofile = new File(ServletActionContext.getServletContext()
 				.getRealPath("/")
@@ -560,7 +560,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
 		for (int i = 0; i < ids.length; i++) {
-			userRole = userRoleService.loadById(ids[i]);
+			userRole = userRoleService.getUserRoleById(ids[i]);
 			// 删除照片
 			File photofile = new File(ServletActionContext.getServletContext()
 					.getRealPath("/")
@@ -592,7 +592,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	 */
 	public String load() {
 
-		userRole = userRoleService.loadById(id);
+		userRole = userRoleService.getUserRoleById(id);
 		units = unitService.getUnits();
 		return "load";
 	}
@@ -668,7 +668,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		userRole = userRoleService.loadById(id);
+		userRole = userRoleService.getUserRoleById(id);
 		return "view";
 	}
 
@@ -680,7 +680,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		userRole = userRoleService.loadById(userRoleo.getId());
+		userRole = userRoleService.getUserRoleById(userRoleo.getId());
 		;
 		units = unitService.getUnits();
 		return "currentUserRole";

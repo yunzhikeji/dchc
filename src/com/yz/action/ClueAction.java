@@ -124,7 +124,7 @@ public class ClueAction extends ActionSupport implements RequestAware,
 			return "opsessiongo";
 		}
 
-		UserRole userRole = userRoleService.loadById(userRoleo.getId());
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
 
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
@@ -202,7 +202,9 @@ public class ClueAction extends ActionSupport implements RequestAware,
 			return "opsessiongo_child";
 		}
 
-		UserRole userRole = userRoleService.loadById(userRoleo.getId());
+		System.out.println("部门:"+userRoleo.getUnit().getName());
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+		
 		clue.setUserRole(userRole);// 设置录入人员
 		clue.setJoinDate(DateTimeKit.getLocalDate());// 设置录入时间
 		clue.setHandleState(1);// 初始化处理状态
@@ -317,7 +319,7 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		}
 
 		if (clue.getUserRole() == null) {
-			UserRole userRole = userRoleService.loadById(userRoleo.getId());
+			UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
 			clue.setUserRole(userRole);// 设置录入人员
 		}
 		

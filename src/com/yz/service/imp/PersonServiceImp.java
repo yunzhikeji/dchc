@@ -357,4 +357,21 @@ public class PersonServiceImp implements IPersonService {
 		this.unitService = unitService;
 	}
 
+	public List<Person> getPersonsByHandleState(int handleState, UserRole userRole) {
+		String queryString = "from Person mo where 1=1 and mo.handleState=" + handleState;
+		if (userRole.getUserLimit() != 2) {
+			// 用户所在机构不为空
+			String pids = "";
+			if (userRole != null && userRole.getUnit() != null
+					&& userRole.getUnit().getPids() != null) {
+				pids = userRole.getUnit().getPids().replace(" ", "");
+				queryString = setStringIds(queryString, pids);
+			} else {
+				queryString += " and mo.id in (0)";
+			}
+		}
+
+		return personDao.queryList(queryString);
+	}
+
 }

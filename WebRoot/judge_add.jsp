@@ -22,10 +22,14 @@
 		<script type="text/javascript"
 			src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="js/pageKit.js"></script>
-		<link rel="stylesheet" href="lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
-		<script type="text/javascript" src="lib/zTree/v3/js/jquery-1.4.4.min.js"></script>
-		<script type="text/javascript" src="lib/zTree/v3/js/jquery.ztree.core-3.5.js"></script>
-		<script type="text/javascript" src="lib/zTree/v3/js/jquery.ztree.excheck-3.5.js"></script>
+		<link rel="stylesheet"
+			href="lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+		<script type="text/javascript"
+			src="lib/zTree/v3/js/jquery-1.4.4.min.js"></script>
+		<script type="text/javascript"
+			src="lib/zTree/v3/js/jquery.ztree.core-3.5.js"></script>
+		<script type="text/javascript"
+			src="lib/zTree/v3/js/jquery.ztree.excheck-3.5.js"></script>
 		<script type="text/javascript">
 		var setting = {
 			check: {
@@ -108,92 +112,107 @@
 				$.fn.zTree.init($("#treeDemo"), setting, zNodes);
 			});
 		</script>
-		
+
 	</head>
 
 	<body>
 		<div class="pd-20">
-			<form name="judgeAddForm" class="form form-horizontal" action="judgeAction!add" method="post" onsubmit="">
-			
+			<form name="judgeAddForm" class="form form-horizontal"
+				action="judgeAction!add" method="post" onsubmit="">
+
 				<s:if test="pid!=null&&pid!=0">
-					<input type="hidden" name="judge.person.id" value="${pid}"/>
+					<input type="hidden" name="judge.person.id" value="${pid}" />
 				</s:if>
 				<s:if test="inid!=null&&inid!=0">
-					<input type="hidden" name="judge.injurycase.id" value="${inid}"/>
+					<input type="hidden" name="judge.injurycase.id" value="${inid}" />
 				</s:if>
 				<s:if test="cid!=null&&cid!=0">
-					<input type="hidden" name="judge.clue.id" value="${cid}"/>
+					<input type="hidden" name="judge.clue.id" value="${cid}" />
 				</s:if>
 				<input type="hidden" name="judge.jtype" value="${jtype}" />
 				<div class="row cl">
 					<label class="form-label col-2">
 						<span class="c-red">*</span>报送机构：
 					</label>
-					<span class="form-label col-6"> 
-						<span class="formControls col-10"> 
-						<input type="text" class="input-text" id="showVal"  onclick="showMenu();" value="" placeholder="报送机构" id="input2"
-							name="judge.reportUnit" style="width:140%" readonly="readonly"/> 
-						</span> 
-					</span>
-					
-				<span class="form-label col-4"> 
-					<input type="button" id="citySel" onclick="showMenu();" class="btn btn-primary radius" value="选择部门">
-				</span>
-				<div id="menuContent" class="menuContent" style="display:none; position: absolute;z-index: 99;">
-						<ul id="treeDemo" class="ztree" style="margin-top:0; width:180px; height: 300px;margin-right: 0;"></ul>
+					<span class="form-label col-6"> <span
+						class="formControls col-10"> <input type="text"
+								class="input-text" id="showVal" onclick="showMenu();" value=""
+								placeholder="报送机构" id="input2" name="judge.reportUnit"
+								style="width: 140%" readonly="readonly" /> </span> </span>
+
+					<span class="form-label col-4"> <input type="button"
+							id="citySel" onclick="showMenu();" class="btn btn-primary radius"
+							value="选择部门"> </span>
+					<div id="menuContent" class="menuContent"
+						style="display: none; position: absolute; z-index: 99;">
+						<ul id="treeDemo" class="ztree"
+							style="margin-top: 0; width: 180px; height: 300px; margin-right: 0;"></ul>
 					</div>
-					</div>
+				</div>
 				<div class="row cl">
 					<label class="form-label col-2">
 						报送时间：
 					</label>
-					<span class="form-label col-3"> 
-					<span class="formControls col-12"> <input type="text"
+					<span class="form-label col-3"> <span
+						class="formControls col-12"> <input type="text"
 								name="judge.reportTime"
 								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',readOnly:true})"
-								id="troubleshooting" class="input-text Wdate"
-								> </span> </span>
-					</div>
+								id="troubleshooting" class="input-text Wdate">
+					</span> </span>
+					<label class="form-label col-2">
+						截止时间：
+					</label>
+					<span class="form-label col-3"> <span
+						class="formControls col-12"> <input type="text"
+								name="judge.deadline"
+								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})"
+								id="troubleshooting" class="input-text Wdate">
+					</span> </span>
+				</div>
+
+
 				<div class="row cl">
-				<label class="form-label col-2">
-					承办人：
-				</label>
-				<span class="form-label col-3"> <span
-					class="formControls col-12"><input type="text" id="transactor"
-								class="input-text" 
-								name="judge.transactor"
+					<label class="form-label col-2">
+						承办人：
+					</label>
+					<span class="form-label col-3"> <span
+						class="formControls col-12"><input type="text"
+								id="transactor" class="input-text" name="judge.transactor"
 								value="${person.userRole.realname}" /> </span> </span>
-				<label class="form-label col-2">
-					联系电话：
-				</label>
-				<span class="form-label col-3"> <span
-					class="formControls col-12"> 
-					<s:textfield  cssClass="input-text" value="" placeholder="联系电话" id="telphone"
-							name="judge.telphone" cssStyle="width: 200px;" ></s:textfield>
-							</span> </span>
+					<label class="form-label col-2">
+						联系电话：
+					</label>
+					<span class="form-label col-3"> <span
+						class="formControls col-12"> <s:textfield
+								cssClass="input-text" value="" placeholder="联系电话" id="telphone"
+								name="judge.telphone" cssStyle="width: 200px;"></s:textfield> </span>
+					</span>
 				</div>
-		<div class="row cl">
-			<label class="form-label col-2">
-				<s:if test="jtype==1">研判要求</s:if><s:if test="jtype==2">查证要求</s:if><s:if test="jtype==3">上报内容</s:if>：
-			</label>
-			<span class="form-label col-9">
-			<span class="formControls col-10">
-						<s:textarea name="judge.judgeRequirement"
-						cssClass="input-text" id="judgeRequirement" 
-						cssStyle="width: 113%; height: 120px; float: left;" ></s:textarea>
-			</span> </span>
-		</div>
-			<div class="row cl">
-				<s:token></s:token>
-				<div class="col-10 col-offset-2">
-					<input type="submit" class="btn btn-primary radius" value="保存并提交"/>
-					<button onclick="childPage_close();" class="btn btn-default radius"
-						type="button">
-						&nbsp;&nbsp;取消&nbsp;&nbsp;
-					</button>
+				<div class="row cl">
+					<label class="form-label col-2">
+						<s:if test="jtype==1">研判要求</s:if>
+						<s:if test="jtype==2">查证要求</s:if>
+						<s:if test="jtype==3">上报内容</s:if>
+						：
+					</label>
+					<span class="form-label col-9"> <span
+						class="formControls col-10"> <s:textarea
+								name="judge.judgeRequirement" cssClass="input-text"
+								id="judgeRequirement"
+								cssStyle="width: 113%; height: 120px; float: left;"></s:textarea>
+					</span> </span>
 				</div>
-			</div>
-		</form>
+				<div class="row cl">
+					<s:token></s:token>
+					<div class="col-10 col-offset-2">
+						<input type="submit" class="btn btn-primary radius" value="保存并提交" />
+						<button onclick="childPage_close();"
+							class="btn btn-default radius" type="button">
+							&nbsp;&nbsp;取消&nbsp;&nbsp;
+						</button>
+					</div>
+				</div>
+			</form>
 		</div>
 	</body>
 </html>

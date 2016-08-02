@@ -116,10 +116,16 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 		units = unitService.getUnits();
 		if (units.size() > 0) {
 			for (Unit unit : units) {
-				unitVO = new UnitVO();
-				unitVO.setId(unit.getId());
-				unitVO.setName(unit.getName());
-				unitVOs.add(unitVO);
+				
+				String number = unit.getNumber().replace(" ", "");
+				
+				if(number.equals("DC001")||number.equals("DC002")||number.equals("DC003")||number.equals("DC004"))
+				{
+					unitVO = new UnitVO();
+					unitVO.setId(unit.getId());
+					unitVO.setName(unit.getName());
+					unitVOs.add(unitVO);
+				}
 			}
 		}
 		JSONArray jsonArray = JSONArray.fromObject(unitVOs);

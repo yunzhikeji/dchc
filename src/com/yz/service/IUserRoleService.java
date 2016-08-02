@@ -39,4 +39,6 @@ public interface IUserRoleService {
 	
 	public abstract UserRole getUserRoleByUserRolename(String username);
 
+	public abstract UserRole getUserRoleById(Integer id);
+
 }

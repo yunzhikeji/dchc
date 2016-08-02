@@ -59,8 +59,9 @@ public class Person implements java.io.Serializable {
 	private List<Troubleshooting> troubleshootings = new ArrayList<Troubleshooting>();//疑难解答
 	private List<Judge> judges = new ArrayList<Judge>();//研判情况
 	private String joinDate;//录入时间
-	private Integer handleState;//办理状态(1:未办理 2：在办理 3：已完结)
+	private Integer handleState;//办理状态(1:未办理 2：在办理 3：已完结 )
 	private String photoImg;//照片
+	private Integer isOutOfTime;//是否超期办理
 	// Constructors
 
 	/** default constructor */
@@ -75,7 +76,7 @@ public class Person implements java.io.Serializable {
 			String telphone, String qq, String wechat, Integer sex,
 			String registerAddress,String registerAddressArea, String carrier, String carryTool,
 			String endSituation, String comprehensiveJudge,
-			String leaderInstruction, Integer isMakeControl, Integer type, String joinDate,int handleState,String photoImg,
+			String leaderInstruction, Integer isMakeControl, Integer type, String joinDate,int handleState,String photoImg,Integer isOutOfTime,
 			List<Otherperson> otherpersons, List<Lawcase> lawcases,
 			List<Troubleshooting> troubleshootings, List<Judge> judges) {
 		this.userRole = userRole;
@@ -109,6 +110,7 @@ public class Person implements java.io.Serializable {
 		this.lawcases = lawcases;
 		this.troubleshootings = troubleshootings;
 		this.judges = judges;
+		this.isOutOfTime = isOutOfTime;
 	}
 
 	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
@@ -280,6 +282,16 @@ public class Person implements java.io.Serializable {
 	@Column(name = "wechat", length = 15)
 	public String getWechat() {
 		return this.wechat;
+	}
+	
+	
+	@Column(name = "isOutOfTime", length = 11)
+	public Integer getIsOutOfTime() {
+		return isOutOfTime;
+	}
+
+	public void setIsOutOfTime(Integer isOutOfTime) {
+		this.isOutOfTime = isOutOfTime;
 	}
 
 	public void setAnalyzeMan(AnalyzeMan analyzeMan) {

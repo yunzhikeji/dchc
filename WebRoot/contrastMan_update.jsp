@@ -703,6 +703,7 @@ function article_save(obj,id){
 				<s:hidden name="contrastMan.id" title="人员子表自身id"></s:hidden>
 				<s:hidden name="contrastMan.registerAddressPhoto" title="户籍照片"></s:hidden>
 				<s:hidden name="contrastMan.criminalRecordPhoto" title="前科照片"></s:hidden>
+				<s:hidden name="person.isOutOfTime" title="是否超期办理"></s:hidden>
 				<s:hidden name="person.type" title="人员类型"></s:hidden>
 				<s:hidden name="person.id" title="人员id"></s:hidden>
 				<s:if test="person.userRole!=null">

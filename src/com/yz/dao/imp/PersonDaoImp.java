@@ -223,9 +223,9 @@ public class PersonDaoImp implements IPersonDao {
 		//返回受影响的行数
 		return query.executeUpdate();
 	}
-	public Person getPersonById(Integer uppersonid) {
+	public Person getPersonById(Integer personid) {
 		// TODO Auto-generated method stub
-		return (Person) this.hibernateTemplate.get(Person.class, uppersonid);
+		return (Person) this.hibernateTemplate.get(Person.class, personid);
 	}
 
 

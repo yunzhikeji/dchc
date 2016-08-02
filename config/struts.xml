@@ -501,6 +501,21 @@
 		<action name="deleteMedia" class="mediaAction"
 			method="deleteMedia" />
 	</package>
+	
+	<package name="count" extends="struts-default">
+		<global-results>
+			<result name="adminLogin">/login.jsp</result>
+			<result name="opsessiongo">/op_sessiongo.jsp</result>
+		</global-results>
+		<action name="countAction" class="countAction">
+
+			<result name="personCount">/person_count.jsp</result>
+			<result name="clueCount">/clue_count.jsp</result>
+			<result name="injurycaseCount">/injurycase_count.jsp</result>
+
+		</action>
+	</package>
+	
 
 </struts>
 

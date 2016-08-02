@@ -1,6 +1,5 @@
 package com.yz.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import org.hibernate.engine.Cascade;
 
 /**
  * Judge entity.研判信息,部门查证，上报情况
@@ -30,6 +27,7 @@ public class Judge implements java.io.Serializable {
 	private String reportUnit;//报送部门（多个以，隔开）
 	private String reportTime;//上报时间
 	private String transactor;//上报人（承办人）
+	private String deadline;//截止时间
 	private String telphone;//联系方式
 	private String judgeRequirement;//研判要求
 	private Integer indexNumber;//序号（表示研判顺序）
@@ -47,7 +45,7 @@ public class Judge implements java.io.Serializable {
 
 	/** full constructor */
 	public Judge(Clue clue, Injurycase injurycase, Person person,
-			String reportUnit, String reportTime, String transactor,
+			String reportUnit, String reportTime, String transactor,String deadline,
 			String telphone, String judgeRequirement, Integer indexNumber,
 			String criminalJudge, String networkJudge,
 			String intelligenceJudge, String imageJudge, Integer jtype) {
@@ -57,6 +55,7 @@ public class Judge implements java.io.Serializable {
 		this.reportUnit = reportUnit;
 		this.reportTime = reportTime;
 		this.transactor = transactor;
+		this.deadline = deadline;
 		this.telphone = telphone;
 		this.judgeRequirement = judgeRequirement;
 		this.indexNumber = indexNumber;
@@ -123,7 +122,7 @@ public class Judge implements java.io.Serializable {
 		return this.person;
 	}
 	
-	@Column(name = "reportTime", length = 30)
+	@Column(name = "reportTime", length = 100)
 	public String getReportTime() {
 		return this.reportTime;
 	}
@@ -146,6 +145,15 @@ public class Judge implements java.io.Serializable {
 	@Column(name = "jtype")
 	public Integer getJtype() {
 		return this.jtype;
+	}
+	
+	@Column(name = "deadline", length = 100)
+	public String getDeadline() {
+		return deadline;
+	}
+
+	public void setDeadline(String deadline) {
+		this.deadline = deadline;
 	}
 
 	public void setClue(Clue clue) {
