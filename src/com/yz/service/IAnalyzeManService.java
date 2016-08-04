@@ -36,7 +36,7 @@ public interface IAnalyzeManService {
 			int size, int type, int queryState, String starttime, String endtime);
 
 
-	public abstract AnalyzeMan getAnalyzeManById(Integer upanalyzeManid);
+	public abstract AnalyzeMan getAnalyzeManById(Integer analyzeManid);
 
 
 }

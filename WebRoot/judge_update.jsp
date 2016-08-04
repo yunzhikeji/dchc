@@ -292,6 +292,7 @@
 							<s:hidden name="judge.criminalJudge"></s:hidden>
 							<s:hidden name="judge.networkJudge"></s:hidden>
 							<s:hidden name="judge.intelligenceJudge"></s:hidden>
+							<s:hidden name="judge.isNew" value="0"></s:hidden>
 						</div>
 					</s:if>
 				</s:if>

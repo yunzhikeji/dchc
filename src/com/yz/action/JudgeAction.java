@@ -34,7 +34,10 @@ import com.yz.service.IInjurycaseService;
 import com.yz.service.IJudgeService;
 import com.yz.service.IPersonService;
 import com.yz.service.IUnitService;
+import com.yz.service.IUserRoleService;
 import com.yz.vo.AjaxMsgVO;
+import com.yz.vo.ClueVO;
+import com.yz.vo.JudgeVO;
 import com.yz.vo.UnitVO;
 
 @Component("judgeAction")
@@ -75,6 +78,8 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 	private IJudgeService judgeService;
 	@Resource
 	private IUnitService unitService;
+	@Resource
+	private IUserRoleService userRoleService;
 
 	// 单个表对象
 	private Person person;
@@ -116,11 +121,11 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 		units = unitService.getUnits();
 		if (units.size() > 0) {
 			for (Unit unit : units) {
-				
+
 				String number = unit.getNumber().replace(" ", "");
-				
-				if(number.equals("DC001")||number.equals("DC002")||number.equals("DC003")||number.equals("DC004"))
-				{
+
+				if (number.equals("DC001") || number.equals("DC002")
+						|| number.equals("DC003") || number.equals("DC004")) {
 					unitVO = new UnitVO();
 					unitVO.setId(unit.getId());
 					unitVO.setName(unit.getName());
@@ -165,6 +170,7 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 			setUnitCids(userRoleo, judge);
 
 		}
+		judge.setIsNew(1);
 		judgeService.add(judge);
 		return "success_child";
 	}
@@ -244,8 +250,8 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 				Unit unit = unitService.getUnitByName(uname);
 				if (unit != null) {
 					if (unit.getCids() != null && unit.getCids() != "") {
-						unit.setCids(handleIDs(unit.getCids(), judge
-								.getClue().getId()
+						unit.setCids(handleIDs(unit.getCids(), judge.getClue()
+								.getId()
 								+ ""));
 					} else {
 						unit.setCids(judge.getClue().getId() + ",");
@@ -334,10 +340,8 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 
 	private void handleClueJudgeIndex(int currentJtype) {
 		// TODO Auto-generated method stub
-
 		judges = judgeService.loadClueByTypeAndPid(currentJtype, judge
 				.getClue().getId());
-
 		if (judges != null) {
 			judge.setIndexNumber(judges.size() + 1);
 		}
@@ -370,6 +374,148 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 	public String update() {
 		judgeService.update(judge);
 		return "success_child";
+	}
+
+	/**
+	 * 获取新增研判的事项信息
+	 * 
+	 * @return
+	 */
+	public String getNewJudges() {
+
+		// 登陆验证
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
+		if (userRoleo == null) {
+			return "opsessiongo";
+		}
+
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+
+		List<Judge> judges = judgeService.getNewJudges();
+
+		List<JudgeVO> judgeVOs = new ArrayList<JudgeVO>();
+
+		if (judges != null && judges.size() > 0) {
+			for (Judge judge : judges) {
+				JudgeVO judgeVO = new JudgeVO();
+			
+				judgeVO.setJoinDate(judge.getReportTime());
+				if (judge.getPerson() != null) {
+					judgeVO.setId(judge.getPerson().getId());
+					judgeVO.setName(judge.getPerson().getName());
+					judgeVO.setType(judge.getPerson().getType());
+					switch (judge.getPerson().getType()) {
+					case 0:
+						judgeVO.setType(0);
+						judgeVO.setTypeName("未知人员");
+						break;
+					case 1:
+						judgeVO.setTypeName("赌博人员");
+						break;
+					case 2:
+						judgeVO.setTypeName("涉恶人员");
+						break;
+					case 3:
+						judgeVO.setTypeName("涉黄人员");
+						break;
+					case 4:
+						judgeVO.setTypeName("食药环人员");
+						break;
+					case 5:
+						judgeVO.setTypeName("涉毒人员");
+						break;
+					case 6:
+						judgeVO.setTypeName("留置盘问人员");
+						break;
+					case 7:
+						judgeVO.setTypeName("侵财人员");
+						break;
+					case 8:
+						judgeVO.setTypeName("刑事传唤人员");
+						break;
+					case 9:
+						judgeVO.setTypeName("负案在逃人员");
+						break;
+					case 10:
+						judgeVO.setTypeName("维稳人员");
+						break;
+					case 11:
+						judgeVO.setTypeName("失踪人员");
+						break;
+					case 12:
+						judgeVO.setTypeName("侵财人员分析");
+						break;
+					case 13:
+						judgeVO.setTypeName("技术比中人员");
+						break;
+					case 14:
+						judgeVO.setTypeName("普通线索");
+						break;
+					case 15:
+						judgeVO.setTypeName("社会人员");
+						break;
+					default:
+						break;
+					}
+				}
+
+				if (judge.getInjurycase() != null) {
+					judgeVO.setId(judge.getInjurycase().getId());
+					judgeVO.setName(judge.getInjurycase().getCaseName());
+					switch (judge.getInjurycase().getItype()) {
+					case 0:
+						judgeVO.setType(0);
+						judgeVO.setTypeName("未知案件");
+						break;
+					case 1:
+						judgeVO.setType(16);
+						judgeVO.setTypeName("一般案件");
+						break;
+					case 2:
+						judgeVO.setType(17);
+						judgeVO.setTypeName("重伤案件");
+						break;
+					case 3:
+						judgeVO.setType(18);
+						judgeVO.setTypeName("团伙系列案件");
+						break;
+					default:
+						break;
+					}
+				}
+
+				if (judge.getClue() != null) {
+					judgeVO.setId(judge.getClue().getId());
+					judgeVO.setName(judge.getClue().getTitle());
+					switch (judge.getClue().getCtype()) {
+					case 0:
+						judgeVO.setType(0);
+						judgeVO.setTypeName("未知线索");
+						break;
+					case 1:
+						judgeVO.setType(19);
+						judgeVO.setTypeName("刑侦线索");
+						break;
+					default:
+						break;
+					}
+				}
+				judgeVOs.add(judgeVO);
+			}
+		}
+
+		JSONArray jsonArray = JSONArray.fromObject(judgeVOs);
+		PrintWriter out;
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+			out = response.getWriter();
+			out.print(jsonArray.toString());
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	// get、set-------------------------------------------
@@ -613,6 +759,14 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 
 	public void setClue(Clue clue) {
 		this.clue = clue;
+	}
+
+	public IUserRoleService getUserRoleService() {
+		return userRoleService;
+	}
+
+	public void setUserRoleService(IUserRoleService userRoleService) {
+		this.userRoleService = userRoleService;
 	}
 
 }

@@ -224,6 +224,13 @@ public class JudgeServiceImp implements IJudgeService {
 		Object[] values = new Object[] { jtype, inid };
 		return judgeDao.queryList(queryString, paramNames, values);
 	}
+	
+	
+	public List<Judge> getNewJudges() {
+		// TODO Auto-generated method stub
+		String queryString = "from Judge mo where mo.isNew=1 ";
+		return judgeDao.queryList(queryString);
+	}
 
 	// 设置单个事项超期办理
 	public void handleOutOfTime(Judge judge) {
@@ -332,4 +339,5 @@ public class JudgeServiceImp implements IJudgeService {
 
 		}
 	}
+
 }

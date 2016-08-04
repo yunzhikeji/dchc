@@ -37,7 +37,7 @@ public class Clue implements java.io.Serializable {
 	private String carryTool; // 携带工具
 	private String clueMessage; // 线索信息
 	private String endSituation; // 完结情况 1抓获 2死亡 3撤销案件 4释放 5治安拘留 6刑事拘留 7留置盘问
-									// 8其它
+	// 8其它
 	private String comprehensiveJudge; // 综合研判情况
 	private String leaderInstruction; // 领导批示
 	private Integer ctype; // 类型
@@ -48,6 +48,7 @@ public class Clue implements java.io.Serializable {
 	private String joinDate;
 	private Integer handleState;// 办理状态
 	private Integer isOutOfTime;// 是否超期办理
+	private Integer isNew;
 
 	// Constructors
 
@@ -61,8 +62,8 @@ public class Clue implements java.io.Serializable {
 			String telphone, String carrier, String carryTool,
 			String clueMessage, String endSituation, String comprehensiveJudge,
 			String leaderInstruction, Integer ctype, String joinDate,
-			Integer handleState, Integer isOutOfTime, List<Lawcase> lawcases,
-			List<Troubleshooting> troubleshootings,
+			Integer handleState, Integer isOutOfTime, Integer isNew,
+			List<Lawcase> lawcases, List<Troubleshooting> troubleshootings,
 			List<Otherperson> otherpersons, List<Judge> judges) {
 		this.userRole = userRole;
 		this.number = number;
@@ -84,6 +85,7 @@ public class Clue implements java.io.Serializable {
 		this.otherpersons = otherpersons;
 		this.judges = judges;
 		this.isOutOfTime = isOutOfTime;
+		this.isNew = isNew;
 	}
 
 	@Column(name = "carrier")
@@ -193,6 +195,15 @@ public class Clue implements java.io.Serializable {
 	@Column(name = "isOutOfTime", length = 11)
 	public Integer getIsOutOfTime() {
 		return isOutOfTime;
+	}
+
+	@Column(name = "isNew", length = 11)
+	public Integer getIsNew() {
+		return isNew;
+	}
+
+	public void setIsNew(Integer isNew) {
+		this.isNew = isNew;
 	}
 
 	public void setIsOutOfTime(Integer isOutOfTime) {

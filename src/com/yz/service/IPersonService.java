@@ -59,4 +59,6 @@ public interface IPersonService {
 
 	public abstract List<Person> getPersonsByUserRole(int con,String convalue,String starttime,String endtime,UserRole userRole);
 
+	public abstract List<Person> getNewPersonsByUserRole(UserRole userRole);
+
 }

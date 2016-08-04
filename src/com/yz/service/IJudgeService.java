@@ -46,6 +46,8 @@ public interface IJudgeService {
 			Integer id);
 	
 	//测试工作
-	public abstract void doJob(); 
+	public abstract void doJob();
+
+	public abstract List<Judge> getNewJudges(); 
 
 }

@@ -417,7 +417,7 @@
 														</td>
 														<td>
 															<a style="text-decoration: none" class="ml-5"
-																onclick="addPage('编辑查证信息','personAction!loadJudge?jid=<s:property value="id" />','500','300')"
+																onclick="addPage('编辑查证信息','judgeAction!load?jid=<s:property value="id" />','500','300')"
 																href="javascript:;" title="编辑"><i
 																class="Hui-iconfont">&#xe6df;</i> </a>
 															<a style="text-decoration: none" class="ml-5"
@@ -713,6 +713,7 @@ function article_save(obj,id){
 				<s:hidden name="commonClue.registerAddressPhoto" title="户籍照片"></s:hidden>
 				<s:hidden name="commonClue.criminalRecordPhoto" title="前科照片"></s:hidden>
 				<s:hidden name="person.isOutOfTime" title="是否超期办理"></s:hidden>
+				<s:hidden name="person.isNew" value="0"></s:hidden>
 				<s:hidden name="person.type" title="人员类型"></s:hidden>
 				<s:hidden name="person.id" title="人员id"></s:hidden>
 				<s:if test="person.userRole!=null">

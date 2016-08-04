@@ -280,6 +280,16 @@ public class ClueServiceImp implements IClueService {
 				queryString);
 		return clueDao.queryList(queryString);
 	}
+	
+	
+	public List<Clue> getNewClueByUserRole(UserRole userRole) {
+		// TODO Auto-generated method stub
+		String queryString = "from Clue mo where  mo.isNew=1  and mo.handleState=1 ";
+
+		queryString = setSqlLimit(queryString, userRole);
+
+		return clueDao.queryList(queryString);
+	}
 
 	// 设置sql语句 关于权限分配
 	private String setSqlLimit(String queryString, UserRole userRole) {

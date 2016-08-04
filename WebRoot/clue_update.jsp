@@ -599,6 +599,7 @@
 						<s:hidden name="clue.ctype" title="线索类型"></s:hidden>
 						<s:hidden name="clue.id" title="线索id"></s:hidden>
 						<s:hidden name="clue.isOutOfTime" title="是否超期办理"></s:hidden>
+						<s:hidden name="clue.isNew" value="0"></s:hidden>
 						<s:if test="clue.userRole!=null">
 						<s:hidden name="clue.userRole.id" title="线索子表userRoleid"></s:hidden>
 						</s:if>

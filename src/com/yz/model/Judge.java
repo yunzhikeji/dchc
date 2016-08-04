@@ -36,6 +36,7 @@ public class Judge implements java.io.Serializable {
 	private String intelligenceJudge;//情报研判
 	private String imageJudge;//图帧研判
 	private Integer jtype;//1:研判信息  2：部门查证 3：上报情况
+	private Integer isNew;
 
 	// Constructors
 
@@ -46,7 +47,7 @@ public class Judge implements java.io.Serializable {
 	/** full constructor */
 	public Judge(Clue clue, Injurycase injurycase, Person person,
 			String reportUnit, String reportTime, String transactor,String deadline,
-			String telphone, String judgeRequirement, Integer indexNumber,
+			String telphone, String judgeRequirement, Integer indexNumber,Integer isNew,
 			String criminalJudge, String networkJudge,
 			String intelligenceJudge, String imageJudge, Integer jtype) {
 		this.clue = clue;
@@ -64,6 +65,7 @@ public class Judge implements java.io.Serializable {
 		this.intelligenceJudge = intelligenceJudge;
 		this.imageJudge = imageJudge;
 		this.jtype = jtype;
+		this.isNew = isNew;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -150,6 +152,15 @@ public class Judge implements java.io.Serializable {
 	@Column(name = "deadline", length = 100)
 	public String getDeadline() {
 		return deadline;
+	}
+	
+	@Column(name = "isNew", length = 11)
+	public Integer getIsNew() {
+		return isNew;
+	}
+
+	public void setIsNew(Integer isNew) {
+		this.isNew = isNew;
 	}
 
 	public void setDeadline(String deadline) {

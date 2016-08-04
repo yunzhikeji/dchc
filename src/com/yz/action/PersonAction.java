@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
@@ -54,7 +55,6 @@ import com.yz.service.IJudgeService;
 import com.yz.service.ILawcaseService;
 import com.yz.service.IOtherpersonService;
 import com.yz.service.IPersonService;
-import com.yz.service.ISocialManService;
 import com.yz.service.ISuccessexampleService;
 import com.yz.service.ITroubleshootingService;
 import com.yz.service.IUnitService;
@@ -62,6 +62,7 @@ import com.yz.service.IUserRoleService;
 import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
+import com.yz.vo.PersonVO;
 import com.yz.vo.SocialManForm;
 import com.yz.vo.UnitVO;
 
@@ -521,6 +522,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		person.setJoinDate(DateTimeKit.getLocalDate());// 设置录入时间
 		person.setHandleState(1);// 初始化处理状态
 		person.setIsOutOfTime(0);
+		person.setIsNew(1);
 		personService.add(person);
 
 		// 添加当前用户id到部门pids
@@ -1214,7 +1216,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		}
 
 		if (person.getUserRole() == null) {
-			UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+			UserRole userRole = userRoleService.getUserRoleById(userRoleo
+					.getId());
 			person.setUserRole(userRole);// 设置录入人员
 		}
 
@@ -1237,6 +1240,105 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		}
 		person = personService.loadById(id);
 		return "view";
+	}
+
+	/**
+	 * 获取新增人员的事项信息
+	 * 
+	 * @return
+	 */
+	public String getNewPersons() {
+
+		// 登陆验证
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
+		if (userRoleo == null) {
+			return "opsessiongo";
+		}
+
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+
+		List<Person> persons = personService.getNewPersonsByUserRole(userRole);
+
+		List<PersonVO> personVOs = new ArrayList<PersonVO>();
+
+		if (persons != null && persons.size() > 0) {
+			for (Person person : persons) {
+				if (person.getType() == 14) {
+					break;
+				}
+				PersonVO personVO = new PersonVO();
+				personVO.setId(person.getId());
+				personVO.setName(person.getName());
+				personVO.setJoinDate(person.getJoinDate());
+				personVO.setType(person.getType());
+				switch (person.getType()) {
+				case 0:
+					personVO.setTypeName("未知人员");
+					break;
+				case 1:
+					personVO.setTypeName("赌博人员");
+					break;
+				case 2:
+					personVO.setTypeName("涉恶人员");
+					break;
+				case 3:
+					personVO.setTypeName("涉黄人员");
+					break;
+				case 4:
+					personVO.setTypeName("食药环人员");
+					break;
+				case 5:
+					personVO.setTypeName("涉毒人员");
+					break;
+				case 6:
+					personVO.setTypeName("留置盘问人员");
+					break;
+				case 7:
+					personVO.setTypeName("侵财人员");
+					break;
+				case 8:
+					personVO.setTypeName("刑事传唤人员");
+					break;
+				case 9:
+					personVO.setTypeName("负案在逃人员");
+					break;
+				case 10:
+					personVO.setTypeName("维稳人员");
+					break;
+				case 11:
+					personVO.setTypeName("失踪人员");
+					break;
+				case 12:
+					personVO.setTypeName("侵财人员分析");
+					break;
+				case 13:
+					personVO.setTypeName("技术比中人员");
+					break;
+				case 14:
+					personVO.setTypeName("普通线索");
+					break;
+				case 15:
+					personVO.setTypeName("社会人员");
+					break;
+				default:
+					break;
+				}
+				personVOs.add(personVO);
+			}
+		}
+
+		JSONArray jsonArray = JSONArray.fromObject(personVOs);
+		PrintWriter out;
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+			out = response.getWriter();
+			out.print(jsonArray.toString());
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	// get、set-------------------------------------------

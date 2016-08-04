@@ -205,19 +205,19 @@
 						</td>
 						<td height="34" colspan="6" align="center" bgcolor="#FFFFFF">
 							<a
-								href="javascript:jumpPersonPage('clueAction!list',1,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="type"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
+								href="javascript:jumpPersonPage('clueAction!list',1,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="ctype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
 								target="rightFrame">首页</a>&nbsp;&nbsp;
 							<a
-								href="javascript:jumpPersonPage('clueAction!list',<s:property value="page-1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="type"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
+								href="javascript:jumpPersonPage('clueAction!list',<s:property value="page-1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="ctype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
 								target="rightFrame">上一页</a>&nbsp;&nbsp;&nbsp;
 							<a
-								href="javascript:jumpPersonPage('clueAction!list',<s:property value="page+1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="type"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
+								href="javascript:jumpPersonPage('clueAction!list',<s:property value="page+1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="ctype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
 								target="rightFrame">下一页</a>&nbsp;&nbsp;&nbsp;
 							<a
-								href="javascript:jumpPersonPage('clueAction!list',<s:property value="pageCount"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="type"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
+								href="javascript:jumpPersonPage('clueAction!list',<s:property value="pageCount"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="ctype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
 								target="rightFrame">尾页</a>&nbsp;&nbsp;&nbsp;
 							<input type='button' class="btn btn-primary radius size-S"
-								onclick="jumpPersonPage('clueAction!list',document.getElementById('page').value,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="type"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
+								onclick="jumpPersonPage('clueAction!list',document.getElementById('page').value,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="ctype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
 								value='转到' />
 							&nbsp; 当前页：
 							<input onpaste="return false"

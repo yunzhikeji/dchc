@@ -3,6 +3,7 @@ package com.yz.action;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +13,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.interceptor.RequestAware;
@@ -25,18 +27,22 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.yz.model.Clue;
 import com.yz.model.Judge;
 import com.yz.model.Lawcase;
+import com.yz.model.Person;
 import com.yz.model.Troubleshooting;
 import com.yz.model.Unit;
 import com.yz.model.UserRole;
 import com.yz.service.IClueService;
 import com.yz.service.IJudgeService;
 import com.yz.service.ILawcaseService;
+import com.yz.service.IPersonService;
 import com.yz.service.ITroubleshootingService;
 import com.yz.service.IUnitService;
 import com.yz.service.IUserRoleService;
 import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
+import com.yz.vo.CaseVO;
+import com.yz.vo.ClueVO;
 import com.yz.vo.UnitVO;
 
 @Component("clueAction")
@@ -91,6 +97,8 @@ public class ClueAction extends ActionSupport implements RequestAware,
 	private IJudgeService judgeService;
 	@Resource
 	private IUserRoleService userRoleService;
+	@Resource
+	private IPersonService personService;
 
 	// 单个表对象
 	private Clue clue;
@@ -202,12 +210,13 @@ public class ClueAction extends ActionSupport implements RequestAware,
 			return "opsessiongo_child";
 		}
 
-		System.out.println("部门:"+userRoleo.getUnit().getName());
 		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
-		
+
 		clue.setUserRole(userRole);// 设置录入人员
 		clue.setJoinDate(DateTimeKit.getLocalDate());// 设置录入时间
 		clue.setHandleState(1);// 初始化处理状态
+		clue.setIsOutOfTime(0);
+		clue.setIsNew(1);
 		clueService.add(clue);
 
 		// 添加当前线索id到部门cids
@@ -319,12 +328,12 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		}
 
 		if (clue.getUserRole() == null) {
-			UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+			UserRole userRole = userRoleService.getUserRoleById(userRoleo
+					.getId());
 			clue.setUserRole(userRole);// 设置录入人员
 		}
-		
-		if (clue.getEndSituation() != null
-				&& clue.getEndSituation() != "") {
+
+		if (clue.getEndSituation() != null && clue.getEndSituation() != "") {
 			clue.setHandleState(3);// 完结
 		}
 		clueService.update(clue);
@@ -346,6 +355,63 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		}
 		clue = clueService.loadById(id);
 		return "view";
+	}
+
+	/**
+	 * 获取新增案件的事项信息
+	 * 
+	 * @return
+	 */
+	public String getNewClues() {
+
+		// 登陆验证
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
+		if (userRoleo == null) {
+			return "opsessiongo";
+		}
+
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+
+		List<Clue> clues = clueService.getNewClueByUserRole(userRole);
+		List<Person> persons = personService.getNewPersonsByUserRole(userRole);
+
+		List<ClueVO> clueVOs = new ArrayList<ClueVO>();
+
+		if (clues != null && clues.size() > 0) {
+			for (Clue clue : clues) {
+				ClueVO clueVO = new ClueVO();
+				clueVO.setId(clue.getId());
+				clueVO.setName(clue.getTitle());
+				clueVO.setJoinDate(clue.getJoinDate());
+				clueVO.setType(0);
+				clueVOs.add(clueVO);
+			}
+
+		}
+
+		if (persons != null && persons.size() > 0) {
+			for (Person person : persons) {
+				ClueVO clueVO = new ClueVO();
+				clueVO.setId(person.getId());
+				clueVO.setName(person.getName());
+				clueVO.setJoinDate(person.getJoinDate());
+				clueVO.setType(1);
+				clueVOs.add(clueVO);
+			}
+		}
+
+		JSONArray jsonArray = JSONArray.fromObject(clueVOs);
+		PrintWriter out;
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+			out = response.getWriter();
+			out.print(jsonArray.toString());
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	// get、set-------------------------------------------
@@ -674,6 +740,14 @@ public class ClueAction extends ActionSupport implements RequestAware,
 
 	public void setUserRoleService(IUserRoleService userRoleService) {
 		this.userRoleService = userRoleService;
+	}
+
+	public IPersonService getPersonService() {
+		return personService;
+	}
+
+	public void setPersonService(IPersonService personService) {
+		this.personService = personService;
 	}
 
 }

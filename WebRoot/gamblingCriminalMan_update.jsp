@@ -1008,6 +1008,7 @@ function article_save(obj,id){
 				<s:hidden name="person.type" title="人员类型"></s:hidden>
 				<s:hidden name="person.id" title="人员id"></s:hidden>
 				<s:hidden name="person.isOutOfTime" title="是否超期办理"></s:hidden>
+				<s:hidden name="person.isNew" value="0"></s:hidden>
 				<s:if test="person.userRole!=null">
 					<s:hidden name="person.userRole.id" title="人员子表userRoleid"></s:hidden>
 				</s:if>

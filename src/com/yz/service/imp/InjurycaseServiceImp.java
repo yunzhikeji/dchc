@@ -389,6 +389,15 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 
 		return injurycaseDao.queryList(queryString);
 	}
+	
+	public List<Injurycase> getNewInjurycaseByUserRole(UserRole userRole) {
+		// TODO Auto-generated method stub
+		String queryString = "from Injurycase mo where   mo.isNew=1 and mo.handleState=1 ";
+		
+		queryString = setSqlLimit(queryString, userRole);
+
+		return injurycaseDao.queryList(queryString);
+	}
 
 	// 设置 sql语句 参数配置
 	private String setSqlParms(int con, String convalue, String starttime,
@@ -447,5 +456,6 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		}
 		return queryString;
 	}
+
 
 }

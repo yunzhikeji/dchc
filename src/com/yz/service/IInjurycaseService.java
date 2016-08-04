@@ -80,4 +80,7 @@ public interface IInjurycaseService {
 
 	public abstract List<Injurycase> getInjurycasesByUserRole(int con,
 			String convalue, String starttime, String endtime, UserRole userRole);
+
+	public abstract List<Injurycase> getNewInjurycaseByUserRole(
+			UserRole userRole);
 }

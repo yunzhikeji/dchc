@@ -337,10 +337,10 @@
 									<div class="row cl mt-20">
 										<div class="col-12 mb-0 c-primary f-16"
 											style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
-											同案人员信息
+											嫌疑人员信息
 											<input class="btn btn-primary radius mt-10 f-r" type="button"
-												onclick="addPage('新增同案人员','otherpersonAction!goToAdd?inid=<s:property value="id"/>&otype=2','500','300')"
-												value="新增同案人员">
+												onclick="addPage('新增嫌疑人员','otherpersonAction!goToAdd?inid=<s:property value="id"/>&otype=2','500','300')"
+												value="新增嫌疑人员">
 										</div>
 										<div class="col-12">
 											<table class="table table-border table-bg">
@@ -382,7 +382,7 @@
 																</td>
 																<td>
 																	<a style="text-decoration: none" class="ml-5"
-																		onclick="addPage('编辑同案人','otherpersonAction!load?otherid=<s:property value="id" />','500','300')"
+																		onclick="addPage('编辑嫌疑人','otherpersonAction!load?otherid=<s:property value="id" />','500','300')"
 																		href="javascript:;" title="编辑"><i
 																		class="Hui-iconfont">&#xe6df;</i> </a>
 																	<a style="text-decoration: none" class="ml-5"
@@ -806,6 +806,7 @@ function article_save(obj,id){
 				<s:hidden name="injurycase.pids" title="pids"></s:hidden>
 				<s:hidden name="injurycase.caseIds" title="caseIds"></s:hidden>
 				<s:hidden name="injurycase.isOutOfTime" title="是否超期办理"></s:hidden>
+				<s:hidden name="injurycase.isNew" value="0"></s:hidden>
 				<s:hidden name="injurycase.itype" title="案件类型"></s:hidden>
 				<s:hidden name="injurycase.id" title="案件id"></s:hidden>
 

@@ -717,6 +717,9 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		arg[1] = "个人资料";
 		return SUCCESS;
 	}
+	
+	
+	
 
 	// get、set-------------------------------------------
 

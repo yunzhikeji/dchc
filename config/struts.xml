@@ -88,9 +88,9 @@
 
 	<package name="userRole_json" extends="json-default">
 		<action name="deleteUserRoles" class="userRoleAction"
-			method="deleteUserRoles" >
-				<param name="excludeNullProperties">true</param>
-			</action>
+			method="deleteUserRoles">
+			<param name="excludeNullProperties">true</param>
+		</action>
 		<action name="checkUsername" class="userRoleAction"
 			method="checkUsername" />
 	</package>
@@ -181,6 +181,11 @@
 	<package name="person_json" extends="json-default">
 		<action name="deletePersons" class="personAction"
 			method="deletePersons" />
+		<action name="getNewPersons" class="personAction"
+			method="getNewPersons">
+			<param name="excludeNullProperties">true</param>
+			<!-- 排除j值为空的值 -->
+		</action>
 	</package>
 
 
@@ -220,6 +225,8 @@
 			method="deleteInjurycases" />
 		<action name="handleInjurycaseSeries" class="injurycaseAction"
 			method="handleInjurycaseSeries" />
+		<action name="getNewInjurycases" class="injurycaseAction"
+			method="getNewInjurycases" />
 	</package>
 
 
@@ -254,6 +261,8 @@
 	<package name="clue_json" extends="json-default">
 		<action name="deleteClues" class="clueAction"
 			method="deleteClues" />
+		<action name="getNewClues" class="clueAction"
+			method="getNewClues" />
 	</package>
 
 
@@ -358,6 +367,8 @@
 			method="deleteJudge" />
 		<action name="getUnitVOs" class="judgeAction"
 			method="getUnitVOs" />
+		<action name="getNewJudges" class="judgeAction"
+			method="getNewJudges" />
 	</package>
 
 
@@ -501,7 +512,7 @@
 		<action name="deleteMedia" class="mediaAction"
 			method="deleteMedia" />
 	</package>
-	
+
 	<package name="count" extends="struts-default">
 		<global-results>
 			<result name="adminLogin">/login.jsp</result>
@@ -511,11 +522,13 @@
 
 			<result name="personCount">/person_count.jsp</result>
 			<result name="clueCount">/clue_count.jsp</result>
-			<result name="injurycaseCount">/injurycase_count.jsp</result>
+			<result name="injurycaseCount">
+				/injurycase_count.jsp
+			</result>
 
 		</action>
 	</package>
-	
+
 
 </struts>
 

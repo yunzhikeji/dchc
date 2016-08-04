@@ -342,6 +342,21 @@ public class PersonServiceImp implements IPersonService {
 		return queryListBySql(con, convalue, starttime, endtime, userRole,
 				queryString);
 	}
+	
+
+	/*
+	 * (non-Javadoc)
+	 * @see com.yz.service.IPersonService#getNewPersonsByUserRole(com.yz.model.UserRole)
+	 */
+	public List<Person> getNewPersonsByUserRole(UserRole userRole) {
+		// TODO Auto-generated method stub
+		String queryString = "from Person mo where  mo.isNew=1 and mo.handleState=1 ";
+		
+		queryString = setSqlLimit(queryString, userRole);
+		
+		return personDao.queryList(queryString);
+	}
+
 
 	/*
 	 * 提取方法
@@ -367,6 +382,8 @@ public class PersonServiceImp implements IPersonService {
 
 		return personDao.queryList(setSqlLimit(queryString, userRole));
 	}
+	
+	
 
 	// 设置sql语句 关于权限分配
 	private String setSqlLimit(String queryString, UserRole userRole) {
@@ -445,5 +462,4 @@ public class PersonServiceImp implements IPersonService {
 	public void setPersonDao(IPersonDao personDao) {
 		this.personDao = personDao;
 	}
-
 }

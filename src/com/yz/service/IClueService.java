@@ -59,6 +59,8 @@ public interface IClueService {
 	public abstract List<Clue> getCluesByUserRole(int con, String convalue,
 			String starttime, String endtime, UserRole userRole);
 
+	public abstract List<Clue> getNewClueByUserRole(UserRole userRole);
+
 
 
 }

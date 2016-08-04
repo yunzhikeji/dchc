@@ -1101,6 +1101,7 @@ function article_save(obj,id){
 					<s:hidden name="person.userRole.id" title="人员子表userRoleid"></s:hidden>
 				</s:if>
 				<s:hidden name="person.isOutOfTime" title="是否超期办理"></s:hidden>
+				<s:hidden name="person.isNew" value="0"></s:hidden>
 				<s:hidden name="person.photoImg" title="人员照片"></s:hidden>
 				<s:hidden name="person.handleState" title="办理状态"></s:hidden>
 				<s:hidden name="person.joinDate" title="录入时间"></s:hidden>

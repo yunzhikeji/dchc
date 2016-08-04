@@ -11,7 +11,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,6 +19,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.struts2.ServletActionContext;
@@ -35,6 +35,7 @@ import com.yz.model.Injurycase;
 import com.yz.model.Judge;
 import com.yz.model.Media;
 import com.yz.model.Otherperson;
+import com.yz.model.Person;
 import com.yz.model.Successexample;
 import com.yz.model.Troubleshooting;
 import com.yz.model.Unit;
@@ -50,7 +51,9 @@ import com.yz.service.IUserRoleService;
 import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
+import com.yz.vo.CaseVO;
 import com.yz.vo.InjurycaseVO;
+import com.yz.vo.PersonVO;
 import com.yz.vo.UnitVO;
 
 @Component("injurycaseAction")
@@ -189,7 +192,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		// 所有当前页记录对象
 		injurycases = injurycaseService.queryList(con, convalue, userRole,
 				page, size, itype, queryState, starttime, endtime);
-		
+
 		return "list";
 	}
 
@@ -249,6 +252,8 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		injurycase.setUserRole(userRole);// 设置录入人员
 		injurycase.setJoinDate(DateTimeKit.getLocalDate());// 设置录入时间
 		injurycase.setHandleState(1);// 初始化处理状态
+		injurycase.setIsOutOfTime(0);
+		injurycase.setIsNew(1);
 
 		if (picture1 != null && picture1FileName != null
 				&& !picture1FileName.replace(" ", "").equals("")) {
@@ -427,12 +432,13 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			photofile.delete();
 			injurycase.setImageCase("case" + "/" + imageName);
 		}
-		
+
 		if (injurycase.getUserRole() == null) {
-			UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+			UserRole userRole = userRoleService.getUserRoleById(userRoleo
+					.getId());
 			injurycase.setUserRole(userRole);// 设置录入人员
 		}
-		
+
 		injurycaseService.update(injurycase);
 
 		arg[0] = "injurycaseAction!list?itype=" + injurycase.getItype();
@@ -491,9 +497,8 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		// 所有当前页记录对象
 		injurycases = injurycaseService.queryList(con, convalue, userRole,
 				page, 9, queryState, starttime, endtime);
-		
-		if(injurycases!=null&&injurycases.size()>0)
-		{
+
+		if (injurycases != null && injurycases.size() > 0) {
 			injurycaseVOs = new ArrayList<InjurycaseVO>();
 			for (int i = 0; i < injurycases.size(); i++) {
 				InjurycaseVO injurycaseVO = new InjurycaseVO();
@@ -501,19 +506,17 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 				int iNumber = 0;
 				injurycaseVO.setId(injurycases.get(i).getId());
 				injurycaseVO.setCaseName(injurycases.get(i).getCaseName());
-				injurycaseVO.setHandleState(injurycases.get(i).getHandleState());
+				injurycaseVO
+						.setHandleState(injurycases.get(i).getHandleState());
 				injurycaseVO.setImageCase(injurycases.get(i).getImageCase());
 				injurycaseVO.setIsRelated(injurycases.get(i).getIsRelated());
 				injurycaseVO.setSeries(injurycases.get(i).getSeries());
 				injurycaseVO.setStartTime(injurycases.get(i).getStartTime());
 				injurycaseVO.setUserRole(injurycases.get(i).getUserRole());
-				for(Media media:injurycases.get(i).getMedias())
-				{
-					if(media.getMtype()==1)
-					{
+				for (Media media : injurycases.get(i).getMedias()) {
+					if (media.getMtype() == 1) {
 						vNumber++;
-					}else if(media.getMtype()==0)
-					{
+					} else if (media.getMtype() == 0) {
 						iNumber++;
 					}
 				}
@@ -609,6 +612,67 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			response.setContentType("text/html;charset=UTF-8");
 			out = response.getWriter();
 			out.print(jsonObj.toString());
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 * 获取新增案件的事项信息
+	 * 
+	 * @return
+	 */
+	public String getNewInjurycases() {
+
+		// 登陆验证
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
+		if (userRoleo == null) {
+			return "opsessiongo";
+		}
+
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+
+		List<Injurycase> injurycases = injurycaseService
+				.getNewInjurycaseByUserRole(userRole);
+
+		List<CaseVO> caseVOs = new ArrayList<CaseVO>();
+
+		if (injurycases != null && injurycases.size() > 0) {
+			for (Injurycase injurycase : injurycases) {
+				CaseVO caseVO = new CaseVO();
+				caseVO.setId(injurycase.getId());
+				caseVO.setName(injurycase.getCaseName());
+				caseVO.setJoinDate(injurycase.getJoinDate());
+				caseVO.setType(injurycase.getItype());
+				switch (injurycase.getItype()) {
+				case 0:
+					caseVO.setTypeName("未知案件");
+					break;
+				case 1:
+					caseVO.setTypeName("一般案件");
+					break;
+				case 2:
+					caseVO.setTypeName("重伤案件");
+					break;
+				case 3:
+					caseVO.setTypeName("团伙系列案件");
+					break;
+				default:
+					break;
+				}
+				caseVOs.add(caseVO);
+			}
+		}
+
+		JSONArray jsonArray = JSONArray.fromObject(caseVOs);
+		PrintWriter out;
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+			out = response.getWriter();
+			out.print(jsonArray.toString());
 			out.flush();
 			out.close();
 		} catch (IOException e) {
@@ -1081,7 +1145,5 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	public void setInjurycaseVOs(List<InjurycaseVO> injurycaseVOs) {
 		this.injurycaseVOs = injurycaseVOs;
 	}
-	
-	
 
 }

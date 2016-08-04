@@ -18,7 +18,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- * Person entity. 所有人员信息 
+ * Person entity. 所有人员信息
  * 
  * @author lq
  */
@@ -29,39 +29,41 @@ public class Person implements java.io.Serializable {
 	// Fields
 
 	private Integer id;//
-	private UserRole userRole; //录入人员
+	private UserRole userRole; // 录入人员
 	private SocialMan socialMan;
-	private CommonClue commonClue;//普通线索人员(普通线索)
-	private DisappearMan disappearMan;//失踪人员
-	private AnalyzeMan analyzeMan;//侵财分析人员
-	private GuiltSafeguardMan guiltSafeguardMan;//负案在逃、维稳人员
-	private ContrastMan contrastMan;//技术比中人员
-	private GamblingCriminalMan gamblingCriminalMan;//赌博人员，涉恶人员，涉黄人员，食药环人员，涉毒人员，留置盘问，侵财人员，刑事传唤
-	private String number;//人员编号
-	private String name;//人员姓名
-	private String idcard;//身份证号
-	private String birthday;//出生日期
-	private String telphone;//联系方式
-	private String qq;//QQ
-	private String wechat;//微信
-	private Integer sex;//性别
-	private String registerAddress;//户籍地址
-	private String registerAddressArea;//户籍地址
-	private String carrier;//携带物品（多个以，隔开）
-	private String carryTool;//携带工具（多个以，隔开）
-	private String endSituation;//完结情况
-	private String comprehensiveJudge;//综合研判情况
-	private String leaderInstruction;//领导批示
-	private Integer isMakeControl;//是否布控
-	private Integer type;//类型（具体哪一种人员）1:赌博人员，2:涉恶人员，3:涉黄人员，4:食药环人员，5:涉毒人员，6:留置盘问，7:侵财人员，8:刑事传唤，9:负案在逃人员，10:维稳人员，11:失踪人员，12:侵财人员分析，13:技术比中人员，14:普通线索
-	private List<Otherperson> otherpersons = new ArrayList<Otherperson>();//其他人员，包括（同案人，嫌疑人，关系人）
-	private List<Lawcase> lawcases = new ArrayList<Lawcase>();//涉及案件
-	private List<Troubleshooting> troubleshootings = new ArrayList<Troubleshooting>();//疑难解答
-	private List<Judge> judges = new ArrayList<Judge>();//研判情况
-	private String joinDate;//录入时间
-	private Integer handleState;//办理状态(1:未办理 2：在办理 3：已完结 )
-	private String photoImg;//照片
-	private Integer isOutOfTime;//是否超期办理
+	private CommonClue commonClue;// 普通线索人员(普通线索)
+	private DisappearMan disappearMan;// 失踪人员
+	private AnalyzeMan analyzeMan;// 侵财分析人员
+	private GuiltSafeguardMan guiltSafeguardMan;// 负案在逃、维稳人员
+	private ContrastMan contrastMan;// 技术比中人员
+	private GamblingCriminalMan gamblingCriminalMan;// 赌博人员，涉恶人员，涉黄人员，食药环人员，涉毒人员，留置盘问，侵财人员，刑事传唤
+	private String number;// 人员编号
+	private String name;// 人员姓名
+	private String idcard;// 身份证号
+	private String birthday;// 出生日期
+	private String telphone;// 联系方式
+	private String qq;// QQ
+	private String wechat;// 微信
+	private Integer sex;// 性别
+	private String registerAddress;// 户籍地址
+	private String registerAddressArea;// 户籍地址
+	private String carrier;// 携带物品（多个以，隔开）
+	private String carryTool;// 携带工具（多个以，隔开）
+	private String endSituation;// 完结情况
+	private String comprehensiveJudge;// 综合研判情况
+	private String leaderInstruction;// 领导批示
+	private Integer isMakeControl;// 是否布控
+	private Integer type;// 类型（具体哪一种人员）1:赌博人员，2:涉恶人员，3:涉黄人员，4:食药环人员，5:涉毒人员，6:留置盘问，7:侵财人员，8:刑事传唤，9:负案在逃人员，10:维稳人员，11:失踪人员，12:侵财人员分析，13:技术比中人员，14:普通线索
+	private List<Otherperson> otherpersons = new ArrayList<Otherperson>();// 其他人员，包括（同案人，嫌疑人，关系人）
+	private List<Lawcase> lawcases = new ArrayList<Lawcase>();// 涉及案件
+	private List<Troubleshooting> troubleshootings = new ArrayList<Troubleshooting>();// 疑难解答
+	private List<Judge> judges = new ArrayList<Judge>();// 研判情况
+	private String joinDate;// 录入时间
+	private Integer handleState;// 办理状态(1:未办理 2：在办理 3：已完结 )
+	private String photoImg;// 照片
+	private Integer isOutOfTime;// 是否超期办理
+	private Integer isNew;
+
 	// Constructors
 
 	/** default constructor */
@@ -69,16 +71,19 @@ public class Person implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Person(UserRole userRole, CommonClue commonClue, DisappearMan disappearMan,
-			AnalyzeMan analyzeMan, GuiltSafeguardMan guiltSafeguardMan,
-			ContrastMan contrastMan, GamblingCriminalMan gamblingCriminalMan,
-			String number, String name, String idcard, String birthday,
-			String telphone, String qq, String wechat, Integer sex,
-			String registerAddress,String registerAddressArea, String carrier, String carryTool,
-			String endSituation, String comprehensiveJudge,
-			String leaderInstruction, Integer isMakeControl, Integer type, String joinDate,int handleState,String photoImg,Integer isOutOfTime,
-			List<Otherperson> otherpersons, List<Lawcase> lawcases,
-			List<Troubleshooting> troubleshootings, List<Judge> judges) {
+	public Person(UserRole userRole, CommonClue commonClue,
+			DisappearMan disappearMan, AnalyzeMan analyzeMan,
+			GuiltSafeguardMan guiltSafeguardMan, ContrastMan contrastMan,
+			GamblingCriminalMan gamblingCriminalMan, String number,
+			String name, String idcard, String birthday, String telphone,
+			String qq, String wechat, Integer sex, Integer isNew,
+			String registerAddress, String registerAddressArea, String carrier,
+			String carryTool, String endSituation, String comprehensiveJudge,
+			String leaderInstruction, Integer isMakeControl, Integer type,
+			String joinDate, int handleState, String photoImg,
+			Integer isOutOfTime, List<Otherperson> otherpersons,
+			List<Lawcase> lawcases, List<Troubleshooting> troubleshootings,
+			List<Judge> judges) {
 		this.userRole = userRole;
 		this.commonClue = commonClue;
 		this.disappearMan = disappearMan;
@@ -111,9 +116,10 @@ public class Person implements java.io.Serializable {
 		this.troubleshootings = troubleshootings;
 		this.judges = judges;
 		this.isOutOfTime = isOutOfTime;
+		this.isNew = isNew;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "anid")
 	public AnalyzeMan getAnalyzeMan() {
 		return this.analyzeMan;
@@ -134,7 +140,7 @@ public class Person implements java.io.Serializable {
 		return this.carryTool;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "comid")
 	public CommonClue getCommonClue() {
 		return this.commonClue;
@@ -145,30 +151,30 @@ public class Person implements java.io.Serializable {
 		return this.comprehensiveJudge;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "conid")
 	public ContrastMan getContrastMan() {
 		return this.contrastMan;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "disid")
 	public DisappearMan getDisappearMan() {
 		return this.disappearMan;
 	}
 
-	@Column(name = "endSituation",length = 100)
+	@Column(name = "endSituation", length = 100)
 	public String getEndSituation() {
 		return this.endSituation;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "gaid")
 	public GamblingCriminalMan getGamblingCriminalMan() {
 		return this.gamblingCriminalMan;
 	}
 
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "guid")
 	public GuiltSafeguardMan getGuiltSafeguardMan() {
 		return this.guiltSafeguardMan;
@@ -197,7 +203,7 @@ public class Person implements java.io.Serializable {
 		return this.isMakeControl;
 	}
 
-	@Column(name = "joinDate",length=30)
+	@Column(name = "joinDate", length = 30)
 	public String getJoinDate() {
 		return joinDate;
 	}
@@ -266,13 +272,12 @@ public class Person implements java.io.Serializable {
 	public List<Troubleshooting> getTroubleshootings() {
 		return this.troubleshootings;
 	}
-	
-	
+
 	@Column(name = "type")
 	public Integer getType() {
 		return this.type;
 	}
-	
+
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "uid")
 	public UserRole getUserRole() {
@@ -283,11 +288,19 @@ public class Person implements java.io.Serializable {
 	public String getWechat() {
 		return this.wechat;
 	}
-	
-	
+
 	@Column(name = "isOutOfTime", length = 11)
 	public Integer getIsOutOfTime() {
 		return isOutOfTime;
+	}
+
+	@Column(name = "isNew", length = 11)
+	public Integer getIsNew() {
+		return isNew;
+	}
+
+	public void setIsNew(Integer isNew) {
+		this.isNew = isNew;
 	}
 
 	public void setIsOutOfTime(Integer isOutOfTime) {
@@ -373,8 +386,7 @@ public class Person implements java.io.Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	
+
 	public void setNumber(String number) {
 		this.number = number;
 	}
@@ -422,7 +434,8 @@ public class Person implements java.io.Serializable {
 	public void setWechat(String wechat) {
 		this.wechat = wechat;
 	}
-	@OneToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "soid")
 	public SocialMan getSocialMan() {
 		return socialMan;

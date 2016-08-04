@@ -26,25 +26,180 @@
 		<script type="text/javascript" src="js/pageKit.js"></script>
 		<script type="text/javascript">
 		
+		var pers ="";
+		var ins ="";
+		var clues ="";
+		var judges = "";
+		
 		$(function(){
-					setInterval("get()",2000);
+					setInterval("getNewPersons()",2100);
+					setInterval("getNewInjurycases()",2200);
+					setInterval("getNewClues()",2300);
+					setInterval("getNewJudges()",2400);
 				});
-				function ShowSigStatus(){
+				
+				function getNewPersons(){
 					$.ajax({   
-			            url:'getUnitVOs',//这里是你的action或者servlert的路径地址   
+			            url:'getNewPersons',//这里是你的action或者servlert的路径地址   
 			            type:'post', //数据发送方式   
 			            async:false,
 			            dataType:'json',
 			            error: function(msg)
 			            { //失败   
-			            	console.log('请求报送单位失败.');   
+			            	console.log('获取人员失败.');   
 			            },   
 			            success: function(msg)
 			            { //成功
-				            if(msg.length>0)
+				            if(msg!=null&&msg.length>0)
 				            {
-				            	zNodes = msg;
+				            	pers = "";
+								for(var i=0;i<msg.length;i++){   
+								  	pers = pers+"<li class='box-1'>" + 
+			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑人员\",\"personAction!load?id="+msg[i].id+"&type="+msg[i].type+"\")'><time>["+msg[i].joinDate+"]</time>"+ msg[i].typeName+":"+msg[i].name +"</a>"
+								  	+ "</li>"
+								}  
+								$("#newpersons").empty();
+				            	$("#newpersons").append(pers);
 				            }
+						}
+					});    	 
+				}
+				
+				
+				
+				function getNewInjurycases(){
+					$.ajax({   
+			            url:'getNewInjurycases',//这里是你的action或者servlert的路径地址   
+			            type:'post', //数据发送方式   
+			            async:false,
+			            dataType:'json',
+			            error: function(msg)
+			            { //失败   
+			            	console.log('获取案件失败.');   
+			            },   
+			            success: function(msg)
+			            { //成功
+				            if(msg!=null&&msg.length>0)
+				            {
+				            	ins = "";
+								for(var i=0;i<msg.length;i++){   
+								  	ins = ins+"<li class='box-1'>" + 
+			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑案件\",\"injurycaseAction!load?id="+msg[i].id+"&itype="+msg[i].type+"\")'><time>["+msg[i].joinDate+"]</time>"+ msg[i].typeName+":"+msg[i].name +"</a>"
+								  	+ "</li>"
+								}  
+								$("#newinjurycases").empty();
+				            	$("#newinjurycases").append(ins);
+				            }
+						}
+					});    	 
+				}
+				
+				
+				function getNewClues(){
+					$.ajax({   
+			            url:'getNewClues',//这里是你的action或者servlert的路径地址   
+			            type:'post', //数据发送方式   
+			            async:false,
+			            dataType:'json',
+			            error: function(msg)
+			            { //失败   
+			            	console.log('获取线索失败.');   
+			            },   
+			            success: function(msg)
+			            { //成功
+				            if(msg!=null&&msg.length>0)
+				            {
+				            	clues = "";
+								for(var i=0;i<msg.length;i++){   
+									if(msg[i].type==1)
+									{
+										clues = clues+"<li class='box-1'>" + 
+			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑普通线索\",\"personAction!load?id="+msg[i].id+"&type="+14+"\")'><time>["+msg[i].joinDate+"]</time>普通线索:"+msg[i].name +"</a>"
+								  	+ "</li>"
+									}else
+									{
+									clues = clues+"<li class='box-1'>" + 
+			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑刑侦线索\",\"clueAction!load?id="+msg[i].id+"\")'><time>["+msg[i].joinDate+"]</time> 刑侦线索:"+msg[i].name +"</a>"
+								  	+ "</li>"
+										
+									}
+								}  
+								$("#newclues").empty();
+				            	$("#newclues").append(clues);
+				            }
+						}
+					});    	 
+				}
+				
+				
+				
+				
+				function getNewJudges(){
+					$.ajax({   
+			            url:'getNewJudges',//这里是你的action或者servlert的路径地址   
+			            type:'post', //数据发送方式   
+			            async:false,
+			            dataType:'json',
+			            error: function(msg)
+			            { //失败   
+			            	console.log('获取新增的研判事项失败.');   
+			            },   
+			            success: function(msg)
+			            { //成功
+				            if(msg!=null&&msg.length>0)
+				            {
+				            	judges = "";
+								for(var i=0;i<msg.length;i++){ 
+									switch(msg[i].type)
+									{
+										case 1:
+										case 2:
+										case 3:
+										case 4:
+										case 5:
+										case 6:
+										case 7:
+										case 8:
+										case 9:
+										case 10:
+										case 11:
+										case 12:
+										case 13:
+										case 15:
+											judges = judges+"<li class='box-1'>" + 
+			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑人员\",\"personAction!load?id="+msg[i].id+"&type="+msg[i].type+"\")'><time>["+msg[i].joinDate+"]</time>"+ msg[i].typeName+":"+msg[i].name +"</a>"
+								  	+ "</li>"
+										break;
+										case 14:
+										judges = judges+"<li class='box-1'>" + 
+			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑普通线索\",\"personAction!load?id="+msg[i].id+"&type="+msg[i].type+"\")'><time>["+msg[i].joinDate+"]</time>"+ msg[i].typeName+":"+msg[i].name +"</a>"
+								  	+ "</li>"
+										break;
+										case 16:
+										judges = judges+"<li class='box-1'>" + 
+			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑案件\",\"injurycaseAction!load?id="+msg[i].id+"&itype=1\")'><time>["+msg[i].joinDate+"]</time>"+ msg[i].typeName+":"+msg[i].name +"</a>"
+								  	+ "</li>"
+										case 17:
+										judges = judges+"<li class='box-1'>" + 
+			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑案件\",\"injurycaseAction!load?id="+msg[i].id+"&itype=2\")'><time>["+msg[i].joinDate+"]</time>"+ msg[i].typeName+":"+msg[i].name +"</a>"
+								  	+ "</li>"
+										case 18:
+										judges = judges+"<li class='box-1'>" + 
+			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑案件\",\"injurycaseAction!load?id="+msg[i].id+"&itype=3\")'><time>["+msg[i].joinDate+"]</time>"+ msg[i].typeName+":"+msg[i].name +"</a>"
+								  	+ "</li>"
+										break;
+										case 19:
+										judges = judges+"<li class='box-1'>" + 
+			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑刑侦线索\",\"clueAction!load?id="+msg[i].id+"\")'><time>["+msg[i].joinDate+"]</time> 刑侦线索:"+msg[i].name +"</a>"
+								  	+ "</li>"
+										break;
+									} 
+								}  
+								$("#newjudges").empty();
+				            	$("#newjudges").append(judges);
+				            }
+				            
+				            
 						}
 					});    	 
 				}
@@ -81,6 +236,8 @@
 				</div>
 			</div>
 
+
+			<!--
 			<div class="row cl">
 				<div class="col-6" style="padding: 5px;">
 					<div class="tabBarbox">
@@ -188,7 +345,7 @@
 								</table>
 
 							</div>
-
+		
 							<div class="tabCon">
 								<div class="tit">
 									事项办理情况统计表
@@ -549,91 +706,119 @@
 					</div>
 
 				</div>
-
-
-				<div class="col-6" style="padding: 5px;">
-					<div class="panel panel-default">
-						<div class="panel-header">
-							未办理
-						</div>
-						<div class="panel-body">
-							<ul class="tlist">
-								<s:iterator value="pnotices" var="pnotice" status="status">
-									<li class="box-1">
-										<a style="text-decoration: none" class="ml-5"
-											onclick="childPageFull('查看通知公告','pnoticeAction!view?id=<s:property value="id"/>')"
-											href="javascript:;" title="查看"><time>[<s:property
-												value="releaseTime" />]</time> <s:property value="title" /> </a>
-									</li>
-								</s:iterator>
-							</ul>
-						</div>
+			  -->
+			<div class="col-6" style="padding: 5px;">
+				<div class="panel panel-default">
+					<div class="panel-header">
+						新增人员(未办理)
+					</div>
+					<div class="panel-body">
+						<ul class="tlist" id="newpersons">
+						</ul>
 					</div>
 				</div>
 			</div>
-			<div class="row cl">
-				<div class="col-6" style="padding: 5px;">
-					<div class="panel panel-default">
-						<div class="panel-header">
-							成功案例
-						</div>
-						<div class="panel-body">
-							<ul class="tlist">
-								<s:iterator value="successexamples" var="successexample"
-									status="status">
-									<li class="box-1">
-										<a style="text-decoration: none" class="ml-5"
-											onclick="childPageFull('查看成功案例','successexampleAction!view?id=<s:property value="id"/>')"
-											href="javascript:;" title="查看"><time>[<s:property
-												value="releaseTime" />]</time> <s:property value="title" /> </a>
-									</li>
-								</s:iterator>
-							</ul>
 
-						</div>
+			<div class="col-6" style="padding: 5px;">
+				<div class="panel panel-default">
+					<div class="panel-header">
+						新增案件(未办理)
+					</div>
+					<div class="panel-body">
+						<ul class="tlist" id="newinjurycases">
+						</ul>
 					</div>
 				</div>
-				<div class="col-6" style="padding: 5px;">
-					<div class="panel panel-default">
-						<div class="panel-header">
-							疑难解答
-						</div>
-						<div class="panel-body">
-							<ul class="tlist">
-								<s:iterator value="troubleshootings" var="troubleshooting"
-									status="status">
-									<li class="box-1">
-										<a style="text-decoration: none" class="ml-5"
-											onclick="childPageFull('查看疑难解答','troubleshootingAction!load?troubid=<s:property value="id"/>')"
-											href="javascript:;" title="查看"> <time>[<s:property
-												value="releaseTime" />]</time> <s:property value="title" /> </a>
-									</li>
-								</s:iterator>
-							</ul>
-						</div>
+			</div>
+
+			<div class="col-6" style="padding: 5px;">
+				<div class="panel panel-default">
+					<div class="panel-header">
+						新增线索(未办理)
+					</div>
+					<div class="panel-body">
+						<ul class="tlist" id="newclues">
+						</ul>
 					</div>
 				</div>
+			</div>
 
-				<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
-				<script type="text/javascript"
-					src="lib/Validform/5.3.2/Validform.min.js"></script>
-				<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
-				<script type="text/javascript" src="lib/icheck/jquery.icheck.min.js"></script>
-				<script type="text/javascript"
-					src="lib/Highcharts/4.1.7/js/highcharts.js"></script>
-				<script type="text/javascript"
-					src="lib/Highcharts/4.1.7/js/modules/exporting.js"></script>
-				<script type="text/javascript" src="js/H-ui.js"></script>
-				<script type="text/javascript" src="js/H-ui.admin.js"></script>
-				<script type="text/javascript" src="js/breakingnews.js"></script>
-				<script type="text/javascript">
+
+			<div class="col-6" style="padding: 5px;">
+				<div class="panel panel-default">
+					<div class="panel-header">
+						新增研判信息(未办理)
+					</div>
+					<div class="panel-body">
+						<ul class="tlist" id="newjudges">
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-6" style="padding: 5px;">
+				<div class="panel panel-default">
+					<div class="panel-header">
+						成功案例
+					</div>
+					<div class="panel-body">
+						<ul class="tlist">
+							<s:iterator value="successexamples" var="successexample"
+								status="status">
+								<li class="box-1">
+									<a style="text-decoration: none" class="ml-5"
+										onclick="childPageFull('查看成功案例','successexampleAction!view?id=<s:property value="id"/>')"
+										href="javascript:;" title="查看"><time>[<s:property
+											value="releaseTime" />]</time> <s:property value="title" /> </a>
+								</li>
+							</s:iterator>
+						</ul>
+
+					</div>
+				</div>
+			</div>
+			<div class="col-6" style="padding: 5px;">
+				<div class="panel panel-default">
+					<div class="panel-header">
+						疑难解答
+					</div>
+					<div class="panel-body">
+						<ul class="tlist">
+							<s:iterator value="troubleshootings" var="troubleshooting"
+								status="status">
+								<li class="box-1">
+									<a style="text-decoration: none" class="ml-5"
+										onclick="childPageFull('查看疑难解答','troubleshootingAction!load?troubid=<s:property value="id"/>')"
+										href="javascript:;" title="查看"> <time>[<s:property
+											value="releaseTime" />]</time> <s:property value="title" /> </a>
+								</li>
+							</s:iterator>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+			<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+			<script type="text/javascript"
+				src="lib/Validform/5.3.2/Validform.min.js"></script>
+			<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
+			<script type="text/javascript" src="lib/icheck/jquery.icheck.min.js"></script>
+			<script type="text/javascript"
+				src="lib/Highcharts/4.1.7/js/highcharts.js"></script>
+			<script type="text/javascript"
+				src="lib/Highcharts/4.1.7/js/modules/exporting.js"></script>
+			<script type="text/javascript" src="js/H-ui.js"></script>
+			<script type="text/javascript" src="js/H-ui.admin.js"></script>
+			<script type="text/javascript" src="js/breakingnews.js"></script>
+			<script type="text/javascript">
 $(function(){
 $.Huitab("#tab_daiban .tabBar span","#tab_daiban .tabCon","current","click","1");
 
 $.Huitab("#tab_yanpan .tabBar span","#tab_yanpan .tabCon","current","click","1");
 });
 </script>
-				<script type="text/javascript">
+			<script type="text/javascript">
 $(function () {
     $('#container').highcharts({
         chart: {
@@ -702,7 +887,7 @@ $(function () {
 
 
 </script>
-				<script>
+			<script>
 $(function(){
 	$('#breakingnews').BreakingNews({
 		title: '通知公告',
