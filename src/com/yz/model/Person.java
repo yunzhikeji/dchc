@@ -125,7 +125,7 @@ public class Person implements java.io.Serializable {
 		return this.analyzeMan;
 	}
 
-	@Column(name = "birthday", length = 30)
+	@Column(name = "birthday")
 	public String getBirthday() {
 		return this.birthday;
 	}
@@ -163,7 +163,7 @@ public class Person implements java.io.Serializable {
 		return this.disappearMan;
 	}
 
-	@Column(name = "endSituation", length = 100)
+	@Column(name = "endSituation")
 	public String getEndSituation() {
 		return this.endSituation;
 	}
@@ -193,7 +193,7 @@ public class Person implements java.io.Serializable {
 		return this.id;
 	}
 
-	@Column(name = "IDcard", length = 50)
+	@Column(name = "IDcard")
 	public String getIdcard() {
 		return this.idcard;
 	}
@@ -203,7 +203,7 @@ public class Person implements java.io.Serializable {
 		return this.isMakeControl;
 	}
 
-	@Column(name = "joinDate", length = 30)
+	@Column(name = "joinDate")
 	public String getJoinDate() {
 		return joinDate;
 	}
@@ -223,12 +223,12 @@ public class Person implements java.io.Serializable {
 		return this.leaderInstruction;
 	}
 
-	@Column(name = "name", length = 20)
+	@Column(name = "name")
 	public String getName() {
 		return this.name;
 	}
 
-	@Column(name = "number", length = 30)
+	@Column(name = "number")
 	public String getNumber() {
 		return this.number;
 	}
@@ -243,17 +243,17 @@ public class Person implements java.io.Serializable {
 		return photoImg;
 	}
 
-	@Column(name = "qq", length = 15)
+	@Column(name = "qq")
 	public String getQq() {
 		return this.qq;
 	}
 
-	@Column(name = "registerAddress", length = 60)
+	@Column(name = "registerAddress")
 	public String getRegisterAddress() {
 		return this.registerAddress;
 	}
 
-	@Column(name = "registerAddressArea", length = 100)
+	@Column(name = "registerAddressArea")
 	public String getRegisterAddressArea() {
 		return registerAddressArea;
 	}
@@ -263,7 +263,7 @@ public class Person implements java.io.Serializable {
 		return this.sex;
 	}
 
-	@Column(name = "telphone", length = 20)
+	@Column(name = "telphone")
 	public String getTelphone() {
 		return this.telphone;
 	}
@@ -284,17 +284,17 @@ public class Person implements java.io.Serializable {
 		return this.userRole;
 	}
 
-	@Column(name = "wechat", length = 15)
+	@Column(name = "wechat")
 	public String getWechat() {
 		return this.wechat;
 	}
 
-	@Column(name = "isOutOfTime", length = 11)
+	@Column(name = "isOutOfTime")
 	public Integer getIsOutOfTime() {
 		return isOutOfTime;
 	}
 
-	@Column(name = "isNew", length = 11)
+	@Column(name = "isNew")
 	public Integer getIsNew() {
 		return isNew;
 	}

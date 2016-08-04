@@ -64,7 +64,7 @@ public class Troubleshooting implements java.io.Serializable {
 		return this.clue;
 	}
 
-	@Column(name = "flowNumber", length = 30)
+	@Column(name = "flowNumber")
 	public String getFlowNumber() {
 		return this.flowNumber;
 	}
@@ -83,7 +83,7 @@ public class Troubleshooting implements java.io.Serializable {
 		return this.injurycase;
 	}
 
-	@Column(name = "issuer", length = 30)
+	@Column(name = "issuer")
 	public String getIssuer() {
 		return this.issuer;
 	}
@@ -94,17 +94,17 @@ public class Troubleshooting implements java.io.Serializable {
 		return this.person;
 	}
 
-	@Column(name = "question", length = 255)
+	@Column(name = "question")
 	public String getQuestion() {
 		return question;
 	}
 
-	@Column(name = "releaseTime", length = 30)
+	@Column(name = "releaseTime")
 	public String getReleaseTime() {
 		return this.releaseTime;
 	}
 
-	@Column(name = "title", length = 30)
+	@Column(name = "title")
 	public String getTitle() {
 		return this.title;
 	}

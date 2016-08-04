@@ -276,7 +276,7 @@ public class ClueAction extends ActionSupport implements RequestAware,
 	 * 
 	 * @return
 	 */
-	public String deleteclues() throws Exception {
+	public String deleteClues() throws Exception {
 
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
 		for (int i = 0; i < ids.length; i++) {

@@ -47,7 +47,7 @@
 			</tr>
 			<tr height=50>
 				<td colspan=4><a
-					href="${pageContext.request.contextPath }/template/template.xls">下载导入excel模板</a>
+					href="${pageContext.request.contextPath }/template/template.xls">下载导入excel模板</a><span style="color:red;">&nbsp;注意：请下载模板，输入数据导入</span>
 				</td>
 			</tr>
 			<tr height=2>

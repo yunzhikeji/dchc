@@ -81,7 +81,7 @@ public class Otherperson implements java.io.Serializable {
 		
 	}
 
-	@Column(name = "birthday", length = 20)
+	@Column(name = "birthday")
 	public String getBirthday() {
 		return this.birthday;
 	}
@@ -92,17 +92,17 @@ public class Otherperson implements java.io.Serializable {
 		return this.clue;
 	}
 
-	@Column(name = "currentAddress", length = 255)
+	@Column(name = "currentAddress")
 	public String getCurrentAddress() {
 		return this.currentAddress;
 	}
 
-	@Column(name = "currentAddressArea", length = 255)
+	@Column(name = "currentAddressArea")
 	public String getCurrentAddressArea() {
 		return this.currentAddressArea;
 	}
 
-	@Column(name = "frontPhoto", length = 100)
+	@Column(name = "frontPhoto")
 	public String getFrontPhoto() {
 		return this.frontPhoto;
 	}
@@ -115,7 +115,7 @@ public class Otherperson implements java.io.Serializable {
 		return this.id;
 	}
 
-	@Column(name = "IDcard", length = 50)
+	@Column(name = "IDcard")
 	public String getIdcard() {
 		return this.idcard;
 	}
@@ -131,17 +131,17 @@ public class Otherperson implements java.io.Serializable {
 		return this.isArrest;
 	}
 
-	@Column(name = "leftPhoto", length = 100)
+	@Column(name = "leftPhoto")
 	public String getLeftPhoto() {
 		return this.leftPhoto;
 	}
 
-	@Column(name = "name", length = 30)
+	@Column(name = "name")
 	public String getName() {
 		return this.name;
 	}
 
-	@Column(name = "number", length = 30)
+	@Column(name = "number")
 	public String getNumber() {
 		return number;
 	}
@@ -157,22 +157,22 @@ public class Otherperson implements java.io.Serializable {
 		return this.person;
 	}
 
-	@Column(name = "qq", length = 15)
+	@Column(name = "qq")
 	public String getQq() {
 		return this.qq;
 	}
 
-	@Column(name = "registerAddress", length = 255)
+	@Column(name = "registerAddress")
 	public String getRegisterAddress() {
 		return this.registerAddress;
 	}
 
-	@Column(name = "relation", length = 30)
+	@Column(name = "relation")
 	public String getRelation() {
 		return this.relation;
 	}
 
-	@Column(name = "rightPhoto", length = 255)
+	@Column(name = "rightPhoto")
 	public String getRightPhoto() {
 		return this.rightPhoto;
 	}
@@ -182,17 +182,17 @@ public class Otherperson implements java.io.Serializable {
 		return this.sex;
 	}
 
-	@Column(name = "telphone", length = 20)
+	@Column(name = "telphone")
 	public String getTelphone() {
 		return this.telphone;
 	}
 
-	@Column(name = "wechat", length = 15)
+	@Column(name = "wechat")
 	public String getWechat() {
 		return this.wechat;
 	}
 
-	@Column(name = "workdUnit", length = 20)
+	@Column(name = "workdUnit")
 	public String getWorkdUnit() {
 		return this.workdUnit;
 	}

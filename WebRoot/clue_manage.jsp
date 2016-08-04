@@ -90,7 +90,7 @@
 									name="" onClick="">
 									<i class="Hui-iconfont">&#xe665;</i> 查询
 								</button>
-								<button type="button" class="btn btn-success" id="button"
+								<button type="button" class="btn btn-success" id="clearButton"
 									name="">
 									<i class="Hui-iconfont">&#xe66b;</i> 清空
 								</button>
@@ -103,7 +103,7 @@
 				<span class="l">
 				<s:if test="#session.userRoleo.userLimit>0">
 				<a href="javascript:;"
-					onclick="deleteAllCheckedPersons();" class="btn btn-danger radius">
+					onclick="deleteAllCheckedClues();" class="btn btn-danger radius">
 					<i
 						class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
 						

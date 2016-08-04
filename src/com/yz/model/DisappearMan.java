@@ -40,10 +40,10 @@ public class DisappearMan implements java.io.Serializable {
 	private String missingEndTime;//失踪日期范围结束
 	private String foundMissingTime;//发现失踪日期
 	private String missingCause;//
-	private Integer height;
+	private String height;
 	private String shape;
 	private String feature;
-	private Integer footLength;
+	private String footLength;
 	private String bloodType;
 	private String accent;
 	private String specificFeature;
@@ -71,8 +71,8 @@ public class DisappearMan implements java.io.Serializable {
 			String reportContactName, String reportContactTelphone,
 			String missingAddress, String missingStartTime,
 			String missingEndTime, String foundMissingTime,
-			String missingCause, Integer height, String shape, String feature,
-			Integer footLength, String bloodType, String accent,
+			String missingCause, String height, String shape, String feature,
+			String footLength, String bloodType, String accent,
 			String specificFeature,String specificFeatureCon,String bodyFeature, String dressSituation,
 			String relativeBlood, String revocateUnit, String revocateName,
 			String revocateTime, String revocateReason, Person person) {
@@ -113,12 +113,12 @@ public class DisappearMan implements java.io.Serializable {
 		this.person = person;
 	}
 
-	@Column(name = "accent", length = 20)
+	@Column(name = "accent")
 	public String getAccent() {
 		return this.accent;
 	}
 
-	@Column(name = "bloodType", length = 20)
+	@Column(name = "bloodType")
 	public String getBloodType() {
 		return this.bloodType;
 	}
@@ -128,48 +128,48 @@ public class DisappearMan implements java.io.Serializable {
 		return bodyFeature;
 	}
 
-	@Column(name = "currentAddress", length = 255)
+	@Column(name = "currentAddress")
 	public String getCurrentAddress() {
 		return currentAddress;
 	}
 
-	@Column(name = "currentAddressArea", length = 255)
+	@Column(name = "currentAddressArea")
 	public String getCurrentAddressArea() {
 		return this.currentAddressArea;
 	}
 
-	@Column(name = "DNANumber", length = 30)
+	@Column(name = "DNANumber")
 	public String getDnanumber() {
 		return this.dnanumber;
 	}
 
-	@Column(name = "dressSituation", length = 50)
+	@Column(name = "dressSituation")
 	public String getDressSituation() {
 		return this.dressSituation;
 	}
 
-	@Column(name = "feature", length = 20)
+	@Column(name = "feature")
 	public String getFeature() {
 		return this.feature;
 	}
 
 	@Column(name = "footLength")
-	public Integer getFootLength() {
+	public String getFootLength() {
 		return this.footLength;
 	}
 
-	@Column(name = "foreignName", length = 25)
+	@Column(name = "foreignName")
 	public String getForeignName() {
 		return this.foreignName;
 	}
 
-	@Column(name = "foundMissingTime", length = 30)
+	@Column(name = "foundMissingTime")
 	public String getFoundMissingTime() {
 		return this.foundMissingTime;
 	}
 
 	@Column(name = "height")
-	public Integer getHeight() {
+	public String getHeight() {
 		return this.height;
 	}
 
@@ -181,7 +181,7 @@ public class DisappearMan implements java.io.Serializable {
 		return this.id;
 	}
 
-	@Column(name = "missingAddress", length = 50)
+	@Column(name = "missingAddress")
 	public String getMissingAddress() {
 		return this.missingAddress;
 	}
@@ -191,27 +191,27 @@ public class DisappearMan implements java.io.Serializable {
 		return this.missingCause;
 	}
 
-	@Column(name = "missingEndTime", length = 30)
+	@Column(name = "missingEndTime")
 	public String getMissingEndTime() {
 		return this.missingEndTime;
 	}
 
-	@Column(name = "missingStartTime", length = 30)
+	@Column(name = "missingStartTime")
 	public String getMissingStartTime() {
 		return this.missingStartTime;
 	}
 
-	@Column(name = "nickname", length = 20)
+	@Column(name = "nickname")
 	public String getNickname() {
 		return this.nickname;
 	}
 
-	@Column(name = "otherIDName", length = 25)
+	@Column(name = "otherIDName")
 	public String getOtherIdname() {
 		return this.otherIdname;
 	}
 
-	@Column(name = "otherIDNumber", length = 50)
+	@Column(name = "otherIDNumber")
 	public String getOtherIdnumber() {
 		return this.otherIdnumber;
 	}
@@ -221,17 +221,17 @@ public class DisappearMan implements java.io.Serializable {
 		return this.person;
 	}
 
-	@Column(name = "photo1", length = 100)
+	@Column(name = "photo1")
 	public String getPhoto1() {
 		return this.photo1;
 	}
 
-	@Column(name = "photo2", length = 100)
+	@Column(name = "photo2")
 	public String getPhoto2() {
 		return this.photo2;
 	}
 
-	@Column(name = "photo3", length = 100)
+	@Column(name = "photo3")
 	public String getPhoto3() {
 		return this.photo3;
 	}
@@ -241,17 +241,17 @@ public class DisappearMan implements java.io.Serializable {
 		return this.relativeBlood;
 	}
 
-	@Column(name = "reportContactName", length = 25)
+	@Column(name = "reportContactName")
 	public String getReportContactName() {
 		return this.reportContactName;
 	}
 
-	@Column(name = "reportContactTelphone", length = 30)
+	@Column(name = "reportContactTelphone")
 	public String getReportContactTelphone() {
 		return this.reportContactTelphone;
 	}
 
-	@Column(name = "revocateName", length = 30)
+	@Column(name = "revocateName")
 	public String getRevocateName() {
 		return this.revocateName;
 	}
@@ -261,17 +261,17 @@ public class DisappearMan implements java.io.Serializable {
 		return this.revocateReason;
 	}
 
-	@Column(name = "revocateTime", length = 30)
+	@Column(name = "revocateTime")
 	public String getRevocateTime() {
 		return this.revocateTime;
 	}
 
-	@Column(name = "revocateUnit", length = 30)
+	@Column(name = "revocateUnit")
 	public String getRevocateUnit() {
 		return this.revocateUnit;
 	}
 
-	@Column(name = "shape", length = 20)
+	@Column(name = "shape")
 	public String getShape() {
 		return this.shape;
 	}
@@ -286,12 +286,12 @@ public class DisappearMan implements java.io.Serializable {
 		return specificFeatureCon;
 	}
 
-	@Column(name = "unitContactName", length = 25)
+	@Column(name = "unitContactName")
 	public String getUnitContactName() {
 		return this.unitContactName;
 	}
 
-	@Column(name = "unitContactTelphone", length = 30)
+	@Column(name = "unitContactTelphone")
 	public String getUnitContactTelphone() {
 		return this.unitContactTelphone;
 	}
@@ -328,7 +328,7 @@ public class DisappearMan implements java.io.Serializable {
 		this.feature = feature;
 	}
 
-	public void setFootLength(Integer footLength) {
+	public void setFootLength(String footLength) {
 		this.footLength = footLength;
 	}
 
@@ -340,7 +340,7 @@ public class DisappearMan implements java.io.Serializable {
 		this.foundMissingTime = foundMissingTime;
 	}
 
-	public void setHeight(Integer height) {
+	public void setHeight(String height) {
 		this.height = height;
 	}
 

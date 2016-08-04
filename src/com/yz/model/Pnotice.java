@@ -49,7 +49,7 @@ public class Pnotice implements java.io.Serializable {
 		return this.article;
 	}
 
-	@Column(name = "author",length = 30)
+	@Column(name = "author")
 	public String getAuthor() {
 		return this.author;
 	}
@@ -61,7 +61,7 @@ public class Pnotice implements java.io.Serializable {
 		return this.id;
 	}
 
-	@Column(name = "releaseTime",length = 50)
+	@Column(name = "releaseTime")
 	public String getReleaseTime() {
 		return this.releaseTime;
 	}

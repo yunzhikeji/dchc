@@ -57,12 +57,12 @@ public class CommonClue implements java.io.Serializable {
 		return this.askHelpContent;
 	}
 
-	@Column(name = "bankCard", length = 30)
+	@Column(name = "bankCard")
 	public String getBankCard() {
 		return this.bankCard;
 	}
 
-	@Column(name = "criminalRecordPhoto", length = 50)
+	@Column(name = "criminalRecordPhoto")
 	public String getCriminalRecordPhoto() {
 		return this.criminalRecordPhoto;
 	}
@@ -75,12 +75,12 @@ public class CommonClue implements java.io.Serializable {
 		return this.id;
 	}
 
-	@Column(name = "launchTime", length = 30)
+	@Column(name = "launchTime")
 	public String getLaunchTime() {
 		return this.launchTime;
 	}
 
-	@Column(name = "nickname", length = 30)
+	@Column(name = "nickname")
 	public String getNickname() {
 		return nickname;
 	}
@@ -90,12 +90,12 @@ public class CommonClue implements java.io.Serializable {
 		return this.person;
 	}
 
-	@Column(name = "registerAddressPhoto", length = 50)
+	@Column(name = "registerAddressPhoto")
 	public String getRegisterAddressPhoto() {
 		return this.registerAddressPhoto;
 	}
 
-	@Column(name = "virtualID", length = 30)
+	@Column(name = "virtualID")
 	public String getVirtualId() {
 		return this.virtualId;
 	}

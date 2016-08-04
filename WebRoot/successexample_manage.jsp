@@ -82,7 +82,7 @@
 									name="" onClick="">
 									<i class="Hui-iconfont">&#xe665;</i> 查询
 								</button>
-								<button type="button" class="btn btn-success" id="button"
+								<button type="button" class="btn btn-success" id="clearButton"
 									name="">
 									<i class="Hui-iconfont">&#xe66b;</i> 清空
 								</button>

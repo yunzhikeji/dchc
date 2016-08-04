@@ -460,8 +460,9 @@
 										</label>
 									</div>
 									<div class="col-4">
-										<s:textfield name="disappearman.foundMissingTime"
-											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+												<input type="text" name="disappearman.foundMissingTime"
+											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})"
+											id="logmin" class="input-text Wdate" style="width: 180px;" />
 									</div>
 								</div>
 								<div class="row cl mb-10">

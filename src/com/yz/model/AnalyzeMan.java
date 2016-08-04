@@ -143,7 +143,7 @@ public class AnalyzeMan implements java.io.Serializable {
 
 	
 	
-	@Column(name = "address", length = 50)
+	@Column(name = "address")
 	public String getAddress() {
 		return this.address;
 	}
@@ -153,7 +153,7 @@ public class AnalyzeMan implements java.io.Serializable {
 		return this.assistArrestWay;
 	}
 
-	@Column(name = "comeToDZTime", length = 30)
+	@Column(name = "comeToDZTime")
 	public String getComeToDztime() {
 		return this.comeToDztime;
 	}
@@ -168,7 +168,7 @@ public class AnalyzeMan implements java.io.Serializable {
 		return this.crimeBigLocation;
 	}
 
-	@Column(name = "crimeMethod", length = 45)
+	@Column(name = "crimeMethod")
 	public String getCrimeMethod() {
 		return this.crimeMethod;
 	}
@@ -203,7 +203,7 @@ public class AnalyzeMan implements java.io.Serializable {
 		return this.criminalRecordTimes;
 	}
 
-	@Column(name = "degreeEducation", length = 20)
+	@Column(name = "degreeEducation")
 	public String getDegreeEducation() {
 		return this.degreeEducation;
 	}
@@ -296,7 +296,7 @@ public class AnalyzeMan implements java.io.Serializable {
 		return this.isTemporaryResidentialUseful;
 	}
 
-	@Column(name = "lawcaseReason",length = 50)
+	@Column(name = "lawcaseReason")
 	public String getLawcaseReason() {
 		return lawcaseReason;
 	}
@@ -311,7 +311,7 @@ public class AnalyzeMan implements java.io.Serializable {
 		return nationality;
 	}
 
-	@Column(name = "nickname",length = 50)
+	@Column(name = "nickname")
 	public String getNickname() {
 		return nickname;
 	}
@@ -371,7 +371,7 @@ public class AnalyzeMan implements java.io.Serializable {
 		return this.transportationTypeGo;
 	}
 
-	@Column(name = "workdUnit", length = 20)
+	@Column(name = "workdUnit")
 	public String getWorkdUnit() {
 		return this.workdUnit;
 	}

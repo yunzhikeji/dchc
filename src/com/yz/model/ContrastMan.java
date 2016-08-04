@@ -61,17 +61,17 @@ public class ContrastMan implements java.io.Serializable {
 		this.person = person;
 	}
 
-	@Column(name = "collectionTime", length = 30)
+	@Column(name = "collectionTime")
 	public String getCollectionTime() {
 		return this.collectionTime;
 	}
 
-	@Column(name = "contrastName", length = 30)
+	@Column(name = "contrastName")
 	public String getContrastName() {
 		return this.contrastName;
 	}
 
-	@Column(name = "contrastTime", length = 30)
+	@Column(name = "contrastTime")
 	public String getContrastTime() {
 		return this.contrastTime;
 	}
@@ -81,12 +81,12 @@ public class ContrastMan implements java.io.Serializable {
 		return this.contrastType;
 	}
 
-	@Column(name = "contrastUnit", length = 30)
+	@Column(name = "contrastUnit")
 	public String getContrastUnit() {
 		return this.contrastUnit;
 	}
 
-	@Column(name = "criminalRecordPhoto", length = 50)
+	@Column(name = "criminalRecordPhoto")
 	public String getCriminalRecordPhoto() {
 		return this.criminalRecordPhoto;
 	}
@@ -96,12 +96,12 @@ public class ContrastMan implements java.io.Serializable {
 		return this.criminalRecordSituation;
 	}
 
-	@Column(name = "DNANumber", length = 50)
+	@Column(name = "DNANumber")
 	public String getDnanumber() {
 		return this.dnanumber;
 	}
 
-	@Column(name = "fingerPrintNumber", length = 50)
+	@Column(name = "fingerPrintNumber")
 	public String getFingerPrintNumber() {
 		return this.fingerPrintNumber;
 	}
@@ -124,7 +124,7 @@ public class ContrastMan implements java.io.Serializable {
 		return this.person;
 	}
 
-	@Column(name = "registerAddressPhoto", length = 50)
+	@Column(name = "registerAddressPhoto")
 	public String getRegisterAddressPhoto() {
 		return this.registerAddressPhoto;
 	}

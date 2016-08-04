@@ -22,7 +22,7 @@ public class Media {
 	private Injurycase injurycase;// 所属案件
 	private String captureSrc;
 
-	@Column(name = "descript", length = 400)
+	@Column(name = "descript")
 	public String getDescript() {
 		return descript;
 	}
@@ -45,17 +45,17 @@ public class Media {
 		return mtype;
 	}
 
-	@Column(name = "src", length = 200)
+	@Column(name = "src")
 	public String getSrc() {
 		return src;
 	}
 
-	@Column(name = "title", length = 50)
+	@Column(name = "title")
 	public String getTitle() {
 		return title;
 	}
 
-	@Column(name = "uptime", length = 40)
+	@Column(name = "uptime")
 	public String getUptime() {
 		return uptime;
 	}

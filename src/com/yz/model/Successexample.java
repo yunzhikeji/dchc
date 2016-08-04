@@ -71,7 +71,7 @@ public class Successexample implements java.io.Serializable {
 		return this.inid;
 	}
 
-	@Column(name = "number",length = 100)
+	@Column(name = "number")
 	public String getNumber() {
 		return this.number;
 	}
@@ -81,17 +81,17 @@ public class Successexample implements java.io.Serializable {
 		return this.perid;
 	}
 
-	@Column(name = "releaseName",length = 30)
+	@Column(name = "releaseName")
 	public String getReleaseName() {
 		return this.releaseName;
 	}
 
-	@Column(name = "releaseTime",length = 30)
+	@Column(name = "releaseTime")
 	public String getReleaseTime() {
 		return this.releaseTime;
 	}
 
-	@Column(name = "title",length = 100)
+	@Column(name = "title")
 	public String getTitle() {
 		return this.title;
 	}

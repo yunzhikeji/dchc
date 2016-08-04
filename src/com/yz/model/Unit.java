@@ -69,12 +69,12 @@ public class Unit implements java.io.Serializable {
 		return inids;
 	}
 
-	@Column(name = "name", length = 30)
+	@Column(name = "name")
 	public String getName() {
 		return this.name;
 	}
 
-	@Column(name = "number", length = 30)
+	@Column(name = "number")
 	public String getNumber() {
 		return this.number;
 	}
@@ -85,7 +85,7 @@ public class Unit implements java.io.Serializable {
 		return pids;
 	}
 
-	@Column(name = "superior", length = 30)
+	@Column(name = "superior")
 	public String getSuperior() {
 		return superior;
 	}

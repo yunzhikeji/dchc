@@ -124,22 +124,22 @@ public class Judge implements java.io.Serializable {
 		return this.person;
 	}
 	
-	@Column(name = "reportTime", length = 100)
+	@Column(name = "reportTime")
 	public String getReportTime() {
 		return this.reportTime;
 	}
 
-	@Column(name = "reportUnit", length = 255)
+	@Column(name = "reportUnit")
 	public String getReportUnit() {
 		return this.reportUnit;
 	}
 
-	@Column(name = "telphone", length = 30)
+	@Column(name = "telphone")
 	public String getTelphone() {
 		return this.telphone;
 	}
 
-	@Column(name = "transactor", length = 20)
+	@Column(name = "transactor")
 	public String getTransactor() {
 		return this.transactor;
 	}
@@ -149,12 +149,12 @@ public class Judge implements java.io.Serializable {
 		return this.jtype;
 	}
 	
-	@Column(name = "deadline", length = 100)
+	@Column(name = "deadline")
 	public String getDeadline() {
 		return deadline;
 	}
 	
-	@Column(name = "isNew", length = 11)
+	@Column(name = "isNew")
 	public Integer getIsNew() {
 		return isNew;
 	}

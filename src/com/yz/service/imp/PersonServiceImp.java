@@ -432,7 +432,6 @@ public class PersonServiceImp implements IPersonService {
 		for (String id : ids) {
 			newIDs = newIDs + id + ",";
 		}
-		System.out.println(newIDs);
 		return newIDs;
 	}
 

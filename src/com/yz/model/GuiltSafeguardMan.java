@@ -54,17 +54,17 @@ public class GuiltSafeguardMan implements java.io.Serializable {
 		this.person = person;
 	}
 
-	@Column(name = "criminalRecordPhoto1", length = 255)
+	@Column(name = "criminalRecordPhoto1")
 	public String getCriminalRecordPhoto1() {
 		return this.criminalRecordPhoto1;
 	}
 
-	@Column(name = "criminalRecordPhoto2", length = 255)
+	@Column(name = "criminalRecordPhoto2")
 	public String getCriminalRecordPhoto2() {
 		return this.criminalRecordPhoto2;
 	}
 
-	@Column(name = "criminalRecordPhoto3", length = 255)
+	@Column(name = "criminalRecordPhoto3")
 	public String getCriminalRecordPhoto3() {
 		return this.criminalRecordPhoto3;
 	}
@@ -77,12 +77,12 @@ public class GuiltSafeguardMan implements java.io.Serializable {
 		return this.id;
 	}
 
-	@Column(name = "launchTime", length = 30)
+	@Column(name = "launchTime")
 	public String getLaunchTime() {
 		return this.launchTime;
 	}
 
-	@Column(name = "location", length = 255)
+	@Column(name = "location")
 	public String getLocation() {
 		return this.location;
 	}
@@ -92,12 +92,12 @@ public class GuiltSafeguardMan implements java.io.Serializable {
 		return this.person;
 	}
 
-	@Column(name = "temporaryAddress", length = 255)
+	@Column(name = "temporaryAddress")
 	public String getTemporaryAddress() {
 		return this.temporaryAddress;
 	}
 
-	@Column(name = "workdUnit", length = 50)
+	@Column(name = "workdUnit")
 	public String getWorkdUnit() {
 		return this.workdUnit;
 	}

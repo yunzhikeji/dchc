@@ -110,7 +110,7 @@ public class Injurycase implements java.io.Serializable {
 
 	/** full constructor */
 
-	@Column(name = "appraiser", length = 20)
+	@Column(name = "appraiser")
 	public String getAppraiser() {
 		return this.appraiser;
 	}
@@ -125,22 +125,22 @@ public class Injurycase implements java.io.Serializable {
 		return caseIds;
 	}
 
-	@Column(name = "caseName", length = 30)
+	@Column(name = "caseName")
 	public String getCaseName() {
 		return this.caseName;
 	}
 
-	@Column(name = "caseNumber", length = 30)
+	@Column(name = "caseNumber")
 	public String getCaseNumber() {
 		return this.caseNumber;
 	}
 
-	@Column(name = "casePlace", length = 100)
+	@Column(name = "casePlace")
 	public String getCasePlace() {
 		return casePlace;
 	}
 
-	@Column(name = "caseType", length = 30)
+	@Column(name = "caseType")
 	public String getCaseType() {
 		return this.caseType;
 	}
@@ -150,22 +150,22 @@ public class Injurycase implements java.io.Serializable {
 		return comprehensiveJudge;
 	}
 
-	@Column(name = "endSituation", length = 100)
+	@Column(name = "endSituation")
 	public String getEndSituation() {
 		return this.endSituation;
 	}
 
-	@Column(name = "fillName", length = 20)
+	@Column(name = "fillName")
 	public String getFillName() {
 		return this.fillName;
 	}
 
-	@Column(name = "fillTime", length = 30)
+	@Column(name = "fillTime")
 	public String getFillTime() {
 		return this.fillTime;
 	}
 
-	@Column(name = "fillUnit", length = 30)
+	@Column(name = "fillUnit")
 	public String getFillUnit() {
 		return this.fillUnit;
 	}
@@ -208,7 +208,7 @@ public class Injurycase implements java.io.Serializable {
 		return itype;
 	}
 
-	@Column(name = "joinDate", length = 30)
+	@Column(name = "joinDate")
 	public String getJoinDate() {
 		return joinDate;
 	}
@@ -243,12 +243,12 @@ public class Injurycase implements java.io.Serializable {
 		return pids;
 	}
 
-	@Column(name = "startTime", length = 30)
+	@Column(name = "startTime")
 	public String getStartTime() {
 		return startTime;
 	}
 
-	@Column(name = "telphone", length = 30)
+	@Column(name = "telphone")
 	public String getTelphone() {
 		return this.telphone;
 	}
@@ -264,12 +264,12 @@ public class Injurycase implements java.io.Serializable {
 		return this.userRole;
 	}
 
-	@Column(name = "isOutOfTime", length = 11)
+	@Column(name = "isOutOfTime")
 	public Integer getIsOutOfTime() {
 		return isOutOfTime;
 	}
 
-	@Column(name = "isNew", length = 11)
+	@Column(name = "isNew")
 	public Integer getIsNew() {
 		return isNew;
 	}

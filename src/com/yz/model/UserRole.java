@@ -70,7 +70,7 @@ public class UserRole implements java.io.Serializable {
 	}
 
 	
-	@Column(name = "beforeLoginTime", length = 50)
+	@Column(name = "beforeLoginTime")
 	public String getBeforeLoginTime() {
 		return beforeLoginTime;
 	}
@@ -81,7 +81,7 @@ public class UserRole implements java.io.Serializable {
 	}
 	
 	
-	@Column(name = "currentLoginTime", length = 50)
+	@Column(name = "currentLoginTime")
 	public String getCurrentLoginTime() {
 		return currentLoginTime;
 	}
@@ -99,7 +99,7 @@ public class UserRole implements java.io.Serializable {
 		return this.injurycases;
 	}
 
-	@Column(name = "number", length = 30)
+	@Column(name = "number")
 	public String getNumber() {
 		return this.number;
 	}
@@ -114,7 +114,7 @@ public class UserRole implements java.io.Serializable {
 		return this.persons;
 	}
 
-	@Column(name = "photo", length = 30)
+	@Column(name = "photo")
 	public String getPhoto() {
 		return this.photo;
 	}
@@ -124,7 +124,7 @@ public class UserRole implements java.io.Serializable {
 		return pnotices;
 	}
 
-	@Column(name = "realname", length = 30)
+	@Column(name = "realname")
 	public String getRealname() {
 		return this.realname;
 	}
@@ -134,7 +134,7 @@ public class UserRole implements java.io.Serializable {
 		return sex;
 	}
 
-	@Column(name = "telphone", length = 30)
+	@Column(name = "telphone")
 	public String getTelphone() {
 		return this.telphone;
 	}
@@ -150,7 +150,7 @@ public class UserRole implements java.io.Serializable {
 		return userLimit;
 	}
 
-	@Column(name = "username", length = 30)
+	@Column(name = "username")
 	public String getUsername() {
 		return this.username;
 	}

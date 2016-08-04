@@ -79,62 +79,62 @@ public class GamblingCriminalMan implements java.io.Serializable {
 		this.person = person;
 	}
 
-	@Column(name = "bankCard", length = 30)
+	@Column(name = "bankCard")
 	public String getBankCard() {
 		return this.bankCard;
 	}
 
-	@Column(name = "carFrameNumber", length = 30)
+	@Column(name = "carFrameNumber")
 	public String getCarFrameNumber() {
 		return this.carFrameNumber;
 	}
 
-	@Column(name = "carLicenseNumber", length = 30)
+	@Column(name = "carLicenseNumber")
 	public String getCarLicenseNumber() {
 		return this.carLicenseNumber;
 	}
 
-	@Column(name = "casinoRole", length = 25)
+	@Column(name = "casinoRole")
 	public String getCasinoRole() {
 		return this.casinoRole;
 	}
 
-	@Column(name = "currentAddress", length = 50)
+	@Column(name = "currentAddress")
 	public String getCurrentAddress() {
 		return this.currentAddress;
 	}
 
-	@Column(name = "currentAddressArea", length = 50)
+	@Column(name = "currentAddressArea")
 	public String getCurrentAddressArea() {
 		return this.currentAddressArea;
 	}
 
-	@Column(name = "DNANumber", length = 50)
+	@Column(name = "DNANumber")
 	public String getDnanumber() {
 		return this.dnanumber;
 	}
 
-	@Column(name = "engineNumber", length = 30)
+	@Column(name = "engineNumber")
 	public String getEngineNumber() {
 		return this.engineNumber;
 	}
 
-	@Column(name = "equivocation", length = 20)
+	@Column(name = "equivocation")
 	public String getEquivocation() {
 		return this.equivocation;
 	}
 
-	@Column(name = "fingerPrintNumber", length = 50)
+	@Column(name = "fingerPrintNumber")
 	public String getFingerPrintNumber() {
 		return this.fingerPrintNumber;
 	}
 
-	@Column(name = "footPrintNumber", length = 50)
+	@Column(name = "footPrintNumber")
 	public String getFootPrintNumber() {
 		return this.footPrintNumber;
 	}
 
-	@Column(name = "gambleType", length = 20)
+	@Column(name = "gambleType")
 	public String getGambleType() {
 		return this.gambleType;
 	}
@@ -147,12 +147,12 @@ public class GamblingCriminalMan implements java.io.Serializable {
 		return this.id;
 	}
 
-	@Column(name = "IMEI", length = 30)
+	@Column(name = "IMEI")
 	public String getImei() {
 		return this.imei;
 	}
 
-	@Column(name = "infoExtraction", length = 100)
+	@Column(name = "infoExtraction")
 	public String getInfoExtraction() {
 		return this.infoExtraction;
 	}
@@ -167,12 +167,12 @@ public class GamblingCriminalMan implements java.io.Serializable {
 		return this.isDrugRelated;
 	}
 
-	@Column(name = "nickname", length = 25)
+	@Column(name = "nickname")
 	public String getNickname() {
 		return this.nickname;
 	}
 
-	@Column(name = "otherID", length = 30)
+	@Column(name = "otherID")
 	public String getOtherId() {
 		return this.otherId;
 	}
@@ -182,7 +182,7 @@ public class GamblingCriminalMan implements java.io.Serializable {
 		return this.person;
 	}
 
-	@Column(name = "virtualID", length = 30)
+	@Column(name = "virtualID", length = 50)
 	public String getVirtualId() {
 		return this.virtualId;
 	}
