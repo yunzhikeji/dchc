@@ -187,8 +187,8 @@
 										</label>
 									</div>
 									<div class="col-11">
-										<s:textfield name="clue.carryTool"
-											cssClass="input-text radius size-M " cssStyle="width: 80%;"></s:textfield>
+										<s:textarea name="clue.carryTool"
+											cssClass="input-text radius size-M " cssStyle="width: 80%;"></s:textarea>
 										多个物品请输入&quot;,&quot;隔开
 									</div>
 								</div>

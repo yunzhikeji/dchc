@@ -266,10 +266,10 @@
 											</label>
 										</div>
 										<div class="col-10">
-											<s:textfield name="injurycase.injuryAssess"
+											<s:textarea name="injurycase.injuryAssess"
 												cssClass="input-text" id="input9"
 												cssStyle="width: 100%; height: 80px; float: left;"
-												placeholder="伤势评估"></s:textfield>
+												placeholder="伤势评估"></s:textarea>
 										</div>
 									</div>
 								</s:if>
