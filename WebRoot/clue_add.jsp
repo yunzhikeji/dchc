@@ -147,10 +147,10 @@
 										</label>
 									</div>
 									<div class="col-10">
-										<s:textfield name="clue.clueMessage"
+										<s:textarea name="clue.clueMessage"
 											cssClass="input-text" id="input9"
 											cssStyle="width: 100%; height: 80px; float: left;"
-											placeholder="线索内容"></s:textfield>
+											placeholder="线索内容"></s:textarea>
 									</div>
 								</div>
 							</div>

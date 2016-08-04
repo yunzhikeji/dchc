@@ -334,7 +334,7 @@
 										</label>
 									</div>
 									<div class="col-4">
-										<input type="text" name="person.birthday"
+										<input type="text" name="person.birthday" value="<s:property value="person.birthday"/>"
 											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})"
 											id="logmin" class="input-text Wdate" style="width: 200px;">
 									</div>
@@ -446,11 +446,11 @@
 										</label>
 									</div>
 									<div class="col-4">
-										<input type="text" name="disappearman.missingStartTime"
+										<input type="text" name="disappearman.missingStartTime" value="<s:property value="disappearman.missingStartTime"/>"
 											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})"
 											id="logmin" class="input-text Wdate" style="width: 180px;" />
 										-
-										<input type="text" name="disappearman.missingEndTime"
+										<input type="text" name="disappearman.missingEndTime" value="<s:property value="disappearman.missingEndTime"/>"
 											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})"
 											id="logmin" class="input-text Wdate" style="width: 180px;" />
 									</div>
@@ -460,7 +460,7 @@
 										</label>
 									</div>
 									<div class="col-4">
-												<input type="text" name="disappearman.foundMissingTime"
+												<input type="text" name="disappearman.foundMissingTime" value="<s:property value="disappearman.foundMissingTime"/>"
 											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})"
 											id="logmin" class="input-text Wdate" style="width: 180px;" />
 									</div>
@@ -1005,6 +1005,11 @@ function article_save(obj,id){
 				<s:if test="person.userRole!=null">
 					<s:hidden name="person.userRole.id" title="人员子表userRoleid"></s:hidden>
 				</s:if>
+				
+				<s:hidden name="disappearman.photo1" ></s:hidden>
+				<s:hidden name="disappearman.photo2" ></s:hidden>
+				<s:hidden name="disappearman.photo3" ></s:hidden>
+				
 				<s:hidden name="person.photoImg" title="人员照片"></s:hidden>
 				<s:hidden name="person.handleState" title="办理状态"></s:hidden>
 				<s:hidden name="person.joinDate" title="录入时间"></s:hidden>
