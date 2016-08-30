@@ -155,7 +155,7 @@
 				</div>
 				<div class="row cl">
 					<label class="form-label col-2">
-						报送时间：
+						报送时间：<span style="color:red">(12个小时内未处理将自动记为超时办理)</span>
 					</label>
 					<span class="form-label col-3"> <span
 						class="formControls col-12"> <input type="text"
@@ -174,17 +174,6 @@
 						class="formControls col-12"> <s:textfield
 								cssClass="input-text" placeholder="顺序" id="indexNumber"
 								name="judge.indexNumber" cssStyle="width: 200px;"></s:textfield>
-					</span> </span>
-				</div>
-				<div class="row cl">
-					<label class="form-label col-2">
-						截止时间：
-					</label>
-					<span class="form-label col-3"> <span
-						class="formControls col-12"> <input type="text"
-								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',readOnly:true})"
-								class="input-text Wdate"
-								value="<s:property value="judge.deadline"/>" readonly="readonly">
 					</span> </span>
 				</div>
 				<div class="row cl">

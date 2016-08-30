@@ -270,9 +270,7 @@ public class JudgeServiceImp implements IJudgeService {
 					injurycaseDao.update(injurycase);
 				}
 			}
-
 		}
-
 	}
 
 	public void doJob() {
@@ -292,7 +290,7 @@ public class JudgeServiceImp implements IJudgeService {
 				// TODO Auto-generated catch block
 				System.out.println("时间比较异常");
 			}
-			if (daysBetween > 0) {
+			if (daysBetween > 12) {
 			//2：如果超期进行超期处理
 				// 获得研判下发的部门
 				String units = judge.getReportUnit().replace(" ", "");

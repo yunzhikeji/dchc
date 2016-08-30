@@ -27,7 +27,7 @@ public class Judge implements java.io.Serializable {
 	private String reportUnit;//报送部门（多个以，隔开）
 	private String reportTime;//上报时间
 	private String transactor;//上报人（承办人）
-	private String deadline;//截止时间
+	private String deadline;//开始时间
 	private String telphone;//联系方式
 	private String judgeRequirement;//研判要求
 	private Integer indexNumber;//序号（表示研判顺序）

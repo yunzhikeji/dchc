@@ -803,7 +803,6 @@ function article_save(obj,id){
 </script>
 				<s:hidden name="injurycase.imageCase" title="案件图片"></s:hidden>
 				<s:hidden name="injurycase.isCanvas" title="水印"></s:hidden>
-				<s:hidden name="injurycase.pids" title="pids"></s:hidden>
 				<s:hidden name="injurycase.caseIds" title="caseIds"></s:hidden>
 				<s:hidden name="injurycase.isOutOfTime" title="是否超期办理"></s:hidden>
 				<s:hidden name="injurycase.isNew" value="0"></s:hidden>

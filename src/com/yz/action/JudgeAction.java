@@ -35,6 +35,7 @@ import com.yz.service.IJudgeService;
 import com.yz.service.IPersonService;
 import com.yz.service.IUnitService;
 import com.yz.service.IUserRoleService;
+import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
 import com.yz.vo.ClueVO;
 import com.yz.vo.JudgeVO;
@@ -170,6 +171,7 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 			setUnitCids(userRoleo, judge);
 
 		}
+		judge.setDeadline(DateTimeKit.getLocalDate());
 		judge.setIsNew(1);
 		judgeService.add(judge);
 		return "success_child";

@@ -90,6 +90,13 @@
   </div>
   <div class="row cl mb-10">
      <div class="col-2" >
+    <label class="form-label text-r">身份证号：</label></div>
+     <div class="col-10" >
+      <s:textfield id="userRoleCardid" cssClass="input-text radius size-M" cssStyle="width:200px;" name="userRole.cardid"  ></s:textfield>
+     </div>
+  </div>
+  <div class="row cl mb-10">
+     <div class="col-2" >
     <label class="form-label text-r">电话：</label></div>
      <div class="col-10" >
       <s:textfield id="userRoleTelphone" cssClass="input-text radius size-M" cssStyle="width:200px;" name="userRole.telphone"  ></s:textfield>

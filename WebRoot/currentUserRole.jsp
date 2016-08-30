@@ -161,6 +161,17 @@
 				</div>
 				<div class="row cl">
 					<label class="form-label col-4">
+						<span class="c-red"> </span>身份证号：
+					</label>
+					<div class="formControls col-4">
+						<s:textfield id="cardid" name="userRole.cardid"
+							cssClass="input-text radius size-M "></s:textfield>
+					</div>
+					<div class="col-4">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-4">
 						联系方式：
 					</label>
 					<div class="formControls col-4">

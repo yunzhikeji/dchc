@@ -38,6 +38,7 @@ public class UserRole implements java.io.Serializable {
 	private Integer sex;//性别
 	private String beforeLoginTime;
 	private String currentLoginTime;
+	private String cardid;//身份证
 	private List<Person> persons = new ArrayList<Person>();//录入的人员信息
 	private List<Injurycase> injurycases = new ArrayList<Injurycase>();//录入的重伤案件信息
 	private List<Clue> clues = new ArrayList<Clue>();//录入的刑侦线索信息
@@ -50,7 +51,7 @@ public class UserRole implements java.io.Serializable {
 
 	/** full constructor */
 	public UserRole(Unit unit, String username, String password, String telphone,
-			String number, String realname, String photo, List<Person> persons,Integer userLimit,Integer sex,String beforeLoginTime,String currentLoginTime,
+			String number, String realname, String photo,String cardid, List<Person> persons,Integer userLimit,Integer sex,String beforeLoginTime,String currentLoginTime,
 			List<Injurycase> injurycases, List<Clue> clues, List<Pnotice> pnotices) {
 		this.unit = unit;
 		this.username = username;
@@ -67,6 +68,7 @@ public class UserRole implements java.io.Serializable {
 		this.injurycases = injurycases;
 		this.clues = clues;
 		this.pnotices = pnotices;
+		this.cardid = cardid;
 	}
 
 	
@@ -153,6 +155,15 @@ public class UserRole implements java.io.Serializable {
 	@Column(name = "username")
 	public String getUsername() {
 		return this.username;
+	}
+	
+	@Column(name = "cardid")
+	public String getCardid() {
+		return cardid;
+	}
+
+	public void setCardid(String cardid) {
+		this.cardid = cardid;
 	}
 
 	public void setBeforeLoginTime(String beforeLoginTime) {

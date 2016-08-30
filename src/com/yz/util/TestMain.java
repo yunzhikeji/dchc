@@ -27,16 +27,12 @@ public class TestMain {
 		boolean isTrue = (msg==",");
 		System.out.println(isTrue);*/
 		
-		String msg = "德城区一分局,德城区二分局 ,德城区三分局 ,德城区四分局 ".replace(" ", "");
+		String nowDay = DateTimeKit.getLocalDate();
+		String deadline = "2016-8-12";
 		
-		String[] names = msg.split(",");
+		int daysBetween = DateTimeKit.daysBetween(deadline, nowDay);
 		
-		for (int i = 0; i < names.length; i++) {
-			System.out.print(names[i]);
-			
-			
-		}
-		
+		System.out.println(daysBetween);
 		
 	}
 	
