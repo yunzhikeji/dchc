@@ -5,7 +5,7 @@
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:cxf="http://cxf.apache.org/core"
-	xmlns:jaxws="http://cxf.apache.org/jaxws" 
+	xmlns:jaxws="http://cxf.apache.org/jaxws"
 	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
@@ -25,23 +25,28 @@
 	<context:annotation-config />
 	<context:component-scan base-package="com.yz" />
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
-	
+
 	<!-- 服务已经由compent自动注入,显然是不行滴 -->
-	<bean id="judgeService" class="com.yz.service.imp.JudgeServiceImp"></bean>
+	<bean id="judgeService"
+		class="com.yz.service.imp.JudgeServiceImp">
+	</bean>
 
 	<!-- 要做的工作 -->
-	<bean id="helloJob" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+	<bean id="helloJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
 		<property name="targetObject" ref="judgeService"></property>
 		<property name="targetMethod" value="doJob"></property>
 	</bean>
 	<!-- 调度工作 -->
-	<bean id="cronUserTigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	<bean id="cronUserTigger"
+		class="org.springframework.scheduling.quartz.CronTriggerBean">
 		<property name="jobDetail" ref="helloJob"></property>
 		<property name="cronExpression" value="0 25 12 * * ? "></property>
 	</bean>
-	
+
 	<!-- 启动工作 -->
-	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	<bean
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
 				<ref bean="cronUserTigger"></ref>
@@ -49,13 +54,31 @@
 		</property>
 	</bean>
 
+
+	<!-- 将多个配置文件位置放到列表中 -->
+	<bean id="propertyResources" class="java.util.ArrayList">
+		<constructor-arg>
+			<list>
+				<value>classpath:jdbc.properties</value>
+				<value>classpath:message.properties</value>
+			</list>
+		</constructor-arg>
+	</bean>
+
 	<bean
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-		<property name="locations">
-			<value>classpath:jdbc.properties</value>
-		</property>
+		<property name="locations" ref="propertyResources" />
 	</bean>
-	
+
+	<bean id="authObject" destroy-method="close"
+		class="com.yz.auth.AuthObject">
+		<property name="authURL" value="${authURL}" />
+		<property name="appId" value="${appId}" />
+		<property name="attrType" value="${attrType}" />
+		<property name="attributes" value="${attributes}" />
+	</bean>
+
+
 	<bean id="dataSource" destroy-method="close"
 		class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName"
@@ -64,28 +87,32 @@
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
 		<property name="maxWait" value="${jdbc.maxWait}" />
-        <property name="initialSize" value="${jdbc.initialSize}" />
-        <property name="maxActive" value="${jdbc.maxActive}" />
-        <property name="maxIdle" value="${jdbc.maxIdle}" />
-		<property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}"/> 
-		<property name="validationQuery" value="${jdbc.validationQuery}" />
+		<property name="initialSize" value="${jdbc.initialSize}" />
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<property name="maxIdle" value="${jdbc.maxIdle}" />
+		<property name="minEvictableIdleTimeMillis"
+			value="${jdbc.minEvictableIdleTimeMillis}" />
+		<property name="validationQuery"
+			value="${jdbc.validationQuery}" />
 		<property name="testWhileIdle" value="${jdbc.testWhileIdle}" />
-		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}" />
-		<property name="numTestsPerEvictionRun" value="${jdbc.numTestsPerEvictionRun}" />
-		<property name="removeAbandoned" value="${jdbc.removeAbandoned}" />
-        <property name="removeAbandonedTimeout" value="${jdbc.removeAbandonedTimeout}" />
-		
+		<property name="timeBetweenEvictionRunsMillis"
+			value="${jdbc.timeBetweenEvictionRunsMillis}" />
+		<property name="numTestsPerEvictionRun"
+			value="${jdbc.numTestsPerEvictionRun}" />
+		<property name="removeAbandoned"
+			value="${jdbc.removeAbandoned}" />
+		<property name="removeAbandonedTimeout"
+			value="${jdbc.removeAbandonedTimeout}" />
 	</bean>
-	
-	
+
+
 
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		 <property name="packagesToScan">
+		<property name="packagesToScan">
 			<list>
 				<value>com.yz.model</value>
-				
 			</list>
 		</property>
 		<property name="hibernateProperties">
@@ -99,8 +126,9 @@
 			</props>
 		</property>
 	</bean>
-	
-	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+
+	<bean id="hibernateTemplate"
+		class="org.springframework.orm.hibernate3.HibernateTemplate">
 		<property name="sessionFactory" ref="sessionFactory"></property>
 	</bean>
 
@@ -118,10 +146,10 @@
 
 	<tx:advice id="txAdvice" transaction-manager="txManager">
 		<tx:attributes>
-			<tx:method name="add*" propagation="REQUIRED"/>
-			<tx:method name="update*" propagation="REQUIRED"/>
-			<tx:method name="delete*" propagation="REQUIRED"/>
-			<tx:method name="process*" propagation="REQUIRED"/>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="process*" propagation="REQUIRED" />
 		</tx:attributes>
 	</tx:advice>
 </beans>

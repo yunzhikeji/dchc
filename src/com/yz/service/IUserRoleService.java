@@ -41,4 +41,6 @@ public interface IUserRoleService {
 
 	public abstract UserRole getUserRoleById(Integer id);
 
+	public abstract UserRole userRolelogin(String cardid);
+
 }

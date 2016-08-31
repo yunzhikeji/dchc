@@ -128,6 +128,12 @@ public class UserRoleServiceImp implements IUserRoleService {
 	public UserRole getUserRoleById(Integer id) {
 		// TODO Auto-generated method stub
 		return userRoleDao.getUserRoleById(id);
+	}
+	public UserRole userRolelogin(String cardid) {
+		String queryString="from UserRole mo where mo.cardid=:cardid";
+		String[] paramNames=new String[]{"cardid"};
+		Object[] values=new Object[]{cardid};
+		return userRoleDao.queryByNamedParam(queryString,paramNames,values);
 	} 
 	
 	//webservice部分
