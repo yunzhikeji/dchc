@@ -240,16 +240,18 @@ public class PersonServiceImp implements IPersonService {
 				Person person = new Person();
 				// 实例化PO对象，用PO对象进行保存
 				SocialMan socialMan = new SocialMan();
-				// 人员编号 姓名 出生日期 QQ 微信号 身份证号 户籍地址 户籍区域
+				// "人员编号","姓名","性别","出生日期","QQ","微信号","身份证号","户籍地址","现住地详址","人员分类","头像照"
 				person.setNumber(data[0].toString());
 				person.setName(data[1].toString());
-				person.setBirthday(data[2].toString());
-				person.setQq(data[3].toString());
-				person.setWechat(data[4].toString());
-				person.setIdcard(data[5].toString());
-				person.setRegisterAddress(data[6].toString());
-				person.setRegisterAddressArea(data[7].toString());
-				person.setType(15);
+				person.setSex(Integer.valueOf((data[2])));
+				person.setBirthday(data[3].toString());
+				person.setQq(data[4].toString());
+				person.setWechat(data[5].toString());
+				person.setIdcard(data[6].toString());
+				person.setRegisterAddress(data[7].toString());
+				person.setRegisterAddressArea(data[8].toString());
+				person.setType(Integer.valueOf(data[9]));
+				person.setPhotoImg(data[10].toString());
 				person.setSocialMan(socialMan);
 				socialManDao.save(socialMan);
 				int pid = personDao.savereturn(person);
