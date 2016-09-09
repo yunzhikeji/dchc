@@ -48,7 +48,6 @@ public class Injurycase implements java.io.Serializable {
 	private Integer itype;
 	private String imageCase; // 案件图片
 	private Integer isCanvas; // 水印
-	private String pids; // pids
 	private String caseIds; // caseIds
 	private Integer isRelated; // 是否已串并案
 	private String casePlace;// 案发地点
@@ -72,7 +71,7 @@ public class Injurycase implements java.io.Serializable {
 			List<Troubleshooting> troubleshootings, List<Judge> judges,
 			List<Media> medias, String joinDate, Integer handleState,
 			Integer isNew, Integer itype, String imageCase, Integer isCanvas,
-			String pids, Integer isOutOfTime, String caseIds,
+			Integer isOutOfTime, String caseIds,
 			Integer isRelated, String casePlace, String startTime, String series) {
 		this.id = id;
 		this.userRole = userRole;
@@ -98,7 +97,6 @@ public class Injurycase implements java.io.Serializable {
 		this.itype = itype;
 		this.imageCase = imageCase;
 		this.isCanvas = isCanvas;
-		this.pids = pids;
 		this.caseIds = caseIds;
 		this.isRelated = isRelated;
 		this.casePlace = casePlace;
@@ -238,11 +236,6 @@ public class Injurycase implements java.io.Serializable {
 		return this.otherpersons;
 	}
 
-	@Column(name = "pids")
-	public String getPids() {
-		return pids;
-	}
-
 	@Column(name = "startTime")
 	public String getStartTime() {
 		return startTime;
@@ -380,10 +373,6 @@ public class Injurycase implements java.io.Serializable {
 
 	public void setOtherpersons(List<Otherperson> otherpersons) {
 		this.otherpersons = otherpersons;
-	}
-
-	public void setPids(String pids) {
-		this.pids = pids;
 	}
 
 	public void setStartTime(String startTime) {

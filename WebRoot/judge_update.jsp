@@ -208,7 +208,7 @@
 					</span> </span>
 				</div>
 				<s:if test="judge.jtype!=3">
-					<s:if test='%{#session.userRoleo.unit.number == "技术中队"}'>
+					<s:if test='%{#session.userRoleo.unit.number == "371402180222"}'>
 						<div class="row cl">
 							<label class="form-label col-2">
 								刑技
@@ -246,7 +246,7 @@
 							<s:hidden name="judge.imageJudge"></s:hidden>
 						</div>
 					</s:if>
-					<s:if test='%{#session.userRoleo.unit.number == "371402060000"}'>
+					<s:if test='%{#session.userRoleo.unit.number == "371402060111"}'>
 						<div class="row cl">
 							<label class="form-label col-2">
 								情报
@@ -265,7 +265,7 @@
 							<s:hidden name="judge.imageJudge"></s:hidden>
 						</div>
 					</s:if>
-					<s:if test='%{#session.userRoleo.unit.number == "图像侦查"}'>
+					<s:if test='%{#session.userRoleo.unit.number == "371402180111"}'>
 						<div class="row cl">
 							<label class="form-label col-2">
 								图像

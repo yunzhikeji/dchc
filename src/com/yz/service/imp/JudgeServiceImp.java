@@ -305,25 +305,25 @@ public class JudgeServiceImp implements IJudgeService {
 					Unit unit = unitDao.queryByNamedParam(queryStringUnit,
 							paramNames, values);
 					if (unit != null) {
-						if (unit.getNumber().equals("DC001")) {
+						if (unit.getNumber().equals("371402180222")) {
 							if (judge.getCriminalJudge() == null
 									|| judge.getCriminalJudge()
 											.replace(" ", "").equals("")) {
 								handleOutOfTime(judge);
 							}
-						} else if (unit.getNumber().equals("DC002")) {
+						} else if (unit.getNumber().equals("371402020000")) {
 							if (judge.getIntelligenceJudge() == null
 									|| judge.getIntelligenceJudge().replace(
 											" ", "").equals("")) {
 								handleOutOfTime(judge);
 							}
-						} else if (unit.getNumber().equals("DC003")) {
+						} else if (unit.getNumber().equals("371402060111")) {
 							if (judge.getImageJudge() == null
 									|| judge.getImageJudge().replace(" ", "")
 											.equals("")) {
 								handleOutOfTime(judge);
 							}
-						} else if (unit.getNumber().equals("DC004")) {
+						} else if (unit.getNumber().equals("371402180111")) {
 							if (judge.getNetworkJudge() == null
 									|| judge.getNetworkJudge().replace(" ", "")
 											.equals("")) {

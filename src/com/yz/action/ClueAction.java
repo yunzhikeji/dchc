@@ -391,12 +391,16 @@ public class ClueAction extends ActionSupport implements RequestAware,
 
 		if (persons != null && persons.size() > 0) {
 			for (Person person : persons) {
-				ClueVO clueVO = new ClueVO();
-				clueVO.setId(person.getId());
-				clueVO.setName(person.getName());
-				clueVO.setJoinDate(person.getJoinDate());
-				clueVO.setType(1);
-				clueVOs.add(clueVO);
+				
+				if(person.getType()==14)
+				{
+					ClueVO clueVO = new ClueVO();
+					clueVO.setId(person.getId());
+					clueVO.setName(person.getName());
+					clueVO.setJoinDate(person.getJoinDate());
+					clueVO.setType(1);
+					clueVOs.add(clueVO);
+				}
 			}
 		}
 

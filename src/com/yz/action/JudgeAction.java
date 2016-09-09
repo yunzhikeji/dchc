@@ -124,9 +124,9 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 			for (Unit unit : units) {
 
 				String number = unit.getNumber().replace(" ", "");
-
-				if (number.equals("DC001") || number.equals("DC002")
-						|| number.equals("DC003") || number.equals("DC004")) {
+				
+				if (number.equals("371402180222") || number.equals("371402020000")
+						|| number.equals("371402060111") || number.equals("371402180111")) {
 					unitVO = new UnitVO();
 					unitVO.setId(unit.getId());
 					unitVO.setName(unit.getName());
