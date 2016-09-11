@@ -27,12 +27,14 @@ public class TestMain {
 		boolean isTrue = (msg==",");
 		System.out.println(isTrue);*/
 		
-		String nowDay = DateTimeKit.getLocalDate();
-		String deadline = "2016-8-12";
+		String text = "CN=许金凯 230126198992280610, OU=00,";
 		
-		int daysBetween = DateTimeKit.daysBetween(deadline, nowDay);
+		int beginIndex = text.indexOf(" ")+1;
+		int endIndex = text.indexOf(",");
+		String cardid = text.substring(beginIndex, endIndex);// 获取身份证
 		
-		System.out.println(daysBetween);
+		System.out.println(cardid);
+		System.out.println("320282198812272279");
 		
 	}
 	

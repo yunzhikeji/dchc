@@ -99,8 +99,9 @@ function checkIsUp(){
 	 return true;
  }
  </script>
-		<object id="JITDSignOcx" codeBase="./JITComVCTK_S.cab#version=2,1,0,3"
-			classid="clsid:B0EF56AD-D711-412D-BE74-A751595F3633"></object>
+		<object classid="clsid:707C7D52-85A8-4584-8954-573EFCE77488"
+	id="JITDSignOcx" width="0" codebase="./JITComVCTK.cab#version=2,0,24,40"></object>
+
 		<script type="text/javascript">
 
 //根据原文和证书产生认证数据包
@@ -108,46 +109,35 @@ function doDataProcess(){
 	var Auth_Content = '<s:property value="#request.original" />';
 	
 	
-	console.log(Auth_Content);
+	alert(Auth_Content);
 	var DSign_Subject = document.getElementById("RootCADN").value;
+
 	if(Auth_Content==""){
 		alert("认证原文不能为空!");
 	}else{
- 
-		var InitParam = "<?xml version=\"1.0\" encoding=\"gb2312\"?><authinfo><liblist><lib type=\"CSP\" version=\"1.0\" dllname=\"\" ><algid val=\"SHA1\" sm2_hashalg=\"sm3\"/></lib><lib type=\"SKF\" version=\"1.1\" dllname=\"SERfR01DQUlTLmRsbA==\" ><algid val=\"SHA1\" sm2_hashalg=\"sm3\"/></lib><lib type=\"SKF\" version=\"1.1\" dllname=\"U2h1dHRsZUNzcDExXzMwMDBHTS5kbGw=\" ><algid val=\"SHA1\" sm2_hashalg=\"sm3\"/></lib><lib type=\"SKF\" version=\"1.1\" dllname=\"U0tGQVBJLmRsbA==\" ><algid val=\"SHA1\" sm2_hashalg=\"sm3\"/></lib></liblist></authinfo>";
-
-    JITDSignOcx.Initialize(InitParam);
-    if (JITDSignOcx.GetErrorCode() != 0) {
-    		alert("初始化失败，错误码："+JITDSignOcx.GetErrorCode()+" 错误信息："+JITDSignOcx.GetErrorMessage(JITDSignOcx.GetErrorCode()));
-        JITDSignOcx.Finalize();
-        return false;
-    }
+		alert(DSign_Subject );
 		//控制证书为一个时，不弹出证书选择框
 		JITDSignOcx.SetCertChooseType(1);
 		JITDSignOcx.SetCert("SC","","","",DSign_Subject,"");
 		if(JITDSignOcx.GetErrorCode()!=0){
 			alert("错误码："+JITDSignOcx.GetErrorCode()+"　错误信息："+JITDSignOcx.GetErrorMessage(JITDSignOcx.GetErrorCode()));
-			JITDSignOcx.Finalize();
 			return false;
 		}else {
 			 var temp_DSign_Result = JITDSignOcx.DetachSignStr("",Auth_Content);
+				alert(temp_DSign_Result );
+
 			 if(JITDSignOcx.GetErrorCode()!=0){
 					alert("错误码："+JITDSignOcx.GetErrorCode()+"　错误信息："+JITDSignOcx.GetErrorMessage(JITDSignOcx.GetErrorCode()));
-					JITDSignOcx.Finalize();
- 
 					return false;
 			 }
- 
-			 JITDSignOcx.Finalize();
-		//如果Get请求，需要放开下面注释部分
-		//	 while(temp_DSign_Result.indexOf('+')!=-1) {
-		//		 temp_DSign_Result=temp_DSign_Result.replace("+","%2B");
-		//	 }
 			document.getElementById("signed_data").value = temp_DSign_Result;
 		}
 	}
 	document.getElementById("original_jsp").value = Auth_Content;
+	document.forms[0].action = "userRoleAction!certificateLogin";
+	alert(document.forms[0].action);
 	document.forms[0].submit();
+
 }
 </script>
 	</head>
@@ -157,7 +147,7 @@ function doDataProcess(){
 		<div class="loginWraper">
 			<div id="loginform" class="loginBox">
 				<form name="userForm" class="form form-horizontal"
-					action="userRoleAction!certificateLogin" method="post">
+					action="userRoleAction!login" method="post">
 					<div class="row cl">
 						<div class="col-3"></div>
 						<div class="col-8">
@@ -201,10 +191,12 @@ function doDataProcess(){
 							<input type="hidden" id="original_jsp" name="original_jsp" />
 
 							<div class="row">
-								<div class="formControls col-8 col-offset-3">
+								<div class="formControls col-12 col-offset-3">
 									<input name="" type="reset"
 										class="btn btn-default radius size-L"
 										value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+											<input type="submit" class="btn btn-success radius size-L"
+										name=""  value="登陆" />
 									<input type="button" class="btn btn-success radius size-L"
 										name="" onclick="doDataProcess();" value="证书登陆" />
 								</div>

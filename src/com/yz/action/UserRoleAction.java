@@ -417,6 +417,8 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		// 第八步：服务端处理
 		// 获取应用标识及网关认证地址
 
+		String cardid = "";// 获取身份证
+
 		boolean isSuccess = true;
 		String errCode = null, errDesc = null;
 
@@ -749,12 +751,20 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 							&& namespacesElements.size() > 0) {
 						System.out.println("属性个数：" + namespacesElements.size());
 						for (int i = 0; i < namespacesElements.size(); i++) {
-							String arrs = namespacesElements.get(i)
-									.attributeValue(MSG_NAMESPACE);
 
-							System.out.println(arrs);
+							String arr = namespacesElements.get(i)
+									.attributeValue(MSG_NAME);
+
+							if (arr.equals("loginname")) {
+								String text = namespacesElements.get(i)
+										.getText();
+								int beginIndex = text.indexOf(" ")+1;
+								int endIndex = text.indexOf(",");
+								cardid = text.substring(beginIndex, endIndex);// 获取身份证
+								System.out.println("身份证号："+cardid);
+							}
 						}
-						String cardid = "";// 获取身份证
+
 					}
 				} else {
 					String loginfail = "证书无效";
