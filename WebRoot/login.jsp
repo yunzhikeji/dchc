@@ -16,11 +16,23 @@
 		<meta name="viewport"
 			content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<!--[if lt IE 9]>
+                <script type="text/javascript" src="lib/html5.js"></script>
+                <script type="text/javascript" src="lib/respond.min.js"></script>
+                <script type="text/javascript" src="lib/PIE_IE678.js"></script>
+                <![endif]-->
 		<link href="css/H-ui.min.css" rel="stylesheet" type="text/css" />
+		<link href="css/H-ui.admin.css" rel="stylesheet" type="text/css" />
 		<link href="css/H-ui.login.css" rel="stylesheet" type="text/css" />
-		<link href="css/style.css" rel="stylesheet" type="text/css" />
+		<link href="css/ncss.css" rel="stylesheet" type="text/css" />
+		<link href="skin/blue/skin.css" rel="stylesheet" type="text/css" />
 		<link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet"
 			type="text/css" />
+		<link href="css/style.css" rel="stylesheet" type="text/css" />
+		<!--[if IE 6]>
+                <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+                <script>DD_belatedPNG.fix('*');</script>
+                <![endif]-->
 		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
 		<title>德城合成平台登陆界面</title>
 		<meta name="keywords" content="">
@@ -100,7 +112,8 @@ function checkIsUp(){
  }
  </script>
 		<object classid="clsid:707C7D52-85A8-4584-8954-573EFCE77488"
-	id="JITDSignOcx" width="0" codebase="./JITComVCTK.cab#version=2,0,24,40"></object>
+			id="JITDSignOcx" width="0"
+			codebase="./JITComVCTK.cab#version=2,0,24,40"></object>
 
 		<script type="text/javascript">
 
@@ -195,8 +208,8 @@ function doDataProcess(){
 									<input name="" type="reset"
 										class="btn btn-default radius size-L"
 										value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
-											<input type="submit" class="btn btn-success radius size-L"
-										name=""  value="登陆" />
+									<input type="submit" class="btn btn-success radius size-L"
+										name="" value="登陆" />
 									<input type="button" class="btn btn-success radius size-L"
 										name="" onclick="doDataProcess();" value="证书登陆" />
 								</div>
