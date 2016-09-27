@@ -197,7 +197,7 @@
 						<span class="c-red">*</span>新密码：
 					</label>
 					<div class="formControls col-4">
-						<input type="password" class="input-text" autocomplete="off"
+						<input type="text" class="input-text" autocomplete="off"
 							placeholder="不修改请留空" name="password1" id="new-password"
 							datatype="*1-18" ignore="ignore">
 					</div>
@@ -209,7 +209,7 @@
 						<span class="c-red">*</span>确认密码：
 					</label>
 					<div class="formControls col-4">
-						<input type="password" class="input-text" autocomplete="off"
+						<input type="text" class="input-text" autocomplete="off"
 							placeholder="不修改请留空" name="password2" id="new-password2"
 							recheck="password1" datatype="*1-18" errormsg="您两次输入的密码不一致！"
 							ignore="ignore">
