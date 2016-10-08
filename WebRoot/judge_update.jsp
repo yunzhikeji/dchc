@@ -117,7 +117,7 @@
 
 	<body>
 		<div class="pd-20">
-			<form name="judgeUpdateForm" class="form form-horizontal"
+			<form name="judgeUpdateForm" class="form form-horizontal"  enctype="multipart/form-data" 
 				action="judgeAction!update" method="post" onsubmit="">
 				<s:hidden name="judge.id"></s:hidden>
 				<s:if test="judge.person!=null">

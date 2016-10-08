@@ -69,6 +69,7 @@ public class UnitAction extends ActionSupport implements RequestAware,
 	private int ulimit;
 
 	// 部门名称
+	private int uid;
 	private String unitName;
 	private String unitNumber;
 
@@ -137,8 +138,8 @@ public class UnitAction extends ActionSupport implements RequestAware,
 	 * 
 	 */
 	public String checkUnitNumber() {
-		unit = unitService.getUnitByNumber(unitNumber);
-		if (unit != null) {
+		Unit checKUnit = unitService.getUnitByNumber(unitNumber);
+		if (checKUnit != null && checKUnit.getId()!=uid) {
 			AjaxMsgVO msgVO = new AjaxMsgVO();
 			msgVO.setMessage("该组织机构编号已经存在,请重新输入.");
 			JSONObject jsonObj = JSONObject.fromObject(msgVO);
@@ -161,8 +162,8 @@ public class UnitAction extends ActionSupport implements RequestAware,
 	 * 
 	 */
 	public String checkUnitName() {
-		unit = unitService.getUnitByName(unitName);
-		if (unit != null) {
+		Unit checKUnit = unitService.getUnitByName(unitName);
+		if (checKUnit != null && checKUnit.getId()!=uid) {
 			AjaxMsgVO msgVO = new AjaxMsgVO();
 			msgVO.setMessage("该组织机构已经存在,请重新输入.");
 			JSONObject jsonObj = JSONObject.fromObject(msgVO);
@@ -439,6 +440,14 @@ public class UnitAction extends ActionSupport implements RequestAware,
 
 	public void setUnitNumber(String unitNumber) {
 		this.unitNumber = unitNumber;
+	}
+
+	public int getUid() {
+		return uid;
+	}
+
+	public void setUid(int uid) {
+		this.uid = uid;
 	}
 
 }

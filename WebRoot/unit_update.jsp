@@ -26,8 +26,7 @@
 <script type="text/javascript" src="js/pageKit.js"></script>
 <script type="text/javascript" src="js/checkUtil.js"></script>
 <script type="text/javascript">
-		var jspState = 1;
-		var oldUnitName = '<s:property value="unit.name"/>';
+		var uid = <s:property value="unit.id"/>;
 </script>
 </head>
 
@@ -38,7 +37,7 @@
 <s:hidden name="unit.unitLimit"></s:hidden>
 <s:hidden name="unit.pids"></s:hidden>
 <s:hidden name="unit.cids"></s:hidden>
-<s:hidden name="unit.cids"></s:hidden>
+<s:hidden name="unit.inids"></s:hidden>
 <div class="pd-20">
 	<div class="row cl mb-10">
      <div class="col-2" >

@@ -25,11 +25,6 @@
 <script type="text/javascript" src="js/H-ui.admin.js"></script>
 <script type="text/javascript" src="js/pageKit.js"></script>
 <script type="text/javascript" src="js/checkUtil.js"></script>
-<script type="text/javascript">
-
-	var jspState = 0;
-
-</script>
 </head>
 
 <body>

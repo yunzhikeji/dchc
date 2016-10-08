@@ -6,22 +6,11 @@ function checkUnit()
 {
 	var unitName = $("#unitName").val();
 	var unitNumber = $("#unitNumber").val();
-	
-	if(jspState==1)
-	{
-		if(unitName!=oldUnitName)
-		{
-			jspState = 0;
-		}
-	}
-	
-	if(jspState==0)
-	{
 		$.ajax({   
 	            url:'checkUnitName',//这里是你的action或者servlert的路径地址   
 	            type:'post', //数据发送方式   
 	            async:false,
-	            data:{"unitName":unitName},
+	            data:{"unitName":unitName,"uid":uid},
 	            dataType:'json',
 	            error: function(msg)
 	            { //失败   
@@ -44,7 +33,7 @@ function checkUnit()
 	            url:'checkUnitNumber',//这里是你的action或者servlert的路径地址   
 	            type:'post', //数据发送方式   
 	            async:false,
-	            data:{"unitNumber":unitNumber},
+	            data:{"unitNumber":unitNumber,"uid":uid},
 	            dataType:'json',
 	            error: function(msg)
 	            { //失败   
@@ -62,9 +51,6 @@ function checkUnit()
 					 }
 				}
 			});
-	
-	}
-	
 	
 	
 	if(unitName==''||unitName==null)

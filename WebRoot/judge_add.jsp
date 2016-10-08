@@ -117,7 +117,7 @@
 
 	<body>
 		<div class="pd-20">
-			<form name="judgeAddForm" class="form form-horizontal"
+			<form name="judgeAddForm" class="form form-horizontal"  enctype="multipart/form-data" 
 				action="judgeAction!add" method="post" onsubmit="">
 
 				<s:if test="pid!=null&&pid!=0">

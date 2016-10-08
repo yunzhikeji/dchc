@@ -437,7 +437,7 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 				&& !picture1FileName.replace(" ", "").equals("")) {
 			String imageName = DateTimeKit.getDateRandom()
 					+ picture1FileName.substring(picture1FileName.indexOf("."));
-			this.upload("/case", imageName, picture1);
+			this.upload("/judge", imageName, picture1);
 			File photofile = new File(ServletActionContext.getServletContext()
 					.getRealPath("/")
 					+ judge.getScanImage());
