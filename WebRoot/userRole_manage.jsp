@@ -147,10 +147,10 @@
 								&nbsp;
 							</td>
 							<td height="34" colspan="6" align="center" bgcolor="#FFFFFF">
-								  <a href="javascript:jumpCommonPage('userRoleAction!list',1,<s:property value="con"/>,'<s:property value="convalue"/>');" target="rightFrame">首页</a>&nbsp;&nbsp; 
-  								  <a href="javascript:jumpCommonPage('userRoleAction!list',<s:property value="page-1"/>,<s:property value="con"/>,'<s:property value="convalue"/>');" target="rightFrame">上一页</a>&nbsp;&nbsp;&nbsp; 
-  								  <a href="javascript:jumpCommonPage('userRoleAction!list',<s:property value="page+1"/>,<s:property value="con"/>,'<s:property value="convalue"/>');" target="rightFrame">下一页</a>&nbsp;&nbsp;&nbsp; 
-  							      <a href="javascript:jumpCommonPage('userRoleAction!list',<s:property value="pageCount"/>,<s:property value="con"/>,'<s:property value="convalue"/>');" target="rightFrame">尾页</a>&nbsp;&nbsp;&nbsp;
+								  <a href="javascript:jumpCommonPage('userRoleAction!list',1,<s:property value="con"/>,'<s:property value="convalue"/>');" >首页</a>&nbsp;&nbsp; 
+  								  <a href="javascript:jumpCommonPage('userRoleAction!list',<s:property value="page-1"/>,<s:property value="con"/>,'<s:property value="convalue"/>');" >上一页</a>&nbsp;&nbsp;&nbsp; 
+  								  <a href="javascript:jumpCommonPage('userRoleAction!list',<s:property value="page+1"/>,<s:property value="con"/>,'<s:property value="convalue"/>');" >下一页</a>&nbsp;&nbsp;&nbsp; 
+  							      <a href="javascript:jumpCommonPage('userRoleAction!list',<s:property value="pageCount"/>,<s:property value="con"/>,'<s:property value="convalue"/>');" >尾页</a>&nbsp;&nbsp;&nbsp;
 								<input type='button' class="btn btn-primary radius size-S"
 									onclick="jumpCommonPage('userRoleAction!list',document.getElementById('page').value,<s:property value="con"/>,'<s:property value="convalue"/>');" value='转到' />
 								&nbsp; 当前页：
