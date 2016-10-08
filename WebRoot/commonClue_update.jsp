@@ -445,16 +445,16 @@
 													查证次序
 												</th>
 												<th align="center">
-													刑技查证
+													技侦信息
 												</th>
 												<th align="center">
-													网技查证
+													网络信息
 												</th>
 												<th align="center">
-													情报查证
+													情报信息
 												</th>
 												<th align="center">
-													图像查证
+													图像信息
 												</th>
 											</tr>
 										</thead>

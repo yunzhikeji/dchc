@@ -130,7 +130,6 @@
 					<s:hidden name="judge.clue.id"></s:hidden>
 				</s:if>
 
-
 				<s:hidden name="judge.deadline" title="截止时间"></s:hidden>
 				<s:hidden name="judge.jtype" title="类型"></s:hidden>
 				<div class="row cl">
@@ -153,6 +152,72 @@
 							style="margin-top: 0; width: 180px; height: 300px;"></ul>
 					</div>
 				</div>
+				
+				<div class="row cl">
+					<label class="form-label col-2">
+						立案扫描件：
+					</label>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td align="center">
+								<img id="myimage1" class="img-responsive thumbnail"
+								src="<%=basePath%>${judge.scanImage}"
+									width="300px" height="280px;" alt="扫描件" />
+								<script type="text/javascript">
+															function change1() {
+															    var pic1 = document.getElementById("myimage1"),
+															        file1 = document.getElementById("myfile1");
+															    var ext1=file1.value.substring(file1.value.lastIndexOf(".")+1).toLowerCase();
+															     // gif在IE浏览器暂时无法显示
+															     if(ext1!='png'&&ext1!='jpg'&&ext1!='jpeg'){
+															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
+															         file1.value="";
+															         return;
+															     }
+															     var isIE = navigator.userAgent.match(/MSIE/)!= null,
+															         isIE6 = navigator.userAgent.match(/MSIE 6.0/)!= null;
+															     if(isIE) {
+															        file1.select();
+															        var reallocalpath = document.selection.createRange().text;
+															 
+															        // IE6浏览器设置img的src为本地路径可以直接显示图片
+															         if (isIE6) {
+															            pic1.src = reallocalpath;
+															         }else {
+															            // 非IE6版本的IE由于安全问题直接设置img的src无法显示本地图片，但是可以通过滤镜来实现
+															             pic1.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='image',src=\"" + reallocalpath + "\")";
+															             // 设置img的src为base64编码的透明图片 取消显示浏览器默认图片
+															             pic1.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+															         }
+															     }else {
+															        html5Reader1(file1);
+															     }
+															     pic1.alt = '图片';
+															}
+															 function html5Reader1(file1){
+															     var file1 = file1.files[0];
+															     var reader1 = new FileReader();
+															     reader1.readAsDataURL(file1);
+															     reader1.onload = function(e){
+															         var pic1 = document.getElementById("myimage1");
+															         pic1.src=this.result;
+															     }
+															 }
+												</script>
+							</td>
+						</tr>
+						<tr>
+							<td align="center">
+								<s:file name="picture1" accept="image/jpeg,image/png,image/jpg"
+									onchange="change1();" id="myfile1"></s:file>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				
+				
+				
 				<div class="row cl">
 					<label class="form-label col-2">
 						报送时间：<span style="color:red">(12个小时内未处理将自动记为超时办理)</span>
@@ -176,6 +241,12 @@
 								name="judge.indexNumber" cssStyle="width: 200px;"></s:textfield>
 					</span> </span>
 				</div>
+				
+				
+				
+				
+				
+				
 				<div class="row cl">
 					<label class="form-label col-2">
 						承办人：
@@ -211,17 +282,14 @@
 					<s:if test='%{#session.userRoleo.unit.number == "371402180222"}'>
 						<div class="row cl">
 							<label class="form-label col-2">
-								刑技
-								<s:if test="judge.jtype==1">研判</s:if>
-								<s:if test="judge.jtype==2">查证</s:if>
-								：
+								技侦信息：
 							</label>
 							<span class="form-label col-9"> <span
 								class="formControls col-10"> <s:textarea
 										name="judge.criminalJudge" cssClass="input-text"
 										id="criminalJudge"
 										cssStyle="width: 113%; height: 120px; float: left;"
-										placeholder="刑技研判"></s:textarea> </span> </span>
+										placeholder="技侦信息"></s:textarea> </span> </span>
 							<s:hidden name="judge.networkJudge"></s:hidden>
 							<s:hidden name="judge.intelligenceJudge"></s:hidden>
 							<s:hidden name="judge.imageJudge"></s:hidden>
@@ -230,17 +298,14 @@
 					<s:if test='%{#session.userRoleo.unit.number == "371402020000"}'>
 						<div class="row cl">
 							<label class="form-label col-2">
-								网技
-								<s:if test="judge.jtype==1">研判</s:if>
-								<s:if test="judge.jtype==2">查证</s:if>
-								：
+								网络信息：
 							</label>
 							<span class="form-label col-9"> <span
 								class="formControls col-10"> <s:textarea
 										name="judge.networkJudge" cssClass="input-text"
 										id="networkJudge"
 										cssStyle="width: 113%; height: 120px; float: left;"
-										placeholder="网技研判"></s:textarea> </span> </span>
+										placeholder="网络信息"></s:textarea> </span> </span>
 							<s:hidden name="judge.criminalJudge"></s:hidden>
 							<s:hidden name="judge.intelligenceJudge"></s:hidden>
 							<s:hidden name="judge.imageJudge"></s:hidden>
@@ -249,17 +314,14 @@
 					<s:if test='%{#session.userRoleo.unit.number == "371402060111"}'>
 						<div class="row cl">
 							<label class="form-label col-2">
-								情报
-								<s:if test="judge.jtype==1">研判</s:if>
-								<s:if test="judge.jtype==2">查证</s:if>
-								：
+								情报信息：
 							</label>
 							<span class="form-label col-9"> <span
 								class="formControls col-10"> <s:textarea
 										name="judge.intelligenceJudge" cssClass="input-text"
 										id="intelligenceJudge"
 										cssStyle="width: 113%; height: 120px; float: left;"
-										placeholder="情报研判"></s:textarea> </span> </span>
+										placeholder="情报信息"></s:textarea> </span> </span>
 							<s:hidden name="judge.criminalJudge"></s:hidden>
 							<s:hidden name="judge.networkJudge"></s:hidden>
 							<s:hidden name="judge.imageJudge"></s:hidden>
@@ -268,20 +330,18 @@
 					<s:if test='%{#session.userRoleo.unit.number == "371402180111"}'>
 						<div class="row cl">
 							<label class="form-label col-2">
-								图像
-								<s:if test="judge.jtype==1">研判</s:if>
-								<s:if test="judge.jtype==2">查证</s:if>
-								：
+								图像信息：
 							</label>
 							<span class="form-label col-9"> <span
 								class="formControls col-10"> <s:textarea
 										name="judge.imageJudge" cssClass="input-text" id="imageJudge"
 										cssStyle="width: 113%; height: 120px; float: left;"
-										placeholder="图像研判"></s:textarea> </span> </span>
+										placeholder="图像信息"></s:textarea> </span> </span>
 							<s:hidden name="judge.criminalJudge"></s:hidden>
 							<s:hidden name="judge.networkJudge"></s:hidden>
 							<s:hidden name="judge.intelligenceJudge"></s:hidden>
 							<s:hidden name="judge.isNew" value="0"></s:hidden>
+							<s:hidden name="judge.scanImage" title="扫描件"></s:hidden>
 						</div>
 					</s:if>
 				</s:if>

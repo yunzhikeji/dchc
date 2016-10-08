@@ -149,16 +149,80 @@
 							style="margin-top: 0; width: 180px; height: 300px; margin-right: 0;"></ul>
 					</div>
 				</div>
+
+
 				<div class="row cl">
 					<label class="form-label col-2">
-						报送时间：<span style="color:red">(12个小时内未处理将自动记为超时办理)</span>
+						立案扫描件：
+					</label>
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td align="center">
+								<img id="myimage1" class="img-responsive thumbnail"
+									width="300px" height="280px;" alt="扫描件" />
+								<script type="text/javascript">
+															function change1() {
+															    var pic1 = document.getElementById("myimage1"),
+															        file1 = document.getElementById("myfile1");
+															    var ext1=file1.value.substring(file1.value.lastIndexOf(".")+1).toLowerCase();
+															     // gif在IE浏览器暂时无法显示
+															     if(ext1!='png'&&ext1!='jpg'&&ext1!='jpeg'){
+															         alert("图片的格式必须为png或者jpg或者jpeg格式！"); 
+															         file1.value="";
+															         return;
+															     }
+															     var isIE = navigator.userAgent.match(/MSIE/)!= null,
+															         isIE6 = navigator.userAgent.match(/MSIE 6.0/)!= null;
+															     if(isIE) {
+															        file1.select();
+															        var reallocalpath = document.selection.createRange().text;
+															 
+															        // IE6浏览器设置img的src为本地路径可以直接显示图片
+															         if (isIE6) {
+															            pic1.src = reallocalpath;
+															         }else {
+															            // 非IE6版本的IE由于安全问题直接设置img的src无法显示本地图片，但是可以通过滤镜来实现
+															             pic1.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='image',src=\"" + reallocalpath + "\")";
+															             // 设置img的src为base64编码的透明图片 取消显示浏览器默认图片
+															             pic1.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+															         }
+															     }else {
+															        html5Reader1(file1);
+															     }
+															     pic1.alt = '图片';
+															}
+															 function html5Reader1(file1){
+															     var file1 = file1.files[0];
+															     var reader1 = new FileReader();
+															     reader1.readAsDataURL(file1);
+															     reader1.onload = function(e){
+															         var pic1 = document.getElementById("myimage1");
+															         pic1.src=this.result;
+															     }
+															 }
+												</script>
+							</td>
+						</tr>
+						<tr>
+							<td align="center">
+								<s:file name="picture1" accept="image/jpeg,image/png,image/jpg"
+									onchange="change1();" id="myfile1"></s:file>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+
+				<div class="row cl">
+					<label class="form-label col-2">
+						报送时间：
+						<span style="color: red">(12个小时内未处理将自动记为超时办理)</span>
 					</label>
 					<span class="form-label col-3"> <span
 						class="formControls col-12"> <input type="text"
 								name="judge.reportTime"
 								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',readOnly:true})"
-								id="troubleshooting" class="input-text Wdate">
-					</span> </span>
+								id="troubleshooting" class="input-text Wdate"> </span> </span>
 				</div>
 
 				<div class="row cl">
@@ -175,8 +239,7 @@
 					<span class="form-label col-3"> <span
 						class="formControls col-12"> <s:textfield
 								cssClass="input-text" value="" placeholder="联系电话" id="telphone"
-								name="judge.telphone" cssStyle="width: 200px;"></s:textfield> </span>
-					</span>
+								name="judge.telphone" cssStyle="width: 200px;"></s:textfield> </span> </span>
 				</div>
 				<div class="row cl">
 					<label class="form-label col-2">

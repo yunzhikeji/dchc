@@ -542,16 +542,16 @@
 																研判次序
 															</th>
 															<th align="center">
-																刑技研判
+																技侦信息
 															</th>
 															<th align="center">
-																网技研判
+																网络信息
 															</th>
 															<th align="center">
-																情报研判
+																情报信息
 															</th>
 															<th align="center">
-																图像侦查
+																图像信息
 															</th>
 														</tr>
 													</thead>
