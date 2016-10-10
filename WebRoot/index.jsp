@@ -16,6 +16,17 @@
 		<meta name="viewport"
 			content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<LINK rel="Bookmark" href="/favicon.ico">
+		<LINK rel="Shortcut Icon" href="/favicon.ico" />
+		<!--[if lt IE 9]>
+		<script type="text/javascript" src="lib/html5.js"></script>
+		<script type="text/javascript" src="lib/respond.min.js"></script>
+		<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+		<![endif]-->
+		<!--[if IE 6]>
+		<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+		<script>DD_belatedPNG.fix('*');</script>
+		<![endif]-->
 		<link href="css/H-ui.min.css" rel="stylesheet" type="text/css" />
 		<link href="css/H-ui.admin.css" rel="stylesheet" type="text/css" />
 		<link href="css/ncss.css" rel="stylesheet" type="text/css" />
@@ -188,20 +199,18 @@
 					</ul>
 				</li>
 				<li>
-					<a href="#"><i class="Hui-iconfont "><img src="images/statistics.png" /></i> 综合统计<img
-							class="more" src="images/more.png" /> </a>
+					<a href="#"><i class="Hui-iconfont "><img
+								src="images/statistics.png" />
+					</i> 综合统计<img class="more" src="images/more.png" /> </a>
 					<ul class="er">
 						<li>
-							<a _href="countAction!personCount"
-								href="javascript:void(0)">人员统计</a>
+							<a _href="countAction!personCount" href="javascript:void(0)">人员统计</a>
 						</li>
 						<li>
-							<a _href="countAction!injurycaseCount"
-								href="javascript:void(0)">案件统计</a>
+							<a _href="countAction!injurycaseCount" href="javascript:void(0)">案件统计</a>
 						</li>
 						<li>
-							<a _href="countAction!clueCount"
-								href="javascript:void(0)">线索统计</a>
+							<a _href="countAction!clueCount" href="javascript:void(0)">线索统计</a>
 						</li>
 					</ul>
 				</li>

@@ -507,8 +507,7 @@
 									<tr>
 										<td width="86%" style="padding-left: 9%;">
 											<s:radio theme="simple" cssStyle="width:36px"
-												cssClass="check-box"
-												list='#{ 1:"抓获", 2:"死亡", 3:"撤销案件", 4:"释放", 5:"治安拘留", 6:"刑事拘留", 7:"留置盘问", 8:"其他" }'
+												list="#{ '1':'抓获', '2':'死亡', '3':'撤销案件', '4':'释放', '5':'治安拘留', '6':'刑事拘留', '7':'留置盘问', '8':'其他' }"
 												name="person.endSituation" />
 										</td>
 									</tr>
