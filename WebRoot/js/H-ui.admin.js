@@ -204,3 +204,53 @@ function layer_close(){
 	var index = parent.layer.getFrameIndex(window.name);
 	parent.layer.close(index);
 }
+
+/*选项卡导航*/
+	
+	$(".Hui-header").on("click",".nav a",function(){
+		if($(this).attr('_href')){
+			var bStop=false;
+			var bStopIndex=0;
+			var _href=$(this).attr('_href');
+			var _titleName='全局搜索';		
+			var topWindow=$(window.parent.document);
+			var show_navLi=topWindow.find("#min_title_list li");
+			show_navLi.each(function() {
+				if($(this).find('span').attr("data-href")==_href){
+					bStop=true;
+					bStopIndex=show_navLi.index($(this));
+					return false;
+				}
+			});
+			if(!bStop){
+				creatIframe(_href,_titleName);
+				min_titleList();
+			}
+			else{
+				show_navLi.removeClass("active").eq(bStopIndex).addClass("active");
+				var iframe_box=topWindow.find("#iframe_box");
+				iframe_box.find(".show_iframe").hide().eq(bStopIndex).show().find("iframe").attr("src",_href);
+			}
+		}
+	});
+	
+	function min_titleList(){
+		var topWindow=$(window.parent.document);
+		var show_nav=topWindow.find("#min_title_list");
+		var aLi=show_nav.find("li");
+	};
+	function creatIframe(href,titleName){
+		var topWindow=$(window.parent.document);
+		var show_nav=topWindow.find('#min_title_list');
+		show_nav.find('li').removeClass("active");
+		var iframe_box=topWindow.find('#iframe_box');
+		show_nav.append('<li class="active"><span data-href="'+href+'">'+titleName+'</span><i></i><em></em></li>');
+		tabNavallwidth();
+		var iframeBox=iframe_box.find('.show_iframe');
+		iframeBox.hide();
+		iframe_box.append('<div class="show_iframe"><div class="loading"></div><iframe frameborder="0" src='+href+'></iframe></div>');
+		var showBox=iframe_box.find('.show_iframe:visible');
+		showBox.find('iframe').attr("src",href).load(function(){
+			showBox.find('.loading').hide();
+		});
+	}

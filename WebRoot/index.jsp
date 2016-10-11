@@ -43,12 +43,14 @@
 				width="489" height="70"> </a>
 		<ul class="nav" style="margin-right: 30px;">
 			<li>
-				<a data-toggle="modal" href="#search" title="一键搜索"><img
+				<a _href="global.jsp" href="javascript:void(0)" title="一键搜索"><img
 						src="images/icon02.png" title="一键搜索" />
 					<h4>
 						一键搜索
 					</h4> </a>
 			</li>
+                        <li><a href="http://139.129.212.126:8080/dchcService/index" onClick="" title="采集数据查询">
+			 <img src="images/icon07.png" title="采集数据查询" /><h4>采集数据查询</h4></a></li>
 			<li>
 				<a href="javascript:;" onClick="" title="待办任务"><img
 						src="images/icon05.png" title="待办任务" />
