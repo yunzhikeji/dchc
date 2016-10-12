@@ -99,13 +99,16 @@
 						<th width="41">
 						</th>
 						<th width="109">
-							一般案件
+							一般刑事案件
 						</th>
 						<th width="81">
 							重伤案件
 						</th>
 						<th width="107">
 							团伙系列案件
+						</th>
+						<th width="107">
+							刑侦案件
 						</th>
 						<th width="107">
 							合计
@@ -129,6 +132,9 @@
 						<td>
 							<s:property value="injurycaseCounts.get(0)[3]"/>
 						</td>
+						<td>
+							<s:property value="injurycaseCounts.get(0)[4]"/>
+						</td>
 					</tr>
 					<tr class="text-c va-m">
 						<td>
@@ -145,6 +151,9 @@
 						</td>
 						<td>
 							<s:property value="injurycaseCounts.get(1)[3]"/>
+						</td>
+						<td>
+							<s:property value="injurycaseCounts.get(1)[4]"/>
 						</td>
 					</tr>
 					<tr class="text-c va-m">
@@ -163,6 +172,9 @@
 						<td>
 							<s:property value="injurycaseCounts.get(2)[3]"/>
 						</td>
+						<td>
+							<s:property value="injurycaseCounts.get(2)[4]"/>
+						</td>
 					</tr>
 					<tr class="text-c va-m">
 						<td>
@@ -180,6 +192,9 @@
 						<td>
 							<s:property value="injurycaseCounts.get(4)[3]"/>
 						</td>
+						<td>
+							<s:property value="injurycaseCounts.get(4)[4]"/>
+						</td>
 					</tr>
 					<tr class="text-c va-m">
 						<td style="color: red;">
@@ -196,6 +211,9 @@
 						</td>
 						<td style="color: red;">
 							<s:property value="injurycaseCounts.get(3)[3]"/>
+						</td>
+						<td style="color: red;">
+							<s:property value="injurycaseCounts.get(3)[4]"/>
 						</td>
 					</tr>
 				</tbody>

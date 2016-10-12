@@ -205,13 +205,16 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			pageName = "案件";
 			break;
 		case 1:
-			pageName = "一般案件";
+			pageName = "一般刑事案件";
 			break;
 		case 2:
 			pageName = "重伤案件";
 			break;
 		case 3:
 			pageName = "团伙系列案件";
+			break;
+		case 4:
+			pageName = "刑侦案件";
 			break;
 		default:
 			pageName = "串并案";
@@ -652,13 +655,15 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 					caseVO.setTypeName("未知案件");
 					break;
 				case 1:
-					caseVO.setTypeName("一般案件");
+					caseVO.setTypeName("一般刑事案件");
 					break;
 				case 2:
 					caseVO.setTypeName("重伤案件");
 					break;
 				case 3:
 					caseVO.setTypeName("团伙系列案件");
+				case 4:
+					caseVO.setTypeName("刑侦案件");
 					break;
 				default:
 					break;

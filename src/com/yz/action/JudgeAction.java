@@ -541,7 +541,7 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 						break;
 					case 1:
 						judgeVO.setType(16);
-						judgeVO.setTypeName("一般案件");
+						judgeVO.setTypeName("一般刑事案件");
 						break;
 					case 2:
 						judgeVO.setType(17);
@@ -550,6 +550,10 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 					case 3:
 						judgeVO.setType(18);
 						judgeVO.setTypeName("团伙系列案件");
+						break;
+					case 4:
+						judgeVO.setType(19);
+						judgeVO.setTypeName("刑侦案件");
 						break;
 					default:
 						break;
@@ -565,7 +569,7 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 						judgeVO.setTypeName("未知线索");
 						break;
 					case 1:
-						judgeVO.setType(19);
+						judgeVO.setType(20);
 						judgeVO.setTypeName("刑侦线索");
 						break;
 					default:
