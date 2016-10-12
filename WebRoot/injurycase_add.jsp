@@ -38,11 +38,12 @@
 		<script type="text/javascript" src="js/checkUtil.js"></script>
 		<script type="text/javascript" src="js/commonUtil.js"></script>
 		<title>新增案件</title>
-		
+
 	</head>
 	<body>
 		<form name="injurycaseAddForm" action="injurycaseAction!add"
-			method="post" enctype="multipart/form-data" onsubmit="return checkCase();">
+			method="post" enctype="multipart/form-data"
+			onsubmit="return checkCase();">
 			<input type="hidden" name="injurycase.itype"
 				value="<s:property value="itype"/>" />
 			<div class="pd-20">
@@ -86,8 +87,7 @@
 											<tr>
 												<td align="center">
 													<img id="myimage1" class="img-responsive thumbnail"
-														width="200px"
-															height="180px;" alt="案件图片" />
+														width="200px" height="180px;" alt="案件图片" />
 													<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),
@@ -141,6 +141,10 @@
 											</tr>
 										</table>
 									</div>
+
+
+
+
 									<div class="col-2">
 										<label class="form-label text-r">
 											串并案系列名称：
@@ -151,7 +155,7 @@
 											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
 									</div>
 								</div>
-									<div class="row cl mb-10">
+								<div class="row cl mb-10">
 									<div class="col-2">
 										<label class="form-label text-r">
 											是否串并案：
@@ -168,12 +172,36 @@
 										</label>
 									</div>
 									<div class="col-4">
-										<s:if test="itype==1">一般刑事案件</s:if>
+										<s:if test="itype==1">一般案件</s:if>
 										<s:if test="itype==2">重伤案件</s:if>
 										<s:if test="itype==3">团伙系列案件</s:if>
-										<s:if test="itype==4">刑侦案件</s:if>
 									</div>
 								</div>
+
+									<div class="row cl mb-10">
+										<div class="col-2">
+											<label class="form-label text-r">
+												图像细节描述：
+											</label>
+										</div>
+										<div class="col-4">
+											<s:textfield id="detailsDescription"
+												name="injurycase.detailsDescription"
+												cssClass="input-text radius size-M "
+												cssStyle="width: 200px;"></s:textfield>
+										</div>
+										<div class="col-2">
+											<label class="form-label text-r">
+												图像实物描述：
+											</label>
+										</div>
+										<div class="col-4">
+											<s:textfield id="goodsDescription" name="injurycase.goodsDescription"
+												cssClass="input-text radius size-M "
+												cssStyle="width: 200px;"></s:textfield>
+										</div>
+									</div>
+
 								<div class="row cl">
 									<div class="row cl mb-10">
 										<div class="col-2">
@@ -219,6 +247,76 @@
 											id="logmin" class="input-text Wdate" style="width: 200px;">
 									</div>
 								</div>
+
+								<div class="row cl mb-10">
+									<div class="col-2">
+										<label class="form-label text-r">
+											警情编号：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:textfield id="situationNum" name="injurycase.situationNum"
+											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+									</div>
+									<div class="col-2">
+										<label class="form-label text-r">
+											作案目标：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:textfield id="crimeTarget" name="injurycase.crimeTarget"
+											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+									</div>
+								</div>
+
+
+
+								<div class="row cl mb-10">
+									<div class="col-2">
+										<label class="form-label text-r">
+											作案对象：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:textfield id="crimeObject" name="injurycase.crimeObject"
+											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+									</div>
+									<div class="col-2">
+										<label class="form-label text-r">
+											作案方式：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:textfield id="crimePattern" name="injurycase.crimePattern"
+											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+									</div>
+								</div>
+
+
+								<div class="row cl mb-10">
+									<div class="col-2">
+										<label class="form-label text-r">
+											人员特征：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:textfield id="personFeature"
+											name="injurycase.personFeature"
+											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+									</div>
+									<div class="col-2">
+										<label class="form-label text-r">
+											物品特征：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:textfield id="goodsFeature" name="injurycase.goodsFeature"
+											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+									</div>
+								</div>
+
+
+
 								<div class="row cl mb-10">
 									<div class="col-2">
 										<label class="form-label text-r">
