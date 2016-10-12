@@ -188,28 +188,7 @@
 									</div>
 								</div>
 
-								<div class="row cl mb-10">
-									<div class="col-2">
-										<label class="form-label text-r">
-											图像细节描述：
-										</label>
-									</div>
-									<div class="col-4">
-										<s:textfield id="detailsDescription"
-											name="injurycase.detailsDescription"
-											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
-									</div>
-									<div class="col-2">
-										<label class="form-label text-r">
-											图像实物描述：
-										</label>
-									</div>
-									<div class="col-4">
-										<s:textfield id="goodsDescription"
-											name="injurycase.goodsDescription"
-											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
-									</div>
-								</div>
+							
 
 								<div class="row cl">
 									<div class="row cl mb-10">
@@ -355,6 +334,36 @@
 											id="input9"
 											cssStyle="width: 100%; height: 80px; float: left;"
 											placeholder="简要案情"></s:textarea>
+									</div>
+								</div>
+								
+								
+								<div class="row cl mb-10">
+									<div class="col-2">
+										<label class="form-label text-r">
+											图像细节描述：
+										</label>
+									</div>
+									<div class="col-10">
+										<s:textarea name="injurycase.detailsDescription"
+											cssClass="input-text" id="detailsDescription"
+											cssStyle="width: 100%; height: 80px; float: left;"
+											placeholder="图像细节描述"></s:textarea>
+									</div>
+								</div>
+
+
+								<div class="row cl mb-10">
+									<div class="col-2">
+										<label class="form-label text-r">
+											图像实物描述：
+										</label>
+									</div>
+									<div class="col-10">
+										<s:textarea name="injurycase.goodsDescription"
+											cssClass="input-text" id="goodsDescription"
+											cssStyle="width: 100%; height: 80px; float: left;"
+											placeholder="图像实物描述"></s:textarea>
 									</div>
 								</div>
 
