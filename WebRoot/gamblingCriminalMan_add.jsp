@@ -179,23 +179,23 @@
 									<tr>
 										<td>
 											<label class="form-label text-r">
-												QQ：
+												<span style="color:red;">(多项用','隔开至多三项)</span>QQ：
 											</label>
 										</td>
 										<td>
 											<s:textfield name="person.qq"
 												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
+												cssStyle="width: 360px;"></s:textfield>
 										</td>
 										<td>
 											<label class="form-label text-r">
-												微信号：
+												<span style="color:red;">(多项用','隔开至多三项)</span>微信号：
 											</label>
 										</td>
 										<td colspan="2">
 											<s:textfield name="person.wechat"
 												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
+												cssStyle="width: 360px;"></s:textfield>
 										</td>
 									</tr>
 
@@ -212,13 +212,13 @@
 										</td>
 										<td>
 											<label class="form-label text-r">
-												手机号码：
+												<span style="color:red;">(多项用','隔开至多三项)</span>手机号码：
 											</label>
 										</td>
 										<td colspan="2">
 											<s:textfield name="person.telphone"
 												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
+												cssStyle="width: 360px;"></s:textfield>
 										</td>
 									</tr>
 									<tr>
@@ -379,13 +379,13 @@
 										<tr>
 											<td>
 												<label class="form-label text-r">
-													手机串号：
+													<span style="color:red;">(多项用','隔开至多三项)</span>手机串号：
 												</label>
 											</td>
 											<td>
 												<s:textfield name="gamblingCriminalMan.imei"
 													cssClass="input-text radius size-M "
-													cssStyle="width: 200px;"></s:textfield>
+													cssStyle="width: 360px;"></s:textfield>
 											</td>
 
 											<s:if test="type==1">
