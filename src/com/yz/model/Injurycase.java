@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * Injurycase entity.重伤案件,一般案件
+ * Injurycase entity.重伤案件,一般刑事案件,团伙系列案件,刑侦案件
  * 
  * @author lq
  */
@@ -45,7 +45,7 @@ public class Injurycase implements java.io.Serializable {
 	private List<Media> medias = new ArrayList<Media>();// 媒体
 	private String joinDate;// 录入时间
 	private Integer handleState;// 办理状态
-	private Integer itype;
+	private Integer itype;//1：一般刑事案件 2：重伤案件 3：团伙案件 4:
 	private String imageCase; // 案件图片
 	private Integer isCanvas; // 水印
 	private String caseIds; // caseIds

@@ -229,13 +229,13 @@ public class CountAction extends ActionSupport implements RequestAware,
 	 * @param convalue
 	 * @param starttime
 	 * @param endtime
-	 * @param i
+	 * @param i 办理状态:1:未办理 2：在办理 3：已完结 4:超期办理 5:合计
 	 * @param userRole
 	 * @return
 	 */
 	private Integer[] injurycaseCountArray(int con, String convalue,
 			String starttime, String endtime, int i, UserRole userRole) {
-		Integer[] injurycaseCount = new Integer[4];
+		Integer[] injurycaseCount = new Integer[5];
 		switch (i) {
 		case 0:
 			break;
