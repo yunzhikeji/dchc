@@ -47,8 +47,6 @@ public class Injurycase implements java.io.Serializable {
 	private Integer handleState;// 办理状态
 	private Integer itype;
 	private String imageCase; // 案件图片
-	private String detailsDescription; // 图像中的细节描述
-	private String goodsDescription; //图像中的实物描述
 	private Integer isCanvas; // 水印
 	private String caseIds; // caseIds
 	private Integer isRelated; // 是否已串并案
@@ -57,79 +55,8 @@ public class Injurycase implements java.io.Serializable {
 	private String series;// 串并案关键字
 	private Integer isOutOfTime;// 超期办理
 	private Integer isNew;
-	private String situationNum; //警情编号
-	private String crimeTarget; //作案目标
-	private String crimeObject; //作案对象
-	private String crimePattern; //作案方式
-	private String personFeature; //人员特征
-	private String goodsFeature; //物品特征
-	
 
 	// Constructors
-
-	public String getDetailsDescription() {
-		return detailsDescription;
-	}
-
-	public void setDetailsDescription(String detailsDescription) {
-		this.detailsDescription = detailsDescription;
-	}
-
-	public String getGoodsDescription() {
-		return goodsDescription;
-	}
-
-	public void setGoodsDescription(String goodsDescription) {
-		this.goodsDescription = goodsDescription;
-	}
-
-	public String getSituationNum() {
-		return situationNum;
-	}
-
-	public void setSituationNum(String situationNum) {
-		this.situationNum = situationNum;
-	}
-
-	public String getCrimeTarget() {
-		return crimeTarget;
-	}
-
-	public void setCrimeTarget(String crimeTarget) {
-		this.crimeTarget = crimeTarget;
-	}
-
-	public String getCrimeObject() {
-		return crimeObject;
-	}
-
-	public void setCrimeObject(String crimeObject) {
-		this.crimeObject = crimeObject;
-	}
-
-	public String getCrimePattern() {
-		return crimePattern;
-	}
-
-	public void setCrimePattern(String crimePattern) {
-		this.crimePattern = crimePattern;
-	}
-
-	public String getPersonFeature() {
-		return personFeature;
-	}
-
-	public void setPersonFeature(String personFeature) {
-		this.personFeature = personFeature;
-	}
-
-	public String getGoodsFeature() {
-		return goodsFeature;
-	}
-
-	public void setGoodsFeature(String goodsFeature) {
-		this.goodsFeature = goodsFeature;
-	}
 
 	/** default constructor */
 	public Injurycase() {
