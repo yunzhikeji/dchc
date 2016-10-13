@@ -403,6 +403,7 @@
 	<package name="otherperson_json" extends="json-default">
 		<action name="deleteOtherperson" class="otherpersonAction"
 			method="deleteOtherperson" />
+			<action name="getPersonByIdcard" class="otherpersonAction" method="getPersonByIdcard"/>
 	</package>
 
 

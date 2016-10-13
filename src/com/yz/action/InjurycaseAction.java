@@ -44,6 +44,7 @@ import com.yz.service.IInjurycaseService;
 import com.yz.service.IJudgeService;
 import com.yz.service.IMediaService;
 import com.yz.service.IOtherpersonService;
+import com.yz.service.IPersonService;
 import com.yz.service.ISuccessexampleService;
 import com.yz.service.ITroubleshootingService;
 import com.yz.service.IUnitService;
@@ -90,6 +91,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	private int queryState;// 办理状态
 	private String starttime;
 	private String endtime;
+	private String idcard;
 
 	// 页面信息
 	private String pageTileName;// 页面标题名称
@@ -114,6 +116,10 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 	@Resource
 	private IUserRoleService userRoleService;
+	
+	@Resource
+	private IPersonService personService;
+	
 
 	// 单个表对象
 	private Troubleshooting troubleshooting;
@@ -283,6 +289,8 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		arg[1] = "案件管理";
 		return "success_child";
 	}
+	
+	
 
 	// 文件上传
 	public void upload(String fileName, String imageName, File picture)
@@ -375,6 +383,26 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		AjaxMsgVO msgVO = new AjaxMsgVO();
 		msgVO.setMessage("批量删除成功.");
 		JSONObject jsonObj = JSONObject.fromObject(msgVO);
+		PrintWriter out;
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+			out = response.getWriter();
+			out.print(jsonObj.toString());
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
+	public String getPersonByIdcard() throws Exception {
+
+		Person person = personService.getPersonByIdcard(idcard);
+		AjaxMsgVO msgVO = new AjaxMsgVO();
+		msgVO.setMessage("批量删除成功.");
+		JSONObject jsonObj = JSONObject.fromObject(person);
 		PrintWriter out;
 		try {
 			response.setContentType("text/html;charset=UTF-8");
@@ -1149,6 +1177,22 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 	public void setInjurycaseVOs(List<InjurycaseVO> injurycaseVOs) {
 		this.injurycaseVOs = injurycaseVOs;
+	}
+
+	public String getIdcard() {
+		return idcard;
+	}
+
+	public void setIdcard(String idcard) {
+		this.idcard = idcard;
+	}
+
+	public IPersonService getPersonService() {
+		return personService;
+	}
+
+	public void setPersonService(IPersonService personService) {
+		this.personService = personService;
 	}
 
 }

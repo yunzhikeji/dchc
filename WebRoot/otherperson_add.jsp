@@ -24,6 +24,47 @@
 		<script type="text/javascript"
 			src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="js/pageKit.js"></script>
+		<script type="text/javascript">
+		function match() {
+		var idcard = $("#idcard").val();
+		
+			$.ajax({   
+	            url:"otherpersonAction!getPersonByIdcard",  
+	            type:'post',   
+	            data:{"idcard":idcard},
+	            dataType:'json',
+	            error: function(msg)
+	            { //失败   
+	            	console.log(msg);   
+	            },   
+	            success: function(msg)
+	            { //成功
+	            console.log(msg);
+					 if(msg.id == null ||msg.id ==""||msg.id == 0)
+					 {
+					 	alert('系统中无此身份证号的用户');
+					 	document.getElementById("number").setAttribute("value", "");
+					 	document.getElementById("name").setAttribute("value", "");
+					 	document.getElementById("currentAddressArea").setAttribute("value", "");
+					 	document.getElementById("currentAddress").setAttribute("value", "");
+					 	document.getElementById("wechat").setAttribute("value", "");
+					 	document.getElementById("qq").setAttribute("value", "");
+					 	document.getElementById("myimage1").setAttribute("src", "");
+					 }
+					 else if(msg.id != null) {
+					 	document.getElementById("number").setAttribute("value", msg.number);
+					 	document.getElementById("name").setAttribute("value", msg.name);
+					 	document.getElementById("currentAddressArea").setAttribute("value", msg.currentAddressArea);
+					 	document.getElementById("currentAddress").setAttribute("value", msg.currentAddress);
+					 	document.getElementById("wechat").setAttribute("value", msg.wechat);
+					 	document.getElementById("qq").setAttribute("value", msg.qq);
+					 	document.getElementById("myimage1").setAttribute("src", msg.photoImg);
+					 }
+				}
+			});
+
+		}
+		</script>
 	</head>
 
 	<body>
@@ -33,7 +74,8 @@
 				<input type="hidden" name="otherperson.person.id" value="${pid}" />
 			</s:if>
 			<s:if test="inid!=null&&inid!=0">
-				<input type="hidden" name="otherperson.injurycase.id" value="${inid}" />
+				<input type="hidden" name="otherperson.injurycase.id"
+					value="${inid}" />
 			</s:if>
 			<input type="hidden" name="otherperson.otype" value="${otype}" />
 			<div class="pd-20">
@@ -66,6 +108,8 @@
 					<div class="col-4">
 						<s:textfield id="idcard" cssClass="input-text radius size-M"
 							cssStyle="width:200px;" name="otherperson.idcard"></s:textfield>
+						<input type="button" class="btn btn-primary radius" value="关联"
+							onclick="match();" />
 					</div>
 					<div class="col-2">
 						<label class="form-label text-r">

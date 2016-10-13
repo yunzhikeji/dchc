@@ -22,6 +22,10 @@ public interface IPersonService {
 
 	// 获取所有对象
 	public abstract List<Person> getPersons();
+	
+	
+	//根据身份证号获取person
+	public Person getPersonByIdcard(String idcard) ;
 
 	// 加载一个id的对象
 	public abstract Person loadById(int id);

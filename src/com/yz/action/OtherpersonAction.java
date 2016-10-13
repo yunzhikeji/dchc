@@ -35,6 +35,7 @@ import com.yz.service.IOtherpersonService;
 import com.yz.service.IPersonService;
 import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
+import com.yz.vo.OtherPersonVO;
 
 @Component("otherpersonAction")
 @Scope("prototype")
@@ -62,6 +63,9 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 	private int otherid;// 同案人员，关系人员
 
 	private int otype;// 其他人员类型 1：关系人员，2：同案人员
+	
+	
+	private String idcard;
 
 	// service层对象
 	@Resource
@@ -86,6 +90,46 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 	private List<Otherperson> gxrs;// 关系人员
 	private List<Otherperson> tars;// 同案人员
 	private List<Otherperson> xyrs;// 嫌疑人员
+	
+	
+	
+	
+	
+	public String getPersonByIdcard() throws Exception {
+
+		Person person = personService.getPersonByIdcard(idcard);
+		OtherPersonVO otherPersonVO = new OtherPersonVO();
+		if (person != null){
+			
+			otherPersonVO.setId(person.getId());
+			otherPersonVO.setName(person.getName());
+			otherPersonVO.setNumber(person.getNumber());
+			otherPersonVO.setIdcard(person.getIdcard());
+			otherPersonVO.setTelphone(person.getTelphone());
+			otherPersonVO.setWechat(person.getWechat());
+			otherPersonVO.setQq(person.getQq());
+			otherPersonVO.setPhotoImg(person.getPhotoImg());
+			if(person.getGamblingCriminalMan()!=null){
+				otherPersonVO.setCurrentAddress(person.getGamblingCriminalMan().getCurrentAddress());
+				otherPersonVO.setCurrentAddressArea(person.getGamblingCriminalMan().getCurrentAddressArea());
+				
+			}
+		}
+
+
+		JSONObject jsonObj = JSONObject.fromObject(otherPersonVO);
+		PrintWriter out;
+		try {
+			response.setContentType("text/html;charset=UTF-8");
+			out = response.getWriter();
+			out.print(jsonObj.toString());
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 	/**
 	 * 其他人员管理
@@ -653,6 +697,14 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 
 	public void setClue(Clue clue) {
 		this.clue = clue;
+	}
+
+	public String getIdcard() {
+		return idcard;
+	}
+
+	public void setIdcard(String idcard) {
+		this.idcard = idcard;
 	}
 	
 	

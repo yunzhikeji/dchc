@@ -148,6 +148,14 @@ public class PersonServiceImp implements IPersonService {
 		Object[] values = new Object[] { personname };
 		return personDao.queryByNamedParam(queryString, paramNames, values);
 	}
+	
+	
+	public Person getPersonByIdcard(String idcard) {
+		String queryString = "from Person mo where mo.idcard=:idcard";
+		String[] paramNames = new String[] { "idcard" };
+		Object[] values = new Object[] { idcard };
+		return personDao.queryByNamedParam(queryString, paramNames, values);
+	}
 
 	// 后台管理-获取符合条件的记录
 	/*
