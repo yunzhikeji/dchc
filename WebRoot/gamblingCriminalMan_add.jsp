@@ -453,6 +453,18 @@
 											</td>
 										</tr>
 										<tr>
+										<td>
+											<label class="form-label text-r">
+												人员备注信息：
+											</label>
+										</td>
+										<td colspan="4">
+											<s:textarea name="person.remark"
+											cssClass="input-text radius size-M "
+											cssStyle="width: 80%; height: 120px;"></s:textarea>
+										</td>
+									</tr>
+										<tr>
 											<td>
 												<label class="form-label text-r">
 													是否布控：

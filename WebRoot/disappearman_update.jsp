@@ -86,9 +86,9 @@
 										<tr>
 											<td align="center">
 
-													<img id="myimage1" class="img-responsive thumbnail"
-														src="<%=basePath%>${disappearman.photo1}" width="200px"
-														height="180px;" alt="照片1" />
+												<img id="myimage1" class="img-responsive thumbnail"
+													src="<%=basePath%>${disappearman.photo1}" width="200px"
+													height="180px;" alt="照片1" />
 
 												<script type="text/javascript">
 															function change1() {
@@ -151,10 +151,10 @@
 										<tr>
 											<td align="center">
 
-													<img id="myimage2" class="img-responsive thumbnail"
-														src="<%=basePath%>${disappearman.photo2}" width="200px"
-														height="180px;" alt="照片2" />
-														
+												<img id="myimage2" class="img-responsive thumbnail"
+													src="<%=basePath%>${disappearman.photo2}" width="200px"
+													height="180px;" alt="照片2" />
+
 												<script type="text/javascript">
 															function change2() {
 															    var pic2 = document.getElementById("myimage2"),
@@ -214,11 +214,11 @@
 										<tr>
 
 
-												<td align="center">
-													<img id="myimage3" class="img-responsive thumbnail"
-														src="<%=basePath%>${disappearman.photo3}" width="200px"
-														height="180px;" alt="照片3" />
-													<script type="text/javascript">
+											<td align="center">
+												<img id="myimage3" class="img-responsive thumbnail"
+													src="<%=basePath%>${disappearman.photo3}" width="200px"
+													height="180px;" alt="照片3" />
+												<script type="text/javascript">
 															function change3() {
 															    var pic3 = document.getElementById("myimage3"),
 															        file3 = document.getElementById("myfile3");
@@ -259,7 +259,7 @@
 															     }
 															 }
 															 </script>
-												</td>
+											</td>
 										</tr>
 										<tr>
 											<td align="center">
@@ -334,7 +334,8 @@
 										</label>
 									</div>
 									<div class="col-4">
-										<input type="text" name="person.birthday" value="<s:property value="person.birthday"/>"
+										<input type="text" name="person.birthday"
+											value="<s:property value="person.birthday"/>"
 											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})"
 											id="logmin" class="input-text Wdate" style="width: 200px;">
 									</div>
@@ -446,11 +447,13 @@
 										</label>
 									</div>
 									<div class="col-4">
-										<input type="text" name="disappearman.missingStartTime" value="<s:property value="disappearman.missingStartTime"/>"
+										<input type="text" name="disappearman.missingStartTime"
+											value="<s:property value="disappearman.missingStartTime"/>"
 											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})"
 											id="logmin" class="input-text Wdate" style="width: 180px;" />
 										-
-										<input type="text" name="disappearman.missingEndTime" value="<s:property value="disappearman.missingEndTime"/>"
+										<input type="text" name="disappearman.missingEndTime"
+											value="<s:property value="disappearman.missingEndTime"/>"
 											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})"
 											id="logmin" class="input-text Wdate" style="width: 180px;" />
 									</div>
@@ -460,7 +463,8 @@
 										</label>
 									</div>
 									<div class="col-4">
-												<input type="text" name="disappearman.foundMissingTime" value="<s:property value="disappearman.foundMissingTime"/>"
+										<input type="text" name="disappearman.foundMissingTime"
+											value="<s:property value="disappearman.foundMissingTime"/>"
 											onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',readOnly:true})"
 											id="logmin" class="input-text Wdate" style="width: 180px;" />
 									</div>
@@ -591,6 +595,18 @@
 									</div>
 									<div class="col-10">
 										<s:textarea name="disappearman.relativeBlood"
+											cssClass="input-text radius size-M "
+											cssStyle="width: 80%; height: 120px;"></s:textarea>
+									</div>
+								</div>
+								<div class="row cl mb-10">
+									<div class="col-2">
+										<label class="form-label text-r">
+											人员备注信息：
+										</label>
+									</div>
+									<div class="col-10">
+										<s:textarea name="person.remark"
 											cssClass="input-text radius size-M "
 											cssStyle="width: 80%; height: 120px;"></s:textarea>
 									</div>
@@ -1004,11 +1020,11 @@ function article_save(obj,id){
 				<s:if test="person.userRole!=null">
 					<s:hidden name="person.userRole.id" title="人员子表userRoleid"></s:hidden>
 				</s:if>
-				
-				<s:hidden name="disappearman.photo1" ></s:hidden>
-				<s:hidden name="disappearman.photo2" ></s:hidden>
-				<s:hidden name="disappearman.photo3" ></s:hidden>
-				
+
+				<s:hidden name="disappearman.photo1"></s:hidden>
+				<s:hidden name="disappearman.photo2"></s:hidden>
+				<s:hidden name="disappearman.photo3"></s:hidden>
+
 				<s:hidden name="person.photoImg" title="人员照片"></s:hidden>
 				<s:hidden name="person.handleState" title="办理状态"></s:hidden>
 				<s:hidden name="person.joinDate" title="录入时间"></s:hidden>

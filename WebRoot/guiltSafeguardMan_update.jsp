@@ -211,7 +211,7 @@
 									<tr>
 										<td>
 											<label class="form-label text-r">
-												QQ：
+												<span style="color:red;">(多项用','隔开至多三项)</span>QQ：
 											</label>
 										</td>
 										<td>
@@ -221,7 +221,7 @@
 										</td>
 										<td>
 											<label class="form-label text-r">
-												微信号：
+												<span style="color:red;">(多项用','隔开至多三项)</span>微信号：
 											</label>
 										</td>
 										<td colspan="2">
@@ -243,7 +243,7 @@
 										</td>
 										<td>
 											<label class="form-label text-r">
-												手机号码：
+												<span style="color:red;">(多项用','隔开至多三项)</span>手机号码：
 											</label>
 										</td>
 										<td colspan="2">
@@ -296,6 +296,18 @@
 											<s:textfield name="guiltSafeguardMan.location"
 												cssClass="input-text radius size-M "
 												cssStyle="width: 780px;"></s:textfield>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label class="form-label text-r">
+												人员备注信息：
+											</label>
+										</td>
+										<td colspan="4">
+											<s:textarea name="person.remark"
+											cssClass="input-text radius size-M "
+											cssStyle="width: 80%; height: 120px;"></s:textarea>
 										</td>
 									</tr>
 									<tr>

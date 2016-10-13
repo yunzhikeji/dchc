@@ -30,7 +30,7 @@ public class Person implements java.io.Serializable {
 
 	private Integer id;//
 	private UserRole userRole; // 录入人员
-	private SocialMan socialMan;
+	private SocialMan socialMan;//社会人员
 	private CommonClue commonClue;// 普通线索人员(普通线索)
 	private DisappearMan disappearMan;// 失踪人员
 	private AnalyzeMan analyzeMan;// 侵财分析人员
@@ -63,6 +63,7 @@ public class Person implements java.io.Serializable {
 	private String photoImg;// 照片
 	private Integer isOutOfTime;// 是否超期办理
 	private Integer isNew;
+	private String remark;//人员备注
 
 	// Constructors
 
@@ -80,7 +81,7 @@ public class Person implements java.io.Serializable {
 			String registerAddress, String registerAddressArea, String carrier,
 			String carryTool, String endSituation, String comprehensiveJudge,
 			String leaderInstruction, Integer isMakeControl, Integer type,
-			String joinDate, int handleState, String photoImg,
+			String joinDate, int handleState, String photoImg,String remark,
 			Integer isOutOfTime, List<Otherperson> otherpersons,
 			List<Lawcase> lawcases, List<Troubleshooting> troubleshootings,
 			List<Judge> judges) {
@@ -117,6 +118,7 @@ public class Person implements java.io.Serializable {
 		this.judges = judges;
 		this.isOutOfTime = isOutOfTime;
 		this.isNew = isNew;
+		this.remark = remark;
 	}
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -297,6 +299,15 @@ public class Person implements java.io.Serializable {
 	@Column(name = "isNew")
 	public Integer getIsNew() {
 		return isNew;
+	}
+	
+	@Column(name = "remark",columnDefinition="text")
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
 	}
 
 	public void setIsNew(Integer isNew) {

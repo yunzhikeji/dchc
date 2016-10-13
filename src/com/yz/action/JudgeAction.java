@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -462,9 +463,9 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 		}
 
 		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
-
+		
 		List<Judge> judges = judgeService.getNewJudges();
-
+		
 		List<JudgeVO> judgeVOs = new ArrayList<JudgeVO>();
 
 		if (judges != null && judges.size() > 0) {
@@ -473,6 +474,13 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 			
 				judgeVO.setJoinDate(judge.getReportTime());
 				if (judge.getPerson() != null) {
+					
+					//查看权限
+					if(!isContainID(userRole.getUnit().getPids(),judge.getPerson().getId().toString())&&userRole.getUserLimit()!=2)
+					{
+						break;
+					}
+					
 					judgeVO.setId(judge.getPerson().getId());
 					judgeVO.setName(judge.getPerson().getName());
 					judgeVO.setType(judge.getPerson().getType());
@@ -532,6 +540,13 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 				}
 
 				if (judge.getInjurycase() != null) {
+					
+					//查看权限
+					if(!isContainID(userRole.getUnit().getInids(),judge.getInjurycase().getId().toString())&&userRole.getUserLimit()!=2)
+					{
+						break;
+					}
+					
 					judgeVO.setId(judge.getInjurycase().getId());
 					judgeVO.setName(judge.getInjurycase().getCaseName());
 					switch (judge.getInjurycase().getItype()) {
@@ -561,6 +576,13 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 				}
 
 				if (judge.getClue() != null) {
+					
+					//查看权限
+					if(!isContainID(userRole.getUnit().getCids(),judge.getClue().getId().toString())&&userRole.getUserLimit()!=2)
+					{
+						break;
+					}
+					
 					judgeVO.setId(judge.getClue().getId());
 					judgeVO.setName(judge.getClue().getTitle());
 					switch (judge.getClue().getCtype()) {
@@ -592,6 +614,18 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	
+	private boolean isContainID(String ids,String id)
+	{
+		
+		String[] idString = ids.split(",");
+		
+		List<String> list = Arrays.asList(idString);  
+		
+		return  list.contains(id);
+		
 	}
 
 	// get、set-------------------------------------------

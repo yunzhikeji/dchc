@@ -505,9 +505,17 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			commonClueService.add(commonClue);
 			person.setCommonClue(commonClue);
 			break;
+		case 15:
+			/*
+			// pageName = "社会人员";
+			socialService.add(socialMan);
+			person.setSocialMan(socialMan);
+			*/
+			break;
 		default:
 			break;
 		}
+	
 
 		if (picture != null && pictureFileName != null
 				&& !pictureFileName.replace(" ", "").equals("")) {

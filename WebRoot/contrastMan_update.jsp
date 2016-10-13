@@ -217,7 +217,19 @@
 									<div class="col-10">
 										<s:textarea name="contrastMan.criminalRecordSituation"
 											cssClass="input-text radius size-M "
-											cssStyle="width: 95%; height: 50px;"></s:textarea>
+											cssStyle="width: 80%; height: 120px;"></s:textarea>
+									</div>
+								</div>
+								<div class="row cl mb-10">
+									<div class="col-2">
+										<label class="form-label text-r">
+											人员备注信息：
+										</label>
+									</div>
+									<div class="col-10">
+										<s:textarea name="person.remark"
+											cssClass="input-text radius size-M "
+											cssStyle="width: 80%; height: 120px;"></s:textarea>
 									</div>
 								</div>
 								<div class="row cl mb-10">
