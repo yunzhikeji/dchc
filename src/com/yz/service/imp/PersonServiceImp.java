@@ -148,8 +148,7 @@ public class PersonServiceImp implements IPersonService {
 		Object[] values = new Object[] { personname };
 		return personDao.queryByNamedParam(queryString, paramNames, values);
 	}
-	
-	
+
 	public Person getPersonByIdcard(String idcard) {
 		String queryString = "from Person mo where mo.idcard=:idcard";
 		String[] paramNames = new String[] { "idcard" };
@@ -223,7 +222,7 @@ public class PersonServiceImp implements IPersonService {
 			int handleState, UserRole userRole) {
 		// TODO Auto-generated method stub
 		String queryString = "from Person mo where mo.type=" + type
-				+ " and mo.handleState=" + handleState ;
+				+ " and mo.handleState=" + handleState;
 		return queryListBySql(con, convalue, starttime, endtime, userRole,
 				queryString);
 	}
@@ -352,21 +351,96 @@ public class PersonServiceImp implements IPersonService {
 		return queryListBySql(con, convalue, starttime, endtime, userRole,
 				queryString);
 	}
-	
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see com.yz.service.IPersonService#getNewPersonsByUserRole(com.yz.model.UserRole)
 	 */
 	public List<Person> getNewPersonsByUserRole(UserRole userRole) {
 		// TODO Auto-generated method stub
 		String queryString = "from Person mo where  mo.isNew=1 and mo.handleState=1 ";
-		
+
 		queryString = setSqlLimit(queryString, userRole);
-		
+
 		return personDao.queryList(queryString);
 	}
 
+	public List<Person> getPersonsByOption(int con, String convalue,
+			UserRole userRole) {
+		// TODO Auto-generated method stub
+		/* 0:'选择类型',1:'人员姓名',2:'人员编号',3:'身份证号',4:'录入人员姓名',5:'DNA',6:'指纹',7:'户籍地',8:'手机号'
+		,9:'微信号',10:'性别',11:'QQ号',12:'出生日期'
+			,13:'银行卡号',14:'车牌号',15:'车架号',16:'手机串号'
+			,17:'发动机号'
+			*/
+		String queryString = "from Person mo where  1=1 ";
+
+		if (con != 0 && convalue != null && !convalue.equals("")) {
+			switch (con) {
+			case 1:
+				queryString += " and mo.name like  '%" + convalue + "%' ";
+				break;
+			case 2:
+				queryString += " and mo.number like  '%" + convalue + "%' ";
+				break;
+			case 3:
+				queryString += " and mo.idcard like  '%" + convalue + "%' ";
+				break;
+			case 4:
+				queryString += " and mo.userRole.realname like  '%" + convalue + "%' ";
+				break;
+			case 5:
+				queryString += " and mo.gamblingCriminalMan.dnanumber like  '%" + convalue + "%' ";
+				break;
+			case 6:
+				queryString += " and mo.gamblingCriminalMan.fingerPrintNumber like  '%" + convalue + "%' ";
+				break;
+			case 7:
+				queryString += " and mo.registerAddress like  '%" + convalue + "%' ";
+				break;
+			case 8:
+				queryString += " and mo.telphone like  '%" + convalue + "%' ";
+				break;
+			case 9:
+				queryString += " and mo.wechat like  '%" + convalue + "%' ";
+				break;
+			case 10:
+				if(convalue.contains("男"))
+				{
+					queryString += " and mo.sex =1 ";
+				}else if(convalue.contains("女"))
+				{
+					queryString += " and mo.sex =0 ";
+				}
+				break;
+			case 11:
+				queryString += " and mo.qq like  '%" + convalue + "%' ";
+				break;
+			case 12:
+				queryString += " and mo.birthday like  '%" + convalue + "%' ";
+				break;
+			case 13:
+				queryString += " and mo.bankCard like  '%" + convalue + "%' ";
+				break;
+			case 14:
+				queryString += " and mo.carFrameNumber like  '%" + convalue + "%' ";
+				break;
+			case 15:
+				queryString += " and mo.gamblingCriminalMan.imei like  '%" + convalue + "%' ";
+				break;
+			case 16:
+				queryString += " and mo.gamblingCriminalMan.fingerPrintNumber like  '%" + convalue + "%' ";
+				break;
+			case 17:
+				queryString += " and mo.gamblingCriminalMan.engineNumber like  '%" + convalue + "%' ";
+				break;
+			default:
+				break;
+			}
+		}
+		return personDao.queryList(setSqlLimit(queryString, userRole));
+	}
 
 	/*
 	 * 提取方法
@@ -377,10 +451,12 @@ public class PersonServiceImp implements IPersonService {
 
 		if (con != 0 && convalue != null && !convalue.equals("")) {
 			if (con == 1) {
-				queryString += " and mo.userRole.realname like  '%" + convalue + "%' ";
+				queryString += " and mo.userRole.realname like  '%" + convalue
+						+ "%' ";
 			}
 			if (con == 2) {
-				queryString += " and mo.userRole.number like  '%" + convalue + "%' ";
+				queryString += " and mo.userRole.number like  '%" + convalue
+						+ "%' ";
 			}
 		}
 		if (starttime != null && !starttime.equals("")) {
@@ -392,8 +468,6 @@ public class PersonServiceImp implements IPersonService {
 
 		return personDao.queryList(setSqlLimit(queryString, userRole));
 	}
-	
-	
 
 	// 设置sql语句 关于权限分配
 	private String setSqlLimit(String queryString, UserRole userRole) {
@@ -471,4 +545,5 @@ public class PersonServiceImp implements IPersonService {
 	public void setPersonDao(IPersonDao personDao) {
 		this.personDao = personDao;
 	}
+
 }

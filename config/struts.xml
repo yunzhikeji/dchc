@@ -529,6 +529,17 @@
 
 		</action>
 	</package>
+	
+	<package name="query" extends="struts-default">
+		<global-results>
+			<result name="adminLogin">/login.jsp</result>
+			<result name="opsessiongo">/op_sessiongo.jsp</result>
+		</global-results>
+		<action name="queryAction" class="queryAction">
+			<result name="query">/global.jsp</result>
+			<result name="manage">/global_manage.jsp</result>
+		</action>
+	</package>
 
 
 </struts>

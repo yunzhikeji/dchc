@@ -43,7 +43,7 @@
 				width="489" height="70"> </a>
 		<ul class="nav" style="margin-right: 30px;">
 			<li>
-				<a _href="global.jsp" href="javascript:void(0)" title="一键搜索"><img
+				<a _href="queryAction!goToQuery" href="javascript:void(0)" title="一键搜索"><img
 						src="images/icon02.png" title="一键搜索" />
 					<h4>
 						一键搜索

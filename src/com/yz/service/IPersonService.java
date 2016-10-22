@@ -65,4 +65,7 @@ public interface IPersonService {
 
 	public abstract List<Person> getNewPersonsByUserRole(UserRole userRole);
 
+	public abstract List<Person> getPersonsByOption(int personOption,
+			String convalue, UserRole userRole);
+
 }

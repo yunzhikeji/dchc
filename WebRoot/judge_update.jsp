@@ -117,8 +117,9 @@
 
 	<body>
 		<div class="pd-20">
-			<form name="judgeUpdateForm" class="form form-horizontal"  enctype="multipart/form-data" 
-				action="judgeAction!update" method="post" onsubmit="">
+			<form name="judgeUpdateForm" class="form form-horizontal"
+				enctype="multipart/form-data" action="judgeAction!update"
+				method="post" onsubmit="">
 				<s:hidden name="judge.id"></s:hidden>
 				<s:if test="judge.person!=null">
 					<s:hidden name="judge.person.id"></s:hidden>
@@ -152,7 +153,7 @@
 							style="margin-top: 0; width: 180px; height: 300px;"></ul>
 					</div>
 				</div>
-				
+
 				<div class="row cl">
 					<label class="form-label col-2">
 						立案扫描件：
@@ -161,8 +162,8 @@
 						<tr>
 							<td align="center">
 								<img id="myimage1" class="img-responsive thumbnail"
-								src="<%=basePath%>${judge.scanImage}"
-									width="300px" height="280px;" alt="扫描件" />
+									src="<%=basePath%>${judge.scanImage}" width="300px"
+									height="280px;" alt="扫描件" />
 								<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),
@@ -214,21 +215,21 @@
 						</tr>
 					</table>
 				</div>
-				
-				
-				
-				
+
+
+
+
 				<div class="row cl">
 					<label class="form-label col-2">
-						报送时间：<span style="color:red">(12个小时内未处理将自动记为超时办理)</span>
+						报送时间：
+						<span style="color: red">(12个小时内未处理将自动记为超时办理)</span>
 					</label>
 					<span class="form-label col-3"> <span
 						class="formControls col-12"> <input type="text"
 								name="judge.reportTime"
 								onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm',readOnly:true})"
 								id="troubleshooting" class="input-text Wdate"
-								value="<s:property value="judge.reportTime"/>">
-					</span> </span>
+								value="<s:property value="judge.reportTime"/>"> </span> </span>
 					<label class="form-label col-2">
 						<s:if test="judge.jtype==1">研判</s:if>
 						<s:if test="judge.jtype==2">查证</s:if>
@@ -241,12 +242,6 @@
 								name="judge.indexNumber" cssStyle="width: 200px;"></s:textfield>
 					</span> </span>
 				</div>
-				
-				
-				
-				
-				
-				
 				<div class="row cl">
 					<label class="form-label col-2">
 						承办人：
@@ -261,8 +256,7 @@
 					<span class="form-label col-3"> <span
 						class="formControls col-12"> <s:textfield
 								cssClass="input-text" placeholder="联系电话" id="telphone"
-								name="judge.telphone" cssStyle="width: 200px;"></s:textfield> </span>
-					</span>
+								name="judge.telphone" cssStyle="width: 200px;"></s:textfield> </span> </span>
 				</div>
 				<div class="row cl">
 					<label class="form-label col-2">
@@ -279,7 +273,7 @@
 					</span> </span>
 				</div>
 				<s:if test="judge.jtype!=3">
-					<s:if test='%{#session.userRoleo.unit.number == "371402180222"}'>
+					<s:if test='%{#session.userRoleo.unit.number == "371402020000"}'>
 						<div class="row cl">
 							<label class="form-label col-2">
 								技侦信息：
@@ -290,12 +284,7 @@
 										id="criminalJudge"
 										cssStyle="width: 113%; height: 120px; float: left;"
 										placeholder="技侦信息"></s:textarea> </span> </span>
-							<s:hidden name="judge.networkJudge"></s:hidden>
-							<s:hidden name="judge.intelligenceJudge"></s:hidden>
-							<s:hidden name="judge.imageJudge"></s:hidden>
 						</div>
-					</s:if>
-					<s:if test='%{#session.userRoleo.unit.number == "371402020000"}'>
 						<div class="row cl">
 							<label class="form-label col-2">
 								网络信息：
@@ -306,12 +295,7 @@
 										id="networkJudge"
 										cssStyle="width: 113%; height: 120px; float: left;"
 										placeholder="网络信息"></s:textarea> </span> </span>
-							<s:hidden name="judge.criminalJudge"></s:hidden>
-							<s:hidden name="judge.intelligenceJudge"></s:hidden>
-							<s:hidden name="judge.imageJudge"></s:hidden>
 						</div>
-					</s:if>
-					<s:if test='%{#session.userRoleo.unit.number == "371402060111"}'>
 						<div class="row cl">
 							<label class="form-label col-2">
 								情报信息：
@@ -322,12 +306,7 @@
 										id="intelligenceJudge"
 										cssStyle="width: 113%; height: 120px; float: left;"
 										placeholder="情报信息"></s:textarea> </span> </span>
-							<s:hidden name="judge.criminalJudge"></s:hidden>
-							<s:hidden name="judge.networkJudge"></s:hidden>
-							<s:hidden name="judge.imageJudge"></s:hidden>
 						</div>
-					</s:if>
-					<s:if test='%{#session.userRoleo.unit.number == "371402180111"}'>
 						<div class="row cl">
 							<label class="form-label col-2">
 								图像信息：
@@ -337,13 +316,10 @@
 										name="judge.imageJudge" cssClass="input-text" id="imageJudge"
 										cssStyle="width: 113%; height: 120px; float: left;"
 										placeholder="图像信息"></s:textarea> </span> </span>
-							<s:hidden name="judge.criminalJudge"></s:hidden>
-							<s:hidden name="judge.networkJudge"></s:hidden>
-							<s:hidden name="judge.intelligenceJudge"></s:hidden>
-							<s:hidden name="judge.isNew" value="0"></s:hidden>
-							<s:hidden name="judge.scanImage" title="扫描件"></s:hidden>
 						</div>
 					</s:if>
+					<s:hidden name="judge.isNew" value="0"></s:hidden>
+					<s:hidden name="judge.scanImage" title="扫描件"></s:hidden>
 				</s:if>
 				<div class="row cl">
 					<s:token></s:token>

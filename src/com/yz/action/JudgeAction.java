@@ -139,8 +139,7 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 
 				String number = unit.getNumber().replace(" ", "");
 				
-				if (number.equals("371402180222") || number.equals("371402020000")
-						|| number.equals("371402060111") || number.equals("371402180111")) {
+				if (number.equals("371402020000")) {
 					unitVO = new UnitVO();
 					unitVO.setId(unit.getId());
 					unitVO.setName(unit.getName());

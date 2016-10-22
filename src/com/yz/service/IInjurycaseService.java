@@ -83,4 +83,7 @@ public interface IInjurycaseService {
 
 	public abstract List<Injurycase> getNewInjurycaseByUserRole(
 			UserRole userRole);
+
+	public abstract List<Injurycase> getInjurycasesByOption(
+			int injurycaseOption, String convalue, UserRole userRole);
 }

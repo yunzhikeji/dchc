@@ -389,11 +389,48 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 
 		return injurycaseDao.queryList(queryString);
 	}
-	
+
 	public List<Injurycase> getNewInjurycaseByUserRole(UserRole userRole) {
 		// TODO Auto-generated method stub
 		String queryString = "from Injurycase mo where   mo.isNew=1 and mo.handleState=1 ";
-		
+
+		queryString = setSqlLimit(queryString, userRole);
+
+		return injurycaseDao.queryList(queryString);
+	}
+
+	public List<Injurycase> getInjurycasesByOption(int con, String convalue,
+			UserRole userRole) {
+		// TODO Auto-generated method stub
+		// 0:'选择类型',1:'案件编号',2:'案件地址',3:'案件名称',4:'录入人员姓名',5:'录入单位',6:'案发时间'
+		String queryString = "from Injurycase mo where   1=1 ";
+
+		if (con != 0 && convalue != null && !convalue.equals("")) {
+			switch (con) {
+			case 1:
+				queryString += " and mo.caseNumber like  '%" + convalue + "%' ";
+				break;
+			case 2:
+				queryString += " and mo.casePlace like  '%" + convalue + "%' ";
+				break;
+			case 3:
+				queryString += " and mo.caseName like  '%" + convalue + "%' ";
+				break;
+			case 4:
+				queryString += " and mo.userRole.realname like  '%" + convalue
+						+ "%' ";
+				break;
+			case 5:
+				queryString += " and mo.userRole.unit.name like  '%" + convalue + "%' ";
+				break;
+			case 6:
+				queryString += " and mo.startTime like  '%" + convalue + "%' ";
+				break;
+			default:
+				break;
+			}
+		}
+
 		queryString = setSqlLimit(queryString, userRole);
 
 		return injurycaseDao.queryList(queryString);
@@ -456,6 +493,5 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		}
 		return queryString;
 	}
-
 
 }

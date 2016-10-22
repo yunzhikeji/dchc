@@ -224,8 +224,7 @@ public class JudgeServiceImp implements IJudgeService {
 		Object[] values = new Object[] { jtype, inid };
 		return judgeDao.queryList(queryString, paramNames, values);
 	}
-	
-	
+
 	public List<Judge> getNewJudges() {
 		// TODO Auto-generated method stub
 		String queryString = "from Judge mo where mo.isNew=1 ";
@@ -280,7 +279,7 @@ public class JudgeServiceImp implements IJudgeService {
 
 		for (Judge judge : judges) {
 
-			//1:获得当前研判信息，判断当前时间是否超时
+			// 1:获得当前研判信息，判断当前时间是否超时
 			String nowDay = DateTimeKit.getLocalDate();
 			String deadline = judge.getDeadline();
 			int daysBetween = 0;
@@ -291,7 +290,7 @@ public class JudgeServiceImp implements IJudgeService {
 				System.out.println("时间比较异常");
 			}
 			if (daysBetween > 12) {
-			//2：如果超期进行超期处理
+				// 2：如果超期进行超期处理
 				// 获得研判下发的部门
 				String units = judge.getReportUnit().replace(" ", "");
 
@@ -305,31 +304,33 @@ public class JudgeServiceImp implements IJudgeService {
 					Unit unit = unitDao.queryByNamedParam(queryStringUnit,
 							paramNames, values);
 					if (unit != null) {
-						if (unit.getNumber().equals("371402180222")) {
-							if (judge.getCriminalJudge() == null
-									|| judge.getCriminalJudge()
-											.replace(" ", "").equals("")) {
+						if (unit.getNumber().equals("371402020000")) {
+
+							boolean isCriminalJudgeNull = (judge
+									.getCriminalJudge() == null)
+									|| (judge.getCriminalJudge()
+											.replace(" ", "").equals(""));
+							
+							boolean isIntelligenceJudgeNull = (judge
+									.getCriminalJudge() == null)
+									|| (judge.getCriminalJudge()
+											.replace(" ", "").equals(""));
+							
+							boolean isImageJudgeNull = (judge
+									.getCriminalJudge() == null)
+									|| (judge.getCriminalJudge()
+											.replace(" ", "").equals(""));
+							
+							boolean isNetworkJudgeNull = (judge
+									.getCriminalJudge() == null)
+									|| (judge.getCriminalJudge()
+											.replace(" ", "").equals(""));
+							
+							if(isCriminalJudgeNull&&isIntelligenceJudgeNull&&isImageJudgeNull&&isNetworkJudgeNull)
+							{
 								handleOutOfTime(judge);
 							}
-						} else if (unit.getNumber().equals("371402020000")) {
-							if (judge.getIntelligenceJudge() == null
-									|| judge.getIntelligenceJudge().replace(
-											" ", "").equals("")) {
-								handleOutOfTime(judge);
-							}
-						} else if (unit.getNumber().equals("371402060111")) {
-							if (judge.getImageJudge() == null
-									|| judge.getImageJudge().replace(" ", "")
-											.equals("")) {
-								handleOutOfTime(judge);
-							}
-						} else if (unit.getNumber().equals("371402180111")) {
-							if (judge.getNetworkJudge() == null
-									|| judge.getNetworkJudge().replace(" ", "")
-											.equals("")) {
-								handleOutOfTime(judge);
-							}
-						}
+						} 
 					}
 
 				}
