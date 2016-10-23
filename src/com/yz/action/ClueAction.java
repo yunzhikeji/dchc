@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -40,8 +38,8 @@ import com.yz.service.IUnitService;
 import com.yz.service.IUserRoleService;
 import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
+import com.yz.util.InfoType;
 import com.yz.vo.AjaxMsgVO;
-import com.yz.vo.CaseVO;
 import com.yz.vo.ClueVO;
 import com.yz.vo.UnitVO;
 
@@ -219,39 +217,14 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		clue.setIsNew(1);
 		clueService.add(clue);
 
-		// 添加当前线索id到部门cids
-		if (userRole.getUnit() != null) {
-			int uid = userRole.getUnit().getId();
-			Unit un = unitService.loadById(uid);
-
-			if (un.getCids() != null && un.getCids() != "") {
-				un.setCids(handleIDs(un.getCids(), clue.getId() + ""));
-			} else {
-				un.setCids(clue.getId() + ",");
-			}
-			unitService.update(un);
-		}
+		// 设置部门cids
+		unitService.updateUnitByUserRoleAndInfoType(userRole.getUnit(), clue
+				.getId()
+				+ "", InfoType.CLUE, 1);
 
 		arg[0] = "clueAction!list?ctype=" + clue.getCtype();
 		arg[1] = "线索管理";
 		return "success_child";
-	}
-
-	// 处理ids
-	private String handleIDs(String objIDs, String objID) {
-		// TODO Auto-generated method stub
-		Set<String> ids = new HashSet<String>();
-		String newIDs = "";
-		String[] arrayIDs = objIDs.split(",");
-		for (int i = 0; i < arrayIDs.length; i++) {
-			ids.add(arrayIDs[i]);
-		}
-		ids.add(objID);
-
-		for (String id : ids) {
-			newIDs = newIDs + id + ",";
-		}
-		return newIDs;
 	}
 
 	/**
@@ -264,10 +237,20 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
+
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+
 		clue = clueService.loadById(id);
+
+		int ctype = clue.getCtype();
+
+		// 设置部门cids
+		unitService.updateUnitByUserRoleAndInfoType(userRole.getUnit(),
+				id + "", InfoType.CLUE, -1);
+
 		clueService.delete(clue);
 		arg[0] = "clueAction!list?ctype=" + ctype;
-		arg[1] = "人员管理";
+		arg[1] = "线索管理";
 		return SUCCESS;
 	}
 
@@ -391,9 +374,8 @@ public class ClueAction extends ActionSupport implements RequestAware,
 
 		if (persons != null && persons.size() > 0) {
 			for (Person person : persons) {
-				
-				if(person.getType()==14)
-				{
+
+				if (person.getType() == 14) {
 					ClueVO clueVO = new ClueVO();
 					clueVO.setId(person.getId());
 					clueVO.setName(person.getName());

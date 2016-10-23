@@ -114,18 +114,22 @@ public class SocialManServiceImp implements ISocialManService {
 		if(userRole.getUnit()!=null&&userRole.getUnit().getPids()!=null&&userRole.getUnit().getPids().replace(" ", "")!="")
 		{
 			String pids = userRole.getUnit().getPids();
-			String lastChar = pids.substring(pids.length()-1, pids.length());
-			if(lastChar.equals(","))
-			{
-				pids = pids.substring(0, pids.length()-1);
-			}
+			
+			String lastChar = "";
+			do {
+				lastChar = pids.substring(pids.length() - 1, pids
+						.length());
+				if (lastChar.equals(",")) {
+					pids = pids.substring(0, pids.length() - 1);
+				}
+			} while (lastChar.equals(","));
+			
 			queryString += " and mo.id in ("+pids+")";
 		}else
 		{
 			queryString += " and mo.id in (0)";
 		}
 		System.out.println(queryString);
-		
 		
 		return socialManDao.getUniqueResult(queryString,p);
 	}
@@ -173,11 +177,14 @@ public class SocialManServiceImp implements ISocialManService {
 		if(userRole.getUnit()!=null&&userRole.getUnit().getPids()!=null&&userRole.getUnit().getPids().replace(" ", "")!="")
 		{
 			String pids = userRole.getUnit().getPids();
-			String lastChar = pids.substring(pids.length()-1, pids.length());
-			if(lastChar.equals(","))
-			{
-				pids = pids.substring(0, pids.length()-1);
-			}
+			String lastChar = "";
+			do {
+				lastChar = pids.substring(pids.length() - 1, pids
+						.length());
+				if (lastChar.equals(",")) {
+					pids = pids.substring(0, pids.length() - 1);
+				}
+			} while (lastChar.equals(","));
 			queryString += " and mo.id in ("+pids+")";
 		}else
 		{
@@ -204,11 +211,14 @@ public class SocialManServiceImp implements ISocialManService {
 		if(userRole.getUnit()!=null&&userRole.getUnit().getPids()!=null&&userRole.getUnit().getPids().replace(" ", "")!="")
 		{
 			String pids = userRole.getUnit().getPids();
-			String lastChar = pids.substring(pids.length()-1, pids.length());
-			if(lastChar.equals(","))
-			{
-				pids = pids.substring(0, pids.length()-1);
-			}
+			String lastChar = "";
+			do {
+				lastChar = pids.substring(pids.length() - 1, pids
+						.length());
+				if (lastChar.equals(",")) {
+					pids = pids.substring(0, pids.length() - 1);
+				}
+			} while (lastChar.equals(","));
 			queryString += " and mo.id in ("+pids+")";
 		}else
 		{

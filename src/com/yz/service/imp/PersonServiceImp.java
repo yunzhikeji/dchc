@@ -19,6 +19,8 @@ import com.yz.model.UserRole;
 import com.yz.service.IPersonService;
 import com.yz.service.IUnitService;
 import com.yz.util.GenerateSqlFromExcel;
+import com.yz.util.InfoType;
+import com.yz.util.MyHandleUtil;
 
 @Component("personService")
 public class PersonServiceImp implements IPersonService {
@@ -138,7 +140,8 @@ public class PersonServiceImp implements IPersonService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		queryString = setSqlLimit(queryString, userRole);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.PERSON);
 		return personDao.getUniqueResult(queryString, p);
 	}
 
@@ -196,7 +199,8 @@ public class PersonServiceImp implements IPersonService {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.PERSON);
 
 		return personDao.pageList(queryString, p, page, size);
 	}
@@ -262,16 +266,10 @@ public class PersonServiceImp implements IPersonService {
 				person.setSocialMan(socialMan);
 				socialManDao.save(socialMan);
 				int pid = personDao.savereturn(person);
-				if (userRole.getUnit() != null) {
-					int uid = userRole.getUnit().getId();
-					Unit un = unitService.queryByUid(uid);
-					if (un.getPids() != null && un.getPids() != "") {
-						un.setPids(handleIDs(un.getPids(), pid + ""));
-					} else {
-						un.setPids(pid + ",");
-					}
-					unitService.update(un);
-				}
+				
+				//设置部门pids
+				unitService.updateUnitByUserRoleAndInfoType(userRole.getUnit(),pid+"",InfoType.PERSON,1);
+				
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -361,7 +359,8 @@ public class PersonServiceImp implements IPersonService {
 		// TODO Auto-generated method stub
 		String queryString = "from Person mo where  mo.isNew=1 and mo.handleState=1 ";
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.PERSON);
 
 		return personDao.queryList(queryString);
 	}
@@ -369,11 +368,11 @@ public class PersonServiceImp implements IPersonService {
 	public List<Person> getPersonsByOption(int con, String convalue,
 			UserRole userRole) {
 		// TODO Auto-generated method stub
-		/* 0:'选择类型',1:'人员姓名',2:'人员编号',3:'身份证号',4:'录入人员姓名',5:'DNA',6:'指纹',7:'户籍地',8:'手机号'
-		,9:'微信号',10:'性别',11:'QQ号',12:'出生日期'
-			,13:'银行卡号',14:'车牌号',15:'车架号',16:'手机串号'
-			,17:'发动机号'
-			*/
+		/*
+		 * 0:'选择类型',1:'人员姓名',2:'人员编号',3:'身份证号',4:'录入人员姓名',5:'DNA',6:'指纹',7:'户籍地',8:'手机号'
+		 * ,9:'微信号',10:'性别',11:'QQ号',12:'出生日期'
+		 * ,13:'银行卡号',14:'车牌号',15:'车架号',16:'手机串号' ,17:'发动机号'
+		 */
 		String queryString = "from Person mo where  1=1 ";
 
 		if (con != 0 && convalue != null && !convalue.equals("")) {
@@ -388,16 +387,20 @@ public class PersonServiceImp implements IPersonService {
 				queryString += " and mo.idcard like  '%" + convalue + "%' ";
 				break;
 			case 4:
-				queryString += " and mo.userRole.realname like  '%" + convalue + "%' ";
+				queryString += " and mo.userRole.realname like  '%" + convalue
+						+ "%' ";
 				break;
 			case 5:
-				queryString += " and mo.gamblingCriminalMan.dnanumber like  '%" + convalue + "%' ";
+				queryString += " and mo.gamblingCriminalMan.dnanumber like  '%"
+						+ convalue + "%' ";
 				break;
 			case 6:
-				queryString += " and mo.gamblingCriminalMan.fingerPrintNumber like  '%" + convalue + "%' ";
+				queryString += " and mo.gamblingCriminalMan.fingerPrintNumber like  '%"
+						+ convalue + "%' ";
 				break;
 			case 7:
-				queryString += " and mo.registerAddress like  '%" + convalue + "%' ";
+				queryString += " and mo.registerAddress like  '%" + convalue
+						+ "%' ";
 				break;
 			case 8:
 				queryString += " and mo.telphone like  '%" + convalue + "%' ";
@@ -406,11 +409,9 @@ public class PersonServiceImp implements IPersonService {
 				queryString += " and mo.wechat like  '%" + convalue + "%' ";
 				break;
 			case 10:
-				if(convalue.contains("男"))
-				{
+				if (convalue.contains("男")) {
 					queryString += " and mo.sex =1 ";
-				}else if(convalue.contains("女"))
-				{
+				} else if (convalue.contains("女")) {
 					queryString += " and mo.sex =0 ";
 				}
 				break;
@@ -424,22 +425,30 @@ public class PersonServiceImp implements IPersonService {
 				queryString += " and mo.bankCard like  '%" + convalue + "%' ";
 				break;
 			case 14:
-				queryString += " and mo.carFrameNumber like  '%" + convalue + "%' ";
+				queryString += " and mo.carFrameNumber like  '%" + convalue
+						+ "%' ";
 				break;
 			case 15:
-				queryString += " and mo.gamblingCriminalMan.imei like  '%" + convalue + "%' ";
+				queryString += " and mo.gamblingCriminalMan.imei like  '%"
+						+ convalue + "%' ";
 				break;
 			case 16:
-				queryString += " and mo.gamblingCriminalMan.fingerPrintNumber like  '%" + convalue + "%' ";
+				queryString += " and mo.gamblingCriminalMan.fingerPrintNumber like  '%"
+						+ convalue + "%' ";
 				break;
 			case 17:
-				queryString += " and mo.gamblingCriminalMan.engineNumber like  '%" + convalue + "%' ";
+				queryString += " and mo.gamblingCriminalMan.engineNumber like  '%"
+						+ convalue + "%' ";
 				break;
 			default:
 				break;
 			}
 		}
-		return personDao.queryList(setSqlLimit(queryString, userRole));
+
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CASE);
+
+		return personDao.queryList(queryString);
 	}
 
 	/*
@@ -466,58 +475,12 @@ public class PersonServiceImp implements IPersonService {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
 
-		return personDao.queryList(setSqlLimit(queryString, userRole));
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CASE);
+
+		return personDao.queryList(queryString);
 	}
 
-	// 设置sql语句 关于权限分配
-	private String setSqlLimit(String queryString, UserRole userRole) {
-
-		if (userRole.getUserLimit() != 2) {
-			// 用户所在机构不为空
-			String pids = "";
-			if (userRole != null && userRole.getUnit() != null
-					&& userRole.getUnit().getPids() != null) {
-				pids = userRole.getUnit().getPids().replace(" ", "");
-				queryString = setSqlIds(queryString, pids);
-			} else {
-				queryString += " and mo.id in (0)";
-			}
-		}
-		return queryString;
-
-	}
-
-	// 设置sql语句 关于id
-	private String setSqlIds(String queryString, String pids) {
-		// TODO Auto-generated method stub
-		// 用户所在机构不为空
-		if (pids != "" && !pids.equals(",")) {
-			String lastChar = pids.substring(pids.length() - 1, pids.length());
-			if (lastChar.equals(",")) {
-				pids = pids.substring(0, pids.length() - 1);
-			}
-			queryString += " and mo.id in (" + pids + ")";
-		} else {
-			queryString += " and mo.id in (0)";
-		}
-		return queryString;
-	}
-
-	// 处理ids
-	private String handleIDs(String objIDs, String objID) {
-		Set<String> ids = new HashSet<String>();
-		String newIDs = "";
-		String[] arrayIDs = objIDs.split(",");
-		for (int i = 0; i < arrayIDs.length; i++) {
-			ids.add(arrayIDs[i]);
-		}
-		ids.add(objID);
-
-		for (String id : ids) {
-			newIDs = newIDs + id + ",";
-		}
-		return newIDs;
-	}
 
 	public ISocialManDao getSocialManDao() {
 		return socialManDao;

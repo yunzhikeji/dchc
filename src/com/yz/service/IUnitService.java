@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.yz.model.Unit;
 import com.yz.model.UserRole;
+import com.yz.util.InfoType;
 
 public interface IUnitService {
 
@@ -43,6 +44,13 @@ public interface IUnitService {
 	public abstract Unit getUnitByNumber(String number);
 
 	public abstract Unit queryByUid(int uid);
+
+	//根据当前部门的ids(pids,inids,cids) OperationType:1增加 -1删除
+	public abstract void updateUnitByUserRoleAndInfoType(Unit unit,String id,
+			InfoType infoType,int OperationType);
+	
+	//发起研判时，设置ids
+	public void updateJudgeUnit(String id, InfoType infoType, int operationType);
 
 
 

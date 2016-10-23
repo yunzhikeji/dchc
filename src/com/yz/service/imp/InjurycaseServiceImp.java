@@ -14,6 +14,8 @@ import com.yz.model.Injurycase;
 import com.yz.model.Person;
 import com.yz.model.UserRole;
 import com.yz.service.IInjurycaseService;
+import com.yz.util.InfoType;
+import com.yz.util.MyHandleUtil;
 
 /**
  * @author
@@ -235,7 +237,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		queryString = setSqlLimit(queryString, userRole);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
 		return injurycaseDao.getUniqueResult(queryString, p);
 	}
 
@@ -271,7 +273,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		queryString = setSqlLimit(queryString, userRole);
+		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
 		return injurycaseDao.pageList(queryString, p, page, size);
 	}
 
@@ -280,7 +282,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		// TODO Auto-generated method stub
 		String queryString = "from Injurycase mo where mo.itype=" + itype
 				+ " and mo.handleState=" + handleState;
-		queryString = setSqlLimit(queryString, userRole);
+		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
 		return injurycaseDao.queryList(queryString);
 	}
 
@@ -316,7 +318,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
 
 		return injurycaseDao.queryList(queryString);
 	}
@@ -331,7 +333,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
 
 		return injurycaseDao.queryList(queryString);
 	}
@@ -344,7 +346,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
 
 		return injurycaseDao.queryList(queryString);
 	}
@@ -357,7 +359,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
 
 		return injurycaseDao.queryList(queryString);
 	}
@@ -370,7 +372,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
 
 		return injurycaseDao.queryList(queryString);
 	}
@@ -385,7 +387,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
 
 		return injurycaseDao.queryList(queryString);
 	}
@@ -394,7 +396,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		// TODO Auto-generated method stub
 		String queryString = "from Injurycase mo where   mo.isNew=1 and mo.handleState=1 ";
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
 
 		return injurycaseDao.queryList(queryString);
 	}
@@ -431,7 +433,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 			}
 		}
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
 
 		return injurycaseDao.queryList(queryString);
 	}
@@ -456,41 +458,6 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
 
-		return queryString;
-	}
-
-	// 设置sql语句 关于权限分配
-	private String setSqlLimit(String queryString, UserRole userRole) {
-
-		if (userRole.getUserLimit() != 2) {
-			// 用户所在机构不为空
-			String inids = "";
-			if (userRole != null && userRole.getUnit() != null
-					&& userRole.getUnit().getInids() != null) {
-				inids = userRole.getUnit().getInids().replace(" ", "");
-				queryString = setSqlInids(queryString, inids);
-			} else {
-				queryString += " and mo.id in (0)";
-			}
-		}
-		return queryString;
-
-	}
-
-	// 设置sql语句 关于inid
-	private String setSqlInids(String queryString, String inids) {
-		// TODO Auto-generated method stub
-		// 用户所在机构不为空
-		if (inids != "" && !inids.equals(",")) {
-			String lastChar = inids.substring(inids.length() - 1, inids
-					.length());
-			if (lastChar.equals(",")) {
-				inids = inids.substring(0, inids.length() - 1);
-			}
-			queryString += " and mo.id in (" + inids + ")";
-		} else {
-			queryString += " and mo.id in (0)";
-		}
 		return queryString;
 	}
 

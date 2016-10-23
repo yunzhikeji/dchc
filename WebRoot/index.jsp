@@ -49,7 +49,7 @@
 						一键搜索
 					</h4> </a>
 			</li>
-                        <li><a href="http://139.129.212.126:8080/dchcService/index" onClick="" title="采集数据查询">
+                        <li><a href="http://localhost:8080/dchcService/index" onClick="" title="采集数据查询">
 			 <img src="images/icon07.png" title="采集数据查询" /><h4>采集数据查询</h4></a></li>
 			<li>
 				<a href="javascript:;" onClick="" title="待办任务"><img

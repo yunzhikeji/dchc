@@ -43,8 +43,9 @@ import com.yz.service.IPersonService;
 import com.yz.service.IUnitService;
 import com.yz.service.IUserRoleService;
 import com.yz.util.DateTimeKit;
+import com.yz.util.InfoType;
+import com.yz.util.MyHandleUtil;
 import com.yz.vo.AjaxMsgVO;
-import com.yz.vo.ClueVO;
 import com.yz.vo.JudgeVO;
 import com.yz.vo.UnitVO;
 
@@ -88,8 +89,6 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 	private IUnitService unitService;
 	@Resource
 	private IUserRoleService userRoleService;
-	
-	
 
 	// 扫描件图片
 	private File picture1;
@@ -138,7 +137,7 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 			for (Unit unit : units) {
 
 				String number = unit.getNumber().replace(" ", "");
-				
+
 				if (number.equals("371402020000")) {
 					unitVO = new UnitVO();
 					unitVO.setId(unit.getId());
@@ -166,25 +165,31 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 			return "opsessiongo_child";
 		}
 		if (judge.getPerson() != null) {
-			changePersonHandleState(judge.getPerson().getId());
-			handlePersonJudgeIndex(judge.getJtype());
-			judge.getReportUnit();
-			setUnitPids(userRoleo, judge);
+			changeHandleStateAndJudgeIndex(judge.getPerson().getId(),
+					InfoType.PERSON, judge.getJtype());
+			unitService.updateJudgeUnit(judge.getPerson().getId() + "",
+					InfoType.PERSON, 1);
+			// setUnitPids(userRoleo, judge);
 
 		}
+
 		if (judge.getInjurycase() != null) {
-			changeInjurycaseHandleState(judge.getInjurycase().getId());
-			handleInjurycaseJudgeIndex(judge.getJtype());
-			setUnitInids(userRoleo, judge);
+			changeHandleStateAndJudgeIndex(judge.getInjurycase().getId(),
+					InfoType.CASE, judge.getJtype());
+			unitService.updateJudgeUnit(judge.getInjurycase().getId() + "",
+					InfoType.CASE, 1);
+			// setUnitInids(userRoleo, judge);
 
 		}
 		if (judge.getClue() != null) {
-			changeClueHandleState(judge.getClue().getId());
-			handleClueJudgeIndex(judge.getJtype());
-			setUnitCids(userRoleo, judge);
+			changeHandleStateAndJudgeIndex(judge.getClue().getId(),
+					InfoType.CLUE, judge.getJtype());
+			unitService.updateJudgeUnit(judge.getClue().getId() + "",
+					InfoType.CLUE, 1);
+			// setUnitCids(userRoleo, judge);
 
 		}
-		
+
 		if (picture1 != null && picture1FileName != null
 				&& !picture1FileName.replace(" ", "").equals("")) {
 			String imageName = DateTimeKit.getDateRandom()
@@ -192,14 +197,12 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 			this.upload("/judge", imageName, picture1);
 			judge.setScanImage("judge" + "/" + imageName);
 		}
-		
+
 		judge.setDeadline(DateTimeKit.getLocalDate());
 		judge.setIsNew(1);
 		judgeService.add(judge);
 		return "success_child";
 	}
-	
-	
 
 	// 文件上传
 	public void upload(String fileName, String imageName, File picture)
@@ -227,7 +230,6 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 		}
 	}
 
-
 	// 设置报送部门的pids
 	private void setUnitPids(UserRole userRoleo, Judge judge) {
 		// TODO Auto-generated method stub
@@ -243,15 +245,10 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 			for (String uname : unitNames) {
 
 				Unit unit = unitService.getUnitByName(uname);
-				if (unit != null) {
-					if (unit.getPids() != null && unit.getPids() != "") {
-						unit.setPids(handleIDs(unit.getPids(), judge
-								.getPerson().getId()
-								+ ""));
-					} else {
-						unit.setPids(judge.getPerson().getId() + ",");
-					}
-				}
+				// 设置部门pids
+				unitService.updateUnitByUserRoleAndInfoType(unit, judge
+						.getPerson().getId()
+						+ "", InfoType.PERSON, 1);
 			}
 
 		}
@@ -272,15 +269,10 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 			for (String uname : unitNames) {
 
 				Unit unit = unitService.getUnitByName(uname);
-				if (unit != null) {
-					if (unit.getInids() != null && unit.getInids() != "") {
-						unit.setInids(handleIDs(unit.getInids(), judge
-								.getInjurycase().getId()
-								+ ""));
-					} else {
-						unit.setInids(judge.getInjurycase().getId() + ",");
-					}
-				}
+				// 设置部门inids
+				unitService.updateUnitByUserRoleAndInfoType(unit, judge
+						.getInjurycase().getId()
+						+ "", InfoType.CASE, 1);
 			}
 
 		}
@@ -301,100 +293,56 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 			for (String uname : unitNames) {
 
 				Unit unit = unitService.getUnitByName(uname);
-				if (unit != null) {
-					if (unit.getCids() != null && unit.getCids() != "") {
-						unit.setCids(handleIDs(unit.getCids(), judge.getClue()
-								.getId()
-								+ ""));
-					} else {
-						unit.setCids(judge.getClue().getId() + ",");
-					}
+				// 设置部门cids
+				unitService.updateUnitByUserRoleAndInfoType(unit, judge
+						.getClue().getId()
+						+ "", InfoType.CLUE, 1);
+			}
+
+		}
+	}
+
+	private void changeHandleStateAndJudgeIndex(Integer id, InfoType infoType,
+			int currentJtype) {
+
+		switch (infoType) {
+		case PERSON:
+			Person per = personService.loadById(id);
+			if (per != null) {
+				if (per.getHandleState() == 1) {
+					per.setHandleState(2);
+					personService.update(per);
 				}
 			}
-
-		}
-	}
-
-	// 处理ids
-	private String handleIDs(String objIDs, String objID) {
-		// TODO Auto-generated method stub
-		Set<String> ids = new HashSet<String>();
-		String newIDs = "";
-		String[] arrayIDs = objIDs.split(",");
-		for (int i = 0; i < arrayIDs.length; i++) {
-			ids.add(arrayIDs[i]);
-		}
-		ids.add(objID);
-
-		for (String id : ids) {
-			newIDs = newIDs + id + ",";
-		}
-		return newIDs;
-	}
-
-	// 改变人员当前处理状态
-	private void changePersonHandleState(int perid) {
-
-		Person per = personService.loadById(perid);
-		if (per != null) {
-			if (per.getHandleState() == 1) {
-				per.setHandleState(2);
-				personService.update(per);
+			judges = judgeService.loadByTypeAndPid(currentJtype, judge
+					.getPerson().getId());
+			break;
+		case CASE:
+			Injurycase injurycase = injurycaseService.loadById(id);
+			if (injurycase != null) {
+				if (injurycase.getHandleState() == 1) {
+					injurycase.setHandleState(2);
+					injurycaseService.update(injurycase);
+				}
 			}
-		}
-
-	}
-
-	private void changeInjurycaseHandleState(Integer inid) {
-
-		Injurycase injurycase = injurycaseService.loadById(inid);
-		if (injurycase != null) {
-			if (injurycase.getHandleState() == 1) {
-				injurycase.setHandleState(2);
-				injurycaseService.update(injurycase);
+			judges = judgeService.loadInjurycaseByTypeAndPid(currentJtype,
+					judge.getInjurycase().getId());
+			break;
+		case CLUE:
+			Clue clue = clueService.loadById(id);
+			if (clue != null) {
+				if (clue.getHandleState() == 1) {
+					clue.setHandleState(2);
+					clueService.update(clue);
+				}
 			}
-		}
-	}
-
-	private void changeClueHandleState(int clid) {
-
-		Clue clue = clueService.loadById(clid);
-		if (clue != null) {
-			if (clue.getHandleState() == 1) {
-				clue.setHandleState(2);
-				clueService.update(clue);
-			}
+			judges = judgeService.loadClueByTypeAndPid(currentJtype, judge
+					.getClue().getId());
+			break;
+		default:
+			break;
 		}
 
-	}
-
-	// 新增研判(查证)信息设置研判(查证)顺序
-	private void handlePersonJudgeIndex(int currentJtype) {
-		// TODO Auto-generated method stub
-
-		judges = judgeService.loadByTypeAndPid(currentJtype, judge.getPerson()
-				.getId());
-
-		if (judges != null) {
-			judge.setIndexNumber(judges.size() + 1);
-		}
-	}
-
-	private void handleInjurycaseJudgeIndex(int currentJtype) {
-		// TODO Auto-generated method stub
-
-		judges = judgeService.loadInjurycaseByTypeAndPid(currentJtype, judge
-				.getInjurycase().getId());
-
-		if (judges != null) {
-			judge.setIndexNumber(judges.size() + 1);
-		}
-	}
-
-	private void handleClueJudgeIndex(int currentJtype) {
-		// TODO Auto-generated method stub
-		judges = judgeService.loadClueByTypeAndPid(currentJtype, judge
-				.getClue().getId());
 		if (judges != null) {
 			judge.setIndexNumber(judges.size() + 1);
 		}
@@ -432,7 +380,7 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 	}
 
 	public String update() throws Exception {
-		
+
 		if (picture1 != null && picture1FileName != null
 				&& !picture1FileName.replace(" ", "").equals("")) {
 			String imageName = DateTimeKit.getDateRandom()
@@ -462,24 +410,25 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 		}
 
 		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
-		
+
 		List<Judge> judges = judgeService.getNewJudges();
-		
+
 		List<JudgeVO> judgeVOs = new ArrayList<JudgeVO>();
 
 		if (judges != null && judges.size() > 0) {
 			for (Judge judge : judges) {
 				JudgeVO judgeVO = new JudgeVO();
-			
+
 				judgeVO.setJoinDate(judge.getReportTime());
 				if (judge.getPerson() != null) {
-					
-					//查看权限
-					if(!isContainID(userRole.getUnit().getPids(),judge.getPerson().getId().toString())&&userRole.getUserLimit()!=2)
-					{
+
+					// 查看权限
+					if (!isContainID(userRole.getUnit().getPids(), judge
+							.getPerson().getId().toString())
+							&& userRole.getUserLimit() != 2) {
 						break;
 					}
-					
+
 					judgeVO.setId(judge.getPerson().getId());
 					judgeVO.setName(judge.getPerson().getName());
 					judgeVO.setType(judge.getPerson().getType());
@@ -539,13 +488,14 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 				}
 
 				if (judge.getInjurycase() != null) {
-					
-					//查看权限
-					if(!isContainID(userRole.getUnit().getInids(),judge.getInjurycase().getId().toString())&&userRole.getUserLimit()!=2)
-					{
+
+					// 查看权限
+					if (!isContainID(userRole.getUnit().getInids(), judge
+							.getInjurycase().getId().toString())
+							&& userRole.getUserLimit() != 2) {
 						break;
 					}
-					
+
 					judgeVO.setId(judge.getInjurycase().getId());
 					judgeVO.setName(judge.getInjurycase().getCaseName());
 					switch (judge.getInjurycase().getItype()) {
@@ -575,13 +525,14 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 				}
 
 				if (judge.getClue() != null) {
-					
-					//查看权限
-					if(!isContainID(userRole.getUnit().getCids(),judge.getClue().getId().toString())&&userRole.getUserLimit()!=2)
-					{
+
+					// 查看权限
+					if (!isContainID(userRole.getUnit().getCids(), judge
+							.getClue().getId().toString())
+							&& userRole.getUserLimit() != 2) {
 						break;
 					}
-					
+
 					judgeVO.setId(judge.getClue().getId());
 					judgeVO.setName(judge.getClue().getTitle());
 					switch (judge.getClue().getCtype()) {
@@ -614,22 +565,18 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 		}
 		return null;
 	}
-	
-	
-	private boolean isContainID(String ids,String id)
-	{
-		
+
+	private boolean isContainID(String ids, String id) {
+
 		String[] idString = ids.split(",");
-		
-		List<String> list = Arrays.asList(idString);  
-		
-		return  list.contains(id);
-		
+
+		List<String> list = Arrays.asList(idString);
+
+		return list.contains(id);
+
 	}
 
 	// get、set-------------------------------------------
-	
-	
 
 	// 获得HttpServletResponse对象
 	public void setServletResponse(HttpServletResponse response) {

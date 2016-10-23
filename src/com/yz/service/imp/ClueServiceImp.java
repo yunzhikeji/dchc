@@ -8,9 +8,10 @@ import org.springframework.stereotype.Component;
 
 import com.yz.dao.IClueDao;
 import com.yz.model.Clue;
-import com.yz.model.Person;
 import com.yz.model.UserRole;
 import com.yz.service.IClueService;
+import com.yz.util.InfoType;
+import com.yz.util.MyHandleUtil;
 
 @Component("clueService")
 public class ClueServiceImp implements IClueService {
@@ -136,7 +137,8 @@ public class ClueServiceImp implements IClueService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		queryString = setSqlLimit(queryString, userRole);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CLUE);
 
 		return clueDao.getUniqueResult(queryString, p);
 	}
@@ -187,7 +189,8 @@ public class ClueServiceImp implements IClueService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		queryString = setSqlLimit(queryString, userRole);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CLUE);
 		return clueDao.pageList(queryString, p, page, size);
 	}
 
@@ -202,7 +205,8 @@ public class ClueServiceImp implements IClueService {
 		String queryString = "from Clue mo where mo.ctype=" + ctype
 				+ " and mo.handleState=" + handleState;
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CLUE);
 
 		return clueDao.queryList(queryString);
 	}
@@ -212,7 +216,8 @@ public class ClueServiceImp implements IClueService {
 		// TODO Auto-generated method stub
 		String queryString = "from Clue mo where  mo.handleState=" + state;
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CLUE);
 
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
@@ -224,7 +229,8 @@ public class ClueServiceImp implements IClueService {
 		// TODO Auto-generated method stub
 		String queryString = "from Clue mo where  mo.ctype=" + ctype;
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CLUE);
 
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
@@ -236,9 +242,10 @@ public class ClueServiceImp implements IClueService {
 			UserRole userRole) {
 		// TODO Auto-generated method stub
 		String queryString = "from Clue mo where mo.ctype=" + ctype
-		+ " and mo.handleState=" + state;
+				+ " and mo.handleState=" + state;
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CLUE);
 
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
@@ -250,7 +257,8 @@ public class ClueServiceImp implements IClueService {
 		// TODO Auto-generated method stub
 		String queryString = "from Clue mo where  1=1 ";
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CLUE);
 
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
@@ -260,9 +268,11 @@ public class ClueServiceImp implements IClueService {
 	public List<Clue> getOutOfTimeCluesByType(int con, String convalue,
 			String starttime, String endtime, int ctype, UserRole userRole) {
 		// TODO Auto-generated method stub
-		String queryString = "from Clue mo where mo.isOutOfTime=1 and mo.ctype=" + ctype;
+		String queryString = "from Clue mo where mo.isOutOfTime=1 and mo.ctype="
+				+ ctype;
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CLUE);
 
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
@@ -274,39 +284,22 @@ public class ClueServiceImp implements IClueService {
 		// TODO Auto-generated method stub
 		String queryString = "from Clue mo where  mo.isOutOfTime=1 ";
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CLUE);
 
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
 		return clueDao.queryList(queryString);
 	}
-	
-	
+
 	public List<Clue> getNewClueByUserRole(UserRole userRole) {
 		// TODO Auto-generated method stub
 		String queryString = "from Clue mo where  mo.isNew=1  and mo.handleState=1 ";
 
-		queryString = setSqlLimit(queryString, userRole);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CLUE);
 
 		return clueDao.queryList(queryString);
-	}
-
-	// 设置sql语句 关于权限分配
-	private String setSqlLimit(String queryString, UserRole userRole) {
-
-		if (userRole.getUserLimit() != 2) {
-			// 用户所在机构不为空
-			String cids = "";
-			if (userRole != null && userRole.getUnit() != null
-					&& userRole.getUnit().getCids() != null) {
-				cids = userRole.getUnit().getPids().replace(" ", "");
-				queryString = setSqlCids(queryString, cids);
-			} else {
-				queryString += " and mo.id in (0)";
-			}
-		}
-		return queryString;
-
 	}
 
 	// 设置 sql语句 参数配置
@@ -329,21 +322,6 @@ public class ClueServiceImp implements IClueService {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
 
-		return queryString;
-	}
-
-	private String setSqlCids(String queryString, String cids) {
-		// TODO Auto-generated method stub
-		// 用户所在机构不为空
-		if (cids != "" && !cids.equals(",")) {
-			String lastChar = cids.substring(cids.length() - 1, cids.length());
-			if (lastChar.equals(",")) {
-				cids = cids.substring(0, cids.length() - 1);
-			}
-			queryString += " and mo.id in (" + cids + ")";
-		} else {
-			queryString += " and mo.id in (0)";
-		}
 		return queryString;
 	}
 

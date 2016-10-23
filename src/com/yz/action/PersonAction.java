@@ -61,6 +61,8 @@ import com.yz.service.IUnitService;
 import com.yz.service.IUserRoleService;
 import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
+import com.yz.util.InfoType;
+import com.yz.util.MyHandleUtil;
 import com.yz.vo.AjaxMsgVO;
 import com.yz.vo.PersonVO;
 import com.yz.vo.SocialManForm;
@@ -291,6 +293,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
+		
 		pageTileName = selectTileName(type);
 		switch (type) {
 		case 0:
@@ -350,6 +353,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo_child";
 		}
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
 		type = person.getType();
 		// 分类添加人员信息
 		switch (type) {
@@ -525,47 +529,22 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			person.setPhotoImg("person" + "/" + imageName);
 		}
 
-		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
 		person.setUserRole(userRole);// 设置录入人员
 		person.setJoinDate(DateTimeKit.getLocalDate());// 设置录入时间
 		person.setHandleState(1);// 初始化处理状态
 		person.setIsOutOfTime(0);
 		person.setIsNew(1);
 		personService.add(person);
-
-		// 添加当前用户id到部门pids
-		if (userRole.getUnit() != null) {
-			int uid = userRole.getUnit().getId();
-			Unit un = unitService.loadById(uid);
-
-			if (un.getPids() != null && un.getPids() != "") {
-				un.setPids(handleIDs(un.getPids(), person.getId() + ""));
-			} else {
-				un.setPids(person.getId() + ",");
-			}
-			unitService.update(un);
-		}
+		
+		//设置部门pids
+		unitService.updateUnitByUserRoleAndInfoType(userRole.getUnit(),person.getId()+"",InfoType.PERSON,1);
+		
 
 		arg[0] = "personAction!list?type=" + person.getType();
 		arg[1] = "人员管理";
 		return "success_child";
 	}
 
-	// 处理ids
-	private String handleIDs(String objIDs, String objID) {
-		Set<String> ids = new HashSet<String>();
-		String newIDs = "";
-		String[] arrayIDs = objIDs.split(",");
-		for (int i = 0; i < arrayIDs.length; i++) {
-			ids.add(arrayIDs[i]);
-		}
-		ids.add(objID);
-
-		for (String id : ids) {
-			newIDs = newIDs + id + ",";
-		}
-		return newIDs;
-	}
 
 	// 上传照片
 	private File picture;
@@ -622,9 +601,13 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+		
 		person = personService.loadById(id);
+		
+		String pid = id+"";//获取当前person id
 
-		type = person.getType();
+		int type = person.getType();
 		// 分类添加人员信息
 		switch (type) {
 		case 0:
@@ -784,6 +767,11 @@ public class PersonAction extends ActionSupport implements RequestAware,
 				.getRealPath("/")
 				+ person.getPhotoImg());
 		photofile.delete();
+		
+		//设置部门pids
+		unitService.updateUnitByUserRoleAndInfoType(userRole.getUnit(),pid,InfoType.PERSON,-1);
+		
+		
 		personService.delete(person);
 
 		arg[0] = "personAction!list?type=" + type;

@@ -10,10 +10,8 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -51,10 +49,11 @@ import com.yz.service.IUnitService;
 import com.yz.service.IUserRoleService;
 import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
+import com.yz.util.InfoType;
+import com.yz.util.MyHandleUtil;
 import com.yz.vo.AjaxMsgVO;
 import com.yz.vo.CaseVO;
 import com.yz.vo.InjurycaseVO;
-import com.yz.vo.PersonVO;
 import com.yz.vo.UnitVO;
 
 @Component("injurycaseAction")
@@ -116,10 +115,9 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 	@Resource
 	private IUserRoleService userRoleService;
-	
+
 	@Resource
 	private IPersonService personService;
-	
 
 	// 单个表对象
 	private Troubleshooting troubleshooting;
@@ -273,24 +271,14 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		}
 		injurycaseService.add(injurycase);
 
-		// 添加当前用户id到部门pids
-		if (userRole.getUnit() != null) {
-			int uid = userRole.getUnit().getId();
-			Unit un = unitService.loadById(uid);
+		// 设置部门inids
+		unitService.updateUnitByUserRoleAndInfoType(userRole.getUnit(),
+				injurycase.getId() + "", InfoType.CASE, 1);
 
-			if (un.getInids() != null && un.getInids() != "") {
-				un.setInids(handleIDs(un.getInids(), injurycase.getId() + ""));
-			} else {
-				un.setInids(injurycase.getId() + ",");
-			}
-			unitService.update(un);
-		}
 		arg[0] = "injurycaseAction!list?itype=" + injurycase.getItype();
 		arg[1] = "案件管理";
 		return "success_child";
 	}
-	
-	
 
 	// 文件上传
 	public void upload(String fileName, String imageName, File picture)
@@ -318,23 +306,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		}
 	}
 
-	// 处理ids
-	private String handleIDs(String objIDs, String objID) {
-		// TODO Auto-generated method stub
-		Set<String> ids = new HashSet<String>();
-		String newIDs = "";
-		String[] arrayIDs = objIDs.split(",");
-		for (int i = 0; i < arrayIDs.length; i++) {
-			ids.add(arrayIDs[i]);
-		}
-		ids.add(objID);
-
-		for (String id : ids) {
-			newIDs = newIDs + id + ",";
-		}
-		return newIDs;
-	}
-
 	/**
 	 * 删除一
 	 * 
@@ -345,7 +316,12 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
+		
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+		
 		injurycase = injurycaseService.loadById(id);
+		
+		int itype = injurycase.getItype();
 
 		if (injurycase.getImageCase() != null
 				&& !injurycase.getImageCase().replace(" ", "").equals("")) {
@@ -354,9 +330,12 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 					+ injurycase.getImageCase());
 			photofile.delete();
 		}
+		// 设置部门inids
+		unitService.updateUnitByUserRoleAndInfoType(userRole.getUnit(), id
+				+ "", InfoType.CASE, -1);
 
 		injurycaseService.delete(injurycase);
-		arg[0] = "injurycaseAction!list?itype=" + injurycase.getItype();
+		arg[0] = "injurycaseAction!list?itype=" + itype;
 		arg[1] = "案件管理";
 		return SUCCESS;
 	}
@@ -395,8 +374,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		}
 		return null;
 	}
-	
-	
+
 	public String getPersonByIdcard() throws Exception {
 
 		Person person = personService.getPersonByIdcard(idcard);
