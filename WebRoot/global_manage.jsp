@@ -41,9 +41,7 @@
 			style="line-height: 1.6em; margin-top: 3px"
 			href="javascript:location.replace(location.href);" title="刷新"><i
 			class="Hui-iconfont">&#xe68f;</i> </a>
-
 		</nav>
-
 
 		<div class="pd-20">
 			<div class="cl pd-5 bg-1 bk-gray mt-20">

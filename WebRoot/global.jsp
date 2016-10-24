@@ -73,8 +73,6 @@ body {
 									,5:'录入单位',6:'案发时间'}"
 									cssClass="input-text" name="injurycaseOption" listKey="key"
 									listValue="value" cssStyle="height:45px;width:200px"></s:select>
-								</select>
-
 							</td>
 						</tr>
 						<tr>
@@ -91,7 +89,6 @@ body {
 						<tr>
 							<td colspan="2" align="center">
 								<button type="submit" class="btn btn-success"
-									onclick="javascript:window.location.href='global-list.jsp'"
 									style="width: 100px">
 									<i class="Hui-iconfont"></i> 查询
 								</button>
