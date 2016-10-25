@@ -149,7 +149,7 @@
 				            if(msg!=null&&msg.length>0)
 				            {
 				            	judges = "";
-								for(var i=0;i<msg.length;i++){ 
+								for(var i=0;i<msg.length;i++){
 									switch(msg[i].type)
 									{
 										case 1:
@@ -205,7 +205,6 @@
 								$("#newjudges").empty();
 				            	$("#newjudges").append(judges);
 				            }
-				            
 						}
 					});    	 
 				}

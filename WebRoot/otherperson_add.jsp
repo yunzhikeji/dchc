@@ -39,7 +39,6 @@
 	            },   
 	            success: function(msg)
 	            { //成功
-	            console.log(msg);
 					 if(msg.id == null ||msg.id ==""||msg.id == 0)
 					 {
 					 	alert('系统中无此身份证号的用户');

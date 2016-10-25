@@ -93,8 +93,6 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 	
 	
 	
-	
-	
 	public String getPersonByIdcard() throws Exception {
 
 		Person person = personService.getPersonByIdcard(idcard);
@@ -112,7 +110,6 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 			if(person.getGamblingCriminalMan()!=null){
 				otherPersonVO.setCurrentAddress(person.getGamblingCriminalMan().getCurrentAddress());
 				otherPersonVO.setCurrentAddressArea(person.getGamblingCriminalMan().getCurrentAddressArea());
-				
 			}
 		}
 

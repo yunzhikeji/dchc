@@ -62,3 +62,4 @@ bin/jdbc.properties
 bin/struts.xml
 bin/xwork-conversion.properties
 bin/log4j.properties
+jdbc.properties

@@ -423,129 +423,128 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 				if (judge.getPerson() != null) {
 
 					// 查看权限
-					if (!isContainID(userRole.getUnit().getPids(), judge
+					if (isContainID(userRole.getUnit().getPids(), judge
 							.getPerson().getId().toString())
-							&& userRole.getUserLimit() != 2) {
-						break;
+							|| userRole.getUserLimit() == 2||userRole.getUnit().getNumber().equals("371402020000")) {
+
+						judgeVO.setId(judge.getPerson().getId());
+						judgeVO.setName(judge.getPerson().getName());
+						judgeVO.setType(judge.getPerson().getType());
+						switch (judge.getPerson().getType()) {
+						case 0:
+							judgeVO.setType(0);
+							judgeVO.setTypeName("未知人员");
+							break;
+						case 1:
+							judgeVO.setTypeName("赌博人员");
+							break;
+						case 2:
+							judgeVO.setTypeName("涉恶人员");
+							break;
+						case 3:
+							judgeVO.setTypeName("涉黄人员");
+							break;
+						case 4:
+							judgeVO.setTypeName("食药环人员");
+							break;
+						case 5:
+							judgeVO.setTypeName("涉毒人员");
+							break;
+						case 6:
+							judgeVO.setTypeName("留置盘问人员");
+							break;
+						case 7:
+							judgeVO.setTypeName("侵财人员");
+							break;
+						case 8:
+							judgeVO.setTypeName("刑事传唤人员");
+							break;
+						case 9:
+							judgeVO.setTypeName("负案在逃人员");
+							break;
+						case 10:
+							judgeVO.setTypeName("维稳人员");
+							break;
+						case 11:
+							judgeVO.setTypeName("失踪人员");
+							break;
+						case 12:
+							judgeVO.setTypeName("侵财人员分析");
+							break;
+						case 13:
+							judgeVO.setTypeName("技术比中人员");
+							break;
+						case 14:
+							judgeVO.setTypeName("普通线索");
+							break;
+						case 15:
+							judgeVO.setTypeName("社会人员");
+							break;
+						default:
+							break;
+						}
 					}
 
-					judgeVO.setId(judge.getPerson().getId());
-					judgeVO.setName(judge.getPerson().getName());
-					judgeVO.setType(judge.getPerson().getType());
-					switch (judge.getPerson().getType()) {
-					case 0:
-						judgeVO.setType(0);
-						judgeVO.setTypeName("未知人员");
-						break;
-					case 1:
-						judgeVO.setTypeName("赌博人员");
-						break;
-					case 2:
-						judgeVO.setTypeName("涉恶人员");
-						break;
-					case 3:
-						judgeVO.setTypeName("涉黄人员");
-						break;
-					case 4:
-						judgeVO.setTypeName("食药环人员");
-						break;
-					case 5:
-						judgeVO.setTypeName("涉毒人员");
-						break;
-					case 6:
-						judgeVO.setTypeName("留置盘问人员");
-						break;
-					case 7:
-						judgeVO.setTypeName("侵财人员");
-						break;
-					case 8:
-						judgeVO.setTypeName("刑事传唤人员");
-						break;
-					case 9:
-						judgeVO.setTypeName("负案在逃人员");
-						break;
-					case 10:
-						judgeVO.setTypeName("维稳人员");
-						break;
-					case 11:
-						judgeVO.setTypeName("失踪人员");
-						break;
-					case 12:
-						judgeVO.setTypeName("侵财人员分析");
-						break;
-					case 13:
-						judgeVO.setTypeName("技术比中人员");
-						break;
-					case 14:
-						judgeVO.setTypeName("普通线索");
-						break;
-					case 15:
-						judgeVO.setTypeName("社会人员");
-						break;
-					default:
-						break;
-					}
 				}
 
 				if (judge.getInjurycase() != null) {
-
 					// 查看权限
-					if (!isContainID(userRole.getUnit().getInids(), judge
+					if (isContainID(userRole.getUnit().getInids(), judge
 							.getInjurycase().getId().toString())
-							&& userRole.getUserLimit() != 2) {
-						break;
+							|| userRole.getUserLimit() == 2||userRole.getUnit().getNumber().equals("371402020000")) {
+
+						judgeVO.setId(judge.getInjurycase().getId());
+						judgeVO.setName(judge.getInjurycase().getCaseName());
+						switch (judge.getInjurycase().getItype()) {
+						case 0:
+							judgeVO.setType(0);
+							judgeVO.setTypeName("未知案件");
+							break;
+						case 1:
+							judgeVO.setType(16);
+							judgeVO.setTypeName("一般刑事案件");
+							break;
+						case 2:
+							judgeVO.setType(17);
+							judgeVO.setTypeName("重伤案件");
+							break;
+						case 3:
+							judgeVO.setType(18);
+							judgeVO.setTypeName("团伙系列案件");
+							break;
+						case 4:
+							judgeVO.setType(19);
+							judgeVO.setTypeName("刑侦案件");
+							break;
+						default:
+							break;
+						}
+
 					}
 
-					judgeVO.setId(judge.getInjurycase().getId());
-					judgeVO.setName(judge.getInjurycase().getCaseName());
-					switch (judge.getInjurycase().getItype()) {
-					case 0:
-						judgeVO.setType(0);
-						judgeVO.setTypeName("未知案件");
-						break;
-					case 1:
-						judgeVO.setType(16);
-						judgeVO.setTypeName("一般刑事案件");
-						break;
-					case 2:
-						judgeVO.setType(17);
-						judgeVO.setTypeName("重伤案件");
-						break;
-					case 3:
-						judgeVO.setType(18);
-						judgeVO.setTypeName("团伙系列案件");
-						break;
-					case 4:
-						judgeVO.setType(19);
-						judgeVO.setTypeName("刑侦案件");
-						break;
-					default:
-						break;
-					}
 				}
 
 				if (judge.getClue() != null) {
 
 					// 查看权限
-					if (!isContainID(userRole.getUnit().getCids(), judge
+					if (isContainID(userRole.getUnit().getCids(), judge
 							.getClue().getId().toString())
-							&& userRole.getUserLimit() != 2) {
-						break;
-					}
+							|| userRole.getUserLimit() == 2||userRole.getUnit().getNumber().equals("371402020000")) {
+						judgeVO.setId(judge.getClue().getId());
+						judgeVO.setName(judge.getClue().getTitle());
+						switch (judge.getClue().getCtype()) {
+						case 0:
+							judgeVO.setType(0);
+							judgeVO.setTypeName("未知线索");
+							break;
+						case 1:
+							judgeVO.setType(20);
+							judgeVO.setTypeName("刑侦线索");
+							break;
+						default:
+							break;
+						}
 
-					judgeVO.setId(judge.getClue().getId());
-					judgeVO.setName(judge.getClue().getTitle());
-					switch (judge.getClue().getCtype()) {
-					case 0:
-						judgeVO.setType(0);
-						judgeVO.setTypeName("未知线索");
-						break;
-					case 1:
-						judgeVO.setType(20);
-						judgeVO.setTypeName("刑侦线索");
-						break;
-					default:
-						break;
 					}
 				}
 				judgeVOs.add(judgeVO);
