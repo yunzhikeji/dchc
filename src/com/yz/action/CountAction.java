@@ -91,12 +91,15 @@ public class CountAction extends ActionSupport implements RequestAware,
 
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
+			convalue = convalue.replace(" ", "");
 		}
 		if (starttime != null && !starttime.equals("")) {
 			starttime = URLDecoder.decode(starttime, "utf-8");
+			starttime = starttime.replace(" ", "");
 		}
 		if (endtime != null && !endtime.equals("")) {
 			endtime = URLDecoder.decode(endtime, "utf-8");
+			endtime = endtime.replace(" ", "");
 		}
 
 		// 1:未办理 2：在办理 3：已完结 4:超期办理 5:合计
@@ -208,12 +211,15 @@ public class CountAction extends ActionSupport implements RequestAware,
 
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
+			convalue = convalue.replace(" ", "");
 		}
 		if (starttime != null && !starttime.equals("")) {
 			starttime = URLDecoder.decode(starttime, "utf-8");
+			starttime = starttime.replace(" ", "");
 		}
 		if (endtime != null && !endtime.equals("")) {
 			endtime = URLDecoder.decode(endtime, "utf-8");
+			endtime = endtime.replace(" ", "");
 		}
 		
 		// 1:未办理 2：在办理 3：已完结 4:超期办理 5:合计
@@ -285,12 +291,15 @@ public class CountAction extends ActionSupport implements RequestAware,
 
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
+			convalue = convalue.replace(" ", "");
 		}
 		if (starttime != null && !starttime.equals("")) {
 			starttime = URLDecoder.decode(starttime, "utf-8");
+			starttime = starttime.replace(" ", "");
 		}
 		if (endtime != null && !endtime.equals("")) {
 			endtime = URLDecoder.decode(endtime, "utf-8");
+			endtime = endtime.replace(" ", "");
 		}
 
 		// 1:未办理 2：在办理 3：已完结 4:超期办理 5:合计

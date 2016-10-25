@@ -237,7 +237,8 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		queryString = MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CASE);
 		return injurycaseDao.getUniqueResult(queryString, p);
 	}
 
@@ -273,7 +274,8 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CASE);
 		return injurycaseDao.pageList(queryString, p, page, size);
 	}
 
@@ -282,7 +284,8 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		// TODO Auto-generated method stub
 		String queryString = "from Injurycase mo where mo.itype=" + itype
 				+ " and mo.handleState=" + handleState;
-		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CASE);
 		return injurycaseDao.queryList(queryString);
 	}
 
@@ -318,7 +321,8 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
 
-		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CASE);
 
 		return injurycaseDao.queryList(queryString);
 	}
@@ -333,7 +337,8 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
 
-		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CASE);
 
 		return injurycaseDao.queryList(queryString);
 	}
@@ -346,7 +351,8 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
 
-		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CASE);
 
 		return injurycaseDao.queryList(queryString);
 	}
@@ -359,7 +365,8 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
 
-		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CASE);
 
 		return injurycaseDao.queryList(queryString);
 	}
@@ -372,7 +379,8 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
 
-		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CASE);
 
 		return injurycaseDao.queryList(queryString);
 	}
@@ -387,7 +395,8 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		queryString = setSqlParms(con, convalue, starttime, endtime,
 				queryString);
 
-		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CASE);
 
 		return injurycaseDao.queryList(queryString);
 	}
@@ -396,7 +405,8 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		// TODO Auto-generated method stub
 		String queryString = "from Injurycase mo where   mo.isNew=1 and mo.handleState=1 ";
 
-		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CASE);
 
 		return injurycaseDao.queryList(queryString);
 	}
@@ -404,7 +414,10 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 	public List<Injurycase> getInjurycasesByOption(int con, String convalue,
 			UserRole userRole) {
 		// TODO Auto-generated method stub
-		// 0:'选择类型',1:'案件编号',2:'案件地址',3:'案件名称',4:'录入人员姓名',5:'录入单位',6:'案发时间'
+		/*
+		 * 0:'选择类型',1:'案件编号',2:'案件地址',3:'案件名称',4:'录入人员姓名',5:'录入单位',6:'案发时间',7:'作案对象',8:'作案目标',9:'作案方式',10:'物品特征',11:'联系电话'
+		 * ,12:'简要案情',13:'图像实物描述',14:'警情编号'
+		 */
 		String queryString = "from Injurycase mo where   1=1 ";
 
 		if (con != 0 && convalue != null && !convalue.equals("")) {
@@ -423,17 +436,49 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 						+ "%' ";
 				break;
 			case 5:
-				queryString += " and mo.userRole.unit.name like  '%" + convalue + "%' ";
+				queryString += " and mo.userRole.unit.name like  '%" + convalue
+						+ "%' ";
 				break;
 			case 6:
 				queryString += " and mo.startTime like  '%" + convalue + "%' ";
+				break;
+			case 7:
+				queryString += " and mo.crimeObject like  '%" + convalue
+						+ "%' ";
+				break;
+			case 8:
+				queryString += " and mo.crimeTarget like  '%" + convalue
+						+ "%' ";
+				break;
+			case 9:
+				queryString += " and mo.crimePattern like  '%" + convalue
+						+ "%' ";
+				break;
+			case 10:
+				queryString += " and mo.goodsFeature like  '%" + convalue
+						+ "%' ";
+				break;
+			case 11:
+				queryString += " and mo.telphone like  '%" + convalue + "%' ";
+				break;
+			case 12:
+				queryString += " and mo.briefCase like  '%" + convalue + "%' ";
+				break;
+			case 13:
+				queryString += " and mo.goodsDescription like  '%" + convalue
+						+ "%' ";
+				break;
+			case 14:
+				queryString += " and mo.situationNum like  '%" + convalue
+						+ "%' ";
 				break;
 			default:
 				break;
 			}
 		}
 
-		queryString =  MyHandleUtil.setSqlLimit(queryString, userRole ,InfoType.CASE);
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CASE);
 
 		return injurycaseDao.queryList(queryString);
 	}
@@ -448,6 +493,10 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 			}
 			if (con == 2) {
 				queryString += " and mo.userRole.number like  '%" + convalue
+						+ "%' ";
+			}
+			if (con == 3) {
+				queryString += " and mo.userRole.unit.name like  '%" + convalue
 						+ "%' ";
 			}
 		}

@@ -314,6 +314,10 @@ public class ClueServiceImp implements IClueService {
 				queryString += " and mo.userRole.number like  '%" + convalue
 						+ "%' ";
 			}
+			if (con == 3) {
+				queryString += " and mo.userRole.unit.name like  '%" + convalue
+						+ "%' ";
+			}
 		}
 		if (starttime != null && !starttime.equals("")) {
 			queryString += " and mo.joinDate>='" + starttime + "'";

@@ -39,7 +39,7 @@ public class DisappearMan implements java.io.Serializable {
 	private String missingStartTime;//失踪日期范围开始
 	private String missingEndTime;//失踪日期范围结束
 	private String foundMissingTime;//发现失踪日期
-	private String missingCause;//
+	private String missingCause;//失踪经过原因
 	private String height;
 	private String shape;
 	private String feature;
@@ -49,7 +49,7 @@ public class DisappearMan implements java.io.Serializable {
 	private String specificFeature;
 	private String specificFeatureCon;
 	private String bodyFeature;
-	private String dressSituation;
+	private String dressSituation;//衣着情况
 	private String relativeBlood;
 	private String revocateUnit;
 	private String revocateName;

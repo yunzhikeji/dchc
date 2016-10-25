@@ -57,7 +57,7 @@
 						<tr height="35">
 							<td width="21%" align="right" style="padding-right: 50px;">
 								<s:select
-									list="#{0:'选择类型',1:'录入人员姓名',2:'录入人员警号'}"
+									list="#{0:'选择类型',1:'录入人员姓名',2:'录入人员警号',3:'录入部门'}"
 									cssClass="input-text" name="con" listKey="key"
 									listValue="value" cssStyle="width:180px"></s:select>
 							</td>

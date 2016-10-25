@@ -75,7 +75,8 @@ body {
 								案件:
 								<s:select
 									list="#{0:'选择类型',1:'案件编号',2:'案件地址',3:'案件名称',4:'录入人员姓名'
-									,5:'录入单位',6:'案发时间'}"
+									,5:'录入单位',6:'案发时间',7:'作案对象',8:'作案目标',9:'作案方式',10:'物品特征',11:'联系电话'
+									,12:'简要案情',13:'图像实物描述',14:'警情编号'}"
 									cssClass="input-text" name="injurycaseOption" listKey="key"
 									listValue="value" cssStyle="height:45px;width:200px"></s:select>
 							</td>

@@ -172,12 +172,15 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
+			convalue = convalue.replace(" ", "");
 		}
 		if (starttime != null && !starttime.equals("")) {
 			starttime = URLDecoder.decode(starttime, "utf-8");
+			starttime = starttime.replace(" ", "");
 		}
 		if (endtime != null && !endtime.equals("")) {
 			endtime = URLDecoder.decode(endtime, "utf-8");
+			endtime = endtime.replace(" ", "");
 		}
 		if (page < 1) {
 			page = 1;
@@ -209,7 +212,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			pageName = "案件";
 			break;
 		case 1:
-			pageName = "一般刑事案件";
+			pageName = "刑事案件";
 			break;
 		case 2:
 			pageName = "重伤案件";
@@ -218,7 +221,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			pageName = "团伙系列案件";
 			break;
 		case 4:
-			pageName = "刑侦案件";
+			pageName = "行政案件";
 			break;
 		default:
 			pageName = "串并案";
@@ -485,12 +488,15 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
+			convalue = convalue.replace(" ", "");
 		}
 		if (starttime != null && !starttime.equals("")) {
 			starttime = URLDecoder.decode(starttime, "utf-8");
+			starttime = starttime.replace(" ", "");
 		}
 		if (endtime != null && !endtime.equals("")) {
 			endtime = URLDecoder.decode(endtime, "utf-8");
+			endtime = endtime.replace(" ", "");
 		}
 		if (page < 1) {
 			page = 1;
@@ -661,7 +667,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 					caseVO.setTypeName("未知案件");
 					break;
 				case 1:
-					caseVO.setTypeName("一般刑事案件");
+					caseVO.setTypeName("刑事案件");
 					break;
 				case 2:
 					caseVO.setTypeName("重伤案件");
@@ -669,7 +675,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 				case 3:
 					caseVO.setTypeName("团伙系列案件");
 				case 4:
-					caseVO.setTypeName("刑侦案件");
+					caseVO.setTypeName("行政案件");
 					break;
 				default:
 					break;

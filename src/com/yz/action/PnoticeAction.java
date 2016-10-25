@@ -82,15 +82,18 @@ public class PnoticeAction extends ActionSupport implements RequestAware,Session
 		}
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
+			convalue = convalue.replace(" ", "");
+		}
+		if (starttime != null && !starttime.equals("")) {
+			starttime = URLDecoder.decode(starttime, "utf-8");
+			starttime = starttime.replace(" ", "");
+		}
+		if (endtime != null && !endtime.equals("")) {
+			endtime = URLDecoder.decode(endtime, "utf-8");
+			endtime = endtime.replace(" ", "");
 		}
 		if (page < 1) {
 			page = 1;
-		}
-		if(starttime!=null&&!starttime.equals("")){
-			starttime=URLDecoder.decode(starttime, "utf-8");
-		}
-		if(endtime!=null&&!endtime.equals("")){
-			endtime=URLDecoder.decode(endtime, "utf-8");
 		}
 		// 总记录数
 		totalCount = pnoticeService.getTotalCount(con, convalue, userRoleo,starttime,endtime);

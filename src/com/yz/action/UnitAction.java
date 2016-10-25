@@ -84,6 +84,7 @@ public class UnitAction extends ActionSupport implements RequestAware,
 		}
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
+			convalue = convalue.replace(" ", "");
 		}
 		if (page < 1) {
 			page = 1;

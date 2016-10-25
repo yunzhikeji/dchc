@@ -266,10 +266,11 @@ public class PersonServiceImp implements IPersonService {
 				person.setSocialMan(socialMan);
 				socialManDao.save(socialMan);
 				int pid = personDao.savereturn(person);
-				
-				//设置部门pids
-				unitService.updateUnitByUserRoleAndInfoType(userRole.getUnit(),pid+"",InfoType.PERSON,1);
-				
+
+				// 设置部门pids
+				unitService.updateUnitByUserRoleAndInfoType(userRole.getUnit(),
+						pid + "", InfoType.PERSON, 1);
+
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -371,7 +372,9 @@ public class PersonServiceImp implements IPersonService {
 		/*
 		 * 0:'选择类型',1:'人员姓名',2:'人员编号',3:'身份证号',4:'录入人员姓名',5:'DNA',6:'指纹',7:'户籍地',8:'手机号'
 		 * ,9:'微信号',10:'性别',11:'QQ号',12:'出生日期'
-		 * ,13:'银行卡号',14:'车牌号',15:'车架号',16:'手机串号' ,17:'发动机号'
+		 * ,13:'银行卡号',14:'车牌号',15:'车架号',16:'手机串号'
+		 * ,17:'发动机号',18:'现住地详址',19:'失踪日期',20:'失踪地址',21:'报案联系人'
+		 * ,22:'失踪经过',23:'衣着情况',24:'暂住地址',25:'工作单位',26:'备注信息',27:'携带物品',28:'携带工具'
 		 */
 		String queryString = "from Person mo where  1=1 ";
 
@@ -440,6 +443,48 @@ public class PersonServiceImp implements IPersonService {
 				queryString += " and mo.gamblingCriminalMan.engineNumber like  '%"
 						+ convalue + "%' ";
 				break;
+			case 18:
+				queryString += " and mo.gamblingCriminalMan.currentAddress like  '%"
+						+ convalue + "%' ";
+				break;
+			case 19:
+				queryString += " and mo.disappearMan.missingEndTime>='" + convalue + "'";
+				queryString += " and mo.disappearMan.missingStartTime<='" + convalue + "'";
+				break;
+			case 20:
+				queryString += " and mo.disappearMan.missingAddress like  '%"
+						+ convalue + "%' ";
+				break;
+			case 21:
+				queryString += " and mo.disappearMan.reportContactName like  '%"
+						+ convalue + "%' ";
+				break;
+
+			case 22:
+				queryString += " and mo.disappearMan.missingCause like  '%"
+						+ convalue + "%' ";
+				break;
+			case 23:
+				queryString += " and mo.disappearMan.dressSituation like  '%"
+						+ convalue + "%' ";
+				break;
+			case 24:
+				queryString += " and mo.guiltSafeguardMan.temporaryAddress like  '%"
+						+ convalue + "%' ";
+				break;
+			case 25:
+				queryString += " and mo.guiltSafeguardMan.workdUnit like  '%"
+						+ convalue + "%' ";
+				break;
+			case 26:
+				queryString += " and mo.remark like  '%" + convalue + "%' ";
+				break;
+			case 27:
+				queryString += " and mo.carrier like  '%" + convalue + "%' ";
+				break;
+			case 28:
+				queryString += " and mo.carryTool like  '%" + convalue + "%' ";
+				break;
 			default:
 				break;
 			}
@@ -467,6 +512,10 @@ public class PersonServiceImp implements IPersonService {
 				queryString += " and mo.userRole.number like  '%" + convalue
 						+ "%' ";
 			}
+			if (con == 3) {
+				queryString += " and mo.userRole.unit.name like  '%" + convalue
+						+ "%' ";
+			}
 		}
 		if (starttime != null && !starttime.equals("")) {
 			queryString += " and mo.joinDate>='" + starttime + "'";
@@ -480,7 +529,6 @@ public class PersonServiceImp implements IPersonService {
 
 		return personDao.queryList(queryString);
 	}
-
 
 	public ISocialManDao getSocialManDao() {
 		return socialManDao;

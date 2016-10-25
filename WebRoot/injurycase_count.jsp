@@ -57,7 +57,7 @@
 						<tr height="35">
 							<td width="21%" align="right" style="padding-right: 50px;">
 								<s:select
-									list="#{0:'选择类型',1:'录入人员姓名',2:'录入人员警号'}"
+									list="#{0:'选择类型',1:'录入人员姓名',2:'录入人员警号',3:'录入部门'}"
 									cssClass="input-text" name="con" listKey="key"
 									listValue="value" cssStyle="width:180px"></s:select>
 							</td>
@@ -99,7 +99,7 @@
 						<th width="41">
 						</th>
 						<th width="109">
-							一般刑事案件
+							刑事案件
 						</th>
 						<th width="81">
 							重伤案件
@@ -108,7 +108,7 @@
 							团伙系列案件
 						</th>
 						<th width="107">
-							刑侦案件
+							行政案件
 						</th>
 						<th width="107">
 							合计

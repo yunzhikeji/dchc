@@ -197,12 +197,15 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
+			convalue = convalue.replace(" ", "");
 		}
 		if (starttime != null && !starttime.equals("")) {
 			starttime = URLDecoder.decode(starttime, "utf-8");
+			starttime = starttime.replace(" ", "");
 		}
 		if (endtime != null && !endtime.equals("")) {
 			endtime = URLDecoder.decode(endtime, "utf-8");
+			endtime = endtime.replace(" ", "");
 		}
 		if (page < 1) {
 			page = 1;
