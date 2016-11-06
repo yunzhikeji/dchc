@@ -3,6 +3,8 @@
  */
 package com.yz.service.imp;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,9 +13,10 @@ import org.springframework.stereotype.Component;
 
 import com.yz.dao.IInjurycaseDao;
 import com.yz.model.Injurycase;
-import com.yz.model.Person;
 import com.yz.model.UserRole;
 import com.yz.service.IInjurycaseService;
+import com.yz.service.IUnitService;
+import com.yz.util.GenerateSqlFromExcel;
 import com.yz.util.InfoType;
 import com.yz.util.MyHandleUtil;
 
@@ -24,6 +27,17 @@ import com.yz.util.MyHandleUtil;
 @Component("injurycaseService")
 public class InjurycaseServiceImp implements IInjurycaseService {
 	private IInjurycaseDao injurycaseDao;
+
+	private IUnitService unitService;
+
+	public IUnitService getUnitService() {
+		return unitService;
+	}
+
+	@Resource
+	public void setUnitService(IUnitService unitService) {
+		this.unitService = unitService;
+	}
 
 	public IInjurycaseDao getInjurycaseDao() {
 		return injurycaseDao;
@@ -310,7 +324,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		return injurycaseDao.getObjectsByCondition(queryString, p);
 
 	}
-	
+
 	public List<Injurycase> queryList(int con, String convalue,
 			UserRole userRole, int itype, int queryState, String starttime,
 			String endtime) {
@@ -318,18 +332,17 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		Object[] p = null;
 		if (con != 0 && convalue != null && !convalue.equals("")) {
 			if (con == 1) {
-				queryString += "and mo.caseNumber like ? ";
+				queryString += "and mo.caseNumber like  '%" + convalue + "%' ";
 			}
 			if (con == 2) {
-				queryString += "and mo.casePlace like ? ";
+				queryString += "and mo.casePlace like  '%" + convalue + "%' ";
 			}
 			if (con == 3) {
-				queryString += "and mo.caseName like ? ";
+				queryString += "and mo.caseName llike  '%" + convalue + "%' ";
 			}
 			if (con == 4) {
-				queryString += "and mo.userRole.realname like ? ";
+				queryString += "and mo.userRole.realname like  '%" + convalue + "%' ";
 			}
-			p = new Object[] { '%' + convalue + '%' };
 		}
 		if (itype != 0) {
 			queryString += " and mo.itype =" + itype;
@@ -547,6 +560,102 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		return queryString;
 	}
 
-	
+	public void saveInjurycaseWithExcel(File file, UserRole userRole, int itype) {
+		// TODO Auto-generated method stub
+		try {
+			GenerateSqlFromExcel generate = new GenerateSqlFromExcel();
+			ArrayList<String[]> arrayList = generate
+					.generateStationInjurycase(file);
+			/*
+			 * "案件类型", "案件编号", "案件名称", "录入单位", "录入民警", "录入时间", "办理状态", "是否已串并案",
+			 * 8* "案发时间", "案发地点", "简要案情", "鉴定人", "鉴定人联系电话", "警情编号", "作案目标",
+			 * "作案对象", 16 * "作案方式", "人员特征", "物品特征", "完结情况", "综合情况", "领导批示"
+			 */
+			for (int i = 0; arrayList != null && i < arrayList.size(); i++) {
+				String[] data = arrayList.get(i);
+				Injurycase injurycase = new Injurycase();
+
+				String caseTypeName = data[0].toString();
+				if (caseTypeName.contains("刑事")) {
+					injurycase.setItype(1);
+				} else if (caseTypeName.contains("重伤")) {
+					injurycase.setItype(2);
+				} else if (caseTypeName.contains("团伙系列")) {
+					injurycase.setItype(3);
+				} else if (caseTypeName.contains("行政")) {
+					injurycase.setItype(4);
+				}
+				injurycase.setCaseNumber(data[1].toString());
+				injurycase.setCaseName(data[2].toString());
+
+				injurycase.setUserRole(userRole);
+				injurycase.setJoinDate(data[5].toString());
+
+				String handleStateString = data[6].toString();
+				if (handleStateString.contains("未")) {
+					injurycase.setHandleState(1);
+				} else if (caseTypeName.contains("在")) {
+					injurycase.setHandleState(2);
+				} else if (caseTypeName.contains("已")) {
+					injurycase.setHandleState(3);
+				}
+
+				String isReltive = data[7].toString();
+				if (isReltive.contains("未")) {
+					injurycase.setIsRelated(0);
+				} else if (isReltive.contains("已")) {
+					injurycase.setIsRelated(1);
+				}
+
+				injurycase.setStartTime(data[8].toString());
+				injurycase.setCasePlace(data[9].toString());
+				injurycase.setBriefCase(data[10].toString());
+				injurycase.setAppraiser(data[11].toString());
+				injurycase.setTelphone(data[12].toString());
+				injurycase.setSituationNum(data[13].toString());
+				injurycase.setCrimeTarget(data[14].toString());
+				injurycase.setCrimeObject(data[15].toString());
+				injurycase.setCrimePattern(data[16].toString());
+
+				injurycase.setPersonFeature(data[17].toString());
+				injurycase.setGoodsFeature(data[18].toString());
+
+				// '1':'抓获', '2':'死亡', '3':'撤销案件', '4':'释放', '5':'治安拘留',
+				// '6':'刑事拘留', '7':'留置盘问', '8':'其他' }"
+				String endSituation = data[19].toString();
+				if (handleStateString.contains("抓获")) {
+					injurycase.setEndSituation(1 + "");
+				} else if (caseTypeName.contains("死亡")) {
+					injurycase.setEndSituation(2 + "");
+				} else if (caseTypeName.contains("已")) {
+					injurycase.setEndSituation(3 + "");
+				} else if (caseTypeName.contains("在")) {
+					injurycase.setEndSituation(4 + "");
+				} else if (caseTypeName.contains("已")) {
+					injurycase.setEndSituation(5 + "");
+				} else if (caseTypeName.contains("在")) {
+					injurycase.setEndSituation(6 + "");
+				} else if (caseTypeName.contains("已")) {
+					injurycase.setEndSituation(7 + "");
+				} else if (caseTypeName.contains("已")) {
+					injurycase.setEndSituation(8 + "");
+				}
+
+				injurycase.setComprehensiveJudge(data[20].toString());
+				injurycase.setLeaderInstruction(data[21].toString());
+
+				injurycaseDao.save(injurycase);
+
+				// 设置部门inids
+				int inid = injurycaseDao.savereturn(injurycase);
+				unitService.updateUnitByUserRoleAndInfoType(userRole.getUnit(),
+						inid + "", InfoType.CASE, 1);
+
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

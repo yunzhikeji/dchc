@@ -211,6 +211,7 @@
 			<result name="listcba">/injurycase_listcba.jsp</result>
 			<result name="loadcba">/injurycase_updatecba.jsp</result>
 			<result name="importpage">/injurycase_import.jsp</result>
+			<result name="importdata">/injurycase_import.jsp</result>
 			<result name="opexcel">/op_excel.jsp</result>
 
 			<result name="invalid.token">/op_failure_child.jsp</result>

@@ -157,6 +157,8 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	// 串并案系列名称
 	private String series;
 
+	private File injurycase_file;
+
 	/**
 	 * 人员管理
 	 */
@@ -319,11 +321,11 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		
+
 		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
-		
+
 		injurycase = injurycaseService.loadById(id);
-		
+
 		int itype = injurycase.getItype();
 
 		if (injurycase.getImageCase() != null
@@ -334,8 +336,8 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			photofile.delete();
 		}
 		// 设置部门inids
-		unitService.updateUnitByUserRoleAndInfoType(userRole.getUnit(), id
-				+ "", InfoType.CASE, -1);
+		unitService.updateUnitByUserRoleAndInfoType(userRole.getUnit(),
+				id + "", InfoType.CASE, -1);
 
 		injurycaseService.delete(injurycase);
 		arg[0] = "injurycaseAction!list?itype=" + itype;
@@ -697,9 +699,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		}
 		return null;
 	}
-	
-	
-	
+
 	/***************************************************************************
 	 * 导出excel表格
 	 * 
@@ -713,8 +713,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		}
 
 		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
-		
-		
+
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
 			convalue = convalue.replace(" ", "");
@@ -727,13 +726,11 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			endtime = URLDecoder.decode(endtime, "utf-8");
 			endtime = endtime.replace(" ", "");
 		}
-		
-		
-		/// 所有当前页记录对象
+
+		// / 所有当前页记录对象
 		injurycases = injurycaseService.queryList(con, convalue, userRole,
-				 itype, queryState, starttime, endtime);
-		
-		
+				itype, queryState, starttime, endtime);
+
 		if (injurycases.size() > 0) {
 			// 导出数据-------------------------------------
 			String filename = "output\\" + DateTimeKit.getDateRandom()
@@ -742,7 +739,10 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 					.getRealPath("/")
 					+ filename;
 			System.out.println("[--------------------savePath=" + savePath);
-			boolean isexport = InjurycaseExcel.exportExcel(savePath, injurycases);
+			System.out.println(injurycases.size());
+			
+			boolean isexport = InjurycaseExcel.exportExcel(savePath,
+					injurycases);
 			if (isexport) {
 				request.put("errorInfo", "导出数据成功,下载点<a href='" + filename
 						+ "'>-这里-</a>");
@@ -756,9 +756,22 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			return "opexcel";
 		}
 	}
-	
+
 	public String importExcel() {
 		return "importpage";
+	}
+
+	public String importdata() throws Exception {
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
+		if (userRoleo == null) {
+			return "opsessiongo";
+		}
+
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+
+		injurycaseService.saveInjurycaseWithExcel(injurycase_file, userRole, itype);
+
+		return "importdata";
 	}
 
 	// get、set-------------------------------------------
@@ -1240,6 +1253,14 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 	public void setPersonService(IPersonService personService) {
 		this.personService = personService;
+	}
+
+	public File getInjurycase_file() {
+		return injurycase_file;
+	}
+
+	public void setInjurycase_file(File injurycase_file) {
+		this.injurycase_file = injurycase_file;
 	}
 
 }

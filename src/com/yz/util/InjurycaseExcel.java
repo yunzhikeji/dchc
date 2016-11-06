@@ -156,7 +156,7 @@ public class InjurycaseExcel {
 				list.add(injurycase.getCrimeObject() == null ? "" : injurycase
 						.getCrimeObject());
 				list.add(injurycase.getCrimePattern() == null ? "" : injurycase
-						.getCrimePattern());// clearPrincipal
+						.getCrimePattern());
 				list.add(injurycase.getPersonFeature() == null ? ""
 						: injurycase.getPersonFeature());
 				list.add(injurycase.getGoodsDescription() == null ? ""

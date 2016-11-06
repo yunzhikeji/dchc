@@ -1,5 +1,6 @@
 package com.yz.service;
 
+import java.io.File;
 import java.util.List;
 
 import com.yz.model.Injurycase;
@@ -90,4 +91,7 @@ public interface IInjurycaseService {
 	public abstract List<Injurycase> queryList(int con, String convalue,
 			UserRole userRole, int itype, int queryState, String starttime,
 			String endtime);
+
+	public abstract void saveInjurycaseWithExcel(File injurycase_file,
+			UserRole userRole, int itype);
 }
