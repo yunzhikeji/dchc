@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -63,6 +64,7 @@ import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
 import com.yz.util.InfoType;
 import com.yz.util.MyHandleUtil;
+import com.yz.util.ExcelFileGenerator;
 import com.yz.vo.AjaxMsgVO;
 import com.yz.vo.PersonVO;
 import com.yz.vo.SocialManForm;
@@ -1994,9 +1996,53 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		// 获取导出的表头和数据
 		// 获取表头,存放到ArrayList对象中(人员编号 姓名 出生日期 QQ 微信号 身份证号 户籍地址 户籍区域)
 		ArrayList fieldName = personService.getExcelFieldNameList(type);
-		// 获取数据
-		ArrayList fieldData = personService.getExcelFieldDataList(type);
 		
+		// 获取数据
+		
+		// 登陆验证
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
+		if (userRoleo == null) {
+			return "opsessiongo";
+		}
+
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+
+		if (convalue != null && !convalue.equals("")) {
+			convalue = URLDecoder.decode(convalue, "utf-8");
+			convalue = convalue.replace(" ", "");
+		}
+		if (starttime != null && !starttime.equals("")) {
+			starttime = URLDecoder.decode(starttime, "utf-8");
+			starttime = starttime.replace(" ", "");
+		}
+		if (endtime != null && !endtime.equals("")) {
+			endtime = URLDecoder.decode(endtime, "utf-8");
+			endtime = endtime.replace(" ", "");
+		}
+		
+		personService.queryList(con, convalue, userRole, page, size,
+				type, queryState, starttime, endtime);
+		// 获取数据
+		ArrayList fieldData = personService.getExcelFieldDataList(con, convalue, userRole,type, queryState, starttime, endtime);
+		
+		OutputStream out = response.getOutputStream();
+
+		response.reset();
+		String excelName = "person.xls";
+		response.setHeader("Content-Disposition", "attachment; filename=" + excelName);
+		// 设置excel报表的形式
+		response.setContentType("application/vnd.ms-excel");
+		ExcelFileGenerator generator = new ExcelFileGenerator(fieldName, fieldData);
+		generator.expordExcel(out);
+		// 设置输出形式
+		System.setOut(new PrintStream(out));
+		// 刷新输出流
+		out.flush();
+		// 关闭输出流
+		if (out != null) {
+			out.close();
+
+		}
 		
 		
 		return null;

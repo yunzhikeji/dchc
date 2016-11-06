@@ -55,7 +55,9 @@ public interface IPersonService {
 	//获取excel的标题数据集
 	public ArrayList getExcelFieldNameList(int type);
 	
-	public ArrayList getExcelFieldDataList(int type);
+	public ArrayList getExcelFieldDataList(int con, String convalue,
+			UserRole user,int type, int queryState,
+			String starttime, String endtime);
 
 	public abstract List<Person> getPersonsByHandleState(int con,String convalue,String starttime,String endtime,int i,
 			UserRole userRole);
