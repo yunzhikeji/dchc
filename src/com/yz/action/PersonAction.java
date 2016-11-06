@@ -1985,7 +1985,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			return "opsessiongo";
 		}
 
-		personService.saveSocialManWithExcel(file, userRoleo);
+		personService.saveSocialManWithExcel(file, userRoleo,type);
 
 		return "importdata";
 	}

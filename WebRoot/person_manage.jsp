@@ -107,12 +107,12 @@
 					</s:if> <a class="btn btn-primary radius"
 					onclick="childPageFull('新增<s:property value="pageTileName"/>','personAction!goToAdd?type=<s:property value="type"/>')"
 					href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 新增<s:property
-							value="pageTileName" /> </a> <s:if test="type==15">
+							value="pageTileName" /> </a> 
 						<a class="btn btn-primary radius"
-							onclick="childPageFull('新增<s:property value="pageTileName"/>','personAction!importExcel')"
+							onclick="childPageFull('新增<s:property value="pageTileName"/>','personAction!importExcel?type=<s:property value="type"/>')"
 							href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 批量导入<s:property
 								value="pageTileName" /> </a>
-					</s:if> </span>
+					</span>
 
 
 				<span class="r">共有数据：<strong><s:property

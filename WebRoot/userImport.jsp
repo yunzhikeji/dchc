@@ -12,10 +12,18 @@
 <script type="text/javascript" src="js/pageKit.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/function.js"></script>
-<SCRIPT language="javascript">
 	
-</SCRIPT>
-
+	<script language="JavaScript">
+	var params = window.location.search;
+	
+	console.log(params);
+	params = params.substring(6);
+	console.log(params);
+	function viewData() {
+		document.getElementById("type").setAttribute("value", params);
+	}
+	window.onload = viewData;
+</script>
 </head>
 
 <body>
@@ -40,9 +48,10 @@
 				<td width="1%"></td>
 				<td width="15%" align="center">请选择文件:</td>
 				<td width="83%" align="left">
-					<!--  
-          <input type="file" name="socialManForm.file" style="width:365px"/>
-          --> <input type="file" name="file" style="width:365px" /></td>
+				
+
+          <input type="hidden" id="type" name="type" value=""/>
+ <input type="file" name="file" style="width:365px" /></td>
 				<td width="1%"></td>
 			</tr>
 			<tr height=50>
