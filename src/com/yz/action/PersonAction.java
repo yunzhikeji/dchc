@@ -1989,6 +1989,18 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 		return "importdata";
 	}
+	
+	public String export() throws Exception {
+		// 获取导出的表头和数据
+		// 获取表头,存放到ArrayList对象中(人员编号 姓名 出生日期 QQ 微信号 身份证号 户籍地址 户籍区域)
+		ArrayList fieldName = personService.getExcelFieldNameList(type);
+		// 获取数据
+		ArrayList fieldData = personService.getExcelFieldDataList(type);
+		
+		
+		
+		return null;
+	}
 
 	public SocialManForm getSocialManForm() {
 		return socialManForm;

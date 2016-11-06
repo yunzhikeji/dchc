@@ -35,6 +35,18 @@
 		<script type="text/javascript" src="js/pageKit.js"></script>
 		<script type="text/javascript" src="js/checkUtil.js"></script>
 		<script type="text/javascript" src="js/commonUtil.js"></script>
+		<script type="text/javascript">
+		function personQuery() {
+		document.personListForm.action="personAction!list";
+		document.personListForm.submit();
+		}
+		
+		
+		function exportQuery() {
+		document.personListForm.action="personAction!export";
+		document.personListForm.submit();
+		}
+		</script>
 		<title>人员信息列表</title>
 	</head>
 	<body>
@@ -86,10 +98,10 @@
 									id="endtime" class="input-text Wdate" style="width: 150px;">
 							</td>
 							<td align="left" style="padding-left: 172px;">
-								<button type="submit" class="btn btn-success" id="button2"
-									name="" onClick="">
-									<i class="Hui-iconfont">&#xe665;</i> 查询
-								</button>
+								<a href="javascript:;" onclick="personQuery()"
+									class="btn btn-success"><i class="Hui-iconfont">&#xe665;</i>
+									查询</a>
+
 								<button type="button" class="btn btn-success" id="clearButton"
 									name="">
 									<i class="Hui-iconfont">&#xe66b;</i> 清空
@@ -107,12 +119,12 @@
 					</s:if> <a class="btn btn-primary radius"
 					onclick="childPageFull('新增<s:property value="pageTileName"/>','personAction!goToAdd?type=<s:property value="type"/>')"
 					href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 新增<s:property
-							value="pageTileName" /> </a> 
-						<a class="btn btn-primary radius"
-							onclick="childPageFull('新增<s:property value="pageTileName"/>','personAction!importExcel?type=<s:property value="type"/>')"
-							href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 批量导入<s:property
-								value="pageTileName" /> </a>
-					</span>
+							value="pageTileName" /> </a> <a class="btn btn-primary radius"
+					onclick="childPageFull('新增<s:property value="pageTileName"/>','personAction!importExcel?type=<s:property value="type"/>')"
+					href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 批量导入<s:property
+							value="pageTileName" /> </a>&nbsp;<a href="javascript:;" onclick="exportQuery()"
+									class="btn btn-success"><i class="Hui-iconfont">&#xe665;</i>
+									批量导出<s:property value="pageTileName"/></a> </span>
 
 
 				<span class="r">共有数据：<strong><s:property
@@ -223,17 +235,13 @@
 						</td>
 						<td height="34" colspan="6" align="center" bgcolor="#FFFFFF">
 							<a
-								href="javascript:jumpPersonPage('personAction!list',1,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="type"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
-								>首页</a>&nbsp;&nbsp;
+								href="javascript:jumpPersonPage('personAction!list',1,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="type"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');">首页</a>&nbsp;&nbsp;
 							<a
-								href="javascript:jumpPersonPage('personAction!list',<s:property value="page-1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="type"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
-								>上一页</a>&nbsp;&nbsp;&nbsp;
+								href="javascript:jumpPersonPage('personAction!list',<s:property value="page-1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="type"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');">上一页</a>&nbsp;&nbsp;&nbsp;
 							<a
-								href="javascript:jumpPersonPage('personAction!list',<s:property value="page+1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="type"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
-								>下一页</a>&nbsp;&nbsp;&nbsp;
+								href="javascript:jumpPersonPage('personAction!list',<s:property value="page+1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="type"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');">下一页</a>&nbsp;&nbsp;&nbsp;
 							<a
-								href="javascript:jumpPersonPage('personAction!list',<s:property value="pageCount"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="type"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
-								>尾页</a>&nbsp;&nbsp;&nbsp;
+								href="javascript:jumpPersonPage('personAction!list',<s:property value="pageCount"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="type"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');">尾页</a>&nbsp;&nbsp;&nbsp;
 							<input type='button' class="btn btn-primary radius size-S"
 								onclick="jumpPersonPage('personAction!list',document.getElementById('page').value,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="type"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
 								value='转到' />

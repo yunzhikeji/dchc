@@ -276,6 +276,27 @@ public class PersonServiceImp implements IPersonService {
 		}
 
 	}
+	
+	
+	//获取excel的标题数据集
+	public ArrayList getExcelFieldNameList(int type) {
+
+		String [] titles = {"人员编号","姓名","性别","出生日期","QQ","微信号","身份证号","手机号码","户籍地详址","户籍地区划","DNA编号","其他身份信息","指纹编号","足迹编号","现住地区划","现住地详址","虚拟身份","银行卡信息","绰号","车牌号","发动机号","车架号","手机串号","人员备注信息","携带物品","携带工具","人员分类"};
+		ArrayList fieldName = new ArrayList();
+		for (int i=0;i<titles.length;i++){
+			String title = titles[i];
+			fieldName.add(title);
+		}
+		return fieldName;
+	}
+
+	public ArrayList getExcelFieldDataList(int type) {
+
+		// 构造报表和导出数据
+		ArrayList fieldData = new ArrayList();
+
+		return fieldData;
+	}
 
 	/*
 	 * 条件查询人员列表

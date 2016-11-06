@@ -1,6 +1,7 @@
 package com.yz.service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.yz.model.Person;
@@ -50,6 +51,11 @@ public interface IPersonService {
 	public abstract int savereturn(Person person);
 
 	public abstract void saveSocialManWithExcel(File fileTest, UserRole userRole,int type);
+	
+	//获取excel的标题数据集
+	public ArrayList getExcelFieldNameList(int type);
+	
+	public ArrayList getExcelFieldDataList(int type);
 
 	public abstract List<Person> getPersonsByHandleState(int con,String convalue,String starttime,String endtime,int i,
 			UserRole userRole);
