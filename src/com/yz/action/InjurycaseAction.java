@@ -50,7 +50,7 @@ import com.yz.service.IUserRoleService;
 import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
 import com.yz.util.InfoType;
-import com.yz.util.MyHandleUtil;
+import com.yz.util.InjurycaseExcel;
 import com.yz.vo.AjaxMsgVO;
 import com.yz.vo.CaseVO;
 import com.yz.vo.InjurycaseVO;
@@ -696,6 +696,65 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	
+	
+	/***************************************************************************
+	 * 导出excel表格
+	 * 
+	 * @throws UnsupportedEncodingException
+	 */
+	public String outputExcel() throws UnsupportedEncodingException {
+		// 登陆验证
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
+		if (userRoleo == null) {
+			return "opsessiongo";
+		}
+
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+		
+		
+		if (convalue != null && !convalue.equals("")) {
+			convalue = URLDecoder.decode(convalue, "utf-8");
+			convalue = convalue.replace(" ", "");
+		}
+		if (starttime != null && !starttime.equals("")) {
+			starttime = URLDecoder.decode(starttime, "utf-8");
+			starttime = starttime.replace(" ", "");
+		}
+		if (endtime != null && !endtime.equals("")) {
+			endtime = URLDecoder.decode(endtime, "utf-8");
+			endtime = endtime.replace(" ", "");
+		}
+		
+		
+		/// 所有当前页记录对象
+		injurycases = injurycaseService.queryList(con, convalue, userRole,
+				 itype, queryState, starttime, endtime);
+		
+		
+		if (injurycases.size() > 0) {
+			// 导出数据-------------------------------------
+			String filename = "output\\" + DateTimeKit.getDateRandom()
+					+ "_injurycases.xls";
+			String savePath = ServletActionContext.getServletContext()
+					.getRealPath("/")
+					+ filename;
+			System.out.println("[--------------------savePath=" + savePath);
+			boolean isexport = InjurycaseExcel.exportExcel(savePath, injurycases);
+			if (isexport) {
+				request.put("errorInfo", "导出数据成功,下载点<a href='" + filename
+						+ "'>-这里-</a>");
+				return "opexcel";
+			} else {
+				request.put("errorInfo", "导出数据失败！");
+				return "opexcel";
+			}
+		} else {
+			request.put("errorInfo", "查询失败，未导出数据！");
+			return "opexcel";
+		}
 	}
 
 	// get、set-------------------------------------------

@@ -310,6 +310,43 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		return injurycaseDao.getObjectsByCondition(queryString, p);
 
 	}
+	
+	public List<Injurycase> queryList(int con, String convalue,
+			UserRole userRole, int itype, int queryState, String starttime,
+			String endtime) {
+		String queryString = "from Injurycase mo where 1=1 ";
+		Object[] p = null;
+		if (con != 0 && convalue != null && !convalue.equals("")) {
+			if (con == 1) {
+				queryString += "and mo.caseNumber like ? ";
+			}
+			if (con == 2) {
+				queryString += "and mo.casePlace like ? ";
+			}
+			if (con == 3) {
+				queryString += "and mo.caseName like ? ";
+			}
+			if (con == 4) {
+				queryString += "and mo.userRole.realname like ? ";
+			}
+			p = new Object[] { '%' + convalue + '%' };
+		}
+		if (itype != 0) {
+			queryString += " and mo.itype =" + itype;
+		}
+		if (queryState != 0) {
+			queryString += " and mo.handleState =" + queryState;
+		}
+		if (starttime != null && !starttime.equals("")) {
+			queryString += " and mo.joinDate>='" + starttime + "'";
+		}
+		if (endtime != null && !endtime.equals("")) {
+			queryString += " and mo.joinDate<='" + endtime + "'";
+		}
+		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
+				InfoType.CASE);
+		return injurycaseDao.queryList(queryString);
+	}
 
 	public List<Injurycase> getInjurycaseByTypeAndHandleState(int con,
 			String convalue, String starttime, String endtime, int itype,
@@ -509,5 +546,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 
 		return queryString;
 	}
+
+	
 
 }

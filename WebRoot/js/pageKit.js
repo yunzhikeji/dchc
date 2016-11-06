@@ -115,6 +115,15 @@ function jumpSuccessexamplePage(url,page,con,convalue,starttime,endtime){
 	window.location=url;
 }
 
+
+//跳转到打印页面
+function jumpProjectOutput(url,con,convalue,status,areaIndex,engineeringType,graphicProgress){
+	var url=url+'?con='+con+'&convalue='+convalue+'&status='+status+'&areaIndex='+areaIndex+'&engineeringType='+engineeringType+'&graphicProgress='+graphicProgress;
+	url=encodeURI(url);
+	url=encodeURI(url);
+	window.location=url;
+}
+
 function jumpYoukeLinePage(url,page,con,convalue,limits,projectid,linetext,upuserid){
 	
 	var page=page;
@@ -143,6 +152,9 @@ function jumpReportPage(url,page,starttime,endtime,con,convalue,stype,limits,pro
 	url=encodeURI(url);
 	window.location=url;
 }
+
+
+
 
 //报表导出数据
 function jumpReportExportPage(url,page,starttime,endtime,con,convalue,stype,limits,projectid,linetext,upuserid){

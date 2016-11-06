@@ -35,6 +35,15 @@
 		<script type="text/javascript" src="js/pageKit.js"></script>
 		<script type="text/javascript" src="js/checkUtil.js"></script>
 		<script type="text/javascript" src="js/commonUtil.js"></script>
+		<script type="text/javascript">
+		function exportInjurycase(){
+				//提交form
+				document.injurycaseListForm.action = "injurycaseAction!outputExcel";
+				document.injurycaseListForm.submit();
+			}
+		</script>
+
+
 		<title>案件信息列表</title>
 	</head>
 	<body>
@@ -104,11 +113,18 @@
 						<a href="javascript:;" onclick="deleteAllCheckedInjurycases();"
 							class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>
 							批量删除</a>
+
+						<a href="javascript:;" onclick="exportInjurycase();"
+							class="btn btn-primary radiu"> 导出execl表</a>
+
+						<a href="javascript:;" onclick="deleteAllCheckedInjurycases();"
+							class="btn btn-primary radiu"> <i class="Hui-iconfont">&#xe600;</i>批量导入</a>
+
+
 					</s:if> <a class="btn btn-primary radius"
 					onclick="childPageFull('新增<s:property value="pageTileName"/>','injurycaseAction!goToAdd?itype=<s:property value="itype"/>')"
 					href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 新增<s:property
-							value="pageTileName" />
-				</a> </span>
+							value="pageTileName" /> </a> </span>
 				<span class="r">共有数据：<strong><s:property
 							value="totalCount" /> </strong> 条</span>
 			</div>
@@ -203,17 +219,13 @@
 						</td>
 						<td height="34" colspan="6" align="center" bgcolor="#FFFFFF">
 							<a
-								href="javascript:jumpInjurycasePage('injurycaseAction!list',1,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="itype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
-								>首页</a>&nbsp;&nbsp;
+								href="javascript:jumpInjurycasePage('injurycaseAction!list',1,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="itype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');">首页</a>&nbsp;&nbsp;
 							<a
-								href="javascript:jumpInjurycasePage('injurycaseAction!list',<s:property value="page-1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="itype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
-								>上一页</a>&nbsp;&nbsp;&nbsp;
+								href="javascript:jumpInjurycasePage('injurycaseAction!list',<s:property value="page-1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="itype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');">上一页</a>&nbsp;&nbsp;&nbsp;
 							<a
-								href="javascript:jumpInjurycasePage('injurycaseAction!list',<s:property value="page+1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="itype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
-								>下一页</a>&nbsp;&nbsp;&nbsp;
+								href="javascript:jumpInjurycasePage('injurycaseAction!list',<s:property value="page+1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="itype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');">下一页</a>&nbsp;&nbsp;&nbsp;
 							<a
-								href="javascript:jumpInjurycasePage('injurycaseAction!list',<s:property value="pageCount"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="itype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
-								>尾页</a>&nbsp;&nbsp;&nbsp;
+								href="javascript:jumpInjurycasePage('injurycaseAction!list',<s:property value="pageCount"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="itype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');">尾页</a>&nbsp;&nbsp;&nbsp;
 							<input type='button' class="btn btn-primary radius size-S"
 								onclick="jumpInjurycasePage('injurycaseAction!list',document.getElementById('page').value,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="itype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
 								value='转到' />
