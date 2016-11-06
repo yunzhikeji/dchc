@@ -49,7 +49,7 @@ public interface IPersonService {
 
 	public abstract int savereturn(Person person);
 
-	public abstract void saveSocialManWithExcel(File fileTest, UserRole userRole);
+	public abstract void saveSocialManWithExcel(File fileTest, UserRole userRole,int type);
 
 	public abstract List<Person> getPersonsByHandleState(int con,String convalue,String starttime,String endtime,int i,
 			UserRole userRole);
