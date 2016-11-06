@@ -161,8 +161,49 @@ public class InjurycaseExcel {
 						: injurycase.getPersonFeature());
 				list.add(injurycase.getGoodsDescription() == null ? ""
 						: injurycase.getGoodsDescription());
-				list.add(injurycase.getEndSituation() == null ? "" : injurycase
-						.getEndSituation());
+
+				// '1':'抓获', '2':'死亡', '3':'撤销案件', '4':'释放', '5':'治安拘留',
+				// '6':'刑事拘留', '7':'留置盘问', '8':'其他' }"
+
+				if (injurycase.getEndSituation() != null
+						&& !injurycase.getEndSituation().replace(" ", "")
+								.equals("")) {
+					int endType = Integer
+							.parseInt(injurycase.getEndSituation());
+					switch (endType) {
+					case 1:
+						list.add("抓获");
+						break;
+					case 2:
+						list.add("死亡");
+						break;
+					case 3:
+						list.add("撤销案件");
+						break;
+					case 4:
+						list.add("释放");
+						break;
+					case 5:
+						list.add("治安拘留");
+						break;
+					case 6:
+						list.add("刑事拘留");
+						break;
+					case 7:
+						list.add("留置盘问");
+						break;
+					case 8:
+						list.add("其他");
+						break;
+
+					default:
+						break;
+					}
+
+				} else {
+					list.add("");
+				}
+
 				list.add(injurycase.getComprehensiveJudge() == null ? ""
 						: injurycase.getComprehensiveJudge());
 				list.add(injurycase.getLeaderInstruction() == null ? ""

@@ -113,17 +113,14 @@
 						<a href="javascript:;" onclick="deleteAllCheckedInjurycases();"
 							class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>
 							批量删除</a>
-
-						<a href="javascript:;" onclick="exportInjurycase();"
-							class="btn btn-primary radiu"> 导出execl表</a>
-
-						<a href="javascript:;" onclick="deleteAllCheckedInjurycases();"
-							class="btn btn-primary radiu"> <i class="Hui-iconfont">&#xe600;</i>批量导入</a>
-
-
 					</s:if> <a class="btn btn-primary radius"
 					onclick="childPageFull('新增<s:property value="pageTileName"/>','injurycaseAction!goToAdd?itype=<s:property value="itype"/>')"
 					href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 新增<s:property
+							value="pageTileName" /> </a> <a href="javascript:;"
+					onclick="exportInjurycase();" class="btn btn-primary radiu">
+						导出execl表</a> <a class="btn btn-primary radius"
+					onclick="childPageFull('新增<s:property value="pageTileName"/>','injurycaseAction!importExcel?itype=<s:property value="itype"/>')"
+					href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 批量导入<s:property
 							value="pageTileName" /> </a> </span>
 				<span class="r">共有数据：<strong><s:property
 							value="totalCount" /> </strong> 条</span>

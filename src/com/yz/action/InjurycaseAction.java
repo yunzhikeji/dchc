@@ -756,6 +756,10 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			return "opexcel";
 		}
 	}
+	
+	public String importExcel() {
+		return "importpage";
+	}
 
 	// get、set-------------------------------------------
 
