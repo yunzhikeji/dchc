@@ -430,14 +430,19 @@ public class PersonServiceImp implements IPersonService {
 			Person person = personList.get(i);
 			dataList.add(person.getNumber());
 			dataList.add(person.getName());
-			if(person.getSex()==1){
-				dataList.add("男");
-			}else
-			if(person.getSex()==2){
-				dataList.add("女");
-			}else{
+			if(person.getSex()!=null){
+				if(person.getSex()==1){
+					dataList.add("男");
+				}else
+				if(person.getSex()==2){
+					dataList.add("女");
+				}else{
+					dataList.add("");
+				}
+			}else {
 				dataList.add("");
 			}
+			
 			dataList.add(person.getBirthday());
 			dataList.add(person.getQq());
 			dataList.add(person.getWechat());
