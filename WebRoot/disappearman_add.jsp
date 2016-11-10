@@ -314,6 +314,18 @@
 										<div class="row cl mb-10">
 											<div class="col-2">
 												<label class="form-label text-r">
+													民 族：
+												</label>
+											</div>
+											<div class="col-4">
+												<s:textfield name="person.nation"
+												cssClass="input-text radius size-M "
+												cssStyle="width: 200px;"></s:textfield>
+											</div>
+										</div>
+										<div class="row cl mb-10">
+											<div class="col-2">
+												<label class="form-label text-r">
 													性 别：
 												</label>
 											</div>

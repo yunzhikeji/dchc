@@ -162,9 +162,11 @@
 						<li>
 							<a _href="personAction!list?type=13" href="javascript:void(0)">技术比中人员</a>
 						</li>
+						<!--  
 						<li>
 							<a _href="personAction!list?type=15" href="javascript:void(0)">社会人员</a>
 						</li>
+						-->
 					</ul>
 				</li>
 				<li>
@@ -237,7 +239,6 @@
 							<a _href="userRoleAction!currentUserRole"
 								href="javascript:void(0)">个人资料</a>
 						</li>
-						<!--  <li> <a _href="system-base.html" href="javascript:void(0)">IP限制</a> </li> -->
 						<li>
 							<a _href="pnoticeAction!list" href="javascript:void(0)">通知公告</a>
 						</li>

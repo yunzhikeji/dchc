@@ -200,7 +200,7 @@
 									<tr>
 										<td>
 											<label class="form-label text-r">
-												<span style="color:red;">(多项用','隔开至多三项)</span>QQ：
+												<span style="color: red;">(多项用','隔开至多三项)</span>QQ：
 											</label>
 										</td>
 										<td>
@@ -210,7 +210,7 @@
 										</td>
 										<td>
 											<label class="form-label text-r">
-												<span style="color:red;">(多项用','隔开至多三项)</span>微信号：
+												<span style="color: red;">(多项用','隔开至多三项)</span>微信号：
 											</label>
 										</td>
 										<td colspan="2">
@@ -232,7 +232,7 @@
 										</td>
 										<td>
 											<label class="form-label text-r">
-												<span style="color:red;">(多项用','隔开至多三项)</span>手机号码：
+												<span style="color: red;">(多项用','隔开至多三项)</span>手机号码：
 											</label>
 										</td>
 										<td colspan="2">
@@ -399,7 +399,7 @@
 									<tr>
 										<td>
 											<label class="form-label text-r">
-												<span style="color:red;">(多项用','隔开至多三项)</span>手机串号：
+												<span style="color: red;">(多项用','隔开至多三项)</span>手机串号：
 											</label>
 										</td>
 										<td>
@@ -463,6 +463,18 @@
 									<tr>
 										<td>
 											<label class="form-label text-r">
+												民族：
+											</label>
+										</td>
+										<td>
+											<s:textfield name="person.nation"
+												cssClass="input-text radius size-M "
+												cssStyle="width: 200px;"></s:textfield>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label class="form-label text-r">
 												信息提取情况：
 											</label>
 										</td>
@@ -483,8 +495,8 @@
 										</td>
 										<td colspan="4">
 											<s:textarea name="person.remark"
-											cssClass="input-text radius size-M "
-											cssStyle="width: 80%; height: 120px;"></s:textarea>
+												cssClass="input-text radius size-M "
+												cssStyle="width: 80%; height: 120px;"></s:textarea>
 										</td>
 									</tr>
 									<tr>

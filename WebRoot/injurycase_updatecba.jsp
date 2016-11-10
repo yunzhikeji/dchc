@@ -366,7 +366,7 @@
 									</div>
 									<div class="col-4">
 										<s:if test="injurycase.itype==1">
-											<s:textfield value="一般案件"
+											<s:textfield value="刑事案件"
 												cssClass="input-text radius size-M "
 												cssStyle="width: 200px;" readonly="true"></s:textfield>
 										</s:if>
@@ -377,6 +377,11 @@
 										</s:if>
 										<s:if test="injurycase.itype==3">
 											<s:textfield value="团伙系列案件"
+												cssClass="input-text radius size-M "
+												cssStyle="width: 200px;" readonly="true"></s:textfield>
+										</s:if>
+										<s:if test="injurycase.itype==4">
+											<s:textfield value="行政案件"
 												cssClass="input-text radius size-M "
 												cssStyle="width: 200px;" readonly="true"></s:textfield>
 										</s:if>

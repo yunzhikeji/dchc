@@ -318,7 +318,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		if (param != null && !param.equals("")) {
 			queryString += "and  (mo.caseNumber like ?  or mo.caseType like ? or mo.caseName like ? ) ";
 			p = new Object[] { '%' + param + '%', '%' + param + '%',
-					'%' + param };
+					'%' + param + '%'};
 		}
 		queryString += " order by mo.id desc ";
 		return injurycaseDao.getObjectsByCondition(queryString, p);
@@ -594,10 +594,13 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 				String handleStateString = data[6].toString();
 				if (handleStateString.contains("未")) {
 					injurycase.setHandleState(1);
-				} else if (caseTypeName.contains("在")) {
+				} else if (handleStateString.contains("在")) {
 					injurycase.setHandleState(2);
-				} else if (caseTypeName.contains("已")) {
+				} else if (handleStateString.contains("已")) {
 					injurycase.setHandleState(3);
+				}else
+				{
+					injurycase.setHandleState(1);
 				}
 
 				String isReltive = data[7].toString();
@@ -605,6 +608,9 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 					injurycase.setIsRelated(0);
 				} else if (isReltive.contains("已")) {
 					injurycase.setIsRelated(1);
+				}else
+				{
+					injurycase.setIsRelated(0);
 				}
 
 				injurycase.setStartTime(data[8].toString());
@@ -623,21 +629,21 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 				// '1':'抓获', '2':'死亡', '3':'撤销案件', '4':'释放', '5':'治安拘留',
 				// '6':'刑事拘留', '7':'留置盘问', '8':'其他' }"
 				String endSituation = data[19].toString();
-				if (handleStateString.contains("抓获")) {
+				if (endSituation.contains("抓获")) {
 					injurycase.setEndSituation(1 + "");
-				} else if (caseTypeName.contains("死亡")) {
+				} else if (endSituation.contains("死亡")) {
 					injurycase.setEndSituation(2 + "");
-				} else if (caseTypeName.contains("已")) {
+				} else if (endSituation.contains("撤销案件")) {
 					injurycase.setEndSituation(3 + "");
-				} else if (caseTypeName.contains("在")) {
+				} else if (endSituation.contains("释放")) {
 					injurycase.setEndSituation(4 + "");
-				} else if (caseTypeName.contains("已")) {
+				} else if (endSituation.contains("治安拘留")) {
 					injurycase.setEndSituation(5 + "");
-				} else if (caseTypeName.contains("在")) {
+				} else if (endSituation.contains("刑事拘留")) {
 					injurycase.setEndSituation(6 + "");
-				} else if (caseTypeName.contains("已")) {
+				} else if (endSituation.contains("留置盘问")) {
 					injurycase.setEndSituation(7 + "");
-				} else if (caseTypeName.contains("已")) {
+				} else if (endSituation.contains("其他")) {
 					injurycase.setEndSituation(8 + "");
 				}
 

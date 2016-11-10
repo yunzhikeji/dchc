@@ -443,6 +443,18 @@
 										<tr>
 											<td>
 												<label class="form-label text-r">
+													民族：
+												</label>
+											</td>
+											<td>
+													<s:textfield name="person.nation"
+														cssClass="input-text radius size-M "
+														cssStyle="width: 200px;"></s:textfield>
+											</td>
+										</tr>
+										<tr>
+											<td>
+												<label class="form-label text-r">
 													信息提取情况：
 												</label>
 											</td>

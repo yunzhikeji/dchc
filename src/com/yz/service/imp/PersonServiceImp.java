@@ -2,9 +2,7 @@ package com.yz.service.imp;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -12,12 +10,24 @@ import org.springframework.stereotype.Component;
 
 import com.yz.dao.IPersonDao;
 import com.yz.dao.ISocialManDao;
+import com.yz.model.AnalyzeMan;
+import com.yz.model.CommonClue;
+import com.yz.model.ContrastMan;
+import com.yz.model.DisappearMan;
+import com.yz.model.GamblingCriminalMan;
+import com.yz.model.GuiltSafeguardMan;
 import com.yz.model.Person;
 import com.yz.model.SocialMan;
-import com.yz.model.Unit;
 import com.yz.model.UserRole;
+import com.yz.service.IAnalyzeManService;
+import com.yz.service.ICommonClueService;
+import com.yz.service.IContrastManService;
+import com.yz.service.IDisappearManService;
+import com.yz.service.IGamblingCriminalManService;
+import com.yz.service.IGuiltSafeguardManService;
 import com.yz.service.IPersonService;
 import com.yz.service.IUnitService;
+import com.yz.util.DateTimeKit;
 import com.yz.util.GenerateSqlFromExcel;
 import com.yz.util.InfoType;
 import com.yz.util.MyHandleUtil;
@@ -28,6 +38,21 @@ public class PersonServiceImp implements IPersonService {
 	private IPersonDao personDao;
 	private IUnitService unitService;
 	private ISocialManDao socialManDao;
+
+	@Resource
+	private IPersonService personService;
+	@Resource
+	private IGamblingCriminalManService gamblingCriminalManService;
+	@Resource
+	private IGuiltSafeguardManService guiltSafeguardManService;
+	@Resource
+	private IDisappearManService disappearmanService;
+	@Resource
+	private IAnalyzeManService analyzeManService;
+	@Resource
+	private IContrastManService contrastManService;
+	@Resource
+	private ICommonClueService commonClueService;
 
 	// 添加对象
 	/*
@@ -240,7 +265,7 @@ public class PersonServiceImp implements IPersonService {
 		return personDao.savereturn(person);
 	}
 
-	public void saveSocialManWithExcel(File file, UserRole userRole,int type) {
+	public void saveSocialManWithExcel(File file, UserRole userRole, int type) {
 		try {
 			GenerateSqlFromExcel generate = new GenerateSqlFromExcel();
 			ArrayList<String[]> arrayList = generate
@@ -249,18 +274,19 @@ public class PersonServiceImp implements IPersonService {
 			for (int i = 0; arrayList != null && i < arrayList.size(); i++) {
 				String[] data = arrayList.get(i);
 				Person person = new Person();
-				// 实例化PO对象，用PO对象进行保存
-				SocialMan socialMan = new SocialMan();
-				//"人员编号","姓名","性别","出生日期","QQ","微信号","身份证号","手机号码","户籍地详址","户籍地区划","DNA编号","其他身份信息","指纹编号","足迹编号","现住地区划","现住地详址","虚拟身份","银行卡信息","绰号","车牌号","发动机号","车架号","手机串号","人员备注信息","携带物品","携带工具","人员分类"
+				
+				person.setUserRole(userRole);
+				
+				// "人员编号","姓名","性别","出生日期","QQ","微信号","身份证号","手机号码","户籍地详址","户籍地区划","DNA编号","其他身份信息","指纹编号","足迹编号","现住地区划","现住地详址","虚拟身份","银行卡信息","绰号","车牌号","发动机号","车架号","手机串号","人员备注信息","携带物品","携带工具","人员分类","办理状态"
 				person.setNumber(data[0].toString());
 				person.setName(data[1].toString());
-				if(data[2].toString().equals("男")){
+				if (data[2].toString().equals("男")) {
 					person.setSex(1);
-				}else if(data[2].toString().equals("女")){
+				} else if (data[2].toString().equals("女")) {
 					person.setSex(2);
 				}
 				
-				
+
 				person.setBirthday(data[3].toString());
 				person.setQq(data[4].toString());
 				person.setWechat(data[5].toString());
@@ -268,54 +294,145 @@ public class PersonServiceImp implements IPersonService {
 				person.setTelphone(data[7].toString());
 				person.setRegisterAddress(data[8].toString());
 				person.setRegisterAddressArea(data[9].toString());
-				person.getGamblingCriminalMan().setDnanumber(data[10].toString());
-				person.getGamblingCriminalMan().setOtherId(data[11].toString());
-				person.getGamblingCriminalMan().setFingerPrintNumber(data[12].toString());
-				person.getGamblingCriminalMan().setFootPrintNumber(data[13].toString());
-				person.getGamblingCriminalMan().setCurrentAddressArea(data[14].toString());
-				person.getGamblingCriminalMan().setCurrentAddress(data[15].toString());
-				person.getGamblingCriminalMan().setVirtualId(data[16].toString());
-				person.getGamblingCriminalMan().setBankCard(data[17].toString());
-				person.getGamblingCriminalMan().setNickname(data[18].toString());
-				person.getGamblingCriminalMan().setCarLicenseNumber(data[19].toString());
-				person.getGamblingCriminalMan().setEngineNumber(data[20].toString());
-				person.getGamblingCriminalMan().setCarFrameNumber(data[21].toString());
-				person.getGamblingCriminalMan().setImei(data[22].toString());
+
+				if (data[26].toString().contains("赌博")) {
+					person.setType(1);
+				} else if (data[26].toString().contains("涉恶")) {
+					person.setType(2);
+				} else if (data[26].toString().contains("涉黄")) {
+					person.setType(3);
+				} else if (data[26].toString().contains("食药环")) {
+					person.setType(4);
+				} else if (data[26].toString().contains("涉毒")) {
+					person.setType(5);
+				} else if (data[26].toString().contains("留置盘问")) {
+					person.setType(6);
+				} else if (data[26].toString().contains("侵财人员")) {
+					person.setType(7);
+				} else if (data[26].toString().contains("刑事传唤")) {
+					person.setType(8);
+				} else if (data[26].toString().contains("负案在逃")) {
+					person.setType(9);
+				} else if (data[26].toString().contains("维稳人员")) {
+					person.setType(10);
+				} else if (data[26].toString().contains("失踪")) {
+					person.setType(11);
+				} else if (data[26].toString().contains("侵财分析")) {
+					person.setType(12);
+				} else if (data[26].toString().contains("技术比中")) {
+					person.setType(13);
+				}
+				
+				switch (person.getType()) {
+				case 0:
+				case 1:
+					// pageName = "赌博人员";
+				case 2:
+					// pageName = "涉恶人员";
+				case 3:
+					// pageName = "涉黄人员";
+				case 4:
+					// pageName = "食药环人员";
+				case 5:
+					// pageName = "涉毒人员";
+				case 6:
+					// pageName = "留置盘问";
+				case 7:
+					// pageName = "侵财人员";
+				case 8:
+					// pageName = "刑事传唤";
+					GamblingCriminalMan gamblingCriminalMan = new GamblingCriminalMan();
+
+					gamblingCriminalMan.setDnanumber(data[10].toString());
+					gamblingCriminalMan.setOtherId(data[11].toString());
+					gamblingCriminalMan.setFingerPrintNumber(data[12]
+							.toString());
+					gamblingCriminalMan.setFootPrintNumber(data[13].toString());
+					gamblingCriminalMan.setCurrentAddressArea(data[14]
+							.toString());
+					gamblingCriminalMan.setCurrentAddress(data[15].toString());
+					gamblingCriminalMan.setVirtualId(data[16].toString());
+					gamblingCriminalMan.setBankCard(data[17].toString());
+					gamblingCriminalMan.setNickname(data[18].toString());
+					gamblingCriminalMan
+							.setCarLicenseNumber(data[19].toString());
+					gamblingCriminalMan.setEngineNumber(data[20].toString());
+					gamblingCriminalMan.setCarFrameNumber(data[21].toString());
+					gamblingCriminalMan.setImei(data[22].toString());
+
+					gamblingCriminalManService.add(gamblingCriminalMan);
+
+					person.setGamblingCriminalMan(gamblingCriminalMan);
+					break;
+				case 9:
+					// pageName = "负罪在逃";
+				case 10:
+					// pageName = "维稳人员";
+					GuiltSafeguardMan guiltSafeguardMan = new GuiltSafeguardMan();
+					guiltSafeguardManService.add(guiltSafeguardMan);
+					person.setGuiltSafeguardMan(guiltSafeguardMan);
+					break;
+				case 11:
+					// pageName = "失踪人员分析";
+					DisappearMan disappearman = new DisappearMan();
+					disappearmanService.add(disappearman);
+					person.setDisappearMan(disappearman);
+					break;
+				case 12:
+					// pageName = "侵财人员分析";
+					AnalyzeMan analyzeMan = new AnalyzeMan();
+					analyzeManService.add(analyzeMan);
+					person.setAnalyzeMan(analyzeMan);
+					break;
+				case 13:
+					// pageName = "技术比中人员";
+					ContrastMan contrastMan = new ContrastMan();
+					contrastManService.add(contrastMan);
+					person.setContrastMan(contrastMan);
+					break;
+				case 14:
+					/*CommonClue commonClue = new CommonClue();
+					commonClueService.add(commonClue);
+					person.setCommonClue(commonClue);*/
+					break;
+				case 15:
+					/*
+					 * // pageName = "社会人员"; socialService.add(socialMan);
+					 * person.setSocialMan(socialMan);
+					 */
+					break;
+				default:
+					break;
+				}
+
 				person.setRemark(data[23].toString());
 				person.setCarrier(data[24].toString());
 				person.setCarryTool(data[25].toString());
-				if(data[26].toString().equals("赌博人员")){
-					person.setType(1);
-				}else if (data[26].toString().equals("涉恶人员")){
-					person.setType(2);
-				}else if (data[26].toString().equals("涉黄人员")){
-					person.setType(3);
-				}else if (data[26].toString().equals("食药环人员")){
-					person.setType(4);
-				}else if (data[26].toString().equals("涉毒人员")){
-					person.setType(5);
-				}else if (data[26].toString().equals("留置盘问人员")){
-					person.setType(6);
-				}else if (data[26].toString().equals("负案在逃人员")){
-					person.setType(9);
-				}else if (data[26].toString().equals("侵财人员")){
-					person.setType(7);
-				}else if (data[26].toString().equals("刑事传唤人员")){
-					person.setType(8);
-				}else if (data[26].toString().equals("失踪人员")){
-					person.setType(11);
-				}else if (data[26].toString().equals("侵财人员分析")){
-					person.setType(12);
-				}else if (data[26].toString().equals("技术比中人员")){
-					person.setType(13);
-				}else if (data[26].toString().equals("社会人员")){
-					person.setType(15);
-				}
-				
-				person.setSocialMan(socialMan);
-				socialManDao.save(socialMan);
-				int pid = personDao.savereturn(person);
 
+				/*
+				 * 
+				 * 
+				 * 
+				 * private GamblingCriminalMan gamblingCriminalMan;//
+				 * 1:赌博人员，2:涉恶人员，3:涉黄人员，4:食药环人员，5:涉毒人员，6:留置盘问，7:侵财人员，8:刑事传唤
+				 * private GuiltSafeguardMan guiltSafeguardMan;//
+				 * 9:负案在逃人员,10:维稳人员 private DisappearMan disappearman;// 11:失踪人员
+				 * private AnalyzeMan analyzeMan;// 12:侵财分析人员 private
+				 * ContrastMan contrastMan;// 13:技术比中人员
+				 */
+
+				String handleStateString = data[27].toString();
+				if (handleStateString.contains("未")) {
+					person.setHandleState(1);
+				} else if (handleStateString.contains("在")) {
+					person.setHandleState(2);
+				} else if (handleStateString.contains("已")) {
+					person.setHandleState(3);
+				} else {
+					person.setHandleState(1);
+				}
+				person.setNation(data[28].toString());
+				int pid = personDao.savereturn(person);
 
 				// 设置部门pids
 				unitService.updateUnitByUserRoleAndInfoType(userRole.getUnit(),
@@ -328,14 +445,16 @@ public class PersonServiceImp implements IPersonService {
 		}
 
 	}
-	
-	
-	//获取excel的标题数据集
+
+	// 获取excel的标题数据集
 	public ArrayList getExcelFieldNameList(int type) {
 
-		String [] titles = {"人员编号","姓名","性别","出生日期","QQ","微信号","身份证号","手机号码","户籍地详址","户籍地区划","DNA编号","其他身份信息","指纹编号","足迹编号","现住地区划","现住地详址","虚拟身份","银行卡信息","绰号","车牌号","发动机号","车架号","手机串号","人员备注信息","携带物品","携带工具","人员分类"};
+		String[] titles = { "人员编号", "姓名", "性别", "出生日期", "QQ", "微信号", "身份证号",
+				"手机号码", "户籍地详址", "户籍地区划", "DNA编号", "其他身份信息", "指纹编号", "足迹编号",
+				"现住地区划", "现住地详址", "虚拟身份", "银行卡信息", "绰号", "车牌号", "发动机号", "车架号",
+				"手机串号", "人员备注信息", "携带物品", "携带工具", "人员分类" };
 		ArrayList fieldName = new ArrayList();
-		for (int i=0;i<titles.length;i++){
+		for (int i = 0; i < titles.length; i++) {
 			String title = titles[i];
 			fieldName.add(title);
 		}
@@ -343,9 +462,9 @@ public class PersonServiceImp implements IPersonService {
 	}
 
 	public ArrayList getExcelFieldDataList(int con, String convalue,
-			UserRole userRole,int type, int queryState,
-			String starttime, String endtime) {
-		
+			UserRole userRole, int type, int queryState, String starttime,
+			String endtime) {
+
 		String queryString = "from Person mo where 1=1 ";
 		Object[] p = null;
 		if (con != 0 && convalue != null && !convalue.equals("")) {
@@ -378,71 +497,70 @@ public class PersonServiceImp implements IPersonService {
 
 		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
 				InfoType.PERSON);
-		
+
 		List<Person> personList = personDao.queryList(queryString);
-		
-		String typevo ="";
-		if(type==1){
+
+		String typevo = "";
+		if (type == 1) {
 			typevo = "赌博人员";
 		}
-		if(type==2){
+		if (type == 2) {
 			typevo = "涉恶人员";
 		}
 
-		if(type==3){
+		if (type == 3) {
 			typevo = "涉黄人员";
 		}
-		if(type==4){
+		if (type == 4) {
 			typevo = "食药环人员";
 		}
-		if(type==5){
+		if (type == 5) {
 			typevo = "涉毒人员";
 		}
-		if(type==6){
+		if (type == 6) {
 			typevo = "留置盘问人员";
 		}
-		if(type==9){
+		if (type == 9) {
 			typevo = "负案在逃人员";
 		}
-		if(type==7){
+		if (type == 7) {
 			typevo = "侵财人员";
 		}
-		if(type==8){
+		if (type == 8) {
 			typevo = "刑事传唤人员";
 		}
-		if(type==11){
+		if (type == 11) {
 			typevo = "失踪人员";
 		}
-		if(type==12){
+		if (type == 12) {
 			typevo = "侵财人员分析";
 		}
-		if(type==13){
+		if (type == 13) {
 			typevo = "技术比中人员";
 		}
-		if(type==15){
+		if (type == 15) {
 			typevo = "社会人员";
 		}
 		// 构造报表和导出数据
 		ArrayList fieldData = new ArrayList();
-		
-		for(int i=0;personList !=null && i<personList.size();i++ ){
+
+		for (int i = 0; personList != null && i < personList.size(); i++) {
 			ArrayList dataList = new ArrayList();
 			Person person = personList.get(i);
 			dataList.add(person.getNumber());
 			dataList.add(person.getName());
-			if(person.getSex()!=null){
-				if(person.getSex()==1){
+			if (person.getSex() != null) {
+				if (person.getSex() == 1) {
 					dataList.add("男");
-				}else
-				if(person.getSex()==2){
+				} else if (person.getSex() == 2) {
 					dataList.add("女");
-				}else{
+				} else {
 					dataList.add("");
 				}
-			}else {
+			} else {
 				dataList.add("");
 			}
-			
+
 			dataList.add(person.getBirthday());
 			dataList.add(person.getQq());
 			dataList.add(person.getWechat());
@@ -450,22 +568,28 @@ public class PersonServiceImp implements IPersonService {
 			dataList.add(person.getTelphone());
 			dataList.add(person.getRegisterAddress());
 			dataList.add(person.getRegisterAddressArea());
-			if(person.getGamblingCriminalMan()!=null){
+			if (person.getGamblingCriminalMan() != null) {
 				dataList.add(person.getGamblingCriminalMan().getDnanumber());
 				dataList.add(person.getGamblingCriminalMan().getOtherId());
-				dataList.add(person.getGamblingCriminalMan().getFingerPrintNumber());
-				dataList.add(person.getGamblingCriminalMan().getFootPrintNumber());
-				dataList.add(person.getGamblingCriminalMan().getCurrentAddressArea());
-				dataList.add(person.getGamblingCriminalMan().getCurrentAddress());
+				dataList.add(person.getGamblingCriminalMan()
+						.getFingerPrintNumber());
+				dataList.add(person.getGamblingCriminalMan()
+						.getFootPrintNumber());
+				dataList.add(person.getGamblingCriminalMan()
+						.getCurrentAddressArea());
+				dataList.add(person.getGamblingCriminalMan()
+						.getCurrentAddress());
 				dataList.add(person.getGamblingCriminalMan().getVirtualId());
 				dataList.add(person.getGamblingCriminalMan().getBankCard());
 				dataList.add(person.getGamblingCriminalMan().getNickname());
-				dataList.add(person.getGamblingCriminalMan().getCarLicenseNumber());
+				dataList.add(person.getGamblingCriminalMan()
+						.getCarLicenseNumber());
 				dataList.add(person.getGamblingCriminalMan().getEngineNumber());
-				dataList.add(person.getGamblingCriminalMan().getCarFrameNumber());
+				dataList.add(person.getGamblingCriminalMan()
+						.getCarFrameNumber());
 				dataList.add(person.getGamblingCriminalMan().getImei());
 			}
-			if(person.getGamblingCriminalMan()==null){
+			if (person.getGamblingCriminalMan() == null) {
 				dataList.add("");
 				dataList.add("");
 				dataList.add("");
@@ -484,7 +608,7 @@ public class PersonServiceImp implements IPersonService {
 			dataList.add(person.getCarrier());
 			dataList.add(person.getCarryTool());
 			dataList.add(typevo);
-			//"人员编号","姓名","性别","出生日期","QQ","微信号","身份证号","手机号码","户籍地详址","户籍地区划","DNA编号","其他身份信息","指纹编号","足迹编号","现住地区划","现住地详址","虚拟身份","银行卡信息","绰号","车牌号","发动机号","车架号","手机串号","人员备注信息","携带物品","携带工具","人员分类"
+			// "人员编号","姓名","性别","出生日期","QQ","微信号","身份证号","手机号码","户籍地详址","户籍地区划","DNA编号","其他身份信息","指纹编号","足迹编号","现住地区划","现住地详址","虚拟身份","银行卡信息","绰号","车牌号","发动机号","车架号","手机串号","人员备注信息","携带物品","携带工具","人员分类"
 			fieldData.add(dataList);
 		}
 
@@ -660,8 +784,10 @@ public class PersonServiceImp implements IPersonService {
 						+ convalue + "%' ";
 				break;
 			case 19:
-				queryString += " and mo.disappearMan.missingEndTime>='" + convalue + "'";
-				queryString += " and mo.disappearMan.missingStartTime<='" + convalue + "'";
+				queryString += " and mo.disappearMan.missingEndTime>='"
+						+ convalue + "'";
+				queryString += " and mo.disappearMan.missingStartTime<='"
+						+ convalue + "'";
 				break;
 			case 20:
 				queryString += " and mo.disappearMan.missingAddress like  '%"

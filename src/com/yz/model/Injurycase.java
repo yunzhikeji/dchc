@@ -45,7 +45,7 @@ public class Injurycase implements java.io.Serializable {
 	private List<Media> medias = new ArrayList<Media>();// 媒体
 	private String joinDate;// 录入时间
 	private Integer handleState;// 办理状态
-	private Integer itype;
+	private Integer itype;//1:刑事案件 2:重伤案件 3:团伙系列案件 4:行政案件
 	private String imageCase; // 案件图片
 	private String detailsDescription; // 图像中的细节描述
 	private String goodsDescription; //图像中的实物描述

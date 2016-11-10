@@ -116,12 +116,22 @@
 					</s:if> <a class="btn btn-primary radius"
 					onclick="childPageFull('新增<s:property value="pageTileName"/>','injurycaseAction!goToAdd?itype=<s:property value="itype"/>')"
 					href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 新增<s:property
-							value="pageTileName" /> </a> <a href="javascript:;"
-					onclick="exportInjurycase();" class="btn btn-primary radiu">
-						导出execl表</a> <a class="btn btn-primary radius"
+							value="pageTileName" /> </a> 
+							
+							
+						
+						 <a class="btn btn-primary radius"
 					onclick="childPageFull('新增<s:property value="pageTileName"/>','injurycaseAction!importExcel?itype=<s:property value="itype"/>')"
-					href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 批量导入<s:property
-							value="pageTileName" /> </a> </span>
+					href="javascript:;"><i class="Hui-iconfont">&#xe645;</i> 批量导入<s:property
+							value="pageTileName" /> </a> 
+							
+							<a class="btn btn-success"
+					onclick="exportInjurycase();"
+					href="javascript:;"><i class="Hui-iconfont">&#xe644;</i>批量导出<s:property
+							value="pageTileName" /> </a> 
+							
+							
+							</span>
 				<span class="r">共有数据：<strong><s:property
 							value="totalCount" /> </strong> 条</span>
 			</div>

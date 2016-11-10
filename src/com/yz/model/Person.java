@@ -64,6 +64,7 @@ public class Person implements java.io.Serializable {
 	private Integer isOutOfTime;// 是否超期办理
 	private Integer isNew;
 	private String remark;//人员备注
+	private String nation;//名族
 
 	// Constructors
 
@@ -81,7 +82,7 @@ public class Person implements java.io.Serializable {
 			String registerAddress, String registerAddressArea, String carrier,
 			String carryTool, String endSituation, String comprehensiveJudge,
 			String leaderInstruction, Integer isMakeControl, Integer type,
-			String joinDate, int handleState, String photoImg,String remark,
+			String joinDate, int handleState, String photoImg,String remark,String nation,
 			Integer isOutOfTime, List<Otherperson> otherpersons,
 			List<Lawcase> lawcases, List<Troubleshooting> troubleshootings,
 			List<Judge> judges) {
@@ -119,6 +120,7 @@ public class Person implements java.io.Serializable {
 		this.isOutOfTime = isOutOfTime;
 		this.isNew = isNew;
 		this.remark = remark;
+		this.nation = nation;
 	}
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -304,6 +306,15 @@ public class Person implements java.io.Serializable {
 	@Column(name = "remark",columnDefinition="text")
 	public String getRemark() {
 		return remark;
+	}
+	
+	@Column(name = "nation")
+	public String getNation() {
+		return nation;
+	}
+
+	public void setNation(String nation) {
+		this.nation = nation;
 	}
 
 	public void setRemark(String remark) {

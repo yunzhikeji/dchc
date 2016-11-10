@@ -503,6 +503,9 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		if (page < 1) {
 			page = 1;
 		}
+		
+		int size = 9;
+		
 		// 总记录数
 		totalCount = injurycaseService.getTotalCount(con, convalue, userRole,
 				queryState, starttime, endtime);
@@ -513,7 +516,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		}
 		// 所有当前页记录对象
 		injurycases = injurycaseService.queryList(con, convalue, userRole,
-				page, 9, queryState, starttime, endtime);
+				page, size, queryState, starttime, endtime);
 
 		if (injurycases != null && injurycases.size() > 0) {
 			injurycaseVOs = new ArrayList<InjurycaseVO>();
@@ -555,7 +558,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		if (userRoleo == null) {
 			return "opsessiongo";
 		}
-		pageTileName = selectTileName(3);
 
 		injurycase = injurycaseService.queryInjurycaseById(id);// 当前修改案件的id
 
@@ -622,7 +624,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		}
 
 		AjaxMsgVO msgVO = new AjaxMsgVO();
-		msgVO.setMessage("串并案操作成功成功.");
+		msgVO.setMessage("串并案操作成功.");
 		JSONObject jsonObj = JSONObject.fromObject(msgVO);
 		PrintWriter out;
 		try {

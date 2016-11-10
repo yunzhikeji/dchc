@@ -100,8 +100,7 @@
 												<tr>
 													<td width="176" align="center">
 														<img id="myimage" class="img-responsive thumbnail"
-															width="200px"
-															height="180px;" alt="人员照片" />
+															width="200px" height="180px;" alt="人员照片" />
 														<script type="text/javascript">
 															function change() {
 															    var pic = document.getElementById("myimage"),
@@ -180,7 +179,7 @@
 									<tr>
 										<td>
 											<label class="form-label text-r">
-												<span style="color:red;">(多项用','隔开至多三项)</span>QQ：
+												<span style="color: red;">(多项用','隔开至多三项)</span>QQ：
 											</label>
 										</td>
 										<td>
@@ -190,7 +189,7 @@
 										</td>
 										<td>
 											<label class="form-label text-r">
-												<span style="color:red;">(多项用','隔开至多三项)</span>微信号：
+												<span style="color: red;">(多项用','隔开至多三项)</span>微信号：
 											</label>
 										</td>
 										<td colspan="2">
@@ -213,7 +212,7 @@
 										</td>
 										<td>
 											<label class="form-label text-r">
-												<span style="color:red;">(多项用','隔开至多三项)</span>手机号码：
+												<span style="color: red;">(多项用','隔开至多三项)</span>手机号码：
 											</label>
 										</td>
 										<td colspan="2">
@@ -269,6 +268,18 @@
 									<tr>
 										<td>
 											<label class="form-label text-r">
+												民族：
+											</label>
+										</td>
+										<td>
+											<s:textfield name="person.nation"
+												cssClass="input-text radius size-M "
+												cssStyle="width: 200px;"></s:textfield>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label class="form-label text-r">
 												落脚地：
 											</label>
 										</td>
@@ -287,8 +298,8 @@
 										</td>
 										<td colspan="4">
 											<s:textarea name="person.remark"
-											cssClass="input-text radius size-M "
-											cssStyle="width: 80%; height: 120px;"></s:textarea>
+												cssClass="input-text radius size-M "
+												cssStyle="width: 80%; height: 120px;"></s:textarea>
 										</td>
 									</tr>
 									<!--   guiltSafeguardMan over line   -->
@@ -320,8 +331,7 @@
 											<td align="center">
 
 												<img id="myimage1" class="img-responsive thumbnail"
-													width="200px"
-															height="180px;" alt="前科照片1" />
+													width="200px" height="180px;" alt="前科照片1" />
 												<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),
@@ -383,8 +393,7 @@
 										<tr>
 											<td align="center">
 												<img id="myimage2" class="img-responsive thumbnail"
-													width="200px"
-															height="180px;" alt="前科照片2" />
+													width="200px" height="180px;" alt="前科照片2" />
 												<script type="text/javascript">
 															function change2() {
 															    var pic2 = document.getElementById("myimage2"),
@@ -442,8 +451,7 @@
 										<tr>
 											<td align="center">
 												<img id="myimage3" class="img-responsive thumbnail"
-													width="200px"
-															height="180px;" alt="前科照片3" />
+													width="200px" height="180px;" alt="前科照片3" />
 												<script type="text/javascript">
 															function change3() {
 															    var pic3 = document.getElementById("myimage3"),

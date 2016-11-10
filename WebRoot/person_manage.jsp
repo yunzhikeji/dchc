@@ -121,9 +121,9 @@
 					href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 新增<s:property
 							value="pageTileName" /> </a> <a class="btn btn-primary radius"
 					onclick="childPageFull('新增<s:property value="pageTileName"/>','personAction!importExcel?type=<s:property value="type"/>')"
-					href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 批量导入<s:property
+					href="javascript:;"><i class="Hui-iconfont">&#xe645;</i> 批量导入<s:property
 							value="pageTileName" /> </a>&nbsp;<a href="javascript:;" onclick="exportQuery()"
-									class="btn btn-success"><i class="Hui-iconfont">&#xe665;</i>
+									class="btn btn-success"><i class="Hui-iconfont">&#xe644;</i>
 									批量导出<s:property value="pageTileName"/></a> </span>
 
 
