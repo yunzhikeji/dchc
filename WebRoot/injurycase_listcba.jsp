@@ -112,15 +112,15 @@
 								<div class="video-cover">
 									<img class="video-img video-img-lazy"
 										src="<%=basePath%><s:property value="imageCase"/>"
-										style="display: block;" alt="暂无图片">
+										style="border: 1px solid rgb(100, 100, 100); display: block;" alt="暂无图片">
 									<ul class="show-list">
 										<li>
 											<div id="videoTitle" class="show-info">
 												案件名称：
-												<s:property value="caseName" />
-												<div id="videoDesc" class="show-info">
-													案发时间：
-													<s:property value="startTime" />
+												<s:property value="caseName" /></div>
+											<div id="videoDesc" class="show-info">
+												案发时间：
+												<s:property value="startTime" />
 												</div>
 										</li>
 									</ul>
