@@ -265,6 +265,7 @@ public class PersonServiceImp implements IPersonService {
 		return personDao.savereturn(person);
 	}
 
+
 	public void saveSocialManWithExcel(File file, UserRole userRole, int type) {
 		try {
 			GenerateSqlFromExcel generate = new GenerateSqlFromExcel();
@@ -277,7 +278,7 @@ public class PersonServiceImp implements IPersonService {
 				
 				person.setUserRole(userRole);
 				
-				// "人员编号","姓名","性别","出生日期","QQ","微信号","身份证号","手机号码","户籍地详址","户籍地区划","DNA编号","其他身份信息","指纹编号","足迹编号","现住地区划","现住地详址","虚拟身份","银行卡信息","绰号","车牌号","发动机号","车架号","手机串号","人员备注信息","携带物品","携带工具","人员分类","办理状态"
+				// "人员编号","姓名","性别","出生日期","QQ","微信号","身份证号","手机号码","户籍地详址","户籍地区划","DNA编号","其他身份信息","指纹编号","足迹编号","现住地区划","现住地详址","虚拟身份","银行卡信息","绰号","车牌号","发动机号","车架号","手机串号","人员备注信息","携带物品","携带工具","人员分类","办理状态","民族"
 				person.setNumber(data[0].toString());
 				person.setName(data[1].toString());
 				if (data[2].toString().equals("男")) {
@@ -452,7 +453,7 @@ public class PersonServiceImp implements IPersonService {
 		String[] titles = { "人员编号", "姓名", "性别", "出生日期", "QQ", "微信号", "身份证号",
 				"手机号码", "户籍地详址", "户籍地区划", "DNA编号", "其他身份信息", "指纹编号", "足迹编号",
 				"现住地区划", "现住地详址", "虚拟身份", "银行卡信息", "绰号", "车牌号", "发动机号", "车架号",
-				"手机串号", "人员备注信息", "携带物品", "携带工具", "人员分类" };
+				"手机串号", "人员备注信息", "携带物品", "携带工具", "人员分类","办理状态","民族" };
 		ArrayList fieldName = new ArrayList();
 		for (int i = 0; i < titles.length; i++) {
 			String title = titles[i];
@@ -608,6 +609,18 @@ public class PersonServiceImp implements IPersonService {
 			dataList.add(person.getCarrier());
 			dataList.add(person.getCarryTool());
 			dataList.add(typevo);
+			
+				if(person.getHandleState()==1){
+					dataList.add("未办理");
+				}else if(person.getHandleState()==2){
+					dataList.add("在办理");
+				}else if(person.getHandleState()==3){
+					dataList.add("已办理");
+				}else{
+					dataList.add("未办理");
+				}
+				
+			dataList.add(person.getNation());
 			// "人员编号","姓名","性别","出生日期","QQ","微信号","身份证号","手机号码","户籍地详址","户籍地区划","DNA编号","其他身份信息","指纹编号","足迹编号","现住地区划","现住地详址","虚拟身份","银行卡信息","绰号","车牌号","发动机号","车架号","手机串号","人员备注信息","携带物品","携带工具","人员分类"
 			fieldData.add(dataList);
 		}

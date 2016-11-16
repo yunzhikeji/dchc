@@ -50,7 +50,6 @@
 				<td width="83%" align="left">
 				
 
-          <input type="hidden" id="type" name="type" value=""/>
  <input type="file" name="file" style="width:365px" /></td>
 				<td width="1%"></td>
 			</tr>
