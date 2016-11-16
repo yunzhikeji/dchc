@@ -2079,8 +2079,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			endtime = endtime.replace(" ", "");
 		}
 
-		personService.queryList(con, convalue, userRole, page, size, type,
-				queryState, starttime, endtime);
 		// 获取数据
 		ArrayList fieldData = personService.getExcelFieldDataList(con,
 				convalue, userRole, type, queryState, starttime, endtime);

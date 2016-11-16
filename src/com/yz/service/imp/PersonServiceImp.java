@@ -467,7 +467,7 @@ public class PersonServiceImp implements IPersonService {
 				"单位联系人号码", "报案联系人姓名", "报案联系人号码", "现住地址", "失踪地址", "失踪日期",
 				"发现失踪日期", "失踪经过原因", "身高", "体型", "脸型", "足长", "血型", "口音", "特殊特征",
 				"体表特征", "特殊特征描述", "衣着情况", "亲属血样信息", "人员备注信息", "携带物品", "携带工具",
-				"撤销单位", "承办人", "撤销日期", "撤销原因", "综合情况", "领导批示"};
+				"撤销单位", "承办人", "撤销日期", "撤销原因", "综合情况", "领导批示","办理状态"};
 		ArrayList fieldName = new ArrayList();
 		
 		if(type !=11){
@@ -490,21 +490,20 @@ public class PersonServiceImp implements IPersonService {
 			String endtime) {
 
 		String queryString = "from Person mo where 1=1 ";
-		Object[] p = null;
+		
 		if (con != 0 && convalue != null && !convalue.equals("")) {
 			if (con == 1) {
-				queryString += "and mo.name like ? ";
+				queryString += "and mo.name like '%" + convalue + "%' ";
 			}
 			if (con == 2) {
-				queryString += "and mo.number like ? ";
+				queryString += "and mo.number like'%" + convalue + "%' ";
 			}
 			if (con == 3) {
-				queryString += "and mo.idcard like ? ";
+				queryString += "and mo.idcard like '%" + convalue + "%' ";
 			}
 			if (con == 4) {
-				queryString += "and mo.userRole.realname like ? ";
+				queryString += "and mo.userRole.realname like '%" + convalue + "%' ";
 			}
-			p = new Object[] { '%' + convalue + '%' };
 		}
 		if (type != 0) {
 			queryString += " and mo.type =" + type;
@@ -577,7 +576,7 @@ public class PersonServiceImp implements IPersonService {
 					"单位联系人号码", "报案联系人姓名", "报案联系人号码", "现住地址", "失踪地址", "失踪日期",
 					"发现失踪日期", "失踪经过原因", "身高", "体型", "脸型", "足长", "血型", "口音", "特殊特征",
 					"体表特征", "特殊特征描述", "衣着情况", "亲属血样信息", "人员备注信息", "携带物品", "携带工具",
-					"撤销单位", "承办人", "撤销日期", "撤销原因", "综合情况", "领导批示" */
+					"撤销单位", "承办人", "撤销日期", "撤销原因", "综合情况", "领导批示","办理状态" */
 				dataList.add(person.getNumber());
 				dataList.add(person.getName());
 				
@@ -669,7 +668,19 @@ public class PersonServiceImp implements IPersonService {
 				
 				dataList.add(person.getComprehensiveJudge());
 				dataList.add(person.getLeaderInstruction());
-				
+				if (person.getHandleState() != null) {
+					if (person.getHandleState() == 1) {
+						dataList.add("未办理");
+					} else if (person.getHandleState() == 2) {
+						dataList.add("在办理");
+					} else if (person.getHandleState() == 3) {
+						dataList.add("已完结");
+					} else {
+						dataList.add("未办理");
+					}
+				} else {
+					dataList.add("未办理");
+				}
 				
 			}else {
 				
@@ -741,7 +752,7 @@ public class PersonServiceImp implements IPersonService {
 					} else if (person.getHandleState() == 2) {
 						dataList.add("在办理");
 					} else if (person.getHandleState() == 3) {
-						dataList.add("已办理");
+						dataList.add("已完结");
 					} else {
 						dataList.add("未办理");
 					}
