@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.yz.dao.IInjurycaseDao;
 import com.yz.model.Injurycase;
+import com.yz.model.Unit;
 import com.yz.model.UserRole;
 import com.yz.service.IInjurycaseService;
 import com.yz.service.IUnitService;
@@ -318,7 +319,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		if (param != null && !param.equals("")) {
 			queryString += "and  (mo.caseNumber like ?  or mo.caseType like ? or mo.caseName like ? ) ";
 			p = new Object[] { '%' + param + '%', '%' + param + '%',
-					'%' + param + '%'};
+					'%' + param + '%' };
 		}
 		queryString += " order by mo.id desc ";
 		return injurycaseDao.getObjectsByCondition(queryString, p);
@@ -341,7 +342,8 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 				queryString += "and mo.caseName llike  '%" + convalue + "%' ";
 			}
 			if (con == 4) {
-				queryString += "and mo.userRole.realname like  '%" + convalue + "%' ";
+				queryString += "and mo.userRole.realname like  '%" + convalue
+						+ "%' ";
 			}
 		}
 		if (itype != 0) {
@@ -571,6 +573,9 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 			 * 8* "案发时间", "案发地点", "简要案情", "鉴定人", "鉴定人联系电话", "警情编号", "作案目标",
 			 * "作案对象", 16 * "作案方式", "人员特征", "物品特征", "完结情况", "综合情况", "领导批示"
 			 */
+
+			String inids = "";
+
 			for (int i = 0; arrayList != null && i < arrayList.size(); i++) {
 				String[] data = arrayList.get(i);
 				Injurycase injurycase = new Injurycase();
@@ -598,8 +603,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 					injurycase.setHandleState(2);
 				} else if (handleStateString.contains("已")) {
 					injurycase.setHandleState(3);
-				}else
-				{
+				} else {
 					injurycase.setHandleState(1);
 				}
 
@@ -608,8 +612,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 					injurycase.setIsRelated(0);
 				} else if (isReltive.contains("已")) {
 					injurycase.setIsRelated(1);
-				}else
-				{
+				} else {
 					injurycase.setIsRelated(0);
 				}
 
@@ -650,14 +653,19 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 				injurycase.setComprehensiveJudge(data[20].toString());
 				injurycase.setLeaderInstruction(data[21].toString());
 
-				injurycaseDao.save(injurycase);
-
 				// 设置部门inids
 				int inid = injurycaseDao.savereturn(injurycase);
-				unitService.updateUnitByUserRoleAndInfoType(userRole.getUnit(),
-						inid + "", InfoType.CASE, 1);
+
+				inids = inids + inid +",";
 
 			}
+
+			// 需要每次都访问新的组织
+			Unit unit = unitService.getUnitByName(userRole.getUnit().getName());
+
+			unitService.updateUnitByUserRoleAndInfoType(unit, inids,
+					InfoType.CASE, 1);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

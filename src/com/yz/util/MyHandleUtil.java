@@ -82,34 +82,50 @@ public class MyHandleUtil {
 	}
 
 	// 处理ids,operationType 1:增加 -1 删除
-	public static String handleIDs(String objIDs, String objID,
+	public static String handleIDs(String objIDs, String opIDs,
 			int operationType) {
 
 		String newIDs = "";
-		if (objIDs != null && !objIDs.replace(" ", "").equals("")) {
-			Set<String> ids = new HashSet<String>();
-			String[] arrayIDs = objIDs.split(",");
-			for (int i = 0; i < arrayIDs.length; i++) {
-				if(!arrayIDs[i].replace(" ", "").equals(""))
-				{
-					ids.add(arrayIDs[i].replace(" ", ""));
-				}
-			}
-			if (operationType == 1) {
-				ids.add(objID);
-			} else if (operationType == -1) {
-				ids.remove(objID);
-			}
 
-			for (String id : ids) {
+		Set<String> objIDSet = handleSet(objIDs);
+
+		Set<String> opIDSet = handleSet(opIDs);
+
+		if (operationType == 1) {
+			objIDSet.addAll(opIDSet);
+		} else if (operationType == -1) {
+			objIDSet.removeAll(opIDSet);
+		}
+
+		for (String id : objIDSet) {
+			if(!id.equals(""))
+			{
 				newIDs = newIDs + id + ",";
-			}
-		} else {
-			if (operationType == 1) {
-				newIDs = objID + ",";
 			}
 		}
 		return newIDs;
+	}
+
+	public static Set<String> handleSet(String ids) {
+
+		Set<String> idSet = new HashSet<String>();
+
+		ids = ids.replace(" ", "");
+		
+		if (ids.contains(",")) {
+
+			String[] arrayIDs = ids.split(",");
+			for (int i = 0; i < arrayIDs.length; i++) {
+				if (!arrayIDs[i].equals("")) {
+					idSet.add(arrayIDs[i]);
+				}
+			}
+
+		} else {
+			idSet.add(ids);
+		}
+		return idSet;
+
 	}
 
 }

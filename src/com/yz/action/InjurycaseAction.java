@@ -352,6 +352,13 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	 */
 	public String deleteInjurycases() throws Exception {
 
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
+		if (userRoleo == null) {
+			return "opsessiongo";
+		}
+
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
 		for (int i = 0; i < ids.length; i++) {
 			injurycase = injurycaseService.loadById(ids[i]);
@@ -362,8 +369,17 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 						+ injurycase.getImageCase());
 				photofile.delete();
 			}
+
 			injurycaseService.delete(injurycase);
 		}
+
+		// 需要每次都访问新的组织
+		Unit unit = unitService.getUnitById(userRole.getUnit().getId());
+
+		// 设置部门inids
+		unitService.updateUnitByUserRoleAndInfoType(unit, checkedIDs,
+				InfoType.CASE, -1);
+
 		AjaxMsgVO msgVO = new AjaxMsgVO();
 		msgVO.setMessage("批量删除成功.");
 		JSONObject jsonObj = JSONObject.fromObject(msgVO);
@@ -503,9 +519,9 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		if (page < 1) {
 			page = 1;
 		}
-		
+
 		int size = 9;
-		
+
 		// 总记录数
 		totalCount = injurycaseService.getTotalCount(con, convalue, userRole,
 				queryState, starttime, endtime);
@@ -742,7 +758,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 					+ filename;
 			System.out.println("[--------------------savePath=" + savePath);
 			System.out.println(injurycases.size());
-			
+
 			boolean isexport = InjurycaseExcel.exportExcel(savePath,
 					injurycases);
 			if (isexport) {
@@ -771,7 +787,8 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
 
-		injurycaseService.saveInjurycaseWithExcel(injurycase_file, userRole, itype);
+		injurycaseService.saveInjurycaseWithExcel(injurycase_file, userRole,
+				itype);
 
 		return "importdata";
 	}

@@ -18,6 +18,7 @@ import com.yz.model.GamblingCriminalMan;
 import com.yz.model.GuiltSafeguardMan;
 import com.yz.model.Person;
 import com.yz.model.SocialMan;
+import com.yz.model.Unit;
 import com.yz.model.UserRole;
 import com.yz.service.IAnalyzeManService;
 import com.yz.service.ICommonClueService;
@@ -271,6 +272,8 @@ public class PersonServiceImp implements IPersonService {
 			GenerateSqlFromExcel generate = new GenerateSqlFromExcel();
 			ArrayList<String[]> arrayList = generate
 					.generateStationBugSql(file);
+			
+			String pids = "";
 
 			for (int i = 0; arrayList != null && i < arrayList.size(); i++) {
 				String[] data = arrayList.get(i);
@@ -434,12 +437,16 @@ public class PersonServiceImp implements IPersonService {
 				}
 				person.setNation(data[28].toString());
 				int pid = personDao.savereturn(person);
-
-				// 设置部门pids
-				unitService.updateUnitByUserRoleAndInfoType(userRole.getUnit(),
-						pid + "", InfoType.PERSON, 1);
+				
+				pids = pids+pid+",";
 
 			}
+			
+			// 需要每次都访问新的组织
+			Unit unit = unitService.getUnitByName(userRole.getUnit().getName());
+
+			unitService.updateUnitByUserRoleAndInfoType(unit,
+					pids, InfoType.PERSON, 1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

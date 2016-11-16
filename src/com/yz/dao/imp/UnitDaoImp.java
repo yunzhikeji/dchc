@@ -223,9 +223,9 @@ public class UnitDaoImp implements IUnitDao {
 		//返回受影响的行数
 		return query.executeUpdate();
 	}
-	public Unit getUnitById(Integer upunitid) {
+	public Unit getUnitById(Integer id) {
 		// TODO Auto-generated method stub
-		return (Unit) this.hibernateTemplate.get(Unit.class, upunitid);
+		return (Unit) this.hibernateTemplate.get(Unit.class, id);
 	}
 
 

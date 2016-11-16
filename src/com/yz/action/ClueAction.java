@@ -264,11 +264,27 @@ public class ClueAction extends ActionSupport implements RequestAware,
 	 */
 	public String deleteClues() throws Exception {
 
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
+		if (userRoleo == null) {
+			return "opsessiongo";
+		}
+
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
 		for (int i = 0; i < ids.length; i++) {
 			clue = clueService.loadById(ids[i]);
+
 			clueService.delete(clue);
 		}
+
+		// 需要每次都访问新的组织
+		Unit unit = unitService.queryByUid(userRole.getUnit().getId());
+
+		// 设置部门cids
+		unitService.updateUnitByUserRoleAndInfoType(unit, checkedIDs,
+				InfoType.CLUE, -1);
+
 		AjaxMsgVO msgVO = new AjaxMsgVO();
 		msgVO.setMessage("批量删除成功.");
 		JSONObject jsonObj = JSONObject.fromObject(msgVO);

@@ -188,72 +188,70 @@ public class UnitServiceImp implements IUnitService {
 		unitDao.updateByHql(queryString, paramNames, values);
 	}
 
-	public void updateUnitByUserRoleAndInfoType(Unit unit, String id,
+	public void updateUnitByUserRoleAndInfoType(Unit unit, String ids,
 			InfoType infoType, int operationType) {
 		// TODO Auto-generated method stub
-		
+
 		if (unit != null) {
 			String pids = unit.getPids();
 			String inids = unit.getInids();
 			String cids = unit.getCids();
 			switch (infoType) {
 			case PERSON:
-				
-				pids = MyHandleUtil.handleIDs(pids, id, operationType);
-				
+
+				pids = MyHandleUtil.handleIDs(pids, ids, operationType);
+
 				break;
 			case CASE:
-				
-				inids = MyHandleUtil.handleIDs(inids, id, operationType);
+
+				inids = MyHandleUtil.handleIDs(inids, ids, operationType);
 				
 				break;
 			case CLUE:
-				
-				cids = MyHandleUtil.handleIDs(cids, id, operationType);
-				
+
+				cids = MyHandleUtil.handleIDs(cids, ids, operationType);
+
 				break;
 			default:
 				break;
 			}
 			this.updateByCondition(pids, inids, cids, unit.getId());
 		}
-		
-		if(operationType==-1)
-		{
-			this.updateJudgeUnit(id, infoType,operationType);
+
+		if (operationType == -1) {
+			this.updateJudgeUnit(ids, infoType, operationType);
 		}
 
 	}
 
-	//修改指定研判部门 编号为：371402020000,主要为删除人员、案件、线索同时更新研判部门中的相应ids
-	public void updateJudgeUnit(String id, InfoType infoType, int operationType) {
+	// 修改指定研判部门 编号为：371402020000,主要为删除人员、案件、线索同时更新研判部门中的相应ids
+	public void updateJudgeUnit(String ids, InfoType infoType, int operationType) {
 		// TODO Auto-generated method stub
-			Unit unit = this.getUnitByNumber("371402020000");
-			if(unit!=null)
-			{
-				String pids = unit.getPids();
-				String inids = unit.getInids();
-				String cids = unit.getCids();
-				switch (infoType) {
-				case PERSON:
-					
-					pids = MyHandleUtil.handleIDs(pids, id, operationType);
-					
-					break;
-				case CASE:
-					
-					inids = MyHandleUtil.handleIDs(inids, id, operationType);
-					
-					break;
-				case CLUE:
-					
-					cids = MyHandleUtil.handleIDs(cids, id, operationType);
-					
-					break;
-				default:
-					break;
-				}
-				this.updateByCondition(pids, inids, cids, unit.getId());
+		Unit unit = this.getUnitByNumber("371402020000");
+		if (unit != null) {
+			String pids = unit.getPids();
+			String inids = unit.getInids();
+			String cids = unit.getCids();
+			switch (infoType) {
+			case PERSON:
+
+				pids = MyHandleUtil.handleIDs(pids, ids, operationType);
+
+				break;
+			case CASE:
+
+				inids = MyHandleUtil.handleIDs(inids, ids, operationType);
+
+				break;
+			case CLUE:
+
+				cids = MyHandleUtil.handleIDs(cids, ids, operationType);
+
+				break;
+			default:
+				break;
 			}
+			this.updateByCondition(pids, inids, cids, unit.getId());
+		}
 	}
 }

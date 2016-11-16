@@ -798,6 +798,14 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	 * @return
 	 */
 	public String deletePersons() throws Exception {
+		
+		
+		UserRole userRoleo = (UserRole) session.get("userRoleo");
+		if (userRoleo == null) {
+			return "opsessiongo";
+		}
+
+		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
 
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
 		for (int i = 0; i < ids.length; i++) {
@@ -930,9 +938,20 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			File photofile = new File(ServletActionContext.getServletContext()
 					.getRealPath("/")
 					+ person.getPhotoImg());
+			
+			
 			photofile.delete();
+			
+			
 			personService.delete(person);
 		}
+		
+		//需要每次都访问新的组织
+		Unit unit = unitService.queryByUid(userRole.getUnit().getId());
+		
+		// 设置部门pids
+		unitService.updateUnitByUserRoleAndInfoType(unit,checkedIDs, InfoType.PERSON, -1);
+		
 		AjaxMsgVO msgVO = new AjaxMsgVO();
 		msgVO.setMessage("批量删除成功.");
 		JSONObject jsonObj = JSONObject.fromObject(msgVO);
