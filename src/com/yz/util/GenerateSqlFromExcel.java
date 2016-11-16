@@ -40,7 +40,7 @@ public class GenerateSqlFromExcel {
 			Sheet sheet[] = wb.getSheets();
 			if (sheet != null) {
 				for (int i = 0; i < sheet.length; i++) {
-					if (sheet[i].getName().equalsIgnoreCase("Sheet1")) {
+					//if (sheet[i].getName().equalsIgnoreCase("Sheet1")) {
 						for (int j = 1; j < sheet[i].getRows(); j++) {
 							String[] valStr = new String[29];
 							for (int k = 0; k < sheet[i].getColumns(); k++) {
@@ -71,7 +71,7 @@ public class GenerateSqlFromExcel {
 							}
 							list.add(j - 1, valStr);
 						}
-					}
+					//}
 
 				}
 			}
