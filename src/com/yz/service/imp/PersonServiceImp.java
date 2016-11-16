@@ -266,21 +266,20 @@ public class PersonServiceImp implements IPersonService {
 		return personDao.savereturn(person);
 	}
 
-
 	public void saveSocialManWithExcel(File file, UserRole userRole, int type) {
 		try {
 			GenerateSqlFromExcel generate = new GenerateSqlFromExcel();
 			ArrayList<String[]> arrayList = generate
 					.generateStationBugSql(file);
-			
+
 			String pids = "";
 
 			for (int i = 0; arrayList != null && i < arrayList.size(); i++) {
 				String[] data = arrayList.get(i);
 				Person person = new Person();
-				
+
 				person.setUserRole(userRole);
-				
+
 				// "人员编号","姓名","性别","出生日期","QQ","微信号","身份证号","手机号码","户籍地详址","户籍地区划","DNA编号","其他身份信息","指纹编号","足迹编号","现住地区划","现住地详址","虚拟身份","银行卡信息","绰号","车牌号","发动机号","车架号","手机串号","人员备注信息","携带物品","携带工具","人员分类","办理状态","民族"
 				person.setNumber(data[0].toString());
 				person.setName(data[1].toString());
@@ -289,7 +288,6 @@ public class PersonServiceImp implements IPersonService {
 				} else if (data[2].toString().equals("女")) {
 					person.setSex(2);
 				}
-				
 
 				person.setBirthday(data[3].toString());
 				person.setQq(data[4].toString());
@@ -326,7 +324,7 @@ public class PersonServiceImp implements IPersonService {
 				} else if (data[26].toString().contains("技术比中")) {
 					person.setType(13);
 				}
-				
+
 				switch (person.getType()) {
 				case 0:
 				case 1:
@@ -395,9 +393,11 @@ public class PersonServiceImp implements IPersonService {
 					person.setContrastMan(contrastMan);
 					break;
 				case 14:
-					/*CommonClue commonClue = new CommonClue();
-					commonClueService.add(commonClue);
-					person.setCommonClue(commonClue);*/
+					/*
+					 * CommonClue commonClue = new CommonClue();
+					 * commonClueService.add(commonClue);
+					 * person.setCommonClue(commonClue);
+					 */
 					break;
 				case 15:
 					/*
@@ -437,16 +437,16 @@ public class PersonServiceImp implements IPersonService {
 				}
 				person.setNation(data[28].toString());
 				int pid = personDao.savereturn(person);
-				
-				pids = pids+pid+",";
+
+				pids = pids + pid + ",";
 
 			}
-			
+
 			// 需要每次都访问新的组织
 			Unit unit = unitService.getUnitByName(userRole.getUnit().getName());
 
-			unitService.updateUnitByUserRoleAndInfoType(unit,
-					pids, InfoType.PERSON, 1);
+			unitService.updateUnitByUserRoleAndInfoType(unit, pids,
+					InfoType.PERSON, 1);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -460,12 +460,28 @@ public class PersonServiceImp implements IPersonService {
 		String[] titles = { "人员编号", "姓名", "性别", "出生日期", "QQ", "微信号", "身份证号",
 				"手机号码", "户籍地详址", "户籍地区划", "DNA编号", "其他身份信息", "指纹编号", "足迹编号",
 				"现住地区划", "现住地详址", "虚拟身份", "银行卡信息", "绰号", "车牌号", "发动机号", "车架号",
-				"手机串号", "人员备注信息", "携带物品", "携带工具", "人员分类","办理状态","民族" };
+				"手机串号", "人员备注信息", "携带物品", "携带工具", "人员分类", "办理状态", "民族" };
+		// 失踪人员表头
+		String[] disappearManTitles = { "人员编号", "姓名", "外文姓名", "别名", "民族", "性别",
+				"出生日期", "身份证号", "户籍地详址", "其他证件名称", "其他证件号码", "单位联系人姓名",
+				"单位联系人号码", "报案联系人姓名", "报案联系人号码", "现住地址", "失踪地址", "失踪日期",
+				"发现失踪日期", "失踪经过原因", "身高", "体型", "脸型", "足长", "血型", "口音", "特殊特征",
+				"体表特征", "特殊特征描述", "衣着情况", "亲属血样信息", "人员备注信息", "携带物品", "携带工具",
+				"撤销单位", "承办人", "撤销日期", "撤销原因", "综合情况", "领导批示"};
 		ArrayList fieldName = new ArrayList();
-		for (int i = 0; i < titles.length; i++) {
-			String title = titles[i];
-			fieldName.add(title);
+		
+		if(type !=11){
+			for (int i = 0; i < titles.length; i++) {
+				String title = titles[i];
+				fieldName.add(title);
+			}
+		}else if(type == 11){
+			for (int j = 0; j < disappearManTitles.length; j++) {
+				String disappearManTitle = disappearManTitles[j];
+				fieldName.add(disappearManTitle);  //构造失踪人员导出的表头信息
+			}
 		}
+	
 		return fieldName;
 	}
 
@@ -555,83 +571,187 @@ public class PersonServiceImp implements IPersonService {
 		for (int i = 0; personList != null && i < personList.size(); i++) {
 			ArrayList dataList = new ArrayList();
 			Person person = personList.get(i);
-			dataList.add(person.getNumber());
-			dataList.add(person.getName());
-			if (person.getSex() != null) {
-				if (person.getSex() == 1) {
-					dataList.add("男");
-				} else if (person.getSex() == 2) {
-					dataList.add("女");
+			if(type == 11){
+				 /*"人员编号", "姓名", "外文姓名", "别名", "民族", "性别",
+					"出生日期", "身份证号", "户籍地详址", "其他证件名称", "其他证件号码", "单位联系人姓名",
+					"单位联系人号码", "报案联系人姓名", "报案联系人号码", "现住地址", "失踪地址", "失踪日期",
+					"发现失踪日期", "失踪经过原因", "身高", "体型", "脸型", "足长", "血型", "口音", "特殊特征",
+					"体表特征", "特殊特征描述", "衣着情况", "亲属血样信息", "人员备注信息", "携带物品", "携带工具",
+					"撤销单位", "承办人", "撤销日期", "撤销原因", "综合情况", "领导批示" */
+				dataList.add(person.getNumber());
+				dataList.add(person.getName());
+				
+				if(person.getDisappearMan()!=null){
+					dataList.add(person.getDisappearMan().getForeignName());
+					dataList.add(person.getDisappearMan().getNickname());
+				}else {
+					dataList.add("");
+					dataList.add("");
+				}
+				
+				dataList.add(person.getNation());
+				if (person.getSex() != null) {
+					if (person.getSex() == 1) {
+						dataList.add("男");
+					} else if (person.getSex() == 2) {
+						dataList.add("女");
+					} else {
+						dataList.add("");
+					}
 				} else {
 					dataList.add("");
 				}
-			} else {
-				dataList.add("");
-			}
-
-			dataList.add(person.getBirthday());
-			dataList.add(person.getQq());
-			dataList.add(person.getWechat());
-			dataList.add(person.getIdcard());
-			dataList.add(person.getTelphone());
-			dataList.add(person.getRegisterAddress());
-			dataList.add(person.getRegisterAddressArea());
-			if (person.getGamblingCriminalMan() != null) {
-				dataList.add(person.getGamblingCriminalMan().getDnanumber());
-				dataList.add(person.getGamblingCriminalMan().getOtherId());
-				dataList.add(person.getGamblingCriminalMan()
-						.getFingerPrintNumber());
-				dataList.add(person.getGamblingCriminalMan()
-						.getFootPrintNumber());
-				dataList.add(person.getGamblingCriminalMan()
-						.getCurrentAddressArea());
-				dataList.add(person.getGamblingCriminalMan()
-						.getCurrentAddress());
-				dataList.add(person.getGamblingCriminalMan().getVirtualId());
-				dataList.add(person.getGamblingCriminalMan().getBankCard());
-				dataList.add(person.getGamblingCriminalMan().getNickname());
-				dataList.add(person.getGamblingCriminalMan()
-						.getCarLicenseNumber());
-				dataList.add(person.getGamblingCriminalMan().getEngineNumber());
-				dataList.add(person.getGamblingCriminalMan()
-						.getCarFrameNumber());
-				dataList.add(person.getGamblingCriminalMan().getImei());
-			}
-			if (person.getGamblingCriminalMan() == null) {
-				dataList.add("");
-				dataList.add("");
-				dataList.add("");
-				dataList.add("");
-				dataList.add("");
-				dataList.add("");
-				dataList.add("");
-				dataList.add("");
-				dataList.add("");
-				dataList.add("");
-				dataList.add("");
-				dataList.add("");
-				dataList.add("");
-			}
-			dataList.add(person.getRemark());
-			dataList.add(person.getCarrier());
-			dataList.add(person.getCarryTool());
-			dataList.add(typevo);
-			 if(person.getHandleState()!=null){
-					if(person.getHandleState()==1){
-						dataList.add("未办理");
-					}else if(person.getHandleState()==2){
-						dataList.add("在办理");
-					}else if(person.getHandleState()==3){
-						dataList.add("已办理");
-					}else{
-						dataList.add("未办理");
-					} 
-			 }else {
-				 dataList.add("未办理");
-			 }
-			
+				dataList.add(person.getBirthday());
+				dataList.add(person.getIdcard());
+				dataList.add(person.getRegisterAddress());
+				if(person.getDisappearMan()!=null){
+					dataList.add(person.getDisappearMan().getOtherIdname());
+					dataList.add(person.getDisappearMan().getOtherIdnumber());
+					dataList.add(person.getDisappearMan().getUnitContactName());
+					dataList.add(person.getDisappearMan().getUnitContactTelphone());
+					dataList.add(person.getDisappearMan().getReportContactName());
+					dataList.add(person.getDisappearMan().getReportContactTelphone());
+					dataList.add(person.getDisappearMan().getCurrentAddress());
+					dataList.add(person.getDisappearMan().getMissingAddress());
+					dataList.add(person.getDisappearMan().getMissingStartTime());
+					dataList.add(person.getDisappearMan().getFoundMissingTime());
+					dataList.add(person.getDisappearMan().getMissingCause());
+					dataList.add(person.getDisappearMan().getHeight());
+					dataList.add(person.getDisappearMan().getShape());
+					dataList.add(person.getDisappearMan().getFeature());
+					dataList.add(person.getDisappearMan().getFootLength());
+					dataList.add(person.getDisappearMan().getBloodType());
+					dataList.add(person.getDisappearMan().getAccent());
+					dataList.add(person.getDisappearMan().getSpecificFeature());
+					dataList.add(person.getDisappearMan().getBodyFeature());
+					dataList.add(person.getDisappearMan().getSpecificFeatureCon());
+					dataList.add(person.getDisappearMan().getDressSituation());
+					dataList.add(person.getDisappearMan().getRelativeBlood());
+				}else{
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+				}
 				
-			dataList.add(person.getNation());
+				dataList.add(person.getRemark());
+				dataList.add(person.getCarrier());
+				dataList.add(person.getCarryTool());
+				if(person.getDisappearMan()!=null){
+					dataList.add(person.getDisappearMan().getRevocateUnit());
+					dataList.add(person.getDisappearMan().getRevocateName());
+					dataList.add(person.getDisappearMan().getRevocateTime());
+					dataList.add(person.getDisappearMan().getRevocateReason());
+				}else{
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+				}
+				
+				dataList.add(person.getComprehensiveJudge());
+				dataList.add(person.getLeaderInstruction());
+				
+				
+			}else {
+				
+				//默认其他type情况 
+				dataList.add(person.getNumber());
+				dataList.add(person.getName());
+				if (person.getSex() != null) {
+					if (person.getSex() == 1) {
+						dataList.add("男");
+					} else if (person.getSex() == 2) {
+						dataList.add("女");
+					} else {
+						dataList.add("");
+					}
+				} else {
+					dataList.add("");
+				}
+
+				dataList.add(person.getBirthday());
+				dataList.add(person.getQq());
+				dataList.add(person.getWechat());
+				dataList.add(person.getIdcard());
+				dataList.add(person.getTelphone());
+				dataList.add(person.getRegisterAddress());
+				dataList.add(person.getRegisterAddressArea());
+				if (person.getGamblingCriminalMan() != null) {
+					dataList.add(person.getGamblingCriminalMan().getDnanumber());
+					dataList.add(person.getGamblingCriminalMan().getOtherId());
+					dataList.add(person.getGamblingCriminalMan()
+							.getFingerPrintNumber());
+					dataList.add(person.getGamblingCriminalMan()
+							.getFootPrintNumber());
+					dataList.add(person.getGamblingCriminalMan()
+							.getCurrentAddressArea());
+					dataList.add(person.getGamblingCriminalMan()
+							.getCurrentAddress());
+					dataList.add(person.getGamblingCriminalMan().getVirtualId());
+					dataList.add(person.getGamblingCriminalMan().getBankCard());
+					dataList.add(person.getGamblingCriminalMan().getNickname());
+					dataList.add(person.getGamblingCriminalMan()
+							.getCarLicenseNumber());
+					dataList.add(person.getGamblingCriminalMan().getEngineNumber());
+					dataList.add(person.getGamblingCriminalMan()
+							.getCarFrameNumber());
+					dataList.add(person.getGamblingCriminalMan().getImei());
+				}
+				if (person.getGamblingCriminalMan() == null) {
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+					dataList.add("");
+				}
+				dataList.add(person.getRemark());
+				dataList.add(person.getCarrier());
+				dataList.add(person.getCarryTool());
+				dataList.add(typevo);
+				if (person.getHandleState() != null) {
+					if (person.getHandleState() == 1) {
+						dataList.add("未办理");
+					} else if (person.getHandleState() == 2) {
+						dataList.add("在办理");
+					} else if (person.getHandleState() == 3) {
+						dataList.add("已办理");
+					} else {
+						dataList.add("未办理");
+					}
+				} else {
+					dataList.add("未办理");
+				}
+
+				dataList.add(person.getNation());
+			}
+			
 			// "人员编号","姓名","性别","出生日期","QQ","微信号","身份证号","手机号码","户籍地详址","户籍地区划","DNA编号","其他身份信息","指纹编号","足迹编号","现住地区划","现住地详址","虚拟身份","银行卡信息","绰号","车牌号","发动机号","车架号","手机串号","人员备注信息","携带物品","携带工具","人员分类"
 			fieldData.add(dataList);
 		}
