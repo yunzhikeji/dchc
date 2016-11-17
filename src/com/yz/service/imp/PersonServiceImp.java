@@ -343,6 +343,30 @@ public class PersonServiceImp implements IPersonService {
 					} else {
 						person.setHandleState(1);
 					}
+					if(data[41]!=null&&data[41].toString() != null&&data[41].toString().trim() !=""){
+					String endSituation = data[41].toString();
+					
+						if (endSituation.contains("抓获")) {
+							person.setEndSituation(1 + "");
+						} else if (endSituation.contains("死亡")) {
+							person.setEndSituation(2 + "");
+						} else if (endSituation.contains("撤销案件")) {
+							person.setEndSituation(3 + "");
+						} else if (endSituation.contains("释放")) {
+							person.setEndSituation(4 + "");
+						} else if (endSituation.contains("治安拘留")) {
+							person.setEndSituation(5 + "");
+						} else if (endSituation.contains("刑事拘留")) {
+							person.setEndSituation(6 + "");
+						} else if (endSituation.contains("留置盘问")) {
+							person.setEndSituation(7 + "");
+						} else if (endSituation.contains("其他")) {
+							person.setEndSituation(8 + "");
+						}
+					}else{
+						person.setEndSituation("");
+					}
+					
 					disappearmanService.add(disappearMan);
 					person.setDisappearMan(disappearMan);
 					int pid = personDao.savereturn(person);
@@ -551,7 +575,7 @@ public class PersonServiceImp implements IPersonService {
 				"单位联系人号码", "报案联系人姓名", "报案联系人号码", "现住地址", "失踪地址", "失踪日期",
 				"发现失踪日期", "失踪经过原因", "身高", "体型", "脸型", "足长", "血型", "口音", "特殊特征",
 				"体表特征", "特殊特征描述", "衣着情况", "亲属血样信息", "人员备注信息", "携带物品", "携带工具",
-				"撤销单位", "承办人", "撤销日期", "撤销原因", "综合情况", "领导批示","办理状态"};
+				"撤销单位", "承办人", "撤销日期", "撤销原因", "综合情况", "领导批示","办理状态","完结情况"};
 		ArrayList fieldName = new ArrayList();
 		
 		if(type !=11){
@@ -660,7 +684,7 @@ public class PersonServiceImp implements IPersonService {
 					"单位联系人号码", "报案联系人姓名", "报案联系人号码", "现住地址", "失踪地址", "失踪日期",
 					"发现失踪日期", "失踪经过原因", "身高", "体型", "脸型", "足长", "血型", "口音", "特殊特征",
 					"体表特征", "特殊特征描述", "衣着情况", "亲属血样信息", "人员备注信息", "携带物品", "携带工具",
-					"撤销单位", "承办人", "撤销日期", "撤销原因", "综合情况", "领导批示","办理状态" */
+					"撤销单位", "承办人", "撤销日期", "撤销原因", "综合情况", "领导批示","办理状态","完结情况" */
 				dataList.add(person.getNumber());
 				dataList.add(person.getName());
 				
@@ -764,6 +788,46 @@ public class PersonServiceImp implements IPersonService {
 					}
 				} else {
 					dataList.add("未办理");
+				}
+
+				if (person.getEndSituation() != null
+						&& !person.getEndSituation().replace(" ", "")
+								.equals("")) {
+					int endType = Integer
+							.parseInt(person.getEndSituation());
+					switch (endType) {
+					case 1:
+						dataList.add("抓获");
+						break;
+					case 2:
+						dataList.add("死亡");
+						break;
+					case 3:
+						dataList.add("撤销案件");
+						break;
+					case 4:
+						dataList.add("释放");
+						break;
+					case 5:
+						dataList.add("治安拘留");
+						break;
+					case 6:
+						dataList.add("刑事拘留");
+						break;
+					case 7:
+						dataList.add("留置盘问");
+						break;
+					case 8:
+						dataList.add("其他");
+						break;
+
+					default:
+						dataList.add("");
+						break;
+					}
+
+				} else {
+					dataList.add("");
 				}
 				
 			}else {

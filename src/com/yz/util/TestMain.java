@@ -15,13 +15,11 @@ public class TestMain {
 
 	public static void main(String[] args) throws ParseException {
 		
-		String ids1 = ",,,,28    ,,,,,,3,30,18,20,53,39,36,48,21,59,35,16,37,56,33,15,62,19,67,45,";
-					//   59,56,19,35,36,18,33,15,16,39,37,21,20,62,67,48,45,23,28,3,30,7,6,5,4,53,
-		String ids2 = ", , , ,  , , , 1231231";
+	
 		
-		System.out.println(handleIDs(ids1,ids2,1));
+		System.out.println();
 
-		
+	
 	}
 
 	// 处理ids,operationType 1:增加 -1 删除
