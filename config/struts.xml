@@ -109,8 +109,8 @@
 			<result name="fail">/op_failure.jsp</result>
 			<result name="operror">/op_error.jsp</result>
 
-			<result name="importpage">/userRole_import.jsp</result>
-			<result name="importdata">/userRole_import.jsp</result>
+			<result name="importpage">/person_import.jsp</result>
+			<result name="importdata">/person_import.jsp</result>
 			<result name="list">/person_manage.jsp</result>
 			<result name="add">/person_add.jsp</result>
 			<result name="load">/person_update.jsp</result>
