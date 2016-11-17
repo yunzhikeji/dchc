@@ -269,178 +269,262 @@ public class PersonServiceImp implements IPersonService {
 	public void saveSocialManWithExcel(File file, UserRole userRole, int type) {
 		try {
 			GenerateSqlFromExcel generate = new GenerateSqlFromExcel();
-			ArrayList<String[]> arrayList = generate
-					.generateStationBugSql(file);
+			ArrayList<String[]> arrayList = null;
 
 			String pids = "";
+			if(type==11){
+				arrayList = generate.generateDisappearManSql(file);
+				for (int i = 0; arrayList != null && i < arrayList.size(); i++) {
+					String[] data = arrayList.get(i);
+					Person person = new Person();
+					DisappearMan disappearMan = new DisappearMan();
+					person.setUserRole(userRole);
 
-			for (int i = 0; arrayList != null && i < arrayList.size(); i++) {
-				String[] data = arrayList.get(i);
-				Person person = new Person();
+					/* "人员编号", "姓名", "外文姓名", "别名", "民族", "性别",
+					"出生日期", "身份证号", "户籍地详址", "其他证件名称", "其他证件号码", "单位联系人姓名",
+					"单位联系人号码", "报案联系人姓名", "报案联系人号码", "现住地址", "失踪地址", "失踪日期",
+					"发现失踪日期", "失踪经过原因", "身高", "体型", "脸型", "足长", "血型", "口音", "特殊特征",
+					"体表特征", "特殊特征描述", "衣着情况", "亲属血样信息", "人员备注信息", "携带物品", "携带工具",
+					"撤销单位", "承办人", "撤销日期", "撤销原因", "综合情况", "领导批示","办理状态" */
+					person.setNumber(data[0].toString());
+					person.setName(data[1].toString());
+					disappearMan.setForeignName(data[2].toString());
+					disappearMan.setNickname(data[3].toString());
+					
+					person.setNation(data[4].toString());
+					if (data[5].toString().equals("男")) {
+						person.setSex(1);
+					} else if (data[5].toString().equals("女")) {
+						person.setSex(2);
+					}
+					person.setBirthday(data[6].toString());
+					person.setIdcard(data[7].toString());
+					person.setRegisterAddress(data[8].toString());
+					disappearMan.setOtherIdname(data[9].toString());
+					disappearMan.setOtherIdnumber(data[10].toString());
+					disappearMan.setUnitContactName(data[11].toString());
+					disappearMan.setUnitContactTelphone(data[12].toString()); 
+					disappearMan.setReportContactName(data[13].toString());
+					disappearMan.setReportContactTelphone(data[14].toString());
+					disappearMan.setCurrentAddress(data[15].toString());
+					disappearMan.setMissingAddress(data[16].toString());
+					disappearMan.setMissingStartTime(data[17].toString());
+					disappearMan.setFoundMissingTime(data[18].toString());
+					disappearMan.setMissingCause(data[19].toString());
+					disappearMan.setHeight(data[20].toString());
+					disappearMan.setShape(data[21].toString());
+					disappearMan.setFeature(data[22].toString());
+					disappearMan.setFootLength(data[23].toString());
+					disappearMan.setBloodType(data[24].toString());
+					disappearMan.setAccent(data[25].toString());
+					disappearMan.setSpecificFeature(data[26].toString());
+					disappearMan.setBodyFeature(data[27].toString());
+					disappearMan.setSpecificFeatureCon(data[28].toString());
+					disappearMan.setDressSituation(data[29].toString());
+					disappearMan.setRelativeBlood(data[30].toString());
+					person.setRemark(data[31].toString());
+					person.setCarrier(data[32].toString());
+					person.setCarryTool(data[33].toString());
+					disappearMan.setRevocateUnit(data[34].toString());
+					disappearMan.setRevocateName(data[35].toString());
+					disappearMan.setRevocateTime(data[36].toString());
+					disappearMan.setRevocateReason(data[37].toString());
+					person.setComprehensiveJudge(data[38].toString());
+					person.setLeaderInstruction(data[39].toString());
+					person.setType(type);
 
-				person.setUserRole(userRole);
+					String handleStateString = data[40].toString();
+					if (handleStateString.contains("未")) {
+						person.setHandleState(1);
+					} else if (handleStateString.contains("在")) {
+						person.setHandleState(2);
+					} else if (handleStateString.contains("已")) {
+						person.setHandleState(3);
+					} else {
+						person.setHandleState(1);
+					}
+					disappearmanService.add(disappearMan);
+					person.setDisappearMan(disappearMan);
+					int pid = personDao.savereturn(person);
 
-				// "人员编号","姓名","性别","出生日期","QQ","微信号","身份证号","手机号码","户籍地详址","户籍地区划","DNA编号","其他身份信息","指纹编号","足迹编号","现住地区划","现住地详址","虚拟身份","银行卡信息","绰号","车牌号","发动机号","车架号","手机串号","人员备注信息","携带物品","携带工具","人员分类","办理状态","民族"
-				person.setNumber(data[0].toString());
-				person.setName(data[1].toString());
-				if (data[2].toString().equals("男")) {
-					person.setSex(1);
-				} else if (data[2].toString().equals("女")) {
-					person.setSex(2);
+					pids = pids + pid + ",";
+
 				}
+			}else{
+				arrayList = generate.generateStationBugSql(file);
+				for (int i = 0; arrayList != null && i < arrayList.size(); i++) {
+					String[] data = arrayList.get(i);
+					Person person = new Person();
 
-				person.setBirthday(data[3].toString());
-				person.setQq(data[4].toString());
-				person.setWechat(data[5].toString());
-				person.setIdcard(data[6].toString());
-				person.setTelphone(data[7].toString());
-				person.setRegisterAddress(data[8].toString());
-				person.setRegisterAddressArea(data[9].toString());
+					person.setUserRole(userRole);
 
-				if (data[26].toString().contains("赌博")) {
-					person.setType(1);
-				} else if (data[26].toString().contains("涉恶")) {
-					person.setType(2);
-				} else if (data[26].toString().contains("涉黄")) {
-					person.setType(3);
-				} else if (data[26].toString().contains("食药环")) {
-					person.setType(4);
-				} else if (data[26].toString().contains("涉毒")) {
-					person.setType(5);
-				} else if (data[26].toString().contains("留置盘问")) {
-					person.setType(6);
-				} else if (data[26].toString().contains("侵财人员")) {
-					person.setType(7);
-				} else if (data[26].toString().contains("刑事传唤")) {
-					person.setType(8);
-				} else if (data[26].toString().contains("负案在逃")) {
-					person.setType(9);
-				} else if (data[26].toString().contains("维稳人员")) {
-					person.setType(10);
-				} else if (data[26].toString().contains("失踪")) {
-					person.setType(11);
-				} else if (data[26].toString().contains("侵财分析")) {
-					person.setType(12);
-				} else if (data[26].toString().contains("技术比中")) {
-					person.setType(13);
-				}
+					// "人员编号","姓名","性别","出生日期","QQ","微信号","身份证号","手机号码","户籍地详址","户籍地区划","DNA编号","其他身份信息","指纹编号","足迹编号","现住地区划","现住地详址","虚拟身份","银行卡信息","绰号","车牌号","发动机号","车架号","手机串号","人员备注信息","携带物品","携带工具","人员分类","办理状态","民族"
+					person.setNumber(data[0].toString());
+					person.setName(data[1].toString());
+					if (data[2].toString().equals("男")) {
+						person.setSex(1);
+					} else if (data[2].toString().equals("女")) {
+						person.setSex(2);
+					}
 
-				switch (person.getType()) {
-				case 0:
-				case 1:
-					// pageName = "赌博人员";
-				case 2:
-					// pageName = "涉恶人员";
-				case 3:
-					// pageName = "涉黄人员";
-				case 4:
-					// pageName = "食药环人员";
-				case 5:
-					// pageName = "涉毒人员";
-				case 6:
-					// pageName = "留置盘问";
-				case 7:
-					// pageName = "侵财人员";
-				case 8:
-					// pageName = "刑事传唤";
-					GamblingCriminalMan gamblingCriminalMan = new GamblingCriminalMan();
+					person.setBirthday(data[3].toString());
+					person.setQq(data[4].toString());
+					person.setWechat(data[5].toString());
+					person.setIdcard(data[6].toString());
+					person.setTelphone(data[7].toString());
+					person.setRegisterAddress(data[8].toString());
+					person.setRegisterAddressArea(data[9].toString());
 
-					gamblingCriminalMan.setDnanumber(data[10].toString());
-					gamblingCriminalMan.setOtherId(data[11].toString());
-					gamblingCriminalMan.setFingerPrintNumber(data[12]
-							.toString());
-					gamblingCriminalMan.setFootPrintNumber(data[13].toString());
-					gamblingCriminalMan.setCurrentAddressArea(data[14]
-							.toString());
-					gamblingCriminalMan.setCurrentAddress(data[15].toString());
-					gamblingCriminalMan.setVirtualId(data[16].toString());
-					gamblingCriminalMan.setBankCard(data[17].toString());
-					gamblingCriminalMan.setNickname(data[18].toString());
-					gamblingCriminalMan
-							.setCarLicenseNumber(data[19].toString());
-					gamblingCriminalMan.setEngineNumber(data[20].toString());
-					gamblingCriminalMan.setCarFrameNumber(data[21].toString());
-					gamblingCriminalMan.setImei(data[22].toString());
+					if (data[26].toString().contains("赌博")) {
+						person.setType(1);
+					} else if (data[26].toString().contains("涉恶")) {
+						person.setType(2);
+					} else if (data[26].toString().contains("涉黄")) {
+						person.setType(3);
+					} else if (data[26].toString().contains("食药环")) {
+						person.setType(4);
+					} else if (data[26].toString().contains("涉毒")) {
+						person.setType(5);
+					} else if (data[26].toString().contains("留置盘问")) {
+						person.setType(6);
+					} else if (data[26].toString().contains("侵财人员")) {
+						person.setType(7);
+					} else if (data[26].toString().contains("刑事传唤")) {
+						person.setType(8);
+					} else if (data[26].toString().contains("负案在逃")) {
+						person.setType(9);
+					} else if (data[26].toString().contains("维稳人员")) {
+						person.setType(10);
+					} else if (data[26].toString().contains("失踪")) {
+						person.setType(11);
+					} else if (data[26].toString().contains("侵财分析")) {
+						person.setType(12);
+					} else if (data[26].toString().contains("技术比中")) {
+						person.setType(13);
+					}
 
-					gamblingCriminalManService.add(gamblingCriminalMan);
+					switch (person.getType()) {
+					case 0:
+					case 1:
+						// pageName = "赌博人员";
+					case 2:
+						// pageName = "涉恶人员";
+					case 3:
+						// pageName = "涉黄人员";
+					case 4:
+						// pageName = "食药环人员";
+					case 5:
+						// pageName = "涉毒人员";
+					case 6:
+						// pageName = "留置盘问";
+					case 7:
+						// pageName = "侵财人员";
+					case 8:
+						// pageName = "刑事传唤";
+						GamblingCriminalMan gamblingCriminalMan = new GamblingCriminalMan();
 
-					person.setGamblingCriminalMan(gamblingCriminalMan);
-					break;
-				case 9:
-					// pageName = "负罪在逃";
-				case 10:
-					// pageName = "维稳人员";
-					GuiltSafeguardMan guiltSafeguardMan = new GuiltSafeguardMan();
-					guiltSafeguardManService.add(guiltSafeguardMan);
-					person.setGuiltSafeguardMan(guiltSafeguardMan);
-					break;
-				case 11:
-					// pageName = "失踪人员分析";
-					DisappearMan disappearman = new DisappearMan();
-					disappearmanService.add(disappearman);
-					person.setDisappearMan(disappearman);
-					break;
-				case 12:
-					// pageName = "侵财人员分析";
-					AnalyzeMan analyzeMan = new AnalyzeMan();
-					analyzeManService.add(analyzeMan);
-					person.setAnalyzeMan(analyzeMan);
-					break;
-				case 13:
-					// pageName = "技术比中人员";
-					ContrastMan contrastMan = new ContrastMan();
-					contrastManService.add(contrastMan);
-					person.setContrastMan(contrastMan);
-					break;
-				case 14:
+						gamblingCriminalMan.setDnanumber(data[10].toString());
+						gamblingCriminalMan.setOtherId(data[11].toString());
+						gamblingCriminalMan.setFingerPrintNumber(data[12]
+								.toString());
+						gamblingCriminalMan.setFootPrintNumber(data[13].toString());
+						gamblingCriminalMan.setCurrentAddressArea(data[14]
+								.toString());
+						gamblingCriminalMan.setCurrentAddress(data[15].toString());
+						gamblingCriminalMan.setVirtualId(data[16].toString());
+						gamblingCriminalMan.setBankCard(data[17].toString());
+						gamblingCriminalMan.setNickname(data[18].toString());
+						gamblingCriminalMan
+								.setCarLicenseNumber(data[19].toString());
+						gamblingCriminalMan.setEngineNumber(data[20].toString());
+						gamblingCriminalMan.setCarFrameNumber(data[21].toString());
+						gamblingCriminalMan.setImei(data[22].toString());
+
+						gamblingCriminalManService.add(gamblingCriminalMan);
+
+						person.setGamblingCriminalMan(gamblingCriminalMan);
+						break;
+					case 9:
+						// pageName = "负罪在逃";
+					case 10:
+						// pageName = "维稳人员";
+						GuiltSafeguardMan guiltSafeguardMan = new GuiltSafeguardMan();
+						guiltSafeguardManService.add(guiltSafeguardMan);
+						person.setGuiltSafeguardMan(guiltSafeguardMan);
+						break;
+					case 11:
+						// pageName = "失踪人员分析";
+						DisappearMan disappearman = new DisappearMan();
+						
+						
+						
+						
+						disappearmanService.add(disappearman);
+						person.setDisappearMan(disappearman);
+						break;
+					case 12:
+						// pageName = "侵财人员分析";
+						AnalyzeMan analyzeMan = new AnalyzeMan();
+						analyzeManService.add(analyzeMan);
+						person.setAnalyzeMan(analyzeMan);
+						break;
+					case 13:
+						// pageName = "技术比中人员";
+						ContrastMan contrastMan = new ContrastMan();
+						contrastManService.add(contrastMan);
+						person.setContrastMan(contrastMan);
+						break;
+					case 14:
+						/*
+						 * CommonClue commonClue = new CommonClue();
+						 * commonClueService.add(commonClue);
+						 * person.setCommonClue(commonClue);
+						 */
+						break;
+					case 15:
+						/*
+						 * // pageName = "社会人员"; socialService.add(socialMan);
+						 * person.setSocialMan(socialMan);
+						 */
+						break;
+					default:
+						break;
+					}
+
+					person.setRemark(data[23].toString());
+					person.setCarrier(data[24].toString());
+					person.setCarryTool(data[25].toString());
+
 					/*
-					 * CommonClue commonClue = new CommonClue();
-					 * commonClueService.add(commonClue);
-					 * person.setCommonClue(commonClue);
+					 * 
+					 * 
+					 * 
+					 * private GamblingCriminalMan gamblingCriminalMan;//
+					 * 1:赌博人员，2:涉恶人员，3:涉黄人员，4:食药环人员，5:涉毒人员，6:留置盘问，7:侵财人员，8:刑事传唤
+					 * private GuiltSafeguardMan guiltSafeguardMan;//
+					 * 9:负案在逃人员,10:维稳人员 private DisappearMan disappearman;// 11:失踪人员
+					 * private AnalyzeMan analyzeMan;// 12:侵财分析人员 private
+					 * ContrastMan contrastMan;// 13:技术比中人员
 					 */
-					break;
-				case 15:
-					/*
-					 * // pageName = "社会人员"; socialService.add(socialMan);
-					 * person.setSocialMan(socialMan);
-					 */
-					break;
-				default:
-					break;
+
+					String handleStateString = data[27].toString();
+					if (handleStateString.contains("未")) {
+						person.setHandleState(1);
+					} else if (handleStateString.contains("在")) {
+						person.setHandleState(2);
+					} else if (handleStateString.contains("已")) {
+						person.setHandleState(3);
+					} else {
+						person.setHandleState(1);
+					}
+					person.setNation(data[28].toString());
+					int pid = personDao.savereturn(person);
+
+					pids = pids + pid + ",";
+
 				}
-
-				person.setRemark(data[23].toString());
-				person.setCarrier(data[24].toString());
-				person.setCarryTool(data[25].toString());
-
-				/*
-				 * 
-				 * 
-				 * 
-				 * private GamblingCriminalMan gamblingCriminalMan;//
-				 * 1:赌博人员，2:涉恶人员，3:涉黄人员，4:食药环人员，5:涉毒人员，6:留置盘问，7:侵财人员，8:刑事传唤
-				 * private GuiltSafeguardMan guiltSafeguardMan;//
-				 * 9:负案在逃人员,10:维稳人员 private DisappearMan disappearman;// 11:失踪人员
-				 * private AnalyzeMan analyzeMan;// 12:侵财分析人员 private
-				 * ContrastMan contrastMan;// 13:技术比中人员
-				 */
-
-				String handleStateString = data[27].toString();
-				if (handleStateString.contains("未")) {
-					person.setHandleState(1);
-				} else if (handleStateString.contains("在")) {
-					person.setHandleState(2);
-				} else if (handleStateString.contains("已")) {
-					person.setHandleState(3);
-				} else {
-					person.setHandleState(1);
-				}
-				person.setNation(data[28].toString());
-				int pid = personDao.savereturn(person);
-
-				pids = pids + pid + ",";
-
 			}
+			
 
 			// 需要每次都访问新的组织
 			Unit unit = unitService.getUnitByName(userRole.getUnit().getName());
