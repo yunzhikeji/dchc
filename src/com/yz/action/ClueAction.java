@@ -120,7 +120,7 @@ public class ClueAction extends ActionSupport implements RequestAware,
 	private String jsonUnits;
 
 	/**
-	 * 人员管理
+	 * 线索管理
 	 */
 	public String list() throws Exception {
 
@@ -341,7 +341,7 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		clueService.update(clue);
 
 		arg[0] = "clueAction!list?ctype=" + clue.getCtype();
-		arg[1] = "人员管理";
+		arg[1] = "线索管理";
 		return "success_child";
 	}
 

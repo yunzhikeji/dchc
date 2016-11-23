@@ -480,6 +480,12 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 						case 15:
 							judgeVO.setTypeName("社会人员");
 							break;
+						case 16:
+							judgeVO.setTypeName("前科人员");
+							break;
+						case 17:
+							judgeVO.setTypeName("其他人员");
+							break;
 						default:
 							break;
 						}

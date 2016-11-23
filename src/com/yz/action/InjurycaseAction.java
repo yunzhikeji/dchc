@@ -160,7 +160,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	private File injurycase_file;
 
 	/**
-	 * 人员管理
+	 * 案件管理
 	 */
 	public String list() throws Exception {
 

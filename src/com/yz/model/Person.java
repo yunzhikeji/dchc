@@ -36,7 +36,7 @@ public class Person implements java.io.Serializable {
 	private AnalyzeMan analyzeMan;// 侵财分析人员
 	private GuiltSafeguardMan guiltSafeguardMan;// 负案在逃、维稳人员
 	private ContrastMan contrastMan;// 技术比中人员
-	private GamblingCriminalMan gamblingCriminalMan;// 赌博人员，涉恶人员，涉黄人员，食药环人员，涉毒人员，留置盘问，侵财人员，刑事传唤
+	private GamblingCriminalMan gamblingCriminalMan;// 赌博人员，涉恶人员，涉黄人员，食药环人员，涉毒人员，留置盘问，侵财人员，刑事传唤，其他人员，前科人员
 	private String number;// 人员编号
 	private String name;// 人员姓名
 	private String idcard;// 身份证号
@@ -53,7 +53,7 @@ public class Person implements java.io.Serializable {
 	private String comprehensiveJudge;// 综合研判情况
 	private String leaderInstruction;// 领导批示
 	private Integer isMakeControl;// 是否布控
-	private Integer type;// 类型（具体哪一种人员）1:赌博人员，2:涉恶人员，3:涉黄人员，4:食药环人员，5:涉毒人员，6:留置盘问，7:侵财人员，8:刑事传唤，9:负案在逃人员，10:维稳人员，11:失踪人员，12:侵财人员分析，13:技术比中人员，14:普通线索
+	private Integer type;// 类型（具体哪一种人员）1:赌博人员，2:涉恶人员，3:涉黄人员，4:食药环人员，5:涉毒人员，6:留置盘问，7:侵财人员，8:刑事传唤，9:负案在逃人员，10:维稳人员，11:失踪人员，12:侵财人员分析，13:技术比中人员，14:普通线索,16：前科人员,17:其他人员
 	private List<Otherperson> otherpersons = new ArrayList<Otherperson>();// 其他人员，包括（同案人，嫌疑人，关系人）
 	private List<Lawcase> lawcases = new ArrayList<Lawcase>();// 涉及案件
 	private List<Troubleshooting> troubleshootings = new ArrayList<Troubleshooting>();// 疑难解答

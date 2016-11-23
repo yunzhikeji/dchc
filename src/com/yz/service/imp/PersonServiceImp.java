@@ -425,6 +425,10 @@ public class PersonServiceImp implements IPersonService {
 						person.setType(12);
 					} else if (data[26].toString().contains("技术比中")) {
 						person.setType(13);
+					}else if (data[26].toString().contains("前科")) {
+						person.setType(16);
+					} else if (data[26].toString().contains("其他")) {
+						person.setType(17);
 					}
 
 					switch (person.getType()) {
@@ -445,6 +449,10 @@ public class PersonServiceImp implements IPersonService {
 						// pageName = "侵财人员";
 					case 8:
 						// pageName = "刑事传唤";
+					case 16:
+						// pageName = "前科人员";
+					case 17:
+						// pageName = "其他人员";
 						GamblingCriminalMan gamblingCriminalMan = new GamblingCriminalMan();
 
 						gamblingCriminalMan.setDnanumber(data[10].toString());
@@ -671,6 +679,12 @@ public class PersonServiceImp implements IPersonService {
 		}
 		if (type == 15) {
 			typevo = "社会人员";
+		}
+		if (type == 16) {
+			typevo = "前科人员";
+		}
+		if (type == 17) {
+			typevo = "其他人员";
 		}
 		// 构造报表和导出数据
 		ArrayList fieldData = new ArrayList();

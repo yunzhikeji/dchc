@@ -147,6 +147,12 @@
 								<li>
 									<a _href="personAction!list?type=8" href="javascript:void(0)">刑事传唤人员</a>
 								</li>
+								<li>
+									<a _href="personAction!list?type=16" href="javascript:void(0)">前科人员</a>
+								</li>
+								<li>
+									<a _href="personAction!list?type=17" href="javascript:void(0)">其他人员</a>
+								</li>
 								<div class="clear"></div>
 							</ul>
 						</li>

@@ -147,7 +147,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 	// 单个表对象
 	private Person person;
-	private GamblingCriminalMan gamblingCriminalMan;// 1:赌博人员，2:涉恶人员，3:涉黄人员，4:食药环人员，5:涉毒人员，6:留置盘问，7:侵财人员，8:刑事传唤
+	private GamblingCriminalMan gamblingCriminalMan;// 1:赌博人员，2:涉恶人员，3:涉黄人员，4:食药环人员，5:涉毒人员，6:留置盘问，7:侵财人员，8:刑事传唤,16:前科人员,17：其他人员
 	private GuiltSafeguardMan guiltSafeguardMan;// 9:负案在逃人员,10:维稳人员
 	private DisappearMan disappearman;// 11:失踪人员
 	private AnalyzeMan analyzeMan;// 12:侵财分析人员
@@ -281,6 +281,12 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		case 15:
 			pageName = "社会人员";
 			break;
+		case 16:
+			pageName = "前科人员";
+			break;
+		case 17:
+			pageName = "其他人员";
+			break;
 		default:
 			break;
 		}
@@ -318,6 +324,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			// pageName = "侵财人员";
 		case 8:
 			// pageName = "刑事传唤";
+		case 16:
+			// pageName = "前科人员";
+		case 17:
+			// pageName = "其他人员";
 			return "gamblingCriminalMan_add";
 		case 9:
 			// pageName = "负罪在逃";
@@ -379,6 +389,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			// pageName = "侵财人员";
 		case 8:
 			// pageName = "刑事传唤";
+		case 16:
+			// pageName = "前科人员";
+		case 17:
+			// pageName = "其他人员";
 			if (gamblingCriminalMan == null) {
 				gamblingCriminalMan = new GamblingCriminalMan();
 			}
@@ -622,6 +636,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		case 6:
 		case 7:
 		case 8:
+		case 16:
+		case 17:
 			if (person.getGamblingCriminalMan() != null) {
 				id = person.getGamblingCriminalMan().getId();
 			}
@@ -823,6 +839,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			case 6:
 			case 7:
 			case 8:
+			case 16:
+			case 17:
 				break;
 			case 9:
 			case 10:
@@ -994,6 +1012,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		case 6:
 		case 7:
 		case 8:
+		case 16:
+		case 17:
 			gamblingCriminalMan = person.getGamblingCriminalMan();
 			if (gamblingCriminalMan != null) {
 				handleInfoExtractionMsg(gamblingCriminalMan.getInfoExtraction());
@@ -1066,6 +1086,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			// pageName = "侵财人员";
 		case 8:
 			// pageName = "刑事传唤";
+		case 16:
+			// pageName = "前科人员";
+		case 17:
+			// pageName = "其他人员";
 			if (gamblingCriminalMan == null) {
 				gamblingCriminalMan = new GamblingCriminalMan();
 				gamblingCriminalManService.add(gamblingCriminalMan);
@@ -1379,6 +1403,12 @@ public class PersonAction extends ActionSupport implements RequestAware,
 					break;
 				case 15:
 					personVO.setTypeName("社会人员");
+					break;
+				case 16:
+					personVO.setTypeName("前科人员");
+					break;
+				case 17:
+					personVO.setTypeName("其他人员");
 					break;
 				default:
 					break;
