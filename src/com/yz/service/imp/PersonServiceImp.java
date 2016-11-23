@@ -519,6 +519,7 @@ public class PersonServiceImp implements IPersonService {
 						 * person.setSocialMan(socialMan);
 						 */
 						break;
+				
 					default:
 						break;
 					}
