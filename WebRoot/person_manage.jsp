@@ -191,6 +191,8 @@
 								<s:if test="type==13">技术比中人员</s:if>
 								<s:if test="type==14">普通线索</s:if>
 								<s:if test="type==15">社会人员</s:if>
+								<s:if test="type==16">前科人员</s:if>
+								<s:if test="type==17">其他人员</s:if>
 							</td>
 							<td>
 								<s:property value="userRole.unit.name" />
