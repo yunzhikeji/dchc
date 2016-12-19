@@ -64,10 +64,11 @@ public class MyHandleUtil {
 	public static String setSqlIds(String queryString, String ids) {
 		// TODO Auto-generated method stub
 		// 用户所在机构不为空
-		if (ids != "" && !ids.equals(",")) {
+		if (!ids.equals("")&& !ids.equals(",")) {
 
 			String lastChar = "";
 			do {
+				
 				lastChar = ids.substring(ids.length() - 1, ids.length());
 				if (lastChar.equals(",")) {
 					ids = ids.substring(0, ids.length() - 1);
@@ -107,8 +108,13 @@ public class MyHandleUtil {
 	}
 
 	public static Set<String> handleSet(String ids) {
-
+		
 		Set<String> idSet = new HashSet<String>();
+		
+		if(ids==null||ids.equals(""))
+		{
+			return idSet;
+		}
 
 		ids = ids.replace(" ", "");
 		
