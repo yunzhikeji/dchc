@@ -126,7 +126,7 @@ public class CountAction extends ActionSupport implements RequestAware,
 	 * @return
 	 */
 	private Integer[] personCountArray(int con,String convalue,String starttime,String endtime,int i, UserRole userRole) {
-		Integer[] personCount = new Integer[15];
+		Integer[] personCount = new Integer[16];
 		int count = 0;
 		int commonClueCount = 0;
 		switch (i) {
