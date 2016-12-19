@@ -58,7 +58,7 @@
 						<tr height="35">
 							<td width="21%" align="right" style="padding-right: 50px;">
 								<s:select
-									list="#{0:'选择类型',1:'案件名称',2:'案件编号',3:'案发地点',4:'录入人员姓名'}"
+									list="#{0:'选择类型',1:'案发编号',2:'案件地址',3:'案件名称',4:'录入人员姓名'}"
 									cssClass="input-text" name="con" listKey="key"
 									listValue="value" cssStyle="width:180px"></s:select>
 							</td>

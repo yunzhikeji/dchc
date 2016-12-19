@@ -26,7 +26,8 @@
 		<link href="lib/Hui-iconfont/1.0.7/iconfont.css" rel="stylesheet"
 			type="text/css" />
 		<link rel="stylesheet"
-			href="lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+			href="lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css"/>
+		<link href="css/video-js.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
 		<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
 		<script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>
@@ -39,6 +40,8 @@
 		<script type="text/javascript" src="js/pageKit.js"></script>
 		<script type="text/javascript" src="js/checkUtil.js"></script>
 		<script type="text/javascript" src="js/commonUtil.js"></script>
+		<script type="text/javascript" src="js/videojs-ie8.min.js"></script>
+		
 		<title>串并案</title>
 		<script type="text/javascript">
 			var mediaVideos=<s:property value="mediaVideos" escape="false" />;
@@ -91,13 +94,27 @@
 						style="border-bottom: solid 2px #2DABF7">
 						案件视频信息
 					</div>
-					<div style="width: 100%; overflow: hidden">
+					<div style="width: 1920px; overflow: hidden">
 						<div class="index-slider-content clearfix">
+						
+							
+							 <video id="my-video" class="video-js" controls preload="auto" width="1000px" height="562"
+							  poster="MY_VIDEO_POSTER.jpg" data-setup="{}" style="float: left">
+							    <source src="<%=basePath%>${mediaVideos[0].src}" type='video/mp4'>
+							    <source src="<%=basePath%>${mediaVideos[0].src}" type='video/webm'>
+							    <p class="vjs-no-js">
+							    	当前浏览器不支持该视频格式,请使用MP4格式视频格式。
+							    </p>
+							  </video>
+						  <script type="text/javascript" src="js/video.js"></script>
+						  
+						<!-- 
 							<video width="1000px" src="<%=basePath%>${mediaVideos[0].src}"
 								height="562" id="swf_play" style="visibility: visible;"
 								controls="controls">
 							暂无视频
-							</video>
+							</video> -->
+							
 							<div class="small-pic-container">
 								<div id="tab_demo0511" class="HuiTab0511">
 									<div class="tabBar0511 cl">
