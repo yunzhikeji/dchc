@@ -30,7 +30,6 @@ import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.yz.model.AnalyzeMan;
-import com.yz.model.CommonClue;
 import com.yz.model.ContrastMan;
 import com.yz.model.DisappearMan;
 import com.yz.model.GamblingCriminalMan;
@@ -44,7 +43,6 @@ import com.yz.model.Troubleshooting;
 import com.yz.model.Unit;
 import com.yz.model.UserRole;
 import com.yz.service.IAnalyzeManService;
-import com.yz.service.ICommonClueService;
 import com.yz.service.IContrastManService;
 import com.yz.service.IDisappearManService;
 import com.yz.service.IGamblingCriminalManService;
@@ -63,8 +61,6 @@ import com.yz.util.DateTimeKit;
 import com.yz.util.ExcelFileGenerator;
 import com.yz.util.InfoType;
 import com.yz.vo.AjaxMsgVO;
-import com.yz.vo.PersonVO;
-import com.yz.vo.SocialManForm;
 import com.yz.vo.UnitVO;
 
 @Component("personAction")
@@ -126,8 +122,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	@Resource
 	private IContrastManService contrastManService;
 	@Resource
-	private ICommonClueService commonClueService;
-	@Resource
 	private ILawcaseService lawcaseService;
 	@Resource
 	private ITroubleshootingService troubleshootingService;
@@ -144,12 +138,11 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 	// 单个表对象
 	private Person person;
-	private GamblingCriminalMan gamblingCriminalMan;// 1:赌博人员，2:涉恶人员，3:涉黄人员，4:食药环人员，5:涉毒人员，6:留置盘问，7:侵财人员，8:刑事传唤,16:前科人员,17：其他人员
+	private GamblingCriminalMan gamblingCriminalMan;// 1:赌博人员，2:涉恶人员，3:涉黄人员，4:食药环人员，5:涉毒人员，6:留置盘问，7:侵财人员，8:刑事传唤,14:前科人员,15：其他人员
 	private GuiltSafeguardMan guiltSafeguardMan;// 9:负案在逃人员,10:维稳人员
 	private DisappearMan disappearman;// 11:失踪人员
 	private AnalyzeMan analyzeMan;// 12:侵财分析人员
 	private ContrastMan contrastMan;// 13:技术比中人员
-	private CommonClue commonClue;// 14:普通线索人员(普通线索)
 
 	private Lawcase lawcase;
 	private Troubleshooting troubleshooting;
@@ -273,18 +266,13 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			pageName = "技术比中人员";
 			break;
 		case 14:
-			pageName = "普通线索";
-			break;
-		case 15:
-			pageName = "社会人员";
-			break;
-		case 16:
 			pageName = "前科人员";
 			break;
-		case 17:
+		case 15:
 			pageName = "其他人员";
 			break;
 		default:
+			pageName = "人员";
 			break;
 		}
 		return pageName;
@@ -321,9 +309,9 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			// pageName = "侵财人员";
 		case 8:
 			// pageName = "刑事传唤";
-		case 16:
+		case 14:
 			// pageName = "前科人员";
-		case 17:
+		case 15:
 			// pageName = "其他人员";
 			return "gamblingCriminalMan_add";
 		case 9:
@@ -340,12 +328,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		case 13:
 			// pageName = "技术比中人员";
 			return "contrastMan_add";
-		case 14:
-			// pageName = "普通线索";
-			return "commonClue_add";
-		case 15:
-			// pageName = "社会人员"
-			return "socialMan_add";
 		default:
 			return "add";
 		}
@@ -386,9 +368,9 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			// pageName = "侵财人员";
 		case 8:
 			// pageName = "刑事传唤";
-		case 16:
+		case 14:
 			// pageName = "前科人员";
-		case 17:
+		case 15:
 			// pageName = "其他人员";
 			if (gamblingCriminalMan == null) {
 				gamblingCriminalMan = new GamblingCriminalMan();
@@ -499,38 +481,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			contrastManService.add(contrastMan);
 			person.setContrastMan(contrastMan);
 			break;
-		case 14:
-			// pageName = "普通线索";
-			if (commonClue == null) {
-				commonClue = new CommonClue();
-			}
-			if (picture1 != null && picture1FileName != null
-					&& !picture1FileName.replace(" ", "").equals("")) {
-				String imageName = DateTimeKit.getDateRandom()
-						+ picture1FileName.substring(picture1FileName
-								.indexOf("."));
-				this.upload("/commonClue", imageName, picture1);
-				commonClue.setRegisterAddressPhoto("commonClue" + "/"
-						+ imageName);
-			}
-			if (picture2 != null && picture2FileName != null
-					&& !picture2FileName.replace(" ", "").equals("")) {
-				String imageName = DateTimeKit.getDateRandom()
-						+ picture2FileName.substring(picture2FileName
-								.indexOf("."));
-				this.upload("/commonClue", imageName, picture2);
-				commonClue.setCriminalRecordPhoto("commonClue" + "/"
-						+ imageName);
-			}
-			commonClueService.add(commonClue);
-			person.setCommonClue(commonClue);
-			break;
-		case 15:
-			/*
-			 * // pageName = "社会人员"; socialService.add(socialMan);
-			 * person.setSocialMan(socialMan);
-			 */
-			break;
 		default:
 			break;
 		}
@@ -603,7 +553,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private File picture3;
 	private String picture3ContentType;
 	private String picture3FileName;
-	private SocialManForm socialManForm;
 
 	/**
 	 * 删除一
@@ -633,8 +582,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		case 6:
 		case 7:
 		case 8:
-		case 16:
-		case 17:
+		case 14:
+		case 15:
 			if (person.getGamblingCriminalMan() != null) {
 				id = person.getGamblingCriminalMan().getId();
 			}
@@ -760,30 +709,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 				}
 			}
 			break;
-		case 14:
-			if (person.getCommonClue() != null) {
-				id = person.getCommonClue().getId();
-				commonClue = commonClueService.loadById(id);
-				if (commonClue != null) {
-					if (commonClue.getRegisterAddressPhoto() != null
-							&& !commonClue.getRegisterAddressPhoto().replace(
-									" ", "").equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
-								+ commonClue.getRegisterAddressPhoto());
-						photofile.delete();
-					}
-					if (commonClue.getCriminalRecordPhoto() != null
-							&& !commonClue.getCriminalRecordPhoto().replace(
-									" ", "").equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
-								+ commonClue.getCriminalRecordPhoto());
-						photofile.delete();
-					}
-				}
-			}
-			break;
 		default:
 			break;
 		}
@@ -811,8 +736,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	 * @return
 	 */
 	public String deletePersons() throws Exception {
-		
-		
+
 		UserRole userRoleo = (UserRole) session.get("userRoleo");
 		if (userRoleo == null) {
 			return "opsessiongo";
@@ -836,8 +760,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			case 6:
 			case 7:
 			case 8:
-			case 16:
-			case 17:
+			case 14:
+			case 15:
 				break;
 			case 9:
 			case 10:
@@ -924,28 +848,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 					}
 				}
 				break;
-			case 14:
-				id = person.getCommonClue().getId();
-				commonClue = commonClueService.loadById(id);
-				if (commonClue != null) {
-					if (commonClue.getRegisterAddressPhoto() != null
-							&& !commonClue.getRegisterAddressPhoto().replace(
-									" ", "").equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
-								+ commonClue.getRegisterAddressPhoto());
-						photofile.delete();
-					}
-					if (commonClue.getCriminalRecordPhoto() != null
-							&& !commonClue.getCriminalRecordPhoto().replace(
-									" ", "").equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
-								+ commonClue.getCriminalRecordPhoto());
-						photofile.delete();
-					}
-				}
-				break;
 			default:
 				break;
 			}
@@ -953,20 +855,19 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			File photofile = new File(ServletActionContext.getServletContext()
 					.getRealPath("/")
 					+ person.getPhotoImg());
-			
-			
+
 			photofile.delete();
-			
-			
+
 			personService.delete(person);
 		}
-		
-		//需要每次都访问新的组织
+
+		// 需要每次都访问新的组织
 		Unit unit = unitService.queryByUid(userRole.getUnit().getId());
-		
+
 		// 设置部门pids
-		unitService.updateUnitByUserRoleAndInfoType(unit,checkedIDs, InfoType.PERSON, -1);
-		
+		unitService.updateUnitByUserRoleAndInfoType(unit, checkedIDs,
+				InfoType.PERSON, -1);
+
 		AjaxMsgVO msgVO = new AjaxMsgVO();
 		msgVO.setMessage("批量删除成功.");
 		JSONObject jsonObj = JSONObject.fromObject(msgVO);
@@ -1009,8 +910,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		case 6:
 		case 7:
 		case 8:
-		case 16:
-		case 17:
+		case 14:
+		case 15:
 			gamblingCriminalMan = person.getGamblingCriminalMan();
 			if (gamblingCriminalMan != null) {
 				handleInfoExtractionMsg(gamblingCriminalMan.getInfoExtraction());
@@ -1031,10 +932,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		case 13:
 			contrastMan = person.getContrastMan();
 			return "contrastMan_load";
-		case 14:
-			commonClue = person.getCommonClue();
-			return "commonClue_load";
-
 		default:
 			return "load";
 		}
@@ -1083,9 +980,9 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			// pageName = "侵财人员";
 		case 8:
 			// pageName = "刑事传唤";
-		case 16:
+		case 14:
 			// pageName = "前科人员";
-		case 17:
+		case 15:
 			// pageName = "其他人员";
 			if (gamblingCriminalMan == null) {
 				gamblingCriminalMan = new GamblingCriminalMan();
@@ -1239,43 +1136,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			}
 			person.setContrastMan(contrastMan);
 			break;
-		case 14:
-			// pageName = "普通线索";
-			if (picture1 != null && picture1FileName != null
-					&& !picture1FileName.replace(" ", "").equals("")) {
-				String imageName = DateTimeKit.getDateRandom()
-						+ picture1FileName.substring(picture1FileName
-								.indexOf("."));
-				this.upload("/commonClue", imageName, picture1);
-				File photofile = new File(ServletActionContext
-						.getServletContext().getRealPath("/")
-						+ commonClue.getRegisterAddressPhoto());
-				photofile.delete();
-				commonClue.setRegisterAddressPhoto("commonClue" + "/"
-						+ imageName);
-			}
-			if (picture2 != null && picture2FileName != null
-					&& !picture2FileName.replace(" ", "").equals("")) {
-				String imageName = DateTimeKit.getDateRandom()
-						+ picture2FileName.substring(picture2FileName
-								.indexOf("."));
-				this.upload("/commonClue", imageName, picture2);
-				File photofile = new File(ServletActionContext
-						.getServletContext().getRealPath("/")
-						+ commonClue.getCriminalRecordPhoto());
-				photofile.delete();
-				commonClue.setCriminalRecordPhoto("commonClue" + "/"
-						+ imageName);
-			}
-
-			if (commonClue == null) {
-				commonClue = new CommonClue();
-				commonClueService.add(commonClue);
-			} else {
-				commonClueService.update(commonClue);
-			}
-			person.setCommonClue(commonClue);
-			break;
 		default:
 			break;
 		}
@@ -1340,14 +1200,14 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 		List<Person> persons = personService.getNewPersonsByUserRole(userRole);
 
-		List<PersonVO> personVOs = new ArrayList<PersonVO>();
+		List<AjaxMsgVO> personVOs = new ArrayList<AjaxMsgVO>();
 
 		if (persons != null && persons.size() > 0) {
 			for (Person person : persons) {
 				if (person.getType() == 14) {
 					break;
 				}
-				PersonVO personVO = new PersonVO();
+				AjaxMsgVO personVO = new AjaxMsgVO();
 				personVO.setId(person.getId());
 				personVO.setName(person.getName());
 				personVO.setJoinDate(person.getJoinDate());
@@ -1396,15 +1256,9 @@ public class PersonAction extends ActionSupport implements RequestAware,
 					personVO.setTypeName("技术比中人员");
 					break;
 				case 14:
-					personVO.setTypeName("普通线索");
+					personVO.setTypeName("前科线索");
 					break;
 				case 15:
-					personVO.setTypeName("社会人员");
-					break;
-				case 16:
-					personVO.setTypeName("前科人员");
-					break;
-				case 17:
 					personVO.setTypeName("其他人员");
 					break;
 				default:
@@ -1850,14 +1704,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		this.contrastManService = contrastManService;
 	}
 
-	public ICommonClueService getCommonClueService() {
-		return commonClueService;
-	}
-
-	public void setCommonClueService(ICommonClueService commonClueService) {
-		this.commonClueService = commonClueService;
-	}
-
 	public AnalyzeMan getAnalyzeMan() {
 		return analyzeMan;
 	}
@@ -1872,14 +1718,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 	public void setContrastMan(ContrastMan contrastMan) {
 		this.contrastMan = contrastMan;
-	}
-
-	public CommonClue getCommonClue() {
-		return commonClue;
-	}
-
-	public void setCommonClue(CommonClue commonClue) {
-		this.commonClue = commonClue;
 	}
 
 	public File getPicture1() {
@@ -2073,7 +1911,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			return "opsessiongo";
 		}
 
-		personService.saveSocialManWithExcel(file, userRoleo, type);
+		personService.savePersonWithExcel(file, userRoleo, type);
 
 		return "importdata";
 	}
@@ -2132,14 +1970,6 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		}
 
 		return null;
-	}
-
-	public SocialManForm getSocialManForm() {
-		return socialManForm;
-	}
-
-	public void setSocialManForm(SocialManForm socialManForm) {
-		this.socialManForm = socialManForm;
 	}
 
 	public File getFile() {

@@ -50,7 +50,7 @@ public interface IPersonService {
 
 	public abstract int savereturn(Person person);
 
-	public abstract void saveSocialManWithExcel(File fileTest, UserRole userRole,int type);
+	public abstract void savePersonWithExcel(File fileTest, UserRole userRole,int type);
 	
 	//获取excel的标题数据集
 	public ArrayList getExcelFieldNameList(int type);

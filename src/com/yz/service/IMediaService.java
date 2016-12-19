@@ -46,5 +46,6 @@ public interface IMediaService {
 	public abstract List<Media> loadClueByTypeAndPid(int currentJtype,
 			Integer id);
 
+	public abstract String setInjurycaseIdsSql(String queryString,String convalue, int mtype);
 
 }

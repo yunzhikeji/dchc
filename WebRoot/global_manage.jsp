@@ -105,8 +105,8 @@
 									<s:if test="type==11">失踪人员</s:if>
 									<s:if test="type==12">侵财人员分析</s:if>
 									<s:if test="type==13">技术比中人员</s:if>
-									<s:if test="type==14">普通线索</s:if>
-									<s:if test="type==15">社会人员</s:if>
+									<s:if test="type==14">前科线索</s:if>
+									<s:if test="type==15">其他人员</s:if>
 								</td>
 								<td>
 									<s:property value="userRole.realname" />

@@ -85,26 +85,32 @@ public class InjurycaseExcel {
 				List<String> list = new ArrayList<String>();
 
 				list.add(k + 1 + "");
-				switch (injurycase.getItype()) {
-				case 0:
-					list.add("案件");
-					break;
-				case 1:
+
+				if (injurycase.getItype() != null) {
+					switch (injurycase.getItype()) {
+					case 0:
+						list.add("刑事案件");
+						break;
+					case 1:
+						list.add("刑事案件");
+						break;
+					case 2:
+						list.add("重伤案件");
+						break;
+					case 3:
+						list.add("团伙系列案件");
+						break;
+					case 4:
+						list.add("行政案件");
+						break;
+					default:
+						list.add("刑事案件");
+						break;
+					}
+				} else {
 					list.add("刑事案件");
-					break;
-				case 2:
-					list.add("重伤案件");
-					break;
-				case 3:
-					list.add("团伙系列案件");
-					break;
-				case 4:
-					list.add("行政案件");
-					break;
-				default:
-					list.add("案件");
-					break;
 				}
+
 				list.add(injurycase.getCaseNumber() == null ? "" : injurycase
 						.getCaseNumber());
 				list.add(injurycase.getCaseName() == null ? "" : injurycase
@@ -116,28 +122,41 @@ public class InjurycaseExcel {
 						: injurycase.getUserRole().getRealname());
 				list.add(injurycase.getJoinDate() == null ? "" : injurycase
 						.getJoinDate());
-				switch (injurycase.getHandleState()) {
-				case 0:
-					list.add("未办理");
-					break;
-				case 1:
-					list.add("未办理");
-					break;
-				case 2:
-					list.add("在办理");
-					break;
-				case 3:
-					list.add("已完结");
-					break;
-				default:
-					list.add("未办理");
-					break;
-				}
-				if (injurycase.getIsRelated() == 1) {
-					list.add("已串并");
+
+				if (injurycase.getHandleState() != null) {
+					switch (injurycase.getHandleState()) {
+					case 0:
+						list.add("未办理");
+						break;
+					case 1:
+						list.add("未办理");
+						break;
+					case 2:
+						list.add("在办理");
+						break;
+					case 3:
+						list.add("已完结");
+						break;
+					default:
+						list.add("未办理");
+						break;
+					}
 				} else {
+					list.add("未办理");
+				}
+
+				if(injurycase.getIsRelated() != null)
+				{
+					if (injurycase.getIsRelated() == 1) {
+						list.add("已串并");
+					} else {
+						list.add("未串并");
+					}
+				}else
+				{
 					list.add("未串并");
 				}
+				
 
 				list.add(injurycase.getStartTime() == null ? "" : injurycase
 						.getStartTime());
@@ -168,8 +187,15 @@ public class InjurycaseExcel {
 				if (injurycase.getEndSituation() != null
 						&& !injurycase.getEndSituation().replace(" ", "")
 								.equals("")) {
-					int endType = Integer
-							.parseInt(injurycase.getEndSituation());
+					int endType = 0;
+					try {
+						endType = Integer
+								.parseInt(injurycase.getEndSituation());
+					} catch (Exception e) {
+						// TODO: handle exception
+						endType = 8;
+					}
+
 					switch (endType) {
 					case 1:
 						list.add("抓获");

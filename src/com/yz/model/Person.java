@@ -30,8 +30,6 @@ public class Person implements java.io.Serializable {
 
 	private Integer id;//
 	private UserRole userRole; // 录入人员
-	private SocialMan socialMan;//社会人员
-	private CommonClue commonClue;// 普通线索人员(普通线索)
 	private DisappearMan disappearMan;// 失踪人员
 	private AnalyzeMan analyzeMan;// 侵财分析人员
 	private GuiltSafeguardMan guiltSafeguardMan;// 负案在逃、维稳人员
@@ -53,7 +51,7 @@ public class Person implements java.io.Serializable {
 	private String comprehensiveJudge;// 综合研判情况
 	private String leaderInstruction;// 领导批示
 	private Integer isMakeControl;// 是否布控
-	private Integer type;// 类型（具体哪一种人员）1:赌博人员，2:涉恶人员，3:涉黄人员，4:食药环人员，5:涉毒人员，6:留置盘问，7:侵财人员，8:刑事传唤，9:负案在逃人员，10:维稳人员，11:失踪人员，12:侵财人员分析，13:技术比中人员，14：前科人员,15:其他人员,16:普通线索
+	private Integer type;// 类型（具体哪一种人员）1:赌博人员，2:涉恶人员，3:涉黄人员，4:食药环人员，5:涉毒人员，6:留置盘问，7:侵财人员，8:刑事传唤，9:负案在逃人员，10:维稳人员，11:失踪人员，12:侵财人员分析，13:技术比中人员，14：前科人员,15:其他人员
 	private List<Otherperson> otherpersons = new ArrayList<Otherperson>();// 其他人员，包括（同案人，嫌疑人，关系人）
 	private List<Lawcase> lawcases = new ArrayList<Lawcase>();// 涉及案件
 	private List<Troubleshooting> troubleshootings = new ArrayList<Troubleshooting>();// 疑难解答
@@ -63,8 +61,8 @@ public class Person implements java.io.Serializable {
 	private String photoImg;// 照片
 	private Integer isOutOfTime;// 是否超期办理
 	private Integer isNew;
-	private String remark;//人员备注
-	private String nation;//名族
+	private String remark;// 人员备注
+	private String nation;// 名族
 
 	// Constructors
 
@@ -73,21 +71,20 @@ public class Person implements java.io.Serializable {
 	}
 
 	/** full constructor */
-	public Person(UserRole userRole, CommonClue commonClue,
-			DisappearMan disappearMan, AnalyzeMan analyzeMan,
-			GuiltSafeguardMan guiltSafeguardMan, ContrastMan contrastMan,
-			GamblingCriminalMan gamblingCriminalMan, String number,
-			String name, String idcard, String birthday, String telphone,
-			String qq, String wechat, Integer sex, Integer isNew,
-			String registerAddress, String registerAddressArea, String carrier,
-			String carryTool, String endSituation, String comprehensiveJudge,
-			String leaderInstruction, Integer isMakeControl, Integer type,
-			String joinDate, int handleState, String photoImg,String remark,String nation,
+	public Person(UserRole userRole, DisappearMan disappearMan,
+			AnalyzeMan analyzeMan, GuiltSafeguardMan guiltSafeguardMan,
+			ContrastMan contrastMan, GamblingCriminalMan gamblingCriminalMan,
+			String number, String name, String idcard, String birthday,
+			String telphone, String qq, String wechat, Integer sex,
+			Integer isNew, String registerAddress, String registerAddressArea,
+			String carrier, String carryTool, String endSituation,
+			String comprehensiveJudge, String leaderInstruction,
+			Integer isMakeControl, Integer type, String joinDate,
+			int handleState, String photoImg, String remark, String nation,
 			Integer isOutOfTime, List<Otherperson> otherpersons,
 			List<Lawcase> lawcases, List<Troubleshooting> troubleshootings,
 			List<Judge> judges) {
 		this.userRole = userRole;
-		this.commonClue = commonClue;
 		this.disappearMan = disappearMan;
 		this.analyzeMan = analyzeMan;
 		this.guiltSafeguardMan = guiltSafeguardMan;
@@ -142,12 +139,6 @@ public class Person implements java.io.Serializable {
 	@Column(name = "carryTool")
 	public String getCarryTool() {
 		return this.carryTool;
-	}
-
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "comid")
-	public CommonClue getCommonClue() {
-		return this.commonClue;
 	}
 
 	@Column(name = "comprehensiveJudge")
@@ -302,12 +293,12 @@ public class Person implements java.io.Serializable {
 	public Integer getIsNew() {
 		return isNew;
 	}
-	
-	@Column(name = "remark",columnDefinition="text")
+
+	@Column(name = "remark", columnDefinition = "text")
 	public String getRemark() {
 		return remark;
 	}
-	
+
 	@Column(name = "nation")
 	public String getNation() {
 		return nation;
@@ -343,10 +334,6 @@ public class Person implements java.io.Serializable {
 
 	public void setCarryTool(String carryTool) {
 		this.carryTool = carryTool;
-	}
-
-	public void setCommonClue(CommonClue commonClue) {
-		this.commonClue = commonClue;
 	}
 
 	public void setComprehensiveJudge(String comprehensiveJudge) {
@@ -455,16 +442,6 @@ public class Person implements java.io.Serializable {
 
 	public void setWechat(String wechat) {
 		this.wechat = wechat;
-	}
-
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name = "soid")
-	public SocialMan getSocialMan() {
-		return socialMan;
-	}
-
-	public void setSocialMan(SocialMan socialMan) {
-		this.socialMan = socialMan;
 	}
 
 }

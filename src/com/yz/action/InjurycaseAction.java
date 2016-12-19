@@ -52,7 +52,6 @@ import com.yz.util.DateTimeKit;
 import com.yz.util.InfoType;
 import com.yz.util.InjurycaseExcel;
 import com.yz.vo.AjaxMsgVO;
-import com.yz.vo.CaseVO;
 import com.yz.vo.InjurycaseVO;
 import com.yz.vo.UnitVO;
 
@@ -673,11 +672,11 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		List<Injurycase> injurycases = injurycaseService
 				.getNewInjurycaseByUserRole(userRole);
 
-		List<CaseVO> caseVOs = new ArrayList<CaseVO>();
+		List<AjaxMsgVO> caseVOs = new ArrayList<AjaxMsgVO>();
 
 		if (injurycases != null && injurycases.size() > 0) {
 			for (Injurycase injurycase : injurycases) {
-				CaseVO caseVO = new CaseVO();
+				AjaxMsgVO caseVO = new AjaxMsgVO();
 				caseVO.setId(injurycase.getId());
 				caseVO.setName(injurycase.getCaseName());
 				caseVO.setJoinDate(injurycase.getJoinDate());

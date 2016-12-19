@@ -43,14 +43,21 @@
 				width="489" height="70"> </a>
 		<ul class="nav" style="margin-right: 30px;">
 			<li>
-				<a _href="queryAction!goToQuery" href="javascript:void(0)" title="一键搜索"><img
-						src="images/icon02.png" title="一键搜索" />
+				<a _href="queryAction!goToQuery" href="javascript:void(0)"
+					title="一键搜索"><img src="images/icon02.png" title="一键搜索" />
 					<h4>
 						一键搜索
 					</h4> </a>
 			</li>
-                        <li><a href="http://10.54.56.179:8080/dchcService/login/index.action" target="_blank" onClick="" title="采集数据查询">
-			 <img src="images/icon07.png" title="采集数据查询" /><h4>采集数据查询</h4></a></li>
+			<li>
+				<a href="http://10.54.56.179:8080/dchcService/login/index.action"
+					target="_blank" onClick="" title="采集数据查询"> <img
+						src="images/icon07.png" title="采集数据查询" />
+					<h4>
+						采集数据查询
+					</h4>
+				</a>
+			</li>
 			<li>
 				<a href="javascript:;"
 					onClick="ypgj('研判工具','ypgj.html','500px','300px')" title="研判工具"><img
@@ -129,9 +136,6 @@
 									<a _href="personAction!list?type=5" href="javascript:void(0)">涉毒人员</a>
 								</li>
 								<li>
-									<a _href="personAction!list?type=9" href="javascript:void(0)">负案在逃人员</a>
-								</li>
-								<li>
 									<a _href="personAction!list?type=6" href="javascript:void(0)">留置盘问人员</a>
 								</li>
 								<li>
@@ -141,19 +145,22 @@
 									<a _href="personAction!list?type=8" href="javascript:void(0)">刑事传唤人员</a>
 								</li>
 								<li>
-									<a _href="personAction!list?type=16" href="javascript:void(0)">前科人员</a>
+									<a _href="personAction!list?type=9" href="javascript:void(0)">负案在逃人员</a>
 								</li>
 								<li>
-									<a _href="personAction!list?type=17" href="javascript:void(0)">其他人员</a>
+									<a _href="personAction!list?type=14" href="javascript:void(0)">前科人员</a>
+								</li>
+								<li>
+									<a _href="personAction!list?type=15" href="javascript:void(0)">其他人员</a>
 								</li>
 								<div class="clear"></div>
 							</ul>
 						</li>
 						<li>
-							<a _href="personAction!list?type=11" href="javascript:void(0)">失踪人员</a>
+							<a _href="personAction!list?type=10" href="javascript:void(0)">维稳人员</a>
 						</li>
 						<li>
-							<a _href="personAction!list?type=10" href="javascript:void(0)">维稳人员</a>
+							<a _href="personAction!list?type=11" href="javascript:void(0)">失踪人员</a>
 						</li>
 						<li>
 							<a _href="personAction!list?type=12" href="javascript:void(0)">侵财人员分析</a>
@@ -161,11 +168,6 @@
 						<li>
 							<a _href="personAction!list?type=13" href="javascript:void(0)">技术比中人员</a>
 						</li>
-						<!--  
-						<li>
-							<a _href="personAction!list?type=15" href="javascript:void(0)">社会人员</a>
-						</li>
-						-->
 					</ul>
 				</li>
 				<li>
@@ -173,7 +175,7 @@
 							class="more" src="images/more.png" /> </a>
 					<ul class="er">
 						<li>
-							<a _href="personAction!list?type=14" href="javascript:void(0)">普通线索</a>
+							<a _href="clueAction!list?ctype=2" href="javascript:void(0)">普通线索</a>
 						</li>
 						<li>
 							<a _href="clueAction!list?ctype=1" href="javascript:void(0)">刑侦线索</a>
@@ -200,16 +202,17 @@
 							<a _href="injurycaseAction!list?itype=3"
 								href="javascript:void(0)">团伙系列案件</a>
 						</li>
-						
+						<s:if test="#session.userRoleo.userLimit>1">
 						<li>
 							<a _href="injurycaseAction!listcba" href="javascript:void(0)">串并案</a>
 						</li>
+						</s:if>
 					</ul>
 				</li>
 				<li>
 					<a href="#"><i class="Hui-iconfont "><img
-								src="images/statistics.png" />
-					</i> 综合统计<img class="more" src="images/more.png" /> </a>
+								src="images/statistics.png" /> </i> 综合统计<img class="more"
+							src="images/more.png" /> </a>
 					<ul class="er">
 						<li>
 							<a _href="countAction!personCount" href="javascript:void(0)">人员统计</a>
@@ -226,7 +229,7 @@
 					<a href="#"><i class="Hui-iconfont ">&#xe61d;</i> 系统管理<img
 							class="more" src="images/more.png" /> </a>
 					<ul class="er">
-						<s:if test="#session.userRoleo.userLimit>0">
+						<s:if test="#session.userRoleo.userLimit>1">
 							<li>
 								<a _href="unitAction!list" href="javascript:void(0)">机构管理</a>
 							</li>

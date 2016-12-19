@@ -163,6 +163,7 @@
 							</td>
 							<td>
 								<s:if test="ctype==1">刑侦线索</s:if>
+								<s:if test="ctype==2">普通线索</s:if>
 							</td>
 							<td>
 								<s:property value="userRole.unit.name" />

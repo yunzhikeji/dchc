@@ -111,18 +111,9 @@
 				            {
 				            	clues = "";
 								for(var i=0;i<msg.length;i++){   
-									if(msg[i].type==1)
-									{
-										clues = clues+"<li class='box-1'>" + 
-			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑普通线索\",\"personAction!load?id="+msg[i].id+"&type="+14+"\")'><time>["+msg[i].joinDate+"]</time>普通线索:"+msg[i].name +"</a>"
-								  	+ "</li>"
-									}else
-									{
 									clues = clues+"<li class='box-1'>" + 
-			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑刑侦线索\",\"clueAction!load?id="+msg[i].id+"\")'><time>["+msg[i].joinDate+"]</time> 刑侦线索:"+msg[i].name +"</a>"
+			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑线索\",\"clueAction!load?id="+msg[i].id+"\")'><time>["+msg[i].joinDate+"]</time>"+ msg[i].typeName+":"+msg[i].name +"</a>"
 								  	+ "</li>"
-										
-									}
 								}  
 								$("#newclues").empty();
 				            	$("#newclues").append(clues);
@@ -165,14 +156,10 @@
 										case 11:
 										case 12:
 										case 13:
+										case 14:
 										case 15:
 											judges = judges+"<li class='box-1'>" + 
 			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑人员\",\"personAction!load?id="+msg[i].id+"&type="+msg[i].type+"\")'><time>["+msg[i].joinDate+"]</time>"+ msg[i].typeName+":"+msg[i].name +"</a>"
-								  	+ "</li>"
-										break;
-										case 14:
-										judges = judges+"<li class='box-1'>" + 
-			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑普通线索\",\"personAction!load?id="+msg[i].id+"&type="+msg[i].type+"\")'><time>["+msg[i].joinDate+"]</time>"+ msg[i].typeName+":"+msg[i].name +"</a>"
 								  	+ "</li>"
 										break;
 										case 16:
@@ -197,7 +184,12 @@
 										break;
 										case 20:
 										judges = judges+"<li class='box-1'>" + 
-			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑刑侦线索\",\"clueAction!load?id="+msg[i].id+"\")'><time>["+msg[i].joinDate+"]</time> 刑侦线索:"+msg[i].name +"</a>"
+			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑刑侦线索\",\"clueAction!load?id="+msg[i].id+"\")'><time>["+msg[i].joinDate+"]</time>"+ msg[i].typeName+":"+msg[i].name +"</a>"
+								  	+ "</li>"
+										break;
+										case 21:
+										judges = judges+"<li class='box-1'>" + 
+			  "<a style='text-decoration: none;color:red;' class='ml-5' href='javascript:;' onclick='childPageFull(\"编辑普通线索\",\"clueAction!load?id="+msg[i].id+"\")'><time>["+msg[i].joinDate+"]</time>"+ msg[i].typeName+":"+msg[i].name +"</a>"
 								  	+ "</li>"
 										break;
 									} 

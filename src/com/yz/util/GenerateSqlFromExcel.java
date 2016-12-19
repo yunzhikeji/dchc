@@ -109,38 +109,35 @@ public class GenerateSqlFromExcel {
 			Sheet sheet[] = wb.getSheets();
 			if (sheet != null) {
 				for (int i = 0; i < sheet.length; i++) {
-					//if (sheet[i].getName().equalsIgnoreCase("Sheet1")) {
-						for (int j = 1; j < sheet[i].getRows(); j++) {
-							String[] valStr = new String[42];
-							for (int k = 0; k < sheet[i].getColumns(); k++) {
-								Cell cell = sheet[i].getCell(k, j);
-								String content = "";
-								if (cell.getType() == CellType.DATE) {
-									DateCell dateCell = (DateCell) cell;
-									java.util.Date importdate = dateCell
-											.getDate();
-									/** 如果excel是日期格式的话需要减去8小时 */
-									long eighthour = 8 * 60 * 60 * 1000;
-									SimpleDateFormat simpledate = new SimpleDateFormat(
-											"yyyy-MM-dd HH:mm:ss");
-									/** 在当前日期上减8小时 */
-									long time = importdate.getTime()
-											- eighthour;
-									java.util.Date date = new java.util.Date();
-									date.setTime(time);
-									content = simpledate.format(date);
-								} else {
-									String tempcontent = (cell.getContents() == null ? ""
-											: cell.getContents());
-									content = tempcontent.trim().replace('\'',
-											' ');
-								}
-								valStr[k] = content;
-
+					// if (sheet[i].getName().equalsIgnoreCase("Sheet1")) {
+					for (int j = 1; j < sheet[i].getRows(); j++) {
+						String[] valStr = new String[42];
+						for (int k = 0; k < sheet[i].getColumns(); k++) {
+							Cell cell = sheet[i].getCell(k, j);
+							String content = "";
+							if (cell.getType() == CellType.DATE) {
+								DateCell dateCell = (DateCell) cell;
+								java.util.Date importdate = dateCell.getDate();
+								/** 如果excel是日期格式的话需要减去8小时 */
+								long eighthour = 8 * 60 * 60 * 1000;
+								SimpleDateFormat simpledate = new SimpleDateFormat(
+										"yyyy-MM-dd HH:mm:ss");
+								/** 在当前日期上减8小时 */
+								long time = importdate.getTime() - eighthour;
+								java.util.Date date = new java.util.Date();
+								date.setTime(time);
+								content = simpledate.format(date);
+							} else {
+								String tempcontent = (cell.getContents() == null ? ""
+										: cell.getContents());
+								content = tempcontent.trim().replace('\'', ' ');
 							}
-							list.add(j - 1, valStr);
+							valStr[k] = content;
+
 						}
-					//}
+						list.add(j - 1, valStr);
+					}
+					// }
 
 				}
 			}
@@ -188,7 +185,7 @@ public class GenerateSqlFromExcel {
 			Sheet sheet[] = wb.getSheets();
 			if (sheet != null) {
 				for (int i = 0; i < sheet.length; i++) {
-					if (sheet[i].getName().equalsIgnoreCase("Sheet1")) {
+					if (sheet[i].getName().equalsIgnoreCase("injurycaseSheet")) {
 						for (int j = 1; j < sheet[i].getRows(); j++) {
 							String[] valStr = new String[22];
 							for (int k = 0; k < sheet[i].getColumns(); k++) {
@@ -215,7 +212,6 @@ public class GenerateSqlFromExcel {
 											' ');
 								}
 								valStr[k] = content;
-
 							}
 							list.add(j - 1, valStr);
 						}

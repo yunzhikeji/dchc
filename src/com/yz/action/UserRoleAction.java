@@ -11,7 +11,6 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +41,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.yz.auth.AuthObject;
 import com.yz.model.AnalyzeMan;
 import com.yz.model.Clue;
-import com.yz.model.CommonClue;
 import com.yz.model.ContrastMan;
 import com.yz.model.GamblingCriminalMan;
 import com.yz.model.GuiltSafeguardMan;
@@ -55,7 +53,6 @@ import com.yz.model.Unit;
 import com.yz.model.UserRole;
 import com.yz.service.IAnalyzeManService;
 import com.yz.service.IClueService;
-import com.yz.service.ICommonClueService;
 import com.yz.service.IContrastManService;
 import com.yz.service.IGamblingCriminalManService;
 import com.yz.service.IGuiltSafeguardManService;
@@ -127,8 +124,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	@Resource
 	private IContrastManService contrastManService;
 	@Resource
-	private ICommonClueService commonClueService;
-	@Resource
 	private ITroubleshootingService troubleshootingService;
 	@Resource
 	private IPersonService personService;
@@ -150,7 +145,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	private List<GuiltSafeguardMan> guiltSafeguardMans;
 	private List<AnalyzeMan> analyzeMans;
 	private List<ContrastMan> contrastMans;
-	private List<CommonClue> commonClues;
 
 	private List<Clue> clues;
 	private List<Injurycase> injurycases;
@@ -758,10 +752,10 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 							if (arr.equals("loginname")) {
 								String text = namespacesElements.get(i)
 										.getText();
-								int beginIndex = text.indexOf(" ")+1;
+								int beginIndex = text.indexOf(" ") + 1;
 								int endIndex = text.indexOf(",");
 								cardid = text.substring(beginIndex, endIndex);// 获取身份证
-								System.out.println("身份证号："+cardid);
+								System.out.println("身份证号：" + cardid);
 							}
 						}
 
@@ -1642,14 +1636,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		this.contrastManService = contrastManService;
 	}
 
-	public ICommonClueService getCommonClueService() {
-		return commonClueService;
-	}
-
-	public void setCommonClueService(ICommonClueService commonClueService) {
-		this.commonClueService = commonClueService;
-	}
-
 	public List<Successexample> getSuccessexamples() {
 		return successexamples;
 	}
@@ -1689,14 +1675,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 
 	public void setContrastMans(List<ContrastMan> contrastMans) {
 		this.contrastMans = contrastMans;
-	}
-
-	public List<CommonClue> getCommonClues() {
-		return commonClues;
-	}
-
-	public void setCommonClues(List<CommonClue> commonClues) {
-		this.commonClues = commonClues;
 	}
 
 	public ITroubleshootingService getTroubleshootingService() {

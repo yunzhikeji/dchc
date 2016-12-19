@@ -16,6 +16,7 @@ import com.yz.model.Injurycase;
 import com.yz.model.Unit;
 import com.yz.model.UserRole;
 import com.yz.service.IInjurycaseService;
+import com.yz.service.IMediaService;
 import com.yz.service.IUnitService;
 import com.yz.util.GenerateSqlFromExcel;
 import com.yz.util.InfoType;
@@ -30,6 +31,9 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 	private IInjurycaseDao injurycaseDao;
 
 	private IUnitService unitService;
+
+	@Resource
+	private IMediaService mediaService;
 
 	public IUnitService getUnitService() {
 		return unitService;
@@ -119,17 +123,28 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		if (con != 0 && convalue != null && !convalue.equals("")) {
 			if (con == 1) {
 				queryString += "and mo.caseNumber like ? ";
+				p = new Object[] { '%' + convalue + '%' };
 			}
 			if (con == 2) {
 				queryString += "and mo.casePlace like ? ";
+				p = new Object[] { '%' + convalue + '%' };
 			}
 			if (con == 3) {
 				queryString += "and mo.caseName like ? ";
+				p = new Object[] { '%' + convalue + '%' };
 			}
 			if (con == 4) {
 				queryString += "and mo.userRole.realname like ? ";
+				p = new Object[] { '%' + convalue + '%' };
 			}
-			p = new Object[] { '%' + convalue + '%' };
+			if (con == 5) {
+				queryString = mediaService.setInjurycaseIdsSql(queryString,
+						convalue, 0);
+			}
+			if (con == 6) {
+				queryString = mediaService.setInjurycaseIdsSql(queryString,
+						convalue, 1);
+			}
 		}
 		if (queryState != 0) {
 			queryString += " and mo.handleState =" + queryState;
@@ -185,17 +200,30 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		if (con != 0 && convalue != null && !convalue.equals("")) {
 			if (con == 1) {
 				queryString += "and mo.caseNumber like ? ";
+				p = new Object[] { '%' + convalue + '%' };
 			}
 			if (con == 2) {
 				queryString += "and mo.casePlace like ? ";
+				p = new Object[] { '%' + convalue + '%' };
 			}
 			if (con == 3) {
 				queryString += "and mo.caseName like ? ";
+				p = new Object[] { '%' + convalue + '%' };
 			}
 			if (con == 4) {
 				queryString += "and mo.userRole.realname like ? ";
+				p = new Object[] { '%' + convalue + '%' };
 			}
-			p = new Object[] { '%' + convalue + '%' };
+			if (con == 5) {
+				queryString = mediaService.setInjurycaseIdsSql(queryString,
+						convalue, 0);
+			}
+			if (con == 6) {
+				queryString = mediaService.setInjurycaseIdsSql(queryString,
+						convalue, 1);
+
+			}
+
 		}
 
 		if (queryState != 0) {
@@ -360,6 +388,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		}
 		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
 				InfoType.CASE);
+
 		return injurycaseDao.queryList(queryString);
 	}
 
@@ -589,6 +618,8 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 					injurycase.setItype(3);
 				} else if (caseTypeName.contains("行政")) {
 					injurycase.setItype(4);
+				} else {
+					injurycase.setItype(4);
 				}
 				injurycase.setCaseNumber(data[1].toString());
 				injurycase.setCaseName(data[2].toString());
@@ -656,7 +687,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 				// 设置部门inids
 				int inid = injurycaseDao.savereturn(injurycase);
 
-				inids = inids + inid +",";
+				inids = inids + inid + ",";
 
 			}
 
@@ -665,7 +696,7 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 
 			unitService.updateUnitByUserRoleAndInfoType(unit, inids,
 					InfoType.CASE, 1);
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -135,57 +135,31 @@ public class CountAction extends ActionSupport implements RequestAware,
 		case 1:
 		case 2:
 		case 3:
-			for (int j = 0; j < personCount.length - 2; j++) {
+			for (int j = 0; j < personCount.length - 1; j++) {
 
 				personCount[j] = getCount(personService
 						.getPersonsByTypeAndHandleState(con,convalue,starttime,endtime,j + 1, i, userRole));
 			}
-			personCount[personCount.length - 2] = getCount(personService
-					.getPersonsByTypeAndHandleState(con,convalue,starttime,endtime,personCount.length, i,
-							userRole));
 
-			count = getCount(personService.getPersonsByHandleState(con,convalue,starttime,endtime,i, userRole));
+			personCount[personCount.length - 1] = getCount(personService.getPersonsByHandleState(con,convalue,starttime,endtime,i, userRole));
 
-			commonClueCount = getCount(personService
-					.getPersonsByTypeAndHandleState(con,convalue,starttime,endtime,personCount.length - 1, i,
-							userRole));
-
-			personCount[personCount.length - 1] = count - commonClueCount;
 			break;
 		case 4:
-			for (int j = 0; j < personCount.length - 2; j++) {
+			for (int j = 0; j < personCount.length - 1; j++) {
 
 				personCount[j] = getCount(personService.getOutOfTimePersonsByType(con,convalue,starttime,endtime,
 						j + 1, userRole));
 			}
-			personCount[personCount.length - 2] = getCount(personService
-					.getOutOfTimePersonsByType(con,convalue,starttime,endtime,personCount.length,
-							userRole));
-
-			count = getCount(personService.getOutOfTimePersons(con,convalue,starttime,endtime,userRole));
-
-			commonClueCount = getCount(personService.getOutOfTimePersonsByType(con,convalue,starttime,endtime,
-					personCount.length - 1, userRole));
-
-			personCount[personCount.length - 1] = count - commonClueCount;
+			personCount[personCount.length - 1] = getCount(personService.getOutOfTimePersons(con,convalue,starttime,endtime,userRole));
 
 			break;
 		case 5:
-			for (int j = 0; j < personCount.length - 2; j++) {
+			for (int j = 0; j < personCount.length - 1; j++) {
 
 				personCount[j] = getCount(personService.getPersonsByType(con,convalue,starttime,endtime,j + 1,
 						userRole));
 			}
-			personCount[personCount.length - 2] = getCount(personService
-					.getPersonsByType(con,convalue,starttime,endtime,personCount.length, userRole));
-
-			count = getCount(personService.getPersonsByUserRole(con,convalue,starttime,endtime,userRole));
-
-			commonClueCount = getCount(personService.getPersonsByType(con,convalue,starttime,endtime,
-					personCount.length - 1, userRole));
-
-			personCount[personCount.length - 1] = count - commonClueCount;
-
+			personCount[personCount.length - 1] = getCount(personService.getPersonsByUserRole(con,convalue,starttime,endtime,userRole));
 			break;
 		default:
 			break;
@@ -330,17 +304,17 @@ public class CountAction extends ActionSupport implements RequestAware,
 		case 2:
 		case 3:
 			clueCount[0] = getCount(clueService.getCluesByTypeAndHandleState(con,convalue,starttime,endtime,1, i, userRole));
-			clueCount[1] = getCount(personService.getPersonsByTypeAndHandleState(con,convalue,starttime,endtime,14, i, userRole));
+			clueCount[1] = getCount(clueService.getCluesByTypeAndHandleState(con,convalue,starttime,endtime,2, i, userRole));
 			clueCount[2] = clueCount[0]+clueCount[1];
 			break;
 		case 4:
 			clueCount[0] = getCount(clueService.getOutOfTimeCluesByType(con,convalue,starttime,endtime,1,userRole));
-			clueCount[1] = getCount(personService.getOutOfTimePersonsByType(con,convalue,starttime,endtime,14,userRole));
+			clueCount[1] = getCount(clueService.getOutOfTimeCluesByType(con,convalue,starttime,endtime,2,userRole));
 			clueCount[2] = clueCount[0]+clueCount[1];
 			break;
 		case 5:
 			clueCount[0] = getCount(clueService.getCluesByType(con,convalue,starttime,endtime,1,userRole));
-			clueCount[1] = getCount(personService.getPersonsByType(con,convalue,starttime,endtime,14,userRole));
+			clueCount[1] = getCount(clueService.getCluesByType(con,convalue,starttime,endtime,2,userRole));
 			clueCount[2] = clueCount[0]+clueCount[1];
 			break;
 		default:

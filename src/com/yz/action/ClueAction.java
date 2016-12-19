@@ -25,7 +25,6 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.yz.model.Clue;
 import com.yz.model.Judge;
 import com.yz.model.Lawcase;
-import com.yz.model.Person;
 import com.yz.model.Troubleshooting;
 import com.yz.model.Unit;
 import com.yz.model.UserRole;
@@ -40,7 +39,6 @@ import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
 import com.yz.util.InfoType;
 import com.yz.vo.AjaxMsgVO;
-import com.yz.vo.ClueVO;
 import com.yz.vo.UnitVO;
 
 @Component("clueAction")
@@ -71,7 +69,7 @@ public class ClueAction extends ActionSupport implements RequestAware,
 	private int con;
 	private String convalue;
 	private int status;// 按状态
-	private int ctype;// 线索类型
+	private int ctype;// 线索类型 1：刑侦线索 2：普通线索
 	private int queryState;
 	private String starttime;
 	private String endtime;
@@ -175,6 +173,9 @@ public class ClueAction extends ActionSupport implements RequestAware,
 			break;
 		case 1:
 			pageName = "刑侦线索";
+			break;
+		case 2:
+			pageName = "普通线索";
 			break;
 		default:
 			break;
@@ -375,33 +376,17 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
 
 		List<Clue> clues = clueService.getNewClueByUserRole(userRole);
-		List<Person> persons = personService.getNewPersonsByUserRole(userRole);
 
-		List<ClueVO> clueVOs = new ArrayList<ClueVO>();
+		List<AjaxMsgVO> clueVOs = new ArrayList<AjaxMsgVO>();
 
 		if (clues != null && clues.size() > 0) {
 			for (Clue clue : clues) {
-				ClueVO clueVO = new ClueVO();
+				AjaxMsgVO clueVO = new AjaxMsgVO();
 				clueVO.setId(clue.getId());
 				clueVO.setName(clue.getTitle());
 				clueVO.setJoinDate(clue.getJoinDate());
 				clueVO.setType(0);
 				clueVOs.add(clueVO);
-			}
-
-		}
-
-		if (persons != null && persons.size() > 0) {
-			for (Person person : persons) {
-
-				if (person.getType() == 14) {
-					ClueVO clueVO = new ClueVO();
-					clueVO.setId(person.getId());
-					clueVO.setName(person.getName());
-					clueVO.setJoinDate(person.getJoinDate());
-					clueVO.setType(1);
-					clueVOs.add(clueVO);
-				}
 			}
 		}
 

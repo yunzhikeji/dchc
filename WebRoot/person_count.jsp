@@ -198,6 +198,9 @@
 						<td>
 							<s:property value="personCounts.get(0)[14]"/>
 						</td>
+						<td>
+							<s:property value="personCounts.get(0)[15]"/>
+						</td>
 					</tr>
 					<tr class="text-c va-m">
 						<td>
@@ -247,6 +250,9 @@
 						</td>
 						<td>
 							<s:property value="personCounts.get(1)[14]"/>
+						</td>
+						<td>
+							<s:property value="personCounts.get(1)[15]"/>
 						</td>
 					</tr>
 					<tr class="text-c va-m">
@@ -298,6 +304,9 @@
 						<td>
 							<s:property value="personCounts.get(2)[14]"/>
 						</td>
+						<td>
+							<s:property value="personCounts.get(2)[15]"/>
+						</td>
 					</tr>
 					<tr class="text-c va-m">
 						<td>
@@ -348,6 +357,9 @@
 						<td>
 							<s:property value="personCounts.get(4)[14]"/>
 						</td>
+						<td>
+							<s:property value="personCounts.get(4)[15]"/>
+						</td>
 					</tr>
 					<tr class="text-c va-m" >
 						<td style="color:red">
@@ -397,6 +409,9 @@
 						</td>
 						<td style="color:red">
 							<s:property value="personCounts.get(3)[14]"/>
+						</td>
+						<td>
+							<s:property value="personCounts.get(3)[15]"/>
 						</td>
 					</tr>
 				</tbody>

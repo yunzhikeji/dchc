@@ -44,9 +44,7 @@ import com.yz.service.IUnitService;
 import com.yz.service.IUserRoleService;
 import com.yz.util.DateTimeKit;
 import com.yz.util.InfoType;
-import com.yz.util.MyHandleUtil;
 import com.yz.vo.AjaxMsgVO;
-import com.yz.vo.JudgeVO;
 import com.yz.vo.UnitVO;
 
 @Component("judgeAction")
@@ -413,11 +411,11 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 
 		List<Judge> judges = judgeService.getNewJudges();
 
-		List<JudgeVO> judgeVOs = new ArrayList<JudgeVO>();
+		List<AjaxMsgVO> judgeVOs = new ArrayList<AjaxMsgVO>();
 
 		if (judges != null && judges.size() > 0) {
 			for (Judge judge : judges) {
-				JudgeVO judgeVO = new JudgeVO();
+				AjaxMsgVO judgeVO = new AjaxMsgVO();
 
 				judgeVO.setJoinDate(judge.getReportTime());
 				if (judge.getPerson() != null) {
@@ -475,18 +473,13 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 							judgeVO.setTypeName("技术比中人员");
 							break;
 						case 14:
-							judgeVO.setTypeName("普通线索");
-							break;
-						case 15:
-							judgeVO.setTypeName("社会人员");
-							break;
-						case 16:
 							judgeVO.setTypeName("前科人员");
 							break;
-						case 17:
+						case 15:
 							judgeVO.setTypeName("其他人员");
 							break;
 						default:
+							judgeVO.setTypeName("其他人员");
 							break;
 						}
 					}
@@ -546,6 +539,10 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 						case 1:
 							judgeVO.setType(20);
 							judgeVO.setTypeName("刑侦线索");
+							break;
+						case 2:
+							judgeVO.setType(21);
+							judgeVO.setTypeName("普通线索");
 							break;
 						default:
 							break;

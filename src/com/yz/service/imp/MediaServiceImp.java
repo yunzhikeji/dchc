@@ -1,6 +1,9 @@
 package com.yz.service.imp;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 
@@ -175,5 +178,49 @@ public class MediaServiceImp implements IMediaService {
 		String[] paramNames = new String[] { "mtype", "inid" };
 		Object[] values = new Object[] { mtype, inid };
 		return mediaDao.queryList(queryString, paramNames, values);
+	}
+
+	public String setInjurycaseIdsSql(String queryString,String convalue, int mtype) {
+		// TODO Auto-generated method stub
+		List<Media> medias = new ArrayList<Media>();
+		String queryMediaString = "from Media mo where mo.mtype=" + mtype
+				+ " and mo.title like '%" + convalue + "%' ";
+
+		String ids = "";
+		
+		System.out.println(queryMediaString);
+
+		medias = mediaDao.queryList(queryMediaString);
+
+		if (medias != null && medias.size() > 0) {
+			Set<Integer> idsSet = new HashSet<Integer>();
+			for (int i = 0; i < medias.size(); i++) {
+				idsSet.add(medias.get(i).getInjurycase().getId());
+			}
+
+			for (Integer id : idsSet) {
+				if (!id.equals("")) {
+					ids = ids + id + ",";
+				}
+			}
+			String lastChar = "";
+			do {
+				lastChar = ids.substring(ids.length() - 1, ids.length());
+				if (lastChar.equals(",")) {
+					ids = ids.substring(0, ids.length() - 1);
+				}
+			} while (lastChar.equals(","));
+			
+			if (ids != null) {
+				ids = ids.replace(" ", "");
+				queryString += " and mo.id in (" + ids + ")";
+			} else {
+				queryString += " and mo.id in (0)";
+			}
+		}else
+		{
+			queryString += " and mo.id in (0)";
+		}
+		return queryString;
 	}
 }

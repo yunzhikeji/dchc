@@ -115,10 +115,10 @@
 							未办理
 						</td>
 						<td>
-							<s:property value="clueCounts.get(0)[0]"/>
+							<s:property value="clueCounts.get(0)[1]"/>
 						</td>
 						<td>
-							<s:property value="clueCounts.get(0)[1]"/>
+							<s:property value="clueCounts.get(0)[0]"/>
 						</td>
 						<td>
 							<s:property value="clueCounts.get(0)[2]"/>
@@ -129,10 +129,10 @@
 							在办理
 						</td>
 						<td>
-							<s:property value="clueCounts.get(1)[0]"/>
+							<s:property value="clueCounts.get(1)[1]"/>
 						</td>
 						<td>
-							<s:property value="clueCounts.get(1)[1]"/>
+							<s:property value="clueCounts.get(1)[0]"/>
 						</td>
 						<td>
 							<s:property value="clueCounts.get(1)[2]"/>
@@ -143,10 +143,10 @@
 							已完结
 						</td>
 						<td>
-							<s:property value="clueCounts.get(2)[0]"/>
+							<s:property value="clueCounts.get(2)[1]"/>
 						</td>
 						<td>
-							<s:property value="clueCounts.get(2)[1]"/>
+							<s:property value="clueCounts.get(2)[0]"/>
 						</td>
 						<td>
 							<s:property value="clueCounts.get(2)[2]"/>
@@ -157,10 +157,10 @@
 							合计
 						</td>
 						<td>
-							<s:property value="clueCounts.get(4)[0]"/>
+							<s:property value="clueCounts.get(4)[1]"/>
 						</td>
 						<td>
-							<s:property value="clueCounts.get(4)[1]"/>
+							<s:property value="clueCounts.get(4)[0]"/>
 						</td>
 						<td>
 							<s:property value="clueCounts.get(4)[2]"/>
@@ -171,10 +171,10 @@
 							超期办理
 						</td>
 						<td style="color: red;">
-							<s:property value="clueCounts.get(3)[0]"/>
+							<s:property value="clueCounts.get(3)[1]"/>
 						</td>
 						<td style="color: red;">
-							<s:property value="clueCounts.get(3)[1]"/>
+							<s:property value="clueCounts.get(3)[0]"/>
 						</td>
 						<td style="color: red;">
 							<s:property value="clueCounts.get(3)[2]"/>
