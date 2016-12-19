@@ -49,15 +49,8 @@
 						一键搜索
 					</h4> </a>
 			</li>
-                        <li><a href="http://localhost:8080/dchcService/index" onClick="" title="采集数据查询">
+                        <li><a href="http://10.54.56.179:8080/dchcService/login/index.action" target="_blank" onClick="" title="采集数据查询">
 			 <img src="images/icon07.png" title="采集数据查询" /><h4>采集数据查询</h4></a></li>
-			<li>
-				<a href="javascript:;" onClick="" title="待办任务"><img
-						src="images/icon05.png" title="待办任务" />
-					<h4>
-						待办任务
-					</h4> </a>
-			</li>
 			<li>
 				<a href="javascript:;"
 					onClick="ypgj('研判工具','ypgj.html','500px','300px')" title="研判工具"><img
