@@ -77,7 +77,7 @@
 		<a aria-hidden="false" class="Hui-nav-toggle" href="#"></a>
 		</header>
 		<aside class="Hui-aside"
-			style="overflow-y:auto; overflow-x:hidden; overflow-y:hidden;">
+			style="overflow-y:auto; overflow-x:hidden;">
 		<div class="menu_dropdown bk_2">
 			<div class="my-profile dropDown dropDown_click ">
 				<a href="javascript:;" class="my-profile-pic dropDown_A"
