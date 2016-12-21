@@ -55,8 +55,7 @@
 						src="images/icon07.png" title="采集数据查询" />
 					<h4>
 						采集数据查询
-					</h4>
-				</a>
+					</h4> </a>
 			</li>
 			<li>
 				<a href="javascript:;"
@@ -147,12 +146,6 @@
 								<li>
 									<a _href="personAction!list?type=9" href="javascript:void(0)">负案在逃人员</a>
 								</li>
-								<li>
-									<a _href="personAction!list?type=14" href="javascript:void(0)">前科人员</a>
-								</li>
-								<li>
-									<a _href="personAction!list?type=15" href="javascript:void(0)">其他人员</a>
-								</li>
 								<div class="clear"></div>
 							</ul>
 						</li>
@@ -167,6 +160,12 @@
 						</li>
 						<li>
 							<a _href="personAction!list?type=13" href="javascript:void(0)">技术比中人员</a>
+						</li>
+						<li>
+							<a _href="personAction!list?type=14" href="javascript:void(0)">前科人员</a>
+						</li>
+						<li>
+							<a _href="personAction!list?type=15" href="javascript:void(0)">其他人员</a>
 						</li>
 					</ul>
 				</li>
@@ -203,9 +202,9 @@
 								href="javascript:void(0)">团伙系列案件</a>
 						</li>
 						<s:if test="#session.userRoleo.userLimit>1">
-						<li>
-							<a _href="injurycaseAction!listcba" href="javascript:void(0)">串并案</a>
-						</li>
+							<li>
+								<a _href="injurycaseAction!listcba" href="javascript:void(0)">串并案</a>
+							</li>
 						</s:if>
 					</ul>
 				</li>

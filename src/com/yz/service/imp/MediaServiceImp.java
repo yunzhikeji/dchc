@@ -188,8 +188,6 @@ public class MediaServiceImp implements IMediaService {
 
 		String ids = "";
 		
-		System.out.println(queryMediaString);
-
 		medias = mediaDao.queryList(queryMediaString);
 
 		if (medias != null && medias.size() > 0) {

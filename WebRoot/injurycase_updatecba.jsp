@@ -47,7 +47,7 @@
 			var mediaVideos=<s:property value="mediaVideos" escape="false" />;
 			var inid=<s:property value="injurycase.id" />;
 			  function cp() {
-		            var video = document.getElementById("swf_play");
+		            var video = document.getElementById("my-video");
 		            var button = document.getElementById("play");
 		            if(video.paused) {
 		                video.play();
@@ -57,9 +57,9 @@
 		                button.textContent =">";
 		            }
 		        }
-		        function restart() {var video = document.getElementById("swf_play");
+		        function restart() {var video = document.getElementById("my-video");
 		            video.currentTime = 0;
-		        }function skip(value) {var video = document.getElementById("swf_play");
+		        }function skip(value) {var video = document.getElementById("my-video");
 		            video.currentTime += value;
 		        };
 
@@ -69,7 +69,7 @@
 		  var scale = 0.5;
 		  var initialize = function() {
 		    $output = $("#output");
-		    video = $("#swf_play").get(0);
+		    video = $("#my-video").get(0);
 		    $("#capture").click(captureImage);        
 		  };
 		  var captureImage = function() {

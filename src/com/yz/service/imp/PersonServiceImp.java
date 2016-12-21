@@ -160,7 +160,6 @@ public class PersonServiceImp implements IPersonService {
 		}
 		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
 				InfoType.PERSON);
-		System.out.println(queryString);
 		return personDao.getUniqueResult(queryString, p);
 	}
 
