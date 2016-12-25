@@ -134,7 +134,7 @@
 							<table width="100%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td align="center">
-										<img src="<%=basePath%>${userRole.photo }" id="myimage"
+										<img src="${userRole.photo }" id="myimage"
 											class="img-responsive thumbnail" width="100px" height="120px"
 											alt="正面照片" />
 										<script type="text/javascript">

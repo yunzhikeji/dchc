@@ -162,7 +162,7 @@
 						<tr>
 							<td align="center">
 								<img id="myimage1" class="img-responsive thumbnail"
-									src="<%=basePath%>${judge.scanImage}" width="300px"
+									src="${judge.scanImage}" width="300px"
 									height="280px;" alt="扫描件" />
 								<script type="text/javascript">
 															function change1() {

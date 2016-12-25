@@ -23,11 +23,16 @@ $(document).ready(function() {
 //修改视频路径
 function changeVideo(id)
 {
+
+	
 	for(var i=0;i<mediaVideos.length;i++)
 	{
 		if(mediaVideos[i].id==id)
 		{
-			$("#swf_play").attr("src",mediaVideos[i].src);
+			console.log(mediaVideos[i]);
+			$(".videoSrc").attr("src",mediaVideos[i].src);
+			$("#my-video_html5_api").attr("src",mediaVideos[i].src);
+			
 		}
 	}
 }

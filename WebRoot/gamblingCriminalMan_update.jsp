@@ -115,7 +115,7 @@
 												<tr>
 													<td width="176" align="center">
 
-														<img src="<%=basePath%>${person.photoImg}" id="myimage"
+														<img src="${person.photoImg}" id="myimage"
 															class="img-responsive thumbnail" width="200px"
 															height="180px;" alt="人员照片" />
 
@@ -206,7 +206,7 @@
 										<td>
 											<s:textfield name="person.qq"
 												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
+												cssStyle="width: 300px;"></s:textfield>
 										</td>
 										<td>
 											<label class="form-label text-r">
@@ -216,7 +216,7 @@
 										<td colspan="2">
 											<s:textfield name="person.wechat"
 												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
+												cssStyle="width: 300px;"></s:textfield>
 										</td>
 									</tr>
 									<tr>
@@ -238,7 +238,7 @@
 										<td colspan="2">
 											<s:textfield name="person.telphone"
 												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
+												cssStyle="width: 300px;"></s:textfield>
 										</td>
 
 									</tr>
@@ -405,7 +405,7 @@
 										<td>
 											<s:textfield name="gamblingCriminalMan.imei"
 												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
+												cssStyle="width: 300px;"></s:textfield>
 										</td>
 
 										<s:if test="type==1">

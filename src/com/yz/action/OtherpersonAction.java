@@ -25,6 +25,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.yz.auth.AuthObject;
 import com.yz.model.Clue;
 import com.yz.model.Injurycase;
 import com.yz.model.Otherperson;
@@ -76,6 +77,9 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 	private IInjurycaseService injurycaseService;
 	@Resource
 	private IClueService clueService;
+	//环境变量
+	@Resource(name = "authObject")
+	private AuthObject authObject;
 
 	// 单个表对象
 	private Person person;
@@ -161,21 +165,21 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 			String imageName = DateTimeKit.getDateRandom()
 					+ picture1FileName.substring(picture1FileName.indexOf("."));
 			this.upload("/otherperson", imageName, picture1);
-			otherperson.setFrontPhoto("otherperson" + "/" + imageName);
+			otherperson.setFrontPhoto("/otherperson" + "/" + imageName);
 		}
 		if (picture2 != null && picture2FileName != null
 				&& !picture2FileName.replace(" ", "").equals("")) {
 			String imageName = DateTimeKit.getDateRandom()
 					+ picture2FileName.substring(picture2FileName.indexOf("."));
 			this.upload("/otherperson", imageName, picture2);
-			otherperson.setLeftPhoto("otherperson" + "/" + imageName);
+			otherperson.setLeftPhoto("/otherperson" + "/" + imageName);
 		}
 		if (picture3 != null && picture3FileName != null
 				&& !picture3FileName.replace(" ", "").equals("")) {
 			String imageName = DateTimeKit.getDateRandom()
 					+ picture3FileName.substring(picture3FileName.indexOf("."));
 			this.upload("/otherperson", imageName, picture3);
-			otherperson.setRightPhoto("otherperson" + "/" + imageName);
+			otherperson.setRightPhoto("/otherperson" + "/" + imageName);
 		}
 
 		if (otherperson.getPerson()!= null) {
@@ -235,8 +239,7 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 	// 文件上传
 	public void upload(String fileName, String imageName, File picture)
 			throws Exception {
-		File saved = new File(ServletActionContext.getServletContext()
-				.getRealPath(fileName), imageName);
+		File saved = new File(authObject.getFileRoot()+fileName, imageName);
 		InputStream ins = null;
 		OutputStream ous = null;
 		try {
@@ -279,22 +282,19 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 		otherperson = otherpersonService.loadById(otherid);
 		if (otherperson.getFrontPhoto() != null
 				&& !otherperson.getFrontPhoto().replace(" ", "").equals("")) {
-			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
+			File photofile = new File(authObject.getFileRoot()
 					+ otherperson.getFrontPhoto());
 			photofile.delete();
 		}
 		if (otherperson.getLeftPhoto() != null
 				&& !otherperson.getLeftPhoto().replace(" ", "").equals("")) {
-			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
+			File photofile = new File(authObject.getFileRoot()
 					+ otherperson.getLeftPhoto());
 			photofile.delete();
 		}
 		if (otherperson.getRightPhoto() != null
 				&& !otherperson.getRightPhoto().replace(" ", "").equals("")) {
-			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
+			File photofile = new File(authObject.getFileRoot()
 					+ otherperson.getRightPhoto());
 			photofile.delete();
 		}
@@ -335,22 +335,20 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 			String imageName = DateTimeKit.getDateRandom()
 					+ picture1FileName.substring(picture1FileName.indexOf("."));
 			this.upload("/otherperson", imageName, picture1);
-			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
+			File photofile = new File(authObject.getFileRoot()
 					+ otherperson.getFrontPhoto());
 			photofile.delete();
-			otherperson.setFrontPhoto("otherperson" + "/" + imageName);
+			otherperson.setFrontPhoto("/otherperson" + "/" + imageName);
 		}
 		if (picture2 != null && picture2FileName != null
 				&& !picture2FileName.replace(" ", "").equals("")) {
 			String imageName = DateTimeKit.getDateRandom()
 					+ picture2FileName.substring(picture2FileName.indexOf("."));
 			this.upload("/otherperson", imageName, picture2);
-			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
+			File photofile = new File(authObject.getFileRoot()
 					+ otherperson.getLeftPhoto());
 			photofile.delete();
-			otherperson.setLeftPhoto("otherperson" + "/" + imageName);
+			otherperson.setLeftPhoto("/otherperson" + "/" + imageName);
 		}
 
 		if (picture3 != null && picture3FileName != null
@@ -358,11 +356,10 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 			String imageName = DateTimeKit.getDateRandom()
 					+ picture3FileName.substring(picture3FileName.indexOf("."));
 			this.upload("/otherperson", imageName, picture3);
-			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
+			File photofile = new File(authObject.getFileRoot()
 					+ otherperson.getRightPhoto());
 			photofile.delete();
-			otherperson.setRightPhoto("otherperson" + "/" + imageName);
+			otherperson.setRightPhoto("/otherperson" + "/" + imageName);
 		}
 		otherpersonService.update(otherperson);
 		return "success_child";

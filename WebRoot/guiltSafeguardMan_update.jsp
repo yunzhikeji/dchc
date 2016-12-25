@@ -127,7 +127,7 @@
 													<td width="176" align="center">
 
 
-														<img src="<%=basePath%>${person.photoImg}" id="myimage"
+														<img src="${person.photoImg}" id="myimage"
 															class="img-responsive thumbnail" width="200px"
 															height="180px;" alt="人员照片" />
 
@@ -217,7 +217,7 @@
 										<td>
 											<s:textfield name="person.qq"
 												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
+												cssStyle="width: 300px;"></s:textfield>
 										</td>
 										<td>
 											<label class="form-label text-r">
@@ -227,7 +227,7 @@
 										<td colspan="2">
 											<s:textfield name="person.wechat"
 												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
+												cssStyle="width: 300px;"></s:textfield>
 										</td>
 									</tr>
 									<tr>
@@ -249,7 +249,7 @@
 										<td colspan="2">
 											<s:textfield name="person.telphone"
 												cssClass="input-text radius size-M "
-												cssStyle="width: 200px;"></s:textfield>
+												cssStyle="width: 300px;"></s:textfield>
 										</td>
 									</tr>
 									<tr>
@@ -359,7 +359,7 @@
 
 
 												<img
-													src="<%=basePath%>${guiltSafeguardMan.criminalRecordPhoto1}"
+													src="${guiltSafeguardMan.criminalRecordPhoto1}"
 													id="myimage1" class="img-responsive thumbnail"
 													width="200px" height="180px;" alt="前科照片1" />
 
@@ -421,7 +421,7 @@
 										<tr>
 											<td align="center">
 												<img id="myimage2" class="img-responsive thumbnail"
-													src="<%=basePath%>${guiltSafeguardMan.criminalRecordPhoto2}"
+													src="${guiltSafeguardMan.criminalRecordPhoto2}"
 													width="200px" height="180px;" alt="前科照片2" />
 
 												<script type="text/javascript">
@@ -481,7 +481,7 @@
 										<tr>
 											<td align="center">
 												<img
-													src="<%=basePath%>${guiltSafeguardMan.criminalRecordPhoto3}"
+													src="${guiltSafeguardMan.criminalRecordPhoto3}"
 													id="myimage3" class="img-responsive thumbnail"
 													width="200px" height="180px;" alt="前科照片3" />
 

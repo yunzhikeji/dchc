@@ -48,7 +48,7 @@
 
 
 										<img id="myimage" class="img-responsive thumbnail"
-											src="<%=basePath%>${userRole.photo }" width="200px"
+											src="${userRole.photo }" width="200px"
 											height="180px;" alt="人员照片" />
 
 									<script type="text/javascript">

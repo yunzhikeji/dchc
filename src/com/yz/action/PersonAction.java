@@ -29,6 +29,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.yz.auth.AuthObject;
 import com.yz.model.AnalyzeMan;
 import com.yz.model.ContrastMan;
 import com.yz.model.DisappearMan;
@@ -135,6 +136,8 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	private ISuccessexampleService successexampleService;
 	@Resource
 	private IUserRoleService userRoleService;
+	@Resource(name = "authObject")
+	private AuthObject authObject;
 
 	// 单个表对象
 	private Person person;
@@ -391,7 +394,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 						+ picture1FileName.substring(picture1FileName
 								.indexOf("."));
 				this.upload("/guiltSafeguardMan", imageName, picture1);
-				guiltSafeguardMan.setCriminalRecordPhoto1("guiltSafeguardMan"
+				guiltSafeguardMan.setCriminalRecordPhoto1("/guiltSafeguardMan"
 						+ "/" + imageName);
 			}
 			if (picture2 != null && picture2FileName != null
@@ -400,7 +403,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 						+ picture2FileName.substring(picture2FileName
 								.indexOf("."));
 				this.upload("/guiltSafeguardMan", imageName, picture2);
-				guiltSafeguardMan.setCriminalRecordPhoto2("guiltSafeguardMan"
+				guiltSafeguardMan.setCriminalRecordPhoto2("/guiltSafeguardMan"
 						+ "/" + imageName);
 			}
 			if (picture3 != null && picture3FileName != null
@@ -409,7 +412,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 						+ picture3FileName.substring(picture3FileName
 								.indexOf("."));
 				this.upload("/guiltSafeguardMan", imageName, picture3);
-				guiltSafeguardMan.setCriminalRecordPhoto3("guiltSafeguardMan"
+				guiltSafeguardMan.setCriminalRecordPhoto3("/guiltSafeguardMan"
 						+ "/" + imageName);
 			}
 			guiltSafeguardManService.add(guiltSafeguardMan);
@@ -426,7 +429,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 						+ picture1FileName.substring(picture1FileName
 								.indexOf("."));
 				this.upload("/disappearman", imageName, picture1);
-				disappearman.setPhoto1("disappearman" + "/" + imageName);
+				disappearman.setPhoto1("/disappearman" + "/" + imageName);
 			}
 			if (picture2 != null && picture2FileName != null
 					&& !picture2FileName.replace(" ", "").equals("")) {
@@ -434,7 +437,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 						+ picture2FileName.substring(picture2FileName
 								.indexOf("."));
 				this.upload("/disappearman", imageName, picture2);
-				disappearman.setPhoto2("disappearman" + "/" + imageName);
+				disappearman.setPhoto2("/disappearman" + "/" + imageName);
 			}
 			if (picture3 != null && picture3FileName != null
 					&& !picture3FileName.replace(" ", "").equals("")) {
@@ -442,7 +445,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 						+ picture3FileName.substring(picture3FileName
 								.indexOf("."));
 				this.upload("/disappearman", imageName, picture3);
-				disappearman.setPhoto3("disappearman" + "/" + imageName);
+				disappearman.setPhoto3("/disappearman" + "/" + imageName);
 			}
 			disappearmanService.add(disappearman);
 			person.setDisappearMan(disappearman);
@@ -466,7 +469,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 						+ picture1FileName.substring(picture1FileName
 								.indexOf("."));
 				this.upload("/contrastMan", imageName, picture1);
-				contrastMan.setRegisterAddressPhoto("contrastMan" + "/"
+				contrastMan.setRegisterAddressPhoto("/contrastMan" + "/"
 						+ imageName);
 			}
 			if (picture2 != null && picture2FileName != null
@@ -475,7 +478,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 						+ picture2FileName.substring(picture2FileName
 								.indexOf("."));
 				this.upload("/contrastMan", imageName, picture2);
-				contrastMan.setCriminalRecordPhoto("contrastMan" + "/"
+				contrastMan.setCriminalRecordPhoto("/contrastMan" + "/"
 						+ imageName);
 			}
 			contrastManService.add(contrastMan);
@@ -490,7 +493,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			String imageName = DateTimeKit.getDateRandom()
 					+ pictureFileName.substring(pictureFileName.indexOf("."));
 			this.upload("/person", imageName, picture);
-			person.setPhotoImg("person" + "/" + imageName);
+			person.setPhotoImg("/person" + "/" + imageName);
 		}
 
 		person.setUserRole(userRole);// 设置录入人员
@@ -518,8 +521,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 	// 文件上传
 	public void upload(String fileName, String imageName, File picture)
 			throws Exception {
-		File saved = new File(ServletActionContext.getServletContext()
-				.getRealPath(fileName), imageName);
+		File saved = new File(authObject.getFileRoot() + fileName, imageName);
 		InputStream ins = null;
 		OutputStream ous = null;
 		try {
@@ -597,24 +599,21 @@ public class PersonAction extends ActionSupport implements RequestAware,
 					if (guiltSafeguardMan.getCriminalRecordPhoto1() != null
 							&& !guiltSafeguardMan.getCriminalRecordPhoto1()
 									.replace(" ", "").equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
+						File photofile = new File(authObject.getFileRoot()
 								+ guiltSafeguardMan.getCriminalRecordPhoto1());
 						photofile.delete();
 					}
 					if (guiltSafeguardMan.getCriminalRecordPhoto2() != null
 							&& !guiltSafeguardMan.getCriminalRecordPhoto2()
 									.replace(" ", "").equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
+						File photofile = new File(authObject.getFileRoot()
 								+ guiltSafeguardMan.getCriminalRecordPhoto2());
 						photofile.delete();
 					}
 					if (guiltSafeguardMan.getCriminalRecordPhoto3() != null
 							&& !guiltSafeguardMan.getCriminalRecordPhoto3()
 									.replace(" ", "").equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
+						File photofile = new File(authObject.getFileRoot()
 								+ guiltSafeguardMan.getCriminalRecordPhoto3());
 						photofile.delete();
 					}
@@ -625,24 +624,24 @@ public class PersonAction extends ActionSupport implements RequestAware,
 							if (otherperson.getFrontPhoto() != null
 									&& !otherperson.getFrontPhoto().replace(
 											" ", "").equals("")) {
-								File photofile = new File(ServletActionContext
-										.getServletContext().getRealPath("/")
+								File photofile = new File(authObject
+										.getFileRoot()
 										+ otherperson.getFrontPhoto());
 								photofile.delete();
 							}
 							if (otherperson.getLeftPhoto() != null
 									&& !otherperson.getLeftPhoto().replace(" ",
 											"").equals("")) {
-								File photofile = new File(ServletActionContext
-										.getServletContext().getRealPath("/")
+								File photofile = new File(authObject
+										.getFileRoot()
 										+ otherperson.getLeftPhoto());
 								photofile.delete();
 							}
 							if (otherperson.getRightPhoto() != null
 									&& !otherperson.getRightPhoto().replace(
 											" ", "").equals("")) {
-								File photofile = new File(ServletActionContext
-										.getServletContext().getRealPath("/")
+								File photofile = new File(authObject
+										.getFileRoot()
 										+ otherperson.getRightPhoto());
 								photofile.delete();
 							}
@@ -659,24 +658,21 @@ public class PersonAction extends ActionSupport implements RequestAware,
 					if (disappearman.getPhoto1() != null
 							&& !disappearman.getPhoto1().replace(" ", "")
 									.equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
+						File photofile = new File(authObject.getFileRoot()
 								+ disappearman.getPhoto1());
 						photofile.delete();
 					}
 					if (disappearman.getPhoto2() != null
 							&& !disappearman.getPhoto2().replace(" ", "")
 									.equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
+						File photofile = new File(authObject.getFileRoot()
 								+ disappearman.getPhoto2());
 						photofile.delete();
 					}
 					if (disappearman.getPhoto3() != null
 							&& !disappearman.getPhoto3().replace(" ", "")
 									.equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
+						File photofile = new File(authObject.getFileRoot()
 								+ disappearman.getPhoto3());
 						photofile.delete();
 					}
@@ -693,16 +689,14 @@ public class PersonAction extends ActionSupport implements RequestAware,
 					if (contrastMan.getRegisterAddressPhoto() != null
 							&& !contrastMan.getRegisterAddressPhoto().replace(
 									" ", "").equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
+						File photofile = new File(authObject.getFileRoot()
 								+ contrastMan.getRegisterAddressPhoto());
 						photofile.delete();
 					}
 					if (contrastMan.getCriminalRecordPhoto() != null
 							&& !contrastMan.getCriminalRecordPhoto().replace(
 									" ", "").equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
+						File photofile = new File(authObject.getFileRoot()
 								+ contrastMan.getCriminalRecordPhoto());
 						photofile.delete();
 					}
@@ -714,8 +708,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		}
 
 		// 删除照片
-		File photofile = new File(ServletActionContext.getServletContext()
-				.getRealPath("/")
+		File photofile = new File(authObject.getFileRoot()
 				+ person.getPhotoImg());
 		photofile.delete();
 
@@ -771,24 +764,21 @@ public class PersonAction extends ActionSupport implements RequestAware,
 					if (guiltSafeguardMan.getCriminalRecordPhoto1() != null
 							&& !guiltSafeguardMan.getCriminalRecordPhoto1()
 									.replace(" ", "").equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
+						File photofile = new File(authObject.getFileRoot()
 								+ guiltSafeguardMan.getCriminalRecordPhoto1());
 						photofile.delete();
 					}
 					if (guiltSafeguardMan.getCriminalRecordPhoto2() != null
 							&& !guiltSafeguardMan.getCriminalRecordPhoto2()
 									.replace(" ", "").equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
+						File photofile = new File(authObject.getFileRoot()
 								+ guiltSafeguardMan.getCriminalRecordPhoto2());
 						photofile.delete();
 					}
 					if (guiltSafeguardMan.getCriminalRecordPhoto3() != null
 							&& !guiltSafeguardMan.getCriminalRecordPhoto3()
 									.replace(" ", "").equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
+						File photofile = new File(authObject.getFileRoot()
 								+ guiltSafeguardMan.getCriminalRecordPhoto3());
 						photofile.delete();
 					}
@@ -801,24 +791,21 @@ public class PersonAction extends ActionSupport implements RequestAware,
 					if (disappearman.getPhoto1() != null
 							&& !disappearman.getPhoto1().replace(" ", "")
 									.equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
+						File photofile = new File(authObject.getFileRoot()
 								+ disappearman.getPhoto1());
 						photofile.delete();
 					}
 					if (disappearman.getPhoto2() != null
 							&& !disappearman.getPhoto2().replace(" ", "")
 									.equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
+						File photofile = new File(authObject.getFileRoot()
 								+ disappearman.getPhoto2());
 						photofile.delete();
 					}
 					if (disappearman.getPhoto3() != null
 							&& !disappearman.getPhoto3().replace(" ", "")
 									.equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
+						File photofile = new File(authObject.getFileRoot()
 								+ disappearman.getPhoto3());
 						photofile.delete();
 					}
@@ -833,16 +820,14 @@ public class PersonAction extends ActionSupport implements RequestAware,
 					if (contrastMan.getRegisterAddressPhoto() != null
 							&& !contrastMan.getRegisterAddressPhoto().replace(
 									" ", "").equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
+						File photofile = new File(authObject.getFileRoot()
 								+ contrastMan.getRegisterAddressPhoto());
 						photofile.delete();
 					}
 					if (contrastMan.getCriminalRecordPhoto() != null
 							&& !contrastMan.getCriminalRecordPhoto().replace(
 									" ", "").equals("")) {
-						File photofile = new File(ServletActionContext
-								.getServletContext().getRealPath("/")
+						File photofile = new File(authObject.getFileRoot()
 								+ contrastMan.getCriminalRecordPhoto());
 						photofile.delete();
 					}
@@ -852,8 +837,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 				break;
 			}
 
-			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
+			File photofile = new File(authObject.getFileRoot()
 					+ person.getPhotoImg());
 
 			photofile.delete();
@@ -1002,11 +986,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 						+ picture1FileName.substring(picture1FileName
 								.indexOf("."));
 				this.upload("/guiltSafeguardMan", imageName, picture1);
-				File photofile = new File(ServletActionContext
-						.getServletContext().getRealPath("/")
+				File photofile = new File(authObject.getFileRoot()
 						+ guiltSafeguardMan.getCriminalRecordPhoto1());
 				photofile.delete();
-				guiltSafeguardMan.setCriminalRecordPhoto1("guiltSafeguardMan"
+				guiltSafeguardMan.setCriminalRecordPhoto1("/guiltSafeguardMan"
 						+ "/" + imageName);
 			}
 			if (picture2 != null && picture2FileName != null
@@ -1015,11 +998,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 						+ picture2FileName.substring(picture2FileName
 								.indexOf("."));
 				this.upload("/guiltSafeguardMan", imageName, picture2);
-				File photofile = new File(ServletActionContext
-						.getServletContext().getRealPath("/")
+				File photofile = new File(authObject.getFileRoot()
 						+ guiltSafeguardMan.getCriminalRecordPhoto2());
 				photofile.delete();
-				guiltSafeguardMan.setCriminalRecordPhoto2("guiltSafeguardMan"
+				guiltSafeguardMan.setCriminalRecordPhoto2("/guiltSafeguardMan"
 						+ "/" + imageName);
 			}
 			if (picture3 != null && picture3FileName != null
@@ -1028,11 +1010,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 						+ picture3FileName.substring(picture3FileName
 								.indexOf("."));
 				this.upload("/guiltSafeguardMan", imageName, picture3);
-				File photofile = new File(ServletActionContext
-						.getServletContext().getRealPath("/")
+				File photofile = new File(authObject.getFileRoot()
 						+ guiltSafeguardMan.getCriminalRecordPhoto3());
 				photofile.delete();
-				guiltSafeguardMan.setCriminalRecordPhoto3("guiltSafeguardMan"
+				guiltSafeguardMan.setCriminalRecordPhoto3("/guiltSafeguardMan"
 						+ "/" + imageName);
 			}
 			if (guiltSafeguardMan == null) {
@@ -1051,11 +1032,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 						+ picture1FileName.substring(picture1FileName
 								.indexOf("."));
 				this.upload("/disappearman", imageName, picture1);
-				File photofile = new File(ServletActionContext
-						.getServletContext().getRealPath("/")
+				File photofile = new File(authObject.getFileRoot()
 						+ disappearman.getPhoto1());
 				photofile.delete();
-				disappearman.setPhoto1("disappearman" + "/" + imageName);
+				disappearman.setPhoto1("/disappearman" + "/" + imageName);
 			}
 			if (picture2 != null && picture2FileName != null
 					&& !picture2FileName.replace(" ", "").equals("")) {
@@ -1063,11 +1043,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 						+ picture2FileName.substring(picture2FileName
 								.indexOf("."));
 				this.upload("/disappearman", imageName, picture2);
-				File photofile = new File(ServletActionContext
-						.getServletContext().getRealPath("/")
+				File photofile = new File(authObject.getFileRoot()
 						+ disappearman.getPhoto2());
 				photofile.delete();
-				disappearman.setPhoto2("disappearman" + "/" + imageName);
+				disappearman.setPhoto2("/disappearman" + "/" + imageName);
 			}
 			if (picture3 != null && disappearman != null
 					&& !picture3FileName.replace(" ", "").equals("")) {
@@ -1075,11 +1054,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 						+ picture3FileName.substring(picture3FileName
 								.indexOf("."));
 				this.upload("/disappearman", imageName, picture3);
-				File photofile = new File(ServletActionContext
-						.getServletContext().getRealPath("/")
+				File photofile = new File(authObject.getFileRoot()
 						+ disappearman.getPhoto3());
 				photofile.delete();
-				disappearman.setPhoto3("disappearman" + "/" + imageName);
+				disappearman.setPhoto3("/disappearman" + "/" + imageName);
 			}
 
 			if (disappearman == null) {
@@ -1108,11 +1086,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 						+ picture1FileName.substring(picture1FileName
 								.indexOf("."));
 				this.upload("/contrastMan", imageName, picture1);
-				File photofile = new File(ServletActionContext
-						.getServletContext().getRealPath("/")
+				File photofile = new File(authObject.getFileRoot()
 						+ contrastMan.getRegisterAddressPhoto());
 				photofile.delete();
-				contrastMan.setRegisterAddressPhoto("contrastMan" + "/"
+				contrastMan.setRegisterAddressPhoto("/contrastMan" + "/"
 						+ imageName);
 			}
 			if (picture2 != null && picture2FileName != null
@@ -1121,11 +1098,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 						+ picture2FileName.substring(picture2FileName
 								.indexOf("."));
 				this.upload("/contrastMan", imageName, picture2);
-				File photofile = new File(ServletActionContext
-						.getServletContext().getRealPath("/")
+				File photofile = new File(authObject.getFileRoot()
 						+ contrastMan.getCriminalRecordPhoto());
 				photofile.delete();
-				contrastMan.setCriminalRecordPhoto("contrastMan" + "/"
+				contrastMan.setCriminalRecordPhoto("/contrastMan" + "/"
 						+ imageName);
 			}
 			if (contrastMan == null) {
@@ -1145,11 +1121,10 @@ public class PersonAction extends ActionSupport implements RequestAware,
 			String imageName = DateTimeKit.getDateRandom()
 					+ pictureFileName.substring(pictureFileName.indexOf("."));
 			this.upload("/person", imageName, picture);
-			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
+			File photofile = new File(authObject.getFileRoot()
 					+ person.getPhotoImg());
 			photofile.delete();
-			person.setPhotoImg("person" + "/" + imageName);
+			person.setPhotoImg("/person" + "/" + imageName);
 		}
 
 		if (person.getEndSituation() != null && person.getEndSituation() != "") {

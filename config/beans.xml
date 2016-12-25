@@ -76,6 +76,7 @@
 		<property name="appId" value="${appId}" />
 		<property name="attrType" value="${attrType}" />
 		<property name="attributes" value="${attributes}" />
+		<property name="fileRoot" value="${fileRoot}" />
 	</bean>
 
 

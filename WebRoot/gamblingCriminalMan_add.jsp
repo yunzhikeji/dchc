@@ -185,7 +185,7 @@
 										<td>
 											<s:textfield name="person.qq"
 												cssClass="input-text radius size-M "
-												cssStyle="width: 360px;"></s:textfield>
+												cssStyle="width: 300px;"></s:textfield>
 										</td>
 										<td>
 											<label class="form-label text-r">
@@ -195,7 +195,7 @@
 										<td colspan="2">
 											<s:textfield name="person.wechat"
 												cssClass="input-text radius size-M "
-												cssStyle="width: 360px;"></s:textfield>
+												cssStyle="width: 300px;"></s:textfield>
 										</td>
 									</tr>
 
@@ -218,7 +218,7 @@
 										<td colspan="2">
 											<s:textfield name="person.telphone"
 												cssClass="input-text radius size-M "
-												cssStyle="width: 360px;"></s:textfield>
+												cssStyle="width: 300px;"></s:textfield>
 										</td>
 									</tr>
 									<tr>
@@ -385,7 +385,7 @@
 											<td>
 												<s:textfield name="gamblingCriminalMan.imei"
 													cssClass="input-text radius size-M "
-													cssStyle="width: 360px;"></s:textfield>
+													cssStyle="width: 300px;"></s:textfield>
 											</td>
 
 											<s:if test="type==1">

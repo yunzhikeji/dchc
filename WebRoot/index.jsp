@@ -77,12 +77,12 @@
 		<a aria-hidden="false" class="Hui-nav-toggle" href="#"></a>
 		</header>
 		<aside class="Hui-aside"
-			style="overflow-y:auto; overflow-x:hidden;">
+			style="overflow-y:auto; overflow-x:hidden; overflow-y:hidden;">
 		<div class="menu_dropdown bk_2">
 			<div class="my-profile dropDown dropDown_click ">
 				<a href="javascript:;" class="my-profile-pic dropDown_A"
 					aria-expanded="false" aria-haspopup="true" data-toggle="dropdown">
-					<img src="<%=basePath%>${session.userRoleo.photo}" alt="暂无照片" /> </a>
+					<img src="${session.userRoleo.photo}" alt="暂无照片" /> </a>
 				<div class="dropDown-menu box-shadow text-c pt-10 mr-10">
 					<ul style="color: #333; text-shadow: none">
 						<p>

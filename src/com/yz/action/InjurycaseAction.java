@@ -29,6 +29,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.yz.auth.AuthObject;
 import com.yz.model.Injurycase;
 import com.yz.model.Judge;
 import com.yz.model.Media;
@@ -117,6 +118,9 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 	@Resource
 	private IPersonService personService;
+	
+	@Resource(name = "authObject")
+	private AuthObject authObject;
 
 	// 单个表对象
 	private Troubleshooting troubleshooting;
@@ -271,7 +275,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			String imageName = DateTimeKit.getDateRandom()
 					+ picture1FileName.substring(picture1FileName.indexOf("."));
 			this.upload("/case", imageName, picture1);
-			injurycase.setImageCase("case" + "/" + imageName);
+			injurycase.setImageCase("/case" + "/" + imageName);
 		}
 		injurycaseService.add(injurycase);
 
@@ -287,8 +291,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	// 文件上传
 	public void upload(String fileName, String imageName, File picture)
 			throws Exception {
-		File saved = new File(ServletActionContext.getServletContext()
-				.getRealPath(fileName), imageName);
+		File saved = new File(authObject.getFileRoot()+fileName, imageName);
 		InputStream ins = null;
 		OutputStream ous = null;
 		try {
@@ -329,8 +332,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 		if (injurycase.getImageCase() != null
 				&& !injurycase.getImageCase().replace(" ", "").equals("")) {
-			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
+			File photofile = new File(authObject.getFileRoot()
 					+ injurycase.getImageCase());
 			photofile.delete();
 		}
@@ -363,8 +365,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			injurycase = injurycaseService.loadById(ids[i]);
 			if (injurycase.getImageCase() != null
 					&& !injurycase.getImageCase().replace(" ", "").equals("")) {
-				File photofile = new File(ServletActionContext
-						.getServletContext().getRealPath("/")
+				File photofile = new File(authObject.getFileRoot()
 						+ injurycase.getImageCase());
 				photofile.delete();
 			}
@@ -455,11 +456,10 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			String imageName = DateTimeKit.getDateRandom()
 					+ picture1FileName.substring(picture1FileName.indexOf("."));
 			this.upload("/case", imageName, picture1);
-			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
+			File photofile = new File(authObject.getFileRoot()
 					+ injurycase.getImageCase());
 			photofile.delete();
-			injurycase.setImageCase("case" + "/" + imageName);
+			injurycase.setImageCase("/case" + "/" + imageName);
 		}
 
 		if (injurycase.getUserRole() == null) {

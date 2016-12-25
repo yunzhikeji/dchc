@@ -103,6 +103,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	// 批量删除
 	private String checkedIDs;
 
+	//环境变量
 	@Resource(name = "authObject")
 	private AuthObject authObject;
 
@@ -1030,10 +1031,13 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 
 	/**
 	 * 用户注销
+	 * 
+	 * @throws IOException
 	 */
-	public String logout() {
+	public String logout() throws IOException {
 		session.clear();
-		return "adminLogin";
+		response.sendRedirect("blank.jsp");
+		return null;
 	}
 
 	/**
@@ -1094,7 +1098,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 			String imageName = DateTimeKit.getDateRandom()
 					+ pictureFileName.substring(pictureFileName.indexOf("."));
 			this.upload("/userRole", imageName, picture);
-			userRole.setPhoto("userRole" + "/" + imageName);
+			userRole.setPhoto("/userRole" + "/" + imageName);
 		}
 
 		userRole.setUsername(uname);
@@ -1138,8 +1142,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	// 文件上传
 	public void upload(String fileName, String imageName, File picture)
 			throws Exception {
-		File saved = new File(ServletActionContext.getServletContext()
-				.getRealPath(fileName), imageName);
+		File saved = new File(authObject.getFileRoot() + fileName, imageName);
 		InputStream ins = null;
 		OutputStream ous = null;
 		try {
@@ -1175,8 +1178,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 
 		userRole = userRoleService.getUserRoleById(id);
 		// 删除照片
-		File photofile = new File(ServletActionContext.getServletContext()
-				.getRealPath("/")
+		File photofile = new File(authObject.getFileRoot()
 				+ userRole.getPhoto());
 		photofile.delete();
 
@@ -1197,8 +1199,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 		for (int i = 0; i < ids.length; i++) {
 			userRole = userRoleService.getUserRoleById(ids[i]);
 			// 删除照片
-			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
+			File photofile = new File(authObject.getFileRoot()
 					+ userRole.getPhoto());
 			photofile.delete();
 
@@ -1248,11 +1249,10 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 			String imageName = DateTimeKit.getDateRandom()
 					+ pictureFileName.substring(pictureFileName.indexOf("."));
 			this.upload("/userRole", imageName, picture);
-			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
+			File photofile = new File(authObject.getFileRoot()
 					+ userRole.getPhoto());
 			photofile.delete();
-			userRole.setPhoto("userRole" + "/" + imageName);
+			userRole.setPhoto("/userRole" + "/" + imageName);
 		}
 
 		userRoleService.update(userRole);
@@ -1331,11 +1331,10 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 			String imageName = DateTimeKit.getDateRandom()
 					+ pictureFileName.substring(pictureFileName.indexOf("."));
 			this.upload("/userRole", imageName, picture);
-			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
+			File photofile = new File(authObject.getFileRoot()
 					+ userRole.getPhoto());
 			photofile.delete();
-			userRole.setPhoto("userRole" + "/" + imageName);
+			userRole.setPhoto("/userRole" + "/" + imageName);
 		}
 		if (password1 != null && !password1.replace(" ", "").equals("")
 				&& password2 != null && !password2.replace(" ", "").equals("")) {
@@ -1781,14 +1780,6 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 
 	public void setPword(String pword) {
 		this.pword = pword;
-	}
-
-	public AuthObject getAuthObject() {
-		return authObject;
-	}
-
-	public void setAuthObject(AuthObject authObject) {
-		this.authObject = authObject;
 	}
 
 }

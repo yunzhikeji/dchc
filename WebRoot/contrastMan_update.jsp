@@ -271,7 +271,7 @@
 												<td align="center">
 
 													<img id="myimage1" class="img-responsive thumbnail"
-														src="<%=basePath%>${contrastMan.registerAddressPhoto}"
+														src="${contrastMan.registerAddressPhoto}"
 														width="200px" height="180px;" alt="户籍照片" />
 
 
@@ -335,7 +335,7 @@
 												<td align="center">
 
 														<img id="myimage2" class="img-responsive thumbnail"
-															src="<%=basePath%>${contrastMan.criminalRecordPhoto}"
+															src="${contrastMan.criminalRecordPhoto}"
 															width="200px" height="180px;" alt="前科照片" />
 
 													<script type="text/javascript">

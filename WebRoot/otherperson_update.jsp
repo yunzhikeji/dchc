@@ -155,7 +155,7 @@
 							<table width="100%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td align="center">
-										<img id="myimage1" src="<%=basePath%>${otherperson.frontPhoto}" class="img-responsive thumbnail"
+										<img id="myimage1" src="${otherperson.frontPhoto}" class="img-responsive thumbnail"
 											width="100px" height="120px" alt="正面照片" />
 										<script type="text/javascript">
 															function change1() {
@@ -216,7 +216,7 @@
 							<table width="100%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td align="center">
-										<img id="myimage2" src="<%=basePath%>${otherperson.leftPhoto}" class="img-responsive thumbnail"
+										<img id="myimage2" src="${otherperson.leftPhoto}" class="img-responsive thumbnail"
 											width="100px" height="120px" alt="左侧照片" />
 										<script type="text/javascript">
 															function change2() {
@@ -275,7 +275,7 @@
 							<table width="100%" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 									<td align="center">
-										<img id="myimage3" src="<%=basePath%>${otherperson.rightPhoto}" class="img-responsive thumbnail"
+										<img id="myimage3" src="${otherperson.rightPhoto}" class="img-responsive thumbnail"
 											width="100px" height="120px" alt="右侧照片" />
 										<script type="text/javascript">
 															function change3() {

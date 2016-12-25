@@ -71,7 +71,7 @@
 					</label>
 				</div>
 				<div class="col-10">
-					<video src="<%=basePath%>${media.src}" controls="controls">
+					<video src="${media.src}" controls="controls">
 							您的浏览器不支持 video 标签。
 					</video>
 				</div>

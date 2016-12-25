@@ -35,6 +35,7 @@ import org.springframework.stereotype.Component;
 import sun.misc.BASE64Decoder;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.yz.auth.AuthObject;
 import com.yz.model.Injurycase;
 import com.yz.model.Media;
 import com.yz.service.IInjurycaseService;
@@ -72,6 +73,9 @@ public class MediaAction extends ActionSupport implements RequestAware,
 	@Resource
 	private IInjurycaseService injurycaseService;
 
+	//环境变量
+	@Resource(name = "authObject")
+	private AuthObject authObject;
 	// 单个表对象
 	private Injurycase injurycase;
 	private Media media;
@@ -104,7 +108,7 @@ public class MediaAction extends ActionSupport implements RequestAware,
 			String imageName = DateTimeKit.getDateRandom()
 					+ picture1FileName.substring(picture1FileName.indexOf("."));
 			this.upload("/media", imageName, picture1);
-			media.setSrc("media" + "/" + imageName);
+			media.setSrc("/media" + "/" + imageName);
 		}
 		
 		if (media.getInjurycase()!= null) {
@@ -116,7 +120,7 @@ public class MediaAction extends ActionSupport implements RequestAware,
 	
 	
 	public String add1() throws Exception {
-		String serverPath = ServletActionContext.getServletContext().getRealPath("/");
+		String serverPath = authObject.getFileRoot();
 		BASE64Decoder decoder = new BASE64Decoder();
 		if (media.getInjurycase()!= null) {
 			
@@ -180,8 +184,7 @@ public class MediaAction extends ActionSupport implements RequestAware,
 	// 文件上传
 	public void upload(String fileName, String imageName, File picture)
 			throws Exception {
-		File saved = new File(ServletActionContext.getServletContext()
-				.getRealPath(fileName), imageName);
+		File saved = new File(authObject.getFileRoot()+fileName, imageName);
 		InputStream ins = null;
 		OutputStream ous = null;
 		try {
@@ -224,8 +227,7 @@ public class MediaAction extends ActionSupport implements RequestAware,
 		media = mediaService.loadById(mid);
 		if (media.getSrc() != null
 				&& !media.getSrc().replace(" ", "").equals("")) {
-			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
+			File photofile = new File(authObject.getFileRoot()
 					+ media.getSrc());
 			photofile.delete();
 		}
@@ -268,11 +270,10 @@ public class MediaAction extends ActionSupport implements RequestAware,
 			String imageName = DateTimeKit.getDateRandom()
 					+ picture1FileName.substring(picture1FileName.indexOf("."));
 			this.upload("/media", imageName, picture1);
-			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
+			File photofile = new File(authObject.getFileRoot()
 					+ media.getSrc());
 			photofile.delete();
-			media.setSrc("media" + "/" + imageName);
+			media.setSrc("/media" + "/" + imageName);
 		}
 		mediaService.update(media);
 		return "success_child";

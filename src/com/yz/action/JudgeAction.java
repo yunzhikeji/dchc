@@ -30,6 +30,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.yz.auth.AuthObject;
 import com.yz.model.Clue;
 import com.yz.model.Injurycase;
 import com.yz.model.Judge;
@@ -87,6 +88,9 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 	private IUnitService unitService;
 	@Resource
 	private IUserRoleService userRoleService;
+
+	@Resource(name = "authObject")
+	private AuthObject authObject;
 
 	// 扫描件图片
 	private File picture1;
@@ -193,7 +197,7 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 			String imageName = DateTimeKit.getDateRandom()
 					+ picture1FileName.substring(picture1FileName.indexOf("."));
 			this.upload("/judge", imageName, picture1);
-			judge.setScanImage("judge" + "/" + imageName);
+			judge.setScanImage("/judge" + "/" + imageName);
 		}
 
 		judge.setDeadline(DateTimeKit.getLocalDate());
@@ -205,8 +209,7 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 	// 文件上传
 	public void upload(String fileName, String imageName, File picture)
 			throws Exception {
-		File saved = new File(ServletActionContext.getServletContext()
-				.getRealPath(fileName), imageName);
+		File saved = new File(authObject.getFileRoot() + fileName, imageName);
 		InputStream ins = null;
 		OutputStream ous = null;
 		try {
@@ -350,8 +353,7 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 		judge = judgeService.loadById(jid);
 		if (judge.getScanImage() != null
 				&& !judge.getScanImage().replace(" ", "").equals("")) {
-			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
+			File photofile = new File(authObject.getFileRoot()
 					+ judge.getScanImage());
 			photofile.delete();
 		}
@@ -384,11 +386,10 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 			String imageName = DateTimeKit.getDateRandom()
 					+ picture1FileName.substring(picture1FileName.indexOf("."));
 			this.upload("/judge", imageName, picture1);
-			File photofile = new File(ServletActionContext.getServletContext()
-					.getRealPath("/")
+			File photofile = new File(authObject.getFileRoot()
 					+ judge.getScanImage());
 			photofile.delete();
-			judge.setScanImage("judge" + "/" + imageName);
+			judge.setScanImage("/judge" + "/" + imageName);
 		}
 		judgeService.update(judge);
 		return "success_child";
@@ -423,7 +424,9 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 					// 查看权限
 					if (isContainID(userRole.getUnit().getPids(), judge
 							.getPerson().getId().toString())
-							|| userRole.getUserLimit() == 2||userRole.getUnit().getNumber().equals("371402020000")) {
+							|| userRole.getUserLimit() == 2
+							|| userRole.getUnit().getNumber().equals(
+									"371402020000")) {
 
 						judgeVO.setId(judge.getPerson().getId());
 						judgeVO.setName(judge.getPerson().getName());
@@ -490,7 +493,9 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 					// 查看权限
 					if (isContainID(userRole.getUnit().getInids(), judge
 							.getInjurycase().getId().toString())
-							|| userRole.getUserLimit() == 2||userRole.getUnit().getNumber().equals("371402020000")) {
+							|| userRole.getUserLimit() == 2
+							|| userRole.getUnit().getNumber().equals(
+									"371402020000")) {
 
 						judgeVO.setId(judge.getInjurycase().getId());
 						judgeVO.setName(judge.getInjurycase().getCaseName());
@@ -528,7 +533,9 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 					// 查看权限
 					if (isContainID(userRole.getUnit().getCids(), judge
 							.getClue().getId().toString())
-							|| userRole.getUserLimit() == 2||userRole.getUnit().getNumber().equals("371402020000")) {
+							|| userRole.getUserLimit() == 2
+							|| userRole.getUnit().getNumber().equals(
+									"371402020000")) {
 						judgeVO.setId(judge.getClue().getId());
 						judgeVO.setName(judge.getClue().getTitle());
 						switch (judge.getClue().getCtype()) {

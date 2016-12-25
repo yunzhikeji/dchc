@@ -30,7 +30,6 @@
 		<link href="css/video-js.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
 		<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
-		<script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>
 		<script type="text/javascript"
 			src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 		<script type="text/javascript"
@@ -99,9 +98,9 @@
 						
 							
 							 <video id="my-video" class="video-js" controls preload="auto" width="1000px" height="562"
-							  poster="MY_VIDEO_POSTER.jpg" data-setup="{}" style="float: left">
-							    <source src="<%=basePath%>${mediaVideos[0].src}" type='video/mp4'>
-							    <source src="<%=basePath%>${mediaVideos[0].src}" type='video/webm'>
+							   data-setup="{}" style="float: left">
+							    <source class="videoSrc" src="${mediaVideos[0].src}" type='video/mp4'>
+							    <source class="videoSrc" src="${mediaVideos[0].src}" type='video/webm'>
 							    <p class="vjs-no-js">
 							    	当前浏览器不支持该视频格式,请使用MP4格式视频格式。
 							    </p>
@@ -109,7 +108,7 @@
 						  <script type="text/javascript" src="js/video.js"></script>
 						  
 						<!-- 
-							<video width="1000px" src="<%=basePath%>${mediaVideos[0].src}"
+							<video width="1000px" src="${mediaVideos[0].src}"
 								height="562" id="swf_play" style="visibility: visible;"
 								controls="controls">
 							暂无视频
@@ -134,7 +133,7 @@
 															<div class="pic">
 																<a href="javascript:void(0)"
 																	onclick="changeVideo(<s:property value="id"/>);"> <video
-																		src="<%=basePath%>${src}" width="200px;"
+																		src="${src}" width="200px;"
 																		height="92px;"></video> </a>
 															</div>
 															<div class="txt">
@@ -165,7 +164,7 @@
 														<li class="pack" index="0" data-stat-role="ck">
 															<div class="pic">
 
-																<img src="<%=basePath%>${src}" width="200px;"
+																<img src="${src}" width="200px;"
 																	height="90px;" />
 															</div>
 															<div class="txt">
@@ -261,7 +260,7 @@
 												<a
 													href="injurycaseAction!loadcba?id=<s:property value="id"/>"
 													title="单个案件" class="link"><img
-														src="<%=basePath%><s:property value="imageCase"/>"
+														src="<s:property value="imageCase"/>"
 														alt="暂无图片"> </a>
 											</div>
 											<div class="txt">
@@ -309,7 +308,7 @@
 												<a
 													href="injurycaseAction!loadcba?id=<s:property value="id"/>"
 													title="单个案件" class="link"><img
-														src="<%=basePath%><s:property value="imageCase"/>">
+														src="<s:property value="imageCase"/>">
 												</a>
 											</div>
 											<div class="txt">
@@ -344,7 +343,7 @@
 									</div>
 									<div class="col-4">
 
-										<img id="myimage1" src="<%=basePath%>${injurycase.imageCase}"
+										<img id="myimage1" src="${injurycase.imageCase}"
 											class="img-responsive thumbnail" width="200px"
 											height="180px;" alt="暂无案件图片" />
 

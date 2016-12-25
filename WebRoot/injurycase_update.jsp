@@ -101,7 +101,7 @@
 											<tr>
 												<td align="center">
 													<img id="myimage1"
-														src="<%=basePath%>${injurycase.imageCase}"
+														src="${injurycase.imageCase}"
 														class="img-responsive thumbnail" width="200px"
 														height="180px;" alt="案件图片" />
 													<script type="text/javascript">

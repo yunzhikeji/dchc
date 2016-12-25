@@ -106,7 +106,7 @@
 											<table width="176" border="0" cellpadding="0" cellspacing="0">
 												<tr>
 													<td width="176" align="center">
-														<img src="<%=basePath%>${person.photoImg}" id="myimage"
+														<img src="${person.photoImg}" id="myimage"
 															class="img-responsive thumbnail" width="200px"
 															height="180px;" alt="人员照片" />
 														<script type="text/javascript">

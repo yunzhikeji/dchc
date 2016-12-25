@@ -1,6 +1,5 @@
 package com.yz.auth;
 
-
 /**
  * 认证对象
  * 
@@ -15,7 +14,9 @@ public class AuthObject {
 	private String appId;// 应用标识
 	private String attrType;// 获取属性列表控制 none：不获取属性；all 获取全部属性 ；portion 获取指定属性
 	private String attributes;// 当配置文件中attrType 值为portion时
-								// 获取查询指定属性,当且仅当attrType为portion时有效
+	// 获取查询指定属性,当且仅当attrType为portion时有效
+
+	private String fileRoot;
 
 	public String getTempURL() {
 		return tempURL;
@@ -63,6 +64,14 @@ public class AuthObject {
 
 	public void setAttributes(String attributes) {
 		this.attributes = attributes;
+	}
+
+	public String getFileRoot() {
+		return fileRoot;
+	}
+
+	public void setFileRoot(String fileRoot) {
+		this.fileRoot = fileRoot;
 	}
 
 }
