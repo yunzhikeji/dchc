@@ -223,7 +223,6 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 						convalue, 1);
 
 			}
-
 		}
 
 		if (queryState != 0) {

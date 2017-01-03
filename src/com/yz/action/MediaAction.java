@@ -24,12 +24,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import sun.misc.BASE64Decoder;
@@ -41,6 +41,7 @@ import com.yz.model.Media;
 import com.yz.service.IInjurycaseService;
 import com.yz.service.IMediaService;
 import com.yz.util.DateTimeKit;
+import com.yz.video.ThreadTransCode;
 import com.yz.vo.AjaxMsgVO;
 
 @Component("mediaAction")
@@ -73,9 +74,13 @@ public class MediaAction extends ActionSupport implements RequestAware,
 	@Resource
 	private IInjurycaseService injurycaseService;
 
-	//环境变量
+	// 环境变量
 	@Resource(name = "authObject")
 	private AuthObject authObject;
+
+	@Resource
+	private ThreadPoolTaskExecutor taskExecutor;
+
 	// 单个表对象
 	private Injurycase injurycase;
 	private Media media;
@@ -83,8 +88,6 @@ public class MediaAction extends ActionSupport implements RequestAware,
 	// list表对象
 	private List<Media> medias;
 	private String capture;
-	private String picSrc;
-
 
 	/**
 	 * 跳转到添加页面
@@ -103,66 +106,77 @@ public class MediaAction extends ActionSupport implements RequestAware,
 	 * @throws Exception
 	 */
 	public String add() throws Exception {
+		String imageName = "";
 		if (picture1 != null && picture1FileName != null
 				&& !picture1FileName.replace(" ", "").equals("")) {
-			String imageName = DateTimeKit.getDateRandom()
+			imageName = DateTimeKit.getDateRandom()
 					+ picture1FileName.substring(picture1FileName.indexOf("."));
 			this.upload("/media", imageName, picture1);
-			media.setSrc("/media" + "/" + imageName);
+
+			String newFileName = DateTimeKit.getDateRandom() + ".mp4";
+
+			taskExecutor.execute(new ThreadTransCode(authObject.getFileRoot()
+					+ "/media" + "/" + imageName, authObject.getFileRoot()
+					+ "/media" + "/" + newFileName));
+
+			media.setSrc("/media" + "/" + newFileName);
 		}
-		
-		if (media.getInjurycase()!= null) {
+
+		if (media.getInjurycase() != null) {
 			changeInjurycaseHandleState(media.getInjurycase().getId());
 		}
 		mediaService.add(media);
+
+		//转换成功后将源文件删除
+		//File photofile = new File(authObject.getFileRoot() + imageName);
+		//photofile.delete();
+
 		return "success_child";
 	}
-	
-	
+
 	public String add1() throws Exception {
 		String serverPath = authObject.getFileRoot();
 		BASE64Decoder decoder = new BASE64Decoder();
-		if (media.getInjurycase()!= null) {
-			
-			
+		if (media.getInjurycase() != null) {
+
 			changeInjurycaseHandleState(media.getInjurycase().getId());
 		}
-		if(!media.getPicSrc().contains("data:image/png;base64"))
-		{
+		if (!media.getPicSrc().contains("data:image/png;base64")) {
 			return "success_child1";
 		}
-		byte[] bs = decoder.decodeBuffer(media.getPicSrc().substring("data:image/png;base64,".length()));  //picSrc为Base64字符串
-		InputStream is = new ByteArrayInputStream(bs); 
-		String fileName = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date());
+		byte[] bs = decoder.decodeBuffer(media.getPicSrc().substring(
+				"data:image/png;base64,".length())); // picSrc为Base64字符串
+		InputStream is = new ByteArrayInputStream(bs);
+		String fileName = new SimpleDateFormat("yyyyMMddHHmmssSSS")
+				.format(new Date());
 		Random random = new Random();
-		for(int i = 0; i < 3; i++){
+		for (int i = 0; i < 3; i++) {
 			fileName = fileName + random.nextInt(10);
 		}
-		
+
 		String realPath = serverPath + "\\media\\" + fileName + ".png";
 		String relativePath = "media/" + fileName + ".png";
-		
-        double ratio = 1.0;  
-        BufferedImage image = ImageIO.read(is);  
-        int newWidth = (int) (image.getWidth() * ratio);  
-        int newHeight = (int) (image.getHeight() * ratio);  
-        Image newimage = image.getScaledInstance(newWidth, newHeight,  
-        Image.SCALE_SMOOTH);  
-        BufferedImage tag = new BufferedImage(newWidth, newHeight,  
-                BufferedImage.TYPE_INT_RGB);  
-        Graphics g = tag.getGraphics();  
-        g.drawImage(newimage, 0, 0, null);  
-        g.dispose();  
-        ImageIO.write(tag, "png", new File(realPath));  
+
+		double ratio = 1.0;
+		BufferedImage image = ImageIO.read(is);
+		int newWidth = (int) (image.getWidth() * ratio);
+		int newHeight = (int) (image.getHeight() * ratio);
+		Image newimage = image.getScaledInstance(newWidth, newHeight,
+				Image.SCALE_SMOOTH);
+		BufferedImage tag = new BufferedImage(newWidth, newHeight,
+				BufferedImage.TYPE_INT_RGB);
+		Graphics g = tag.getGraphics();
+		g.drawImage(newimage, 0, 0, null);
+		g.dispose();
+		ImageIO.write(tag, "png", new File(realPath));
 
 		media.setSrc(relativePath);
-        
+
 		mediaService.add(media);
 
 		return "success_child1";
 	}
-	
-	
+
 	/*
 	 * 修改案件状态
 	 */
@@ -184,7 +198,7 @@ public class MediaAction extends ActionSupport implements RequestAware,
 	// 文件上传
 	public void upload(String fileName, String imageName, File picture)
 			throws Exception {
-		File saved = new File(authObject.getFileRoot()+fileName, imageName);
+		File saved = new File(authObject.getFileRoot() + fileName, imageName);
 		InputStream ins = null;
 		OutputStream ous = null;
 		try {
@@ -227,8 +241,7 @@ public class MediaAction extends ActionSupport implements RequestAware,
 		media = mediaService.loadById(mid);
 		if (media.getSrc() != null
 				&& !media.getSrc().replace(" ", "").equals("")) {
-			File photofile = new File(authObject.getFileRoot()
-					+ media.getSrc());
+			File photofile = new File(authObject.getFileRoot() + media.getSrc());
 			photofile.delete();
 		}
 		mediaService.delete(media);
@@ -270,15 +283,14 @@ public class MediaAction extends ActionSupport implements RequestAware,
 			String imageName = DateTimeKit.getDateRandom()
 					+ picture1FileName.substring(picture1FileName.indexOf("."));
 			this.upload("/media", imageName, picture1);
-			File photofile = new File(authObject.getFileRoot()
-					+ media.getSrc());
+			File photofile = new File(authObject.getFileRoot() + media.getSrc());
 			photofile.delete();
 			media.setSrc("/media" + "/" + imageName);
 		}
 		mediaService.update(media);
 		return "success_child";
 	}
-	
+
 	/**
 	 * 查看视频信息
 	 */
@@ -540,7 +552,5 @@ public class MediaAction extends ActionSupport implements RequestAware,
 	public void setCapture(String capture) {
 		this.capture = capture;
 	}
-	
-	
 
 }

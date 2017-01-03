@@ -134,7 +134,7 @@
 																<a href="javascript:void(0)"
 																	onclick="changeVideo(<s:property value="id"/>);"> <video
 																		src="${src}" width="200px;"
-																		height="92px;"></video> </a>
+																		height="92px;" style="background-color:#000"></video> </a>
 															</div>
 															<div class="txt">
 																<h6 class="caption">
@@ -165,7 +165,7 @@
 															<div class="pic">
 
 																<img src="${src}" width="200px;"
-																	height="90px;" />
+																	height="90px;" style="background-color:#000"/>
 															</div>
 															<div class="txt">
 																<h6 class="caption">

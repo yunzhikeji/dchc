@@ -25,6 +25,15 @@
 	<context:annotation-config />
 	<context:component-scan base-package="com.yz" />
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	
+	<!-- 线程池 -->
+	<bean id="taskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="5" />
+		<property name="keepAliveSeconds" value="200" />
+		<property name="maxPoolSize" value="10" />
+		<property name="queueCapacity" value="25" />
+	</bean>
 
 	<!-- 服务已经由compent自动注入,显然是不行滴 -->
 	<bean id="judgeService"

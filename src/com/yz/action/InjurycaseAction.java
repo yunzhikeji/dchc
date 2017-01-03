@@ -26,6 +26,7 @@ import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -52,6 +53,7 @@ import com.yz.util.ConvertUtil;
 import com.yz.util.DateTimeKit;
 import com.yz.util.InfoType;
 import com.yz.util.InjurycaseExcel;
+import com.yz.video.ThreadTransCode;
 import com.yz.vo.AjaxMsgVO;
 import com.yz.vo.InjurycaseVO;
 import com.yz.vo.UnitVO;
@@ -121,6 +123,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	
 	@Resource(name = "authObject")
 	private AuthObject authObject;
+	
 
 	// 单个表对象
 	private Troubleshooting troubleshooting;
@@ -274,7 +277,9 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 				&& !picture1FileName.replace(" ", "").equals("")) {
 			String imageName = DateTimeKit.getDateRandom()
 					+ picture1FileName.substring(picture1FileName.indexOf("."));
+			
 			this.upload("/case", imageName, picture1);
+				
 			injurycase.setImageCase("/case" + "/" + imageName);
 		}
 		injurycaseService.add(injurycase);
