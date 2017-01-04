@@ -1231,7 +1231,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 					personVO.setTypeName("技术比中人员");
 					break;
 				case 14:
-					personVO.setTypeName("前科线索");
+					personVO.setTypeName("前科人员");
 					break;
 				case 15:
 					personVO.setTypeName("其他人员");

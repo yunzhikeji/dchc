@@ -185,7 +185,7 @@ public class GenerateSqlFromExcel {
 			Sheet sheet[] = wb.getSheets();
 			if (sheet != null) {
 				for (int i = 0; i < sheet.length; i++) {
-					if (sheet[i].getName().equalsIgnoreCase("injurycaseSheet")) {
+					if (sheet[i].getName().equalsIgnoreCase("injurycase_import")) {
 						for (int j = 1; j < sheet[i].getRows(); j++) {
 							String[] valStr = new String[22];
 							for (int k = 0; k < sheet[i].getColumns(); k++) {

@@ -394,7 +394,6 @@ public class PersonServiceImp implements IPersonService {
 					person.setTelphone(data[7].toString());
 					person.setRegisterAddress(data[8].toString());
 					person.setRegisterAddressArea(data[9].toString());
-
 					if (data[26].toString().contains("赌博")) {
 						person.setType(1);
 					} else if (data[26].toString().contains("涉恶")) {
@@ -422,9 +421,9 @@ public class PersonServiceImp implements IPersonService {
 					} else if (data[26].toString().contains("技术比中")) {
 						person.setType(13);
 					} else if (data[26].toString().contains("前科")) {
-						person.setType(16);
+						person.setType(14);
 					} else if (data[26].toString().contains("其他")) {
-						person.setType(17);
+						person.setType(15);
 					}
 
 					switch (person.getType()) {
