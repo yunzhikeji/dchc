@@ -145,6 +145,19 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 				queryString = mediaService.setInjurycaseIdsSql(queryString,
 						convalue, 1);
 			}
+			if (con == 7) {
+				queryString += "and mo.crimePattern like ? ";
+				p = new Object[] { '%' + convalue + '%' };
+			}
+			if (con == 8) {
+				queryString += "and mo.briefCase like ? ";
+				p = new Object[] { '%' + convalue + '%' };
+			}
+			if (con == 9) {
+				queryString += "and mo.series like ? ";
+				p = new Object[] { '%' + convalue + '%' };
+			}
+			
 		}
 		if (queryState != 0) {
 			queryString += " and mo.handleState =" + queryState;
@@ -221,7 +234,18 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 			if (con == 6) {
 				queryString = mediaService.setInjurycaseIdsSql(queryString,
 						convalue, 1);
-
+			}
+			if (con == 7) {
+				queryString += "and mo.crimePattern like ? ";
+				p = new Object[] { '%' + convalue + '%' };
+			}
+			if (con == 8) {
+				queryString += "and mo.briefCase like ? ";
+				p = new Object[] { '%' + convalue + '%' };
+			}
+			if (con == 9) {
+				queryString += "and mo.series like ? ";
+				p = new Object[] { '%' + convalue + '%' };
 			}
 		}
 

@@ -17,7 +17,7 @@ import org.apache.poi.hssf.util.HSSFColor;
 
 public class ExcelFileGenerator {
 
-	private final int SPLIT_COUNT = 1500; //Excel每个工作簿的行数
+	private final int SPLIT_COUNT = 500000; //Excel每个工作簿的行数
 
 	private ArrayList fieldName = null; //excel标题数据集
 

@@ -585,9 +585,9 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 		mediaImages = mediaService.loadInjurycaseByTypeAndPid(0, id);// 图像文件
 
-		injurycaseSeries = injurycaseService.queryInjurycaseBySeries(injurycase
-				.getSeries(), id);// 获得同系列案件(已串并案)
-		getInjurycaseByKeyword(keyword, id);
+		//injurycaseSeries = injurycaseService.queryInjurycaseBySeries(injurycase.getSeries(), id);// 获得同系列案件(已串并案)
+		
+		//getInjurycaseByKeyword(keyword, id);
 
 		return "loadcba";
 

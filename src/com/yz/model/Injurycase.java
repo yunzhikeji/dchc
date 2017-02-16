@@ -54,7 +54,7 @@ public class Injurycase implements java.io.Serializable {
 	private Integer isRelated; // 是否已串并案
 	private String casePlace;// 案发地点
 	private String startTime;// 案发时间
-	private String series;// 串并案关键字
+	private String series;// 串并案关键字(串并案系列名称)
 	private Integer isOutOfTime;// 超期办理
 	private Integer isNew;
 	private String situationNum; //警情编号

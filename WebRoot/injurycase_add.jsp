@@ -16,6 +16,7 @@
 		<meta name="viewport"
 			content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
 		<meta http-equiv="Cache-Control" content="no-siteapp" />
+		<title>新增案件</title>
 		<link href="css/H-ui.min.css" rel="stylesheet" type="text/css" />
 		<link href="css/H-ui.admin.css" rel="stylesheet" type="text/css" />
 		<link href="css/ncss.css" rel="stylesheet" type="text/css" />
@@ -37,10 +38,570 @@
 		<script type="text/javascript" src="js/pageKit.js"></script>
 		<script type="text/javascript" src="js/checkUtil.js"></script>
 		<script type="text/javascript" src="js/commonUtil.js"></script>
-		<title>新增案件</title>
 
+		<link rel="stylesheet"
+			href="lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
+		<script type="text/javascript"
+			src="lib/zTree/v3/js/jquery.ztree.core-3.5.js"></script>
+		<script type="text/javascript"
+			src="lib/zTree/v3/js/jquery.ztree.excheck-3.5.js"></script>
+		<script type="text/javascript">
+			var setting = {
+			check: {
+				enable: true,
+				chkStyle: "radio",
+				radioType: "all"
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			view: {
+				showLine : false
+			},
+			callback: {
+				onCheck: onCheck
+			}
+		};
+
+		var zNodes =[
+		
+			{ id:1000, pId:0, name:"预备手段", open:false},
+			
+			{ id:1100, pId:1000, name:"制造条件", open:false},
+			{ id:1101, pId:1100, name:"事先潜伏"},
+			{ id:1102, pId:1100, name:"配制钥匙"},
+			{ id:1103, pId:1100, name:"窃取钥匙"},
+			{ id:1104, pId:1100, name:"骗取钥匙"},
+			{ id:1105, pId:1100, name:"探获密码"},
+			{ id:1106, pId:1100, name:"预设圈套"},
+			{ id:1107, pId:1100, name:"预启门窗"},
+			{ id:1108, pId:1100, name:"事先踩点"},
+			{ id:1109, pId:1100, name:"调离事主"},
+			
+			{ id:1110, pId:1100, name:"搭识同宿", open:false},
+			{ id:1111, pId:1110, name:"密谋策划"},
+			{ id:1112, pId:1110, name:"寻找同伙"},
+			{ id:1113, pId:1110, name:"物色对象"},
+			{ id:1114, pId:1110, name:"预租场所"},
+			{ id:1115, pId:1110, name:"排除障碍"},
+			{ id:1116, pId:1110, name:"筹集资金"},
+			
+			{ id:1300, pId:1000, name:"准备工具", open:false},
+			{ id:1301, pId:1300, name:"预筹工具"},
+			{ id:1302, pId:1300, name:"预筹运具"},
+			{ id:1303, pId:1300, name:"预筹毒物"},
+			{ id:1304, pId:1300, name:"预筹炸药"},
+			
+			{ id:1900, pId:1000, name:"其他预备手段", open:false},
+			
+			{ id:2000, pId:0, name:"侵入手段", open:false},
+			
+			{ id:2100, pId:2000, name:"从门侵入", open:false},
+			{ id:2101, pId:2100, name:"撞门"},
+			{ id:2102, pId:2100, name:"踹门"},
+			{ id:2103, pId:2100, name:"撬门"},
+			{ id:2104, pId:2100, name:"劈门"},
+			{ id:2105, pId:2100, name:"砸门"},
+			{ id:2106, pId:2100, name:"炸门"},
+			{ id:2107, pId:2100, name:"割门"},
+			{ id:2108, pId:2100, name:"卸门"},
+			{ id:2109, pId:2100, name:"溜门"},
+			{ id:2110, pId:2100, name:"顶门"},
+			{ id:2111, pId:2100, name:"拽门"},
+			{ id:2112, pId:2100, name:"翻门"},
+			{ id:2113, pId:2100, name:"掰门"},
+			{ id:2114, pId:2100, name:"撬撞开门"},
+			{ id:2115, pId:2100, name:"撬踹开门"},
+			{ id:2116, pId:2100, name:"拆砖开门"},
+			{ id:2117, pId:2100, name:"刀削门框"},
+			{ id:2118, pId:2100, name:"拨开门闩"},
+			{ id:2119, pId:2100, name:"门上挖洞"},
+			{ id:2120, pId:2100, name:"门上烧洞"},
+			{ id:2121, pId:2100, name:"破门玻璃"},
+			{ id:2122, pId:2100, name:"卸门玻璃"},
+			{ id:2123, pId:2100, name:"窗口开门"},
+			{ id:2124, pId:2100, name:"门缝钻入"},
+			{ id:2125, pId:2100, name:"尾随入门"},
+			{ id:2126, pId:2100, name:"骗开房门"},
+			
+			{ id:2200, pId:2000, name:"从窗侵入", open:false},
+			{ id:2201, pId:2200, name:"天窗钻入"},
+			{ id:2202, pId:2200, name:"窗口钻入"},
+			{ id:2203, pId:2200, name:"气窗钻入"},
+			{ id:2204, pId:2200, name:"窗栅钻入"},
+			{ id:2205, pId:2200, name:"破坏窗框"},
+			{ id:2206, pId:2200, name:"破坏窗栅"},
+			{ id:2207, pId:2200, name:"破护窗网"},
+			{ id:2208, pId:2200, name:"破窗玻璃"},
+			{ id:2209, pId:2200, name:"卸窗玻璃"},
+			{ id:2210, pId:2200, name:"拆砖开窗"},
+			{ id:2211, pId:2200, name:"勾窗插销"},
+			{ id:2212, pId:2200, name:"破窗插销"},
+			{ id:2213, pId:2200, name:"拨钩气窗"},
+			
+			{ id:2300, pId:2000, name:"攀登侵入", open:false},
+			{ id:2301, pId:2300, name:"登物攀爬"},
+			{ id:2302, pId:2300, name:"搬物攀爬"},
+			{ id:2303, pId:2300, name:"绳索攀爬"},
+			{ id:2304, pId:2300, name:"攀爬阳台"},
+			{ id:2305, pId:2300, name:"攀脚手架"},
+			{ id:2306, pId:2300, name:"登肩越墙"},
+			{ id:2307, pId:2300, name:"攀爬越墙"},
+			{ id:2308, pId:2300, name:"攀爬跨墙"},
+			{ id:2309, pId:2300, name:"攀登倒挂"},
+			
+			{ id:2400, pId:2000, name:"洞口侵入", open:false},
+			{ id:2401, pId:2400, name:"钻洞入室"},
+			{ id:2402, pId:2400, name:"拆钻篱笆"},
+			{ id:2403, pId:2400, name:"地下挖洞"},
+			{ id:2404, pId:2400, name:"墙上挖洞"},
+			{ id:2405, pId:2400, name:"房顶开洞"},
+			{ id:2406, pId:2400, name:"钻排风口"},
+			{ id:2407, pId:2400, name:"天棚侵入"},
+			
+			{ id:2900, pId:2000, name:"其他侵入手段", open:false},
+			
+			{ id:3000, pId:0, name:"暴力胁迫手段", open:false},
+			{ id:3100, pId:3000, name:"持枪"},
+			
+			{ id:3200, pId:3000, name:"持械", open:false},
+			{ id:3210, pId:3200, name:"持锐器"},
+			{ id:3220, pId:3200, name:"持钝器"},
+			{ id:3230, pId:3200, name:"持绳"},
+			{ id:3240, pId:3200, name:"持警械"},
+			
+			{ id:3300, pId:3000, name:"引爆", open:false},
+			{ id:3301, pId:3300, name:"点火引爆"},
+			{ id:3302, pId:3300, name:"投掷引爆"},
+			{ id:3303, pId:3300, name:"拆封引爆"},
+			{ id:3304, pId:3300, name:"定时引爆"},
+			{ id:3305, pId:3300, name:"遥控引爆"},
+			{ id:3306, pId:3300, name:"拉线引爆"},
+			{ id:3307, pId:3300, name:"通电引爆"},
+			{ id:3308, pId:3300, name:"压力引爆"},
+			
+			{ id:3400, pId:3000, name:"胁迫", open:false},
+			{ id:3401, pId:3400, name:"言语胁迫"},
+			{ id:3402, pId:3400, name:"书信胁迫"},
+			{ id:3403, pId:3400, name:"露械胁迫"},
+			{ id:3404, pId:3400, name:"供毒胁迫"},
+			{ id:3405, pId:3400, name:"仗势胁迫"},
+			{ id:3406, pId:3400, name:"引爆胁迫"},
+			{ id:3407, pId:3400, name:"言敲诈胁迫"},
+			
+			{ id:3500, pId:3000, name:"施暴", open:false},
+			{ id:3501, pId:3500, name:"踢打"},
+			{ id:3502, pId:3500, name:"扼颈"},
+			{ id:3503, pId:3500, name:"勒颈"},
+			{ id:3504, pId:3500, name:"搜身"},
+			{ id:3505, pId:3500, name:"剪拉"},
+			{ id:3506, pId:3500, name:"扭膀"},
+			{ id:3507, pId:3500, name:"捆绑"},
+			{ id:3508, pId:3500, name:"捂堵"},
+			{ id:3509, pId:3500, name:"封堵"},
+			{ id:3510, pId:3500, name:"烧烫"},
+			{ id:3511, pId:3500, name:"焚烧"},
+			{ id:3512, pId:3500, name:"牙咬"},
+			{ id:3513, pId:3500, name:"麻醉"},
+			{ id:3514, pId:3500, name:"撞击"},
+			{ id:3515, pId:3500, name:"注射"},
+			{ id:3516, pId:3500, name:"电击"},
+			{ id:3517, pId:3500, name:"撒灰"},
+			{ id:3518, pId:3500, name:"高处推下"},
+			{ id:3519, pId:3500, name:"推人下水"},
+			{ id:3520, pId:3500, name:"施放毒气"},
+			{ id:3521, pId:3500, name:"释放动物"},
+			{ id:3522, pId:3500, name:"投腐蚀剂"},
+			
+			{ id:3600, pId:3000, name:"劫持", open:false},
+			{ id:3601, pId:3600, name:"劫机"},
+			{ id:3611, pId:3600, name:"劫船"},
+			{ id:3621, pId:3600, name:"劫车"},
+			{ id:3631, pId:3600, name:"劫持人质"},
+			
+			
+			{ id:3900, pId:3000, name:"其他暴力胁迫手段", open:false},
+			
+			{ id:4000, pId:0, name:"窃取手段", open:false},
+			
+			{ id:4100, pId:4000, name:"破锁开锁", open:false},
+			
+			{ id:4101, pId:4100, name:"硬物击锁"},
+			{ id:4102, pId:4100, name:"钳断锁梁"},
+			{ id:4103, pId:4100, name:"锯锉锁梁"},
+			{ id:4104, pId:4100, name:"拨弹开锁"},
+			{ id:4105, pId:4100, name:"撬扭挂锁"},
+			{ id:4106, pId:4100, name:"卸锁弹子"},
+			{ id:4107, pId:4100, name:"破锁搭扣"},
+			{ id:4108, pId:4100, name:"插片开锁"},
+			{ id:4109, pId:4100, name:"钻锁芯子"},
+			{ id:4110, pId:4100, name:"用具钩锁"},
+			{ id:4111, pId:4100, name:"套绳拉锁"},
+			{ id:4112, pId:4100, name:"解密开锁"},
+			{ id:4113, pId:4100, name:"钥匙开锁"},
+			{ id:4114, pId:4100, name:"腐剂开锁"},
+			
+			{ id:4200, pId:4000, name:"破盗金柜", open:false},
+			{ id:4201, pId:4200, name:"撬金柜门"},
+			{ id:4202, pId:4200, name:"金柜挖洞"},
+			{ id:4203, pId:4200, name:"锯柜铰链"},
+			{ id:4204, pId:4200, name:"焊割金柜"},
+			{ id:4205, pId:4200, name:"砸开金柜"},
+			{ id:4206, pId:4200, name:"剥剪柜皮"},
+			{ id:4207, pId:4200, name:"炸开金柜"},
+			{ id:4208, pId:4200, name:"钻柜锁芯"},
+			{ id:4209, pId:4200, name:"挤顶柜门"},
+			{ id:4210, pId:4200, name:"钻眼拨盘"},
+			{ id:4211, pId:4200, name:"拉盘开锁"},
+			{ id:4280, pId:4200, name:"搬走金柜"},
+			
+			{ id:4300, pId:4000, name:"破橱、箱、桌", open:false},
+			{ id:4301, pId:4300, name:"破坏板面"},
+			{ id:4302, pId:4300, name:"扩缝窃取"},
+			
+			{ id:4400, pId:4000, name:"窃包", open:false},
+			{ id:4401, pId:4400, name:"拎包"},
+			{ id:4402, pId:4400, name:"拉包"},
+			{ id:4403, pId:4400, name:"割包"},
+			{ id:4404, pId:4400, name:"调包"},
+			{ id:4405, pId:4400, name:"掏包"},
+			
+			{ id:4500, pId:4000, name:"车船作案", open:false},
+			{ id:4501, pId:4500, name:"割蓬作案"},
+			{ id:4502, pId:4500, name:"运行抛物"},
+			{ id:4503, pId:4500, name:"撬船舱板"},
+			{ id:4504, pId:4500, name:"破包掏心"},
+			{ id:4505, pId:4500, name:"运行勾物"},
+			{ id:4506, pId:4500, name:"易地转运"},
+			{ id:4507, pId:4500, name:"车窗窃取"},
+			{ id:4508, pId:4500, name:"拉开车门"},
+			{ id:4509, pId:4500, name:"破车玻璃"},
+			{ id:4510, pId:4500, name:"破车门"},
+			{ id:4511, pId:4500, name:"勾拉车门"},
+			{ id:4512, pId:4500, name:"拆盗设备"},
+			{ id:4513, pId:4500, name:"在车底挖洞"},
+			
+			{ id:4600, pId:4000, name:"窃车", open:false},
+			{ id:4601, pId:4600, name:"拎打盗车"},
+			{ id:4602, pId:4600, name:"断车锁链"},
+			{ id:4603, pId:4600, name:"撬砸车锁"},
+			{ id:4604, pId:4600, name:"搭线发车"},
+			{ id:4605, pId:4600, name:"钥匙开车"},
+			{ id:4606, pId:4600, name:"破车保险"},
+			{ id:4607, pId:4600, name:"换锁开车"},
+			{ id:4608, pId:4600, name:"拖运盗车"},
+			{ id:4609, pId:4600, name:"推车盗车"},
+			
+			{ id:4900, pId:4000, name:"其他窃取手段", open:false},
+			{ id:4901, pId:4900, name:"挑勾财物"},
+			{ id:4902, pId:4900, name:"窗口窃取"},
+			{ id:4903, pId:4900, name:"柜台窃物"},
+			{ id:4904, pId:4900, name:"柜内窃款"},
+			{ id:4905, pId:4900, name:"取寄存物"},
+			{ id:4906, pId:4900, name:"偷晾晒物"},
+			{ id:4907, pId:4900, name:"顺手牵羊"},
+			{ id:4908, pId:4900, name:"监守自盗"},
+			{ id:4909, pId:4900, name:"盗露天物"},
+			{ id:4910, pId:4900, name:"盗码并机"},
+			{ id:4911, pId:4900, name:"掘墓盗物"},
+			{ id:4912, pId:4900, name:"盗蚌取珠"},
+			{ id:4913, pId:4900, name:"钻管窃取"},
+			{ id:4914, pId:4900, name:"杀蓄盗皮"},
+			
+			{ id:5000, pId:0, name:"欺诈手段", open:false},
+			
+			{ id:5100, pId:5000, name:"冒充身份", open:false},
+			{ id:5101, pId:5100, name:"冒充外国人"},
+			{ id:5102, pId:5100, name:"冒充侨胞"},
+			{ id:5103, pId:5100, name:"冒充名人"},
+			{ id:5104, pId:5100, name:"冒充高知"},
+			{ id:5105, pId:5100, name:"冒充高干"},
+			{ id:5106, pId:5100, name:"冒充子女"},
+			{ id:5107, pId:5100, name:"冒充军人"},
+			{ id:5108, pId:5100, name:"冒充民警"},
+			{ id:5109, pId:5100, name:"冒充司法人员"},
+			{ id:5110, pId:5100, name:"冒充执勤人员"},
+			{ id:5111, pId:5100, name:"冒充稽私人员"},
+			{ id:5112, pId:5100, name:"冒充医护人员"},
+			{ id:5113, pId:5100, name:"冒充税务人员"},
+			{ id:5114, pId:5100, name:"冒充市管人员"},
+			{ id:5115, pId:5100, name:"冒充服务人员"},
+			{ id:5116, pId:5100, name:"冒充记者"},
+			{ id:5117, pId:5100, name:"冒充亲友"},
+			{ id:5118, pId:5100, name:"冒充经理"},
+			
+			{ id:5200, pId:5000, name:"冒用", open:false},
+			{ id:5201, pId:5200, name:"冒用支票"},
+			{ id:5202, pId:5200, name:"冒用署名"},
+			{ id:5203, pId:5200, name:"冒用护照"},
+			{ id:5204, pId:5200, name:"冒用执照"},
+			{ id:5205, pId:5200, name:"冒用证件"},
+			{ id:5206, pId:5200, name:"冒用牌照"},
+			{ id:5207, pId:5200, name:"冒用信用卡"},
+			{ id:5208, pId:5200, name:"冒用商标"},
+			{ id:5209, pId:5200, name:"冒用专利"},
+			
+			{ id:5300, pId:5000, name:"假借", open:false},
+			{ id:5301, pId:5300, name:"假借交友"},
+			{ id:5302, pId:5300, name:"假借招工"},
+			{ id:5303, pId:5300, name:"假借招生"},
+			{ id:5305, pId:5300, name:"假调房屋"},
+			{ id:5306, pId:5300, name:"假调工作"},
+			{ id:5308, pId:5300, name:"假谈恋爱"},
+			{ id:5310, pId:5300, name:"假帮就医"},
+			{ id:5311, pId:5300, name:"假办托运"},
+			{ id:5312, pId:5300, name:"假证租借"},
+			{ id:5313, pId:5300, name:"假传书信"},
+			{ id:5314, pId:5300, name:"假借换汇"},
+			{ id:5315, pId:5300, name:"假代购销"},
+			{ id:5316, pId:5300, name:"假借搭车"},
+			{ id:5317, pId:5300, name:"假借搭船"},
+			{ id:5318, pId:5300, name:"假借看货"},
+			{ id:5319, pId:5300, name:"假借落难"},
+			{ id:5320, pId:5300, name:"假借引资"},
+			{ id:5321, pId:5300, name:"假借贷款"},
+			{ id:5322, pId:5300, name:"假称同行"},
+			{ id:5323, pId:5300, name:"订假合同"},
+			{ id:5324, pId:5300, name:"假报出口"},
+			
+			{ id:5400, pId:5000, name:"以假充真", open:false},
+			{ id:5401, pId:5400, name:"虚设机构"},
+			{ id:5402, pId:5400, name:"虚构事实"},
+			{ id:5403, pId:5400, name:"掺杂掺假"},
+			{ id:5404, pId:5400, name:"真币掺假"},
+			{ id:5405, pId:5400, name:"假币兑真"},
+			{ id:5406, pId:5400, name:"假货充真"},
+			{ id:5407, pId:5400, name:"以次充好"},
+			{ id:5408, pId:5400, name:"以现充古"},
+			{ id:5409, pId:5400, name:"以旧充新"},
+			{ id:5410, pId:5400, name:"以假换真"},
+			{ id:5411, pId:5400, name:"虚开发票"},
+			{ id:5412, pId:5400, name:"虚假记录"},
+			
+			{ id:5500, pId:5000, name:"引诱", open:false},
+			{ id:5501, pId:5500, name:"金钱引诱"},
+			{ id:5502, pId:5500, name:"物质引诱"},
+			{ id:5503, pId:5500, name:"淫物引诱"},
+			{ id:5504, pId:5500, name:"色情引诱"},
+			{ id:5505, pId:5500, name:"名誉引诱"},
+			{ id:5506, pId:5500, name:"出国引诱"},
+			{ id:5507, pId:5500, name:"获利引诱"},
+			{ id:5508, pId:5500, name:"广告引诱"},
+			{ id:5509, pId:5500, name:"敲边引诱"},
+			{ id:5510, pId:5500, name:"旅游引诱"},
+			{ id:5511, pId:5500, name:"灌酒引诱"},
+			
+			{ id:5600, pId:5000, name:"行骗", open:false},
+			{ id:5601, pId:5600, name:"名借实骗"},
+			{ id:5602, pId:5600, name:"加工行骗"},
+			{ id:5603, pId:5600, name:"征聘行骗"},
+			{ id:5604, pId:5600, name:"单据行骗"},
+			{ id:5605, pId:5600, name:"支票行骗"},
+			{ id:5606, pId:5600, name:"拆币行骗"},
+			{ id:5607, pId:5600, name:"押物行骗"},
+			{ id:5608, pId:5600, name:"借舍行骗"},
+			{ id:5609, pId:5600, name:"设赌行骗"},
+			{ id:5610, pId:5600, name:"献宝行骗"},
+			{ id:5611, pId:5600, name:"调币行骗"},
+			{ id:5612, pId:5600, name:"抛物行骗"},
+			{ id:5613, pId:5600, name:"出租行骗"},
+			{ id:5614, pId:5600, name:"征兵行骗"},
+			{ id:5615, pId:5600, name:"迷信行骗"},
+			{ id:5616, pId:5600, name:"治病行骗"},
+			{ id:5617, pId:5600, name:"印章行骗"},
+			
+			{ id:5700, pId:5000, name:"伪造、变造", open:false},
+			{ id:5701, pId:5700, name:"制版"},
+			{ id:5702, pId:5700, name:"雕版"},
+			{ id:5703, pId:5700, name:"描绘"},
+			{ id:5704, pId:5700, name:"剪接"},
+			{ id:5705, pId:5700, name:"铸造"},
+			{ id:5706, pId:5700, name:"涂改"},
+			{ id:5707, pId:5700, name:"挖补"},
+			{ id:5708, pId:5700, name:"签名"},
+			{ id:5709, pId:5700, name:"揭层"},
+			{ id:5710, pId:5700, name:"复印"},
+			{ id:5711, pId:5700, name:"打印"},
+			{ id:5712, pId:5700, name:"铅印"},
+			{ id:5713, pId:5700, name:"冲改"},
+			{ id:5714, pId:5700, name:"翻拍"},
+			{ id:5715, pId:5700, name:"翻录"},
+			{ id:5716, pId:5700, name:"复写"},
+			{ id:5717, pId:5700, name:"书写"},
+			{ id:5718, pId:5700, name:"电脑伪造"},
+			
+			
+			{ id:5900, pId:5000, name:"其他诈骗手段", open:false},
+			
+			
+			{ id:6000, pId:0, name:"妨害手段", open:false},
+			
+			{ id:6100, pId:6000, name:"侮辱", open:false},
+			{ id:6101, pId:6100, name:"调戏"},
+			{ id:6102, pId:6100, name:"猥亵"},
+			{ id:6103, pId:6100, name:"戳胸"},
+			{ id:6104, pId:6100, name:"戳臀"},
+			{ id:6105, pId:6100, name:"顶臀"},
+			{ id:6106, pId:6100, name:"窥视"},
+			{ id:6107, pId:6100, name:"追堵"},
+			{ id:6108, pId:6100, name:"剪割头发"},
+			{ id:6109, pId:6100, name:"书信侮辱"},
+			{ id:6110, pId:6100, name:"电话侮辱"},
+			{ id:6111, pId:6100, name:"裸体露阴"},
+			{ id:6112, pId:6100, name:"撕剥衣裤"},
+			
+			{ id:6200, pId:6000, name:"寻衅滋事", open:false},
+			{ id:6202, pId:6200, name:"无理取闹"},
+			{ id:6203, pId:6200, name:"行凶伤人"},
+			{ id:6204, pId:6200, name:"强拿硬要"},
+			{ id:6205, pId:6200, name:"涂抹污物"},
+			
+			{ id:6300, pId:6000, name:"淫乱", open:false},
+			{ id:6301, pId:6300, name:"嫖宿"},
+			{ id:6302, pId:6300, name:"同性恋"},
+			{ id:6303, pId:6300, name:"色情服务"},
+			{ id:6304, pId:6300, name:"交换对象"},
+			
+			{ id:6400, pId:6000, name:"干扰", open:false},
+			{ id:6401, pId:6400, name:"非法制造"},
+			{ id:6402, pId:6400, name:"非法贩卖"},
+			{ id:6403, pId:6400, name:"非法运输"},
+			{ id:6404, pId:6400, name:"非法转移"},
+			{ id:6405, pId:6400, name:"教唆"},
+			{ id:6406, pId:6400, name:"提供条件"},
+			{ id:6407, pId:6400, name:"泄露内幕"},
+			{ id:6408, pId:6400, name:"通风报信"},
+			{ id:6409, pId:6400, name:"提供伪证"},
+			{ id:6410, pId:6400, name:"编造谣言"},
+			{ id:6412, pId:6400, name:"毁损财物"},
+			{ id:6413, pId:6400, name:"围攻"},
+			{ id:6414, pId:6400, name:"逃检抗拒"},
+			{ id:6415, pId:6400, name:"高利转贷"},
+			{ id:6416, pId:6400, name:"低售国资"},
+			{ id:6417, pId:6400, name:"非法投寄"},
+			{ id:6418, pId:6400, name:"非法张贴"},
+			{ id:6419, pId:6400, name:"非法散发"},
+			{ id:6420, pId:6400, name:"非法演讲"},
+			{ id:6421, pId:6400, name:"非法呼喊"},
+			{ id:6422, pId:6400, name:"私放"},
+			{ id:6423, pId:6400, name:"非法传真"},
+			{ id:6424, pId:6400, name:"非法递交"},
+			{ id:6425, pId:6400, name:"非法删改"},
+			{ id:6426, pId:6400, name:"非法播放"},
+			{ id:6427, pId:6400, name:"非法电脑传播"},
+			{ id:6428, pId:6400, name:"非法口头传播"},
+			{ id:6429, pId:6400, name:"修改计算机功能"},
+			{ id:6430, pId:6400, name:"删除计算机功能"},
+			{ id:6431, pId:6400, name:"干扰计算机功能"},
+			{ id:6432, pId:6400, name:"瞒报"},
+			{ id:6433, pId:6400, name:"虚报"},
+			{ id:6435, pId:6400, name:"闯关"},
+			{ id:6436, pId:6400, name:"武装掩护"},
+			{ id:6437, pId:6400, name:"卖汇"},
+			{ id:6438, pId:6400, name:"避关"},
+			{ id:6439, pId:6400, name:"非法存汇"},
+			{ id:6440, pId:6400, name:"强迫交易"},
+			{ id:6441, pId:6400, name:"逃避商检"},
+			
+			{ id:7000, pId:0, name:"伪装灭迹手段", open:false},
+			{ id:7100, pId:7000, name:"伪装", open:false},
+			{ id:7101, pId:7100, name:"男扮女装"},
+			{ id:7102, pId:7100, name:"女扮男装"},
+			{ id:7103, pId:7100, name:"化妆"},
+			{ id:7104, pId:7100, name:"蒙面"},
+			{ id:7105, pId:7100, name:"戴眼镜"},
+			{ id:7106, pId:7100, name:"戴口罩"},
+			{ id:7107, pId:7100, name:"戴手套"},
+			{ id:7108, pId:7100, name:"手贴胶布"},
+			{ id:7109, pId:7100, name:"鞋底包布"},
+			{ id:7110, pId:7100, name:"换鞋"},
+			{ id:7111, pId:7100, name:"套鞋"},
+			{ id:7112, pId:7100, name:"穿袜包布"},
+			{ id:7113, pId:7100, name:"用物铺地"},
+			{ id:7114, pId:7100, name:"整容"},
+			{ id:7115, pId:7100, name:"语言伪装"},
+			
+			{ id:7200, pId:7000, name:"毁灭痕迹", open:false},
+			{ id:7201, pId:7200, name:"扫擦灭迹"},
+			{ id:7202, pId:7200, name:"冲洗灭迹"},
+			{ id:7203, pId:7200, name:"纵火灭迹"},
+			{ id:7205, pId:7200, name:"碎尸"},
+			{ id:7206, pId:7200, name:"移尸"},
+			{ id:7207, pId:7200, name:"爆炸灭迹"},
+			{ id:7208, pId:7200, name:"撒物灭迹"},
+			
+			{ id:7300, pId:7000, name:"夹带", open:false},
+			{ id:7301, pId:7300, name:"人体夹带"},
+			{ id:7302, pId:7300, name:"随身夹带"},
+			{ id:7303, pId:7300, name:"动物夹带"},
+			{ id:7304, pId:7300, name:"车辆夹带"},
+			{ id:7305, pId:7300, name:"船只夹带"},
+			{ id:7306, pId:7300, name:"包裹夹带"},
+			{ id:7307, pId:7300, name:"飞机夹带"},
+
+			
+			{ id:7400, pId:7000, name:"藏匿", open:false},
+			{ id:7401, pId:7400, name:"地下藏匿"},
+			{ id:7402, pId:7400, name:"树林藏匿"},
+			{ id:7403, pId:7400, name:"水下藏匿"},
+			{ id:7404, pId:7400, name:"洞穴藏匿"},
+			{ id:7405, pId:7400, name:"壁内藏匿"},
+			
+			{ id:7900, pId:7000, name:"其他伪装灭迹手段", open:false},
+			{ id:8000, pId:0, name:"利用计算机手段", open:false},
+			{ id:9000, pId:0, name:"其他作案手段", open:false},
+			
+		];
+		
+		var code;		
+		function showCode(str) {
+			if (!code) code = $("#code");
+			code.empty();
+			code.append("<li>"+str+"</li>");
+		}
+		
+		$(document).ready(function(){
+			$.fn.zTree.init($("#treeDemo"), setting, zNodes);	
+		});
+		
+		
+		function onCheck(e, treeId, treeNode) {
+			var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+			nodes = zTree.getCheckedNodes(true),
+			v = "";
+			for (var i=0, l=nodes.length; i<l; i++) {
+				v += nodes[i].name + ",";
+			}
+			if (v.length > 0 ) v = v.substring(0, v.length-1);
+			var showVal = $("#crimePattern");
+			showVal.attr("value", v);
+		}
+		
+		function showMenu() {
+			
+			var cityObj = $("#crimePattern");
+			var cityOffset = $("#crimePattern").offset();
+			$("#menuContent").css({left:cityOffset.left + "px", top:cityOffset.top + cityObj.outerHeight() + "px"}).slideDown("fast");
+
+			$("body").bind("mousedown", onBodyDown);
+		}
+		
+		function hideMenu() {
+			$("#menuContent").fadeOut("fast");
+			$("body").unbind("mousedown", onBodyDown);
+		}
+		function onBodyDown(event) {
+			if (!(event.target.id == "menuBtn" || event.target.id == "crimePattern" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
+				hideMenu();
+			}
+		}
+			
+	</script>
 	</head>
 	<body>
+
 		<form name="injurycaseAddForm" action="injurycaseAction!add"
 			method="post" enctype="multipart/form-data"
 			onsubmit="return checkCase();">
@@ -246,9 +807,6 @@
 											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
 									</div>
 								</div>
-
-
-
 								<div class="row cl mb-10">
 									<div class="col-2">
 										<label class="form-label text-r">
@@ -265,8 +823,14 @@
 										</label>
 									</div>
 									<div class="col-4">
-										<s:textfield id="crimePattern" name="injurycase.crimePattern"
-											cssClass="input-text radius size-M " cssStyle="width: 200px;"></s:textfield>
+										<s:textfield id="crimePattern" name="injurycase.crimePattern" 
+											cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"
+											onclick="showMenu();"></s:textfield>
+
+										<div id="menuContent" class="menuContent"
+											style="display: none;">
+											<ul id="treeDemo" class="ztree"></ul>
+										</div>
 									</div>
 								</div>
 

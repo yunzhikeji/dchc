@@ -206,6 +206,7 @@
 						</button>
 					</div>
 
+					<!--  
 					<div class="col-12 mb-10 c-primary f-16"
 						style="border-bottom: solid 2px #ddd; color: #999">
 
@@ -330,6 +331,8 @@
 								</div>
 							</s:iterator>
 
+							-->
+							
 							<div class="col-12 mb-10  c-primary f-16"
 								style="border-bottom: solid 2px #2DABF7">
 								案件基本信息
@@ -448,6 +451,70 @@
 										readonly="true"></s:textfield>
 								</div>
 							</div>
+							<div class="row cl mb-10">
+									<div class="col-2">
+										<label class="form-label text-r">
+											警情编号：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:textfield id="situationNum" name="injurycase.situationNum"
+											cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
+									</div>
+									<div class="col-2">
+										<label class="form-label text-r">
+											作案目标：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:textfield id="crimeTarget" name="injurycase.crimeTarget"
+											cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
+									</div>
+								</div>
+								
+								<div class="row cl mb-10">
+									<div class="col-2">
+										<label class="form-label text-r">
+											作案对象：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:textfield id="crimeObject" name="injurycase.crimeObject"
+											cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
+									</div>
+									<div class="col-2">
+										<label class="form-label text-r">
+											作案方式：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:textfield id="crimePattern" name="injurycase.crimePattern"
+											cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
+									</div>
+								</div>
+
+
+								<div class="row cl mb-10">
+									<div class="col-2">
+										<label class="form-label text-r">
+											人员特征：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:textfield id="personFeature"
+											name="injurycase.personFeature"
+											cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
+									</div>
+									<div class="col-2">
+										<label class="form-label text-r">
+											物品特征：
+										</label>
+									</div>
+									<div class="col-4">
+										<s:textfield id="goodsFeature" name="injurycase.goodsFeature"
+											cssClass="input-text radius size-M " cssStyle="width: 200px;" readonly="true"></s:textfield>
+									</div>
+								</div>
 							<div class="row cl mb-10">
 								<div class="col-2">
 									<label class="form-label text-r">
