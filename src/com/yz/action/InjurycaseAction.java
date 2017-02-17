@@ -614,20 +614,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		if (series != null && !series.equals("")) {
 			series = URLDecoder.decode(series, "utf-8");
 		}
-		// ---------------------------修改当前案件串并属性
-		injurycase = injurycaseService.loadById(id);
-		if (injurycase != null) {
-			if (injurycase.getIsRelated() == null
-					|| injurycase.getIsRelated() != 1) {
-				injurycase.setIsRelated(1);
-			}
-			if (injurycase.getSeries() == null
-					|| !injurycase.getSeries().equals(series)) {
-				injurycase.setSeries(series);
-			}
-			injurycaseService.update(injurycase);
-		}
-
 		// ---------------------------修改其他案件串并属性
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
 		for (int i = 0; i < ids.length; i++) {

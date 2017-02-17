@@ -7,11 +7,15 @@ $(document).ready(function() {
 	
 	
 	$(".indexID").click(function(){
-		var indexID = $(this).val();
-		var series = $("#series"+indexID).html();
-		if(series!=undefined&&series.replace(""," ")!="")
-		{	
-			$("#series").val(series);
+		
+		if($(this)[0].checked)
+		{
+			var indexID = $(this).val();
+			var series = $("#series"+indexID).html();
+			if(series!=undefined&&series.replace(""," ")!="")
+			{	
+				$("#series").val(series);
+			}
 		}
 	});
 	
@@ -42,7 +46,6 @@ function changeVideo(id)
 function handleInjurycaseSeries()
 {
 	var series = $("#series").val();
-	var id = $("#injurycaseId").val();
 	
 	if(series==''||series==null)
 	{
@@ -61,7 +64,6 @@ function handleInjurycaseSeries()
 		}
 		console.log(checkedIDs);
 		console.log(series);
-		console.log(id);
 		if(checkedIDs=='')
 		{
 			return false;
@@ -70,7 +72,7 @@ function handleInjurycaseSeries()
 			            url:'handleInjurycaseSeries',//这里是你的action或者servlert的路径地址   
 			            type:'post', //数据发送方式   
 			            async:false,
-			            data: {"checkedIDs":checkedIDs,"series":series,"id":id},
+			            data: {"checkedIDs":checkedIDs,"series":series},
 			            dataType:'json',
 			            error: function(msg)
 			            { //失败   
@@ -118,7 +120,6 @@ function getCheckVal()
 					});
 	}
 }
-
 
 
 

@@ -231,78 +231,6 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 		}
 	}
 
-	// 设置报送部门的pids
-	private void setUnitPids(UserRole userRoleo, Judge judge) {
-		// TODO Auto-generated method stub
-		// 报送的部门
-		if (judge.getReportUnit() != null
-				&& judge.getReportUnit().replace(" ", "") != "") {
-			String reportUnit = judge.getReportUnit();
-			Set<String> unitNames = new HashSet<String>();
-			String[] arrayUnitNames = reportUnit.split(",");
-			for (int i = 0; i < arrayUnitNames.length; i++) {
-				unitNames.add(arrayUnitNames[i]);
-			}
-			for (String uname : unitNames) {
-
-				Unit unit = unitService.getUnitByName(uname);
-				// 设置部门pids
-				unitService.updateUnitByUserRoleAndInfoType(unit, judge
-						.getPerson().getId()
-						+ "", InfoType.PERSON, 1);
-			}
-
-		}
-	}
-
-	// 设置报送部门的inids
-	private void setUnitInids(UserRole userRoleo, Judge judge) {
-		// TODO Auto-generated method stub
-		// 报送的部门
-		if (judge.getReportUnit() != null
-				&& judge.getReportUnit().replace(" ", "") != "") {
-			String reportUnit = judge.getReportUnit();
-			Set<String> unitNames = new HashSet<String>();
-			String[] arrayUnitNames = reportUnit.split(",");
-			for (int i = 0; i < arrayUnitNames.length; i++) {
-				unitNames.add(arrayUnitNames[i]);
-			}
-			for (String uname : unitNames) {
-
-				Unit unit = unitService.getUnitByName(uname);
-				// 设置部门inids
-				unitService.updateUnitByUserRoleAndInfoType(unit, judge
-						.getInjurycase().getId()
-						+ "", InfoType.CASE, 1);
-			}
-
-		}
-	}
-
-	// 设置报送部门的cids
-	private void setUnitCids(UserRole userRoleo, Judge judge) {
-		// TODO Auto-generated method stub
-		// 报送的部门
-		if (judge.getReportUnit() != null
-				&& judge.getReportUnit().replace(" ", "") != "") {
-			String reportUnit = judge.getReportUnit();
-			Set<String> unitNames = new HashSet<String>();
-			String[] arrayUnitNames = reportUnit.split(",");
-			for (int i = 0; i < arrayUnitNames.length; i++) {
-				unitNames.add(arrayUnitNames[i]);
-			}
-			for (String uname : unitNames) {
-
-				Unit unit = unitService.getUnitByName(uname);
-				// 设置部门cids
-				unitService.updateUnitByUserRoleAndInfoType(unit, judge
-						.getClue().getId()
-						+ "", InfoType.CLUE, 1);
-			}
-
-		}
-	}
-
 	private void changeHandleStateAndJudgeIndex(Integer id, InfoType infoType,
 			int currentJtype) {
 
@@ -409,7 +337,9 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 		}
 
 		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
-
+		
+		Unit unit = unitService.getUnitById(userRole.getUnit().getId());
+		
 		List<Judge> judges = judgeService.getNewJudges();
 
 		List<AjaxMsgVO> judgeVOs = new ArrayList<AjaxMsgVO>();
@@ -422,10 +352,10 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 				if (judge.getPerson() != null) {
 
 					// 查看权限
-					if (isContainID(userRole.getUnit().getPids(), judge
+					if (isContainID(unit.getPids(), judge
 							.getPerson().getId().toString())
 							|| userRole.getUserLimit() == 2
-							|| userRole.getUnit().getNumber().equals(
+							|| unit.getNumber().equals(
 									"371402020000")) {
 
 						judgeVO.setId(judge.getPerson().getId());
@@ -491,10 +421,10 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 
 				if (judge.getInjurycase() != null) {
 					// 查看权限
-					if (isContainID(userRole.getUnit().getInids(), judge
+					if (isContainID(unit.getInids(), judge
 							.getInjurycase().getId().toString())
 							|| userRole.getUserLimit() == 2
-							|| userRole.getUnit().getNumber().equals(
+							|| unit.getNumber().equals(
 									"371402020000")) {
 
 						judgeVO.setId(judge.getInjurycase().getId());
@@ -531,10 +461,10 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 				if (judge.getClue() != null) {
 
 					// 查看权限
-					if (isContainID(userRole.getUnit().getCids(), judge
+					if (isContainID(unit.getCids(), judge
 							.getClue().getId().toString())
 							|| userRole.getUserLimit() == 2
-							|| userRole.getUnit().getNumber().equals(
+							|| unit.getNumber().equals(
 									"371402020000")) {
 						judgeVO.setId(judge.getClue().getId());
 						judgeVO.setName(judge.getClue().getTitle());
@@ -577,6 +507,11 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 
 	private boolean isContainID(String ids, String id) {
 
+		if(ids==null||ids.replace(" ", "").equals(""))
+		{
+			return false;
+		}
+		
 		String[] idString = ids.split(",");
 
 		List<String> list = Arrays.asList(idString);

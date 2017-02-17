@@ -71,6 +71,20 @@
 									cssClass="input-text" name="queryState" listKey="key"
 									listValue="value" cssStyle="width:180px"></s:select>
 							</td>
+							<td align="left" style="padding-left: 50px;">
+							<label class="text-r">
+									串并案系列名称：
+								</label>
+								<s:textfield name="injurycase.series"
+									cssClass="input-text" id="series"
+									cssStyle="width: 200px">
+								</s:textfield>
+								<button type="button" onclick="handleInjurycaseSeries();"
+									class="btn btn-success" id="" name="" title="串并">
+									串并案件
+								</button>
+									</td>
+							
 						</tr>
 						<tr>
 							<td colspan="2" align="right">
@@ -127,7 +141,7 @@
 								</div>
 								<div class="video-title">
 									<s:if test="isRelated==1">
-										<span class="video-cate">串并案系列名称：<s:property
+										串并案系列名称：<span class="video-cate" id="series<s:property value="id"/>"><s:property
 												value="series" /> </span>
 									</s:if>
 									<s:else>
@@ -152,6 +166,10 @@
 										<span class="video-cate">已完结</span>
 									</s:if>
 								</div> </a>
+								<div style="float:right;  width: 20px; height: 20px;">
+								<input style="height:16px; width:16px;" id="indexID" name="indexID"  type="checkbox"
+													class="indexID" value="<s:property value="id"/>">
+											</div>
 						</li>
 					</s:iterator>
 				</ul>
