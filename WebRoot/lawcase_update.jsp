@@ -54,9 +54,8 @@
 						</label>
 					</div>
 					<div class="col-4">
-					<s:select list="#{1:'案件性质1',2:'案件性质2'}"
-									cssClass="input-text" name="lawcase.caseType" listKey="key"
-							listValue="value" cssStyle="width:200px"></s:select>
+					<s:textfield id="caseType" cssClass="input-text radius size-M"
+							cssStyle="width:200px;" name="lawcase.caseType"></s:textfield>
 					</div>
 				</div>
 				<div class="row cl mb-10">

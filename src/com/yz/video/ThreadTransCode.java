@@ -14,6 +14,8 @@ public class ThreadTransCode implements Runnable {
 	public void run() {
 		synchronized (this) {
 			System.out.println("转码开始..............");
+			
+			
 			ConvertVideo cv = new ConvertVideo(videoPath, targetPath);
 			cv.process();
 		}

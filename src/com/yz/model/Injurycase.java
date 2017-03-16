@@ -59,7 +59,7 @@ public class Injurycase implements java.io.Serializable {
 	private Integer isNew;
 	private String situationNum; //警情编号
 	private String crimeTarget; //作案目标
-	private String crimeObject; //作案对象
+	private String crimeObject; //作案工具
 	private String crimePattern; //作案方式
 	private String personFeature; //人员特征
 	private String goodsFeature; //物品特征

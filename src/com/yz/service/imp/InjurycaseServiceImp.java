@@ -157,6 +157,10 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 				queryString += "and mo.series like ? ";
 				p = new Object[] { '%' + convalue + '%' };
 			}
+			if (con == 10) {
+				queryString += "and mo.crimeObject like ? ";
+				p = new Object[] { '%' + convalue + '%' };
+			}
 			
 		}
 		if (queryState != 0) {
@@ -245,6 +249,10 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 			}
 			if (con == 9) {
 				queryString += "and mo.series like ? ";
+				p = new Object[] { '%' + convalue + '%' };
+			}
+			if (con == 10) {
+				queryString += "and mo.crimeObject like ? ";
 				p = new Object[] { '%' + convalue + '%' };
 			}
 		}

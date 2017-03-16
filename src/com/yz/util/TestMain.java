@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.yz.video.ConvertVideo;
+
 public class TestMain {
 
 	/**
@@ -15,9 +17,12 @@ public class TestMain {
 
 	public static void main(String[] args) throws ParseException {
 		
-	
+		String videoPath = "D:/importentDCHCFile/media/20170222121459372.avi";
 		
-		System.out.println();
+		String targetPath = "D:/importentDCHCFile/media/20170222121500258.mp4";
+		
+		ConvertVideo cv = new ConvertVideo(videoPath, targetPath);
+		cv.process();
 
 	
 	}

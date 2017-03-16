@@ -475,7 +475,7 @@
 								<div class="row cl mb-10">
 									<div class="col-2">
 										<label class="form-label text-r">
-											作案对象：
+											作案工具：
 										</label>
 									</div>
 									<div class="col-4">
