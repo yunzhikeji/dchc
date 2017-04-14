@@ -6,32 +6,25 @@ http://www.H-ui.net
 date:2015.6.5
 Created & Modified by guojunhui.
 ----------------------------------------------*/
-body{font-size:14px}
+body{font-size:14px;}
 
-.header,.footer{ position:absolute; left:0; right:0; width:100%; z-index:99}
 .header{
-	top: 0;
-	height: 60px;
-	background-color: #043963;
-	background-repeat: no-repeat;
-	background-position: 0 center;
+    margin-top:-200px;
+	height: 10px;
+	background-color: #36a9e0;
+	background-repeat:repeat;
 }
 
-.loginWraper{ position:absolute;width:100%; left:0; top:0; bottom:0; right:0; z-index:1; background:#3283AC url(../images/admin-login-bg.jpg) no-repeat center}
+.loginWraper{ width:100%; background:#FFF;}
+.loginBoxh{ width:100%; height:720px; background:#36a9e0 url(../images/headback.jpg) no-repeat center;}
 .loginBox{
-	position: absolute;
-	width: 617px;
-	height: 330px;
-	left: 50%;
-	top: 50%;
-	margin-left: -309px;
-	margin-top: -184px;
+	width: 600px;
+	height: 300px;
+	margin:0 auto;
 	padding-top: 50px;
-	background-repeat: no-repeat;
-	background-image: url(../images/admin-loginform-bg.png);
 }
 @media (max-width:617px) {
-	.loginbox{ width:100%; position:static; margin-top:0; margin-left:0;}
+	.loginBox{ width:100%; margin-top:0; margin-left:0;}
 }
 .loginBox .row{margin-top:20px;}
 .loginBox .row .form-label .Hui-iconfont{ font-size:24px}
@@ -48,13 +41,13 @@ body{font-size:14px}
 .hd_msg a:hover{ color:#fff; text-decoration:underline}
 
 .footer{
-	height: 46px;
-	line-height: 46px;
-	bottom: 0;
-	text-align: center;
-	color: #fff;
-	font-size: 12px;
-	background-color: #043963
+	width:100%;
+	height: 20px;
+	padding-top:10px;
+	text-align:center;
+	font:12px '微软雅黑', Arial;
+	color: #FFF;
+	background: #36a9e0;
 }
 
 #ie6-warning{background:#fff url(/jscss/demoimg/201006/warning.gif) no-repeat 3px center;position:absolute;top:0;left:0;font-size:12px;color:#333;width:97%;padding: 2px 15px 2px 23px;text-align:left}

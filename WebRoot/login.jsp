@@ -159,6 +159,7 @@ function doDataProcess(){
 		<input type="hidden" id="TenantId" name="TenantId" value="" />
 		<div class="header"></div>
 		<div class="loginWraper">
+		<div class="loginBoxh"></div>
 			<div id="loginform" class="loginBox">
 				<form name="userForm" class="form form-horizontal"
 					action="userRoleAction!login" method="post">
@@ -169,13 +170,11 @@ function doDataProcess(){
 							<div class="row cl">
 								<div style="height: 30px;">
 									<span
-										style="color: #ff0000; font-size: 16px; margin-left: 100px;">${loginFail
+										style="color: #ff0000; font-size: 16px;">${loginFail
 										}</span>
 									<br />
 								</div>
-								<label class="form-label col-3" style="line-height: 30px;">
-									<i class="Hui-iconfont">&#xe60d;</i>
-								</label>
+								
 
 								<div class="formControls col-5">
 									<input id="" name="username" type="text" placeholder="账户"
@@ -183,36 +182,37 @@ function doDataProcess(){
 								</div>
 							</div>
 							<div class="row cl">
-								<label class="form-label col-3 " style="line-height: 30px;">
-									<i class="Hui-iconfont">&#xe60e;</i>
-								</label>
 								<div class="formControls col-5">
 									<input id="" name="password" type="password" placeholder="密码"
 										class="input-text size-m" style="width: 250px;">
 								</div>
 							</div>
 							<div class="row">
-								<div class="formControls col-8 col-offset-3">
+								
 									<label for="online">
 										<input name="checkup" id="checkup" type="checkbox"
-											checked="checked" style="margin-bottom: 8px;" />
+											checked="checked"/>
 										记住密码
 									</label>
-								</div>
+									<label for="online">
+										<input name="certificate" id="certificate" type="checkbox"
+										 onclick="doDataProcess();" style="margin-left:70px"/>
+										使用证书登录
+									</label>
+							
+							
 							</div>
 							<input type="hidden" id="RootCADN" value="" width="30" />
 							<input type="hidden" id="signed_data" name="signed_data" />
 							<input type="hidden" id="original_jsp" name="original_jsp" />
 
 							<div class="row">
-								<div class="formControls col-12 col-offset-3">
+								<div>
 									<input name="" type="reset"
 										class="btn btn-default radius size-L"
-										value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
-									<input type="submit" class="btn btn-success radius size-L"
-										name="" value="登陆" />
-									<input type="button" class="btn btn-success radius size-L"
-										name="" onclick="doDataProcess();" value="证书登陆" />
+										value="&nbsp;&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;&nbsp;" style="padding:5px 25px">
+									<input type="submit" class="btn btn-secondary radius size-L"
+										name="" value="&nbsp;&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;陆&nbsp;&nbsp;" style="padding:5px 25px" />
 								</div>
 							</div>
 
@@ -226,7 +226,7 @@ function doDataProcess(){
 			</div>
 		</div>
 		<div class="footer">
-			Copyright 德城公安 by 江苏云知智能科技有限公司
+		Copyright 德城公安 by 江苏云知智能科技有限公司	
 		</div>
 		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
 		<script type="text/javascript" src="js/H-ui.js"></script>
