@@ -48,4 +48,6 @@ public interface IMediaService {
 
 	public abstract String setInjurycaseIdsSql(String queryString,String convalue, int mtype);
 
+	public abstract List<Media> loadJudgeByJid(int jid);
+
 }

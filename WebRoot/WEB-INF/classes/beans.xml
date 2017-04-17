@@ -26,6 +26,9 @@
 	<context:component-scan base-package="com.yz" />
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 	
+	<!-- 如何取得Spring管理的bean   -->
+	<bean class="com.yz.util.SpringContextHolder" lazy-init="false" />
+	
 	<!-- 线程池 -->
 	<bean id="taskExecutor"
 		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">

@@ -364,7 +364,7 @@ function deleteOtherperson(otherid)
 //删除案件视频
 function deleteMedia(mid)
 {
-		if(confirm('你确定删除该媒体吗？'))
+		if(confirm('你确定删除该文件吗？'))
 		{
 			$.ajax({   
 			            url:'deleteMedia',//这里是你的action或者servlert的路径地址   

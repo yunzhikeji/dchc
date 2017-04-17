@@ -16,10 +16,11 @@ public class Media {
 	private String title; // 媒体名称
 	private String descript; // 媒体描述
 	private String src; // 媒体存放地址
-	private Integer mtype; // 媒体类型(0:图片，1：视频)
+	private Integer mtype; // 文件类型(0:图片，1：视频,2:文档文件,3:其他)
 	private String uptime; // 上传时间
 	private String picSrc;// 视频截图图片
 	private Injurycase injurycase;// 所属案件
+	private Judge judge;// 所属研判
 	private String captureSrc;
 
 	@Column(name = "descript")
@@ -65,6 +66,16 @@ public class Media {
 		return picSrc;
 	}
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "jid")
+	public Judge getJudge() {
+		return judge;
+	}
+
+	public void setJudge(Judge judge) {
+		this.judge = judge;
+	}
+
 	public void setPicSrc(String picSrc) {
 		this.picSrc = picSrc;
 	}
@@ -101,6 +112,7 @@ public class Media {
 		return "{id:" + this.id + "," + "title:" + "\"" + this.title + "\""
 				+ "," + "src:" + "\"" + this.src + "\"" + "}";
 	}
+
 	@Column(name = "captureSrc")
 	public String getCaptureSrc() {
 		return captureSrc;

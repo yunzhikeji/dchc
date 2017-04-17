@@ -12,7 +12,7 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<title>修改媒体视频信息</title>
+		<title>修改文件信息</title>
 		<link href="css/H-ui.min.css" rel="stylesheet" type="text/css" />
 		<link href="css/H-ui.admin.css" rel="stylesheet" type="text/css" />
 		<link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet"
@@ -38,7 +38,7 @@
 				<div class="row cl mb-10">
 					<div class="col-2">
 						<label class="form-label text-r">
-							媒体名称：
+							文件名称：
 						</label>
 					</div>
 					<div class="col-4">
@@ -49,7 +49,7 @@
 				<div class="row cl mb-10">
 					<div class="col-2">
 						<label class="form-label text-r">
-							媒体描述：
+							文件描述：
 						</label>
 					</div>
 					<div class="col-4">
@@ -74,20 +74,20 @@
 				<div class="row cl mb-10">
 					<div class="col-2">
 						<label class="form-label text-r">
-							视频：
+							文件：
 						</label>
 					</div>
 					<div class="col-10">
 						<div class="col-3">
-							<s:file name="picture1" accept="video/*" onchange="change1();"
+							<s:file name="picture1"  onchange="change1();"
 								id="myfile1"></s:file>
 							<script type="text/javascript">
 								function change1() {
 								   var     file1 = document.getElementById("myfile1");
 								    var ext1=file1.value.substring(file1.value.lastIndexOf(".")+1).toLowerCase();
 								     // gif在IE浏览器暂时无法显示
-								     if(ext1!='mp4'&&ext1!='avi'){
-								         alert("视频的格式必须为mp4或者avi！");
+								     if(ext1!='mp4'&&ext1!='avi'&&ext1!='doc'&&ext1!='docx'&&ext1!='jpg'&&ext1!='png'){
+								         alert("文件格式不正确！");
 								         file1.value=""; 
 								         return;
 								     }

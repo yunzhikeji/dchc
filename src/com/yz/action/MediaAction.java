@@ -37,8 +37,10 @@ import sun.misc.BASE64Decoder;
 import com.opensymphony.xwork2.ActionSupport;
 import com.yz.auth.AuthObject;
 import com.yz.model.Injurycase;
+import com.yz.model.Judge;
 import com.yz.model.Media;
 import com.yz.service.IInjurycaseService;
+import com.yz.service.IJudgeService;
 import com.yz.service.IMediaService;
 import com.yz.util.DateTimeKit;
 import com.yz.video.ThreadTransCode;
@@ -65,12 +67,15 @@ public class MediaAction extends ActionSupport implements RequestAware,
 	// 条件
 	private int id;
 	private int inid; // 案件id
+	private int jid; // 研判
 	private int mid;// 媒体ID
 	private int mtype;
 
 	// service层对象
 	@Resource
 	private IMediaService mediaService;
+	@Resource
+	private IJudgeService judgeService;
 	@Resource
 	private IInjurycaseService injurycaseService;
 
@@ -83,6 +88,7 @@ public class MediaAction extends ActionSupport implements RequestAware,
 
 	// 单个表对象
 	private Injurycase injurycase;
+	private Judge judge;
 	private Media media;
 
 	// list表对象
@@ -95,7 +101,12 @@ public class MediaAction extends ActionSupport implements RequestAware,
 	 * @return
 	 */
 	public String goToAdd() {
-		injurycase = injurycaseService.loadById(inid);
+		
+		if (mtype > 1) {
+			judge = judgeService.loadById(jid);
+		} else {
+			injurycase = injurycaseService.loadById(inid);
+		}
 		return "add";
 	}
 
@@ -106,30 +117,47 @@ public class MediaAction extends ActionSupport implements RequestAware,
 	 * @throws Exception
 	 */
 	public String add() throws Exception {
+		
 		String imageName = "";
 		if (picture1 != null && picture1FileName != null
 				&& !picture1FileName.replace(" ", "").equals("")) {
-			imageName = DateTimeKit.getDateRandom()
-					+ picture1FileName.substring(picture1FileName.indexOf("."));
+			String suffix = picture1FileName.substring(picture1FileName
+					.indexOf("."));
+			imageName = DateTimeKit.getDateRandom() + suffix;
 			this.upload("/media", imageName, picture1);
 
-			String newFileName = DateTimeKit.getDateRandom() + ".mp4";
+			if (media.getMtype() == 1) {
+				// 视频文件上传,
+				String newFileName = DateTimeKit.getDateRandom() + ".mp4";
 
-			taskExecutor.execute(new ThreadTransCode(authObject.getFileRoot()
-					+ "/media" + "/" + imageName, authObject.getFileRoot()
-					+ "/media" + "/" + newFileName));
+				// 因为扩展了前台方法,所以需要判断是否是视频格式,再进行转码
+				// 调用ffmpeg执行转码工作
 
-			media.setSrc("/media" + "/" + newFileName);
+				if (suffix.equals("avi")||suffix.equals("mp4"))
+				{
+					taskExecutor.execute(new ThreadTransCode(authObject
+							.getFileRoot()
+							+ "/media" + "/" + imageName, authObject
+							.getFileRoot()
+							+ "/media" + "/" + newFileName));
+				}
+				media.setSrc("/media" + "/" + newFileName);
+			} else {
+				// 非视频文件上传
+				media.setSrc("/media" + "/" + imageName);
+			}
+
 		}
 
 		if (media.getInjurycase() != null) {
 			changeInjurycaseHandleState(media.getInjurycase().getId());
 		}
+
 		mediaService.add(media);
 
-		//转换成功后将源文件删除
-		//File photofile = new File(authObject.getFileRoot() + imageName);
-		//photofile.delete();
+		// 转换成功后将源文件删除
+		// File photofile = new File(authObject.getFileRoot() + imageName);
+		// photofile.delete();
 
 		return "success_child";
 	}
@@ -268,6 +296,7 @@ public class MediaAction extends ActionSupport implements RequestAware,
 	 */
 	public String load() {
 		media = mediaService.loadById(mid);
+		
 		return "load";
 	}
 
@@ -551,6 +580,30 @@ public class MediaAction extends ActionSupport implements RequestAware,
 
 	public void setCapture(String capture) {
 		this.capture = capture;
+	}
+
+	public int getJid() {
+		return jid;
+	}
+
+	public void setJid(int jid) {
+		this.jid = jid;
+	}
+
+	public IJudgeService getJudgeService() {
+		return judgeService;
+	}
+
+	public void setJudgeService(IJudgeService judgeService) {
+		this.judgeService = judgeService;
+	}
+
+	public Judge getJudge() {
+		return judge;
+	}
+
+	public void setJudge(Judge judge) {
+		this.judge = judge;
 	}
 
 }

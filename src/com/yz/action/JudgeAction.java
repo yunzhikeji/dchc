@@ -34,12 +34,14 @@ import com.yz.auth.AuthObject;
 import com.yz.model.Clue;
 import com.yz.model.Injurycase;
 import com.yz.model.Judge;
+import com.yz.model.Media;
 import com.yz.model.Person;
 import com.yz.model.Unit;
 import com.yz.model.UserRole;
 import com.yz.service.IClueService;
 import com.yz.service.IInjurycaseService;
 import com.yz.service.IJudgeService;
+import com.yz.service.IMediaService;
 import com.yz.service.IPersonService;
 import com.yz.service.IUnitService;
 import com.yz.service.IUserRoleService;
@@ -88,6 +90,8 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 	private IUnitService unitService;
 	@Resource
 	private IUserRoleService userRoleService;
+	@Resource
+	private IMediaService mediaService;
 
 	@Resource(name = "authObject")
 	private AuthObject authObject;
@@ -111,6 +115,7 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 	private List<Judge> judges;
 	private List<UnitVO> unitVOs;
 	private List<Unit> units;
+	private List<Media> medias;
 
 	/**
 	 * 发起研判模块
@@ -303,6 +308,8 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 	}
 
 	public String load() {
+
+		medias = mediaService.loadJudgeByJid(jid);// 其他文件
 		judge = judgeService.loadById(jid);
 		return "load";
 	}
@@ -337,9 +344,9 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 		}
 
 		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
-		
+
 		Unit unit = unitService.getUnitById(userRole.getUnit().getId());
-		
+
 		List<Judge> judges = judgeService.getNewJudges();
 
 		List<AjaxMsgVO> judgeVOs = new ArrayList<AjaxMsgVO>();
@@ -352,11 +359,10 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 				if (judge.getPerson() != null) {
 
 					// 查看权限
-					if (isContainID(unit.getPids(), judge
-							.getPerson().getId().toString())
+					if (isContainID(unit.getPids(), judge.getPerson().getId()
+							.toString())
 							|| userRole.getUserLimit() == 2
-							|| unit.getNumber().equals(
-									"371402020000")) {
+							|| unit.getNumber().equals("371402020000")) {
 
 						judgeVO.setId(judge.getPerson().getId());
 						judgeVO.setName(judge.getPerson().getName());
@@ -421,11 +427,10 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 
 				if (judge.getInjurycase() != null) {
 					// 查看权限
-					if (isContainID(unit.getInids(), judge
-							.getInjurycase().getId().toString())
+					if (isContainID(unit.getInids(), judge.getInjurycase()
+							.getId().toString())
 							|| userRole.getUserLimit() == 2
-							|| unit.getNumber().equals(
-									"371402020000")) {
+							|| unit.getNumber().equals("371402020000")) {
 
 						judgeVO.setId(judge.getInjurycase().getId());
 						judgeVO.setName(judge.getInjurycase().getCaseName());
@@ -461,11 +466,10 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 				if (judge.getClue() != null) {
 
 					// 查看权限
-					if (isContainID(unit.getCids(), judge
-							.getClue().getId().toString())
+					if (isContainID(unit.getCids(), judge.getClue().getId()
+							.toString())
 							|| userRole.getUserLimit() == 2
-							|| unit.getNumber().equals(
-									"371402020000")) {
+							|| unit.getNumber().equals("371402020000")) {
 						judgeVO.setId(judge.getClue().getId());
 						judgeVO.setName(judge.getClue().getTitle());
 						switch (judge.getClue().getCtype()) {
@@ -507,11 +511,10 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 
 	private boolean isContainID(String ids, String id) {
 
-		if(ids==null||ids.replace(" ", "").equals(""))
-		{
+		if (ids == null || ids.replace(" ", "").equals("")) {
 			return false;
 		}
-		
+
 		String[] idString = ids.split(",");
 
 		List<String> list = Arrays.asList(idString);
@@ -793,6 +796,22 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 
 	public void setPicture1FileName(String picture1FileName) {
 		this.picture1FileName = picture1FileName;
+	}
+
+	public IMediaService getMediaService() {
+		return mediaService;
+	}
+
+	public void setMediaService(IMediaService mediaService) {
+		this.mediaService = mediaService;
+	}
+
+	public List<Media> getMedias() {
+		return medias;
+	}
+
+	public void setMedias(List<Media> medias) {
+		this.medias = medias;
 	}
 
 }

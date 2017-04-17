@@ -16,6 +16,8 @@
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
 		<link href="lib/Hui-iconfont/1.0.1/iconfont.css" rel="stylesheet"
 			type="text/css" />
+		<link href="css/H-ui.min.css" rel="stylesheet" type="text/css" />
+		<link href="css/H-ui.admin.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
 		<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
 		<script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>
@@ -30,6 +32,8 @@
 			src="lib/zTree/v3/js/jquery.ztree.core-3.5.js"></script>
 		<script type="text/javascript"
 			src="lib/zTree/v3/js/jquery.ztree.excheck-3.5.js"></script>
+		<script type="text/javascript" src="js/checkUtil.js"></script>
+		<script type="text/javascript" src="js/commonUtil.js"></script>
 		<script type="text/javascript">
 		var setting = {
 			check: {
@@ -162,8 +166,8 @@
 						<tr>
 							<td align="center">
 								<img id="myimage1" class="img-responsive thumbnail"
-									src="${judge.scanImage}" width="300px"
-									height="280px;" alt="扫描件" />
+									src="${judge.scanImage}" width="300px" height="280px;"
+									alt="扫描件" />
 								<script type="text/javascript">
 															function change1() {
 															    var pic1 = document.getElementById("myimage1"),
@@ -215,9 +219,6 @@
 						</tr>
 					</table>
 				</div>
-
-
-
 
 				<div class="row cl">
 					<label class="form-label col-2">
@@ -318,8 +319,69 @@
 										placeholder="图像信息"></s:textarea> </span> </span>
 						</div>
 					</s:if>
-					<s:hidden name="judge.isNew" value="0"></s:hidden>
-					<s:hidden name="judge.scanImage" title="扫描件"></s:hidden>
+					<div class="row cl">
+						<div class="col-12 mb-0 c-primary f-16"
+							style="border-bottom: solid 2px #2DABF7; line-height: 43px;">
+							文件信息
+							<input class="btn btn-primary radius mt-10 f-r" type="button"
+								onclick="addPage('新增文件','mediaAction!goToAdd?jid=<s:property value="judge.id"/>&mtype=3','500','300')"
+								value="新增文件">
+						</div>
+						<div class="col-12">
+							<table class="table table-border table-bg mb-10"
+								style="table-layout: fixed;">
+								<thead>
+									<tr>
+										<th>
+											序号
+										</th>
+										<th>
+											文件标题
+										</th>
+										<th>
+											文件描述
+										</th>
+										<th>
+											操作
+										</th>
+									</tr>
+								</thead>
+								<tbody>
+									<s:if test="medias.size>0">
+										<s:iterator value="medias" var="media" status="status">
+											<tr>
+												<td>
+													<s:property value="#status.index+1" />
+												</td>
+												<td>
+													<a href="mediaAction!view?mid=<s:property value="id" />"
+														onclick="javascript:void(0)"> <s:property
+															value="title" /> </a>
+												</td>
+												<td>
+													<s:property value="descript" />
+												</td>
+												<td>
+													<a style="text-decoration: none" class="ml-5"
+														onclick="addPage('编辑视频','mediaAction!load?mid=<s:property value="id" />','300','200')"
+														href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i>
+													</a>
+													<a style="text-decoration: none" class="ml-5"
+														href="javascript:;"
+														onclick="deleteMedia(<s:property value="id" />);"
+														title="删除"><i class="Hui-iconfont">&#xe6e2;</i> </a>
+													<a href="<s:property value="src" />"><i
+														class="Hui-iconfont">下载</i> </a>
+												</td>
+											</tr>
+										</s:iterator>
+									</s:if>
+								</tbody>
+							</table>
+						</div>
+
+						<s:hidden name="judge.isNew" value="0"></s:hidden>
+						<s:hidden name="judge.scanImage" title="扫描件"></s:hidden>
 				</s:if>
 				<div class="row cl">
 					<s:token></s:token>

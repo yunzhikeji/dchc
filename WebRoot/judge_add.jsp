@@ -117,8 +117,9 @@
 
 	<body>
 		<div class="pd-20">
-			<form name="judgeAddForm" class="form form-horizontal"  enctype="multipart/form-data" 
-				action="judgeAction!add" method="post" onsubmit="">
+			<form name="judgeAddForm" class="form form-horizontal"
+				enctype="multipart/form-data" action="judgeAction!add" method="post"
+				onsubmit="">
 
 				<s:if test="pid!=null&&pid!=0">
 					<input type="hidden" name="judge.person.id" value="${pid}" />
@@ -255,16 +256,16 @@
 								cssStyle="width: 113%; height: 120px; float: left;"></s:textarea>
 					</span> </span>
 				</div>
-				<div class="row cl">
-					<s:token></s:token>
-					<div class="col-10 col-offset-2">
-						<input type="submit" class="btn btn-primary radius" value="保存并提交" />
-						<button onclick="childPage_close();"
-							class="btn btn-default radius" type="button">
-							&nbsp;&nbsp;取消&nbsp;&nbsp;
-						</button>
+					<div class="row cl">
+						<s:token></s:token>
+						<div class="col-10 col-offset-2">
+							<input type="submit" class="btn btn-primary radius" value="保存并提交" />
+							<button onclick="childPage_close();"
+								class="btn btn-default radius" type="button">
+								&nbsp;&nbsp;取消&nbsp;&nbsp;
+							</button>
+						</div>
 					</div>
-				</div>
 			</form>
 		</div>
 	</body>

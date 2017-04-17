@@ -158,18 +158,18 @@ public class MediaServiceImp implements IMediaService {
 		return mediaDao.getMediaById(upmediaid);
 	}
 
-	public List<Media> loadByTypeAndPid(int jtype, Integer pid) {
+	public List<Media> loadByTypeAndPid(int mtype, Integer pid) {
 		// TODO Auto-generated method stub
-		String queryString = "from Media mo where mo.jtype=:jtype and mo.person.id=:pid";
-		String[] paramNames = new String[] { "jtype", "pid" };
-		Object[] values = new Object[] { jtype, pid };
+		String queryString = "from Media mo where mo.mtype=:mtype and mo.person.id=:pid";
+		String[] paramNames = new String[] { "mtype", "pid" };
+		Object[] values = new Object[] { mtype, pid };
 		return mediaDao.queryList(queryString, paramNames, values);
 	}
 
-	public List<Media> loadClueByTypeAndPid(int jtype, Integer cid) {
-		String queryString = "from Media mo where mo.jtype=:jtype and mo.clue.id=:cid";
-		String[] paramNames = new String[] { "jtype", "cid" };
-		Object[] values = new Object[] { jtype, cid };
+	public List<Media> loadClueByTypeAndPid(int mtype, Integer cid) {
+		String queryString = "from Media mo where mo.mtype=:mtype and mo.clue.id=:cid";
+		String[] paramNames = new String[] { "mtype", "cid" };
+		Object[] values = new Object[] { mtype, cid };
 		return mediaDao.queryList(queryString, paramNames, values);
 	}
 
@@ -220,5 +220,13 @@ public class MediaServiceImp implements IMediaService {
 			queryString += " and mo.id in (0)";
 		}
 		return queryString;
+	}
+
+	public List<Media> loadJudgeByJid(int jid) {
+		// TODO Auto-generated method stub
+		String queryString = "from Media mo where mo.mtype!=1 and mo.judge.id=:jid";
+		String[] paramNames = new String[] { "jid" };
+		Object[] values = new Object[] { jid };
+		return mediaDao.queryList(queryString, paramNames, values);
 	}
 }

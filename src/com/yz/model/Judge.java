@@ -1,5 +1,9 @@
 package com.yz.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -7,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -38,6 +43,7 @@ public class Judge implements java.io.Serializable {
 	private Integer jtype;//1:研判信息  2：部门查证 3：上报情况
 	private Integer isNew;
 	private String scanImage;//立案决定书扫描件
+	private List<Media> medias = new ArrayList<Media>();// 文件
 
 	// Constructors
 
@@ -50,7 +56,7 @@ public class Judge implements java.io.Serializable {
 			String reportUnit, String reportTime, String transactor,String deadline,
 			String telphone, String judgeRequirement, Integer indexNumber,Integer isNew,
 			String criminalJudge, String networkJudge,
-			String intelligenceJudge, String imageJudge, Integer jtype, String scanImage) {
+			String intelligenceJudge, String imageJudge, Integer jtype, String scanImage,List<Media> medias) {
 		this.clue = clue;
 		this.injurycase = injurycase;
 		this.person = person;
@@ -68,6 +74,7 @@ public class Judge implements java.io.Serializable {
 		this.jtype = jtype;
 		this.isNew = isNew;
 		this.scanImage = scanImage;
+		this.medias = medias;
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -165,6 +172,16 @@ public class Judge implements java.io.Serializable {
 	@Column(name = "scanImage")
 	public String getScanImage() {
 		return scanImage;
+	}
+	
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "judge")
+	public List<Media> getMedias() {
+		return medias;
+	}
+
+	public void setMedias(List<Media> medias) {
+		this.medias = medias;
 	}
 
 	public void setScanImage(String scanImage) {
