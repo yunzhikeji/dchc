@@ -1,26 +1,13 @@
 package com.yz.action;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.io.PrintWriter;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.opensymphony.xwork2.ActionSupport;
+import com.yz.auth.AuthObject;
+import com.yz.model.*;
+import com.yz.service.*;
+import com.yz.util.*;
+import com.yz.vo.AjaxMsgVO;
+import com.yz.vo.UnitVO;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
@@ -28,41 +15,14 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.opensymphony.xwork2.ActionSupport;
-import com.yz.auth.AuthObject;
-import com.yz.model.AnalyzeMan;
-import com.yz.model.ContrastMan;
-import com.yz.model.DisappearMan;
-import com.yz.model.GamblingCriminalMan;
-import com.yz.model.GuiltSafeguardMan;
-import com.yz.model.Judge;
-import com.yz.model.Lawcase;
-import com.yz.model.Otherperson;
-import com.yz.model.Person;
-import com.yz.model.Successexample;
-import com.yz.model.Troubleshooting;
-import com.yz.model.Unit;
-import com.yz.model.UserRole;
-import com.yz.service.IAnalyzeManService;
-import com.yz.service.IContrastManService;
-import com.yz.service.IDisappearManService;
-import com.yz.service.IGamblingCriminalManService;
-import com.yz.service.IGuiltSafeguardManService;
-import com.yz.service.IInjurycaseService;
-import com.yz.service.IJudgeService;
-import com.yz.service.ILawcaseService;
-import com.yz.service.IOtherpersonService;
-import com.yz.service.IPersonService;
-import com.yz.service.ISuccessexampleService;
-import com.yz.service.ITroubleshootingService;
-import com.yz.service.IUnitService;
-import com.yz.service.IUserRoleService;
-import com.yz.util.ConvertUtil;
-import com.yz.util.DateTimeKit;
-import com.yz.util.ExcelFileGenerator;
-import com.yz.util.InfoType;
-import com.yz.vo.AjaxMsgVO;
-import com.yz.vo.UnitVO;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Component("personAction")
 @Scope("prototype")
@@ -852,19 +812,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 		unitService.updateUnitByUserRoleAndInfoType(unit, checkedIDs,
 				InfoType.PERSON, -1);
 
-		AjaxMsgVO msgVO = new AjaxMsgVO();
-		msgVO.setMessage("批量删除成功.");
-		JSONObject jsonObj = JSONObject.fromObject(msgVO);
-		PrintWriter out;
-		try {
-			response.setContentType("text/html;charset=UTF-8");
-			out = response.getWriter();
-			out.print(jsonObj.toString());
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		AjaxMsgUtil.outputJSONObjectToAjax(response,new AjaxMsgVO("删除成功."));
 		return null;
 	}
 
@@ -1175,7 +1123,7 @@ public class PersonAction extends ActionSupport implements RequestAware,
 
 		List<Person> persons = personService.getNewPersonsByUserRole(userRole);
 
-		List<AjaxMsgVO> personVOs = new ArrayList<AjaxMsgVO>();
+		List<AjaxMsgVO> ajaxMsgVOList = new ArrayList<AjaxMsgVO>();
 
 		if (persons != null && persons.size() > 0) {
 			for (Person person : persons) {
@@ -1239,21 +1187,11 @@ public class PersonAction extends ActionSupport implements RequestAware,
 				default:
 					break;
 				}
-				personVOs.add(personVO);
+				ajaxMsgVOList.add(personVO);
 			}
 		}
 
-		JSONArray jsonArray = JSONArray.fromObject(personVOs);
-		PrintWriter out;
-		try {
-			response.setContentType("text/html;charset=UTF-8");
-			out = response.getWriter();
-			out.print(jsonArray.toString());
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		AjaxMsgUtil.outputJSONArrayToAjax(response,ajaxMsgVOList);
 		return null;
 	}
 

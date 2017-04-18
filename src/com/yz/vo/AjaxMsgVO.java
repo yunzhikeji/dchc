@@ -10,6 +10,13 @@ public class AjaxMsgVO {
 	private String joinDate;
 	private Integer type;
 
+	public AjaxMsgVO() {
+	}
+
+	public AjaxMsgVO(String message) {
+		this.message = message;
+	}
+
 	public String getMessage() {
 		return message;
 	}

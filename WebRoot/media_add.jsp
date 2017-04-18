@@ -89,7 +89,7 @@
 								   var     file1 = document.getElementById("myfile1");
 								    var ext1=file1.value.substring(file1.value.lastIndexOf(".")+1).toLowerCase();
 								     // gif在IE浏览器暂时无法显示
-								     if(ext1!='mp4'&&ext1!='avi'&&ext1!='doc'&&ext1!='docx'&&ext1!='jpg'&&ext1!='png'){
+								     if(ext1!='xlsx'&&ext1!='xls'&&ext1!='mp4'&&ext1!='avi'&&ext1!='doc'&&ext1!='docx'&&ext1!='jpg'&&ext1!='png'){
 								         alert("文件格式不正确！");
 								         file1.value=""; 
 								         return;

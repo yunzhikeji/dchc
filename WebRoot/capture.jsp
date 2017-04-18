@@ -135,7 +135,7 @@ function mark(){
 <body>
 
 	<input id="sData1" type="hidden" name="media.picSrc" />
-	<form name="mediaAddForm" action="mediaAction!add1" method="post"
+	<form name="mediaAddForm" action="mediaAction!addCanvasMedia" method="post"
 		enctype="multipart/form-data" onsubmit="return mark();">
 		<input id="inid" type="hidden" name="media.injurycase.id" /> <input
 			type="hidden" name="media.mtype" value="0" /> <input id="sMark"

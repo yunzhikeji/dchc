@@ -1,27 +1,15 @@
 package com.yz.action;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.opensymphony.xwork2.ActionSupport;
+import com.yz.auth.AuthObject;
+import com.yz.model.*;
+import com.yz.service.*;
+import com.yz.util.AjaxMsgUtil;
+import com.yz.util.DateTimeKit;
+import com.yz.util.InfoType;
+import com.yz.vo.AjaxMsgVO;
+import com.yz.vo.UnitVO;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
@@ -29,26 +17,14 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.opensymphony.xwork2.ActionSupport;
-import com.yz.auth.AuthObject;
-import com.yz.model.Clue;
-import com.yz.model.Injurycase;
-import com.yz.model.Judge;
-import com.yz.model.Media;
-import com.yz.model.Person;
-import com.yz.model.Unit;
-import com.yz.model.UserRole;
-import com.yz.service.IClueService;
-import com.yz.service.IInjurycaseService;
-import com.yz.service.IJudgeService;
-import com.yz.service.IMediaService;
-import com.yz.service.IPersonService;
-import com.yz.service.IUnitService;
-import com.yz.service.IUserRoleService;
-import com.yz.util.DateTimeKit;
-import com.yz.util.InfoType;
-import com.yz.vo.AjaxMsgVO;
-import com.yz.vo.UnitVO;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 @Component("judgeAction")
 @Scope("prototype")
@@ -291,19 +267,7 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 			photofile.delete();
 		}
 		judgeService.delete(judge);
-		AjaxMsgVO msgVO = new AjaxMsgVO();
-		msgVO.setMessage("删除成功.");
-		JSONObject jsonObj = JSONObject.fromObject(msgVO);
-		PrintWriter out;
-		try {
-			response.setContentType("text/html;charset=UTF-8");
-			out = response.getWriter();
-			out.print(jsonObj.toString());
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		AjaxMsgUtil.outputJSONObjectToAjax(response,new AjaxMsgVO("删除成功."));
 		return null;
 	}
 
@@ -349,7 +313,7 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 
 		List<Judge> judges = judgeService.getNewJudges();
 
-		List<AjaxMsgVO> judgeVOs = new ArrayList<AjaxMsgVO>();
+		List<AjaxMsgVO> ajaxMsgVOList = new ArrayList<AjaxMsgVO>();
 
 		if (judges != null && judges.size() > 0) {
 			for (Judge judge : judges) {
@@ -491,21 +455,11 @@ public class JudgeAction extends ActionSupport implements RequestAware,
 
 					}
 				}
-				judgeVOs.add(judgeVO);
+				ajaxMsgVOList.add(judgeVO);
 			}
 		}
 
-		JSONArray jsonArray = JSONArray.fromObject(judgeVOs);
-		PrintWriter out;
-		try {
-			response.setContentType("text/html;charset=UTF-8");
-			out = response.getWriter();
-			out.print(jsonArray.toString());
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		AjaxMsgUtil.outputJSONArrayToAjax(response,ajaxMsgVOList);
 		return null;
 	}
 

@@ -1,19 +1,14 @@
 package com.yz.action;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
+import com.opensymphony.xwork2.ActionSupport;
+import com.yz.model.*;
+import com.yz.service.*;
+import com.yz.util.AjaxMsgUtil;
+import com.yz.util.ConvertUtil;
+import com.yz.util.DateTimeKit;
+import com.yz.util.InfoType;
+import com.yz.vo.AjaxMsgVO;
+import com.yz.vo.UnitVO;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
@@ -21,25 +16,13 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.opensymphony.xwork2.ActionSupport;
-import com.yz.model.Clue;
-import com.yz.model.Judge;
-import com.yz.model.Lawcase;
-import com.yz.model.Troubleshooting;
-import com.yz.model.Unit;
-import com.yz.model.UserRole;
-import com.yz.service.IClueService;
-import com.yz.service.IJudgeService;
-import com.yz.service.ILawcaseService;
-import com.yz.service.IPersonService;
-import com.yz.service.ITroubleshootingService;
-import com.yz.service.IUnitService;
-import com.yz.service.IUserRoleService;
-import com.yz.util.ConvertUtil;
-import com.yz.util.DateTimeKit;
-import com.yz.util.InfoType;
-import com.yz.vo.AjaxMsgVO;
-import com.yz.vo.UnitVO;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Component("clueAction")
 @Scope("prototype")
@@ -286,19 +269,7 @@ public class ClueAction extends ActionSupport implements RequestAware,
 		unitService.updateUnitByUserRoleAndInfoType(unit, checkedIDs,
 				InfoType.CLUE, -1);
 
-		AjaxMsgVO msgVO = new AjaxMsgVO();
-		msgVO.setMessage("批量删除成功.");
-		JSONObject jsonObj = JSONObject.fromObject(msgVO);
-		PrintWriter out;
-		try {
-			response.setContentType("text/html;charset=UTF-8");
-			out = response.getWriter();
-			out.print(jsonObj.toString());
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		AjaxMsgUtil.outputJSONObjectToAjax(response,new AjaxMsgVO("删除成功."));
 		return null;
 	}
 
@@ -377,7 +348,7 @@ public class ClueAction extends ActionSupport implements RequestAware,
 
 		List<Clue> clues = clueService.getNewClueByUserRole(userRole);
 
-		List<AjaxMsgVO> clueVOs = new ArrayList<AjaxMsgVO>();
+		List<AjaxMsgVO> ajaxMsgVOList = new ArrayList<AjaxMsgVO>();
 
 		if (clues != null && clues.size() > 0) {
 			for (Clue clue : clues) {
@@ -386,26 +357,20 @@ public class ClueAction extends ActionSupport implements RequestAware,
 				clueVO.setName(clue.getTitle());
 				clueVO.setJoinDate(clue.getJoinDate());
 				clueVO.setType(0);
-				clueVOs.add(clueVO);
+				ajaxMsgVOList.add(clueVO);
 			}
 		}
 
-		JSONArray jsonArray = JSONArray.fromObject(clueVOs);
-		PrintWriter out;
-		try {
-			response.setContentType("text/html;charset=UTF-8");
-			out = response.getWriter();
-			out.print(jsonArray.toString());
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		AjaxMsgUtil.outputJSONArrayToAjax(response,ajaxMsgVOList);
 		return null;
 	}
 
-	// get、set-------------------------------------------
 
+
+
+
+
+	// get、set-------------------------------------------
 	// 获得HttpServletResponse对象
 	public void setServletResponse(HttpServletResponse response) {
 		this.response = response;

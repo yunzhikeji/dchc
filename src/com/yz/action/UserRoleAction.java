@@ -1,29 +1,19 @@
 package com.yz.action;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONObject;
-
+import com.opensymphony.xwork2.ActionSupport;
+import com.yz.auth.AuthObject;
+import com.yz.model.*;
+import com.yz.service.*;
+import com.yz.util.AjaxMsgUtil;
+import com.yz.util.ConvertUtil;
+import com.yz.util.DateTimeKit;
+import com.yz.util.MD5Util;
+import com.yz.vo.AjaxMsgVO;
+import com.yz.vo.ClueNumberVO;
+import com.yz.vo.InjurycaseNumberVO;
+import com.yz.vo.PersonNumberVO;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
@@ -34,42 +24,17 @@ import org.dom4j.Element;
 import org.dom4j.io.XMLWriter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
 import sun.misc.BASE64Encoder;
 
-import com.opensymphony.xwork2.ActionSupport;
-import com.yz.auth.AuthObject;
-import com.yz.model.AnalyzeMan;
-import com.yz.model.Clue;
-import com.yz.model.ContrastMan;
-import com.yz.model.GamblingCriminalMan;
-import com.yz.model.GuiltSafeguardMan;
-import com.yz.model.Injurycase;
-import com.yz.model.Person;
-import com.yz.model.Pnotice;
-import com.yz.model.Successexample;
-import com.yz.model.Troubleshooting;
-import com.yz.model.Unit;
-import com.yz.model.UserRole;
-import com.yz.service.IAnalyzeManService;
-import com.yz.service.IClueService;
-import com.yz.service.IContrastManService;
-import com.yz.service.IGamblingCriminalManService;
-import com.yz.service.IGuiltSafeguardManService;
-import com.yz.service.IInjurycaseService;
-import com.yz.service.IPersonService;
-import com.yz.service.IPnoticeService;
-import com.yz.service.ISuccessexampleService;
-import com.yz.service.ITroubleshootingService;
-import com.yz.service.IUnitService;
-import com.yz.service.IUserRoleService;
-import com.yz.util.ConvertUtil;
-import com.yz.util.DateTimeKit;
-import com.yz.util.MD5Util;
-import com.yz.vo.AjaxMsgVO;
-import com.yz.vo.ClueNumberVO;
-import com.yz.vo.InjurycaseNumberVO;
-import com.yz.vo.PersonNumberVO;
+import javax.annotation.Resource;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Component("userRoleAction")
 @Scope("prototype")
@@ -1115,21 +1080,8 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 	 * 
 	 */
 	public String checkUsername() {
-		userRole = userRoleService.getUserRoleByUserRolename(username);
-		if (userRole != null) {
-			AjaxMsgVO msgVO = new AjaxMsgVO();
-			msgVO.setMessage("该用户名已经存在,请重新输入.");
-			JSONObject jsonObj = JSONObject.fromObject(msgVO);
-			PrintWriter out;
-			try {
-				response.setContentType("text/html;charset=UTF-8");
-				out = response.getWriter();
-				out.print(jsonObj.toString());
-				out.flush();
-				out.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		if (userRoleService.getUserRoleByUserRolename(username) != null) {
+			AjaxMsgUtil.outputJSONObjectToAjax(response,new AjaxMsgVO("该用户名已经存在,请重新输入."));
 		}
 		return null;
 	}
@@ -1205,19 +1157,7 @@ public class UserRoleAction extends ActionSupport implements RequestAware,
 
 			userRoleService.delete(userRole);
 		}
-		AjaxMsgVO msgVO = new AjaxMsgVO();
-		msgVO.setMessage("批量删除成功.");
-		JSONObject jsonObj = JSONObject.fromObject(msgVO);
-		PrintWriter out;
-		try {
-			response.setContentType("text/html;charset=UTF-8");
-			out = response.getWriter();
-			out.print(jsonObj.toString());
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		AjaxMsgUtil.outputJSONObjectToAjax(response,new AjaxMsgVO("删除成功."));
 		return null;
 	}
 

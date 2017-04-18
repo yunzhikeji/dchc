@@ -4,9 +4,6 @@
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	xmlns:cxf="http://cxf.apache.org/core"
-	xmlns:jaxws="http://cxf.apache.org/jaxws"
-	xmlns:jaxrs="http://cxf.apache.org/jaxrs"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
            http://www.springframework.org/schema/context
@@ -15,16 +12,12 @@
            http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
            http://www.springframework.org/schema/tx 
            http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
-           http://cxf.apache.org/core
-		   http://cxf.apache.org/schemas/core.xsd
-		   http://cxf.apache.org/jaxws 
-		   http://cxf.apache.org/schemas/jaxws.xsd
-		   http://cxf.apache.org/jaxrs
-		   http://cxf.apache.org/schemas/jaxrs.xsd
            ">
 	<context:annotation-config />
 	<context:component-scan base-package="com.yz" />
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+
+
 	
 	<!-- 如何取得Spring管理的bean   -->
 	<bean class="com.yz.util.SpringContextHolder" lazy-init="false" />
@@ -82,7 +75,7 @@
 		<property name="locations" ref="propertyResources" />
 	</bean>
 
-	<bean id="authObject" destroy-method="close"
+	<bean id="authObject"
 		class="com.yz.auth.AuthObject">
 		<property name="authURL" value="${authURL}" />
 		<property name="appId" value="${appId}" />

@@ -1,39 +1,5 @@
 package com.yz.action;
 
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
-import javax.annotation.Resource;
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONObject;
-
-import org.apache.struts2.interceptor.RequestAware;
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-import org.apache.struts2.interceptor.SessionAware;
-import org.springframework.context.annotation.Scope;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import org.springframework.stereotype.Component;
-
-import sun.misc.BASE64Decoder;
-
 import com.opensymphony.xwork2.ActionSupport;
 import com.yz.auth.AuthObject;
 import com.yz.model.Injurycase;
@@ -42,9 +8,31 @@ import com.yz.model.Media;
 import com.yz.service.IInjurycaseService;
 import com.yz.service.IJudgeService;
 import com.yz.service.IMediaService;
+import com.yz.util.AjaxMsgUtil;
 import com.yz.util.DateTimeKit;
 import com.yz.video.ThreadTransCode;
 import com.yz.vo.AjaxMsgVO;
+import org.apache.struts2.interceptor.RequestAware;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
+import org.apache.struts2.interceptor.SessionAware;
+import org.springframework.context.annotation.Scope;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.stereotype.Component;
+import sun.misc.BASE64Decoder;
+
+import javax.annotation.Resource;
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 @Component("mediaAction")
 @Scope("prototype")
@@ -117,6 +105,9 @@ public class MediaAction extends ActionSupport implements RequestAware,
 	 * @throws Exception
 	 */
 	public String add() throws Exception {
+
+
+
 		
 		String imageName = "";
 		if (picture1 != null && picture1FileName != null
@@ -149,9 +140,7 @@ public class MediaAction extends ActionSupport implements RequestAware,
 
 		}
 
-		if (media.getInjurycase() != null) {
-			changeInjurycaseHandleState(media.getInjurycase().getId());
-		}
+		changeInjurycaseHandleState(media);
 
 		mediaService.add(media);
 
@@ -162,13 +151,12 @@ public class MediaAction extends ActionSupport implements RequestAware,
 		return "success_child";
 	}
 
-	public String add1() throws Exception {
+	public String addCanvasMedia() throws Exception {
 		String serverPath = authObject.getFileRoot();
 		BASE64Decoder decoder = new BASE64Decoder();
-		if (media.getInjurycase() != null) {
 
-			changeInjurycaseHandleState(media.getInjurycase().getId());
-		}
+		changeInjurycaseHandleState(media);
+
 		if (!media.getPicSrc().contains("data:image/png;base64")) {
 			return "success_child1";
 		}
@@ -183,7 +171,7 @@ public class MediaAction extends ActionSupport implements RequestAware,
 		}
 
 		String realPath = serverPath + "\\media\\" + fileName + ".png";
-		String relativePath = "media/" + fileName + ".png";
+		String relativePath = "/media/" + fileName + ".png";
 
 		double ratio = 1.0;
 		BufferedImage image = ImageIO.read(is);
@@ -205,18 +193,6 @@ public class MediaAction extends ActionSupport implements RequestAware,
 		return "success_child1";
 	}
 
-	/*
-	 * 修改案件状态
-	 */
-	private void changeInjurycaseHandleState(int inid) {
-		Injurycase injurycase = injurycaseService.loadById(inid);
-		if (injurycase != null) {
-			if (injurycase.getHandleState() == 1) {
-				injurycase.setHandleState(2);
-				injurycaseService.update(injurycase);
-			}
-		}
-	}
 
 	// 上传视频
 	private File picture;
@@ -273,19 +249,9 @@ public class MediaAction extends ActionSupport implements RequestAware,
 			photofile.delete();
 		}
 		mediaService.delete(media);
-		AjaxMsgVO msgVO = new AjaxMsgVO();
-		msgVO.setMessage("删除成功.");
-		JSONObject jsonObj = JSONObject.fromObject(msgVO);
-		PrintWriter out;
-		try {
-			response.setContentType("text/html;charset=UTF-8");
-			out = response.getWriter();
-			out.print(jsonObj.toString());
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+
+		AjaxMsgUtil.outputJSONObjectToAjax(response,new AjaxMsgVO("删除成功."));
+
 		return null;
 	}
 
@@ -327,6 +293,18 @@ public class MediaAction extends ActionSupport implements RequestAware,
 		media = mediaService.loadById(mid);
 		return "view";
 	}
+
+
+
+	//private 方法
+	private void changeInjurycaseHandleState(Media media) {
+
+		if (media.getInjurycase() != null) {
+			injurycaseService.changeInjurycaseHandleState(media.getInjurycase().getId());
+		}
+	}
+
+
 
 	// get、set-------------------------------------------
 	// 获得HttpServletResponse对象

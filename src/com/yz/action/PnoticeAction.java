@@ -1,17 +1,12 @@
 package com.yz.action;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URLDecoder;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONObject;
-
+import com.opensymphony.xwork2.ActionSupport;
+import com.yz.model.Pnotice;
+import com.yz.model.UserRole;
+import com.yz.service.IPnoticeService;
+import com.yz.util.AjaxMsgUtil;
+import com.yz.util.ConvertUtil;
+import com.yz.vo.AjaxMsgVO;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
@@ -19,12 +14,12 @@ import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.opensymphony.xwork2.ActionSupport;
-import com.yz.model.Pnotice;
-import com.yz.model.UserRole;
-import com.yz.service.IPnoticeService;
-import com.yz.util.ConvertUtil;
-import com.yz.vo.AjaxMsgVO;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.net.URLDecoder;
+import java.util.List;
+import java.util.Map;
 
 @Component("pnoticeAction")  
 @Scope("prototype")
@@ -170,19 +165,7 @@ public class PnoticeAction extends ActionSupport implements RequestAware,Session
 		{
 			pnoticeService.deleteById(ids[i]);
 		}
-		AjaxMsgVO msgVO = new AjaxMsgVO();
-		msgVO.setMessage("批量删除成功.");
-		JSONObject jsonObj = JSONObject.fromObject(msgVO);
-		PrintWriter out;
-		try {
-			response.setContentType("text/html;charset=UTF-8");
-			out = response.getWriter();
-			out.print(jsonObj.toString());
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		AjaxMsgUtil.outputJSONObjectToAjax(response,new AjaxMsgVO("删除成功."));
 		return null;
 	}
 	

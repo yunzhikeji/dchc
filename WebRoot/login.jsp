@@ -10,7 +10,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		    <base href="<%=basePath%>">
+		<base href="<%=basePath%>">
 		<meta charset="utf-8">
 		<meta name="renderer" content="webkit|ie-comp|ie-stand">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -123,13 +123,11 @@ function doDataProcess(){
 	var Auth_Content = '<s:property value="#request.original" />';
 	
 	
-	alert(Auth_Content);
 	var DSign_Subject = document.getElementById("RootCADN").value;
 
 	if(Auth_Content==""){
 		alert("认证原文不能为空!");
 	}else{
-		alert(DSign_Subject );
 		//控制证书为一个时，不弹出证书选择框
 		JITDSignOcx.SetCertChooseType(1);
 		JITDSignOcx.SetCert("SC","","","",DSign_Subject,"");
@@ -149,7 +147,6 @@ function doDataProcess(){
 	}
 	document.getElementById("original_jsp").value = Auth_Content;
 	document.forms[0].action = "userRoleAction!certificateLogin";
-	alert(document.forms[0].action);
 	document.forms[0].submit();
 
 }

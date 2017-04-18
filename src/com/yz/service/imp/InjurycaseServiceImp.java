@@ -3,14 +3,6 @@
  */
 package com.yz.service.imp;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Component;
-
 import com.yz.dao.IInjurycaseDao;
 import com.yz.model.Injurycase;
 import com.yz.model.Unit;
@@ -21,6 +13,12 @@ import com.yz.service.IUnitService;
 import com.yz.util.GenerateSqlFromExcel;
 import com.yz.util.InfoType;
 import com.yz.util.MyHandleUtil;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author
@@ -28,6 +26,7 @@ import com.yz.util.MyHandleUtil;
  */
 @Component("injurycaseService")
 public class InjurycaseServiceImp implements IInjurycaseService {
+
 	private IInjurycaseDao injurycaseDao;
 
 	private IUnitService unitService;
@@ -731,6 +730,17 @@ public class InjurycaseServiceImp implements IInjurycaseService {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+
+
+	public void changeInjurycaseHandleState(int inid) {
+		Injurycase injurycase = injurycaseDao.loadById(inid);
+		if (injurycase != null) {
+			if (injurycase.getHandleState() == 1) {
+				injurycase.setHandleState(2);
+				injurycaseDao.update(injurycase);
+			}
 		}
 	}
 

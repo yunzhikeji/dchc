@@ -1,62 +1,30 @@
 package com.yz.action;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONArray;
+import com.opensymphony.xwork2.ActionSupport;
+import com.yz.auth.AuthObject;
+import com.yz.model.*;
+import com.yz.service.*;
+import com.yz.util.*;
+import com.yz.vo.AjaxMsgVO;
+import com.yz.vo.InjurycaseVO;
+import com.yz.vo.UnitVO;
 import net.sf.json.JSONObject;
-
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
-import com.opensymphony.xwork2.ActionSupport;
-import com.yz.auth.AuthObject;
-import com.yz.model.Injurycase;
-import com.yz.model.Judge;
-import com.yz.model.Media;
-import com.yz.model.Otherperson;
-import com.yz.model.Person;
-import com.yz.model.Successexample;
-import com.yz.model.Troubleshooting;
-import com.yz.model.Unit;
-import com.yz.model.UserRole;
-import com.yz.service.IInjurycaseService;
-import com.yz.service.IJudgeService;
-import com.yz.service.IMediaService;
-import com.yz.service.IOtherpersonService;
-import com.yz.service.IPersonService;
-import com.yz.service.ISuccessexampleService;
-import com.yz.service.ITroubleshootingService;
-import com.yz.service.IUnitService;
-import com.yz.service.IUserRoleService;
-import com.yz.util.ConvertUtil;
-import com.yz.util.DateTimeKit;
-import com.yz.util.InfoType;
-import com.yz.util.InjurycaseExcel;
-import com.yz.video.ThreadTransCode;
-import com.yz.vo.AjaxMsgVO;
-import com.yz.vo.InjurycaseVO;
-import com.yz.vo.UnitVO;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLDecoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 @Component("injurycaseAction")
 @Scope("prototype")
@@ -138,7 +106,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 	// list表对象
 	private List<Injurycase> injurycases;
-	private List<InjurycaseVO> injurycaseVOs;
+	private List<InjurycaseVO> injuryajaxMsgVOList;
 	private List<Otherperson> tars;// 同案人员
 	private List<Media> medias;
 	private List<Judge> judges;
@@ -385,19 +353,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		unitService.updateUnitByUserRoleAndInfoType(unit, checkedIDs,
 				InfoType.CASE, -1);
 
-		AjaxMsgVO msgVO = new AjaxMsgVO();
-		msgVO.setMessage("批量删除成功.");
-		JSONObject jsonObj = JSONObject.fromObject(msgVO);
-		PrintWriter out;
-		try {
-			response.setContentType("text/html;charset=UTF-8");
-			out = response.getWriter();
-			out.print(jsonObj.toString());
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		AjaxMsgUtil.outputJSONObjectToAjax(response,new AjaxMsgVO("删除成功."));
 		return null;
 	}
 
@@ -539,7 +495,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 				page, size, queryState, starttime, endtime);
 
 		if (injurycases != null && injurycases.size() > 0) {
-			injurycaseVOs = new ArrayList<InjurycaseVO>();
+			injuryajaxMsgVOList = new ArrayList<InjurycaseVO>();
 			for (int i = 0; i < injurycases.size(); i++) {
 				InjurycaseVO injurycaseVO = new InjurycaseVO();
 				int vNumber = 0;
@@ -562,7 +518,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 				}
 				injurycaseVO.setVideoNumber(vNumber);
 				injurycaseVO.setImageNumher(iNumber);
-				injurycaseVOs.add(injurycaseVO);
+				injuryajaxMsgVOList.add(injurycaseVO);
 			}
 		}
 		return "listcba";
@@ -629,19 +585,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			injurycaseService.update(injurycase);
 		}
 
-		AjaxMsgVO msgVO = new AjaxMsgVO();
-		msgVO.setMessage("串并案操作成功.");
-		JSONObject jsonObj = JSONObject.fromObject(msgVO);
-		PrintWriter out;
-		try {
-			response.setContentType("text/html;charset=UTF-8");
-			out = response.getWriter();
-			out.print(jsonObj.toString());
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		AjaxMsgUtil.outputJSONObjectToAjax(response,new AjaxMsgVO("串并案操作成功."));
 		return null;
 	}
 
@@ -663,7 +607,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		List<Injurycase> injurycases = injurycaseService
 				.getNewInjurycaseByUserRole(userRole);
 
-		List<AjaxMsgVO> caseVOs = new ArrayList<AjaxMsgVO>();
+		List<AjaxMsgVO> ajaxMsgVOList = new ArrayList<AjaxMsgVO>();
 
 		if (injurycases != null && injurycases.size() > 0) {
 			for (Injurycase injurycase : injurycases) {
@@ -690,21 +634,11 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 				default:
 					break;
 				}
-				caseVOs.add(caseVO);
+				ajaxMsgVOList.add(caseVO);
 			}
 		}
 
-		JSONArray jsonArray = JSONArray.fromObject(caseVOs);
-		PrintWriter out;
-		try {
-			response.setContentType("text/html;charset=UTF-8");
-			out = response.getWriter();
-			out.print(jsonArray.toString());
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		AjaxMsgUtil.outputJSONArrayToAjax(response,ajaxMsgVOList);
 		return null;
 	}
 
@@ -1240,12 +1174,12 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		this.injurycaseSeries = injurycaseSeries;
 	}
 
-	public List<InjurycaseVO> getInjurycaseVOs() {
-		return injurycaseVOs;
+	public List<InjurycaseVO> getInjuryajaxMsgVOList() {
+		return injuryajaxMsgVOList;
 	}
 
-	public void setInjurycaseVOs(List<InjurycaseVO> injurycaseVOs) {
-		this.injurycaseVOs = injurycaseVOs;
+	public void setInjuryajaxMsgVOList(List<InjurycaseVO> injuryajaxMsgVOList) {
+		this.injuryajaxMsgVOList = injuryajaxMsgVOList;
 	}
 
 	public String getIdcard() {
