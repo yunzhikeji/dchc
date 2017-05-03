@@ -12,10 +12,10 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
-import com.yz.dao.ILawcaseDao;
+import com.yz.dao.LawcaseDao;
 import com.yz.model.Lawcase;
 @Component("lawcaseDao")
-public class LawcaseDaoImp implements ILawcaseDao {
+public class LawcaseDaoImp implements LawcaseDao {
 	private HibernateTemplate hibernateTemplate;
 	
 	public HibernateTemplate getHibernateTemplate() {
@@ -28,7 +28,7 @@ public class LawcaseDaoImp implements ILawcaseDao {
 
 	//保存一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ILawcaseDao#save(com.yz.model.Lawcase)
+	 * @see com.yz.dao.imp.LawcaseDao#save(com.yz.model.Lawcase)
 	 */
 	public void save(Lawcase lawcase) {
 		this.hibernateTemplate.save(lawcase);
@@ -36,7 +36,7 @@ public class LawcaseDaoImp implements ILawcaseDao {
 	
 	//保存一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ILawcaseDao#savereturn(com.yz.model.Lawcase)
+	 * @see com.yz.dao.imp.LawcaseDao#savereturn(com.yz.model.Lawcase)
 	 */
 	public Integer savereturn(Lawcase lawcase) {
 		return (Integer) this.hibernateTemplate.save(lawcase);
@@ -44,14 +44,14 @@ public class LawcaseDaoImp implements ILawcaseDao {
 	
 	//删除一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ILawcaseDao#delete(com.yz.model.Lawcase)
+	 * @see com.yz.dao.imp.LawcaseDao#delete(com.yz.model.Lawcase)
 	 */
 	public void delete(Lawcase lawcase) {
 		this.hibernateTemplate.delete(lawcase);
 	}
 	//根据ID删除一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ILawcaseDao#deleteById(int)
+	 * @see com.yz.dao.imp.LawcaseDao#deleteById(int)
 	 */
 	public void deleteById(int id) {
 		this.hibernateTemplate.delete(this.loadById(id));
@@ -59,7 +59,7 @@ public class LawcaseDaoImp implements ILawcaseDao {
 	
 	//修改一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ILawcaseDao#update(com.yz.model.Lawcase)
+	 * @see com.yz.dao.imp.LawcaseDao#update(com.yz.model.Lawcase)
 	 */
 	public void update(Lawcase lawcase) {
 		this.hibernateTemplate.update(lawcase);
@@ -67,7 +67,7 @@ public class LawcaseDaoImp implements ILawcaseDao {
 	
 	//根据hql语句、条件、条件值修改某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ILawcaseDao#updateByHql(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.LawcaseDao#updateByHql(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public void updateByHql(final String hql,final String[] paramNames,final Object[] values) {
 		this.hibernateTemplate.execute(new HibernateCallback(){
@@ -87,7 +87,7 @@ public class LawcaseDaoImp implements ILawcaseDao {
 	
 	//获得所有记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ILawcaseDao#getLawcases()
+	 * @see com.yz.dao.imp.LawcaseDao#getLawcases()
 	 */
 	public List<Lawcase> getLawcases() {
 		return this.hibernateTemplate.loadAll(Lawcase.class);
@@ -95,7 +95,7 @@ public class LawcaseDaoImp implements ILawcaseDao {
 	
 	//根据hql语句来查询所有记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ILawcaseDao#queryList(java.lang.String)
+	 * @see com.yz.dao.imp.LawcaseDao#queryList(java.lang.String)
 	 */
 	public List<Lawcase> queryList(String queryString) {
 		return this.hibernateTemplate.find(queryString);
@@ -103,7 +103,7 @@ public class LawcaseDaoImp implements ILawcaseDao {
 	
 	//根据hql、条件值查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ILawcaseDao#getObjectsByCondition(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.LawcaseDao#getObjectsByCondition(java.lang.String, java.lang.Object[])
 	 */
 	public List<Lawcase> getObjectsByCondition(String queryString, Object[] p) {
 		return this.hibernateTemplate.find(queryString,p);
@@ -111,7 +111,7 @@ public class LawcaseDaoImp implements ILawcaseDao {
 	
 	//根据hql语句、条件、条件值查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ILawcaseDao#queryList(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.LawcaseDao#queryList(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public List<Lawcase> queryList(String queryString, String[] paramNames,
 			Object[] values)
@@ -123,7 +123,7 @@ public class LawcaseDaoImp implements ILawcaseDao {
 	
 	//根据hql、id列表查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ILawcaseDao#getObjectsByIdList(java.lang.String, java.util.List)
+	 * @see com.yz.dao.imp.LawcaseDao#getObjectsByIdList(java.lang.String, java.util.List)
 	 */
 	public List<Lawcase> getObjectsByIdList(final String hql,final List<Integer> idList) {
 		return this.hibernateTemplate.executeFind(new HibernateCallback(){
@@ -140,7 +140,7 @@ public class LawcaseDaoImp implements ILawcaseDao {
 	
 	//根据hql语句、条件值、分页查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ILawcaseDao#pageList(java.lang.String, java.lang.Object[], java.lang.Integer, java.lang.Integer)
+	 * @see com.yz.dao.imp.LawcaseDao#pageList(java.lang.String, java.lang.Object[], java.lang.Integer, java.lang.Integer)
 	 */
 	public List<Lawcase> pageList(final String queryString,final Object[] p,final Integer page,
 			final Integer size) {
@@ -167,7 +167,7 @@ public class LawcaseDaoImp implements ILawcaseDao {
 	
 	//根据hql、条件值获得一个唯一值
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ILawcaseDao#getUniqueResult(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.LawcaseDao#getUniqueResult(java.lang.String, java.lang.Object[])
 	 */
 	public int getUniqueResult(final String queryString,final Object[] p) {
 		Session session=this.hibernateTemplate.getSessionFactory().getCurrentSession();
@@ -184,7 +184,7 @@ public class LawcaseDaoImp implements ILawcaseDao {
 	
 	//根据id查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ILawcaseDao#loadById(int)
+	 * @see com.yz.dao.imp.LawcaseDao#loadById(int)
 	 */
 	public Lawcase loadById(int id) {
 		return (Lawcase) this.hibernateTemplate.load(Lawcase.class, id);
@@ -192,7 +192,7 @@ public class LawcaseDaoImp implements ILawcaseDao {
 	
 	//根据hql语句、条件、值来查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ILawcaseDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.LawcaseDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public Lawcase queryByNamedParam(String queryString, String[] paramNames,
 			Object[] values) {
@@ -202,7 +202,7 @@ public class LawcaseDaoImp implements ILawcaseDao {
 	
 	//根据hql语句、条件值来查询是否存在该记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ILawcaseDao#checkLawcaseExistsWithName(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.LawcaseDao#checkLawcaseExistsWithName(java.lang.String, java.lang.Object[])
 	 */
 	public boolean checkLawcaseExistsWithName(String queryString, Object[] p) {
 		List list =  this.hibernateTemplate.find(queryString,p);
@@ -210,7 +210,7 @@ public class LawcaseDaoImp implements ILawcaseDao {
 	}
 	//根据hql批量修改
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ILawcaseDao#updateLawcaseByhql(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.LawcaseDao#updateLawcaseByhql(java.lang.String, java.lang.Object[])
 	 */
 	public int updateLawcaseByhql(String queryString, Object[] p) {
 		Session session=this.hibernateTemplate.getSessionFactory().getCurrentSession();

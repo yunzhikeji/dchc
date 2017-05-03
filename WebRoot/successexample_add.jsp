@@ -55,7 +55,7 @@
 						</label>
 						<span class="form-label col-3"> <span
 							class="formControls col-12">
-							<input type="text" id="author" name="successexample.releaseName" value="${session.userRoleo.realname}"
+							<input type="text" id="author" name="successexample.releaseName" value="${session.currentUserRole.realname}"
 							class="input-text radius size-M " style="width: 200px;"/>
 						</span> </span>
 						<label class="form-label col-2">

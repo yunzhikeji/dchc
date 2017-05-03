@@ -12,12 +12,11 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
-import com.yz.dao.IClueDao;
+import com.yz.dao.ClueDao;
 import com.yz.model.Clue;
-import com.yz.model.Person;
 
 @Component("clueDao")
-public class ClueDaoImp implements IClueDao {
+public class ClueDaoImp implements ClueDao {
 	private HibernateTemplate hibernateTemplate;
 	
 	public HibernateTemplate getHibernateTemplate() {
@@ -30,7 +29,7 @@ public class ClueDaoImp implements IClueDao {
 
 	//保存一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#save(com.yz.model.Person)
+	 * @see com.yz.dao.imp.PersonDao#save(com.yz.model.Person)
 	 */
 	public void save(Clue clue) {
 		this.hibernateTemplate.save(clue);
@@ -38,7 +37,7 @@ public class ClueDaoImp implements IClueDao {
 	
 	//保存一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#savereturn(com.yz.model.Person)
+	 * @see com.yz.dao.imp.PersonDao#savereturn(com.yz.model.Person)
 	 */
 	public Integer savereturn(Clue clue) {
 		return (Integer) this.hibernateTemplate.save(clue);
@@ -46,14 +45,14 @@ public class ClueDaoImp implements IClueDao {
 	
 	//删除一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#delete(com.yz.model.Person)
+	 * @see com.yz.dao.imp.PersonDao#delete(com.yz.model.Person)
 	 */
 	public void delete(Clue clue) {
 		this.hibernateTemplate.delete(clue);
 	}
 	//根据ID删除一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#deleteById(int)
+	 * @see com.yz.dao.imp.PersonDao#deleteById(int)
 	 */
 	public void deleteById(int id) {
 		this.hibernateTemplate.delete(this.loadById(id));
@@ -61,7 +60,7 @@ public class ClueDaoImp implements IClueDao {
 	
 	//修改一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#update(com.yz.model.Person)
+	 * @see com.yz.dao.imp.PersonDao#update(com.yz.model.Person)
 	 */
 	public void update(Clue clue) {
 		this.hibernateTemplate.update(clue);
@@ -69,7 +68,7 @@ public class ClueDaoImp implements IClueDao {
 	
 	//根据hql语句、条件、条件值修改某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#updateByHql(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.PersonDao#updateByHql(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public void updateByHql(final String hql,final String[] paramNames,final Object[] values) {
 		this.hibernateTemplate.execute(new HibernateCallback(){
@@ -89,7 +88,7 @@ public class ClueDaoImp implements IClueDao {
 	
 	//获得所有记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#getPersons()
+	 * @see com.yz.dao.imp.PersonDao#getPersons()
 	 */
 	public List<Clue> getClues() {
 		return this.hibernateTemplate.loadAll(Clue.class);
@@ -97,7 +96,7 @@ public class ClueDaoImp implements IClueDao {
 	
 	//根据hql语句来查询所有记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#queryList(java.lang.String)
+	 * @see com.yz.dao.imp.PersonDao#queryList(java.lang.String)
 	 */
 	public List<Clue> queryList(String queryString) {
 		return this.hibernateTemplate.find(queryString);
@@ -105,7 +104,7 @@ public class ClueDaoImp implements IClueDao {
 	
 	//根据hql、条件值查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#getObjectsByCondition(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.PersonDao#getObjectsByCondition(java.lang.String, java.lang.Object[])
 	 */
 	public List<Clue> getObjectsByCondition(String queryString, Object[] p) {
 		return this.hibernateTemplate.find(queryString,p);
@@ -113,7 +112,7 @@ public class ClueDaoImp implements IClueDao {
 	
 	//根据hql语句、条件、条件值查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#queryList(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.PersonDao#queryList(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public List<Clue> queryList(String queryString, String[] paramNames,
 			Object[] values)
@@ -125,7 +124,7 @@ public class ClueDaoImp implements IClueDao {
 	
 	//根据hql、id列表查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#getObjectsByIdList(java.lang.String, java.util.List)
+	 * @see com.yz.dao.imp.PersonDao#getObjectsByIdList(java.lang.String, java.util.List)
 	 */
 	public List<Clue> getObjectsByIdList(final String hql,final List<Integer> idList) {
 		return this.hibernateTemplate.executeFind(new HibernateCallback(){
@@ -142,7 +141,7 @@ public class ClueDaoImp implements IClueDao {
 	
 	//根据hql语句、条件值、分页查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#pageList(java.lang.String, java.lang.Object[], java.lang.Integer, java.lang.Integer)
+	 * @see com.yz.dao.imp.PersonDao#pageList(java.lang.String, java.lang.Object[], java.lang.Integer, java.lang.Integer)
 	 */
 	public List<Clue> pageList(final String queryString,final Object[] p,final Integer page,
 			final Integer size) {
@@ -169,7 +168,7 @@ public class ClueDaoImp implements IClueDao {
 	
 	//根据hql、条件值获得一个唯一值
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#getUniqueResult(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.PersonDao#getUniqueResult(java.lang.String, java.lang.Object[])
 	 */
 	public int getUniqueResult(final String queryString,final Object[] p) {
 		Session session=this.hibernateTemplate.getSessionFactory().getCurrentSession();
@@ -186,7 +185,7 @@ public class ClueDaoImp implements IClueDao {
 	
 	//根据id查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#loadById(int)
+	 * @see com.yz.dao.imp.PersonDao#loadById(int)
 	 */
 	public Clue loadById(int id) {
 		return (Clue) this.hibernateTemplate.load(Clue.class, id);
@@ -194,7 +193,7 @@ public class ClueDaoImp implements IClueDao {
 	
 	//根据hql语句、条件、值来查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.PersonDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public Clue queryByNamedParam(String queryString, String[] paramNames,
 			Object[] values) {
@@ -204,7 +203,7 @@ public class ClueDaoImp implements IClueDao {
 	
 	//根据hql语句、条件值来查询是否存在该记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#checkPersonExistsWithName(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.PersonDao#checkPersonExistsWithName(java.lang.String, java.lang.Object[])
 	 */
 	public boolean checkClueExistsWithName(String queryString, Object[] p) {
 		List list =  this.hibernateTemplate.find(queryString,p);
@@ -212,7 +211,7 @@ public class ClueDaoImp implements IClueDao {
 	}
 	//根据hql批量修改
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#updatePersonByhql(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.PersonDao#updatePersonByhql(java.lang.String, java.lang.Object[])
 	 */
 	public int updateClueByhql(String queryString, Object[] p) {
 		Session session=this.hibernateTemplate.getSessionFactory().getCurrentSession();

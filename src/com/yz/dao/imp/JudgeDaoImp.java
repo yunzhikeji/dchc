@@ -12,10 +12,10 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
-import com.yz.dao.IJudgeDao;
+import com.yz.dao.JudgeDao;
 import com.yz.model.Judge;
 @Component("judgeDao")
-public class JudgeDaoImp implements IJudgeDao {
+public class JudgeDaoImp implements JudgeDao {
 	private HibernateTemplate hibernateTemplate;
 	
 	public HibernateTemplate getHibernateTemplate() {
@@ -28,7 +28,7 @@ public class JudgeDaoImp implements IJudgeDao {
 
 	//保存一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IJudgeDao#save(com.yz.model.Judge)
+	 * @see com.yz.dao.imp.JudgeDao#save(com.yz.model.Judge)
 	 */
 	public void save(Judge judge) {
 		this.hibernateTemplate.save(judge);
@@ -36,7 +36,7 @@ public class JudgeDaoImp implements IJudgeDao {
 	
 	//保存一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IJudgeDao#savereturn(com.yz.model.Judge)
+	 * @see com.yz.dao.imp.JudgeDao#savereturn(com.yz.model.Judge)
 	 */
 	public Integer savereturn(Judge judge) {
 		return (Integer) this.hibernateTemplate.save(judge);
@@ -44,14 +44,14 @@ public class JudgeDaoImp implements IJudgeDao {
 	
 	//删除一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IJudgeDao#delete(com.yz.model.Judge)
+	 * @see com.yz.dao.imp.JudgeDao#delete(com.yz.model.Judge)
 	 */
 	public void delete(Judge judge) {
 		this.hibernateTemplate.delete(judge);
 	}
 	//根据ID删除一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IJudgeDao#deleteById(int)
+	 * @see com.yz.dao.imp.JudgeDao#deleteById(int)
 	 */
 	public void deleteById(int id) {
 		this.hibernateTemplate.delete(this.loadById(id));
@@ -59,7 +59,7 @@ public class JudgeDaoImp implements IJudgeDao {
 	
 	//修改一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IJudgeDao#update(com.yz.model.Judge)
+	 * @see com.yz.dao.imp.JudgeDao#update(com.yz.model.Judge)
 	 */
 	public void update(Judge judge) {
 		this.hibernateTemplate.update(judge);
@@ -67,7 +67,7 @@ public class JudgeDaoImp implements IJudgeDao {
 	
 	//根据hql语句、条件、条件值修改某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IJudgeDao#updateByHql(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.JudgeDao#updateByHql(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public void updateByHql(final String hql,final String[] paramNames,final Object[] values) {
 		this.hibernateTemplate.execute(new HibernateCallback(){
@@ -87,7 +87,7 @@ public class JudgeDaoImp implements IJudgeDao {
 	
 	//获得所有记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IJudgeDao#getJudges()
+	 * @see com.yz.dao.imp.JudgeDao#getJudges()
 	 */
 	public List<Judge> getJudges() {
 		return this.hibernateTemplate.loadAll(Judge.class);
@@ -95,7 +95,7 @@ public class JudgeDaoImp implements IJudgeDao {
 	
 	//根据hql语句来查询所有记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IJudgeDao#queryList(java.lang.String)
+	 * @see com.yz.dao.imp.JudgeDao#queryList(java.lang.String)
 	 */
 	public List<Judge> queryList(String queryString) {
 		return this.hibernateTemplate.find(queryString);
@@ -103,7 +103,7 @@ public class JudgeDaoImp implements IJudgeDao {
 	
 	//根据hql、条件值查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IJudgeDao#getObjectsByCondition(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.JudgeDao#getObjectsByCondition(java.lang.String, java.lang.Object[])
 	 */
 	public List<Judge> getObjectsByCondition(String queryString, Object[] p) {
 		return this.hibernateTemplate.find(queryString,p);
@@ -111,7 +111,7 @@ public class JudgeDaoImp implements IJudgeDao {
 	
 	//根据hql语句、条件、条件值查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IJudgeDao#queryList(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.JudgeDao#queryList(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public List<Judge> queryList(String queryString, String[] paramNames,
 			Object[] values)
@@ -123,7 +123,7 @@ public class JudgeDaoImp implements IJudgeDao {
 	
 	//根据hql、id列表查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IJudgeDao#getObjectsByIdList(java.lang.String, java.util.List)
+	 * @see com.yz.dao.imp.JudgeDao#getObjectsByIdList(java.lang.String, java.util.List)
 	 */
 	public List<Judge> getObjectsByIdList(final String hql,final List<Integer> idList) {
 		return this.hibernateTemplate.executeFind(new HibernateCallback(){
@@ -140,7 +140,7 @@ public class JudgeDaoImp implements IJudgeDao {
 	
 	//根据hql语句、条件值、分页查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IJudgeDao#pageList(java.lang.String, java.lang.Object[], java.lang.Integer, java.lang.Integer)
+	 * @see com.yz.dao.imp.JudgeDao#pageList(java.lang.String, java.lang.Object[], java.lang.Integer, java.lang.Integer)
 	 */
 	public List<Judge> pageList(final String queryString,final Object[] p,final Integer page,
 			final Integer size) {
@@ -167,7 +167,7 @@ public class JudgeDaoImp implements IJudgeDao {
 	
 	//根据hql、条件值获得一个唯一值
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IJudgeDao#getUniqueResult(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.JudgeDao#getUniqueResult(java.lang.String, java.lang.Object[])
 	 */
 	public int getUniqueResult(final String queryString,final Object[] p) {
 		Session session=this.hibernateTemplate.getSessionFactory().getCurrentSession();
@@ -184,7 +184,7 @@ public class JudgeDaoImp implements IJudgeDao {
 	
 	//根据id查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IJudgeDao#loadById(int)
+	 * @see com.yz.dao.imp.JudgeDao#loadById(int)
 	 */
 	public Judge loadById(int id) {
 		return (Judge) this.hibernateTemplate.load(Judge.class, id);
@@ -192,7 +192,7 @@ public class JudgeDaoImp implements IJudgeDao {
 	
 	//根据hql语句、条件、值来查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IJudgeDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.JudgeDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public Judge queryByNamedParam(String queryString, String[] paramNames,
 			Object[] values) {
@@ -202,7 +202,7 @@ public class JudgeDaoImp implements IJudgeDao {
 	
 	//根据hql语句、条件值来查询是否存在该记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IJudgeDao#checkJudgeExistsWithName(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.JudgeDao#checkJudgeExistsWithName(java.lang.String, java.lang.Object[])
 	 */
 	public boolean checkJudgeExistsWithName(String queryString, Object[] p) {
 		List list =  this.hibernateTemplate.find(queryString,p);
@@ -210,7 +210,7 @@ public class JudgeDaoImp implements IJudgeDao {
 	}
 	//根据hql批量修改
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IJudgeDao#updateJudgeByhql(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.JudgeDao#updateJudgeByhql(java.lang.String, java.lang.Object[])
 	 */
 	public int updateJudgeByhql(String queryString, Object[] p) {
 		Session session=this.hibernateTemplate.getSessionFactory().getCurrentSession();

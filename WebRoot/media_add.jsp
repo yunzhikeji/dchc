@@ -82,7 +82,7 @@
 					</div>
 					<div class="col-10">
 						<div class="col-3">
-							<s:file name="picture1"  onchange="change1();"
+							<s:file name="file"  onchange="change1();"
 								id="myfile1"></s:file>
 							<script type="text/javascript">
 								function change1() {

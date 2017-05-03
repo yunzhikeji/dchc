@@ -134,16 +134,36 @@ function checkPerson()
 	var name = $("#name").val();
 	var number = $("#number").val();
 	
+	
+	var fingerPrintNumber = $("#fingerPrintNumber").val();
+	var dnanumber = $("#dnanumber").val();
+	
 	if(number==''||number==null)
 	{
 		alert("人员编号不能为空.");
 		return false;
 	}	
+	
 	if(name==''||name==null)
 	{
 		alert("人员姓名不能为空.");
 		return false;
 	}
+
+    if(dnanumber==''||dnanumber==null)
+    {
+        alert("DNA编号不能为空.");
+        return false;
+    }
+
+
+    if(fingerPrintNumber==''||fingerPrintNumber==null)
+	{
+		alert("指纹编号不能为空.");
+		return false;
+	}
+	
+
 	
 }
 
@@ -180,17 +200,51 @@ function checkCase()
 {
 	var caseNumber = $("#caseNumber").val();
 	var caseName = $("#caseName").val();
-	
+
+    var casePlace = $("#casePlace").val();
+    var crimeTarget = $("#crimeTarget").val();
+    var crimeObject = $("#crimeObject").val();
+    var crimePattern = $("#crimePattern").val();
+
+
+
 	if(caseName==''||caseName==null)
 	{
 		alert("案件名称不能为空.");
 		return false;
 	}	
-	if(caseNumber==''||caseNumber==null)
-	{
-		alert("案件编号不能为空.");
-		return false;
-	}
+	
+	
+    if(caseNumber==''||caseNumber==null)
+    {
+        alert("案件编号不能为空.");
+        return false;
+    }
+
+	
+    if(casePlace==''||casePlace==null)
+    {
+        alert("案发地址不能为空.");
+        return false;
+    }
+    if(crimeTarget==''||crimeTarget==null)
+    {
+        alert("作案目标不能为空.");
+        return false;
+    }
+    if(crimeObject==''||crimeObject==null)
+    {
+        alert("作案工具不能为空.");
+        return false;
+    }
+    if(crimePattern==''||crimePattern==null)
+    {
+        alert("作案方式不能为空.");
+        return false;
+    }
+
+
+
 	
 }
 

@@ -12,10 +12,10 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
-import com.yz.dao.IContrastManDao;
+import com.yz.dao.ContrastManDao;
 import com.yz.model.ContrastMan;
 @Component("contrastManDao")
-public class ContrastManDaoImp implements IContrastManDao {
+public class ContrastManDaoImp implements ContrastManDao {
 	private HibernateTemplate hibernateTemplate;
 	
 	public HibernateTemplate getHibernateTemplate() {
@@ -28,7 +28,7 @@ public class ContrastManDaoImp implements IContrastManDao {
 
 	//保存一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IContrastManDao#save(com.yz.model.ContrastMan)
+	 * @see com.yz.dao.imp.ContrastManDao#save(com.yz.model.ContrastMan)
 	 */
 	public void save(ContrastMan contrastMan) {
 		this.hibernateTemplate.save(contrastMan);
@@ -36,7 +36,7 @@ public class ContrastManDaoImp implements IContrastManDao {
 	
 	//保存一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IContrastManDao#savereturn(com.yz.model.ContrastMan)
+	 * @see com.yz.dao.imp.ContrastManDao#savereturn(com.yz.model.ContrastMan)
 	 */
 	public Integer savereturn(ContrastMan contrastMan) {
 		return (Integer) this.hibernateTemplate.save(contrastMan);
@@ -44,14 +44,14 @@ public class ContrastManDaoImp implements IContrastManDao {
 	
 	//删除一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IContrastManDao#delete(com.yz.model.ContrastMan)
+	 * @see com.yz.dao.imp.ContrastManDao#delete(com.yz.model.ContrastMan)
 	 */
 	public void delete(ContrastMan contrastMan) {
 		this.hibernateTemplate.delete(contrastMan);
 	}
 	//根据ID删除一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IContrastManDao#deleteById(int)
+	 * @see com.yz.dao.imp.ContrastManDao#deleteById(int)
 	 */
 	public void deleteById(int id) {
 		this.hibernateTemplate.delete(this.loadById(id));
@@ -59,7 +59,7 @@ public class ContrastManDaoImp implements IContrastManDao {
 	
 	//修改一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IContrastManDao#update(com.yz.model.ContrastMan)
+	 * @see com.yz.dao.imp.ContrastManDao#update(com.yz.model.ContrastMan)
 	 */
 	public void update(ContrastMan contrastMan) {
 		this.hibernateTemplate.update(contrastMan);
@@ -67,7 +67,7 @@ public class ContrastManDaoImp implements IContrastManDao {
 	
 	//根据hql语句、条件、条件值修改某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IContrastManDao#updateByHql(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.ContrastManDao#updateByHql(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public void updateByHql(final String hql,final String[] paramNames,final Object[] values) {
 		this.hibernateTemplate.execute(new HibernateCallback(){
@@ -87,7 +87,7 @@ public class ContrastManDaoImp implements IContrastManDao {
 	
 	//获得所有记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IContrastManDao#getContrastMans()
+	 * @see com.yz.dao.imp.ContrastManDao#getContrastMans()
 	 */
 	public List<ContrastMan> getContrastMans() {
 		return this.hibernateTemplate.loadAll(ContrastMan.class);
@@ -95,7 +95,7 @@ public class ContrastManDaoImp implements IContrastManDao {
 	
 	//根据hql语句来查询所有记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IContrastManDao#queryList(java.lang.String)
+	 * @see com.yz.dao.imp.ContrastManDao#queryList(java.lang.String)
 	 */
 	public List<ContrastMan> queryList(String queryString) {
 		return this.hibernateTemplate.find(queryString);
@@ -103,7 +103,7 @@ public class ContrastManDaoImp implements IContrastManDao {
 	
 	//根据hql、条件值查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IContrastManDao#getObjectsByCondition(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.ContrastManDao#getObjectsByCondition(java.lang.String, java.lang.Object[])
 	 */
 	public List<ContrastMan> getObjectsByCondition(String queryString, Object[] p) {
 		return this.hibernateTemplate.find(queryString,p);
@@ -111,7 +111,7 @@ public class ContrastManDaoImp implements IContrastManDao {
 	
 	//根据hql语句、条件、条件值查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IContrastManDao#queryList(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.ContrastManDao#queryList(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public List<ContrastMan> queryList(String queryString, String[] paramNames,
 			Object[] values)
@@ -123,7 +123,7 @@ public class ContrastManDaoImp implements IContrastManDao {
 	
 	//根据hql、id列表查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IContrastManDao#getObjectsByIdList(java.lang.String, java.util.List)
+	 * @see com.yz.dao.imp.ContrastManDao#getObjectsByIdList(java.lang.String, java.util.List)
 	 */
 	public List<ContrastMan> getObjectsByIdList(final String hql,final List<Integer> idList) {
 		return this.hibernateTemplate.executeFind(new HibernateCallback(){
@@ -140,7 +140,7 @@ public class ContrastManDaoImp implements IContrastManDao {
 	
 	//根据hql语句、条件值、分页查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IContrastManDao#pageList(java.lang.String, java.lang.Object[], java.lang.Integer, java.lang.Integer)
+	 * @see com.yz.dao.imp.ContrastManDao#pageList(java.lang.String, java.lang.Object[], java.lang.Integer, java.lang.Integer)
 	 */
 	public List<ContrastMan> pageList(final String queryString,final Object[] p,final Integer page,
 			final Integer size) {
@@ -167,7 +167,7 @@ public class ContrastManDaoImp implements IContrastManDao {
 	
 	//根据hql、条件值获得一个唯一值
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IContrastManDao#getUniqueResult(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.ContrastManDao#getUniqueResult(java.lang.String, java.lang.Object[])
 	 */
 	public int getUniqueResult(final String queryString,final Object[] p) {
 		Session session=this.hibernateTemplate.getSessionFactory().getCurrentSession();
@@ -184,7 +184,7 @@ public class ContrastManDaoImp implements IContrastManDao {
 	
 	//根据id查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IContrastManDao#loadById(int)
+	 * @see com.yz.dao.imp.ContrastManDao#loadById(int)
 	 */
 	public ContrastMan loadById(int id) {
 		return (ContrastMan) this.hibernateTemplate.load(ContrastMan.class, id);
@@ -192,7 +192,7 @@ public class ContrastManDaoImp implements IContrastManDao {
 	
 	//根据hql语句、条件、值来查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IContrastManDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.ContrastManDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public ContrastMan queryByNamedParam(String queryString, String[] paramNames,
 			Object[] values) {
@@ -202,7 +202,7 @@ public class ContrastManDaoImp implements IContrastManDao {
 	
 	//根据hql语句、条件值来查询是否存在该记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IContrastManDao#checkContrastManExistsWithName(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.ContrastManDao#checkContrastManExistsWithName(java.lang.String, java.lang.Object[])
 	 */
 	public boolean checkContrastManExistsWithName(String queryString, Object[] p) {
 		List list =  this.hibernateTemplate.find(queryString,p);
@@ -210,7 +210,7 @@ public class ContrastManDaoImp implements IContrastManDao {
 	}
 	//根据hql批量修改
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IContrastManDao#updateContrastManByhql(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.ContrastManDao#updateContrastManByhql(java.lang.String, java.lang.Object[])
 	 */
 	public int updateContrastManByhql(String queryString, Object[] p) {
 		Session session=this.hibernateTemplate.getSessionFactory().getCurrentSession();

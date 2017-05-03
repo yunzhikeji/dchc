@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.yz.dao.OtherpersonDao;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -12,10 +13,9 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
-import com.yz.dao.IOtherpersonDao;
 import com.yz.model.Otherperson;
 @Component("otherpersonDao")
-public class OtherpersonDaoImp implements IOtherpersonDao {
+public class OtherpersonDaoImp implements OtherpersonDao {
 	private HibernateTemplate hibernateTemplate;
 	
 	public HibernateTemplate getHibernateTemplate() {
@@ -28,7 +28,7 @@ public class OtherpersonDaoImp implements IOtherpersonDao {
 
 	//保存一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IOtherpersonDao#save(com.yz.model.Otherperson)
+	 * @see com.yz.dao.imp.OtherpersonDao#save(com.yz.model.Otherperson)
 	 */
 	public void save(Otherperson otherperson) {
 		this.hibernateTemplate.save(otherperson);
@@ -36,7 +36,7 @@ public class OtherpersonDaoImp implements IOtherpersonDao {
 	
 	//保存一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IOtherpersonDao#savereturn(com.yz.model.Otherperson)
+	 * @see com.yz.dao.imp.OtherpersonDao#savereturn(com.yz.model.Otherperson)
 	 */
 	public Integer savereturn(Otherperson otherperson) {
 		return (Integer) this.hibernateTemplate.save(otherperson);
@@ -44,14 +44,14 @@ public class OtherpersonDaoImp implements IOtherpersonDao {
 	
 	//删除一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IOtherpersonDao#delete(com.yz.model.Otherperson)
+	 * @see com.yz.dao.imp.OtherpersonDao#delete(com.yz.model.Otherperson)
 	 */
 	public void delete(Otherperson otherperson) {
 		this.hibernateTemplate.delete(otherperson);
 	}
 	//根据ID删除一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IOtherpersonDao#deleteById(int)
+	 * @see com.yz.dao.imp.OtherpersonDao#deleteById(int)
 	 */
 	public void deleteById(int id) {
 		this.hibernateTemplate.delete(this.loadById(id));
@@ -59,7 +59,7 @@ public class OtherpersonDaoImp implements IOtherpersonDao {
 	
 	//修改一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IOtherpersonDao#update(com.yz.model.Otherperson)
+	 * @see com.yz.dao.imp.OtherpersonDao#update(com.yz.model.Otherperson)
 	 */
 	public void update(Otherperson otherperson) {
 		this.hibernateTemplate.update(otherperson);
@@ -67,7 +67,7 @@ public class OtherpersonDaoImp implements IOtherpersonDao {
 	
 	//根据hql语句、条件、条件值修改某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IOtherpersonDao#updateByHql(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.OtherpersonDao#updateByHql(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public void updateByHql(final String hql,final String[] paramNames,final Object[] values) {
 		this.hibernateTemplate.execute(new HibernateCallback(){
@@ -87,7 +87,7 @@ public class OtherpersonDaoImp implements IOtherpersonDao {
 	
 	//获得所有记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IOtherpersonDao#getOtherpersons()
+	 * @see com.yz.dao.imp.OtherpersonDao#getOtherpersons()
 	 */
 	public List<Otherperson> getOtherpersons() {
 		return this.hibernateTemplate.loadAll(Otherperson.class);
@@ -95,7 +95,7 @@ public class OtherpersonDaoImp implements IOtherpersonDao {
 	
 	//根据hql语句来查询所有记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IOtherpersonDao#queryList(java.lang.String)
+	 * @see com.yz.dao.imp.OtherpersonDao#queryList(java.lang.String)
 	 */
 	public List<Otherperson> queryList(String queryString) {
 		return this.hibernateTemplate.find(queryString);
@@ -103,7 +103,7 @@ public class OtherpersonDaoImp implements IOtherpersonDao {
 	
 	//根据hql、条件值查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IOtherpersonDao#getObjectsByCondition(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.OtherpersonDao#getObjectsByCondition(java.lang.String, java.lang.Object[])
 	 */
 	public List<Otherperson> getObjectsByCondition(String queryString, Object[] p) {
 		return this.hibernateTemplate.find(queryString,p);
@@ -111,7 +111,7 @@ public class OtherpersonDaoImp implements IOtherpersonDao {
 	
 	//根据hql语句、条件、条件值查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IOtherpersonDao#queryList(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.OtherpersonDao#queryList(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public List<Otherperson> queryList(String queryString, String[] paramNames,
 			Object[] values)
@@ -123,7 +123,7 @@ public class OtherpersonDaoImp implements IOtherpersonDao {
 	
 	//根据hql、id列表查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IOtherpersonDao#getObjectsByIdList(java.lang.String, java.util.List)
+	 * @see com.yz.dao.imp.OtherpersonDao#getObjectsByIdList(java.lang.String, java.util.List)
 	 */
 	public List<Otherperson> getObjectsByIdList(final String hql,final List<Integer> idList) {
 		return this.hibernateTemplate.executeFind(new HibernateCallback(){
@@ -140,7 +140,7 @@ public class OtherpersonDaoImp implements IOtherpersonDao {
 	
 	//根据hql语句、条件值、分页查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IOtherpersonDao#pageList(java.lang.String, java.lang.Object[], java.lang.Integer, java.lang.Integer)
+	 * @see com.yz.dao.imp.OtherpersonDao#pageList(java.lang.String, java.lang.Object[], java.lang.Integer, java.lang.Integer)
 	 */
 	public List<Otherperson> pageList(final String queryString,final Object[] p,final Integer page,
 			final Integer size) {
@@ -167,7 +167,7 @@ public class OtherpersonDaoImp implements IOtherpersonDao {
 	
 	//根据hql、条件值获得一个唯一值
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IOtherpersonDao#getUniqueResult(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.OtherpersonDao#getUniqueResult(java.lang.String, java.lang.Object[])
 	 */
 	public int getUniqueResult(final String queryString,final Object[] p) {
 		Session session=this.hibernateTemplate.getSessionFactory().getCurrentSession();
@@ -184,7 +184,7 @@ public class OtherpersonDaoImp implements IOtherpersonDao {
 	
 	//根据id查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IOtherpersonDao#loadById(int)
+	 * @see com.yz.dao.imp.OtherpersonDao#loadById(int)
 	 */
 	public Otherperson loadById(int id) {
 		return (Otherperson) this.hibernateTemplate.load(Otherperson.class, id);
@@ -192,7 +192,7 @@ public class OtherpersonDaoImp implements IOtherpersonDao {
 	
 	//根据hql语句、条件、值来查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IOtherpersonDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.OtherpersonDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public Otherperson queryByNamedParam(String queryString, String[] paramNames,
 			Object[] values) {
@@ -202,7 +202,7 @@ public class OtherpersonDaoImp implements IOtherpersonDao {
 	
 	//根据hql语句、条件值来查询是否存在该记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IOtherpersonDao#checkOtherpersonExistsWithName(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.OtherpersonDao#checkOtherpersonExistsWithName(java.lang.String, java.lang.Object[])
 	 */
 	public boolean checkOtherpersonExistsWithName(String queryString, Object[] p) {
 		List list =  this.hibernateTemplate.find(queryString,p);
@@ -210,7 +210,7 @@ public class OtherpersonDaoImp implements IOtherpersonDao {
 	}
 	//根据hql批量修改
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IOtherpersonDao#updateOtherpersonByhql(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.OtherpersonDao#updateOtherpersonByhql(java.lang.String, java.lang.Object[])
 	 */
 	public int updateOtherpersonByhql(String queryString, Object[] p) {
 		Session session=this.hibernateTemplate.getSessionFactory().getCurrentSession();

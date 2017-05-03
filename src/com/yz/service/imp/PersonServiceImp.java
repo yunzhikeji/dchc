@@ -1,133 +1,79 @@
 package com.yz.service.imp;
 
+import com.yz.dao.PersonDao;
+import com.yz.model.*;
+import com.yz.service.*;
+import com.yz.util.GenerateSqlFromExcel;
+import com.yz.util.IdsOperator;
+import com.yz.util.InfoType;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Component;
-
-import com.yz.dao.IPersonDao;
-import com.yz.model.AnalyzeMan;
-import com.yz.model.ContrastMan;
-import com.yz.model.DisappearMan;
-import com.yz.model.GamblingCriminalMan;
-import com.yz.model.GuiltSafeguardMan;
-import com.yz.model.Person;
-import com.yz.model.Unit;
-import com.yz.model.UserRole;
-import com.yz.service.IAnalyzeManService;
-import com.yz.service.IContrastManService;
-import com.yz.service.IDisappearManService;
-import com.yz.service.IGamblingCriminalManService;
-import com.yz.service.IGuiltSafeguardManService;
-import com.yz.service.IPersonService;
-import com.yz.service.IUnitService;
-import com.yz.util.GenerateSqlFromExcel;
-import com.yz.util.InfoType;
-import com.yz.util.MyHandleUtil;
-
 @Component("personService")
-public class PersonServiceImp implements IPersonService {
-
-	private IPersonDao personDao;
-	private IUnitService unitService;
+public class PersonServiceImp extends RoleServiceImp implements PersonService {
 
 	@Resource
-	private IPersonService personService;
+	private PersonDao personDao;
 	@Resource
-	private IGamblingCriminalManService gamblingCriminalManService;
+	private UnitService unitService;
 	@Resource
-	private IGuiltSafeguardManService guiltSafeguardManService;
+	private GamblingCriminalManService gamblingCriminalManService;
 	@Resource
-	private IDisappearManService disappearmanService;
+	private GuiltSafeguardManService guiltSafeguardManService;
 	@Resource
-	private IAnalyzeManService analyzeManService;
+	private DisappearManService disappearManService;
 	@Resource
-	private IContrastManService contrastManService;
+	private AnalyzeManService analyzeManService;
+	@Resource
+	private ContrastManService contrastManService;
 
-	// 添加对象
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yz.service.imp.IPersonServiceImp#add(com.yz.model.Person)
-	 */
+
 	public void add(Person person) throws Exception {
+
+		changeUnitByUserRoleAndIdsOperator(person.getUserRole(), new IdsOperator(person.getId() + "", 1));
 		personDao.save(person);
 	}
 
-	// 删除对象
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yz.service.imp.IPersonServiceImp#delete(com.yz.model.Person)
-	 */
+
 	public void delete(Person person) {
+
+		changeUnitByUserRoleAndIdsOperator(person.getUserRole(), new IdsOperator(person.getId() + "", -1));
 		personDao.delete(person);
 	}
 
-	// 删除某个id的对象
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yz.service.imp.IPersonServiceImp#deleteById(int)
-	 */
+
 	public void deleteById(int id) {
 		personDao.deleteById(id);
 	}
 
-	// 修改对象
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yz.service.imp.IPersonServiceImp#update(com.yz.model.Person)
-	 */
+
 	public void update(Person person) {
 		personDao.update(person);
 	}
 
-	// 获取所有对象
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yz.service.imp.IPersonServiceImp#getPersons()
-	 */
+
 	public List<Person> getPersons() {
 		return personDao.getPersons();
 	}
 
-	// 加载一个id的对象
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yz.service.imp.IPersonServiceImp#loadById(int)
-	 */
+
 	public Person loadById(int id) {
 		return personDao.loadById(id);
 	}
 
-	// 后台管理-页数获取
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yz.service.imp.IPersonServiceImp#getPageCount(int,
-	 *      java.lang.String, int)
-	 */
+
 	public int getPageCount(int totalCount, int size) {
 		return totalCount % size == 0 ? totalCount / size
 				: (totalCount / size + 1);
 	}
 
-	// 后台管理-获取总记录数
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yz.service.imp.IPersonServiceImp#getTotalCount(int,
-	 *      java.lang.String)
-	 */
+
 	public int getTotalCount(int con, String convalue, UserRole userRole,
-			int type, int queryState, String starttime, String endtime) {
+							 int type, int queryState, String starttime, String endtime) {
 		String queryString = "select count(*) from Person mo where 1=1 ";
 		Object[] p = null;
 
@@ -144,7 +90,7 @@ public class PersonServiceImp implements IPersonService {
 			if (con == 4) {
 				queryString += "and mo.userRole.realname like ? ";
 			}
-			p = new Object[] { '%' + convalue + '%' };
+			p = new Object[]{'%' + convalue + '%'};
 		}
 		if (type != 0) {
 			queryString += " and mo.type =" + type;
@@ -158,35 +104,29 @@ public class PersonServiceImp implements IPersonService {
 		if (endtime != null && !endtime.equals("")) {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
-		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
-				InfoType.PERSON);
+		queryString = assembleLimitSqlByUserRole(queryString, userRole);
+
 		return personDao.getUniqueResult(queryString, p);
 	}
 
 	public Person getPersonByPersonname(String personname) {
 		String queryString = "from Person mo where mo.name=:personname";
-		String[] paramNames = new String[] { "personname" };
-		Object[] values = new Object[] { personname };
+		String[] paramNames = new String[]{"personname"};
+		Object[] values = new Object[]{personname};
 		return personDao.queryByNamedParam(queryString, paramNames, values);
 	}
 
 	public Person getPersonByIdcard(String idcard) {
 		String queryString = "from Person mo where mo.idcard=:idcard";
-		String[] paramNames = new String[] { "idcard" };
-		Object[] values = new Object[] { idcard };
+		String[] paramNames = new String[]{"idcard"};
+		Object[] values = new Object[]{idcard};
 		return personDao.queryByNamedParam(queryString, paramNames, values);
 	}
 
-	// 后台管理-获取符合条件的记录
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yz.service.imp.IPersonServiceImp#queryList(int,
-	 *      java.lang.String, int, int)
-	 */
+
 	public List<Person> queryList(int con, String convalue, UserRole userRole,
-			int page, int size, int type, int queryState, String starttime,
-			String endtime) {
+								  int page, int size, int type, int queryState, String starttime,
+								  String endtime) {
 		String queryString = "from Person mo where 1=1 ";
 		Object[] p = null;
 		if (con != 0 && convalue != null && !convalue.equals("")) {
@@ -202,7 +142,7 @@ public class PersonServiceImp implements IPersonService {
 			if (con == 4) {
 				queryString += "and mo.userRole.realname like ? ";
 			}
-			p = new Object[] { '%' + convalue + '%' };
+			p = new Object[]{'%' + convalue + '%'};
 		}
 		if (type != 0) {
 			queryString += " and mo.type =" + type;
@@ -217,43 +157,27 @@ public class PersonServiceImp implements IPersonService {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
 
-		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
-				InfoType.PERSON);
+		queryString = assembleLimitSqlByUserRole(queryString, userRole);
 
 		return personDao.pageList(queryString, p, page, size);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yz.service.IPersonService#getPersonById(java.lang.Integer)
-	 */
+
 	public Person getPersonById(Integer personid) {
 		return personDao.getPersonById(personid);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yz.service.IPersonService#getPersonsByTypeAndHandleState(int,
-	 *      java.lang.String, java.lang.String, java.lang.String, int, int,
-	 *      com.yz.model.UserRole)
-	 */
+
 	public List<Person> getPersonsByTypeAndHandleState(int con,
-			String convalue, String starttime, String endtime, int type,
-			int handleState, UserRole userRole) {
-		// TODO Auto-generated method stub
+													   String convalue, String starttime, String endtime, int type,
+													   int handleState, UserRole userRole) {
 		String queryString = "from Person mo where mo.type=" + type
 				+ " and mo.handleState=" + handleState;
 		return queryListBySql(con, convalue, starttime, endtime, userRole,
 				queryString);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yz.service.IPersonService#savereturn(com.yz.model.Person)
-	 */
+
 	public int savereturn(Person person) {
 		return personDao.savereturn(person);
 	}
@@ -363,7 +287,7 @@ public class PersonServiceImp implements IPersonService {
 						person.setEndSituation("");
 					}
 
-					disappearmanService.add(disappearMan);
+					disappearManService.add(disappearMan);
 					person.setDisappearMan(disappearMan);
 					int pid = personDao.savereturn(person);
 
@@ -427,83 +351,83 @@ public class PersonServiceImp implements IPersonService {
 					}
 
 					switch (person.getType()) {
-					case 0:
-					case 1:
-						// pageName = "赌博人员";
-					case 2:
-						// pageName = "涉恶人员";
-					case 3:
-						// pageName = "涉黄人员";
-					case 4:
-						// pageName = "食药环人员";
-					case 5:
-						// pageName = "涉毒人员";
-					case 6:
-						// pageName = "留置盘问";
-					case 7:
-						// pageName = "侵财人员";
-					case 8:
-						// pageName = "刑事传唤";
-					case 14:
-						// pageName = "前科人员";
-					case 15:
-						// pageName = "其他人员";
-						GamblingCriminalMan gamblingCriminalMan = new GamblingCriminalMan();
+						case 0:
+						case 1:
+							// pageName = "赌博人员";
+						case 2:
+							// pageName = "涉恶人员";
+						case 3:
+							// pageName = "涉黄人员";
+						case 4:
+							// pageName = "食药环人员";
+						case 5:
+							// pageName = "涉毒人员";
+						case 6:
+							// pageName = "留置盘问";
+						case 7:
+							// pageName = "侵财人员";
+						case 8:
+							// pageName = "刑事传唤";
+						case 14:
+							// pageName = "前科人员";
+						case 15:
+							// pageName = "其他人员";
+							GamblingCriminalMan gamblingCriminalMan = new GamblingCriminalMan();
 
-						gamblingCriminalMan.setDnanumber(data[10].toString());
-						gamblingCriminalMan.setOtherId(data[11].toString());
-						gamblingCriminalMan.setFingerPrintNumber(data[12]
-								.toString());
-						gamblingCriminalMan.setFootPrintNumber(data[13]
-								.toString());
-						gamblingCriminalMan.setCurrentAddressArea(data[14]
-								.toString());
-						gamblingCriminalMan.setCurrentAddress(data[15]
-								.toString());
-						gamblingCriminalMan.setVirtualId(data[16].toString());
-						gamblingCriminalMan.setBankCard(data[17].toString());
-						gamblingCriminalMan.setNickname(data[18].toString());
-						gamblingCriminalMan.setCarLicenseNumber(data[19]
-								.toString());
-						gamblingCriminalMan
-								.setEngineNumber(data[20].toString());
-						gamblingCriminalMan.setCarFrameNumber(data[21]
-								.toString());
-						gamblingCriminalMan.setImei(data[22].toString());
+							gamblingCriminalMan.setDnanumber(data[10].toString());
+							gamblingCriminalMan.setOtherId(data[11].toString());
+							gamblingCriminalMan.setFingerPrintNumber(data[12]
+									.toString());
+							gamblingCriminalMan.setFootPrintNumber(data[13]
+									.toString());
+							gamblingCriminalMan.setCurrentAddressArea(data[14]
+									.toString());
+							gamblingCriminalMan.setCurrentAddress(data[15]
+									.toString());
+							gamblingCriminalMan.setVirtualId(data[16].toString());
+							gamblingCriminalMan.setBankCard(data[17].toString());
+							gamblingCriminalMan.setNickname(data[18].toString());
+							gamblingCriminalMan.setCarLicenseNumber(data[19]
+									.toString());
+							gamblingCriminalMan
+									.setEngineNumber(data[20].toString());
+							gamblingCriminalMan.setCarFrameNumber(data[21]
+									.toString());
+							gamblingCriminalMan.setImei(data[22].toString());
 
-						gamblingCriminalManService.add(gamblingCriminalMan);
+							gamblingCriminalManService.add(gamblingCriminalMan);
 
-						person.setGamblingCriminalMan(gamblingCriminalMan);
-						break;
-					case 9:
-						// pageName = "负罪在逃";
-					case 10:
-						// pageName = "维稳人员";
-						GuiltSafeguardMan guiltSafeguardMan = new GuiltSafeguardMan();
-						guiltSafeguardManService.add(guiltSafeguardMan);
-						person.setGuiltSafeguardMan(guiltSafeguardMan);
-						break;
-					case 11:
-						// pageName = "失踪人员分析";
-						DisappearMan disappearman = new DisappearMan();
+							person.setGamblingCriminalMan(gamblingCriminalMan);
+							break;
+						case 9:
+							// pageName = "负罪在逃";
+						case 10:
+							// pageName = "维稳人员";
+							GuiltSafeguardMan guiltSafeguardMan = new GuiltSafeguardMan();
+							guiltSafeguardManService.add(guiltSafeguardMan);
+							person.setGuiltSafeguardMan(guiltSafeguardMan);
+							break;
+						case 11:
+							// pageName = "失踪人员分析";
+							DisappearMan disappearman = new DisappearMan();
 
-						disappearmanService.add(disappearman);
-						person.setDisappearMan(disappearman);
-						break;
-					case 12:
-						// pageName = "侵财人员分析";
-						AnalyzeMan analyzeMan = new AnalyzeMan();
-						analyzeManService.add(analyzeMan);
-						person.setAnalyzeMan(analyzeMan);
-						break;
-					case 13:
-						// pageName = "技术比中人员";
-						ContrastMan contrastMan = new ContrastMan();
-						contrastManService.add(contrastMan);
-						person.setContrastMan(contrastMan);
-						break;
-					default:
-						break;
+							disappearManService.add(disappearman);
+							person.setDisappearMan(disappearman);
+							break;
+						case 12:
+							// pageName = "侵财人员分析";
+							AnalyzeMan analyzeMan = new AnalyzeMan();
+							analyzeManService.add(analyzeMan);
+							person.setAnalyzeMan(analyzeMan);
+							break;
+						case 13:
+							// pageName = "技术比中人员";
+							ContrastMan contrastMan = new ContrastMan();
+							contrastManService.add(contrastMan);
+							person.setContrastMan(contrastMan);
+							break;
+						default:
+							break;
 					}
 
 					person.setRemark(data[23].toString());
@@ -511,9 +435,9 @@ public class PersonServiceImp implements IPersonService {
 					person.setCarryTool(data[25].toString());
 
 					/*
-					 * 
-					 * 
-					 * 
+					 *
+					 *
+					 *
 					 * private GamblingCriminalMan gamblingCriminalMan;//
 					 * 1:赌博人员，2:涉恶人员，3:涉黄人员，4:食药环人员，5:涉毒人员，6:留置盘问，7:侵财人员，8:刑事传唤
 					 * private GuiltSafeguardMan guiltSafeguardMan;//
@@ -546,7 +470,6 @@ public class PersonServiceImp implements IPersonService {
 			unitService.updateUnitByUserRoleAndInfoType(unit, pids,
 					InfoType.PERSON, 1);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -555,17 +478,17 @@ public class PersonServiceImp implements IPersonService {
 	// 获取excel的标题数据集
 	public ArrayList getExcelFieldNameList(int type) {
 
-		String[] titles = { "人员编号", "姓名", "性别", "出生日期", "QQ", "微信号", "身份证号",
+		String[] titles = {"人员编号", "姓名", "性别", "出生日期", "QQ", "微信号", "身份证号",
 				"手机号码", "户籍地详址", "户籍地区划", "DNA编号", "其他身份信息", "指纹编号", "足迹编号",
 				"现住地区划", "现住地详址", "虚拟身份", "银行卡信息", "绰号", "车牌号", "发动机号", "车架号",
-				"手机串号", "人员备注信息", "携带物品", "携带工具", "人员分类", "办理状态", "民族" };
+				"手机串号", "人员备注信息", "携带物品", "携带工具", "人员分类", "办理状态", "民族"};
 		// 失踪人员表头
-		String[] disappearManTitles = { "人员编号", "姓名", "外文姓名", "别名", "民族", "性别",
+		String[] disappearManTitles = {"人员编号", "姓名", "外文姓名", "别名", "民族", "性别",
 				"出生日期", "身份证号", "户籍地详址", "其他证件名称", "其他证件号码", "单位联系人姓名",
 				"单位联系人号码", "报案联系人姓名", "报案联系人号码", "现住地址", "失踪地址", "失踪日期",
 				"发现失踪日期", "失踪经过原因", "身高", "体型", "脸型", "足长", "血型", "口音", "特殊特征",
 				"体表特征", "特殊特征描述", "衣着情况", "亲属血样信息", "人员备注信息", "携带物品", "携带工具",
-				"撤销单位", "承办人", "撤销日期", "撤销原因", "综合情况", "领导批示", "办理状态", "完结情况" };
+				"撤销单位", "承办人", "撤销日期", "撤销原因", "综合情况", "领导批示", "办理状态", "完结情况"};
 		ArrayList fieldName = new ArrayList();
 
 		if (type != 11) {
@@ -584,8 +507,8 @@ public class PersonServiceImp implements IPersonService {
 	}
 
 	public ArrayList getExcelFieldDataList(int con, String convalue,
-			UserRole userRole, int type, int queryState, String starttime,
-			String endtime) {
+										   UserRole userRole, int type, int queryState, String starttime,
+										   String endtime) {
 
 		String queryString = "from Person mo where 1=1 ";
 
@@ -617,8 +540,7 @@ public class PersonServiceImp implements IPersonService {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
 
-		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
-				InfoType.PERSON);
+		queryString = assembleLimitSqlByUserRole(queryString, userRole);
 
 		List<Person> personList = personDao.queryList(queryString);
 
@@ -793,37 +715,37 @@ public class PersonServiceImp implements IPersonService {
 
 				if (person.getEndSituation() != null
 						&& !person.getEndSituation().replace(" ", "")
-								.equals("")) {
+						.equals("")) {
 					int endType = Integer.parseInt(person.getEndSituation());
 					switch (endType) {
-					case 1:
-						dataList.add("抓获");
-						break;
-					case 2:
-						dataList.add("死亡");
-						break;
-					case 3:
-						dataList.add("撤销案件");
-						break;
-					case 4:
-						dataList.add("释放");
-						break;
-					case 5:
-						dataList.add("治安拘留");
-						break;
-					case 6:
-						dataList.add("刑事拘留");
-						break;
-					case 7:
-						dataList.add("留置盘问");
-						break;
-					case 8:
-						dataList.add("其他");
-						break;
+						case 1:
+							dataList.add("抓获");
+							break;
+						case 2:
+							dataList.add("死亡");
+							break;
+						case 3:
+							dataList.add("撤销案件");
+							break;
+						case 4:
+							dataList.add("释放");
+							break;
+						case 5:
+							dataList.add("治安拘留");
+							break;
+						case 6:
+							dataList.add("刑事拘留");
+							break;
+						case 7:
+							dataList.add("留置盘问");
+							break;
+						case 8:
+							dataList.add("其他");
+							break;
 
-					default:
-						dataList.add("");
-						break;
+						default:
+							dataList.add("");
+							break;
 					}
 
 				} else {
@@ -921,96 +843,58 @@ public class PersonServiceImp implements IPersonService {
 		return fieldData;
 	}
 
-	/*
-	 * 条件查询人员列表
-	 * 
-	 * @see com.yz.service.IPersonService#getPersonsByHandleState(int,
-	 *      java.lang.String, java.lang.String, java.lang.String, int,
-	 *      com.yz.model.UserRole)
-	 */
+
 	public List<Person> getPersonsByHandleState(int con, String convalue,
-			String starttime, String endtime, int handleState, UserRole userRole) {
+												String starttime, String endtime, int handleState, UserRole userRole) {
 		String queryString = "from Person mo where 1=1 and mo.handleState="
 				+ handleState;
 		return queryListBySql(con, convalue, starttime, endtime, userRole,
 				queryString);
 	}
 
-	/*
-	 * 条件查询超期办理人员列表
-	 * 
-	 * @see com.yz.service.IPersonService#getOutOfTimePersonsByType(int,
-	 *      java.lang.String, java.lang.String, java.lang.String, int,
-	 *      com.yz.model.UserRole)
-	 */
 	public List<Person> getOutOfTimePersonsByType(int con, String convalue,
-			String starttime, String endtime, int type, UserRole userRole) {
+												  String starttime, String endtime, int type, UserRole userRole) {
 		String queryString = "from Person mo where  mo.type=" + type
 				+ " and mo.isOutOfTime=1";
 		return queryListBySql(con, convalue, starttime, endtime, userRole,
 				queryString);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yz.service.IPersonService#getOutOfTimePersons(int,
-	 *      java.lang.String, java.lang.String, java.lang.String,
-	 *      com.yz.model.UserRole)
-	 */
+
 	public List<Person> getOutOfTimePersons(int con, String convalue,
-			String starttime, String endtime, UserRole userRole) {
+											String starttime, String endtime, UserRole userRole) {
 		String queryString = "from Person mo where  mo.isOutOfTime=1";
 		return queryListBySql(con, convalue, starttime, endtime, userRole,
 				queryString);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yz.service.IPersonService#getPersonsByType(int,
-	 *      java.lang.String, java.lang.String, java.lang.String, int,
-	 *      com.yz.model.UserRole)
-	 */
+
 	public List<Person> getPersonsByType(int con, String convalue,
-			String starttime, String endtime, int type, UserRole userRole) {
+										 String starttime, String endtime, int type, UserRole userRole) {
 		String queryString = "from Person mo where  mo.type=" + type;
 		return queryListBySql(con, convalue, starttime, endtime, userRole,
 				queryString);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yz.service.IPersonService#getPersonsByUserRole(int,
-	 *      java.lang.String, java.lang.String, java.lang.String,
-	 *      com.yz.model.UserRole)
-	 */
+
 	public List<Person> getPersonsByUserRole(int con, String convalue,
-			String starttime, String endtime, UserRole userRole) {
+											 String starttime, String endtime, UserRole userRole) {
 		String queryString = "from Person mo where  1=1";
 		return queryListBySql(con, convalue, starttime, endtime, userRole,
 				queryString);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yz.service.IPersonService#getNewPersonsByUserRole(com.yz.model.UserRole)
-	 */
+
 	public List<Person> getNewPersonsByUserRole(UserRole userRole) {
-		// TODO Auto-generated method stub
 		String queryString = "from Person mo where  mo.isNew=1 and mo.handleState=1 ";
 
-		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
-				InfoType.PERSON);
+		queryString = assembleLimitSqlByUserRole(queryString, userRole);
 
 		return personDao.queryList(queryString);
 	}
 
 	public List<Person> getPersonsByOption(int con, String convalue,
-			UserRole userRole) {
-		// TODO Auto-generated method stub
+										   UserRole userRole) {
 		/*
 		 * 0:'选择类型',1:'人员姓名',2:'人员编号',3:'身份证号',4:'录入人员姓名',5:'DNA',6:'指纹',7:'户籍地',8:'手机号'
 		 * ,9:'微信号',10:'性别',11:'QQ号',12:'出生日期'
@@ -1022,120 +906,119 @@ public class PersonServiceImp implements IPersonService {
 
 		if (con != 0 && convalue != null && !convalue.equals("")) {
 			switch (con) {
-			case 1:
-				queryString += " and mo.name like  '%" + convalue + "%' ";
-				break;
-			case 2:
-				queryString += " and mo.number like  '%" + convalue + "%' ";
-				break;
-			case 3:
-				queryString += " and mo.idcard like  '%" + convalue + "%' ";
-				break;
-			case 4:
-				queryString += " and mo.userRole.realname like  '%" + convalue
-						+ "%' ";
-				break;
-			case 5:
-				queryString += " and mo.gamblingCriminalMan.dnanumber like  '%"
-						+ convalue + "%' ";
-				break;
-			case 6:
-				queryString += " and mo.gamblingCriminalMan.fingerPrintNumber like  '%"
-						+ convalue + "%' ";
-				break;
-			case 7:
-				queryString += " and mo.registerAddress like  '%" + convalue
-						+ "%' ";
-				break;
-			case 8:
-				queryString += " and mo.telphone like  '%" + convalue + "%' ";
-				break;
-			case 9:
-				queryString += " and mo.wechat like  '%" + convalue + "%' ";
-				break;
-			case 10:
-				if (convalue.contains("男")) {
-					queryString += " and mo.sex =1 ";
-				} else if (convalue.contains("女")) {
-					queryString += " and mo.sex =0 ";
-				}
-				break;
-			case 11:
-				queryString += " and mo.qq like  '%" + convalue + "%' ";
-				break;
-			case 12:
-				queryString += " and mo.birthday like  '%" + convalue + "%' ";
-				break;
-			case 13:
-				queryString += " and mo.bankCard like  '%" + convalue + "%' ";
-				break;
-			case 14:
-				queryString += " and mo.carFrameNumber like  '%" + convalue
-						+ "%' ";
-				break;
-			case 15:
-				queryString += " and mo.gamblingCriminalMan.imei like  '%"
-						+ convalue + "%' ";
-				break;
-			case 16:
-				queryString += " and mo.gamblingCriminalMan.fingerPrintNumber like  '%"
-						+ convalue + "%' ";
-				break;
-			case 17:
-				queryString += " and mo.gamblingCriminalMan.engineNumber like  '%"
-						+ convalue + "%' ";
-				break;
-			case 18:
-				queryString += " and mo.gamblingCriminalMan.currentAddress like  '%"
-						+ convalue + "%' ";
-				break;
-			case 19:
-				queryString += " and mo.disappearMan.missingEndTime>='"
-						+ convalue + "'";
-				queryString += " and mo.disappearMan.missingStartTime<='"
-						+ convalue + "'";
-				break;
-			case 20:
-				queryString += " and mo.disappearMan.missingAddress like  '%"
-						+ convalue + "%' ";
-				break;
-			case 21:
-				queryString += " and mo.disappearMan.reportContactName like  '%"
-						+ convalue + "%' ";
-				break;
+				case 1:
+					queryString += " and mo.name like  '%" + convalue + "%' ";
+					break;
+				case 2:
+					queryString += " and mo.number like  '%" + convalue + "%' ";
+					break;
+				case 3:
+					queryString += " and mo.idcard like  '%" + convalue + "%' ";
+					break;
+				case 4:
+					queryString += " and mo.userRole.realname like  '%" + convalue
+							+ "%' ";
+					break;
+				case 5:
+					queryString += " and mo.gamblingCriminalMan.dnanumber like  '%"
+							+ convalue + "%' ";
+					break;
+				case 6:
+					queryString += " and mo.gamblingCriminalMan.fingerPrintNumber like  '%"
+							+ convalue + "%' ";
+					break;
+				case 7:
+					queryString += " and mo.registerAddress like  '%" + convalue
+							+ "%' ";
+					break;
+				case 8:
+					queryString += " and mo.telphone like  '%" + convalue + "%' ";
+					break;
+				case 9:
+					queryString += " and mo.wechat like  '%" + convalue + "%' ";
+					break;
+				case 10:
+					if (convalue.contains("男")) {
+						queryString += " and mo.sex =1 ";
+					} else if (convalue.contains("女")) {
+						queryString += " and mo.sex =0 ";
+					}
+					break;
+				case 11:
+					queryString += " and mo.qq like  '%" + convalue + "%' ";
+					break;
+				case 12:
+					queryString += " and mo.birthday like  '%" + convalue + "%' ";
+					break;
+				case 13:
+					queryString += " and mo.bankCard like  '%" + convalue + "%' ";
+					break;
+				case 14:
+					queryString += " and mo.carFrameNumber like  '%" + convalue
+							+ "%' ";
+					break;
+				case 15:
+					queryString += " and mo.gamblingCriminalMan.imei like  '%"
+							+ convalue + "%' ";
+					break;
+				case 16:
+					queryString += " and mo.gamblingCriminalMan.fingerPrintNumber like  '%"
+							+ convalue + "%' ";
+					break;
+				case 17:
+					queryString += " and mo.gamblingCriminalMan.engineNumber like  '%"
+							+ convalue + "%' ";
+					break;
+				case 18:
+					queryString += " and mo.gamblingCriminalMan.currentAddress like  '%"
+							+ convalue + "%' ";
+					break;
+				case 19:
+					queryString += " and mo.disappearMan.missingEndTime>='"
+							+ convalue + "'";
+					queryString += " and mo.disappearMan.missingStartTime<='"
+							+ convalue + "'";
+					break;
+				case 20:
+					queryString += " and mo.disappearMan.missingAddress like  '%"
+							+ convalue + "%' ";
+					break;
+				case 21:
+					queryString += " and mo.disappearMan.reportContactName like  '%"
+							+ convalue + "%' ";
+					break;
 
-			case 22:
-				queryString += " and mo.disappearMan.missingCause like  '%"
-						+ convalue + "%' ";
-				break;
-			case 23:
-				queryString += " and mo.disappearMan.dressSituation like  '%"
-						+ convalue + "%' ";
-				break;
-			case 24:
-				queryString += " and mo.guiltSafeguardMan.temporaryAddress like  '%"
-						+ convalue + "%' ";
-				break;
-			case 25:
-				queryString += " and mo.guiltSafeguardMan.workdUnit like  '%"
-						+ convalue + "%' ";
-				break;
-			case 26:
-				queryString += " and mo.remark like  '%" + convalue + "%' ";
-				break;
-			case 27:
-				queryString += " and mo.carrier like  '%" + convalue + "%' ";
-				break;
-			case 28:
-				queryString += " and mo.carryTool like  '%" + convalue + "%' ";
-				break;
-			default:
-				break;
+				case 22:
+					queryString += " and mo.disappearMan.missingCause like  '%"
+							+ convalue + "%' ";
+					break;
+				case 23:
+					queryString += " and mo.disappearMan.dressSituation like  '%"
+							+ convalue + "%' ";
+					break;
+				case 24:
+					queryString += " and mo.guiltSafeguardMan.temporaryAddress like  '%"
+							+ convalue + "%' ";
+					break;
+				case 25:
+					queryString += " and mo.guiltSafeguardMan.workdUnit like  '%"
+							+ convalue + "%' ";
+					break;
+				case 26:
+					queryString += " and mo.remark like  '%" + convalue + "%' ";
+					break;
+				case 27:
+					queryString += " and mo.carrier like  '%" + convalue + "%' ";
+					break;
+				case 28:
+					queryString += " and mo.carryTool like  '%" + convalue + "%' ";
+					break;
+				default:
+					break;
 			}
 		}
 
-		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
-				InfoType.PERSON);
+		queryString = assembleLimitSqlByUserRole(queryString, userRole);
 
 		return personDao.queryList(queryString);
 	}
@@ -1144,8 +1027,8 @@ public class PersonServiceImp implements IPersonService {
 	 * 提取方法
 	 */
 	public List<Person> queryListBySql(int con, String convalue,
-			String starttime, String endtime, UserRole userRole,
-			String queryString) {
+									   String starttime, String endtime, UserRole userRole,
+									   String queryString) {
 
 		if (con != 0 && convalue != null && !convalue.equals("")) {
 			if (con == 1) {
@@ -1168,28 +1051,19 @@ public class PersonServiceImp implements IPersonService {
 			queryString += " and mo.joinDate<='" + endtime + "'";
 		}
 
-		queryString = MyHandleUtil.setSqlLimit(queryString, userRole,
-				InfoType.PERSON);
+		queryString = assembleLimitSqlByUserRole(queryString, userRole);
 
 		return personDao.queryList(queryString);
 	}
 
-	public IUnitService getUnitService() {
-		return unitService;
+
+	protected String getObjectIds(UserRole userRole) {
+		return userRole.getUnit().getPids();
 	}
 
-	@Resource
-	public void setUnitService(IUnitService unitService) {
-		this.unitService = unitService;
-	}
+	protected void changeUnitIds(Unit unit) {
 
-	public IPersonDao getPersonDao() {
-		return personDao;
-	}
+		unitService.update(unit);
 
-	@Resource
-	public void setPersonDao(IPersonDao personDao) {
-		this.personDao = personDao;
 	}
-
 }

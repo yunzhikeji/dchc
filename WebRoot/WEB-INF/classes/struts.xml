@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE struts PUBLIC
-	"-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
-	"http://struts.apache.org/dtds/struts-2.1.dtd">
+        "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN"
+        "http://struts.apache.org/dtds/struts-2.1.dtd">
 <struts>
 	<constant name="struts.ui.theme" value="simple"></constant>
 	<constant name="struts.objectFactory" value="spring"></constant>
@@ -10,60 +10,59 @@
 	<constant name="struts.multipart.saveDir" value="/tmp"></constant>
 	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
 
-	<package name="unit" extends="struts-default">
+
+	<package name="struts-init" extends="struts-default">
+		<interceptors>
+			<interceptor name="auth"
+				class="authenticationInterceptor">
+			</interceptor>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="auth" />
+				<interceptor-ref name="token">
+					<param name="includeMethods">add</param>
+					<param name="excludeMethods">default</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<default-interceptor-ref name="myStack" />
 		<global-results>
 			<result name="adminLogin">/login.jsp</result>
-			<result name="opsessiongo">/op_sessiongo.jsp</result>
-		</global-results>
-		<action name="unitAction" class="unitAction">
-			<result name="sessiongo">/op_sessiongo.jsp</result>
-			<result name="success_child">/op_success_child.jsp</result>
-
-			<result name="success">/op_success.jsp</result>
-			<result name="fail">/op_failure.jsp</result>
-			<result name="operror">/op_error.jsp</result>
-
-			<result name="list">/unit_manage.jsp</result>
-			<result name="add">/unit_add.jsp</result>
-			<result name="load">/unit_update.jsp</result>
-			<result name="view">/unit_view.jsp</result>
-
-			<result name="invalid.token">/op_failure_child.jsp</result>
-			<interceptor-ref name="defaultStack" />
-			<interceptor-ref name="token">
-				<param name="includeMethods">add</param>
-				<param name="excludeMethods">default</param>
-			</interceptor-ref>
-		</action>
-	</package>
-
-	<package name="unit_json" extends="json-default">
-		<action name="deleteUnits" class="unitAction"
-			method="deleteUnits" />
-		<action name="checkUnitName" class="unitAction"
-			method="checkUnitName" />
-		<action name="checkUnitNumber" class="unitAction"
-			method="checkUnitNumber" />
-	</package>
-
-	<package name="userRole" extends="struts-default">
-		<global-results>
-			<result name="adminLogin">/login.jsp</result>
-			<result name="opsessiongo">/op_sessiongo.jsp</result>
-		</global-results>
-		<action name="toolkitAction" class="toolkitAction"></action>
-		<action name="userRoleAction" class="userRoleAction">
-			<result name="loginSucc">/index.jsp</result>
-
 			<result name="opsessiongo">/op_sessiongo.jsp</result>
 			<result name="opsessiongo_child">
 				/op_sessiongo_child.jsp
 			</result>
 			<result name="success">/op_success.jsp</result>
 			<result name="success_child">/op_success_child.jsp</result>
+			<result name="success_child1">
+				/op_success_child1.jsp
+			</result>
 			<result name="fail">/op_failure.jsp</result>
 			<result name="operror">/op_error.jsp</result>
+		</global-results>
+	</package>
 
+
+	<package name="login" extends="struts-default">
+		<action name="toolkitAction" class="toolkitAction"></action>
+		<action name="loginAction" class="loginAction">
+			<result name="adminLogin">/login.jsp</result>
+			<result name="loginSucc">/index.jsp</result>
+			<result name="welcome">/welcome.jsp</result>
+		</action>
+	</package>
+
+	<package name="unit" extends="struts-init">
+		<action name="unitAction" class="unitAction">
+			<result name="list">/unit_manage.jsp</result>
+			<result name="add">/unit_add.jsp</result>
+			<result name="load">/unit_update.jsp</result>
+			<result name="view">/unit_view.jsp</result>
+		</action>
+	</package>
+
+	<package name="userRole" extends="struts-init">
+		<action name="userRoleAction" class="userRoleAction">
 			<result name="list">/userRole_manage.jsp</result>
 			<result name="add">/userRole_add.jsp</result>
 			<result name="load">/userRole_update.jsp</result>
@@ -71,44 +70,16 @@
 			<result name="password">
 				/userRolepassword_update.jsp
 			</result>
-
 			<result name="currentUserRole">
 				/userRole_current.jsp
 			</result>
-
-			<result name="welcome">/welcome.jsp</result>
-
 			<result name="invalid.token">/op_failure_child.jsp</result>
-			<interceptor-ref name="defaultStack" />
-			<interceptor-ref name="token">
-				<param name="includeMethods">add</param>
-				<param name="excludeMethods">default</param>
-			</interceptor-ref>
+
 		</action>
 	</package>
 
-
-	<package name="userRole_json" extends="json-default">
-		<action name="deleteUserRoles" class="userRoleAction"
-			method="deleteUserRoles">
-			<param name="excludeNullProperties">true</param>
-		</action>
-		<action name="checkUsername" class="userRoleAction"
-			method="checkUsername" />
-	</package>
-
-	<package name="person" extends="struts-default">
-		<global-results>
-			<result name="adminLogin">/login.jsp</result>
-			<result name="opsessiongo">/op_sessiongo.jsp</result>
-		</global-results>
+	<package name="person" extends="struts-init">
 		<action name="personAction" class="personAction">
-			<result name="sessiongo">/op_sessiongo.jsp</result>
-			<result name="success_child">/op_success_child.jsp</result>
-			<result name="success">/op_success.jsp</result>
-			<result name="fail">/op_failure.jsp</result>
-			<result name="operror">/op_error.jsp</result>
-
 			<result name="importpage">/person_import.jsp</result>
 			<result name="importdata">/person_import.jsp</result>
 			<result name="list">/person_manage.jsp</result>
@@ -168,41 +139,11 @@
 
 			<result name="addLawcase">/lawcase_add.jsp</result>
 			<result name="updateLawcase">/lawcase_update.jsp</result>
-
-			<result name="invalid.token">/op_failure_child.jsp</result>
-			<interceptor-ref name="defaultStack" />
-			<interceptor-ref name="token">
-				<param name="includeMethods">add</param>
-				<param name="excludeMethods">default</param>
-			</interceptor-ref>
 		</action>
 	</package>
 
-
-
-	<package name="person_json" extends="json-default">
-		<action name="deletePersons" class="personAction"
-			method="deletePersons" />
-		<action name="getNewPersons" class="personAction"
-			method="getNewPersons">
-			<param name="excludeNullProperties">true</param>
-			<!-- 排除j值为空的值 -->
-		</action>
-	</package>
-
-
-	<package name="injurycase" extends="struts-default">
-		<global-results>
-			<result name="adminLogin">/login.jsp</result>
-			<result name="opsessiongo">/op_sessiongo.jsp</result>
-		</global-results>
+	<package name="injurycase" extends="struts-init">
 		<action name="injurycaseAction" class="injurycaseAction">
-			<result name="sessiongo">/op_sessiongo.jsp</result>
-			<result name="success_child">/op_success_child.jsp</result>
-			<result name="success">/op_success.jsp</result>
-			<result name="fail">/op_failure.jsp</result>
-			<result name="operror">/op_error.jsp</result>
-
 			<result name="list">/injurycase_manage.jsp</result>
 			<result name="add">/injurycase_add.jsp</result>
 			<result name="load">/injurycase_update.jsp</result>
@@ -213,320 +154,94 @@
 			<result name="importpage">/injurycase_import.jsp</result>
 			<result name="importdata">/injurycase_import.jsp</result>
 			<result name="opexcel">/op_excel.jsp</result>
-
-			<result name="invalid.token">/op_failure_child.jsp</result>
-			<interceptor-ref name="defaultStack" />
-			<interceptor-ref name="token">
-				<param name="includeMethods">add</param>
-				<param name="excludeMethods">default</param>
-			</interceptor-ref>
 		</action>
 	</package>
 
 
-
-	<package name="injurycase_json" extends="json-default">
-		<action name="deleteInjurycases" class="injurycaseAction"
-			method="deleteInjurycases" />
-		<action name="handleInjurycaseSeries" class="injurycaseAction"
-			method="handleInjurycaseSeries" />
-		<action name="getNewInjurycases" class="injurycaseAction"
-			method="getNewInjurycases" />
-	</package>
-
-
-	<package name="clue" extends="struts-default">
-		<global-results>
-			<result name="adminLogin">/login.jsp</result>
-			<result name="opsessiongo">/op_sessiongo.jsp</result>
-		</global-results>
+	<package name="clue" extends="struts-init">
 		<action name="clueAction" class="clueAction">
-			<result name="sessiongo">/op_sessiongo.jsp</result>
-			<result name="success_child">/op_success_child.jsp</result>
-			<result name="success">/op_success.jsp</result>
-			<result name="fail">/op_failure.jsp</result>
-			<result name="operror">/op_error.jsp</result>
-
 			<result name="list">/clue_manage.jsp</result>
 			<result name="add">/clue_add.jsp</result>
 			<result name="load">/clue_update.jsp</result>
 			<result name="view">/clue_view.jsp</result>
-
-			<result name="invalid.token">/op_failure_child.jsp</result>
-			<interceptor-ref name="defaultStack" />
-			<interceptor-ref name="token">
-				<param name="includeMethods">add</param>
-				<param name="excludeMethods">default</param>
-			</interceptor-ref>
 		</action>
 	</package>
 
 
-
-	<package name="clue_json" extends="json-default">
-		<action name="deleteClues" class="clueAction"
-			method="deleteClues" />
-		<action name="getNewClues" class="clueAction"
-			method="getNewClues" />
-	</package>
-
-
-	<package name="pnotice" extends="struts-default">
-		<global-results>
-			<result name="adminLogin">/login.jsp</result>
-			<result name="opsessiongo">/op_sessiongo.jsp</result>
-		</global-results>
+	<package name="pnotice" extends="struts-init">
 		<action name="pnoticeAction" class="pnoticeAction">
-			<result name="sessiongo">/op_sessiongo.jsp</result>
-			<result name="success_child">/op_success_child.jsp</result>
-			<result name="success">/op_success.jsp</result>
-			<result name="fail">/op_failure.jsp</result>
-			<result name="operror">/op_error.jsp</result>
-
 			<result name="list">/pnotice_manage.jsp</result>
 			<result name="add">/pnotice_add.jsp</result>
 			<result name="load">/pnotice_update.jsp</result>
 			<result name="view">/pnotice_view.jsp</result>
-
-
-			<result name="invalid.token">/op_failure_child.jsp</result>
-			<interceptor-ref name="defaultStack" />
-			<interceptor-ref name="token">
-				<param name="includeMethods">add</param>
-				<param name="excludeMethods">default</param>
-			</interceptor-ref>
 		</action>
 	</package>
 
 
-
-	<package name="pnotice_json" extends="json-default">
-		<action name="deletePnotices" class="pnoticeAction"
-			method="deletePnotices" />
-	</package>
-
-
-	<package name="lawcase" extends="struts-default">
-		<global-results>
-			<result name="adminLogin">/login.jsp</result>
-			<result name="opsessiongo">/op_sessiongo.jsp</result>
-		</global-results>
+	<package name="lawcase" extends="struts-init">
 		<action name="lawcaseAction" class="lawcaseAction">
-			<result name="sessiongo">/op_sessiongo.jsp</result>
-			<result name="success_child">/op_success_child.jsp</result>
-			<result name="success">/op_success.jsp</result>
-			<result name="fail">/op_failure.jsp</result>
-			<result name="operror">/op_error.jsp</result>
-
 			<result name="list">/lawcase_manage.jsp</result>
 			<result name="add">/lawcase_add.jsp</result>
 			<result name="load">/lawcase_update.jsp</result>
-			<result name="view">/lawcase_view.jsp</result>
-
-
-			<result name="invalid.token">/op_failure_child.jsp</result>
-			<interceptor-ref name="defaultStack" />
-			<interceptor-ref name="token">
-				<param name="includeMethods">add</param>
-				<param name="excludeMethods">default</param>
-			</interceptor-ref>
 		</action>
 	</package>
 
 
-	<package name="lawcase_json" extends="json-default">
-		<action name="deleteLawcase" class="lawcaseAction"
-			method="deleteLawcase" />
-	</package>
-
-	<package name="judge" extends="struts-default">
-		<global-results>
-			<result name="adminLogin">/login.jsp</result>
-			<result name="opsessiongo">/op_sessiongo.jsp</result>
-		</global-results>
+	<package name="judge" extends="struts-init">
 		<action name="judgeAction" class="judgeAction">
-			<result name="sessiongo">/op_sessiongo.jsp</result>
-			<result name="success_child">/op_success_child.jsp</result>
-			<result name="success">/op_success.jsp</result>
-			<result name="fail">/op_failure.jsp</result>
-			<result name="operror">/op_error.jsp</result>
-
 			<result name="list">/judge_manage.jsp</result>
 			<result name="add">/judge_add.jsp</result>
 			<result name="load">/judge_update.jsp</result>
 			<result name="view">/judge_view.jsp</result>
-
-
-			<result name="invalid.token">/op_failure_child.jsp</result>
-			<interceptor-ref name="defaultStack" />
-			<interceptor-ref name="token">
-				<param name="includeMethods">add</param>
-				<param name="excludeMethods">default</param>
-			</interceptor-ref>
 		</action>
 	</package>
 
 
-	<package name="judge_json" extends="json-default">
-		<action name="deleteJudge" class="judgeAction"
-			method="deleteJudge" />
-		<action name="getUnitVOs" class="judgeAction"
-			method="getUnitVOs" />
-		<action name="getNewJudges" class="judgeAction"
-			method="getNewJudges" />
-	</package>
-
-
-	<package name="otherperson" extends="struts-default">
-		<global-results>
-			<result name="adminLogin">/login.jsp</result>
-			<result name="opsessiongo">/op_sessiongo.jsp</result>
-		</global-results>
+	<package name="otherperson" extends="struts-init">
 		<action name="otherpersonAction" class="otherpersonAction">
-			<result name="sessiongo">/op_sessiongo.jsp</result>
-			<result name="success_child">/op_success_child.jsp</result>
-			<result name="success">/op_success.jsp</result>
-			<result name="fail">/op_failure.jsp</result>
-			<result name="operror">/op_error.jsp</result>
-
 			<result name="list">/otherperson_manage.jsp</result>
 			<result name="add">/otherperson_add.jsp</result>
 			<result name="load">/otherperson_update.jsp</result>
 			<result name="view">/otherperson_view.jsp</result>
-
-
-			<result name="invalid.token">/op_failure_child.jsp</result>
-			<interceptor-ref name="defaultStack" />
-			<interceptor-ref name="token">
-				<param name="includeMethods">add</param>
-				<param name="excludeMethods">default</param>
-			</interceptor-ref>
 		</action>
 	</package>
 
 
-	<package name="otherperson_json" extends="json-default">
-		<action name="deleteOtherperson" class="otherpersonAction"
-			method="deleteOtherperson" />
-		<action name="getPersonByIdcard" class="otherpersonAction"
-			method="getPersonByIdcard" />
-	</package>
-
-
-	<package name="troubleshooting" extends="struts-default">
-		<global-results>
-			<result name="adminLogin">/login.jsp</result>
-			<result name="opsessiongo">/op_sessiongo.jsp</result>
-		</global-results>
+	<package name="troubleshooting" extends="struts-init">
 		<action name="troubleshootingAction"
 			class="troubleshootingAction">
-			<result name="sessiongo">/op_sessiongo.jsp</result>
-			<result name="success_child">/op_success_child.jsp</result>
-			<result name="success">/op_success.jsp</result>
-			<result name="fail">/op_failure.jsp</result>
-			<result name="operror">/op_error.jsp</result>
-
 			<result name="list">/troubleshooting_manage.jsp</result>
 			<result name="add">/troubleshooting_add.jsp</result>
 			<result name="load">/troubleshooting_update.jsp</result>
 			<result name="view">/troubleshooting_view.jsp</result>
-
-
-			<result name="invalid.token">/op_failure_child.jsp</result>
-			<interceptor-ref name="defaultStack" />
-			<interceptor-ref name="token">
-				<param name="includeMethods">add</param>
-				<param name="excludeMethods">default</param>
-			</interceptor-ref>
 		</action>
 	</package>
 
 
-	<package name="troubleshooting_json" extends="json-default">
-		<action name="deleteTroubleshooting"
-			class="troubleshootingAction" method="deleteTroubleshooting" />
-	</package>
-
-
-	<package name="successexample" extends="struts-default">
-		<global-results>
-			<result name="adminLogin">/login.jsp</result>
-			<result name="opsessiongo">/op_sessiongo.jsp</result>
-		</global-results>
+	<package name="successexample" extends="struts-init">
 		<action name="successexampleAction"
 			class="successexampleAction">
-			<result name="sessiongo">/op_sessiongo.jsp</result>
-			<result name="success_child">/op_success_child.jsp</result>
-			<result name="success">/op_success.jsp</result>
-			<result name="fail">/op_failure.jsp</result>
-			<result name="operror">/op_error.jsp</result>
-
 			<result name="list">/successexample_manage.jsp</result>
 			<result name="add">/successexample_add.jsp</result>
 			<result name="load">/successexample_update.jsp</result>
 			<result name="view">/successexample_view.jsp</result>
-
-
-			<result name="invalid.token">/op_failure_child.jsp</result>
-			<interceptor-ref name="defaultStack" />
-			<interceptor-ref name="token">
-				<param name="includeMethods">add</param>
-				<param name="excludeMethods">default</param>
-			</interceptor-ref>
 		</action>
 	</package>
 
 
-	<package name="successexample_json" extends="json-default">
-		<action name="deleteSuccessexamples"
-			class="successexampleAction" method="deleteSuccessexamples" />
-	</package>
-
-
-
-	<package name="media" extends="struts-default">
-		<global-results>
-			<result name="adminLogin">/login.jsp</result>
-			<result name="opsessiongo">/op_sessiongo.jsp</result>
-		</global-results>
+	<package name="media" extends="struts-init">
 		<action name="mediaAction" class="mediaAction">
-			<result name="sessiongo">/op_sessiongo.jsp</result>
-			<result name="success_child">/op_success_child.jsp</result>
-			<result name="success_child1">
-				/op_success_child1.jsp
-			</result>
-			<result name="success">/op_success.jsp</result>
-			<result name="fail">/op_failure.jsp</result>
-			<result name="operror">/op_error.jsp</result>
-
 			<result name="list">/media_manage.jsp</result>
 			<result name="add">/media_add.jsp</result>
 			<result name="load">/media_update.jsp</result>
 			<result name="view">/media_view.jsp</result>
-
-
-			<result name="invalid.token">/op_failure_child.jsp</result>
-			<interceptor-ref name="defaultStack" />
-			<interceptor-ref name="token">
-				<param name="includeMethods">add</param>
-				<param name="excludeMethods">default</param>
-			</interceptor-ref>
+			<result name="views">/media_views.jsp</result>
 		</action>
 	</package>
 
 
-	<package name="media_json" extends="json-default">
-		<action name="deleteMedia" class="mediaAction"
-			method="deleteMedia" />
-	</package>
-
-	<package name="count" extends="struts-default">
-		<global-results>
-			<result name="adminLogin">/login.jsp</result>
-			<result name="opsessiongo">/op_sessiongo.jsp</result>
-		</global-results>
+	<package name="count" extends="struts-init">
 		<action name="countAction" class="countAction">
-
 			<result name="personCount">/person_count.jsp</result>
 			<result name="clueCount">/clue_count.jsp</result>
 			<result name="injurycaseCount">
@@ -536,17 +251,94 @@
 		</action>
 	</package>
 
-	<package name="query" extends="struts-default">
-		<global-results>
-			<result name="adminLogin">/login.jsp</result>
-			<result name="opsessiongo">/op_sessiongo.jsp</result>
-		</global-results>
+	<package name="query" extends="struts-init">
 		<action name="queryAction" class="queryAction">
 			<result name="query">/global.jsp</result>
 			<result name="manage">/global_manage.jsp</result>
 		</action>
 	</package>
 
+	<package name="json" extends="json-default">
+		<action name="getOpertionUnit" class="unitAction"
+				method="getOpertionUnit">
+		</action>
+		<action name="deleteUnits" class="unitAction"
+				method="deleteUnits">
+		</action>
+		<action name="checkUnitName" class="unitAction"
+				method="checkUnitName">
+		</action>
+		<action name="checkUnitNumber" class="unitAction"
+				method="checkUnitNumber">
+		</action>
+		<action name="deleteUserRoles" class="userRoleAction"
+			method="deleteUserRoles">
+			<param name="excludeNullProperties">true</param>
+		</action>
+		<action name="checkUsername" class="userRoleAction"
+			method="checkUsername">
+		</action>
+
+		<action name="deletePersons" class="personAction"
+				method="deletePersons" />
+		<action name="getNewPersons" class="personAction"
+				method="getNewPersons">
+			<param name="excludeNullProperties">true</param>
+			<!-- 排除j值为空的值 -->
+		</action>
+
+		<action name="deleteInjurycases" class="injurycaseAction"
+				method="deleteInjurycases">
+		</action>
+		<action name="handleInjurycaseSeries" class="injurycaseAction"
+				method="handleInjurycaseSeries">
+		</action>
+		<action name="getNewInjurycases" class="injurycaseAction"
+				method="getNewInjurycases">
+		</action>
+
+		<action name="deleteClues" class="clueAction"
+				method="deleteClues">
+		</action>
+		<action name="getNewClues" class="clueAction"
+				method="getNewClues">
+		</action>
+
+		<action name="deletePnotices" class="pnoticeAction"
+				method="deletePnotices">
+		</action>
+
+		<action name="deleteLawcase" class="lawcaseAction"
+				method="deleteLawcase">
+		</action>
+
+		<action name="deleteJudge" class="judgeAction"
+				method="deleteJudge">
+		</action>
+
+		<action name="getNewJudges" class="judgeAction"
+				method="getNewJudges">
+		</action>
+
+		<action name="deleteOtherperson" class="otherpersonAction"
+				method="deleteOtherperson">
+		</action>
+		<action name="getPersonByIdcard" class="otherpersonAction"
+				method="getPersonByIdcard">
+		</action>
+
+		<action name="deleteTroubleshooting"
+				class="troubleshootingAction" method="deleteTroubleshooting">
+		</action>
+
+		<action name="deleteSuccessexamples"
+				class="successexampleAction" method="deleteSuccessexamples">
+		</action>
+
+		<action name="deleteMedia" class="mediaAction"
+				method="deleteMedia">
+		</action>
+	</package>
 
 </struts>
 

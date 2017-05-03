@@ -1,4 +1,9 @@
-/*package com.yz.util;
+package com.yz.util;
+
+import com.yz.model.Person;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,62 +11,22 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+class ExcelHelper {
 
-import org.apache.commons.io.FilenameUtils;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellValue;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.yz.model.Person;
-
-*//**
- * Excel组件
- * 
- * @author Snowolf
- * @version 1.0
- * @since 1.0
- *//*
-public abstract class ExcelHelper {
-
-	*//**
-	 * Excel 2003
-	 *//*
 	private final static String XLS = "xls";
-	*//**
-	 * Excel 2007
-	 *//*
+
 	private final static String XLSX = "xlsx";
-	*//**
-	 * 分隔符
-	 *//*
+
 	private final static String SEPARATOR = "|";
 
-	*//**
-	 * 由Excel文件的Sheet导出至List
-	 * 
-	 * @param file
-	 * @param sheetNum
-	 * @return
-	 *//*
+
 	public static List<Person> exportListFromExcel(File file, String fileName,int sheetNum)
 			throws IOException {
 		return exportListFromExcel(new FileInputStream(file), fileName, sheetNum);
 	}
 
-	*//**
-	 * 由Excel流的Sheet导出至List
-	 * 
-	 * @param is
-	 * @param extensionName
-	 * @param sheetNum
-	 * @return
-	 * @throws IOException
-	 *//*
+
 	public static List<Person> exportListFromExcel(InputStream is,
 			String extensionName, int sheetNum) throws IOException {
 
@@ -74,14 +39,7 @@ public abstract class ExcelHelper {
 		return exportListFromExcel(workbook, sheetNum);
 	}
 
-	*//**
-	 * 由指定的Sheet导出至List
-	 * 
-	 * @param workbook
-	 * @param sheetNum
-	 * @return
-	 * @throws IOException
-	 *//*
+
 	private static List<Person> exportListFromExcel(Workbook workbook,
 			int sheetNum) {
 
@@ -396,4 +354,4 @@ public abstract class ExcelHelper {
 		}
 		return list;
 	}
-}*/
+}

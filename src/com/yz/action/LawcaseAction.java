@@ -1,46 +1,20 @@
 package com.yz.action;
 
-import com.opensymphony.xwork2.ActionSupport;
-import com.yz.model.Clue;
-import com.yz.model.Injurycase;
-import com.yz.model.Lawcase;
-import com.yz.model.Person;
-import com.yz.service.IClueService;
-import com.yz.service.IInjurycaseService;
-import com.yz.service.ILawcaseService;
-import com.yz.service.IPersonService;
+import com.yz.model.*;
+import com.yz.service.ClueService;
+import com.yz.service.InjurycaseService;
+import com.yz.service.LawcaseService;
+import com.yz.service.PersonService;
 import com.yz.util.AjaxMsgUtil;
 import com.yz.vo.AjaxMsgVO;
-import org.apache.struts2.interceptor.RequestAware;
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.Map;
 
 @Component("lawcaseAction")
 @Scope("prototype")
-public class LawcaseAction extends ActionSupport implements RequestAware,
-		SessionAware, ServletResponseAware, ServletRequestAware {
-
-	private static final long serialVersionUID = 1L;
-	Map<String, Object> request;
-	Map<String, Object> session;
-	private javax.servlet.http.HttpServletResponse response;
-	private javax.servlet.http.HttpServletRequest req;
-
-	// 分页显示
-	private String[] arg = new String[2];
-	private int page;
-	private final int size = 10;
-	private int pageCount;
-	private int totalCount;
+public class LawcaseAction extends BaseAction{
 
 	// 条件
 	private int id;
@@ -52,23 +26,19 @@ public class LawcaseAction extends ActionSupport implements RequestAware,
 
 	// service层对象
 	@Resource
-	private IPersonService personService;
+	private PersonService personService;
 	@Resource
-	private IInjurycaseService injurycaseService;
+	private InjurycaseService injurycaseService;
 	@Resource
-	private IClueService clueService;
+	private ClueService clueService;
 	@Resource
-	private ILawcaseService lawcaseService;
+	private LawcaseService lawcaseService;
 
 	// 单个表对象
 	private Person person;
 	private Injurycase injurycase;
 	private Clue clue;
-
 	private Lawcase lawcase;
-
-	// list表对象
-	private List<Person> persons;
 
 	/**
 	 * 涉案情况模块
@@ -147,61 +117,12 @@ public class LawcaseAction extends ActionSupport implements RequestAware,
 
 	// get、set-------------------------------------------
 
-	// 获得HttpServletResponse对象
-	public void setServletResponse(HttpServletResponse response) {
-		this.response = response;
-	}
-
-	public void setServletRequest(HttpServletRequest req) {
-		this.req = req;
-	}
-
-	public Map<String, Object> getRequest() {
-		return request;
-	}
-
-	public void setRequest(Map<String, Object> request) {
-		this.request = request;
-	}
-
-	public Map<String, Object> getSession() {
-		return session;
-	}
-
-	public void setSession(Map<String, Object> session) {
-		this.session = session;
-	}
-
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getPage() {
-		return page;
-	}
-
-	public void setPage(int page) {
-		this.page = page;
-	}
-
-	public int getPageCount() {
-		return pageCount;
-	}
-
-	public void setPageCount(int pageCount) {
-		this.pageCount = pageCount;
-	}
-
-	public int getTotalCount() {
-		return totalCount;
-	}
-
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
 	}
 
 	public int getPid() {
@@ -212,19 +133,11 @@ public class LawcaseAction extends ActionSupport implements RequestAware,
 		this.pid = pid;
 	}
 
-	public String[] getArg() {
-		return arg;
-	}
-
-	public void setArg(String[] arg) {
-		this.arg = arg;
-	}
-
-	public IPersonService getPersonService() {
+	public PersonService getPersonService() {
 		return personService;
 	}
 
-	public void setPersonService(IPersonService personService) {
+	public void setPersonService(PersonService personService) {
 		this.personService = personService;
 	}
 
@@ -236,35 +149,11 @@ public class LawcaseAction extends ActionSupport implements RequestAware,
 		this.person = person;
 	}
 
-	public List<Person> getPersons() {
-		return persons;
-	}
-
-	public void setPersons(List<Person> persons) {
-		this.persons = persons;
-	}
-
-	public javax.servlet.http.HttpServletResponse getResponse() {
-		return response;
-	}
-
-	public void setResponse(javax.servlet.http.HttpServletResponse response) {
-		this.response = response;
-	}
-
-	public javax.servlet.http.HttpServletRequest getReq() {
-		return req;
-	}
-
-	public void setReq(javax.servlet.http.HttpServletRequest req) {
-		this.req = req;
-	}
-
-	public ILawcaseService getLawcaseService() {
+	public LawcaseService getLawcaseService() {
 		return lawcaseService;
 	}
 
-	public void setLawcaseService(ILawcaseService lawcaseService) {
+	public void setLawcaseService(LawcaseService lawcaseService) {
 		this.lawcaseService = lawcaseService;
 	}
 
@@ -284,11 +173,11 @@ public class LawcaseAction extends ActionSupport implements RequestAware,
 		this.lawid = lawid;
 	}
 
-	public IInjurycaseService getInjurycaseService() {
+	public InjurycaseService getInjurycaseService() {
 		return injurycaseService;
 	}
 
-	public void setInjurycaseService(IInjurycaseService injurycaseService) {
+	public void setInjurycaseService(InjurycaseService injurycaseService) {
 		this.injurycaseService = injurycaseService;
 	}
 
@@ -308,11 +197,11 @@ public class LawcaseAction extends ActionSupport implements RequestAware,
 		this.cid = cid;
 	}
 
-	public IClueService getClueService() {
+	public ClueService getClueService() {
 		return clueService;
 	}
 
-	public void setClueService(IClueService clueService) {
+	public void setClueService(ClueService clueService) {
 		this.clueService = clueService;
 	}
 
@@ -331,7 +220,9 @@ public class LawcaseAction extends ActionSupport implements RequestAware,
 	public void setClue(Clue clue) {
 		this.clue = clue;
 	}
-	
-	
 
+	public void setCurrentUserRole(UserRole sessionCurrentUserRole) {
+		this.currentUserRole = sessionCurrentUserRole;
+	}
+	
 }

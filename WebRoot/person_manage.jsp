@@ -112,7 +112,7 @@
 				</form>
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
-				<span class="l"> <s:if test="#session.userRoleo.userLimit>0">
+				<span class="l"> <s:if test="#session.currentUserRole.userLimit>0">
 						<a href="javascript:;" onclick="deleteAllCheckedPersons();"
 							class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>
 							批量删除</a>
@@ -214,7 +214,7 @@
 									href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i>
 								</a>
 
-								<s:if test="#session.userRoleo.userLimit>0">
+								<s:if test="#session.currentUserRole.userLimit>0">
 									<a style="text-decoration: none" class="ml-5"
 										href="personAction!delete?id=<s:property value="id" />&type=<s:property value="type" />"
 										onclick="return confirm('你确定删除该信息吗？')" title="删除"><i

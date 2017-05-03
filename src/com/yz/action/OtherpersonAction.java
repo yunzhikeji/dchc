@@ -1,73 +1,46 @@
 package com.yz.action;
 
-import com.opensymphony.xwork2.ActionSupport;
 import com.yz.auth.AuthObject;
-import com.yz.model.Clue;
 import com.yz.model.Injurycase;
 import com.yz.model.Otherperson;
 import com.yz.model.Person;
-import com.yz.service.IClueService;
-import com.yz.service.IInjurycaseService;
-import com.yz.service.IOtherpersonService;
-import com.yz.service.IPersonService;
+import com.yz.model.UserRole;
+import com.yz.service.ClueService;
+import com.yz.service.InjurycaseService;
+import com.yz.service.OtherpersonService;
+import com.yz.service.PersonService;
 import com.yz.util.AjaxMsgUtil;
 import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
 import com.yz.vo.OtherPersonVO;
 import net.sf.json.JSONObject;
-import org.apache.struts2.interceptor.RequestAware;
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.util.List;
-import java.util.Map;
 
 @Component("otherpersonAction")
 @Scope("prototype")
-public class OtherpersonAction extends ActionSupport implements RequestAware,
-		SessionAware, ServletResponseAware, ServletRequestAware {
+public class OtherpersonAction extends BaseAction {
 
-	private static final long serialVersionUID = 1L;
-	Map<String, Object> request;
-	Map<String, Object> session;
-	private javax.servlet.http.HttpServletResponse response;
-	private javax.servlet.http.HttpServletRequest req;
-
-	// 分页显示
-	private String[] arg = new String[2];
-	private int page;
-	private final int size = 10;
-	private int pageCount;
-	private int totalCount;
 
 	// 条件
-	private int id;
 	private int pid;// 人员id
 	private int inid; //案件id
-	private int cid;//刑侦线索
 	private int otherid;// 同案人员，关系人员
 
-	private int otype;// 其他人员类型 1：关系人员，2：同案人员
-	
-	
 	private String idcard;
 
 	// service层对象
 	@Resource
-	private IPersonService personService;
+	private PersonService personService;
 	@Resource
-	private IOtherpersonService otherpersonService;
+	private OtherpersonService otherpersonService;
 	@Resource
-	private IInjurycaseService injurycaseService;
+	private InjurycaseService injurycaseService;
 	@Resource
-	private IClueService clueService;
+	private ClueService clueService;
 	//环境变量
 	@Resource(name = "authObject")
 	private AuthObject authObject;
@@ -76,24 +49,14 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 	private Person person;
 	private Injurycase injurycase;
 	private Otherperson otherperson;
-	private Clue clue;
 
 
-	// list表对象
-	private List<Person> persons;
-	private List<Otherperson> otherpersons;
-	private List<Otherperson> gxrs;// 关系人员
-	private List<Otherperson> tars;// 同案人员
-	private List<Otherperson> xyrs;// 嫌疑人员
-	
-	
-	
 	public String getPersonByIdcard() throws Exception {
 
 		Person person = personService.getPersonByIdcard(idcard);
 		OtherPersonVO otherPersonVO = new OtherPersonVO();
-		if (person != null){
-			
+		if (person != null) {
+
 			otherPersonVO.setId(person.getId());
 			otherPersonVO.setName(person.getName());
 			otherPersonVO.setNumber(person.getNumber());
@@ -102,7 +65,7 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 			otherPersonVO.setWechat(person.getWechat());
 			otherPersonVO.setQq(person.getQq());
 			otherPersonVO.setPhotoImg(person.getPhotoImg());
-			if(person.getGamblingCriminalMan()!=null){
+			if (person.getGamblingCriminalMan() != null) {
 				otherPersonVO.setCurrentAddress(person.getGamblingCriminalMan().getCurrentAddress());
 				otherPersonVO.setCurrentAddressArea(person.getGamblingCriminalMan().getCurrentAddressArea());
 			}
@@ -129,16 +92,14 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 
 	/**
 	 * 跳转到添加页面
-	 * 
+	 *
 	 * @return
 	 */
 	public String goToAdd() {
-		if(pid!=0)
-		{
+		if (pid != 0) {
 			person = personService.loadById(pid);
 		}
-		if(inid!=0)
-		{
+		if (inid != 0) {
 			injurycase = injurycaseService.loadById(inid);
 		}
 		return "add";
@@ -146,7 +107,7 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 
 	/**
 	 * 添加
-	 * 
+	 *
 	 * @return
 	 * @throws Exception
 	 */
@@ -173,31 +134,29 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 			otherperson.setRightPhoto("/otherperson" + "/" + imageName);
 		}
 
-		if (otherperson.getPerson()!= null) {
+		if (otherperson.getPerson() != null) {
 			changePersonHandleState(otherperson.getPerson().getId());
 		}
-		if (otherperson.getInjurycase()!= null) {
+		if (otherperson.getInjurycase() != null) {
 			changeInjurycaseHandleState(otherperson.getInjurycase().getId());
 		}
 		otherpersonService.add(otherperson);
 		return "success_child";
 	}
-	
+
 	//改变人员当前处理状态
 	private void changePersonHandleState(int perid) {
-		
+
 		Person per = personService.loadById(perid);
-		if(per!=null)
-		{
-			if(per.getHandleState()==1)
-			{
+		if (per != null) {
+			if (per.getHandleState() == 1) {
 				per.setHandleState(2);
 				personService.update(per);
 			}
 		}
-		
+
 	}
-	
+
 	private void changeInjurycaseHandleState(Integer inid) {
 
 		Injurycase injurycase = injurycaseService.loadById(inid);
@@ -207,18 +166,6 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 				injurycaseService.update(injurycase);
 			}
 		}
-	}
-	
-	private void changeClueHandleState(int clid) {
-
-		Clue clue = clueService.loadById(clid);
-		if (clue != null) {
-			if (clue.getHandleState() == 1) {
-				clue.setHandleState(2);
-				clueService.update(clue);
-			}
-		}
-
 	}
 
 
@@ -230,7 +177,7 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 	// 文件上传
 	public void upload(String fileName, String imageName, File picture)
 			throws Exception {
-		File saved = new File(authObject.getFileRoot()+fileName, imageName);
+		File saved = new File(authObject.getFileRoot() + fileName, imageName);
 		InputStream ins = null;
 		OutputStream ous = null;
 		try {
@@ -290,12 +237,13 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 			photofile.delete();
 		}
 		otherpersonService.delete(otherperson);
-		AjaxMsgUtil.outputJSONObjectToAjax(response,new AjaxMsgVO("删除成功."));
+		AjaxMsgUtil.outputJSONObjectToAjax(response, new AjaxMsgVO("删除成功."));
 		return null;
 	}
 
 	/**
 	 * 加载
+	 *
 	 * @return
 	 */
 	public String load() {
@@ -305,6 +253,7 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 
 	/**
 	 * 修改
+	 *
 	 * @return
 	 * @throws Exception
 	 */
@@ -346,62 +295,6 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 
 
 	// get、set-------------------------------------------
-	// 获得HttpServletResponse对象
-	public void setServletResponse(HttpServletResponse response) {
-		this.response = response;
-	}
-
-	public void setServletRequest(HttpServletRequest req) {
-		this.req = req;
-	}
-
-	public Map<String, Object> getRequest() {
-		return request;
-	}
-
-	public void setRequest(Map<String, Object> request) {
-		this.request = request;
-	}
-
-	public Map<String, Object> getSession() {
-		return session;
-	}
-
-	public void setSession(Map<String, Object> session) {
-		this.session = session;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getPage() {
-		return page;
-	}
-
-	public void setPage(int page) {
-		this.page = page;
-	}
-
-	public int getPageCount() {
-		return pageCount;
-	}
-
-	public void setPageCount(int pageCount) {
-		this.pageCount = pageCount;
-	}
-
-	public int getTotalCount() {
-		return totalCount;
-	}
-
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
-	}
 
 	public int getPid() {
 		return pid;
@@ -411,19 +304,11 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 		this.pid = pid;
 	}
 
-	public String[] getArg() {
-		return arg;
-	}
-
-	public void setArg(String[] arg) {
-		this.arg = arg;
-	}
-
-	public IPersonService getPersonService() {
+	public PersonService getPersonService() {
 		return personService;
 	}
 
-	public void setPersonService(IPersonService personService) {
+	public void setPersonService(PersonService personService) {
 		this.personService = personService;
 	}
 
@@ -433,30 +318,6 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 
 	public void setPerson(Person person) {
 		this.person = person;
-	}
-
-	public List<Person> getPersons() {
-		return persons;
-	}
-
-	public void setPersons(List<Person> persons) {
-		this.persons = persons;
-	}
-
-	public javax.servlet.http.HttpServletResponse getResponse() {
-		return response;
-	}
-
-	public void setResponse(javax.servlet.http.HttpServletResponse response) {
-		this.response = response;
-	}
-
-	public javax.servlet.http.HttpServletRequest getReq() {
-		return req;
-	}
-
-	public void setReq(javax.servlet.http.HttpServletRequest req) {
-		this.req = req;
 	}
 
 	public File getPicture() {
@@ -481,10 +342,6 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 
 	public void setPictureFileName(String pictureFileName) {
 		this.pictureFileName = pictureFileName;
-	}
-
-	public int getSize() {
-		return size;
 	}
 
 	public File getPicture1() {
@@ -567,11 +424,11 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 		this.otherid = otherid;
 	}
 
-	public IOtherpersonService getOtherpersonService() {
+	public OtherpersonService getOtherpersonService() {
 		return otherpersonService;
 	}
 
-	public void setOtherpersonService(IOtherpersonService otherpersonService) {
+	public void setOtherpersonService(OtherpersonService otherpersonService) {
 		this.otherpersonService = otherpersonService;
 	}
 
@@ -583,52 +440,11 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 		this.otherperson = otherperson;
 	}
 
-	public int getOtype() {
-		return otype;
-	}
-
-	public void setOtype(int otype) {
-		this.otype = otype;
-	}
-
-	public List<Otherperson> getGxrs() {
-		return gxrs;
-	}
-
-	public void setGxrs(List<Otherperson> gxrs) {
-		this.gxrs = gxrs;
-	}
-
-	public List<Otherperson> getTars() {
-		return tars;
-	}
-
-	public void setTars(List<Otherperson> tars) {
-		this.tars = tars;
-	}
-
-	public List<Otherperson> getXyrs() {
-		return xyrs;
-	}
-
-	public void setXyrs(List<Otherperson> xyrs) {
-		this.xyrs = xyrs;
-	}
-
-	public List<Otherperson> getOtherpersons() {
-		return otherpersons;
-	}
-
-	public void setOtherpersons(List<Otherperson> otherpersons) {
-		this.otherpersons = otherpersons;
-	}
-
-
-	public IInjurycaseService getInjurycaseService() {
+	public InjurycaseService getInjurycaseService() {
 		return injurycaseService;
 	}
 
-	public void setInjurycaseService(IInjurycaseService injurycaseService) {
+	public void setInjurycaseService(InjurycaseService injurycaseService) {
 		this.injurycaseService = injurycaseService;
 	}
 
@@ -640,19 +456,11 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 		this.inid = inid;
 	}
 
-	public int getCid() {
-		return cid;
-	}
-
-	public void setCid(int cid) {
-		this.cid = cid;
-	}
-
-	public IClueService getClueService() {
+	public ClueService getClueService() {
 		return clueService;
 	}
 
-	public void setClueService(IClueService clueService) {
+	public void setClueService(ClueService clueService) {
 		this.clueService = clueService;
 	}
 
@@ -664,14 +472,6 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 		this.injurycase = injurycase;
 	}
 
-	public Clue getClue() {
-		return clue;
-	}
-
-	public void setClue(Clue clue) {
-		this.clue = clue;
-	}
-
 	public String getIdcard() {
 		return idcard;
 	}
@@ -679,7 +479,10 @@ public class OtherpersonAction extends ActionSupport implements RequestAware,
 	public void setIdcard(String idcard) {
 		this.idcard = idcard;
 	}
-	
-	
+
+	public void setCurrentUserRole(UserRole sessionCurrentUserRole) {
+		this.currentUserRole = sessionCurrentUserRole;
+	}
+
 
 }

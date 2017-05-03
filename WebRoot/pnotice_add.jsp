@@ -78,7 +78,7 @@
 					</label>
 					<div class="formControls col-3">
 						<input type="text" id="author" name="pnotice.author"
-							value="${session.userRoleo.realname}"
+							value="${session.currentUserRole.realname}"
 							class="input-text radius size-M " style="width: 200px;" />
 					</div>
 				</div>

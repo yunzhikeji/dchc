@@ -66,7 +66,7 @@
 					</h4> </a>
 			</li>
 			<li>
-				<a href="javascript:;" onClick="location='userRoleAction!logout'"
+				<a href="javascript:;" onClick="location='loginAction!logout'"
 					title="注销"><img src="images/icon06.png" title="注销" />
 					<h4>
 						注销
@@ -82,20 +82,20 @@
 			<div class="my-profile dropDown dropDown_click ">
 				<a href="javascript:;" class="my-profile-pic dropDown_A"
 					aria-expanded="false" aria-haspopup="true" data-toggle="dropdown">
-					<img src="${session.userRoleo.photo}" alt="暂无照片" /> </a>
+					<img src="${session.currentUserRole.photo}" alt="暂无照片" /> </a>
 				<div class="dropDown-menu box-shadow text-c pt-10 mr-10">
 					<ul style="color: #333; text-shadow: none">
 						<p>
 							所属机构：
 						</p>
 						<p>
-							${session.userRoleo.unit.name}
+							${session.currentUserRole.unit.name}
 						</p>
 					</ul>
 				</div>
-				<span class="first-child">您好 ，<strong>${session.userRoleo.username}</strong>
+				<span class="first-child">您好 ，<strong>${session.currentUserRole.username}</strong>
 				</span>
-				<span>警号：${session.userRoleo.number}</span>
+				<span>警号：${session.currentUserRole.number}</span>
 			</div>
 
 			<div class="divider"></div>
@@ -202,7 +202,7 @@
 							<a _href="injurycaseAction!list?itype=3"
 								href="javascript:void(0)">团伙系列案件</a>
 						</li>
-						<s:if test="#session.userRoleo.userLimit>1">
+						<s:if test="#session.currentUserRole.userLimit>1">
 							<li>
 								<a _href="injurycaseAction!listcba" href="javascript:void(0)">串并案</a>
 							</li>
@@ -229,7 +229,7 @@
 					<a href="#"><i class="Hui-iconfont ">&#xe61d;</i> 系统管理<img
 							class="more" src="images/more.png" /> </a>
 					<ul class="er">
-						<s:if test="#session.userRoleo.userLimit>1">
+						<s:if test="#session.currentUserRole.userLimit>1">
 							<li>
 								<a _href="unitAction!list" href="javascript:void(0)">机构管理</a>
 							</li>
@@ -263,14 +263,14 @@
 		<div id="iframe_box" class="Hui-article">
 			<div class="show_iframe">
 				<div style="display: none" class="loading"></div>
-				<iframe scrolling="yes" frameborder="0" src="userRoleAction!welcome"></iframe>
+				<iframe scrolling="yes" frameborder="0" src="loginAction!welcome"></iframe>
 			</div>
 		</div>
 		<div id="Hui-tabNav" class="Hui-tabNav">
 			<div class="Hui-tabNav-wp">
 				<ul id="min_title_list" class="acrossTab cl">
 					<li class="active">
-						<span title="我的桌面" data-href="userRoleAction!welcome">我的桌面</span><em></em>
+						<span title="我的桌面" data-href="loginAction!welcome">我的桌面</span><em></em>
 					</li>
 				</ul>
 			</div>
@@ -359,6 +359,6 @@ function ypgj(title,url,w,h){
 			</div>
 		</div>
 
-		<iframe scrolling="yes" frameborder="0" src="userRoleAction!welcome"></iframe>
+		<iframe scrolling="yes" frameborder="0" src="loginAction!welcome"></iframe>
 	</body>
 </html>

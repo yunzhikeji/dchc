@@ -12,10 +12,10 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
-import com.yz.dao.ITroubleshootingDao;
+import com.yz.dao.TroubleshootingDao;
 import com.yz.model.Troubleshooting;
 @Component("troubleshootingDao")
-public class TroubleshootingDaoImp implements ITroubleshootingDao {
+public class TroubleshootingDaoImp implements TroubleshootingDao {
 	private HibernateTemplate hibernateTemplate;
 	
 	public HibernateTemplate getHibernateTemplate() {
@@ -28,7 +28,7 @@ public class TroubleshootingDaoImp implements ITroubleshootingDao {
 
 	//保存一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ITroubleshootingDao#save(com.yz.model.Troubleshooting)
+	 * @see com.yz.dao.imp.TroubleshootingDao#save(com.yz.model.Troubleshooting)
 	 */
 	public void save(Troubleshooting troubleshooting) {
 		this.hibernateTemplate.save(troubleshooting);
@@ -36,7 +36,7 @@ public class TroubleshootingDaoImp implements ITroubleshootingDao {
 	
 	//保存一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ITroubleshootingDao#savereturn(com.yz.model.Troubleshooting)
+	 * @see com.yz.dao.imp.TroubleshootingDao#savereturn(com.yz.model.Troubleshooting)
 	 */
 	public Integer savereturn(Troubleshooting troubleshooting) {
 		return (Integer) this.hibernateTemplate.save(troubleshooting);
@@ -44,14 +44,14 @@ public class TroubleshootingDaoImp implements ITroubleshootingDao {
 	
 	//删除一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ITroubleshootingDao#delete(com.yz.model.Troubleshooting)
+	 * @see com.yz.dao.imp.TroubleshootingDao#delete(com.yz.model.Troubleshooting)
 	 */
 	public void delete(Troubleshooting troubleshooting) {
 		this.hibernateTemplate.delete(troubleshooting);
 	}
 	//根据ID删除一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ITroubleshootingDao#deleteById(int)
+	 * @see com.yz.dao.imp.TroubleshootingDao#deleteById(int)
 	 */
 	public void deleteById(int id) {
 		this.hibernateTemplate.delete(this.loadById(id));
@@ -59,7 +59,7 @@ public class TroubleshootingDaoImp implements ITroubleshootingDao {
 	
 	//修改一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ITroubleshootingDao#update(com.yz.model.Troubleshooting)
+	 * @see com.yz.dao.imp.TroubleshootingDao#update(com.yz.model.Troubleshooting)
 	 */
 	public void update(Troubleshooting troubleshooting) {
 		this.hibernateTemplate.update(troubleshooting);
@@ -67,7 +67,7 @@ public class TroubleshootingDaoImp implements ITroubleshootingDao {
 	
 	//根据hql语句、条件、条件值修改某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ITroubleshootingDao#updateByHql(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.TroubleshootingDao#updateByHql(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public void updateByHql(final String hql,final String[] paramNames,final Object[] values) {
 		this.hibernateTemplate.execute(new HibernateCallback(){
@@ -87,7 +87,7 @@ public class TroubleshootingDaoImp implements ITroubleshootingDao {
 	
 	//获得所有记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ITroubleshootingDao#getTroubleshootings()
+	 * @see com.yz.dao.imp.TroubleshootingDao#getTroubleshootings()
 	 */
 	public List<Troubleshooting> getTroubleshootings() {
 		return this.hibernateTemplate.loadAll(Troubleshooting.class);
@@ -95,7 +95,7 @@ public class TroubleshootingDaoImp implements ITroubleshootingDao {
 	
 	//根据hql语句来查询所有记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ITroubleshootingDao#queryList(java.lang.String)
+	 * @see com.yz.dao.imp.TroubleshootingDao#queryList(java.lang.String)
 	 */
 	public List<Troubleshooting> queryList(String queryString) {
 		return this.hibernateTemplate.find(queryString);
@@ -103,7 +103,7 @@ public class TroubleshootingDaoImp implements ITroubleshootingDao {
 	
 	//根据hql、条件值查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ITroubleshootingDao#getObjectsByCondition(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.TroubleshootingDao#getObjectsByCondition(java.lang.String, java.lang.Object[])
 	 */
 	public List<Troubleshooting> getObjectsByCondition(String queryString, Object[] p) {
 		return this.hibernateTemplate.find(queryString,p);
@@ -111,7 +111,7 @@ public class TroubleshootingDaoImp implements ITroubleshootingDao {
 	
 	//根据hql语句、条件、条件值查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ITroubleshootingDao#queryList(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.TroubleshootingDao#queryList(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public List<Troubleshooting> queryList(String queryString, String[] paramNames,
 			Object[] values)
@@ -123,7 +123,7 @@ public class TroubleshootingDaoImp implements ITroubleshootingDao {
 	
 	//根据hql、id列表查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ITroubleshootingDao#getObjectsByIdList(java.lang.String, java.util.List)
+	 * @see com.yz.dao.imp.TroubleshootingDao#getObjectsByIdList(java.lang.String, java.util.List)
 	 */
 	public List<Troubleshooting> getObjectsByIdList(final String hql,final List<Integer> idList) {
 		return this.hibernateTemplate.executeFind(new HibernateCallback(){
@@ -140,7 +140,7 @@ public class TroubleshootingDaoImp implements ITroubleshootingDao {
 	
 	//根据hql语句、条件值、分页查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ITroubleshootingDao#pageList(java.lang.String, java.lang.Object[], java.lang.Integer, java.lang.Integer)
+	 * @see com.yz.dao.imp.TroubleshootingDao#pageList(java.lang.String, java.lang.Object[], java.lang.Integer, java.lang.Integer)
 	 */
 	public List<Troubleshooting> pageList(final String queryString,final Object[] p,final Integer page,
 			final Integer size) {
@@ -167,7 +167,7 @@ public class TroubleshootingDaoImp implements ITroubleshootingDao {
 	
 	//根据hql、条件值获得一个唯一值
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ITroubleshootingDao#getUniqueResult(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.TroubleshootingDao#getUniqueResult(java.lang.String, java.lang.Object[])
 	 */
 	public int getUniqueResult(final String queryString,final Object[] p) {
 		Session session=this.hibernateTemplate.getSessionFactory().getCurrentSession();
@@ -184,7 +184,7 @@ public class TroubleshootingDaoImp implements ITroubleshootingDao {
 	
 	//根据id查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ITroubleshootingDao#loadById(int)
+	 * @see com.yz.dao.imp.TroubleshootingDao#loadById(int)
 	 */
 	public Troubleshooting loadById(int id) {
 		return (Troubleshooting) this.hibernateTemplate.load(Troubleshooting.class, id);
@@ -192,7 +192,7 @@ public class TroubleshootingDaoImp implements ITroubleshootingDao {
 	
 	//根据hql语句、条件、值来查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ITroubleshootingDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.TroubleshootingDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public Troubleshooting queryByNamedParam(String queryString, String[] paramNames,
 			Object[] values) {
@@ -202,7 +202,7 @@ public class TroubleshootingDaoImp implements ITroubleshootingDao {
 	
 	//根据hql语句、条件值来查询是否存在该记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ITroubleshootingDao#checkTroubleshootingExistsWithName(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.TroubleshootingDao#checkTroubleshootingExistsWithName(java.lang.String, java.lang.Object[])
 	 */
 	public boolean checkTroubleshootingExistsWithName(String queryString, Object[] p) {
 		List list =  this.hibernateTemplate.find(queryString,p);
@@ -210,7 +210,7 @@ public class TroubleshootingDaoImp implements ITroubleshootingDao {
 	}
 	//根据hql批量修改
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.ITroubleshootingDao#updateTroubleshootingByhql(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.TroubleshootingDao#updateTroubleshootingByhql(java.lang.String, java.lang.Object[])
 	 */
 	public int updateTroubleshootingByhql(String queryString, Object[] p) {
 		Session session=this.hibernateTemplate.getSessionFactory().getCurrentSession();

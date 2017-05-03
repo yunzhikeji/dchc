@@ -204,7 +204,7 @@
 								</tr>
 								<tr>
 									<td align="center">
-										<s:file name="picture1"
+										<s:file name="file"
 											accept="image/jpeg,image/png,image/jpg" onchange="change1();"
 											id="myfile1"></s:file>
 									</td>

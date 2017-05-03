@@ -1,22 +1,19 @@
-/*package com.yz.util;
-import static org.junit.Assert.fail;
+package com.yz.util;
+
+import com.yz.model.Person;
+import org.apache.commons.io.FilenameUtils;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.io.FilenameUtils;
-import org.junit.Test;
-
-import com.yz.model.Person;
-
-
-*//**
+/**
  * 
  * @author Snowolf
  * @version 1.0
  * @since 1.0
- *//*
+ */
 public class ExcelHelperTest {
 
 	@Test
@@ -25,7 +22,7 @@ public class ExcelHelperTest {
 		System.out.println(new File(path).exists());
 		List<Person> list = null;
 		try {
-			list = ExcelHelper.exportListFromExcel(new File(path),FilenameUtils
+			list = ExcelHelper.exportListFromExcel(new File(path), FilenameUtils
 					.getExtension(new File(path).getName()), 0);
 			System.out.println(list.size());
 			
@@ -35,8 +32,7 @@ public class ExcelHelperTest {
 			}
 			
 		} catch (IOException e) {
-			fail();
 		}
 
 	}
-}*/
+}

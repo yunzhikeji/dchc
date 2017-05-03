@@ -31,8 +31,16 @@
 		<form name="mediaUpdateForm" action="mediaAction!update" method="post"
 			enctype="multipart/form-data" onsubmit="return checkMedia();">
 			<s:hidden name="media.id" />
+			
+			<c:if test="${media.injurycase!=null}">
 			<s:hidden name="media.injurycase.id" />
+			</c:if>
+			
+			
+			<c:if test="${media.judge!=null}">
 			<s:hidden name="media.judge.id" />
+			</c:if>
+			
 			<s:hidden name="media.mtype" />
 			<s:hidden name="media.src" />
 			<div class="pd-20">
@@ -80,7 +88,7 @@
 					</div>
 					<div class="col-10">
 						<div class="col-3">
-							<s:file name="picture1"  onchange="change1();"
+							<s:file name="file"  onchange="change1();"
 								id="myfile1"></s:file>
 							<script type="text/javascript">
 								function change1() {

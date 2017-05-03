@@ -15,7 +15,7 @@
            ">
 	<context:annotation-config />
 	<context:component-scan base-package="com.yz" />
-	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
 
 
 	

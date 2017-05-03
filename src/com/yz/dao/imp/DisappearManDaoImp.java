@@ -1,10 +1,7 @@
 package com.yz.dao.imp;
 
-import java.sql.SQLException;
-import java.util.List;
-
-import javax.annotation.Resource;
-
+import com.yz.dao.DisappearManDao;
+import com.yz.model.DisappearMan;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -12,10 +9,11 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
-import com.yz.dao.IDisappearManDao;
-import com.yz.model.DisappearMan;
-@Component("disappearmanDao")
-public class DisappearManDaoImp implements IDisappearManDao {
+import javax.annotation.Resource;
+import java.sql.SQLException;
+import java.util.List;
+@Component("disappearManDao")
+public class DisappearManDaoImp implements DisappearManDao {
 	private HibernateTemplate hibernateTemplate;
 	
 	public HibernateTemplate getHibernateTemplate() {
@@ -28,7 +26,7 @@ public class DisappearManDaoImp implements IDisappearManDao {
 
 	//保存一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#save(com.yz.model.Person)
+	 * @see com.yz.dao.imp.PersonDao#save(com.yz.model.Person)
 	 */
 	public void save(DisappearMan disappearman) {
 		this.hibernateTemplate.save(disappearman);
@@ -36,7 +34,7 @@ public class DisappearManDaoImp implements IDisappearManDao {
 	
 	//保存一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#savereturn(com.yz.model.Person)
+	 * @see com.yz.dao.imp.PersonDao#savereturn(com.yz.model.Person)
 	 */
 	public Integer savereturn(DisappearMan disappearman) {
 		return (Integer) this.hibernateTemplate.save(disappearman);
@@ -44,14 +42,14 @@ public class DisappearManDaoImp implements IDisappearManDao {
 	
 	//删除一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#delete(com.yz.model.Person)
+	 * @see com.yz.dao.imp.PersonDao#delete(com.yz.model.Person)
 	 */
 	public void delete(DisappearMan disappearman) {
 		this.hibernateTemplate.delete(disappearman);
 	}
 	//根据ID删除一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#deleteById(int)
+	 * @see com.yz.dao.imp.PersonDao#deleteById(int)
 	 */
 	public void deleteById(int id) {
 		this.hibernateTemplate.delete(this.loadById(id));
@@ -59,7 +57,7 @@ public class DisappearManDaoImp implements IDisappearManDao {
 	
 	//修改一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#update(com.yz.model.Person)
+	 * @see com.yz.dao.imp.PersonDao#update(com.yz.model.Person)
 	 */
 	public void update(DisappearMan disappearman) {
 		this.hibernateTemplate.update(disappearman);
@@ -67,7 +65,7 @@ public class DisappearManDaoImp implements IDisappearManDao {
 	
 	//根据hql语句、条件、条件值修改某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#updateByHql(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.PersonDao#updateByHql(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public void updateByHql(final String hql,final String[] paramNames,final Object[] values) {
 		this.hibernateTemplate.execute(new HibernateCallback(){
@@ -87,7 +85,7 @@ public class DisappearManDaoImp implements IDisappearManDao {
 	
 	//获得所有记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#getPersons()
+	 * @see com.yz.dao.imp.PersonDao#getPersons()
 	 */
 	public List<DisappearMan> getDisappearMen() {
 		return this.hibernateTemplate.loadAll(DisappearMan.class);
@@ -95,7 +93,7 @@ public class DisappearManDaoImp implements IDisappearManDao {
 	
 	//根据hql语句来查询所有记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#queryList(java.lang.String)
+	 * @see com.yz.dao.imp.PersonDao#queryList(java.lang.String)
 	 */
 	public List<DisappearMan> queryList(String queryString) {
 		return this.hibernateTemplate.find(queryString);
@@ -103,7 +101,7 @@ public class DisappearManDaoImp implements IDisappearManDao {
 	
 	//根据hql、条件值查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#getObjectsByCondition(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.PersonDao#getObjectsByCondition(java.lang.String, java.lang.Object[])
 	 */
 	public List<DisappearMan> getObjectsByCondition(String queryString, Object[] p) {
 		return this.hibernateTemplate.find(queryString,p);
@@ -111,7 +109,7 @@ public class DisappearManDaoImp implements IDisappearManDao {
 	
 	//根据hql语句、条件、条件值查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#queryList(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.PersonDao#queryList(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public List<DisappearMan> queryList(String queryString, String[] paramNames,
 			Object[] values)
@@ -123,7 +121,7 @@ public class DisappearManDaoImp implements IDisappearManDao {
 	
 	//根据hql、id列表查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#getObjectsByIdList(java.lang.String, java.util.List)
+	 * @see com.yz.dao.imp.PersonDao#getObjectsByIdList(java.lang.String, java.util.List)
 	 */
 	public List<DisappearMan> getObjectsByIdList(final String hql,final List<Integer> idList) {
 		return this.hibernateTemplate.executeFind(new HibernateCallback(){
@@ -140,7 +138,7 @@ public class DisappearManDaoImp implements IDisappearManDao {
 	
 	//根据hql语句、条件值、分页查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#pageList(java.lang.String, java.lang.Object[], java.lang.Integer, java.lang.Integer)
+	 * @see com.yz.dao.imp.PersonDao#pageList(java.lang.String, java.lang.Object[], java.lang.Integer, java.lang.Integer)
 	 */
 	public List<DisappearMan> pageList(final String queryString,final Object[] p,final Integer page,
 			final Integer size) {
@@ -167,7 +165,7 @@ public class DisappearManDaoImp implements IDisappearManDao {
 	
 	//根据hql、条件值获得一个唯一值
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#getUniqueResult(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.PersonDao#getUniqueResult(java.lang.String, java.lang.Object[])
 	 */
 	public int getUniqueResult(final String queryString,final Object[] p) {
 		Session session=this.hibernateTemplate.getSessionFactory().getCurrentSession();
@@ -184,7 +182,7 @@ public class DisappearManDaoImp implements IDisappearManDao {
 	
 	//根据id查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#loadById(int)
+	 * @see com.yz.dao.imp.PersonDao#loadById(int)
 	 */
 	public DisappearMan loadById(int id) {
 		return (DisappearMan) this.hibernateTemplate.load(DisappearMan.class, id);
@@ -192,7 +190,7 @@ public class DisappearManDaoImp implements IDisappearManDao {
 	
 	//根据hql语句、条件、值来查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.PersonDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public DisappearMan queryByNamedParam(String queryString, String[] paramNames,
 			Object[] values) {
@@ -202,7 +200,7 @@ public class DisappearManDaoImp implements IDisappearManDao {
 	
 	//根据hql语句、条件值来查询是否存在该记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#checkPersonExistsWithName(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.PersonDao#checkPersonExistsWithName(java.lang.String, java.lang.Object[])
 	 */
 	public boolean checkDisappearManExistsWithName(String queryString, Object[] p) {
 		List list =  this.hibernateTemplate.find(queryString,p);
@@ -210,7 +208,7 @@ public class DisappearManDaoImp implements IDisappearManDao {
 	}
 	//根据hql批量修改
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IPersonDao#updatePersonByhql(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.PersonDao#updatePersonByhql(java.lang.String, java.lang.Object[])
 	 */
 	public int updateDisappearManByhql(String queryString, Object[] p) {
 		Session session=this.hibernateTemplate.getSessionFactory().getCurrentSession();

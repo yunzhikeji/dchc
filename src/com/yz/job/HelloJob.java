@@ -7,12 +7,12 @@ import org.quartz.JobExecutionException;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 
-import com.yz.service.IJudgeService;
+import com.yz.service.JudgeService;
 
 @Component
 public class HelloJob extends QuartzJobBean {
 
-	private IJudgeService judgeService;
+	private JudgeService judgeService;
 
 	@Override
 	protected void executeInternal(JobExecutionContext arg0)
@@ -20,12 +20,12 @@ public class HelloJob extends QuartzJobBean {
 		// TODO Auto-generated method stub
 	}
 
-	public IJudgeService getJudgeService() {
+	public JudgeService getJudgeService() {
 		return judgeService;
 	}
 
 	@Resource
-	public void setJudgeService(IJudgeService judgeService) {
+	public void setJudgeService(JudgeService judgeService) {
 		this.judgeService = judgeService;
 	}
 

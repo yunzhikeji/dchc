@@ -155,7 +155,7 @@
 								<div class="row cl mb-10">
 									<div class="col-2">
 										<label class="form-label text-r">
-											DNA编号：
+											<span class="c-red">*</span>DNA编号：
 										</label>
 									</div>
 									<div class="col-4">
@@ -164,7 +164,7 @@
 									</div>
 									<div class="col-2">
 										<label class="form-label text-r">
-											指掌纹编号：
+											<span class="c-red">*</span>指纹编号：
 										</label>
 									</div>
 									<div class="col-4">
@@ -321,7 +321,7 @@
 											</tr>
 											<tr>
 												<td align="center">
-													<s:file name="picture1"
+													<s:file name="file"
 														accept="image/jpeg,image/png,image/jpg"
 														onchange="change1();" id="myfile1"></s:file>
 												</td>

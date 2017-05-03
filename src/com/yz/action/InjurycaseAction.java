@@ -1,181 +1,99 @@
 package com.yz.action;
 
-import com.opensymphony.xwork2.ActionSupport;
-import com.yz.auth.AuthObject;
-import com.yz.model.*;
+import com.yz.model.Injurycase;
+import com.yz.model.Media;
+import com.yz.model.Otherperson;
+import com.yz.model.UserRole;
 import com.yz.service.*;
-import com.yz.util.*;
+import com.yz.util.AjaxMsgUtil;
+import com.yz.util.ConvertUtil;
+import com.yz.util.DateTimeKit;
+import com.yz.util.InjurycaseExcel;
 import com.yz.vo.AjaxMsgVO;
 import com.yz.vo.InjurycaseVO;
-import com.yz.vo.UnitVO;
 import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.interceptor.RequestAware;
-import org.apache.struts2.interceptor.ServletRequestAware;
-import org.apache.struts2.interceptor.ServletResponseAware;
-import org.apache.struts2.interceptor.SessionAware;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Component("injurycaseAction")
 @Scope("prototype")
-public class InjurycaseAction extends ActionSupport implements RequestAware,
-		SessionAware, ServletResponseAware, ServletRequestAware {
+public class InjurycaseAction extends BaseAction{
 
-	private static final long serialVersionUID = 1L;
-	Map<String, Object> request;
-	Map<String, Object> session;
-	private javax.servlet.http.HttpServletResponse response;
-	private javax.servlet.http.HttpServletRequest req;
-
-	// 分页显示
-	private String[] arg = new String[2];
-	private int page;
-	private final int size = 10;
-	private int pageCount;
-	private int totalCount;
 
 	// 条件
 	private int id;
-	private int pid;// 按用户id
-	private int inid;// 案件id
-
-	private int troubid;// 疑难问题
-	private int otherid;// 同案人员，关系人员
-	private int jid;// 研判情况
-	private int con;
-	private String convalue;
-	private int status;// 按状态
 	private int itype;// 类型
-	private int jtype;// 发起类型 1:研判信息 2：部门查证 3：上报情况
-	private int queryState;// 办理状态
-	private String starttime;
-	private String endtime;
 	private String idcard;
 
-	// 页面信息
-	private String pageTileName;// 页面标题名称
-
-	// 批量删除
-	private String checkedIDs;
-
-	// service层对象
-	@Resource
-	private IUnitService unitService;
-	@Resource
-	private IInjurycaseService injurycaseService;
-	@Resource
-	private ITroubleshootingService troubleshootingService;
-	@Resource
-	private IOtherpersonService otherpersonService;
-	private IJudgeService judgeService;
-	@Resource
-	private ISuccessexampleService successexampleService;
-	@Resource
-	private IMediaService mediaService;
 
 	@Resource
-	private IUserRoleService userRoleService;
-
+	private InjurycaseService injurycaseService;
 	@Resource
-	private IPersonService personService;
-	
-	@Resource(name = "authObject")
-	private AuthObject authObject;
-	
+	private OtherpersonService otherpersonService;
+	@Resource
+	private MediaService mediaService;
+	@Resource
+	private UserRoleService userRoleService;
+	@Resource
+	private PersonService personService;
+	@Resource
+	private FileService fileService;
 
 	// 单个表对象
-	private Troubleshooting troubleshooting;
-	private Otherperson otherperson;
 	private Injurycase injurycase;
-	private Judge judge;
-	private Successexample successexample;
-	private Media media;
 
-	private UnitVO unitVO;
-	private Unit unit;
 
 	// list表对象
 	private List<Injurycase> injurycases;
-	private List<InjurycaseVO> injuryajaxMsgVOList;
+	private List<InjurycaseVO> injurycaseVOList;
 	private List<Otherperson> tars;// 同案人员
-	private List<Media> medias;
-	private List<Judge> judges;
-	private List<UnitVO> unitVOs;
-	private List<Unit> units;
 	// 同系列案件
-	private List<Injurycase> injurycaseSeries;
-
 	private List<Media> mediaVideos;
 	private List<Media> mediaImages;
 
-	// 部门json
-	private String jsonUnits;
 
-	// 案件图片
-	private File picture1;
-	private String picture1ContentType;
-	private String picture1FileName;
+	// 文件上传
+	private File[] file;
+	private String[] fileContentType;
+	private String[] fileFileName;
 
-	// 串并案查询案件关键字
-	private String keyword;
 	// 串并案系列名称
 	private String series;
 
 	private File injurycase_file;
+
 
 	/**
 	 * 案件管理
 	 */
 	public String list() throws Exception {
 
-		// 登陆验证
-		UserRole userRoleo = (UserRole) session.get("userRoleo");
-		if (userRoleo == null) {
-			return "opsessiongo";
-		}
-
-		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
-
-		if (convalue != null && !convalue.equals("")) {
-			convalue = URLDecoder.decode(convalue, "utf-8");
-			convalue = convalue.replace(" ", "");
-		}
-		if (starttime != null && !starttime.equals("")) {
-			starttime = URLDecoder.decode(starttime, "utf-8");
-			starttime = starttime.replace(" ", "");
-		}
-		if (endtime != null && !endtime.equals("")) {
-			endtime = URLDecoder.decode(endtime, "utf-8");
-			endtime = endtime.replace(" ", "");
-		}
+		decodeParameters();
 		if (page < 1) {
 			page = 1;
 		}
-
 		pageTileName = selectTileName(itype);
 
 		// 总记录数
-		totalCount = injurycaseService.getTotalCount(con, convalue, userRole,
-				itype, queryState, starttime, endtime);
+		totalCount = injurycaseService.getTotalCount(con, convalue,
+				currentUserRole, itype, queryState, starttime, endtime);
 		// 总页数
 		pageCount = injurycaseService.getPageCount(totalCount, size);
 		if (page > pageCount && pageCount != 0) {
 			page = pageCount;
 		}
 		// 所有当前页记录对象
-		injurycases = injurycaseService.queryList(con, convalue, userRole,
-				page, size, itype, queryState, starttime, endtime);
-
+		injurycases = injurycaseService.queryList(con, convalue,
+				currentUserRole, page, size, itype, queryState, starttime,
+				endtime);
 		return "list";
 	}
 
@@ -184,213 +102,117 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		// TODO Auto-generated method stub
 		String pageName = "案件信息";
 		switch (type) {
-		case 0:
-			pageName = "案件";
-			break;
-		case 1:
-			pageName = "刑事案件";
-			break;
-		case 2:
-			pageName = "重伤案件";
-			break;
-		case 3:
-			pageName = "团伙系列案件";
-			break;
-		case 4:
-			pageName = "行政案件";
-			break;
-		default:
-			pageName = "串并案";
-			break;
+			case 0:
+				pageName = "案件";
+				break;
+			case 1:
+				pageName = "刑事案件";
+				break;
+			case 2:
+				pageName = "重伤案件";
+				break;
+			case 3:
+				pageName = "团伙系列案件";
+				break;
+			case 4:
+				pageName = "行政案件";
+				break;
+			default:
+				pageName = "串并案";
+				break;
 		}
 		return pageName;
 	}
 
 	/**
 	 * 跳转到添加页面
-	 * 
+	 *
 	 * @return
 	 */
 	public String goToAdd() {
 
-		UserRole userRoleo = (UserRole) session.get("userRoleo");
-		if (userRoleo == null) {
-			return "opsessiongo";
-		}
 		return "add";
 	}
 
 	/**
 	 * 添加
-	 * 
+	 *
 	 * @return
 	 * @throws Exception
 	 */
 
 	public String add() throws Exception {
 
-		UserRole userRoleo = (UserRole) session.get("userRoleo");
-		if (userRoleo == null) {
-			return "opsessiongo_child";
-		}
-
-		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
-		injurycase.setUserRole(userRole);// 设置录入人员
+		injurycase.setUserRole(currentUserRole);// 设置录入人员
 		injurycase.setJoinDate(DateTimeKit.getLocalDate());// 设置录入时间
 		injurycase.setHandleState(1);// 初始化处理状态
 		injurycase.setIsOutOfTime(0);
 		injurycase.setIsNew(1);
-
-		if (picture1 != null && picture1FileName != null
-				&& !picture1FileName.replace(" ", "").equals("")) {
-			String imageName = DateTimeKit.getDateRandom()
-					+ picture1FileName.substring(picture1FileName.indexOf("."));
-			
-			this.upload("/case", imageName, picture1);
-				
-			injurycase.setImageCase("/case" + "/" + imageName);
-		}
+		injurycase.setImageCase(fileService.upload(file, fileFileName,
+				fileContentType, "case"));
 		injurycaseService.add(injurycase);
-
-		// 设置部门inids
-		unitService.updateUnitByUserRoleAndInfoType(userRole.getUnit(),
-				injurycase.getId() + "", InfoType.CASE, 1);
 
 		arg[0] = "injurycaseAction!list?itype=" + injurycase.getItype();
 		arg[1] = "案件管理";
 		return "success_child";
 	}
 
-	// 文件上传
-	public void upload(String fileName, String imageName, File picture)
-			throws Exception {
-		File saved = new File(authObject.getFileRoot()+fileName, imageName);
-		InputStream ins = null;
-		OutputStream ous = null;
-		try {
-			saved.getParentFile().mkdirs();
-			ins = new FileInputStream(picture);
-			ous = new FileOutputStream(saved);
-			byte[] b = new byte[1024];
-			int len = 0;
-			while ((len = ins.read(b)) != -1) {
-				ous.write(b, 0, len);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (ous != null)
-				ous.close();
-			if (ins != null)
-				ins.close();
-		}
-	}
-
 	/**
 	 * 删除一
-	 * 
+	 *
 	 * @return
 	 */
 	public String delete() throws Exception {
-		UserRole userRoleo = (UserRole) session.get("userRoleo");
-		if (userRoleo == null) {
-			return "opsessiongo";
-		}
-
-		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
 
 		injurycase = injurycaseService.loadById(id);
 
-		int itype = injurycase.getItype();
-
-		if (injurycase.getImageCase() != null
-				&& !injurycase.getImageCase().replace(" ", "").equals("")) {
-			File photofile = new File(authObject.getFileRoot()
-					+ injurycase.getImageCase());
-			photofile.delete();
-		}
-		// 设置部门inids
-		unitService.updateUnitByUserRoleAndInfoType(userRole.getUnit(),
-				id + "", InfoType.CASE, -1);
+		fileService.deleteFileBySrc(injurycase.getImageCase());
 
 		injurycaseService.delete(injurycase);
-		arg[0] = "injurycaseAction!list?itype=" + itype;
+		arg[0] = "injurycaseAction!list?itype=" + injurycase.getItype();
 		arg[1] = "案件管理";
 		return SUCCESS;
 	}
 
 	/**
 	 * 删除二(批量删除)
-	 * 
+	 *
 	 * @return
 	 */
 	public String deleteInjurycases() throws Exception {
-
-		UserRole userRoleo = (UserRole) session.get("userRoleo");
-		if (userRoleo == null) {
-			return "opsessiongo";
-		}
-
-		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
-
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
 		for (int i = 0; i < ids.length; i++) {
 			injurycase = injurycaseService.loadById(ids[i]);
-			if (injurycase.getImageCase() != null
-					&& !injurycase.getImageCase().replace(" ", "").equals("")) {
-				File photofile = new File(authObject.getFileRoot()
-						+ injurycase.getImageCase());
-				photofile.delete();
-			}
+
+			fileService.deleteFileBySrc(injurycase.getImageCase());
 
 			injurycaseService.delete(injurycase);
 		}
 
-		// 需要每次都访问新的组织
-		Unit unit = unitService.getUnitById(userRole.getUnit().getId());
-
-		// 设置部门inids
-		unitService.updateUnitByUserRoleAndInfoType(unit, checkedIDs,
-				InfoType.CASE, -1);
-
-		AjaxMsgUtil.outputJSONObjectToAjax(response,new AjaxMsgVO("删除成功."));
+		AjaxMsgUtil.outputJSONObjectToAjax(response, new AjaxMsgVO("删除成功."));
 		return null;
 	}
 
 	public String getPersonByIdcard() throws Exception {
-
-		Person person = personService.getPersonByIdcard(idcard);
-		AjaxMsgVO msgVO = new AjaxMsgVO();
-		msgVO.setMessage("批量删除成功.");
-		JSONObject jsonObj = JSONObject.fromObject(person);
-		PrintWriter out;
-		try {
-			response.setContentType("text/html;charset=UTF-8");
-			out = response.getWriter();
-			out.print(jsonObj.toString());
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		AjaxMsgUtil.outputJSONOToAjax(response, JSONObject.fromObject(
+				personService.getPersonByIdcard(idcard)).toString());
 		return null;
 	}
 
 	/**
 	 * 跳转到修改页面
-	 * 
+	 *
 	 * @return
 	 */
 	public String load() throws Exception {
-		UserRole userRoleo = (UserRole) session.get("userRoleo");
-		if (userRoleo == null) {
-			return "opsessiongo";
-		}
+
 		pageTileName = selectTileName(itype);
 
 		tars = otherpersonService.getInjurycaseOtherpersonByOtype(2, id);// 同案人
 
-		medias = mediaService.loadInjurycaseByTypeAndPid(1, id);// 视频文件
+		mediaVideos = mediaService.loadInjurycaseByTypeAndPid(1, id);// 视频文件
+
+		mediaImages = mediaService.loadInjurycaseByTypeAndPid(0, id);// 图像文件
 
 		injurycase = injurycaseService.queryInjurycaseById(id);// 当前修改案件的id
 
@@ -400,31 +222,23 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 	/**
 	 * 修改
-	 * 
+	 *
 	 * @return
 	 */
 	public String update() throws Exception {
-		UserRole userRoleo = (UserRole) session.get("userRoleo");
-		if (userRoleo == null) {
-			return "opsessiongo_child";
-		}
+
+		fileService.deleteFileBySrc(injurycase.getImageCase());
+
 		if (injurycase.getEndSituation() != null
 				&& injurycase.getEndSituation() != "") {
 			injurycase.setHandleState(3);// 完结
 		}
-		if (picture1 != null && picture1FileName != null
-				&& !picture1FileName.replace(" ", "").equals("")) {
-			String imageName = DateTimeKit.getDateRandom()
-					+ picture1FileName.substring(picture1FileName.indexOf("."));
-			this.upload("/case", imageName, picture1);
-			File photofile = new File(authObject.getFileRoot()
-					+ injurycase.getImageCase());
-			photofile.delete();
-			injurycase.setImageCase("/case" + "/" + imageName);
-		}
+
+		injurycase.setImageCase(fileService.upload(file, fileFileName,
+				fileContentType, "case"));
 
 		if (injurycase.getUserRole() == null) {
-			UserRole userRole = userRoleService.getUserRoleById(userRoleo
+			UserRole userRole = userRoleService.getUserRoleById(currentUserRole
 					.getId());
 			injurycase.setUserRole(userRole);// 设置录入人员
 		}
@@ -438,31 +252,22 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 	/**
 	 * 查看信息
-	 * 
+	 *
 	 * @return
 	 */
 	public String view() {
-		UserRole userRoleo = (UserRole) session.get("userRoleo");
-		if (userRoleo == null) {
-			return "opsessiongo";
-		}
+
 		injurycase = injurycaseService.loadById(id);
 		return "view";
 	}
 
 	/***************************************************************************
 	 * 串并案
-	 * 
+	 *
 	 * @throws UnsupportedEncodingException
 	 */
 	public String listcba() throws UnsupportedEncodingException {
 		// 登陆验证
-		UserRole userRoleo = (UserRole) session.get("userRoleo");
-		if (userRoleo == null) {
-			return "opsessiongo";
-		}
-
-		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
 
 		if (convalue != null && !convalue.equals("")) {
 			convalue = URLDecoder.decode(convalue, "utf-8");
@@ -483,19 +288,19 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		int size = 9;
 
 		// 总记录数
-		totalCount = injurycaseService.getTotalCount(con, convalue, userRole,
-				queryState, starttime, endtime);
+		totalCount = injurycaseService.getTotalCount(con, convalue,
+				currentUserRole, queryState, starttime, endtime);
 		// 总页数
 		pageCount = injurycaseService.getPageCount(totalCount, 9);
 		if (page > pageCount && pageCount != 0) {
 			page = pageCount;
 		}
 		// 所有当前页记录对象
-		injurycases = injurycaseService.queryList(con, convalue, userRole,
-				page, size, queryState, starttime, endtime);
+		injurycases = injurycaseService.queryList(con, convalue,
+				currentUserRole, page, size, queryState, starttime, endtime);
 
 		if (injurycases != null && injurycases.size() > 0) {
-			injuryajaxMsgVOList = new ArrayList<InjurycaseVO>();
+			injurycaseVOList = new ArrayList<InjurycaseVO>();
 			for (int i = 0; i < injurycases.size(); i++) {
 				InjurycaseVO injurycaseVO = new InjurycaseVO();
 				int vNumber = 0;
@@ -518,7 +323,7 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 				}
 				injurycaseVO.setVideoNumber(vNumber);
 				injurycaseVO.setImageNumher(iNumber);
-				injuryajaxMsgVOList.add(injurycaseVO);
+				injurycaseVOList.add(injurycaseVO);
 			}
 		}
 		return "listcba";
@@ -526,14 +331,10 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 	/**
 	 * 跳转到修改页面
-	 * 
+	 *
 	 * @return
 	 */
 	public String loadcba() throws Exception {
-		UserRole userRoleo = (UserRole) session.get("userRoleo");
-		if (userRoleo == null) {
-			return "opsessiongo";
-		}
 
 		injurycase = injurycaseService.queryInjurycaseById(id);// 当前修改案件的id
 
@@ -541,28 +342,15 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 		mediaImages = mediaService.loadInjurycaseByTypeAndPid(0, id);// 图像文件
 
-		//injurycaseSeries = injurycaseService.queryInjurycaseBySeries(injurycase.getSeries(), id);// 获得同系列案件(已串并案)
-		
-		//getInjurycaseByKeyword(keyword, id);
 
 		return "loadcba";
 
 	}
 
-	// 查询关键字获得未串并的案件
-	private List<Injurycase> getInjurycaseByKeyword(String keyword, int id) {
-		injurycases = injurycaseService.queryInjurycaseByKeyword(keyword, id);// 获得模糊查询其他的案件
-
-		if (injurycases != null && injurycases.size() >= 6) {
-			injurycases = injurycases.subList(0, 6);// 获取前五条记录
-		}
-		return injurycases;
-
-	}
 
 	/**
 	 * 案件串并操作
-	 * 
+	 *
 	 * @return
 	 */
 	public String handleInjurycaseSeries() throws Exception {
@@ -585,27 +373,21 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 			injurycaseService.update(injurycase);
 		}
 
-		AjaxMsgUtil.outputJSONObjectToAjax(response,new AjaxMsgVO("串并案操作成功."));
+		AjaxMsgUtil.outputJSONObjectToAjax(response, new AjaxMsgVO("串并案操作成功."));
 		return null;
 	}
 
 	/**
 	 * 获取新增案件的事项信息
-	 * 
+	 *
 	 * @return
 	 */
 	public String getNewInjurycases() {
 
-		// 登陆验证
-		UserRole userRoleo = (UserRole) session.get("userRoleo");
-		if (userRoleo == null) {
-			return "opsessiongo";
-		}
-
-		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+		currentUserRole = (UserRole) session.get("currentUserRole");
 
 		List<Injurycase> injurycases = injurycaseService
-				.getNewInjurycaseByUserRole(userRole);
+				.getNewInjurycaseByUserRole(currentUserRole);
 
 		List<AjaxMsgVO> ajaxMsgVOList = new ArrayList<AjaxMsgVO>();
 
@@ -617,60 +399,42 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 				caseVO.setJoinDate(injurycase.getJoinDate());
 				caseVO.setType(injurycase.getItype());
 				switch (injurycase.getItype()) {
-				case 0:
-					caseVO.setTypeName("未知案件");
-					break;
-				case 1:
-					caseVO.setTypeName("刑事案件");
-					break;
-				case 2:
-					caseVO.setTypeName("重伤案件");
-					break;
-				case 3:
-					caseVO.setTypeName("团伙系列案件");
-				case 4:
-					caseVO.setTypeName("行政案件");
-					break;
-				default:
-					break;
+					case 0:
+						caseVO.setTypeName("未知案件");
+						break;
+					case 1:
+						caseVO.setTypeName("刑事案件");
+						break;
+					case 2:
+						caseVO.setTypeName("重伤案件");
+						break;
+					case 3:
+						caseVO.setTypeName("团伙系列案件");
+					case 4:
+						caseVO.setTypeName("行政案件");
+						break;
+					default:
+						break;
 				}
 				ajaxMsgVOList.add(caseVO);
 			}
 		}
 
-		AjaxMsgUtil.outputJSONArrayToAjax(response,ajaxMsgVOList);
+		AjaxMsgUtil.outputJSONArrayToAjax(response, ajaxMsgVOList);
 		return null;
 	}
 
 	/***************************************************************************
 	 * 导出excel表格
-	 * 
+	 *
 	 * @throws UnsupportedEncodingException
 	 */
 	public String outputExcel() throws UnsupportedEncodingException {
-		// 登陆验证
-		UserRole userRoleo = (UserRole) session.get("userRoleo");
-		if (userRoleo == null) {
-			return "opsessiongo";
-		}
 
-		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
 
-		if (convalue != null && !convalue.equals("")) {
-			convalue = URLDecoder.decode(convalue, "utf-8");
-			convalue = convalue.replace(" ", "");
-		}
-		if (starttime != null && !starttime.equals("")) {
-			starttime = URLDecoder.decode(starttime, "utf-8");
-			starttime = starttime.replace(" ", "");
-		}
-		if (endtime != null && !endtime.equals("")) {
-			endtime = URLDecoder.decode(endtime, "utf-8");
-			endtime = endtime.replace(" ", "");
-		}
 
 		// / 所有当前页记录对象
-		injurycases = injurycaseService.queryList(con, convalue, userRole,
+		injurycases = injurycaseService.queryList(con, convalue, currentUserRole,
 				itype, queryState, starttime, endtime);
 
 		if (injurycases.size() > 0) {
@@ -700,16 +464,14 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 	}
 
 	public String importExcel() {
+
 		return "importpage";
 	}
 
 	public String importdata() throws Exception {
-		UserRole userRoleo = (UserRole) session.get("userRoleo");
-		if (userRoleo == null) {
-			return "opsessiongo";
-		}
 
-		UserRole userRole = userRoleService.getUserRoleById(userRoleo.getId());
+		UserRole userRole = userRoleService.getUserRoleById(currentUserRole
+				.getId());
 
 		injurycaseService.saveInjurycaseWithExcel(injurycase_file, userRole,
 				itype);
@@ -719,31 +481,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 	// get、set-------------------------------------------
 
-	// 获得HttpServletResponse对象
-	public void setServletResponse(HttpServletResponse response) {
-		this.response = response;
-	}
-
-	public void setServletRequest(HttpServletRequest req) {
-		this.req = req;
-	}
-
-	public Map<String, Object> getRequest() {
-		return request;
-	}
-
-	public void setRequest(Map<String, Object> request) {
-		this.request = request;
-	}
-
-	public Map<String, Object> getSession() {
-		return session;
-	}
-
-	public void setSession(Map<String, Object> session) {
-		this.session = session;
-	}
-
 	public int getId() {
 		return id;
 	}
@@ -752,185 +489,13 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		this.id = id;
 	}
 
-	public int getPage() {
-		return page;
-	}
 
-	public void setPage(int page) {
-		this.page = page;
-	}
-
-	public int getPageCount() {
-		return pageCount;
-	}
-
-	public void setPageCount(int pageCount) {
-		this.pageCount = pageCount;
-	}
-
-	public int getTotalCount() {
-		return totalCount;
-	}
-
-	public void setTotalCount(int totalCount) {
-		this.totalCount = totalCount;
-	}
-
-	public int getCon() {
-		return con;
-	}
-
-	public void setCon(int con) {
-		this.con = con;
-	}
-
-	public String getConvalue() {
-		return convalue;
-	}
-
-	public void setConvalue(String convalue) {
-		this.convalue = convalue;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public int getPid() {
-		return pid;
-	}
-
-	public void setPid(int pid) {
-		this.pid = pid;
-	}
-
-	public String[] getArg() {
-		return arg;
-	}
-
-	public void setArg(String[] arg) {
-		this.arg = arg;
-	}
-
-	public String getCheckedIDs() {
-		return checkedIDs;
-	}
-
-	public void setCheckedIDs(String checkedIDs) {
-		this.checkedIDs = checkedIDs;
-	}
-
-	public javax.servlet.http.HttpServletResponse getResponse() {
-		return response;
-	}
-
-	public void setResponse(javax.servlet.http.HttpServletResponse response) {
-		this.response = response;
-	}
-
-	public javax.servlet.http.HttpServletRequest getReq() {
-		return req;
-	}
-
-	public void setReq(javax.servlet.http.HttpServletRequest req) {
-		this.req = req;
-	}
-
-	public String getPageTileName() {
-		return pageTileName;
-	}
-
-	public void setPageTileName(String pageTileName) {
-		this.pageTileName = pageTileName;
-	}
-
-	public int getQueryState() {
-		return queryState;
-	}
-
-	public void setQueryState(int queryState) {
-		this.queryState = queryState;
-	}
-
-	public String getStarttime() {
-		return starttime;
-	}
-
-	public void setStarttime(String starttime) {
-		this.starttime = starttime;
-	}
-
-	public String getEndtime() {
-		return endtime;
-	}
-
-	public void setEndtime(String endtime) {
-		this.endtime = endtime;
-	}
-
-	public int getTroubid() {
-		return troubid;
-	}
-
-	public void setTroubid(int troubid) {
-		this.troubid = troubid;
-	}
-
-	public ITroubleshootingService getTroubleshootingService() {
-		return troubleshootingService;
-	}
-
-	public void setTroubleshootingService(
-			ITroubleshootingService troubleshootingService) {
-		this.troubleshootingService = troubleshootingService;
-	}
-
-	public Troubleshooting getTroubleshooting() {
-		return troubleshooting;
-	}
-
-	public void setTroubleshooting(Troubleshooting troubleshooting) {
-		this.troubleshooting = troubleshooting;
-	}
-
-	public int getSize() {
-		return size;
-	}
-
-	public String getJsonUnits() {
-		return jsonUnits;
-	}
-
-	public void setJsonUnits(String jsonUnits) {
-		this.jsonUnits = jsonUnits;
-	}
-
-	public int getOtherid() {
-		return otherid;
-	}
-
-	public void setOtherid(int otherid) {
-		this.otherid = otherid;
-	}
-
-	public IOtherpersonService getOtherpersonService() {
+	public OtherpersonService getOtherpersonService() {
 		return otherpersonService;
 	}
 
-	public void setOtherpersonService(IOtherpersonService otherpersonService) {
+	public void setOtherpersonService(OtherpersonService otherpersonService) {
 		this.otherpersonService = otherpersonService;
-	}
-
-	public Otherperson getOtherperson() {
-		return otherperson;
-	}
-
-	public void setOtherperson(Otherperson otherperson) {
-		this.otherperson = otherperson;
 	}
 
 	public List<Otherperson> getTars() {
@@ -941,22 +506,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		this.tars = tars;
 	}
 
-	public ISuccessexampleService getSuccessexampleService() {
-		return successexampleService;
-	}
-
-	public void setSuccessexampleService(
-			ISuccessexampleService successexampleService) {
-		this.successexampleService = successexampleService;
-	}
-
-	public Successexample getSuccessexample() {
-		return successexample;
-	}
-
-	public void setSuccessexample(Successexample successexample) {
-		this.successexample = successexample;
-	}
 
 	public int getItype() {
 		return itype;
@@ -966,11 +515,11 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		this.itype = itype;
 	}
 
-	public IInjurycaseService getInjurycaseService() {
+	public InjurycaseService getInjurycaseService() {
 		return injurycaseService;
 	}
 
-	public void setInjurycaseService(IInjurycaseService injurycaseService) {
+	public void setInjurycaseService(InjurycaseService injurycaseService) {
 		this.injurycaseService = injurycaseService;
 	}
 
@@ -990,148 +539,21 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		this.injurycases = injurycases;
 	}
 
-	public int getJid() {
-		return jid;
-	}
 
-	public void setJid(int jid) {
-		this.jid = jid;
-	}
-
-	public int getJtype() {
-		return jtype;
-	}
-
-	public void setJtype(int jtype) {
-		this.jtype = jtype;
-	}
-
-	public IUnitService getUnitService() {
-		return unitService;
-	}
-
-	public void setUnitService(IUnitService unitService) {
-		this.unitService = unitService;
-	}
-
-	public IJudgeService getJudgeService() {
-		return judgeService;
-	}
-
-	public void setJudgeService(IJudgeService judgeService) {
-		this.judgeService = judgeService;
-	}
-
-	public Judge getJudge() {
-		return judge;
-	}
-
-	public void setJudge(Judge judge) {
-		this.judge = judge;
-	}
-
-	public UnitVO getUnitVO() {
-		return unitVO;
-	}
-
-	public void setUnitVO(UnitVO unitVO) {
-		this.unitVO = unitVO;
-	}
-
-	public Unit getUnit() {
-		return unit;
-	}
-
-	public void setUnit(Unit unit) {
-		this.unit = unit;
-	}
-
-	public List<Judge> getJudges() {
-		return judges;
-	}
-
-	public void setJudges(List<Judge> judges) {
-		this.judges = judges;
-	}
-
-	public List<Unit> getUnits() {
-		return units;
-	}
-
-	public void setUnits(List<Unit> units) {
-		this.units = units;
-	}
-
-	public void setUnitVOs(List<UnitVO> unitVOs) {
-		this.unitVOs = unitVOs;
-	}
-
-	public int getInid() {
-		return inid;
-	}
-
-	public void setInid(int inid) {
-		this.inid = inid;
-	}
-
-	public IUserRoleService getUserRoleService() {
+	public UserRoleService getUserRoleService() {
 		return userRoleService;
 	}
 
-	public void setUserRoleService(IUserRoleService userRoleService) {
+	public void setUserRoleService(UserRoleService userRoleService) {
 		this.userRoleService = userRoleService;
 	}
 
-	public List<UnitVO> getUnitVOs() {
-		return unitVOs;
-	}
-
-	public File getPicture1() {
-		return picture1;
-	}
-
-	public void setPicture1(File picture1) {
-		this.picture1 = picture1;
-	}
-
-	public String getPicture1ContentType() {
-		return picture1ContentType;
-	}
-
-	public void setPicture1ContentType(String picture1ContentType) {
-		this.picture1ContentType = picture1ContentType;
-	}
-
-	public String getPicture1FileName() {
-		return picture1FileName;
-	}
-
-	public void setPicture1FileName(String picture1FileName) {
-		this.picture1FileName = picture1FileName;
-	}
-
-	public IMediaService getMediaService() {
+	public MediaService getMediaService() {
 		return mediaService;
 	}
 
-	public void setMediaService(IMediaService mediaService) {
+	public void setMediaService(MediaService mediaService) {
 		this.mediaService = mediaService;
-	}
-
-	public Media getMedia() {
-		return media;
-	}
-
-	public void setMedia(Media media) {
-		this.media = media;
-	}
-
-	public List<Media> getMedias() {
-		return medias;
-	}
-
-	public void setMedias(List<Media> medias) {
-		this.medias = medias;
 	}
 
 	public List<Media> getMediaVideos() {
@@ -1150,13 +572,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		this.mediaImages = mediaImages;
 	}
 
-	public String getKeyword() {
-		return keyword;
-	}
-
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
 
 	public String getSeries() {
 		return series;
@@ -1166,21 +581,6 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		this.series = series;
 	}
 
-	public List<Injurycase> getInjurycaseSeries() {
-		return injurycaseSeries;
-	}
-
-	public void setInjurycaseSeries(List<Injurycase> injurycaseSeries) {
-		this.injurycaseSeries = injurycaseSeries;
-	}
-
-	public List<InjurycaseVO> getInjuryajaxMsgVOList() {
-		return injuryajaxMsgVOList;
-	}
-
-	public void setInjuryajaxMsgVOList(List<InjurycaseVO> injuryajaxMsgVOList) {
-		this.injuryajaxMsgVOList = injuryajaxMsgVOList;
-	}
 
 	public String getIdcard() {
 		return idcard;
@@ -1190,11 +590,11 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 		this.idcard = idcard;
 	}
 
-	public IPersonService getPersonService() {
+	public PersonService getPersonService() {
 		return personService;
 	}
 
-	public void setPersonService(IPersonService personService) {
+	public void setPersonService(PersonService personService) {
 		this.personService = personService;
 	}
 
@@ -1204,6 +604,50 @@ public class InjurycaseAction extends ActionSupport implements RequestAware,
 
 	public void setInjurycase_file(File injurycase_file) {
 		this.injurycase_file = injurycase_file;
+	}
+
+	public FileService getFileService() {
+		return fileService;
+	}
+
+	public void setFileService(FileService fileService) {
+		this.fileService = fileService;
+	}
+
+	public File[] getFile() {
+		return file;
+	}
+
+	public void setFile(File[] file) {
+		this.file = file;
+	}
+
+	public String[] getFileContentType() {
+		return fileContentType;
+	}
+
+	public void setFileContentType(String[] fileContentType) {
+		this.fileContentType = fileContentType;
+	}
+
+	public String[] getFileFileName() {
+		return fileFileName;
+	}
+
+	public void setFileFileName(String[] fileFileName) {
+		this.fileFileName = fileFileName;
+	}
+
+	public void setCurrentUserRole(UserRole sessionCurrentUserRole) {
+		this.currentUserRole = sessionCurrentUserRole;
+	}
+
+	public List<InjurycaseVO> getInjurycaseVOList() {
+		return injurycaseVOList;
+	}
+
+	public void setInjurycaseVOList(List<InjurycaseVO> injurycaseVOList) {
+		this.injurycaseVOList = injurycaseVOList;
 	}
 
 }

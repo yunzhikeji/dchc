@@ -246,11 +246,11 @@
 										<tr>
 											<td>
 												<label class="form-label text-r">
-													DNA编号：
+													<span class="c-red">*</span>DNA编号：
 												</label>
 											</td>
 											<td>
-												<s:textfield name="gamblingCriminalMan.dnanumber"
+												<s:textfield id="dnanumber" name="gamblingCriminalMan.dnanumber"
 													cssClass="input-text radius size-M "
 													cssStyle="width: 200px;"></s:textfield>
 											</td>
@@ -268,11 +268,11 @@
 										<tr>
 											<td>
 												<label class="form-label text-r">
-													指纹编号：
+													<span class="c-red">*</span>指纹编号：
 												</label>
 											</td>
 											<td>
-												<s:textfield name="gamblingCriminalMan.fingerPrintNumber"
+												<s:textfield id="fingerPrintNumber" name="gamblingCriminalMan.fingerPrintNumber"
 													cssClass="input-text radius size-M "
 													cssStyle="width: 200px;"></s:textfield>
 											</td>
@@ -604,5 +604,7 @@ function article_save(obj,id){
 }
 </script>
 		</form>
+			
 	</body>
+
 </html>

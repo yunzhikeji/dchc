@@ -432,11 +432,11 @@
 							<div class="row cl mb-10">
 								<div class="col-2">
 									<label class="form-label text-r">
-										案发地址：
+										<span class="c-red">*</span>案发地址：：
 									</label>
 								</div>
 								<div class="col-4">
-									<s:textfield name="injurycase.casePlace"
+									<s:textfield  id="casePlace" name="injurycase.casePlace"
 										cssClass="input-text radius size-M " cssStyle="width: 200px;"
 										readonly="true"></s:textfield>
 								</div>
@@ -463,7 +463,7 @@
 									</div>
 									<div class="col-2">
 										<label class="form-label text-r">
-											作案目标：
+											<span class="c-red">*</span>作案目标：
 										</label>
 									</div>
 									<div class="col-4">
@@ -475,7 +475,7 @@
 								<div class="row cl mb-10">
 									<div class="col-2">
 										<label class="form-label text-r">
-											作案工具：
+											<span class="c-red">*</span>作案工具：
 										</label>
 									</div>
 									<div class="col-4">
@@ -484,7 +484,7 @@
 									</div>
 									<div class="col-2">
 										<label class="form-label text-r">
-											作案方式：
+											<span class="c-red">*</span>作案方式：
 										</label>
 									</div>
 									<div class="col-4">

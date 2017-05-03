@@ -1,14 +1,8 @@
 package com.yz.action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.yz.model.Clue;
-import com.yz.model.Injurycase;
-import com.yz.model.Person;
-import com.yz.model.Troubleshooting;
-import com.yz.service.IClueService;
-import com.yz.service.IInjurycaseService;
-import com.yz.service.IPersonService;
-import com.yz.service.ITroubleshootingService;
+import com.yz.model.*;
+import com.yz.service.*;
 import com.yz.util.AjaxMsgUtil;
 import com.yz.vo.AjaxMsgVO;
 import org.apache.struts2.interceptor.RequestAware;
@@ -27,7 +21,7 @@ import java.util.Map;
 @Component("troubleshootingAction")
 @Scope("prototype")
 public class TroubleshootingAction extends ActionSupport implements
-		RequestAware, SessionAware, ServletResponseAware, ServletRequestAware {
+		RequestAware, SessionAware, ServletResponseAware, ServletRequestAware,UserRoleAware {
 
 	private static final long serialVersionUID = 1L;
 	Map<String, Object> request;
@@ -52,13 +46,13 @@ public class TroubleshootingAction extends ActionSupport implements
 
 	// service层对象
 	@Resource
-	private IPersonService personService;
+	private PersonService personService;
 	@Resource
-	private IInjurycaseService injurycaseService;
+	private InjurycaseService injurycaseService;
 	@Resource
-	private IClueService clueService;
+	private ClueService clueService;
 	@Resource
-	private ITroubleshootingService troubleshootingService;
+	private TroubleshootingService troubleshootingService;
 
 	// 单个表对象
 	private Person person;
@@ -69,6 +63,9 @@ public class TroubleshootingAction extends ActionSupport implements
 
 	// list表对象
 	private List<Person> persons;
+
+	//当前登录用户
+	private UserRole currentUserRole;
 
 	/**
 	 * 疑难解答模块
@@ -229,11 +226,11 @@ public class TroubleshootingAction extends ActionSupport implements
 		this.arg = arg;
 	}
 
-	public IPersonService getPersonService() {
+	public PersonService getPersonService() {
 		return personService;
 	}
 
-	public void setPersonService(IPersonService personService) {
+	public void setPersonService(PersonService personService) {
 		this.personService = personService;
 	}
 
@@ -277,12 +274,12 @@ public class TroubleshootingAction extends ActionSupport implements
 		this.troubid = troubid;
 	}
 
-	public ITroubleshootingService getTroubleshootingService() {
+	public TroubleshootingService getTroubleshootingService() {
 		return troubleshootingService;
 	}
 
 	public void setTroubleshootingService(
-			ITroubleshootingService troubleshootingService) {
+			TroubleshootingService troubleshootingService) {
 		this.troubleshootingService = troubleshootingService;
 	}
 
@@ -294,11 +291,11 @@ public class TroubleshootingAction extends ActionSupport implements
 		this.troubleshooting = troubleshooting;
 	}
 
-	public IInjurycaseService getInjurycaseService() {
+	public InjurycaseService getInjurycaseService() {
 		return injurycaseService;
 	}
 
-	public void setInjurycaseService(IInjurycaseService injurycaseService) {
+	public void setInjurycaseService(InjurycaseService injurycaseService) {
 		this.injurycaseService = injurycaseService;
 	}
 
@@ -318,11 +315,11 @@ public class TroubleshootingAction extends ActionSupport implements
 		this.cid = cid;
 	}
 
-	public IClueService getClueService() {
+	public ClueService getClueService() {
 		return clueService;
 	}
 
-	public void setClueService(IClueService clueService) {
+	public void setClueService(ClueService clueService) {
 		this.clueService = clueService;
 	}
 
@@ -340,6 +337,11 @@ public class TroubleshootingAction extends ActionSupport implements
 
 	public void setClue(Clue clue) {
 		this.clue = clue;
+	}
+
+
+	public void setCurrentUserRole(UserRole sessionCurrentUserRole) {
+		this.currentUserRole = sessionCurrentUserRole;
 	}
 
 }

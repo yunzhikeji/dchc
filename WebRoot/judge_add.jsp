@@ -93,7 +93,7 @@
 		
 		$(document).ready(function(){
 			$.ajax({   
-		            url:'getUnitVOs',//这里是你的action或者servlert的路径地址   
+		            url:'getOpertionUnit',//这里是你的action或者servlert的路径地址
 		            type:'post', //数据发送方式   
 		            async:false,
 		            dataType:'json',
@@ -206,7 +206,7 @@
 						</tr>
 						<tr>
 							<td align="center">
-								<s:file name="picture1" accept="image/jpeg,image/png,image/jpg"
+								<s:file name="file" accept="image/jpeg,image/png,image/jpg"
 									onchange="change1();" id="myfile1"></s:file>
 							</td>
 						</tr>

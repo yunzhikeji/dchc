@@ -130,7 +130,7 @@
 										href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i>
 									</a>
 
-									<s:if test="#session.userRoleo.userLimit>0">
+									<s:if test="#session.currentUserRole.userLimit>0">
 										<a style="text-decoration: none" class="ml-5"
 											href="personAction!delete?id=<s:property value="id" />&type=<s:property value="type" />"
 											onclick="return confirm('你确定删除该信息吗？')" title="删除"><i
@@ -173,7 +173,7 @@
 										onclick="childPageFull('编辑案件','injurycaseAction!load?id=<s:property value="id"/>&itype=<s:property value="itype" />')"
 										href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i>
 									</a>
-									<s:if test="#session.userRoleo.userLimit>0">
+									<s:if test="#session.currentUserRole.userLimit>0">
 										<a style="text-decoration: none" class="ml-5"
 											href="injurycaseAction!delete?id=<s:property value="id" />&itype=<s:property value="itype" />"
 											onclick="return confirm('你确定删除该信息吗？')" title="删除"><i

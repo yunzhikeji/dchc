@@ -101,7 +101,7 @@
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
 				<span class="l">
-				<s:if test="#session.userRoleo.userLimit>0">
+				<s:if test="#session.currentUserRole.userLimit>0">
 				<a href="javascript:;"
 					onclick="deleteAllCheckedClues();" class="btn btn-danger radius">
 					<i
@@ -186,7 +186,7 @@
 									onclick="childPageFull('编辑线索','clueAction!load?id=<s:property value="id"/>')"
 									href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i>
 								</a>
-								<s:if test="#session.userRoleo.userLimit>0">
+								<s:if test="#session.currentUserRole.userLimit>0">
 								<a style="text-decoration: none" class="ml-5"
 									href="clueAction!delete?id=<s:property value="id" />"
 									onclick="return confirm('你确定删除该信息吗？')" title="删除"><i
@@ -206,19 +206,19 @@
 						</td>
 						<td height="34" colspan="6" align="center" bgcolor="#FFFFFF">
 							<a
-								href="javascript:jumpPersonPage('clueAction!list',1,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="ctype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
+								href="javascript:jumpCluePage('clueAction!list',1,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="ctype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
 								>首页</a>&nbsp;&nbsp;
 							<a
-								href="javascript:jumpPersonPage('clueAction!list',<s:property value="page-1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="ctype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
+								href="javascript:jumpCluePage('clueAction!list',<s:property value="page-1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="ctype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
 								>上一页</a>&nbsp;&nbsp;&nbsp;
 							<a
-								href="javascript:jumpPersonPage('clueAction!list',<s:property value="page+1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="ctype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
+								href="javascript:jumpCluePage('clueAction!list',<s:property value="page+1"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="ctype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
 								>下一页</a>&nbsp;&nbsp;&nbsp;
 							<a
-								href="javascript:jumpPersonPage('clueAction!list',<s:property value="pageCount"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="ctype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
+								href="javascript:jumpCluePage('clueAction!list',<s:property value="pageCount"/>,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="ctype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
 								>尾页</a>&nbsp;&nbsp;&nbsp;
 							<input type='button' class="btn btn-primary radius size-S"
-								onclick="jumpPersonPage('clueAction!list',document.getElementById('page').value,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="ctype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
+								onclick="jumpCluePage('clueAction!list',document.getElementById('page').value,<s:property value="con"/>,'<s:property value="convalue"/>',<s:property value="ctype"/>,<s:property value="queryState"/>,'<s:property value="starttime"/>','<s:property value="endtime"/>');"
 								value='转到' />
 							&nbsp; 当前页：
 							<input onpaste="return false"

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.yz.dao.GamblingCriminalManDao;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -12,10 +13,9 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
-import com.yz.dao.IGamblingCriminalManDao;
 import com.yz.model.GamblingCriminalMan;
 @Component("gamblingCriminalManDao")
-public class GamblingCriminalManDaoImp implements IGamblingCriminalManDao {
+public class GamblingCriminalManDaoImp implements GamblingCriminalManDao {
 	private HibernateTemplate hibernateTemplate;
 	
 	public HibernateTemplate getHibernateTemplate() {
@@ -28,7 +28,7 @@ public class GamblingCriminalManDaoImp implements IGamblingCriminalManDao {
 
 	//保存一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IGamblingCriminalManDao#save(com.yz.model.GamblingCriminalMan)
+	 * @see com.yz.dao.imp.GamblingCriminalManDao#save(com.yz.model.GamblingCriminalMan)
 	 */
 	public void save(GamblingCriminalMan gamblingCriminalMan) {
 		this.hibernateTemplate.save(gamblingCriminalMan);
@@ -36,7 +36,7 @@ public class GamblingCriminalManDaoImp implements IGamblingCriminalManDao {
 	
 	//保存一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IGamblingCriminalManDao#savereturn(com.yz.model.GamblingCriminalMan)
+	 * @see com.yz.dao.imp.GamblingCriminalManDao#savereturn(com.yz.model.GamblingCriminalMan)
 	 */
 	public Integer savereturn(GamblingCriminalMan gamblingCriminalMan) {
 		return (Integer) this.hibernateTemplate.save(gamblingCriminalMan);
@@ -44,14 +44,14 @@ public class GamblingCriminalManDaoImp implements IGamblingCriminalManDao {
 	
 	//删除一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IGamblingCriminalManDao#delete(com.yz.model.GamblingCriminalMan)
+	 * @see com.yz.dao.imp.GamblingCriminalManDao#delete(com.yz.model.GamblingCriminalMan)
 	 */
 	public void delete(GamblingCriminalMan gamblingCriminalMan) {
 		this.hibernateTemplate.delete(gamblingCriminalMan);
 	}
 	//根据ID删除一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IGamblingCriminalManDao#deleteById(int)
+	 * @see com.yz.dao.imp.GamblingCriminalManDao#deleteById(int)
 	 */
 	public void deleteById(int id) {
 		this.hibernateTemplate.delete(this.loadById(id));
@@ -59,7 +59,7 @@ public class GamblingCriminalManDaoImp implements IGamblingCriminalManDao {
 	
 	//修改一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IGamblingCriminalManDao#update(com.yz.model.GamblingCriminalMan)
+	 * @see com.yz.dao.imp.GamblingCriminalManDao#update(com.yz.model.GamblingCriminalMan)
 	 */
 	public void update(GamblingCriminalMan gamblingCriminalMan) {
 		this.hibernateTemplate.update(gamblingCriminalMan);
@@ -67,7 +67,7 @@ public class GamblingCriminalManDaoImp implements IGamblingCriminalManDao {
 	
 	//根据hql语句、条件、条件值修改某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IGamblingCriminalManDao#updateByHql(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.GamblingCriminalManDao#updateByHql(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public void updateByHql(final String hql,final String[] paramNames,final Object[] values) {
 		this.hibernateTemplate.execute(new HibernateCallback(){
@@ -87,7 +87,7 @@ public class GamblingCriminalManDaoImp implements IGamblingCriminalManDao {
 	
 	//获得所有记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IGamblingCriminalManDao#getGamblingCriminalMans()
+	 * @see com.yz.dao.imp.GamblingCriminalManDao#getGamblingCriminalMans()
 	 */
 	public List<GamblingCriminalMan> getGamblingCriminalMans() {
 		return this.hibernateTemplate.loadAll(GamblingCriminalMan.class);
@@ -95,7 +95,7 @@ public class GamblingCriminalManDaoImp implements IGamblingCriminalManDao {
 	
 	//根据hql语句来查询所有记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IGamblingCriminalManDao#queryList(java.lang.String)
+	 * @see com.yz.dao.imp.GamblingCriminalManDao#queryList(java.lang.String)
 	 */
 	public List<GamblingCriminalMan> queryList(String queryString) {
 		return this.hibernateTemplate.find(queryString);
@@ -103,7 +103,7 @@ public class GamblingCriminalManDaoImp implements IGamblingCriminalManDao {
 	
 	//根据hql、条件值查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IGamblingCriminalManDao#getObjectsByCondition(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.GamblingCriminalManDao#getObjectsByCondition(java.lang.String, java.lang.Object[])
 	 */
 	public List<GamblingCriminalMan> getObjectsByCondition(String queryString, Object[] p) {
 		return this.hibernateTemplate.find(queryString,p);
@@ -111,7 +111,7 @@ public class GamblingCriminalManDaoImp implements IGamblingCriminalManDao {
 	
 	//根据hql语句、条件、条件值查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IGamblingCriminalManDao#queryList(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.GamblingCriminalManDao#queryList(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public List<GamblingCriminalMan> queryList(String queryString, String[] paramNames,
 			Object[] values)
@@ -123,7 +123,7 @@ public class GamblingCriminalManDaoImp implements IGamblingCriminalManDao {
 	
 	//根据hql、id列表查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IGamblingCriminalManDao#getObjectsByIdList(java.lang.String, java.util.List)
+	 * @see com.yz.dao.imp.GamblingCriminalManDao#getObjectsByIdList(java.lang.String, java.util.List)
 	 */
 	public List<GamblingCriminalMan> getObjectsByIdList(final String hql,final List<Integer> idList) {
 		return this.hibernateTemplate.executeFind(new HibernateCallback(){
@@ -140,7 +140,7 @@ public class GamblingCriminalManDaoImp implements IGamblingCriminalManDao {
 	
 	//根据hql语句、条件值、分页查询某些记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IGamblingCriminalManDao#pageList(java.lang.String, java.lang.Object[], java.lang.Integer, java.lang.Integer)
+	 * @see com.yz.dao.imp.GamblingCriminalManDao#pageList(java.lang.String, java.lang.Object[], java.lang.Integer, java.lang.Integer)
 	 */
 	public List<GamblingCriminalMan> pageList(final String queryString,final Object[] p,final Integer page,
 			final Integer size) {
@@ -167,7 +167,7 @@ public class GamblingCriminalManDaoImp implements IGamblingCriminalManDao {
 	
 	//根据hql、条件值获得一个唯一值
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IGamblingCriminalManDao#getUniqueResult(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.GamblingCriminalManDao#getUniqueResult(java.lang.String, java.lang.Object[])
 	 */
 	public int getUniqueResult(final String queryString,final Object[] p) {
 		Session session=this.hibernateTemplate.getSessionFactory().getCurrentSession();
@@ -184,7 +184,7 @@ public class GamblingCriminalManDaoImp implements IGamblingCriminalManDao {
 	
 	//根据id查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IGamblingCriminalManDao#loadById(int)
+	 * @see com.yz.dao.imp.GamblingCriminalManDao#loadById(int)
 	 */
 	public GamblingCriminalMan loadById(int id) {
 		return (GamblingCriminalMan) this.hibernateTemplate.load(GamblingCriminalMan.class, id);
@@ -192,7 +192,7 @@ public class GamblingCriminalManDaoImp implements IGamblingCriminalManDao {
 	
 	//根据hql语句、条件、值来查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IGamblingCriminalManDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.GamblingCriminalManDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public GamblingCriminalMan queryByNamedParam(String queryString, String[] paramNames,
 			Object[] values) {
@@ -202,7 +202,7 @@ public class GamblingCriminalManDaoImp implements IGamblingCriminalManDao {
 	
 	//根据hql语句、条件值来查询是否存在该记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IGamblingCriminalManDao#checkGamblingCriminalManExistsWithName(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.GamblingCriminalManDao#checkGamblingCriminalManExistsWithName(java.lang.String, java.lang.Object[])
 	 */
 	public boolean checkGamblingCriminalManExistsWithName(String queryString, Object[] p) {
 		List list =  this.hibernateTemplate.find(queryString,p);
@@ -210,7 +210,7 @@ public class GamblingCriminalManDaoImp implements IGamblingCriminalManDao {
 	}
 	//根据hql批量修改
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IGamblingCriminalManDao#updateGamblingCriminalManByhql(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.GamblingCriminalManDao#updateGamblingCriminalManByhql(java.lang.String, java.lang.Object[])
 	 */
 	public int updateGamblingCriminalManByhql(String queryString, Object[] p) {
 		Session session=this.hibernateTemplate.getSessionFactory().getCurrentSession();

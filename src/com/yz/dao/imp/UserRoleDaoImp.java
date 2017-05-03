@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import com.yz.dao.UserRoleDao;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -12,10 +13,9 @@ import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.stereotype.Component;
 
-import com.yz.dao.IUserRoleDao;
 import com.yz.model.UserRole;
 @Component("userRoleDao")
-public class UserRoleDaoImp implements IUserRoleDao {
+public class UserRoleDaoImp implements UserRoleDao {
 	private HibernateTemplate hibernateTemplate;
 	
 	public HibernateTemplate getHibernateTemplate() {
@@ -184,7 +184,7 @@ public class UserRoleDaoImp implements IUserRoleDao {
 	
 	//根据id查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IUserRoleDao#loadById(int)
+	 * @see com.yz.dao.imp.UserRoleDao#loadById(int)
 	 */
 	public UserRole loadById(int id) {
 		return (UserRole) this.hibernateTemplate.load(UserRole.class, id);
@@ -192,7 +192,7 @@ public class UserRoleDaoImp implements IUserRoleDao {
 	
 	//根据hql语句、条件、值来查询一条记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IUserRoleDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
+	 * @see com.yz.dao.imp.UserRoleDao#queryByNamedParam(java.lang.String, java.lang.String[], java.lang.Object[])
 	 */
 	public UserRole queryByNamedParam(String queryString, String[] paramNames,
 			Object[] values) {
@@ -202,7 +202,7 @@ public class UserRoleDaoImp implements IUserRoleDao {
 	
 	//根据hql语句、条件值来查询是否存在该记录
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IUserRoleDao#checkUserRoleExistsWithName(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.UserRoleDao#checkUserRoleExistsWithName(java.lang.String, java.lang.Object[])
 	 */
 	public boolean checkUserRoleExistsWithName(String queryString, Object[] p) {
 		List list =  this.hibernateTemplate.find(queryString,p);
@@ -210,7 +210,7 @@ public class UserRoleDaoImp implements IUserRoleDao {
 	}
 	//根据hql批量修改
 	/* (non-Javadoc)
-	 * @see com.yz.dao.imp.IUserRoleDao#updateUserRoleByhql(java.lang.String, java.lang.Object[])
+	 * @see com.yz.dao.imp.UserRoleDao#updateUserRoleByhql(java.lang.String, java.lang.Object[])
 	 */
 	public int updateUserRoleByhql(String queryString, Object[] p) {
 		Session session=this.hibernateTemplate.getSessionFactory().getCurrentSession();

@@ -72,14 +72,27 @@ function jumpPersonPage(url,page,con,convalue,type,queryState,starttime,endtime)
 
 
 //案件 分页显示
-function jumpInjurycasePage(url,page,con,convalue,itype,queryState,starttime,endtime){
-	
+function jumpInjurycasePage(url,page,con,convalue,itype,queryState,starttime,endtime) {
+
+    var page = page;
+    if (isNaN(page)) {
+        var page2 = document.getElementById(page).value;
+        page = parseInt(page2);
+    }
+    var url = url + '?page=' + page + '&con=' + con + '&convalue=' + convalue + '&itype=' + itype + '&queryState=' + queryState + '&starttime=' + starttime + '&endtime=' + endtime;
+    url = encodeURI(url);
+    url = encodeURI(url);
+    window.location = url;
+}
+
+//案件 分页显示
+function jumpCluePage(url,page,con,convalue,ctype,queryState,starttime,endtime){
 	var page=page;
 	if(isNaN(page)){
 		var page2=document.getElementById(page).value;
 		page=parseInt(page2);
 	}
-	var url=url+'?page='+page+'&con='+con+'&convalue='+convalue+'&itype='+itype+'&queryState='+queryState+'&starttime='+starttime+'&endtime='+endtime;
+	var url=url+'?page='+page+'&con='+con+'&convalue='+convalue+'&ctype='+ctype+'&queryState='+queryState+'&starttime='+starttime+'&endtime='+endtime;
 	url=encodeURI(url);
 	url=encodeURI(url);
 	window.location=url;
@@ -101,136 +114,6 @@ function jumpPnoticePage(url,page,con,convalue,starttime,endtime){
 }
 
 
-//成功案例 分页显示
-function jumpSuccessexamplePage(url,page,con,convalue,starttime,endtime){
-	
-	var page=page;
-	if(isNaN(page)){
-		var page2=document.getElementById(page).value;
-		page=parseInt(page2);
-	}
-	var url=url+'?page='+page+'&con='+con+'&convalue='+convalue+'&starttime='+starttime+'&endtime='+endtime;
-	url=encodeURI(url);
-	url=encodeURI(url);
-	window.location=url;
-}
-
-
-//跳转到打印页面
-function jumpProjectOutput(url,con,convalue,status,areaIndex,engineeringType,graphicProgress){
-	var url=url+'?con='+con+'&convalue='+convalue+'&status='+status+'&areaIndex='+areaIndex+'&engineeringType='+engineeringType+'&graphicProgress='+graphicProgress;
-	url=encodeURI(url);
-	url=encodeURI(url);
-	window.location=url;
-}
-
-function jumpYoukeLinePage(url,page,con,convalue,limits,projectid,linetext,upuserid){
-	
-	var page=page;
-	if(isNaN(page)){
-		var page2=document.getElementById(page).value;
-		page=parseInt(page2);
-	}
-	
-	var url=url+'?page='+page+'&con='+con+'&convalue='+convalue+'&limits='+limits+'&projectid='+projectid+'&linetext='+linetext+'&upuserid='+upuserid;
-	url=encodeURI(url);
-	url=encodeURI(url);
-	window.location=url;
-}
-
-//报表详细页分页查询
-function jumpReportPage(url,page,starttime,endtime,con,convalue,stype,limits,projectid,linetext,upuserid){
-	
-	var page=page;
-	if(isNaN(page)){
-		var page2=document.getElementById(page).value;
-		page=parseInt(page2);
-	}
-	
-	var url=url+'?page='+page+'&starttime='+starttime+'&endtime='+endtime+'&con='+con+'&convalue='+convalue+'&stype='+stype+'&limits='+limits+'&projectid='+projectid+'&linetext='+linetext+'&upuserid='+upuserid;
-	url=encodeURI(url);
-	url=encodeURI(url);
-	window.location=url;
-}
-
-
-
-
-//报表导出数据
-function jumpReportExportPage(url,page,starttime,endtime,con,convalue,stype,limits,projectid,linetext,upuserid){
-	
-	var page=page;
-	if(isNaN(page)){
-		var page2=document.getElementById(page).value;
-		page=parseInt(page2);
-	}
-	
-	var url=url+'?page='+page+'&starttime='+starttime+'&endtime='+endtime+'&con='+con+'&convalue='+convalue+'&stype='+stype+'&limits='+limits+'&projectid='+projectid+'&linetext='+linetext+'&upuserid='+upuserid;
-	url=encodeURI(url);
-	url=encodeURI(url);
-	window.location=url;
-}
-
-//报警记录分页查询
-function jumpAlarmRecordPage(url,page,starttime,endtime,con,convalue,limits,projectid,linetext,upuserid){
-	
-	var page=page;
-	if(isNaN(page)){
-		var page2=document.getElementById(page).value;
-		page=parseInt(page2);
-	}
-	
-	var url=url+'?page='+page+'&starttime='+starttime+'&endtime='+endtime+'&con='+con+'&convalue='+convalue+'&limits='+limits+'&projectid='+projectid+'&linetext='+linetext+'&upuserid='+upuserid;
-	url=encodeURI(url);
-	url=encodeURI(url);
-	window.location=url;
-}
-
-//报警记录导出数据
-function jumpAlarmRecordExportPage(url,page,starttime,endtime,con,convalue,limits,projectid,linetext,upuserid){
-	
-	var page=page;
-	if(isNaN(page)){
-		var page2=document.getElementById(page).value;
-		page=parseInt(page2);
-	}
-	
-	var url=url+'?page='+page+'&starttime='+starttime+'&endtime='+endtime+'&con='+con+'&convalue='+convalue+'&limits='+limits+'&projectid='+projectid+'&linetext='+linetext+'&upuserid='+upuserid;
-	url=encodeURI(url);
-	url=encodeURI(url);
-	window.location=url;
-}
-
-
-//分页显示
-function jumpPage(url,page,con,convalue,status,pid){
-console.log("enter1");
-	var page=page;
-	if(isNaN(page)){
-		var page2=document.getElementById(page).value;
-		page=parseInt(page2);
-	}
-	
-	var url=url+'?page='+page+'&con='+con+'&convalue='+convalue+'&status='+status+'&pkid='+pid;
-	url=encodeURI(url);
-	url=encodeURI(url);
-	window.location=url;
-}
-
-
-//分页显示
-function jumpDatePage(url,page,con,convalue,startdate,enddate){
-	var page=page;
-	if(isNaN(page)){
-		var page2=document.getElementById(page).value;
-		page=parseInt(page2);
-	}
-	
-	var url=url+'?page='+page+'&con='+con+'&convalue='+convalue+'&startdate='+startdate+'&enddate='+enddate;
-	url=encodeURI(url);
-	url=encodeURI(url);
-	window.location=url;
-}
 
 //分页显示
 function jumpTimePage(url,page,starttime,endtime,projectid){
@@ -260,6 +143,7 @@ console.log("enter2");
 	url=encodeURI(url);
 	window.location=url;
 }
+
 //根据公众账号及活动编号分页显示
 function jumpPublicPageBig(url,page,con,convalue,status,publicaccount,bid){
 	var page=page;

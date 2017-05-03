@@ -115,11 +115,12 @@
 			</div>
 			<div class="cl pd-5 bg-1 bk-gray mt-20">
 				<span class="r">共有数据：<strong><s:property
-							value="totalCount" /> </strong> 条</span>
+							value="totalCount" /> </strong> 条    <s:property value="injurycaseVOList.size()"></s:property></span>
 			</div>
 			<div class="later-play-container" style="height: 680px">
+
 				<ul id="later-play-list" class="video-list clearfix" data-total="">
-					<s:iterator value="injurycaseVOs" var="injurycase" status="status">
+					<s:iterator value="injurycaseVOList" var="injurycase" status="status">
 						<li class="video-list-item video-no-tag " data-id="66666">
 							<a href="injurycaseAction!loadcba?id=<s:property value="id"/>"
 								class="video-list-item-wrap" data-id="66666">
@@ -207,7 +208,6 @@
 					</tr>
 				</table>
 			</ul>
-			F
 		</div>
 	</body>
 </html>

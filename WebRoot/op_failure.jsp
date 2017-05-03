@@ -78,7 +78,7 @@
 							感谢您的使用：
 						</td>
 						<td width="90%" bgcolor="#FFFFFF">
-							${session.userRoleo.username}
+							${session.currentUserRole.username}
 						</td>
 					</tr>
 					<tr bgcolor="#FFFFFF">

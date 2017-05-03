@@ -64,7 +64,7 @@
 							感谢您的使用：
 						</td>
 						<td  bgcolor="#FFFFFF">
-							<span>${session.userRoleo.username}</span>
+							<span>${session.currentUserRole.username}</span>
 						</td>
 					</tr>
 					<tr bgcolor="#FFFFFF">
