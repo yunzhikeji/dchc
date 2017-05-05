@@ -1,22 +1,12 @@
 package com.yz.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-
 /**
  * Injurycase entity.重伤案件,一般案件
- * 
+ *
  * @author lq
  */
 @Entity
@@ -33,7 +23,8 @@ public class Injurycase implements java.io.Serializable {
 	private String fillName;// 填报人姓名
 	private String fillTime;// 填报时间
 	private String briefCase;// 简要案情
-	private String appraiser;// 鉴定人
+	private String appraiser;// 鉴定人(办案人)
+	private String appraiserUnitName;//办案人单位
 	private String telphone;// 鉴定人联系电话
 	private String injuryAssess;// 重伤评估
 	private String endSituation;// 完结情况
@@ -63,7 +54,7 @@ public class Injurycase implements java.io.Serializable {
 	private String crimePattern; //作案方式
 	private String personFeature; //人员特征
 	private String goodsFeature; //物品特征
-	
+
 
 	// Constructors
 
@@ -131,21 +122,13 @@ public class Injurycase implements java.io.Serializable {
 		this.goodsFeature = goodsFeature;
 	}
 
-	/** default constructor */
+	/**
+	 * default constructor
+	 */
 	public Injurycase() {
 	}
 
-	public Injurycase(Integer id, UserRole userRole, String caseNumber,
-			String caseType, String caseName, String fillUnit, String fillName,
-			String fillTime, String briefCase, String appraiser,
-			String telphone, String injuryAssess, String endSituation,
-			String comprehensiveJudge, String leaderInstruction,
-			List<Otherperson> otherpersons,
-			List<Troubleshooting> troubleshootings, List<Judge> judges,
-			List<Media> medias, String joinDate, Integer handleState,
-			Integer isNew, Integer itype, String imageCase, Integer isCanvas,
-			Integer isOutOfTime, String caseIds,
-			Integer isRelated, String casePlace, String startTime, String series) {
+	public Injurycase(Integer id, UserRole userRole, String caseNumber, String caseType, String caseName, String fillUnit, String fillName, String fillTime, String briefCase, String appraiser, String appraiserUnitName, String telphone, String injuryAssess, String endSituation, String comprehensiveJudge, String leaderInstruction, List<Otherperson> otherpersons, List<Troubleshooting> troubleshootings, List<Judge> judges, List<Media> medias, String joinDate, Integer handleState, Integer itype, String imageCase, String detailsDescription, String goodsDescription, Integer isCanvas, String caseIds, Integer isRelated, String casePlace, String startTime, String series, Integer isOutOfTime, Integer isNew, String situationNum, String crimeTarget, String crimeObject, String crimePattern, String personFeature, String goodsFeature) {
 		this.id = id;
 		this.userRole = userRole;
 		this.caseNumber = caseNumber;
@@ -156,6 +139,7 @@ public class Injurycase implements java.io.Serializable {
 		this.fillTime = fillTime;
 		this.briefCase = briefCase;
 		this.appraiser = appraiser;
+		this.appraiserUnitName = appraiserUnitName;
 		this.telphone = telphone;
 		this.injuryAssess = injuryAssess;
 		this.endSituation = endSituation;
@@ -169,6 +153,8 @@ public class Injurycase implements java.io.Serializable {
 		this.handleState = handleState;
 		this.itype = itype;
 		this.imageCase = imageCase;
+		this.detailsDescription = detailsDescription;
+		this.goodsDescription = goodsDescription;
 		this.isCanvas = isCanvas;
 		this.caseIds = caseIds;
 		this.isRelated = isRelated;
@@ -177,9 +163,22 @@ public class Injurycase implements java.io.Serializable {
 		this.series = series;
 		this.isOutOfTime = isOutOfTime;
 		this.isNew = isNew;
+		this.situationNum = situationNum;
+		this.crimeTarget = crimeTarget;
+		this.crimeObject = crimeObject;
+		this.crimePattern = crimePattern;
+		this.personFeature = personFeature;
+		this.goodsFeature = goodsFeature;
 	}
 
-	/** full constructor */
+
+	/**
+	 * full constructor
+	 */
+	@Column(name = "appraiserUnitName")
+	public String getAppraiserUnitName() {
+		return appraiserUnitName;
+	}
 
 	@Column(name = "appraiser")
 	public String getAppraiser() {
@@ -339,6 +338,11 @@ public class Injurycase implements java.io.Serializable {
 	public Integer getIsNew() {
 		return isNew;
 	}
+
+	public void setAppraiserUnitName(String appraiserUnitName) {
+		this.appraiserUnitName = appraiserUnitName;
+	}
+
 
 	public void setIsNew(Integer isNew) {
 		this.isNew = isNew;

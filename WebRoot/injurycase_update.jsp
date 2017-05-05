@@ -16,6 +16,8 @@
     <meta name="viewport"
           content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>修改案件</title>
+
     <link href="css/H-ui.min.css" rel="stylesheet" type="text/css"/>
     <link href="css/H-ui.admin.css" rel="stylesheet" type="text/css"/>
     <link href="css/ncss.css" rel="stylesheet" type="text/css"/>
@@ -46,7 +48,7 @@
     <script type="text/javascript" src="js/pageKit.js"></script>
     <script type="text/javascript" src="js/checkUtil.js"></script>
     <script type="text/javascript" src="js/commonUtil.js"></script>
-    <title>修改案件</title>
+
     <link rel="stylesheet"
           href="lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
     <script type="text/javascript"
@@ -92,6 +94,15 @@
                 onCheck: onCheck
             }
         };
+
+
+        var zNodes_units = [
+            {id:0, name:"无单位"}
+        ];
+
+        var zNodes_appraisers= [
+            {id:0, name:"无"}
+        ];
 
         var zNodes_0 = [
 
@@ -1249,6 +1260,22 @@
 
 
         $(document).ready(function () {
+            $.ajax({
+                url: 'getUnitVOs',//这里是你的action或者servlert的路径地址
+                type: 'post', //数据发送方式
+                async: false,
+                dataType: 'json',
+                error: function (msg) { //失败
+                    console.log('请求办案单位失败.');
+                },
+                success: function (msg) { //成功
+                    if (msg.length > 0) {
+                        zNodes_units = msg;
+                    }
+                }
+            });
+            $.fn.zTree.init($("#treeDemo_unit"), setting2, zNodes_units);
+
         });
 
         var currentObjId = "";
@@ -1300,6 +1327,47 @@
                 $("body").bind("mousedown", onBodyDown2);
             }
 
+            if (obj.id == "appraiserUnitName") {
+                $.fn.zTree.init($("#treeDemo_unit"), setting2, zNodes_units);
+                $("#menuContent_unit").css({
+                    left: cityOffset.left + "px",
+                    top: cityOffset.top + cityObj.outerHeight() + "px"
+                }).slideDown("fast");
+                $("body").bind("mousedown", onBodyDownUnit);
+            }
+
+            if (obj.id == "appraiser") {
+
+                var unitName = $("#appraiserUnitName").val();
+                if(unitName==null||unitName=='')
+                {
+                    alert("请选择办案单位.");
+                    return false;
+                }
+                $.ajax({
+                    url: 'getUserRoleByUnitName',//这里是你的action或者servlert的路径地址
+                    type: 'post', //数据发送方式
+                    async: false,
+                    dataType: 'json',
+                    data: {"unitName":unitName},
+                    error: function (msg) { //失败
+                        console.log('请求办案人员失败.');
+                    },
+                    success: function (msg) { //成功
+                        if (msg.length > 0) {
+                            zNodes_appraisers = msg;
+                        }
+                    }
+                });
+
+                $.fn.zTree.init($("#treeDemo_appraiser"), setting2, zNodes_appraisers);
+                $("#menuContent_appraiser").css({
+                    left: cityOffset.left + "px",
+                    top: cityOffset.top + cityObj.outerHeight() + "px"
+                }).slideDown("fast");
+                $("body").bind("mousedown", onBodyDownAppraiser);
+            }
+
 
         }
 
@@ -1319,6 +1387,14 @@
                 case 2:
                     $("#menuContent_2").fadeOut("fast");
                     $("body").unbind("mousedown", onBodyDown2);
+                    break;
+                case 3:
+                    $("#menuContent_unit").fadeOut("fast");
+                    $("body").unbind("mousedown", onBodyDownUnit);
+                    break;
+                case 4:
+                    $("#menuContent_appraiser").fadeOut("fast");
+                    $("body").unbind("mousedown", onBodyDownAppraiser);
                     break;
             }
 
@@ -1340,6 +1416,19 @@
         function onBodyDown2(event) {
             if (!(event.target.id == "crimeTarget" || event.target.id == "menuContent_2" || $(event.target).parents("#menuContent_2").length > 0)) {
                 hideMenu(2);
+            }
+        }
+
+        function onBodyDownUnit(event) {
+            if (!(event.target.id == "appraiserUnitName" || event.target.id == "menuContent_unit" || $(event.target).parents("#menuContent_unit").length > 0)) {
+                hideMenu(3);
+            }
+        }
+
+
+        function onBodyDownAppraiser(event) {
+            if (!(event.target.id == "appraiser" || event.target.id == "menuContent_appraiser" || $(event.target).parents("#menuContent_appraiser").length > 0)) {
+                hideMenu(4);
             }
         }
 
@@ -1570,7 +1659,7 @@
                             <div class="col-4">
                                 <s:textfield id="crimeObject" name="injurycase.crimeObject"
                                              onclick="showMenu(this);"
-                                             cssClass="input-text radius size-M "
+                                             cssClass="input-text radius size-M " readonly="true"
                                              cssStyle="width: 200px;"></s:textfield>
                                 <div id="menuContent_1" class="menuContent"
                                      style="display: none;">
@@ -1623,14 +1712,36 @@
                         <div class="row cl mb-10">
                             <div class="col-2">
                                 <label class="form-label text-r">
+                                    办案单位：
+                                </label>
+                            </div>
+                            <div class="col-4">
+                                <s:textfield id="appraiserUnitName" name="injurycase.appraiserUnitName" onclick="showMenu(this);"
+                                             cssClass="input-text radius size-M " readonly="true"
+                                             cssStyle="width: 200px;"></s:textfield>
+                                <div id="menuContent_unit" class="menuContent"
+                                     style="display: none;">
+                                    <ul id="treeDemo_unit" class="ztree"></ul>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <label class="form-label text-r">
                                     办案人：
                                 </label>
                             </div>
                             <div class="col-4">
-                                <s:textfield id="appraiser" name="injurycase.appraiser"
-                                             cssClass="input-text radius size-M "
+                                <s:textfield id="appraiser" name="injurycase.appraiser" onclick="showMenu(this);"
+                                             cssClass="input-text radius size-M " readonly="true"
                                              cssStyle="width: 200px;"></s:textfield>
+                                <div id="menuContent_appraiser" class="menuContent"
+                                     style="display: none;">
+                                    <ul id="treeDemo_appraiser" class="ztree"></ul>
+                                </div>
                             </div>
+                        </div>
+
+
+                        <div class="row cl mb-10">
                             <div class="col-2">
                                 <label class="form-label text-r">
                                     联系电话：
@@ -1642,6 +1753,7 @@
                                              cssStyle="width: 200px;"></s:textfield>
                             </div>
                         </div>
+
                         <div class="row cl mb-10">
                             <div class="col-2">
                                 <label class="form-label text-r">
@@ -1985,7 +2097,7 @@
                                             <input class="btn btn-primary radius mt-10 f-r"
                                                    type="button"
                                                    onclick="addPage('发起研判信息','judgeAction!goToAdd?inid=<s:property
-                                                           value="id"/>&jtype=1','650','300')"
+                                                           value="id"/>&jtype=1','500','300')"
                                                    value="发起研判信息">
                                         </div>
                                         <div class="col-12">
@@ -2013,7 +2125,7 @@
                                                                 status="status">
                                                         <tr>
                                                             <td>
-                                                                <s:property value="indexNumber"/>
+                                                                <s:property value="#status.index+1" />
                                                             </td>
                                                             <td>
                                                                 <s:property value="reportUnit"/>
@@ -2025,8 +2137,7 @@
                                                             </td>
                                                             <td>
                                                                 <a style="text-decoration: none" class="ml-5"
-                                                                   onclick="addPage('编辑研判信息','judgeAction!load?jid=
-                                                                       <s:property value="id"/>','500','300')"
+                                                                   onclick="addPage('编辑研判信息','judgeAction!load?jid=<s:property value="id"/>','500','300')"
                                                                    href="javascript:;" title="编辑"><i
                                                                         class="Hui-iconfont">&#xe6df;</i> </a>
                                                                 <a style="text-decoration: none" class="ml-5"
@@ -2074,7 +2185,7 @@
                                                                 status="status">
                                                         <tr>
                                                             <td>
-                                                                <s:property value="indexNumber"/>
+                                                                <s:property value="#status.index+1" />
                                                             </td>
                                                             <td>
                                                                 <s:textarea name="criminalJudge"
@@ -2202,7 +2313,7 @@
                                         <tr>
                                             <td>
                                                 研判次序
-                                                <s:property value="indexNumber"/>
+                                                <s:property value="#status.index+1" />
                                                 :
                                                 <s:property value="reportUnit"/>
                                             </td>

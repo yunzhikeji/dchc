@@ -38,11 +38,10 @@
 		<script type="text/javascript">
 		function exportInjurycase(){
 				//提交form
-				document.injurycaseListForm.action = "injurycaseAction!outputExcel";
+				document.injurycaseListForm.action = "injurycaseAction!export";
 				document.injurycaseListForm.submit();
 			}
 		</script>
-
 
 		<title>案件信息列表</title>
 	</head>

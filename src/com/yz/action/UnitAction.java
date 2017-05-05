@@ -142,12 +142,15 @@ public class UnitAction extends BaseAction {
 
 	public void getUnitVOs() {
 		unitVOs = new ArrayList<UnitVO>();
-		unit = unitService.getUnitByNumber(UnitAction.OPERTION_UNIT_NUMBER);
-		if (unit != null) {
-			UnitVO unitVO = new UnitVO();
-			unitVO.setId(unit.getId());
-			unitVO.setName(unit.getName());
-			unitVOs.add(unitVO);
+		units = unitService.getUnits();
+		for(Unit unit :units)
+		{
+			if (unit != null) {
+				UnitVO unitVO = new UnitVO();
+				unitVO.setId(unit.getId());
+				unitVO.setName(unit.getName());
+				unitVOs.add(unitVO);
+			}
 		}
 		AjaxMsgUtil.outputJSONOToAjax(response, JSONArray.fromObject(unitVOs).toString());
 	}

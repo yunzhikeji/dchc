@@ -1,6 +1,5 @@
 package com.yz.action;
 
-import com.yz.auth.AuthObject;
 import com.yz.model.*;
 import com.yz.service.*;
 import com.yz.util.AjaxMsgUtil;
@@ -12,7 +11,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,12 +23,10 @@ import java.util.List;
 public class PersonAction extends BaseAction {
 
 	private int id;
-	private int pid;// 按用户id
 	private int type;// 人员类型
 	private List<String> infoExtractions;// 页面显示被选中 信息提取情况
 
 
-	// service层对象
 	@Resource
 	private PersonService personService;
 	@Resource
@@ -43,8 +43,8 @@ public class PersonAction extends BaseAction {
 	private OtherpersonService otherpersonService;
 	@Resource
 	private UserRoleService userRoleService;
-	@Resource(name = "authObject")
-	private AuthObject authObject;
+	@Resource
+	private FileService fileService;
 
 	// 单个表对象
 	private Person person;
@@ -59,14 +59,6 @@ public class PersonAction extends BaseAction {
 	private List<Otherperson> gxrs;// 关系人员
 	private List<Otherperson> tars;// 同案人员
 
-
-	private File file;
-	private String fileContentType;
-	private String fileFileName;
-
-	/**
-	 * 人员管理
-	 */
 	public String list() throws Exception {
 
 		decodeParameters();
@@ -91,7 +83,6 @@ public class PersonAction extends BaseAction {
 		return "list";
 	}
 
-	// 选择页面名称
 	private String selectTileName(int type) {
 		String pageName = "人员信息";
 		switch (type) {
@@ -150,14 +141,7 @@ public class PersonAction extends BaseAction {
 		return pageName;
 	}
 
-	/**
-	 * 跳转到添加页面
-	 *
-	 * @return
-	 */
 	public String goToAdd() {
-
-
 		pageTileName = selectTileName(type);
 		switch (type) {
 			case 0:
@@ -202,17 +186,7 @@ public class PersonAction extends BaseAction {
 
 	}
 
-	/**
-	 * 添加
-	 *
-	 * @return
-	 * @throws Exception
-	 */
-
 	public String add() throws Exception {
-
-
-		UserRole userRole = userRoleService.getUserRoleById(currentUserRole.getId());
 		type = person.getType();
 		// 分类添加人员信息
 		switch (type) {
@@ -250,32 +224,14 @@ public class PersonAction extends BaseAction {
 				if (guiltSafeguardMan == null) {
 					guiltSafeguardMan = new GuiltSafeguardMan();
 				}
-				if (picture1 != null && picture1FileName != null
-						&& !picture1FileName.replace(" ", "").equals("")) {
-					String imageName = DateTimeKit.getDateRandom()
-							+ picture1FileName.substring(picture1FileName
-							.indexOf("."));
-					this.upload("/guiltSafeguardMan", imageName, picture1);
-					guiltSafeguardMan.setCriminalRecordPhoto1("/guiltSafeguardMan"
-							+ "/" + imageName);
+				if (picture1 != null && isNotBlankString(picture1FileName)) {
+					guiltSafeguardMan.setCriminalRecordPhoto1(fileService.uploadOneFile(picture1, picture1FileName, picture1ContentType, "guiltSafeguardMan"));
 				}
-				if (picture2 != null && picture2FileName != null
-						&& !picture2FileName.replace(" ", "").equals("")) {
-					String imageName = DateTimeKit.getDateRandom()
-							+ picture2FileName.substring(picture2FileName
-							.indexOf("."));
-					this.upload("/guiltSafeguardMan", imageName, picture2);
-					guiltSafeguardMan.setCriminalRecordPhoto2("/guiltSafeguardMan"
-							+ "/" + imageName);
+				if (picture2 != null && isNotBlankString(picture2FileName)) {
+					guiltSafeguardMan.setCriminalRecordPhoto2(fileService.uploadOneFile(picture2, picture2FileName, picture2ContentType, "guiltSafeguardMan"));
 				}
-				if (picture3 != null && picture3FileName != null
-						&& !picture3FileName.replace(" ", "").equals("")) {
-					String imageName = DateTimeKit.getDateRandom()
-							+ picture3FileName.substring(picture3FileName
-							.indexOf("."));
-					this.upload("/guiltSafeguardMan", imageName, picture3);
-					guiltSafeguardMan.setCriminalRecordPhoto3("/guiltSafeguardMan"
-							+ "/" + imageName);
+				if (picture3 != null && isNotBlankString(picture3FileName)) {
+					guiltSafeguardMan.setCriminalRecordPhoto3(fileService.uploadOneFile(picture3, picture3FileName, picture3ContentType, "guiltSafeguardMan"));
 				}
 				guiltSafeguardManService.add(guiltSafeguardMan);
 				person.setGuiltSafeguardMan(guiltSafeguardMan);
@@ -285,30 +241,17 @@ public class PersonAction extends BaseAction {
 				if (disappearman == null) {
 					disappearman = new DisappearMan();
 				}
-				if (picture1 != null && picture1FileName != null
-						&& !picture1FileName.replace(" ", "").equals("")) {
-					String imageName = DateTimeKit.getDateRandom()
-							+ picture1FileName.substring(picture1FileName
-							.indexOf("."));
-					this.upload("/disappearman", imageName, picture1);
-					disappearman.setPhoto1("/disappearman" + "/" + imageName);
+
+				if (picture1 != null && isNotBlankString(picture1FileName)) {
+					disappearman.setPhoto1(fileService.uploadOneFile(picture1, picture1FileName, picture1ContentType, "disappearman"));
 				}
-				if (picture2 != null && picture2FileName != null
-						&& !picture2FileName.replace(" ", "").equals("")) {
-					String imageName = DateTimeKit.getDateRandom()
-							+ picture2FileName.substring(picture2FileName
-							.indexOf("."));
-					this.upload("/disappearman", imageName, picture2);
-					disappearman.setPhoto2("/disappearman" + "/" + imageName);
+				if (picture2 != null && isNotBlankString(picture2FileName)) {
+					disappearman.setPhoto2(fileService.uploadOneFile(picture2, picture2FileName, picture2ContentType, "disappearman"));
 				}
-				if (picture3 != null && picture3FileName != null
-						&& !picture3FileName.replace(" ", "").equals("")) {
-					String imageName = DateTimeKit.getDateRandom()
-							+ picture3FileName.substring(picture3FileName
-							.indexOf("."));
-					this.upload("/disappearman", imageName, picture3);
-					disappearman.setPhoto3("/disappearman" + "/" + imageName);
+				if (picture3 != null && isNotBlankString(picture3FileName)) {
+					disappearman.setPhoto3(fileService.uploadOneFile(picture3, picture3FileName, picture3ContentType, "disappearman"));
 				}
+
 				disappearManService.add(disappearman);
 				person.setDisappearMan(disappearman);
 				break;
@@ -325,23 +268,12 @@ public class PersonAction extends BaseAction {
 				if (contrastMan == null) {
 					contrastMan = new ContrastMan();
 				}
-				if (picture1 != null && picture1FileName != null
-						&& !picture1FileName.replace(" ", "").equals("")) {
-					String imageName = DateTimeKit.getDateRandom()
-							+ picture1FileName.substring(picture1FileName
-							.indexOf("."));
-					this.upload("/contrastMan", imageName, picture1);
-					contrastMan.setRegisterAddressPhoto("/contrastMan" + "/"
-							+ imageName);
+
+				if (picture1 != null && isNotBlankString(picture1FileName)) {
+					contrastMan.setRegisterAddressPhoto(fileService.uploadOneFile(picture1, picture1FileName, picture1ContentType, "contrastMan"));
 				}
-				if (picture2 != null && picture2FileName != null
-						&& !picture2FileName.replace(" ", "").equals("")) {
-					String imageName = DateTimeKit.getDateRandom()
-							+ picture2FileName.substring(picture2FileName
-							.indexOf("."));
-					this.upload("/contrastMan", imageName, picture2);
-					contrastMan.setCriminalRecordPhoto("/contrastMan" + "/"
-							+ imageName);
+				if (picture2 != null && isNotBlankString(picture2FileName)) {
+					contrastMan.setCriminalRecordPhoto(fileService.uploadOneFile(picture2, picture2FileName, picture2ContentType, "contrastMan"));
 				}
 				contrastManService.add(contrastMan);
 				person.setContrastMan(contrastMan);
@@ -350,15 +282,8 @@ public class PersonAction extends BaseAction {
 				break;
 		}
 
-		if (picture != null && pictureFileName != null
-				&& !pictureFileName.replace(" ", "").equals("")) {
-			String imageName = DateTimeKit.getDateRandom()
-					+ pictureFileName.substring(pictureFileName.indexOf("."));
-			this.upload("/person", imageName, picture);
-			person.setPhotoImg("/person" + "/" + imageName);
-		}
-
-		person.setUserRole(userRole);// 设置录入人员
+		person.setPhotoImg(fileService.upload(file, fileFileName, fileContentType, "person"));
+		person.setUserRole(currentUserRole);// 设置录入人员
 		person.setJoinDate(DateTimeKit.getLocalDate());// 设置录入时间
 		person.setHandleState(1);// 初始化处理状态
 		person.setIsOutOfTime(0);
@@ -370,39 +295,6 @@ public class PersonAction extends BaseAction {
 		return "success_child";
 	}
 
-	// 上传照片
-	private File picture;
-	private String pictureContentType;
-	private String pictureFileName;
-
-	// 文件上传
-	public void upload(String fileName, String imageName, File picture)
-			throws Exception {
-		File saved = new File(authObject.getFileRoot() + fileName, imageName);
-		InputStream ins = null;
-		OutputStream ous = null;
-		try {
-			saved.getParentFile().mkdirs();
-			ins = new FileInputStream(picture);
-			ous = new FileOutputStream(saved);
-			byte[] b = new byte[1024];
-			int len = 0;
-			while ((len = ins.read(b)) != -1) {
-				ous.write(b, 0, len);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (ous != null)
-				ous.close();
-			if (ins != null)
-				ins.close();
-		}
-	}
-
-	/**
-	 * 9:负案在逃人员,10:维稳人员 上传前科照片
-	 */
 	private File picture1;
 	private String picture1ContentType;
 	private String picture1FileName;
@@ -413,22 +305,17 @@ public class PersonAction extends BaseAction {
 	private String picture3ContentType;
 	private String picture3FileName;
 
-	/**
-	 * 删除一
-	 *
-	 * @return
-	 */
 	public String delete() throws Exception {
-
-		UserRole userRole = userRoleService.getUserRoleById(currentUserRole.getId());
-
 		person = personService.loadById(id);
-
-		String pid = id + "";// 获取当前person id
-
 		int type = person.getType();
-		// 分类添加人员信息
-		switch (type) {
+		deletePerson(person);
+		arg[0] = "personAction!list?type=" + type;
+		arg[1] = "人员管理";
+		return SUCCESS;
+	}
+
+	private void deletePerson(Person person) {
+		switch (person.getType()) {
 			case 0:
 			case 1:
 			case 2:
@@ -450,55 +337,16 @@ public class PersonAction extends BaseAction {
 					id = person.getGuiltSafeguardMan().getId();
 					guiltSafeguardMan = guiltSafeguardManService.loadById(id);
 					if (guiltSafeguardMan != null) {
-						if (guiltSafeguardMan.getCriminalRecordPhoto1() != null
-								&& !guiltSafeguardMan.getCriminalRecordPhoto1()
-								.replace(" ", "").equals("")) {
-							File photofile = new File(authObject.getFileRoot()
-									+ guiltSafeguardMan.getCriminalRecordPhoto1());
-							photofile.delete();
-						}
-						if (guiltSafeguardMan.getCriminalRecordPhoto2() != null
-								&& !guiltSafeguardMan.getCriminalRecordPhoto2()
-								.replace(" ", "").equals("")) {
-							File photofile = new File(authObject.getFileRoot()
-									+ guiltSafeguardMan.getCriminalRecordPhoto2());
-							photofile.delete();
-						}
-						if (guiltSafeguardMan.getCriminalRecordPhoto3() != null
-								&& !guiltSafeguardMan.getCriminalRecordPhoto3()
-								.replace(" ", "").equals("")) {
-							File photofile = new File(authObject.getFileRoot()
-									+ guiltSafeguardMan.getCriminalRecordPhoto3());
-							photofile.delete();
-						}
+						fileService.deleteFileBySrc(guiltSafeguardMan.getCriminalRecordPhoto1());
+						fileService.deleteFileBySrc(guiltSafeguardMan.getCriminalRecordPhoto2());
+						fileService.deleteFileBySrc(guiltSafeguardMan.getCriminalRecordPhoto3());
 						// 同时删除所有同安人员，关系人员的照片
 						otherpersons = otherpersonService.getOtherpersons();
 						if (otherpersons != null && otherpersons.size() > 0) {
 							for (Otherperson otherperson : otherpersons) {
-								if (otherperson.getFrontPhoto() != null
-										&& !otherperson.getFrontPhoto().replace(
-										" ", "").equals("")) {
-									File photofile = new File(authObject
-											.getFileRoot()
-											+ otherperson.getFrontPhoto());
-									photofile.delete();
-								}
-								if (otherperson.getLeftPhoto() != null
-										&& !otherperson.getLeftPhoto().replace(" ",
-										"").equals("")) {
-									File photofile = new File(authObject
-											.getFileRoot()
-											+ otherperson.getLeftPhoto());
-									photofile.delete();
-								}
-								if (otherperson.getRightPhoto() != null
-										&& !otherperson.getRightPhoto().replace(
-										" ", "").equals("")) {
-									File photofile = new File(authObject
-											.getFileRoot()
-											+ otherperson.getRightPhoto());
-									photofile.delete();
-								}
+								fileService.deleteFileBySrc(otherperson.getFrontPhoto());
+								fileService.deleteFileBySrc(otherperson.getLeftPhoto());
+								fileService.deleteFileBySrc(otherperson.getRightPhoto());
 							}
 						}
 					}
@@ -509,27 +357,9 @@ public class PersonAction extends BaseAction {
 					id = person.getDisappearMan().getId();
 					disappearman = disappearManService.loadById(id);
 					if (disappearman != null) {
-						if (disappearman.getPhoto1() != null
-								&& !disappearman.getPhoto1().replace(" ", "")
-								.equals("")) {
-							File photofile = new File(authObject.getFileRoot()
-									+ disappearman.getPhoto1());
-							photofile.delete();
-						}
-						if (disappearman.getPhoto2() != null
-								&& !disappearman.getPhoto2().replace(" ", "")
-								.equals("")) {
-							File photofile = new File(authObject.getFileRoot()
-									+ disappearman.getPhoto2());
-							photofile.delete();
-						}
-						if (disappearman.getPhoto3() != null
-								&& !disappearman.getPhoto3().replace(" ", "")
-								.equals("")) {
-							File photofile = new File(authObject.getFileRoot()
-									+ disappearman.getPhoto3());
-							photofile.delete();
-						}
+						fileService.deleteFileBySrc(disappearman.getPhoto1());
+						fileService.deleteFileBySrc(disappearman.getPhoto2());
+						fileService.deleteFileBySrc(disappearman.getPhoto3());
 					}
 				}
 				break;
@@ -540,20 +370,8 @@ public class PersonAction extends BaseAction {
 					id = person.getContrastMan().getId();
 					contrastMan = contrastManService.loadById(id);
 					if (contrastMan != null) {
-						if (contrastMan.getRegisterAddressPhoto() != null
-								&& !contrastMan.getRegisterAddressPhoto().replace(
-								" ", "").equals("")) {
-							File photofile = new File(authObject.getFileRoot()
-									+ contrastMan.getRegisterAddressPhoto());
-							photofile.delete();
-						}
-						if (contrastMan.getCriminalRecordPhoto() != null
-								&& !contrastMan.getCriminalRecordPhoto().replace(
-								" ", "").equals("")) {
-							File photofile = new File(authObject.getFileRoot()
-									+ contrastMan.getCriminalRecordPhoto());
-							photofile.delete();
-						}
+						fileService.deleteFileBySrc(contrastMan.getRegisterAddressPhoto());
+						fileService.deleteFileBySrc(contrastMan.getCriminalRecordPhoto());
 					}
 				}
 				break;
@@ -562,23 +380,10 @@ public class PersonAction extends BaseAction {
 		}
 
 		// 删除照片
-		File photofile = new File(authObject.getFileRoot()
-				+ person.getPhotoImg());
-		photofile.delete();
-
-
+		fileService.deleteFileBySrc(person.getPhotoImg());
 		personService.delete(person);
-
-		arg[0] = "personAction!list?type=" + type;
-		arg[1] = "人员管理";
-		return SUCCESS;
 	}
 
-	/**
-	 * 删除二(批量删除)
-	 *
-	 * @return
-	 */
 	public String deletePersons() throws Exception {
 
 		currentUserRole = (UserRole) session.get("currentUserRole");
@@ -586,111 +391,8 @@ public class PersonAction extends BaseAction {
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
 		for (int i = 0; i < ids.length; i++) {
 			person = personService.loadById(ids[i]);
-
-			type = person.getType();
-			// 分类添加人员信息
-			switch (type) {
-				case 0:
-				case 1:
-				case 2:
-				case 3:
-				case 4:
-				case 5:
-				case 6:
-				case 7:
-				case 8:
-				case 14:
-				case 15:
-					break;
-				case 9:
-				case 10:
-					id = person.getGuiltSafeguardMan().getId();
-					guiltSafeguardMan = guiltSafeguardManService.loadById(id);
-					if (guiltSafeguardMan != null) {
-						if (guiltSafeguardMan.getCriminalRecordPhoto1() != null
-								&& !guiltSafeguardMan.getCriminalRecordPhoto1()
-								.replace(" ", "").equals("")) {
-							File photofile = new File(authObject.getFileRoot()
-									+ guiltSafeguardMan.getCriminalRecordPhoto1());
-							photofile.delete();
-						}
-						if (guiltSafeguardMan.getCriminalRecordPhoto2() != null
-								&& !guiltSafeguardMan.getCriminalRecordPhoto2()
-								.replace(" ", "").equals("")) {
-							File photofile = new File(authObject.getFileRoot()
-									+ guiltSafeguardMan.getCriminalRecordPhoto2());
-							photofile.delete();
-						}
-						if (guiltSafeguardMan.getCriminalRecordPhoto3() != null
-								&& !guiltSafeguardMan.getCriminalRecordPhoto3()
-								.replace(" ", "").equals("")) {
-							File photofile = new File(authObject.getFileRoot()
-									+ guiltSafeguardMan.getCriminalRecordPhoto3());
-							photofile.delete();
-						}
-					}
-					break;
-				case 11:
-					id = person.getDisappearMan().getId();
-					disappearman = disappearManService.loadById(id);
-					if (disappearman != null) {
-						if (disappearman.getPhoto1() != null
-								&& !disappearman.getPhoto1().replace(" ", "")
-								.equals("")) {
-							File photofile = new File(authObject.getFileRoot()
-									+ disappearman.getPhoto1());
-							photofile.delete();
-						}
-						if (disappearman.getPhoto2() != null
-								&& !disappearman.getPhoto2().replace(" ", "")
-								.equals("")) {
-							File photofile = new File(authObject.getFileRoot()
-									+ disappearman.getPhoto2());
-							photofile.delete();
-						}
-						if (disappearman.getPhoto3() != null
-								&& !disappearman.getPhoto3().replace(" ", "")
-								.equals("")) {
-							File photofile = new File(authObject.getFileRoot()
-									+ disappearman.getPhoto3());
-							photofile.delete();
-						}
-					}
-					break;
-				case 12:
-					break;
-				case 13:
-					id = person.getContrastMan().getId();
-					contrastMan = contrastManService.loadById(id);
-					if (contrastMan != null) {
-						if (contrastMan.getRegisterAddressPhoto() != null
-								&& !contrastMan.getRegisterAddressPhoto().replace(
-								" ", "").equals("")) {
-							File photofile = new File(authObject.getFileRoot()
-									+ contrastMan.getRegisterAddressPhoto());
-							photofile.delete();
-						}
-						if (contrastMan.getCriminalRecordPhoto() != null
-								&& !contrastMan.getCriminalRecordPhoto().replace(
-								" ", "").equals("")) {
-							File photofile = new File(authObject.getFileRoot()
-									+ contrastMan.getCriminalRecordPhoto());
-							photofile.delete();
-						}
-					}
-					break;
-				default:
-					break;
-			}
-
-			File photofile = new File(authObject.getFileRoot()
-					+ person.getPhotoImg());
-
-			photofile.delete();
-
-			personService.delete(person);
+			deletePerson(person);
 		}
-
 		AjaxMsgUtil.outputJSONObjectToAjax(response, new AjaxMsgVO("删除成功."));
 		return null;
 	}
@@ -758,11 +460,6 @@ public class PersonAction extends BaseAction {
 		}
 	}
 
-	/**
-	 * 修改
-	 *
-	 * @return
-	 */
 	public String update() throws Exception {
 
 		type = person.getType();
@@ -801,151 +498,79 @@ public class PersonAction extends BaseAction {
 				// pageName = "负罪在逃";
 			case 10:
 				// pageName = "维稳人员";
-				if (picture1 != null && picture1FileName != null
-						&& !picture1FileName.replace(" ", "").equals("")) {
-					String imageName = DateTimeKit.getDateRandom()
-							+ picture1FileName.substring(picture1FileName
-							.indexOf("."));
-					this.upload("/guiltSafeguardMan", imageName, picture1);
-					File photofile = new File(authObject.getFileRoot()
-							+ guiltSafeguardMan.getCriminalRecordPhoto1());
-					photofile.delete();
-					guiltSafeguardMan.setCriminalRecordPhoto1("/guiltSafeguardMan"
-							+ "/" + imageName);
-				}
-				if (picture2 != null && picture2FileName != null
-						&& !picture2FileName.replace(" ", "").equals("")) {
-					String imageName = DateTimeKit.getDateRandom()
-							+ picture2FileName.substring(picture2FileName
-							.indexOf("."));
-					this.upload("/guiltSafeguardMan", imageName, picture2);
-					File photofile = new File(authObject.getFileRoot()
-							+ guiltSafeguardMan.getCriminalRecordPhoto2());
-					photofile.delete();
-					guiltSafeguardMan.setCriminalRecordPhoto2("/guiltSafeguardMan"
-							+ "/" + imageName);
-				}
-				if (picture3 != null && picture3FileName != null
-						&& !picture3FileName.replace(" ", "").equals("")) {
-					String imageName = DateTimeKit.getDateRandom()
-							+ picture3FileName.substring(picture3FileName
-							.indexOf("."));
-					this.upload("/guiltSafeguardMan", imageName, picture3);
-					File photofile = new File(authObject.getFileRoot()
-							+ guiltSafeguardMan.getCriminalRecordPhoto3());
-					photofile.delete();
-					guiltSafeguardMan.setCriminalRecordPhoto3("/guiltSafeguardMan"
-							+ "/" + imageName);
-				}
 				if (guiltSafeguardMan == null) {
 					guiltSafeguardMan = new GuiltSafeguardMan();
-					guiltSafeguardManService.add(guiltSafeguardMan);
-				} else {
-					guiltSafeguardManService.update(guiltSafeguardMan);
 				}
+				if (picture1 != null && isNotBlankString(picture1FileName)) {
+
+					fileService.deleteFileBySrc(guiltSafeguardMan.getCriminalRecordPhoto1());
+					guiltSafeguardMan.setCriminalRecordPhoto1(fileService.uploadOneFile(picture1, picture1FileName, picture1ContentType, "guiltSafeguardMan"));
+				}
+				if (picture2 != null && isNotBlankString(picture2FileName)) {
+					fileService.deleteFileBySrc(guiltSafeguardMan.getCriminalRecordPhoto2());
+					guiltSafeguardMan.setCriminalRecordPhoto2(fileService.uploadOneFile(picture2, picture2FileName, picture2ContentType, "guiltSafeguardMan"));
+				}
+				if (picture3 != null && isNotBlankString(picture3FileName)) {
+					fileService.deleteFileBySrc(guiltSafeguardMan.getCriminalRecordPhoto3());
+					guiltSafeguardMan.setCriminalRecordPhoto3(fileService.uploadOneFile(picture3, picture3FileName, picture3ContentType, "guiltSafeguardMan"));
+				}
+				guiltSafeguardManService.add(guiltSafeguardMan);
 				person.setGuiltSafeguardMan(guiltSafeguardMan);
 				break;
 			case 11:
-				// pageName = "失踪人员";
-				if (picture1 != null && picture1FileName != null
-						&& !picture1FileName.replace(" ", "").equals("")) {
-					String imageName = DateTimeKit.getDateRandom()
-							+ picture1FileName.substring(picture1FileName
-							.indexOf("."));
-					this.upload("/disappearman", imageName, picture1);
-					File photofile = new File(authObject.getFileRoot()
-							+ disappearman.getPhoto1());
-					photofile.delete();
-					disappearman.setPhoto1("/disappearman" + "/" + imageName);
-				}
-				if (picture2 != null && picture2FileName != null
-						&& !picture2FileName.replace(" ", "").equals("")) {
-					String imageName = DateTimeKit.getDateRandom()
-							+ picture2FileName.substring(picture2FileName
-							.indexOf("."));
-					this.upload("/disappearman", imageName, picture2);
-					File photofile = new File(authObject.getFileRoot()
-							+ disappearman.getPhoto2());
-					photofile.delete();
-					disappearman.setPhoto2("/disappearman" + "/" + imageName);
-				}
-				if (picture3 != null && disappearman != null
-						&& !picture3FileName.replace(" ", "").equals("")) {
-					String imageName = DateTimeKit.getDateRandom()
-							+ picture3FileName.substring(picture3FileName
-							.indexOf("."));
-					this.upload("/disappearman", imageName, picture3);
-					File photofile = new File(authObject.getFileRoot()
-							+ disappearman.getPhoto3());
-					photofile.delete();
-					disappearman.setPhoto3("/disappearman" + "/" + imageName);
-				}
-
+				// pageName = "失踪人员分析";
 				if (disappearman == null) {
 					disappearman = new DisappearMan();
-					disappearManService.add(disappearman);
-				} else {
-					disappearManService.update(disappearman);
 				}
+
+				if (picture1 != null && isNotBlankString(picture1FileName)) {
+					fileService.deleteFileBySrc(disappearman.getPhoto1());
+					disappearman.setPhoto1(fileService.uploadOneFile(picture1, picture1FileName, picture1ContentType, "disappearman"));
+				}
+				if (picture2 != null && isNotBlankString(picture2FileName)) {
+					fileService.deleteFileBySrc(disappearman.getPhoto2());
+					disappearman.setPhoto2(fileService.uploadOneFile(picture2, picture2FileName, picture2ContentType, "disappearman"));
+				}
+				if (picture3 != null && isNotBlankString(picture3FileName)) {
+					fileService.deleteFileBySrc(disappearman.getPhoto3());
+					disappearman.setPhoto3(fileService.uploadOneFile(picture3, picture3FileName, picture3ContentType, "disappearman"));
+				}
+
+				disappearManService.add(disappearman);
 				person.setDisappearMan(disappearman);
 				break;
 			case 12:
 				// pageName = "侵财人员分析";
 				if (analyzeMan == null) {
 					analyzeMan = new AnalyzeMan();
-					analyzeManService.add(analyzeMan);
-				} else {
-					analyzeManService.update(analyzeMan);
 				}
+				analyzeManService.add(analyzeMan);
 				person.setAnalyzeMan(analyzeMan);
 				break;
 			case 13:
 				// pageName = "技术比中人员";
-				if (picture1 != null && picture1FileName != null
-						&& !picture1FileName.replace(" ", "").equals("")) {
-					String imageName = DateTimeKit.getDateRandom()
-							+ picture1FileName.substring(picture1FileName
-							.indexOf("."));
-					this.upload("/contrastMan", imageName, picture1);
-					File photofile = new File(authObject.getFileRoot()
-							+ contrastMan.getRegisterAddressPhoto());
-					photofile.delete();
-					contrastMan.setRegisterAddressPhoto("/contrastMan" + "/"
-							+ imageName);
-				}
-				if (picture2 != null && picture2FileName != null
-						&& !picture2FileName.replace(" ", "").equals("")) {
-					String imageName = DateTimeKit.getDateRandom()
-							+ picture2FileName.substring(picture2FileName
-							.indexOf("."));
-					this.upload("/contrastMan", imageName, picture2);
-					File photofile = new File(authObject.getFileRoot()
-							+ contrastMan.getCriminalRecordPhoto());
-					photofile.delete();
-					contrastMan.setCriminalRecordPhoto("/contrastMan" + "/"
-							+ imageName);
-				}
 				if (contrastMan == null) {
 					contrastMan = new ContrastMan();
-					contrastManService.add(contrastMan);
-				} else {
-					contrastManService.update(contrastMan);
 				}
+
+				if (picture1 != null && isNotBlankString(picture1FileName)) {
+					fileService.deleteFileBySrc(contrastMan.getRegisterAddressPhoto());
+					contrastMan.setRegisterAddressPhoto(fileService.uploadOneFile(picture1, picture1FileName, picture1ContentType, "contrastMan"));
+				}
+				if (picture2 != null && isNotBlankString(picture2FileName)) {
+					fileService.deleteFileBySrc(contrastMan.getCriminalRecordPhoto());
+					contrastMan.setCriminalRecordPhoto(fileService.uploadOneFile(picture2, picture2FileName, picture2ContentType, "contrastMan"));
+				}
+				contrastManService.add(contrastMan);
 				person.setContrastMan(contrastMan);
 				break;
 			default:
 				break;
 		}
 
-		if (picture != null && pictureFileName != null
-				&& !pictureFileName.replace(" ", "").equals("")) {
-			String imageName = DateTimeKit.getDateRandom()
-					+ pictureFileName.substring(pictureFileName.indexOf("."));
-			this.upload("/person", imageName, picture);
-			File photofile = new File(authObject.getFileRoot()
-					+ person.getPhotoImg());
-			photofile.delete();
-			person.setPhotoImg("/person" + "/" + imageName);
+		if (isFilesNotNull()) {
+			fileService.deleteFileBySrc(person.getPhotoImg());
+			person.setPhotoImg(fileService.upload(file, fileFileName, fileContentType, "person"));
 		}
 
 		if (person.getEndSituation() != null && person.getEndSituation() != "") {
@@ -965,22 +590,11 @@ public class PersonAction extends BaseAction {
 		return "success_child";
 	}
 
-	/**
-	 * 查看信息
-	 *
-	 * @return
-	 */
 	public String view() {
-
 		person = personService.loadById(id);
 		return "view";
 	}
 
-	/**
-	 * 获取新增人员的事项信息
-	 *
-	 * @return
-	 */
 	public String getNewPersons() {
 		currentUserRole = (UserRole) session.get("currentUserRole");
 
@@ -1059,55 +673,68 @@ public class PersonAction extends BaseAction {
 	}
 
 
-	public String importdata() throws Exception {
+	public String importData() {
 
+		if (!isFilesExitExcel()) {
+			request.put("errorInfo", "导入文件格式不正确");
+			return "opexcel";
 
-		personService.savePersonWithExcel(file, currentUserRole, type);
-
-		return "importdata";
+		}
+		boolean isImportSuccess = personService.savePersonWithExcel(file[0], currentUserRole, type);
+		if (isImportSuccess) {
+			request.put("errorInfo", "导入数据成功");
+			return "opexcel";
+		} else {
+			request.put("errorInfo", "导出数据失败");
+			return "opexcel";
+		}
 	}
 
-	public String export() throws Exception {
-
+	public String export() {
 
 		decodeParameters();
 		// 获取导出的表头和数据
 		// 获取表头,存放到ArrayList对象中(人员编号 姓名 出生日期 QQ 微信号 身份证号 户籍地址 户籍区域)
 		ArrayList fieldName = personService.getExcelFieldNameList(type);
 
-
 		// 获取数据
 		ArrayList fieldData = personService.getExcelFieldDataList(con,
 				convalue, currentUserRole, type, queryState, starttime, endtime);
+		
+		try {
+			OutputStream out = response.getOutputStream();
+			response.reset();
+			String excelName = "person.xls";
+			response.setHeader("Content-Disposition", "attachment; filename="
+					+ excelName);
+			// 设置excel报表的形式
+			response.setContentType("application/vnd.ms-excel");
+			ExcelFileGenerator generator = new ExcelFileGenerator(fieldName,
+					fieldData);
+			generator.expordExcel(out);
+			// 设置输出形式
+			System.setOut(new PrintStream(out));
+			// 刷新输出流
+			out.flush();
+			// 关闭输出流
+			if (out != null) {
+				out.close();
 
-		OutputStream out = response.getOutputStream();
-
-		response.reset();
-		String excelName = "person.xls";
-		response.setHeader("Content-Disposition", "attachment; filename="
-				+ excelName);
-		// 设置excel报表的形式
-		response.setContentType("application/vnd.ms-excel");
-		ExcelFileGenerator generator = new ExcelFileGenerator(fieldName,
-				fieldData);
-		generator.expordExcel(out);
-		// 设置输出形式
-		System.setOut(new PrintStream(out));
-		// 刷新输出流
-		out.flush();
-		// 关闭输出流
-		if (out != null) {
-			out.close();
-
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
 		return null;
 	}
 
 
 	public String importExcel() {
 
-		return "importpage";
+		return "import";
 	}
 
 	// get、set-------------------------------------------
@@ -1118,14 +745,6 @@ public class PersonAction extends BaseAction {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getPid() {
-		return pid;
-	}
-
-	public void setPid(int pid) {
-		this.pid = pid;
 	}
 
 	public PersonService getPersonService() {
@@ -1175,30 +794,6 @@ public class PersonAction extends BaseAction {
 	public void setGamblingCriminalManService(
 			GamblingCriminalManService gamblingCriminalManService) {
 		this.gamblingCriminalManService = gamblingCriminalManService;
-	}
-
-	public File getPicture() {
-		return picture;
-	}
-
-	public void setPicture(File picture) {
-		this.picture = picture;
-	}
-
-	public String getPictureContentType() {
-		return pictureContentType;
-	}
-
-	public void setPictureContentType(String pictureContentType) {
-		this.pictureContentType = pictureContentType;
-	}
-
-	public String getPictureFileName() {
-		return pictureFileName;
-	}
-
-	public void setPictureFileName(String pictureFileName) {
-		this.pictureFileName = pictureFileName;
 	}
 
 	public List<String> getInfoExtractions() {
@@ -1385,31 +980,6 @@ public class PersonAction extends BaseAction {
 
 	public void setUserRoleService(UserRoleService userRoleService) {
 		this.userRoleService = userRoleService;
-	}
-
-
-	public File getFile() {
-		return file;
-	}
-
-	public void setFile(File file) {
-		this.file = file;
-	}
-
-	public String getFileContentType() {
-		return fileContentType;
-	}
-
-	public void setFileContentType(String fileContentType) {
-		this.fileContentType = fileContentType;
-	}
-
-	public String getFileFileName() {
-		return fileFileName;
-	}
-
-	public void setFileFileName(String fileFileName) {
-		this.fileFileName = fileFileName;
 	}
 
 	public void setCurrentUserRole(UserRole sessionCurrentUserRole) {

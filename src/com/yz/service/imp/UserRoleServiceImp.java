@@ -114,4 +114,11 @@ public class UserRoleServiceImp implements UserRoleService {
 		return userRoleDao.queryByNamedParam(queryString, paramNames, values);
 	}
 
+	public List<UserRole> getUserRoleBUnitName(String unitName) {
+		String queryString = "from UserRole mo where mo.unit.name=:unitName";
+		String[] paramNames = new String[]{"unitName"};
+		Object[] values = new Object[]{unitName};
+		return userRoleDao.queryList(queryString, paramNames, values);
+	}
+
 }

@@ -73,7 +73,7 @@ public class ClueAction extends BaseAction {
 	public String delete() throws Exception {
 
 		clue = clueService.loadById(id);
-		int ctype = clue.getCtype();
+		ctype = clue.getCtype();
 		clueService.delete(clue);
 		arg[0] = "clueAction!list?ctype=" + ctype;
 		arg[1] = "线索管理";
@@ -85,7 +85,6 @@ public class ClueAction extends BaseAction {
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
 		for (int i = 0; i < ids.length; i++) {
 			clue = clueService.loadById(ids[i]);
-
 			clueService.delete(clue);
 		}
 		AjaxMsgUtil.outputJSONObjectToAjax(response, new AjaxMsgVO("删除成功."));
@@ -95,9 +94,7 @@ public class ClueAction extends BaseAction {
 	public String load() throws Exception {
 
 		pageTileName = selectTileName(ctype);
-
 		clue = clueService.loadById(id);// 当前修改人员的id
-
 		return "load";
 	}
 
@@ -107,14 +104,12 @@ public class ClueAction extends BaseAction {
 			clue.setHandleState(3);// 完结
 		}
 		clueService.update(clue);
-
 		arg[0] = "clueAction!list?ctype=" + clue.getCtype();
 		arg[1] = "线索管理";
 		return "success_child";
 	}
 
 	public String view() {
-
 		clue = clueService.loadById(id);
 		return "view";
 	}
@@ -164,8 +159,6 @@ public class ClueAction extends BaseAction {
 
 
 	// get、set-------------------------------------------
-
-
 	public ClueService getClueService() {
 		return clueService;
 	}

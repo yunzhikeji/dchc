@@ -1,21 +1,19 @@
 package com.yz.action;
 
-import com.yz.auth.AuthObject;
 import com.yz.model.Unit;
 import com.yz.model.UserRole;
+import com.yz.service.FileService;
 import com.yz.service.UnitService;
 import com.yz.service.UserRoleService;
 import com.yz.util.AjaxMsgUtil;
 import com.yz.util.ConvertUtil;
-import com.yz.util.DateTimeKit;
 import com.yz.util.MD5Util;
 import com.yz.vo.AjaxMsgVO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.io.*;
-import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component("userRoleAction")
@@ -25,12 +23,13 @@ public class UserRoleAction extends BaseAction {
 	private int id;
 	private String username;
 	private String password;
-	@Resource(name = "authObject")
-	private AuthObject authObject;
 	@Resource
 	private UnitService unitService;
 	@Resource
 	private UserRoleService userRoleService;
+	@Resource
+	private FileService fileService;
+
 	private UserRole userRole;
 	private List<UserRole> userRoles;
 	private List<Unit> units;
@@ -43,17 +42,16 @@ public class UserRoleAction extends BaseAction {
 	// 新增用户名,密码
 	private String uname;
 	private String pword;
+	private String unitName;
+
 
 	/**
 	 * 用户管理
 	 */
 	public String list() throws Exception {
-		// 判断会话是否失效
 
-		if (convalue != null && !convalue.equals("")) {
-			convalue = URLDecoder.decode(convalue, "utf-8");
-			convalue = convalue.replace(" ", "");
-		}
+		decodeParameters();
+
 		if (page < 1) {
 			page = 1;
 		}
@@ -70,39 +68,20 @@ public class UserRoleAction extends BaseAction {
 		return "list";
 	}
 
-	/**
-	 * 跳转到添加页面
-	 *
-	 * @return
-	 */
 	public String goToAdd() {
 
 		units = unitService.getUnits();
 		return "add";
 	}
 
-	/**
-	 * 添加
-	 *
-	 * @return
-	 * @throws Exception
-	 */
 
 	public String add() throws Exception {
-		// 判断回话是否失效
-
-		if (picture != null && pictureFileName != null
-				&& !pictureFileName.replace(" ", "").equals("")) {
-			String imageName = DateTimeKit.getDateRandom()
-					+ pictureFileName.substring(pictureFileName.indexOf("."));
-			this.upload("/userRole", imageName, picture);
-			userRole.setPhoto("/userRole" + "/" + imageName);
-		}
 
 		userRole.setUsername(uname);
 		userRole.setPassword(MD5Util.convertMD5(MD5Util.string2MD5(pword)));
+		userRole.setPhoto(fileService.upload(file, fileFileName, fileContentType,
+				"userRole"));
 		userRoleService.add(userRole);
-
 		arg[0] = "userRoleAction!list";
 		arg[1] = "用户管理";
 		return "success_child";
@@ -119,83 +98,28 @@ public class UserRoleAction extends BaseAction {
 		return null;
 	}
 
-	// 上传照片
-	private File picture;
-	private String pictureContentType;
-	private String pictureFileName;
 
-	// 文件上传
-	public void upload(String fileName, String imageName, File picture)
-			throws Exception {
-		File saved = new File(authObject.getFileRoot() + fileName, imageName);
-		InputStream ins = null;
-		OutputStream ous = null;
-		try {
-			saved.getParentFile().mkdirs();
-			ins = new FileInputStream(picture);
-			ous = new FileOutputStream(saved);
-			byte[] b = new byte[1024];
-			int len = 0;
-			while ((len = ins.read(b)) != -1) {
-				ous.write(b, 0, len);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (ous != null)
-				ous.close();
-			if (ins != null)
-				ins.close();
-		}
-	}
-
-	/**
-	 * 删除一
-	 *
-	 * @return
-	 */
 	public String delete() {
-		// 判断会话是否失效
 
-
-		userRole = userRoleService.getUserRoleById(id);
-		// 删除照片
-		File photofile = new File(authObject.getFileRoot()
-				+ userRole.getPhoto());
-		photofile.delete();
-
+		fileService.deleteFileBySrc(userRole.getPhoto());
 		userRoleService.delete(userRole);
 		arg[0] = "userRoleAction!list";
 		arg[1] = "用户管理";
 		return SUCCESS;
 	}
 
-	/**
-	 * 删除二(批量删除)
-	 *
-	 * @return
-	 */
 	public String deleteUserRoles() {
 
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
 		for (int i = 0; i < ids.length; i++) {
 			userRole = userRoleService.getUserRoleById(ids[i]);
-			// 删除照片
-			File photofile = new File(authObject.getFileRoot()
-					+ userRole.getPhoto());
-			photofile.delete();
-
+			fileService.deleteFileBySrc(userRole.getPhoto());
 			userRoleService.delete(userRole);
 		}
 		AjaxMsgUtil.outputJSONObjectToAjax(response, new AjaxMsgVO("删除成功."));
 		return null;
 	}
 
-	/**
-	 * 跳转到修改页面
-	 *
-	 * @return
-	 */
 	public String load() {
 
 		userRole = userRoleService.getUserRoleById(id);
@@ -203,25 +127,12 @@ public class UserRoleAction extends BaseAction {
 		return "load";
 	}
 
-	/**
-	 * 修改
-	 *
-	 * @return
-	 */
 	public String update() throws Exception {
-		// 判断会话是否失效
-
-		if (picture != null && pictureFileName != null
-				&& !pictureFileName.replace(" ", "").equals("")) {
-			String imageName = DateTimeKit.getDateRandom()
-					+ pictureFileName.substring(pictureFileName.indexOf("."));
-			this.upload("/userRole", imageName, picture);
-			File photofile = new File(authObject.getFileRoot()
-					+ userRole.getPhoto());
-			photofile.delete();
-			userRole.setPhoto("/userRole" + "/" + imageName);
+		if (file != null) {
+			fileService.deleteFileBySrc(userRole.getPhoto());
+			userRole.setPhoto(fileService.upload(file, fileFileName, fileContentType,
+					"userRole"));
 		}
-
 		userRoleService.update(userRole);
 		arg[0] = "userRoleAction!list";
 		arg[1] = "用户管理";
@@ -234,11 +145,6 @@ public class UserRoleAction extends BaseAction {
 		return "password";
 	}
 
-	/**
-	 * 修改密码
-	 *
-	 * @return
-	 */
 	public String updatePassword() throws Exception {
 		currentUserRole.setPassword(MD5Util.convertMD5(MD5Util.string2MD5(password)));
 		userRoleService.update(currentUserRole);
@@ -247,41 +153,24 @@ public class UserRoleAction extends BaseAction {
 		return SUCCESS;
 	}
 
-	/**
-	 * 查看信息
-	 *
-	 * @return
-	 */
 	public String view() {
-
 		userRole = userRoleService.getUserRoleById(id);
 		return "view";
 	}
 
-	/**
-	 * 个人资料
-	 */
 	public String currentUserRole() {
-
 		userRole = userRoleService.getUserRoleById(currentUserRole.getId());
 		units = unitService.getUnits();
 		return "currentUserRole";
 	}
 
 	public String updateCurrentUserRole() throws Exception {
-
-		if (picture != null && pictureFileName != null
-				&& !pictureFileName.replace(" ", "").equals("")) {
-			String imageName = DateTimeKit.getDateRandom()
-					+ pictureFileName.substring(pictureFileName.indexOf("."));
-			this.upload("/userRole", imageName, picture);
-			File photofile = new File(authObject.getFileRoot()
-					+ userRole.getPhoto());
-			photofile.delete();
-			userRole.setPhoto("/userRole" + "/" + imageName);
+		if (isFilesNotNull()) {
+			fileService.deleteFileBySrc(userRole.getPhoto());
+			userRole.setPhoto(fileService.upload(file, fileFileName, fileContentType,
+					"userRole"));
 		}
-		if (password1 != null && !password1.replace(" ", "").equals("")
-				&& password2 != null && !password2.replace(" ", "").equals("")) {
+		if (isNotBlankString(password1)&& isNotBlankString(password2)) {
 			userRole.setPassword(MD5Util.convertMD5(MD5Util
 					.string2MD5(password1)));
 		}
@@ -290,6 +179,28 @@ public class UserRoleAction extends BaseAction {
 		arg[1] = "个人资料";
 		return SUCCESS;
 	}
+
+	public String getUserRoleByUnitName() {
+
+		userRoles = userRoleService.getUserRoleBUnitName(unitName);
+
+		List<AjaxMsgVO> ajaxMsgVOList = new ArrayList<AjaxMsgVO>();
+
+		if (userRoles != null && userRoles.size() > 0) {
+			for (UserRole userRole : userRoles) {
+				AjaxMsgVO userRoleVO = new AjaxMsgVO();
+				userRoleVO.setId(userRole.getId());
+				userRoleVO.setName(userRole.getRealname());
+				ajaxMsgVOList.add(userRoleVO);
+			}
+		}
+		AjaxMsgUtil.outputJSONArrayToAjax(response, ajaxMsgVOList);
+		return null;
+	}
+
+
+
+
 
 	// get、set-------------------------------------------
 	public int getId() {
@@ -356,30 +267,6 @@ public class UserRoleAction extends BaseAction {
 		this.units = units;
 	}
 
-	public File getPicture() {
-		return picture;
-	}
-
-	public void setPicture(File picture) {
-		this.picture = picture;
-	}
-
-	public String getPictureContentType() {
-		return pictureContentType;
-	}
-
-	public void setPictureContentType(String pictureContentType) {
-		this.pictureContentType = pictureContentType;
-	}
-
-	public String getPictureFileName() {
-		return pictureFileName;
-	}
-
-	public void setPictureFileName(String pictureFileName) {
-		this.pictureFileName = pictureFileName;
-	}
-
 	public String getPassword1() {
 		return password1;
 	}
@@ -395,7 +282,6 @@ public class UserRoleAction extends BaseAction {
 	public void setPassword2(String password2) {
 		this.password2 = password2;
 	}
-
 
 	public String getUname() {
 		return uname;
@@ -417,5 +303,19 @@ public class UserRoleAction extends BaseAction {
 		this.currentUserRole = sessionCurrentUserRole;
 	}
 
+	public FileService getFileService() {
+		return fileService;
+	}
 
+	public void setFileService(FileService fileService) {
+		this.fileService = fileService;
+	}
+
+	public String getUnitName() {
+		return unitName;
+	}
+
+	public void setUnitName(String unitName) {
+		this.unitName = unitName;
+	}
 }

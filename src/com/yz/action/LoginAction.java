@@ -342,8 +342,8 @@ public class LoginAction extends BaseAction{
 		String attrType = authObject.getAttrType();
 		String attributes = authObject.getAttributes();
 
-		boolean isCompeted = isNotNull(appId) || isNotNull(attrType)
-				|| isNotNull(authURL) || isNotNull(attributes);
+		boolean isCompeted = isNotBlankString(appId) || isNotBlankString(attrType)
+				|| isNotBlankString(authURL) || isNotBlankString(attributes);
 
 		if (!isCompeted) {
 			System.out.println("从配置文件中获得应用标识，网关地址，属性列表控制项，认证方式发生异常");
@@ -355,7 +355,7 @@ public class LoginAction extends BaseAction{
 		}
 
 		String randNum = generateRandomNum();
-		if (!isNotNull(randNum)) {
+		if (!isNotBlankString(randNum)) {
 			System.out.println("证书认证数据不完整！");
 			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 			return null;
@@ -393,8 +393,8 @@ public class LoginAction extends BaseAction{
 		String attrType = authObject.getAttrType();
 		String attributes = authObject.getAttributes();
 
-		boolean isCompeted = isNotNull(appId) || isNotNull(attrType)
-				|| isNotNull(authURL) || isNotNull(attributes);
+		boolean isCompeted = isNotBlankString(appId) || isNotBlankString(attrType)
+				|| isNotBlankString(authURL) || isNotBlankString(attributes);
 
 		if (!isCompeted) {
 			isSuccess = false;
@@ -407,9 +407,9 @@ public class LoginAction extends BaseAction{
 			System.out.println("应用标识及网关的认证地址读取成功！\n应用标识：" + appId + "\n认证地址："
 					+ authURL + "\n");
 
-			if (isNotNull((String) session.get(KEY_ORIGINAL_DATA))
-					&& isNotNull((String) req.getParameter(KEY_SIGNED_DATA))
-					&& isNotNull((String) req.getParameter(KEY_ORIGINAL_JSP))) {
+			if (isNotBlankString((String) session.get(KEY_ORIGINAL_DATA))
+					&& isNotBlankString((String) req.getParameter(KEY_SIGNED_DATA))
+					&& isNotBlankString((String) req.getParameter(KEY_ORIGINAL_JSP))) {
 				// 获取session中的认证原文
 				original_data = (String) session.get(KEY_ORIGINAL_DATA);
 				// 获取request中的认证原文
@@ -743,10 +743,10 @@ public class LoginAction extends BaseAction{
 			errDesc = e.getMessage();
 		}
 		if (!isSuccess) {
-			if (isNotNull(errCode)) {
+			if (isNotBlankString(errCode)) {
 				request.put("errCode", errCode);
 			}
-			if (isNotNull(errDesc)) {
+			if (isNotBlankString(errDesc)) {
 				request.put("errDesc", errDesc);
 			}
 			String loginfail = errDesc;
@@ -865,20 +865,9 @@ public class LoginAction extends BaseAction{
 		return sb.toString();
 	}
 
-	/*
-	 * 判断字符串是否为空
-	 */
-	private boolean isNotNull(String str) {
-		if (str == null || str.replace("", " ").equals(""))
-			return false;
-		else
-			return true;
-	}
-
 
 	// 设置登陆时间
 	private void setLoginTime(UserRole userRoleLogin) {
-		// TODO Auto-generated method stub
 		if (userRoleLogin.getBeforeLoginTime() == ""
 				|| userRoleLogin.getBeforeLoginTime() == null) {
 			userRoleLogin.setBeforeLoginTime(DateTimeKit.getLocalTime());

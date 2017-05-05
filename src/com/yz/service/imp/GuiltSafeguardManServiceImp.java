@@ -4,6 +4,7 @@ import com.yz.dao.GuiltSafeguardManDao;
 import com.yz.model.GuiltSafeguardMan;
 import com.yz.model.UserRole;
 import com.yz.service.GuiltSafeguardManService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -47,7 +48,7 @@ public class GuiltSafeguardManServiceImp implements GuiltSafeguardManService {
 		String queryString = "select count(*) from GuiltSafeguardMan mo where 1=1 ";
 		Object[] p = null;
 
-		if (con != 0 && convalue != null && !convalue.equals("")) {
+		if (con != 0 && StringUtils.isNotBlank(convalue)) {
 			if (con == 1) {
 				queryString += "and mo.name like ? ";
 			}

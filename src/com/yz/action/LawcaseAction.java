@@ -21,7 +21,6 @@ public class LawcaseAction extends BaseAction{
 	private int pid;// 人员id
 	private int inid; // 案件id
 	private int cid;// 刑侦线索
-
 	private int lawid;// 涉及案件
 
 	// service层对象
@@ -86,7 +85,6 @@ public class LawcaseAction extends BaseAction{
 	
 	// 改变线索当前处理状态
 	private void changeClueHandleState(int clid) {
-
 		Clue clue = clueService.loadById(clid);
 		if (clue != null) {
 			if (clue.getHandleState() == 1) {
@@ -98,7 +96,6 @@ public class LawcaseAction extends BaseAction{
 	}
 
 	public String deleteLawcase() throws Exception {
-
 		lawcase = lawcaseService.loadById(lawid);
 		lawcaseService.delete(lawcase);
 		AjaxMsgUtil.outputJSONObjectToAjax(response,new AjaxMsgVO("删除成功."));

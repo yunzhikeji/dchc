@@ -5,12 +5,8 @@ import com.yz.model.Injurycase;
 import com.yz.model.Otherperson;
 import com.yz.model.Person;
 import com.yz.model.UserRole;
-import com.yz.service.ClueService;
-import com.yz.service.InjurycaseService;
-import com.yz.service.OtherpersonService;
-import com.yz.service.PersonService;
+import com.yz.service.*;
 import com.yz.util.AjaxMsgUtil;
-import com.yz.util.DateTimeKit;
 import com.yz.vo.AjaxMsgVO;
 import com.yz.vo.OtherPersonVO;
 import net.sf.json.JSONObject;
@@ -18,7 +14,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.io.*;
+import java.io.File;
 
 @Component("otherpersonAction")
 @Scope("prototype")
@@ -41,7 +37,8 @@ public class OtherpersonAction extends BaseAction {
 	private InjurycaseService injurycaseService;
 	@Resource
 	private ClueService clueService;
-	//环境变量
+	@Resource
+	private FileService fileService;
 	@Resource(name = "authObject")
 	private AuthObject authObject;
 
@@ -71,30 +68,10 @@ public class OtherpersonAction extends BaseAction {
 			}
 		}
 
-
-		JSONObject jsonObj = JSONObject.fromObject(otherPersonVO);
-		PrintWriter out;
-		try {
-			response.setContentType("text/html;charset=UTF-8");
-			out = response.getWriter();
-			out.print(jsonObj.toString());
-			out.flush();
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		AjaxMsgUtil.outputJSONOToAjax(response, JSONObject.fromObject(otherPersonVO).toString());
 		return null;
 	}
 
-	/**
-	 * 其他人员管理
-	 */
-
-	/**
-	 * 跳转到添加页面
-	 *
-	 * @return
-	 */
 	public String goToAdd() {
 		if (pid != 0) {
 			person = personService.loadById(pid);
@@ -105,35 +82,16 @@ public class OtherpersonAction extends BaseAction {
 		return "add";
 	}
 
-	/**
-	 * 添加
-	 *
-	 * @return
-	 * @throws Exception
-	 */
 	public String add() throws Exception {
-		if (picture1 != null && picture1FileName != null
-				&& !picture1FileName.replace(" ", "").equals("")) {
-			String imageName = DateTimeKit.getDateRandom()
-					+ picture1FileName.substring(picture1FileName.indexOf("."));
-			this.upload("/otherperson", imageName, picture1);
-			otherperson.setFrontPhoto("/otherperson" + "/" + imageName);
+		if (picture1 != null && isNotBlankString(picture1FileName)) {
+			otherperson.setFrontPhoto(fileService.uploadOneFile(picture1, picture1FileName, picture1ContentType, "otherperson"));
 		}
-		if (picture2 != null && picture2FileName != null
-				&& !picture2FileName.replace(" ", "").equals("")) {
-			String imageName = DateTimeKit.getDateRandom()
-					+ picture2FileName.substring(picture2FileName.indexOf("."));
-			this.upload("/otherperson", imageName, picture2);
-			otherperson.setLeftPhoto("/otherperson" + "/" + imageName);
+		if (picture2 != null && isNotBlankString(picture2FileName)) {
+			otherperson.setLeftPhoto(fileService.uploadOneFile(picture2, picture2FileName, picture2ContentType, "otherperson"));
 		}
-		if (picture3 != null && picture3FileName != null
-				&& !picture3FileName.replace(" ", "").equals("")) {
-			String imageName = DateTimeKit.getDateRandom()
-					+ picture3FileName.substring(picture3FileName.indexOf("."));
-			this.upload("/otherperson", imageName, picture3);
-			otherperson.setRightPhoto("/otherperson" + "/" + imageName);
+		if (picture3 != null && isNotBlankString(picture3FileName)) {
+			otherperson.setRightPhoto(fileService.uploadOneFile(picture3, picture3FileName, picture3ContentType, "otherperson"));
 		}
-
 		if (otherperson.getPerson() != null) {
 			changePersonHandleState(otherperson.getPerson().getId());
 		}
@@ -146,7 +104,6 @@ public class OtherpersonAction extends BaseAction {
 
 	//改变人员当前处理状态
 	private void changePersonHandleState(int perid) {
-
 		Person per = personService.loadById(perid);
 		if (per != null) {
 			if (per.getHandleState() == 1) {
@@ -158,44 +115,12 @@ public class OtherpersonAction extends BaseAction {
 	}
 
 	private void changeInjurycaseHandleState(Integer inid) {
-
 		Injurycase injurycase = injurycaseService.loadById(inid);
 		if (injurycase != null) {
 			if (injurycase.getHandleState() == 1) {
 				injurycase.setHandleState(2);
 				injurycaseService.update(injurycase);
 			}
-		}
-	}
-
-
-	// 上传照片
-	private File picture;
-	private String pictureContentType;
-	private String pictureFileName;
-
-	// 文件上传
-	public void upload(String fileName, String imageName, File picture)
-			throws Exception {
-		File saved = new File(authObject.getFileRoot() + fileName, imageName);
-		InputStream ins = null;
-		OutputStream ous = null;
-		try {
-			saved.getParentFile().mkdirs();
-			ins = new FileInputStream(picture);
-			ous = new FileOutputStream(saved);
-			byte[] b = new byte[1024];
-			int len = 0;
-			while ((len = ins.read(b)) != -1) {
-				ous.write(b, 0, len);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (ous != null)
-				ous.close();
-			if (ins != null)
-				ins.close();
 		}
 	}
 
@@ -212,82 +137,42 @@ public class OtherpersonAction extends BaseAction {
 	private String picture3ContentType;
 	private String picture3FileName;
 
-	/**
-	 * 删除
-	 */
 	public String deleteOtherperson() throws Exception {
 
 		otherperson = otherpersonService.loadById(otherid);
-		if (otherperson.getFrontPhoto() != null
-				&& !otherperson.getFrontPhoto().replace(" ", "").equals("")) {
-			File photofile = new File(authObject.getFileRoot()
-					+ otherperson.getFrontPhoto());
-			photofile.delete();
+		if (isNotBlankString(otherperson.getFrontPhoto())) {
+			fileService.deleteFileBySrc(otherperson.getFrontPhoto());
 		}
-		if (otherperson.getLeftPhoto() != null
-				&& !otherperson.getLeftPhoto().replace(" ", "").equals("")) {
-			File photofile = new File(authObject.getFileRoot()
-					+ otherperson.getLeftPhoto());
-			photofile.delete();
+		if (isNotBlankString(otherperson.getLeftPhoto())) {
+			fileService.deleteFileBySrc(otherperson.getLeftPhoto());
 		}
-		if (otherperson.getRightPhoto() != null
-				&& !otherperson.getRightPhoto().replace(" ", "").equals("")) {
-			File photofile = new File(authObject.getFileRoot()
-					+ otherperson.getRightPhoto());
-			photofile.delete();
+		if (isNotBlankString(otherperson.getRightPhoto())) {
+			fileService.deleteFileBySrc(otherperson.getRightPhoto());
 		}
 		otherpersonService.delete(otherperson);
 		AjaxMsgUtil.outputJSONObjectToAjax(response, new AjaxMsgVO("删除成功."));
 		return null;
 	}
 
-	/**
-	 * 加载
-	 *
-	 * @return
-	 */
 	public String load() {
 		otherperson = otherpersonService.loadById(otherid);
 		return "load";
 	}
 
-	/**
-	 * 修改
-	 *
-	 * @return
-	 * @throws Exception
-	 */
 	public String update() throws Exception {
-		if (picture1 != null && picture1FileName != null
-				&& !picture1FileName.replace(" ", "").equals("")) {
-			String imageName = DateTimeKit.getDateRandom()
-					+ picture1FileName.substring(picture1FileName.indexOf("."));
-			this.upload("/otherperson", imageName, picture1);
-			File photofile = new File(authObject.getFileRoot()
-					+ otherperson.getFrontPhoto());
-			photofile.delete();
-			otherperson.setFrontPhoto("/otherperson" + "/" + imageName);
+		if (picture1 != null && isNotBlankString(picture1FileName)) {
+			fileService.deleteFileBySrc(otherperson.getFrontPhoto());
+			otherperson.setFrontPhoto(fileService.uploadOneFile(picture1, picture1FileName, picture1ContentType, "otherperson"));
 		}
-		if (picture2 != null && picture2FileName != null
-				&& !picture2FileName.replace(" ", "").equals("")) {
-			String imageName = DateTimeKit.getDateRandom()
-					+ picture2FileName.substring(picture2FileName.indexOf("."));
-			this.upload("/otherperson", imageName, picture2);
-			File photofile = new File(authObject.getFileRoot()
-					+ otherperson.getLeftPhoto());
-			photofile.delete();
-			otherperson.setLeftPhoto("/otherperson" + "/" + imageName);
+		if (picture2 != null && isNotBlankString(picture2FileName)) {
+
+			fileService.deleteFileBySrc(otherperson.getLeftPhoto());
+			otherperson.setLeftPhoto(fileService.uploadOneFile(picture2, picture2FileName, picture2ContentType, "otherperson"));
 		}
 
-		if (picture3 != null && picture3FileName != null
-				&& !picture3FileName.replace(" ", "").equals("")) {
-			String imageName = DateTimeKit.getDateRandom()
-					+ picture3FileName.substring(picture3FileName.indexOf("."));
-			this.upload("/otherperson", imageName, picture3);
-			File photofile = new File(authObject.getFileRoot()
-					+ otherperson.getRightPhoto());
-			photofile.delete();
-			otherperson.setRightPhoto("/otherperson" + "/" + imageName);
+		if (picture3 != null && isNotBlankString(picture3FileName)) {
+			fileService.deleteFileBySrc(otherperson.getRightPhoto());
+			otherperson.setRightPhoto(fileService.uploadOneFile(picture3, picture3FileName, picture3ContentType, "otherperson"));
 		}
 		otherpersonService.update(otherperson);
 		return "success_child";
@@ -295,7 +180,6 @@ public class OtherpersonAction extends BaseAction {
 
 
 	// get、set-------------------------------------------
-
 	public int getPid() {
 		return pid;
 	}
@@ -318,30 +202,6 @@ public class OtherpersonAction extends BaseAction {
 
 	public void setPerson(Person person) {
 		this.person = person;
-	}
-
-	public File getPicture() {
-		return picture;
-	}
-
-	public void setPicture(File picture) {
-		this.picture = picture;
-	}
-
-	public String getPictureContentType() {
-		return pictureContentType;
-	}
-
-	public void setPictureContentType(String pictureContentType) {
-		this.pictureContentType = pictureContentType;
-	}
-
-	public String getPictureFileName() {
-		return pictureFileName;
-	}
-
-	public void setPictureFileName(String pictureFileName) {
-		this.pictureFileName = pictureFileName;
 	}
 
 	public File getPicture1() {
@@ -484,5 +344,11 @@ public class OtherpersonAction extends BaseAction {
 		this.currentUserRole = sessionCurrentUserRole;
 	}
 
+	public FileService getFileService() {
+		return fileService;
+	}
 
+	public void setFileService(FileService fileService) {
+		this.fileService = fileService;
+	}
 }

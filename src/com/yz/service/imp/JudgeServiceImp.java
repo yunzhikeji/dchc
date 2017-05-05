@@ -103,15 +103,15 @@ public class JudgeServiceImp extends RoleServiceImp implements JudgeService {
 	public void changeUnitByJudge(Judge judge) {
 
 		if (judge.getPerson() != null) {
-			changeUnitByUserRoleAndIdsOperator(judge.getPerson().getUserRole(), new IdsOperator(judge.getPerson().getId() + "", 1));
+			changeUnitPidsByUserRoleAndIdsOperator(judge.getPerson().getUserRole(), new IdsOperator(judge.getPerson().getId() + "", 1));
 		}
 
 		if (judge.getInjurycase() != null) {
-			changeUnitByUserRoleAndIdsOperator(judge.getInjurycase().getUserRole(), new IdsOperator(judge.getInjurycase().getId() + "", 1));
+			changeUnitInidsByUserRoleAndIdsOperator(judge.getInjurycase().getUserRole(), new IdsOperator(judge.getInjurycase().getId() + "", 1));
 		}
 
 		if (judge.getClue() != null) {
-			changeUnitByUserRoleAndIdsOperator(judge.getClue().getUserRole(), new IdsOperator(judge.getClue().getId() + "", 1));
+			changeUnitCidsByUserRoleAndIdsOperator(judge.getClue().getUserRole(), new IdsOperator(judge.getClue().getId() + "", 1));
 		}
 	}
 

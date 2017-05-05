@@ -24,14 +24,14 @@ public class ClueServiceImp extends RoleServiceImp implements ClueService {
 
 	public void add(Clue clue) throws Exception {
 
-		changeUnitByUserRoleAndIdsOperator(clue.getUserRole(), new IdsOperator(clue.getId() + "", 1));
+		changeUnitCidsByUserRoleAndIdsOperator(clue.getUserRole(), new IdsOperator(clue.getId() + "", 1));
 		clueDao.save(clue);
 	}
 
 	public void delete(Clue clue) {
 
 
-		changeUnitByUserRoleAndIdsOperator(clue.getUserRole(), new IdsOperator(clue.getId() + "", -1));
+		changeUnitCidsByUserRoleAndIdsOperator(clue.getUserRole(), new IdsOperator(clue.getId() + "", -1));
 		clueDao.delete(clue);
 	}
 
@@ -97,12 +97,6 @@ public class ClueServiceImp extends RoleServiceImp implements ClueService {
 		return clueDao.getUniqueResult(queryString, p);
 	}
 
-	public Clue getClueByCluename(String cluename) {
-		String queryString = "from Clue mo where mo.name=:cluename";
-		String[] paramNames = new String[]{"cluename"};
-		Object[] values = new Object[]{cluename};
-		return clueDao.queryByNamedParam(queryString, paramNames, values);
-	}
 
 	public List<Clue> queryList(int con, String convalue, UserRole userRole,
 								int page, int size, int ctype, int queryState, String starttime,

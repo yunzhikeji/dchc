@@ -3,7 +3,7 @@
 
 <html>
 	<head>
-		<title>导入文件</title>
+		<title>导入案件</title>
 
 		<link href="css/Style.css" type="text/css" rel="stylesheet">
 		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
@@ -13,7 +13,7 @@
 	</head>
 
 	<body>
-		<s:form action="injurycaseAction!importdata" method="post"
+		<s:form action="injurycaseAction!importData" method="post"
 			enctype="multipart/form-data">
 			<s:hidden name="itype"></s:hidden>
 			<br>
@@ -36,7 +36,7 @@
 						请选择文件:
 					</td>
 					<td width="83%" align="left">
-						<input type="file" name="injurycase_file" style="width: 365px" />
+						<input type="file" name="file" style="width: 365px" />
 					</td>
 					<td width="1%"></td>
 				</tr>

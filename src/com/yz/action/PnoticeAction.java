@@ -22,9 +22,6 @@ public class PnoticeAction extends BaseAction {
 	private Pnotice pnotice;
 	private List<Pnotice> pnotices;
 
-	/**
-	 * 机构管理
-	 */
 	public String list() throws Exception {
 
 		decodeParameters();
@@ -45,22 +42,10 @@ public class PnoticeAction extends BaseAction {
 	}
 
 
-	/**
-	 * 跳转到添加页面
-	 * 
-	 * @return
-	 */
 	public String goToAdd() {
 
 		return "add";
 	}
-
-	/**
-	 * 添加
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
 
 	public String add() throws Exception {
 
@@ -72,11 +57,6 @@ public class PnoticeAction extends BaseAction {
 		return "success_child";
 	}
 
-	/**
-	 * 删除一
-	 * 
-	 * @return
-	 */
 	public String delete() {
 
 		pnoticeService.deleteById(id);
@@ -86,11 +66,6 @@ public class PnoticeAction extends BaseAction {
 	}
 	
 	
-	/**
-	 * 删除二(批量删除)
-	 * 
-	 * @return
-	 */
 	public String deletePnotices() {
 		
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
@@ -103,12 +78,6 @@ public class PnoticeAction extends BaseAction {
 	}
 	
 	
-	
-	/**
-	 * 跳转到修改页面
-	 * 
-	 * @return
-	 */
 	public String load() throws Exception {
 
 		pnotice = pnoticeService.loadById(id);// 当前修改通知的id
@@ -118,11 +87,6 @@ public class PnoticeAction extends BaseAction {
 		return "load";
 	}
 
-	/**
-	 * 修改
-	 * 
-	 * @return
-	 */
 	public String update() throws Exception {
 
 		pnotice.setUserRole(currentUserRole);
@@ -133,13 +97,7 @@ public class PnoticeAction extends BaseAction {
 	}
 
 
-	/**
-	 * 查看信息
-	 * 
-	 * @return
-	 */
 	public String view() {
-
 		pnotice = pnoticeService.loadById(id);
 		return "view";
 	}

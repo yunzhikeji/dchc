@@ -83,7 +83,7 @@ public interface InjurycaseService {
 			UserRole userRole, int itype, int queryState, String starttime,
 			String endtime);
 
-	void saveInjurycaseWithExcel(File injurycase_file,
+	boolean saveInjurycaseWithExcel(File injurycase_file,
 			UserRole userRole, int itype);
 
 

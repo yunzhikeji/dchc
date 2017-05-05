@@ -110,10 +110,6 @@ public class PnoticeServiceImp implements PnoticeService {
 		return pnoticeDao.pageList(queryString, p, page, size);
 	}
 
-	public Pnotice getPnoticeById(Integer uppnoticeid) {
-		return pnoticeDao.getPnoticeById(uppnoticeid);
-	}
-
 	public int getTotalCount(int con, String convalue, UserRole currentUserRole,
 							 String starttime, String endtime) {
 		String queryString = "select count(*) from Pnotice mo where 1=1 ";

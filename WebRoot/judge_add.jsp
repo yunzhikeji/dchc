@@ -19,9 +19,12 @@
 		<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
 		<script type="text/javascript" src="lib/layer/1.9.3/layer.js"></script>
 		<script type="text/javascript" src="lib/My97DatePicker/WdatePicker.js"></script>
+
 		<script type="text/javascript"
 			src="lib/datatables/1.10.0/jquery.dataTables.min.js"></script>
 		<script type="text/javascript" src="js/pageKit.js"></script>
+
+
 		<link rel="stylesheet"
 			href="lib/zTree/v3/css/zTreeStyle/zTreeStyle.css" type="text/css">
 		<script type="text/javascript"
@@ -30,6 +33,8 @@
 			src="lib/zTree/v3/js/jquery.ztree.core-3.5.js"></script>
 		<script type="text/javascript"
 			src="lib/zTree/v3/js/jquery.ztree.excheck-3.5.js"></script>
+
+
 		<script type="text/javascript">
 		var setting = {
 			check: {
@@ -131,23 +136,25 @@
 					<input type="hidden" name="judge.clue.id" value="${cid}" />
 				</s:if>
 				<input type="hidden" name="judge.jtype" value="${jtype}" />
+
 				<div class="row cl">
 					<label class="form-label col-2">
 						<span class="c-red">*</span>报送机构：
 					</label>
 					<span class="form-label col-6"> <span
-						class="formControls col-10"> <input type="text"
-								class="input-text" id="showVal" onclick="showMenu();" value=""
-								placeholder="报送机构" id="input2" name="judge.reportUnit"
-								style="width: 140%" readonly="readonly" /> </span> </span>
+							class="formControls col-12"> <input type="text"
+																class="input-text" id="showVal" onclick="showMenu();"
+																value="<s:property value="judge.reportUnit"/>"
+																placeholder="报送机构" id="input2" name="judge.reportUnit"
+																style="width: 100%" readonly="readonly" /> </span> </span>
 
-					<span class="form-label col-4"> <input type="button"
-							id="citySel" onclick="showMenu();" class="btn btn-primary radius"
-							value="选择部门"> </span>
+					<span class="form-label col-4" style="margin-left: -50px;">
+						<input type="button" id="citySel" onclick="showMenu();"
+							   class="btn btn-primary radius" value="选择部门"> </span>
 					<div id="menuContent" class="menuContent"
-						style="display: none; position: absolute; z-index: 99;">
+						 style="display: none; position: absolute;">
 						<ul id="treeDemo" class="ztree"
-							style="margin-top: 0; width: 180px; height: 300px; margin-right: 0;"></ul>
+							style="margin-top: 0; width: 180px; height: 300px;"></ul>
 					</div>
 				</div>
 
@@ -244,10 +251,7 @@
 				</div>
 				<div class="row cl">
 					<label class="form-label col-2">
-						<s:if test="jtype==1">研判要求</s:if>
-						<s:if test="jtype==2">查证要求</s:if>
-						<s:if test="jtype==3">上报内容</s:if>
-						：
+						研判要求：
 					</label>
 					<span class="form-label col-9"> <span
 						class="formControls col-10"> <s:textarea

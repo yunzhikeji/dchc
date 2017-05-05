@@ -5,6 +5,7 @@ import com.yz.model.Media;
 import com.yz.service.FileService;
 import com.yz.util.DateTimeKit;
 import com.yz.video.ThreadTransCode;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 import sun.misc.BASE64Decoder;
@@ -64,10 +65,38 @@ public class FileServiceImpl implements FileService {
 						fileSrc = fileSrc + "/" + modelName + "/" + fileRealName + ",";
 					}
 				}
-
 				break;
 		}
 
+
+		return removeLastComma(fileSrc);
+	}
+
+
+	public String uploadOneFile(File file, String fileFileName, String fileContentType, String modelName) {
+
+		String fileSrc = "";
+
+		String suffix = fileFileName.substring(fileFileName
+				.indexOf("."));
+
+		String fileRealName = DateTimeKit.getDateRandom() + suffix;
+
+		this.saveFile(modelName, fileRealName, file);
+
+		if (isVideoFile(fileContentType)) {
+
+			String videoName = DateTimeKit.getDateRandom() + ".mp4";
+			taskExecutor.execute(new ThreadTransCode(authObject
+					.getFileRoot()
+					+ "/" + modelName + "/" + fileRealName, authObject
+					.getFileRoot()
+					+ "/" + modelName + "/" + videoName));
+
+			fileSrc = fileSrc + "/" + modelName + "/" + videoName + ",";
+		} else {
+			fileSrc = fileSrc + "/" + modelName + "/" + fileRealName + ",";
+		}
 
 		return removeLastComma(fileSrc);
 	}
@@ -104,7 +133,7 @@ public class FileServiceImpl implements FileService {
 
 
 	public void deleteFileBySrc(String src) {
-		if (src != null && !src.equals("")) {
+		if (StringUtils.isNotBlank(src)) {
 			if (src.contains(",")) {
 				String[] fileSrc = src.split(",");
 				for (String singleSrc : fileSrc) {

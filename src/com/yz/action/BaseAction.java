@@ -4,6 +4,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.yz.model.UserRole;
 import com.yz.service.UserRoleAware;
 import com.yz.util.ExceptionUtil;
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
@@ -11,8 +12,11 @@ import org.apache.struts2.interceptor.SessionAware;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,30 +55,79 @@ public class BaseAction extends ActionSupport implements RequestAware,
 	protected UserRole currentUserRole;
 
 
-	public void decodeParameters()
-	{
-		if (convalue != null && !convalue.equals("")) {
+	// 文件上传
+	protected File[] file;
+	protected String[] fileContentType;
+	protected String[] fileFileName;
+
+
+	protected void decodeParameters() {
+		if (isNotBlankString(convalue)) {
 			decodeAndReplaceBlank(convalue);
 		}
-		if (starttime != null && !starttime.equals("")) {
+		if (isNotBlankString(starttime)) {
 			decodeAndReplaceBlank(starttime);
 		}
-		if (endtime != null && !endtime.equals("")) {
+		if (isNotBlankString(endtime)) {
 			decodeAndReplaceBlank(endtime);
 		}
 	}
 
 
-	private String decodeAndReplaceBlank(String param)
-	{
+	protected boolean isFilesNotNull() {
+		if (file == null)
+			return false;
+
+		if (isListNotNull(Arrays.asList(file)) && isListNotNull(Arrays.asList(fileFileName))) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	protected boolean isFilesExitExcel() {
+		if (file == null)
+		return false;
+		
+		String currentFileContentType = fileContentType[0];
+		if(currentFileContentType.equals("application/vnd.ms-excel"))
+		{
+			return true;
+		}
+		return false;
+	}
+
+
+	protected boolean isListNotNull(List<?> list) {
+		if (list != null && list.size() > 0) {
+			return true;
+		}
+		return false;
+	}
+
+
+	protected String decodeAndReplaceBlank(String param) {
 		try {
 			param = URLDecoder.decode(param, "utf-8");
-			param = param.replace(" ", "");
-		}catch (UnsupportedEncodingException ex)
-		{
+			param = replaceBlank(param);
+		} catch (UnsupportedEncodingException ex) {
 			ExceptionUtil.getStackTrace(ex);
 		}
 		return param;
+	}
+
+
+	protected boolean isNotBlankString(String param) {
+		return StringUtils.isNotBlank(param);
+	}
+
+
+	protected String replaceBlank(String param) {
+
+		if (param == null) {
+			return "";
+		}
+		return param.replace(" ", "");
 	}
 
 
@@ -230,5 +283,27 @@ public class BaseAction extends ActionSupport implements RequestAware,
 		this.currentUserRole = sessionCurrentUserRole;
 	}
 
+	public File[] getFile() {
+		return file;
+	}
 
+	public void setFile(File[] file) {
+		this.file = file;
+	}
+
+	public String[] getFileContentType() {
+		return fileContentType;
+	}
+
+	public void setFileContentType(String[] fileContentType) {
+		this.fileContentType = fileContentType;
+	}
+
+	public String[] getFileFileName() {
+		return fileFileName;
+	}
+
+	public void setFileFileName(String[] fileFileName) {
+		this.fileFileName = fileFileName;
+	}
 }

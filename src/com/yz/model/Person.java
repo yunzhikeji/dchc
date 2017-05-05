@@ -1,21 +1,8 @@
 package com.yz.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 /**
  * Person entity. 所有人员信息
@@ -63,6 +50,8 @@ public class Person implements java.io.Serializable {
 	private Integer isNew;
 	private String remark;// 人员备注
 	private String nation;// 名族
+	private String appraiser;// 鉴定人(办案人)
+	private String appraiserUnitName;//办案人单位
 
 	// Constructors
 
@@ -70,20 +59,8 @@ public class Person implements java.io.Serializable {
 	public Person() {
 	}
 
-	/** full constructor */
-	public Person(UserRole userRole, DisappearMan disappearMan,
-			AnalyzeMan analyzeMan, GuiltSafeguardMan guiltSafeguardMan,
-			ContrastMan contrastMan, GamblingCriminalMan gamblingCriminalMan,
-			String number, String name, String idcard, String birthday,
-			String telphone, String qq, String wechat, Integer sex,
-			Integer isNew, String registerAddress, String registerAddressArea,
-			String carrier, String carryTool, String endSituation,
-			String comprehensiveJudge, String leaderInstruction,
-			Integer isMakeControl, Integer type, String joinDate,
-			int handleState, String photoImg, String remark, String nation,
-			Integer isOutOfTime, List<Otherperson> otherpersons,
-			List<Lawcase> lawcases, List<Troubleshooting> troubleshootings,
-			List<Judge> judges) {
+	public Person(Integer id, UserRole userRole, DisappearMan disappearMan, AnalyzeMan analyzeMan, GuiltSafeguardMan guiltSafeguardMan, ContrastMan contrastMan, GamblingCriminalMan gamblingCriminalMan, String number, String name, String idcard, String birthday, String telphone, String qq, String wechat, Integer sex, String registerAddress, String registerAddressArea, String carrier, String carryTool, String endSituation, String comprehensiveJudge, String leaderInstruction, Integer isMakeControl, Integer type, List<Otherperson> otherpersons, List<Lawcase> lawcases, List<Troubleshooting> troubleshootings, List<Judge> judges, String joinDate, Integer handleState, String photoImg, Integer isOutOfTime, Integer isNew, String remark, String nation, String appraiser, String appraiserUnitName) {
+		this.id = id;
 		this.userRole = userRole;
 		this.disappearMan = disappearMan;
 		this.analyzeMan = analyzeMan;
@@ -107,18 +84,41 @@ public class Person implements java.io.Serializable {
 		this.leaderInstruction = leaderInstruction;
 		this.isMakeControl = isMakeControl;
 		this.type = type;
-		this.joinDate = joinDate;
-		this.handleState = handleState;
-		this.photoImg = photoImg;
 		this.otherpersons = otherpersons;
 		this.lawcases = lawcases;
 		this.troubleshootings = troubleshootings;
 		this.judges = judges;
+		this.joinDate = joinDate;
+		this.handleState = handleState;
+		this.photoImg = photoImg;
 		this.isOutOfTime = isOutOfTime;
 		this.isNew = isNew;
 		this.remark = remark;
 		this.nation = nation;
+		this.appraiser = appraiser;
+		this.appraiserUnitName = appraiserUnitName;
 	}
+
+	@Column(name = "appraiser")
+	public String getAppraiser() {
+		return appraiser;
+	}
+
+	public void setAppraiser(String appraiser) {
+		this.appraiser = appraiser;
+	}
+
+	@Column(name = "appraiserUnitName")
+	public String getAppraiserUnitName() {
+		return appraiserUnitName;
+	}
+
+	public void setAppraiserUnitName(String appraiserUnitName) {
+		this.appraiserUnitName = appraiserUnitName;
+	}
+
+	/** full constructor */
+
 
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "anid")

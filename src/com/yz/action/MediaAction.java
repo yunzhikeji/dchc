@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -47,10 +46,6 @@ public class MediaAction extends BaseAction {
 	// list表对象
 	private List<Media> medias;
 
-	// 文件上传
-	private File[] file;
-	private String[] fileContentType;
-	private String[] fileFileName;
 
 	public String goToAdd() {
 
@@ -73,9 +68,7 @@ public class MediaAction extends BaseAction {
 		media.setSrc(fileService.upload(file, fileFileName, fileContentType,
 				"media"));
 		mediaService.add(media);
-
 		changeInjurycaseHandleState(media);
-
 		return "success_child";
 	}
 
@@ -84,56 +77,35 @@ public class MediaAction extends BaseAction {
 		if (!media.getPicSrc().contains("data:image/png;base64")) {
 			return "success_child1";
 		}
-
 		fileService.addVideoScreenshot(media);
-
 		media.setSrc("/media/" + DateTimeKit.getDateRandom() + ".png");
-
 		mediaService.add(media);
-
 		changeInjurycaseHandleState(media);
-
 		return "success_child1";
 	}
 
-	/**
-	 * 删除
-	 */
 	public String deleteMedia() throws Exception {
 
 		media = mediaService.loadById(mid);
-
 		fileService.deleteFileBySrc(media.getSrc());
-
 		mediaService.delete(media);
-
 		AjaxMsgUtil.outputJSONObjectToAjax(response, new AjaxMsgVO("删除成功."));
-
 		return null;
 	}
 
-	/**
-	 * 加载
-	 * 
-	 * @return
-	 */
 	public String load() {
 		media = mediaService.loadById(mid);
-
 		return "load";
 	}
 
-	/**
-	 * 修改
-	 * 
-	 * @return
-	 * @throws Exception
-	 */
 	public String update() throws Exception {
-		
-		fileService.deleteFileBySrc(media.getSrc());
-		media.setSrc(fileService.upload(file, fileFileName, fileContentType,
-				"media"));
+
+		if(isFilesNotNull())
+		{
+			fileService.deleteFileBySrc(media.getSrc());
+			media.setSrc(fileService.upload(file, fileFileName, fileContentType,
+					"media"));
+		}
 		mediaService.update(media);
 		return "success_child";
 	}
@@ -149,15 +121,12 @@ public class MediaAction extends BaseAction {
 	
 	
 	public String goToViewMedias() {
-		
 		medias = mediaService.loadInjurycaseByTypeAndPid(mtype, inid);
-		
 		return "views";
 	}
 	
 	
 
-	// private 方法
 	private void changeInjurycaseHandleState(Media media) {
 		if (media.getInjurycase() != null) {
 			injurycaseService.changeInjurycaseHandleState(media.getInjurycase()
@@ -166,30 +135,6 @@ public class MediaAction extends BaseAction {
 	}
 
 	// get、set-------------------------------------------
-	public File[] getFile() {
-		return file;
-	}
-
-	public void setFile(File[] file) {
-		this.file = file;
-	}
-
-	public String[] getFileContentType() {
-		return fileContentType;
-	}
-
-	public void setFileContentType(String[] fileContentType) {
-		this.fileContentType = fileContentType;
-	}
-
-	public String[] getFileFileName() {
-		return fileFileName;
-	}
-
-	public void setFileFileName(String[] fileFileName) {
-		this.fileFileName = fileFileName;
-	}
-
 	public int getMid() {
 		return mid;
 	}

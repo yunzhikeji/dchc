@@ -12,6 +12,8 @@ public interface FileService {
 
 	String upload(File[] file,String[] fileFileName,String[] fileContentType,String modelName);
 
+	String uploadOneFile(File file,String fileFileName,String fileContentType,String modelName);
+
 	void addVideoScreenshot(Media media) throws IOException;
 
 	void deleteFileBySrc(String src);

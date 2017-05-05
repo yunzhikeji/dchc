@@ -150,21 +150,26 @@ function checkPerson()
 		return false;
 	}
 
-    if(dnanumber==''||dnanumber==null)
+	if(dnanumber!=null)
+	{
+        if(dnanumber=='')
+        {
+            alert("DNA编号不能为空.");
+            return false;
+        }
+
+	}
+
+    if(fingerPrintNumber!=null)
     {
-        alert("DNA编号不能为空.");
-        return false;
+        if(fingerPrintNumber=='')
+        {
+            alert("指纹编号不能为空.");
+            return false;
+        }
+
     }
 
-
-    if(fingerPrintNumber==''||fingerPrintNumber==null)
-	{
-		alert("指纹编号不能为空.");
-		return false;
-	}
-	
-
-	
 }
 
 

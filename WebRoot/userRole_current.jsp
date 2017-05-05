@@ -96,7 +96,7 @@
 							</tr>
 							<tr>
 								<td width="176" align="center">
-									<s:file name="picture" accept="image/jpeg,image/png,image/jpg"
+									<s:file name="file" accept="image/jpeg,image/png,image/jpg"
 										onchange="change();" id="myfile"></s:file>
 								</td>
 							</tr>

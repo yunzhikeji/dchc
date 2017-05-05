@@ -378,7 +378,7 @@
 												<s:iterator value="clue.judges" var="judge" status="status">
 													<tr>
 														<td>
-															<s:property value="indexNumber" />
+															<s:property value="#status.index+1" />
 														</td>
 														<td>
 															<s:property value="reportUnit" />
@@ -436,7 +436,7 @@
 												<s:iterator value="clue.judges" var="judge" status="status">
 													<tr>
 														<td>
-															<s:property value="indexNumber" />
+															<s:property value="#status.index+1" />
 														</td>
 														<td>
 															<s:textarea name="criminalJudge" cssClass="input-text"
@@ -559,7 +559,7 @@
 												<tr>
 													<td>
 														研判次序
-														<s:property value="indexNumber" />
+														<s:property value="#status.index+1" />
 														:
 														<s:property value="reportUnit" />
 													</td>

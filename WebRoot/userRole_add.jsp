@@ -157,7 +157,7 @@
   </tr>
   <tr>
     <td align="center">
-    	 <s:file name="picture"  cssStyle="width:80%" accept="image/jpeg,image/png,image/jpg" onchange="change();" id="myfile"></s:file>
+    	 <s:file name="file"  cssStyle="width:80%" accept="image/jpeg,image/png,image/jpg" onchange="change();" id="myfile"></s:file>
     </td>
   </tr>
 </table>

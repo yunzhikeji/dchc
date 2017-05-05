@@ -17,7 +17,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.ArrayList;
@@ -60,15 +59,8 @@ public class InjurycaseAction extends BaseAction{
 	private List<Media> mediaImages;
 
 
-	// 文件上传
-	private File[] file;
-	private String[] fileContentType;
-	private String[] fileFileName;
-
 	// 串并案系列名称
 	private String series;
-
-	private File injurycase_file;
 
 
 	/**
@@ -99,7 +91,6 @@ public class InjurycaseAction extends BaseAction{
 
 	// 选择页面名称
 	private String selectTileName(int type) {
-		// TODO Auto-generated method stub
 		String pageName = "案件信息";
 		switch (type) {
 			case 0:
@@ -165,9 +156,7 @@ public class InjurycaseAction extends BaseAction{
 	public String delete() throws Exception {
 
 		injurycase = injurycaseService.loadById(id);
-
 		fileService.deleteFileBySrc(injurycase.getImageCase());
-
 		injurycaseService.delete(injurycase);
 		arg[0] = "injurycaseAction!list?itype=" + injurycase.getItype();
 		arg[1] = "案件管理";
@@ -183,9 +172,7 @@ public class InjurycaseAction extends BaseAction{
 		int[] ids = ConvertUtil.StringtoInt(checkedIDs);
 		for (int i = 0; i < ids.length; i++) {
 			injurycase = injurycaseService.loadById(ids[i]);
-
 			fileService.deleteFileBySrc(injurycase.getImageCase());
-
 			injurycaseService.delete(injurycase);
 		}
 
@@ -207,15 +194,10 @@ public class InjurycaseAction extends BaseAction{
 	public String load() throws Exception {
 
 		pageTileName = selectTileName(itype);
-
 		tars = otherpersonService.getInjurycaseOtherpersonByOtype(2, id);// 同案人
-
 		mediaVideos = mediaService.loadInjurycaseByTypeAndPid(1, id);// 视频文件
-
 		mediaImages = mediaService.loadInjurycaseByTypeAndPid(0, id);// 图像文件
-
 		injurycase = injurycaseService.queryInjurycaseById(id);// 当前修改案件的id
-
 		return "load";
 
 	}
@@ -227,20 +209,21 @@ public class InjurycaseAction extends BaseAction{
 	 */
 	public String update() throws Exception {
 
-		fileService.deleteFileBySrc(injurycase.getImageCase());
+
+		if(isFilesNotNull())
+		{
+			fileService.deleteFileBySrc(injurycase.getImageCase());
+			injurycase.setImageCase(fileService.upload(file, fileFileName,
+					fileContentType, "case"));
+		}
 
 		if (injurycase.getEndSituation() != null
 				&& injurycase.getEndSituation() != "") {
 			injurycase.setHandleState(3);// 完结
 		}
 
-		injurycase.setImageCase(fileService.upload(file, fileFileName,
-				fileContentType, "case"));
-
 		if (injurycase.getUserRole() == null) {
-			UserRole userRole = userRoleService.getUserRoleById(currentUserRole
-					.getId());
-			injurycase.setUserRole(userRole);// 设置录入人员
+			injurycase.setUserRole(currentUserRole);
 		}
 
 		injurycaseService.update(injurycase);
@@ -269,18 +252,7 @@ public class InjurycaseAction extends BaseAction{
 	public String listcba() throws UnsupportedEncodingException {
 		// 登陆验证
 
-		if (convalue != null && !convalue.equals("")) {
-			convalue = URLDecoder.decode(convalue, "utf-8");
-			convalue = convalue.replace(" ", "");
-		}
-		if (starttime != null && !starttime.equals("")) {
-			starttime = URLDecoder.decode(starttime, "utf-8");
-			starttime = starttime.replace(" ", "");
-		}
-		if (endtime != null && !endtime.equals("")) {
-			endtime = URLDecoder.decode(endtime, "utf-8");
-			endtime = endtime.replace(" ", "");
-		}
+		decodeParameters();
 		if (page < 1) {
 			page = 1;
 		}
@@ -337,12 +309,8 @@ public class InjurycaseAction extends BaseAction{
 	public String loadcba() throws Exception {
 
 		injurycase = injurycaseService.queryInjurycaseById(id);// 当前修改案件的id
-
 		mediaVideos = mediaService.loadInjurycaseByTypeAndPid(1, id);// 视频文件
-
 		mediaImages = mediaService.loadInjurycaseByTypeAndPid(0, id);// 图像文件
-
-
 		return "loadcba";
 
 	}
@@ -429,15 +397,15 @@ public class InjurycaseAction extends BaseAction{
 	 *
 	 * @throws UnsupportedEncodingException
 	 */
-	public String outputExcel() throws UnsupportedEncodingException {
+	public String export(){
 
-
-
+		decodeParameters();
+		
 		// / 所有当前页记录对象
-		injurycases = injurycaseService.queryList(con, convalue, currentUserRole,
+		List<Injurycase> injurycasesExcel = injurycaseService.queryList(con, convalue, currentUserRole,
 				itype, queryState, starttime, endtime);
 
-		if (injurycases.size() > 0) {
+		if (injurycasesExcel.size() > 0) {
 			// 导出数据-------------------------------------
 			String filename = "output\\" + DateTimeKit.getDateRandom()
 					+ "_injurycases.xls";
@@ -445,10 +413,10 @@ public class InjurycaseAction extends BaseAction{
 					.getRealPath("/")
 					+ filename;
 			System.out.println("[--------------------savePath=" + savePath);
-			System.out.println(injurycases.size());
+			System.out.println(injurycasesExcel.size());
 
-			boolean isexport = InjurycaseExcel.exportExcel(savePath,
-					injurycases);
+			boolean isexport = new InjurycaseExcel().exportExcel(savePath,
+					injurycasesExcel);
 			if (isexport) {
 				request.put("errorInfo", "导出数据成功,下载点<a href='" + filename
 						+ "'>-这里-</a>");
@@ -465,18 +433,26 @@ public class InjurycaseAction extends BaseAction{
 
 	public String importExcel() {
 
-		return "importpage";
+		return "import";
 	}
 
-	public String importdata() throws Exception {
 
-		UserRole userRole = userRoleService.getUserRoleById(currentUserRole
-				.getId());
+	public String importData(){
 
-		injurycaseService.saveInjurycaseWithExcel(injurycase_file, userRole,
+		if (!isFilesExitExcel()) {
+			request.put("errorInfo", "导入文件格式不正确");
+			return "opexcel";
+
+		}
+		boolean isImportSuccess = injurycaseService.saveInjurycaseWithExcel(file[0], currentUserRole,
 				itype);
-
-		return "importdata";
+		if (isImportSuccess) {
+			request.put("errorInfo", "导入数据成功");
+			return "opexcel";
+		} else {
+			request.put("errorInfo", "导入数据失败");
+			return "opexcel";
+		}
 	}
 
 	// get、set-------------------------------------------
@@ -572,7 +548,6 @@ public class InjurycaseAction extends BaseAction{
 		this.mediaImages = mediaImages;
 	}
 
-
 	public String getSeries() {
 		return series;
 	}
@@ -580,7 +555,6 @@ public class InjurycaseAction extends BaseAction{
 	public void setSeries(String series) {
 		this.series = series;
 	}
-
 
 	public String getIdcard() {
 		return idcard;
@@ -598,44 +572,12 @@ public class InjurycaseAction extends BaseAction{
 		this.personService = personService;
 	}
 
-	public File getInjurycase_file() {
-		return injurycase_file;
-	}
-
-	public void setInjurycase_file(File injurycase_file) {
-		this.injurycase_file = injurycase_file;
-	}
-
 	public FileService getFileService() {
 		return fileService;
 	}
 
 	public void setFileService(FileService fileService) {
 		this.fileService = fileService;
-	}
-
-	public File[] getFile() {
-		return file;
-	}
-
-	public void setFile(File[] file) {
-		this.file = file;
-	}
-
-	public String[] getFileContentType() {
-		return fileContentType;
-	}
-
-	public void setFileContentType(String[] fileContentType) {
-		this.fileContentType = fileContentType;
-	}
-
-	public String[] getFileFileName() {
-		return fileFileName;
-	}
-
-	public void setFileFileName(String[] fileFileName) {
-		this.fileFileName = fileFileName;
 	}
 
 	public void setCurrentUserRole(UserRole sessionCurrentUserRole) {

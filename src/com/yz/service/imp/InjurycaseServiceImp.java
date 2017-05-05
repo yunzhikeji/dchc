@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.yz.service.imp;
 
 import com.yz.dao.InjurycaseDao;
@@ -10,9 +7,9 @@ import com.yz.model.UserRole;
 import com.yz.service.InjurycaseService;
 import com.yz.service.MediaService;
 import com.yz.service.UnitService;
+import com.yz.util.ExceptionUtil;
 import com.yz.util.GenerateSqlFromExcel;
 import com.yz.util.IdsOperator;
-import com.yz.util.InfoType;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -37,7 +34,7 @@ public class InjurycaseServiceImp extends RoleServiceImp implements InjurycaseSe
 
 	public void add(Injurycase injurycase) throws Exception {
 
-		changeUnitByUserRoleAndIdsOperator(injurycase.getUserRole(), new IdsOperator(injurycase.getId() + "", 1));
+		changeUnitInidsByUserRoleAndIdsOperator(injurycase.getUserRole(), new IdsOperator(injurycase.getId() + "", 1));
 		injurycaseDao.save(injurycase);
 
 	}
@@ -45,7 +42,7 @@ public class InjurycaseServiceImp extends RoleServiceImp implements InjurycaseSe
 
 	public void delete(Injurycase injurycase) {
 
-		changeUnitByUserRoleAndIdsOperator(injurycase.getUserRole(), new IdsOperator(injurycase.getId() + "", -1));
+		changeUnitInidsByUserRoleAndIdsOperator(injurycase.getUserRole(), new IdsOperator(injurycase.getId() + "", -1));
 		injurycaseDao.delete(injurycase);
 	}
 
@@ -124,13 +121,6 @@ public class InjurycaseServiceImp extends RoleServiceImp implements InjurycaseSe
 		return injurycaseDao.getUniqueResult(queryString, p);
 	}
 
-	public Injurycase getInjurycaseByInjurycasename(String injurycasename) {
-		String queryString = "from Injurycase mo where mo.casename=:injurycasename";
-		String[] paramNames = new String[]{"injurycasename"};
-		Object[] values = new Object[]{injurycasename};
-		return injurycaseDao.queryByNamedParam(queryString, paramNames, values);
-	}
-
 	public Injurycase loadById(int id) {
 		return injurycaseDao.loadById(id);
 	}
@@ -201,11 +191,6 @@ public class InjurycaseServiceImp extends RoleServiceImp implements InjurycaseSe
 		return injurycaseDao.pageList(queryString, p, page, size);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.yz.service.InjurycaseService#update(com.yz.model.Injurycase)
-	 */
 	public void update(Injurycase injurycase) {
 		injurycaseDao.update(injurycase);
 	}
@@ -522,15 +507,15 @@ public class InjurycaseServiceImp extends RoleServiceImp implements InjurycaseSe
 
 
 
-	public void saveInjurycaseWithExcel(File file, UserRole userRole, int itype) {
+	public boolean saveInjurycaseWithExcel(File file, UserRole userRole, int itype) {
 		try {
 			GenerateSqlFromExcel generate = new GenerateSqlFromExcel();
 			ArrayList<String[]> arrayList = generate
-					.generateStationInjurycase(file);
+					.generateStation(file);
 			/*
 			 * "案件类型", "案件编号", "案件名称", "录入单位", "录入民警", "录入时间", "办理状态", "是否已串并案",
-			 * 8* "案发时间", "案发地点", "简要案情", "鉴定人", "鉴定人联系电话", "警情编号", "作案目标",
-			 * "作案对象", 16 * "作案方式", "人员特征", "物品特征", "完结情况", "综合情况", "领导批示"
+			 * "案发时间", "案发地点", "简要案情", "办案单位","办案人", "办案人联系电话", "警情编号", "作案目标",
+			 * "作案对象", "作案方式", "人员特征", "物品特征", "完结情况", "综合情况", "领导批示"
 			 */
 
 			String inids = "";
@@ -539,6 +524,7 @@ public class InjurycaseServiceImp extends RoleServiceImp implements InjurycaseSe
 				String[] data = arrayList.get(i);
 				Injurycase injurycase = new Injurycase();
 
+				
 				String caseTypeName = data[0].toString();
 				if (caseTypeName.contains("刑事")) {
 					injurycase.setItype(1);
@@ -549,12 +535,15 @@ public class InjurycaseServiceImp extends RoleServiceImp implements InjurycaseSe
 				} else if (caseTypeName.contains("行政")) {
 					injurycase.setItype(4);
 				} else {
-					injurycase.setItype(4);
+					break;
 				}
 				injurycase.setCaseNumber(data[1].toString());
 				injurycase.setCaseName(data[2].toString());
 
+
+
 				injurycase.setUserRole(userRole);
+
 				injurycase.setJoinDate(data[5].toString());
 
 				String handleStateString = data[6].toString();
@@ -580,19 +569,20 @@ public class InjurycaseServiceImp extends RoleServiceImp implements InjurycaseSe
 				injurycase.setStartTime(data[8].toString());
 				injurycase.setCasePlace(data[9].toString());
 				injurycase.setBriefCase(data[10].toString());
-				injurycase.setAppraiser(data[11].toString());
-				injurycase.setTelphone(data[12].toString());
-				injurycase.setSituationNum(data[13].toString());
-				injurycase.setCrimeTarget(data[14].toString());
-				injurycase.setCrimeObject(data[15].toString());
-				injurycase.setCrimePattern(data[16].toString());
+				injurycase.setAppraiserUnitName(data[11].toString());
+				injurycase.setAppraiser(data[12].toString());
+				injurycase.setTelphone(data[13].toString());
+				injurycase.setSituationNum(data[14].toString());
+				injurycase.setCrimeTarget(data[15].toString());
+				injurycase.setCrimeObject(data[16].toString());
+				injurycase.setCrimePattern(data[17].toString());
 
-				injurycase.setPersonFeature(data[17].toString());
-				injurycase.setGoodsFeature(data[18].toString());
+				injurycase.setPersonFeature(data[18].toString());
+				injurycase.setGoodsFeature(data[19].toString());
 
 				// '1':'抓获', '2':'死亡', '3':'撤销案件', '4':'释放', '5':'治安拘留',
 				// '6':'刑事拘留', '7':'留置盘问', '8':'其他' }"
-				String endSituation = data[19].toString();
+				String endSituation = data[20].toString();
 				if (endSituation.contains("抓获")) {
 					injurycase.setEndSituation(1 + "");
 				} else if (endSituation.contains("死亡")) {
@@ -611,25 +601,20 @@ public class InjurycaseServiceImp extends RoleServiceImp implements InjurycaseSe
 					injurycase.setEndSituation(8 + "");
 				}
 
-				injurycase.setComprehensiveJudge(data[20].toString());
-				injurycase.setLeaderInstruction(data[21].toString());
+				injurycase.setComprehensiveJudge(data[21].toString());
+				injurycase.setLeaderInstruction(data[22].toString());
 
 				// 设置部门inids
 				int inid = injurycaseDao.savereturn(injurycase);
-
 				inids = inids + inid + ",";
-
 			}
 
-			// 需要每次都访问新的组织
-			Unit unit = unitService.getUnitByName(userRole.getUnit().getName());
+			changeUnitInidsByUserRoleAndIdsOperator(userRole, new IdsOperator(inids + "", 1));
 
-			unitService.updateUnitByUserRoleAndInfoType(unit, inids,
-					InfoType.CASE, 1);
-
+			return true;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			ExceptionUtil.getStackTrace(e);
+			return false;
 		}
 	}
 

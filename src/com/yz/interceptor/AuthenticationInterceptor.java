@@ -18,6 +18,7 @@ public class AuthenticationInterceptor extends AbstractInterceptor {
 	@Override
 	public String intercept(ActionInvocation actionInvocation) throws Exception {
 
+	
 		Map session = actionInvocation.getInvocationContext().getSession();
 		UserRole userRole = (UserRole) session.get("currentUserRole");
 		if ( null != userRole) {

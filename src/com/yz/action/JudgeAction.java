@@ -23,7 +23,6 @@ public class JudgeAction extends BaseAction{
 	private int pid;// 人员id
 	private int inid; // 案件id
 	private int cid;// 刑侦线索
-
 	private int jid;// 研判id
 
 	// service层对象
@@ -58,10 +57,6 @@ public class JudgeAction extends BaseAction{
 	private List<Judge> judges;
 	private List<Media> medias;
 
-	// 文件上传
-	private File[] file;
-	private String[] fileContentType;
-	private String[] fileFileName;
 
 
 	/**
@@ -102,11 +97,8 @@ public class JudgeAction extends BaseAction{
 	public String deleteJudge() throws Exception {
 
 		judge = judgeService.loadById(jid);
-
 		fileService.deleteFileBySrc(judge.getScanImage());
-
 		judgeService.delete(judge);
-
 		AjaxMsgUtil.outputJSONObjectToAjax(response, new AjaxMsgVO("删除成功."));
 		return null;
 	}
@@ -120,10 +112,11 @@ public class JudgeAction extends BaseAction{
 
 	public String update() throws Exception {
 
-		fileService.deleteFileBySrc(judge.getScanImage());
-
-		judge.setScanImage(fileService.upload(file, fileFileName, fileContentType, "judge"));
-
+		if (isFilesNotNull())
+		{
+			fileService.deleteFileBySrc(judge.getScanImage());
+			judge.setScanImage(fileService.upload(file, fileFileName, fileContentType, "judge"));
+		}
 		judgeService.update(judge);
 		return "success_child";
 	}
@@ -136,13 +129,9 @@ public class JudgeAction extends BaseAction{
 	public String getNewJudges() {
 
 		currentUserRole = (UserRole) session.get("currentUserRole");
-
 		Unit unit = currentUserRole.getUnit();
-
 		List<Judge> judges = judgeService.getNewJudges();
-
 		List<AjaxMsgVO> ajaxMsgVOList = new ArrayList<AjaxMsgVO>();
-
 		if (judges != null && judges.size() > 0) {
 			for (Judge judge : judges) {
 				AjaxMsgVO judgeVO = new AjaxMsgVO();
@@ -294,24 +283,18 @@ public class JudgeAction extends BaseAction{
 
 	private boolean isContainID(String ids, String id) {
 
-		if (ids == null || ids.replace(" ", "").equals("")) {
-			return false;
+		if(isNotBlankString(ids))
+		{
+			String[] idString = ids.split(",");
+			List<String> list = Arrays.asList(idString);
+			return list.contains(id);
 		}
-
-		String[] idString = ids.split(",");
-
-		List<String> list = Arrays.asList(idString);
-
-		return list.contains(id);
-
+		return false;
 	}
 
 
 
 	// get、set-------------------------------------------
-
-	// 获得HttpServletResponse对象
-
 	public int getId() {
 		return id;
 	}

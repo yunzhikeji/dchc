@@ -43,4 +43,5 @@ public interface UserRoleService {
 
 	UserRole getUserRoleByCardid(String cardid);
 
+	List<UserRole> getUserRoleBUnitName(String unitName);
 }

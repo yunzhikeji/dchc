@@ -35,7 +35,7 @@ public abstract class RoleServiceImp {
 	}
 
 
-	protected void changeUnitByUserRoleAndIdsOperator(UserRole userRole,IdsOperator idsOperator)
+	protected void changeUnitInidsByUserRoleAndIdsOperator(UserRole userRole,IdsOperator idsOperator)
 	{
 		if(userRole!=null)
 		{
@@ -43,6 +43,34 @@ public abstract class RoleServiceImp {
 			if(unit!=null)
 			{
 				unit.setInids(changeObjectIds(userRole,idsOperator));
+				changeUnitIds(unit);
+			}
+		}
+	}
+
+
+	protected void changeUnitPidsByUserRoleAndIdsOperator(UserRole userRole,IdsOperator idsOperator)
+	{
+		if(userRole!=null)
+		{
+			Unit unit = userRole.getUnit();
+			if(unit!=null)
+			{
+				unit.setPids(changeObjectIds(userRole,idsOperator));
+				changeUnitIds(unit);
+			}
+		}
+	}
+
+
+	protected void changeUnitCidsByUserRoleAndIdsOperator(UserRole userRole,IdsOperator idsOperator)
+	{
+		if(userRole!=null)
+		{
+			Unit unit = userRole.getUnit();
+			if(unit!=null)
+			{
+				unit.setCids(changeObjectIds(userRole,idsOperator));
 				changeUnitIds(unit);
 			}
 		}
