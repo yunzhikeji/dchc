@@ -34,8 +34,10 @@ public class InjurycaseServiceImp extends RoleServiceImp implements InjurycaseSe
 
 	public void add(Injurycase injurycase) throws Exception {
 
-		changeUnitInidsByUserRoleAndIdsOperator(injurycase.getUserRole(), new IdsOperator(injurycase.getId() + "", 1));
-		injurycaseDao.save(injurycase);
+
+		int injurycaseId = injurycaseDao.savereturn(injurycase);
+
+		changeUnitInidsByUserRoleAndIdsOperator(injurycase.getUserRole(), new IdsOperator(injurycaseId + "", 1));
 
 	}
 

@@ -90,7 +90,7 @@ public class BaseAction extends ActionSupport implements RequestAware,
 		return false;
 		
 		String currentFileContentType = fileContentType[0];
-		if(currentFileContentType.equals("application/vnd.ms-excel"))
+		if(currentFileContentType.contains("excel"))
 		{
 			return true;
 		}

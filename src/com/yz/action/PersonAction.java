@@ -451,12 +451,16 @@ public class PersonAction extends BaseAction {
 	// 页面显示被选中 信息提前情况 {'提取手机信息','提取银行卡信息','提取DNA','提取指纹','提取鞋印'}显示格式
 	private void handleInfoExtractionMsg(String infoExtraction) {
 		infoExtractions = new ArrayList<String>();
-		if (infoExtraction != null && infoExtraction.length() > 0
-				&& infoExtraction.contains(",")) {
-			String[] infoExtractionpres = infoExtraction.split(",");
-			for (int i = 0; i < infoExtractionpres.length; i++) {
-				infoExtractions.add(infoExtractionpres[i].replace(" ", ""));
+		if (infoExtraction != null && infoExtraction.length() > 0)
+		{
+			if(infoExtraction.contains(","))
+			{
+				String[] infoExtractionpres = infoExtraction.split(",");
+				for (int i = 0; i < infoExtractionpres.length; i++) {
+					infoExtractions.add(infoExtractionpres[i].replace(" ", ""));
+				}
 			}
+			infoExtractions.add(infoExtraction);
 		}
 	}
 
@@ -722,10 +726,8 @@ public class PersonAction extends BaseAction {
 
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;

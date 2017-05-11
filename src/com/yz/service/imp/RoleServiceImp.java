@@ -3,6 +3,7 @@ package com.yz.service.imp;
 import com.yz.model.Unit;
 import com.yz.model.UserRole;
 import com.yz.util.IdsOperator;
+import com.yz.util.IdsUtil;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -56,6 +57,7 @@ public abstract class RoleServiceImp {
 			Unit unit = userRole.getUnit();
 			if(unit!=null)
 			{
+				String ids = unit.getPids();
 				unit.setPids(changeObjectIds(userRole,idsOperator));
 				changeUnitIds(unit);
 			}
@@ -83,11 +85,13 @@ public abstract class RoleServiceImp {
 
 	private String assembleSqlByUserRole(String querySql, UserRole userRole) {
 
-		String objectIds = getObjectIds(userRole);
+
+		String objectIds = getObjectIds(userRole) ;
+
 		if (StringUtils.isBlank(objectIds)) {
 			setSqlIdsWithZero(querySql);
 		}
-		querySql = setSqlIds(querySql, objectIds);
+		querySql = setSqlIds(querySql, IdsUtil.excludeSameId(objectIds));
 		return querySql;
 
 	}

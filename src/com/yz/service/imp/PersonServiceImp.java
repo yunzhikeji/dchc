@@ -3,6 +3,7 @@ package com.yz.service.imp;
 import com.yz.dao.PersonDao;
 import com.yz.model.*;
 import com.yz.service.*;
+import com.yz.util.DateTimeKit;
 import com.yz.util.GenerateSqlFromExcel;
 import com.yz.util.IdsOperator;
 import org.springframework.stereotype.Component;
@@ -33,8 +34,12 @@ public class PersonServiceImp extends RoleServiceImp implements PersonService {
 
 	public void add(Person person) throws Exception {
 
-		changeUnitPidsByUserRoleAndIdsOperator(person.getUserRole(), new IdsOperator(person.getId() + "", 1));
-		personDao.save(person);
+
+		int personId = personDao.savereturn(person);
+
+		changeUnitPidsByUserRoleAndIdsOperator(person.getUserRole(), new IdsOperator(personId + "", 1));
+
+
 	}
 
 
@@ -287,11 +292,8 @@ public class PersonServiceImp extends RoleServiceImp implements PersonService {
 					} else {
 						person.setEndSituation("");
 					}
-					
-					if(data[45]!=null)
-					{
-						person.setJoinDate(data[45].toString());
-					}
+
+					person.setJoinDate(DateTimeKit.getLocalDate());
 
 					disappearManService.add(disappearMan);
 					person.setDisappearMan(disappearMan);
@@ -466,11 +468,8 @@ public class PersonServiceImp extends RoleServiceImp implements PersonService {
 					}
 					person.setNation(data[30].toString());
 
-					if(data[31]!=null)
-					{
-						person.setJoinDate(data[31].toString());
-					}
-				
+					person.setJoinDate(DateTimeKit.getLocalDate());
+
 
 					int pid = personDao.savereturn(person);
 					pids = pids + pid + ",";

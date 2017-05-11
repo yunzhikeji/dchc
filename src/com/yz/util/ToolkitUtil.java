@@ -113,5 +113,8 @@ public class ToolkitUtil {
         pwd2 = cipher.generatePassword(cipher.generatePassword(pwd1)+"4e6197");  
         System.out.println("加密后的密码:"+pwd2);  
           
-    }  
+    }
+
+
+
 }

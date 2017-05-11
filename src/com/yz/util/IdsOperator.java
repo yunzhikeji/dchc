@@ -1,6 +1,5 @@
 package com.yz.util;
 
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -18,17 +17,12 @@ public class IdsOperator {
 	}
 
 
-	public IdsOperator(String objectIds, int operationType) {
-		this.objectIds = objectIds;
+	public IdsOperator(String optionIds, int operationType) {
+		this.optionIds = optionIds;
 		this.operationType = operationType;
-		new IdsOperator(objectIds,"",operationType);
+		new IdsOperator(objectIds, "", operationType);
 	}
 
-	public IdsOperator(String objectIds, String optionIds) {
-		this.objectIds = objectIds;
-		this.optionIds = optionIds;
-		new IdsOperator(objectIds,optionIds,1);
-	}
 
 	public IdsOperator(String objectIds, String optionIds, int operationType) {
 		this.objectIds = objectIds;
@@ -38,9 +32,9 @@ public class IdsOperator {
 
 	public String mergeIds() {
 
-		Set<String> objIDSet = stringToSetWithIds(objectIds);
+		Set<String> objIDSet = IdsUtil.stringToSetWithIds(objectIds);
 
-		Set<String> opIDSet = stringToSetWithIds(optionIds);
+		Set<String> opIDSet = IdsUtil.stringToSetWithIds(optionIds);
 
 		if (operationType == 1) {
 			objIDSet.addAll(opIDSet);
@@ -48,55 +42,8 @@ public class IdsOperator {
 			objIDSet.removeAll(opIDSet);
 		}
 
-		return setToStringWithIds(objIDSet);
+		return IdsUtil.setToStringWithIds(objIDSet);
 	}
-
-
-
-	private Set<String> stringToSetWithIds(String ids) {
-
-		Set<String> idSet = new HashSet<String>();
-
-		if (ids == null || ids.equals("")) {
-			return idSet;
-		}
-
-		ids = ids.replace(" ", "");
-
-		if (ids.contains(",")) {
-
-			String[] arrayIDs = ids.split(",");
-			for (int i = 0; i < arrayIDs.length; i++) {
-				if (!arrayIDs[i].equals("")) {
-					idSet.add(arrayIDs[i]);
-				}
-			}
-
-		} else {
-			idSet.add(ids);
-		}
-		return idSet;
-
-	}
-
-
-
-	private String setToStringWithIds(Set<String> idsSet) {
-
-		String newIDs = "";
-
-		for (String id : idsSet) {
-			if (!id.equals("")) {
-				newIDs = newIDs + id + ",";
-			}
-		}
-		return newIDs;
-	}
-
-
-
-
-
 
 
 	//get set

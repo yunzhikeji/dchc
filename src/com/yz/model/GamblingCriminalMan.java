@@ -152,7 +152,7 @@ public class GamblingCriminalMan implements java.io.Serializable {
 		return this.imei;
 	}
 
-	@Column(name = "infoExtraction")
+	@Column(name = "infoExtraction",length = 100)
 	public String getInfoExtraction() {
 		return this.infoExtraction;
 	}

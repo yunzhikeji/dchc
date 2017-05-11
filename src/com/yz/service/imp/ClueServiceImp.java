@@ -24,12 +24,12 @@ public class ClueServiceImp extends RoleServiceImp implements ClueService {
 
 	public void add(Clue clue) throws Exception {
 
-		changeUnitCidsByUserRoleAndIdsOperator(clue.getUserRole(), new IdsOperator(clue.getId() + "", 1));
-		clueDao.save(clue);
+
+		int clueId = clueDao.savereturn(clue);
+		changeUnitCidsByUserRoleAndIdsOperator(clue.getUserRole(), new IdsOperator(clueId + "", 1));
 	}
 
 	public void delete(Clue clue) {
-
 
 		changeUnitCidsByUserRoleAndIdsOperator(clue.getUserRole(), new IdsOperator(clue.getId() + "", -1));
 		clueDao.delete(clue);

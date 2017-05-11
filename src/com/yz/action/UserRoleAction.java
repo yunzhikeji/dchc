@@ -101,6 +101,7 @@ public class UserRoleAction extends BaseAction {
 
 	public String delete() {
 
+		userRole = userRoleService.getUserRoleById(id);
 		fileService.deleteFileBySrc(userRole.getPhoto());
 		userRoleService.delete(userRole);
 		arg[0] = "userRoleAction!list";

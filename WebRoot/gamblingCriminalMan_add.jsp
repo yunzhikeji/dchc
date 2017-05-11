@@ -646,7 +646,7 @@
                                 <td colspan="4">
                                     <s:checkboxlist theme="simple" cssStyle="width:36px"
                                                     name="gamblingCriminalMan.infoExtraction"
-                                                    list="{'提取手机信息','提取银行卡信息','提取DNA','提取指纹','提取鞋印'}"/>
+                                                    list="{'手机信息','银行卡信息','DNA','指纹','鞋印'}"/>
                                 </td>
                             </tr>
                             <tr>
