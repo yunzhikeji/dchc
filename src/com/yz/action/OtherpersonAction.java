@@ -92,37 +92,11 @@ public class OtherpersonAction extends BaseAction {
 		if (picture3 != null && isNotBlankString(picture3FileName)) {
 			otherperson.setRightPhoto(fileService.uploadOneFile(picture3, picture3FileName, picture3ContentType, "otherperson"));
 		}
-		if (otherperson.getPerson() != null) {
-			changePersonHandleState(otherperson.getPerson().getId());
-		}
-		if (otherperson.getInjurycase() != null) {
-			changeInjurycaseHandleState(otherperson.getInjurycase().getId());
-		}
 		otherpersonService.add(otherperson);
 		return "success_child";
 	}
 
-	//改变人员当前处理状态
-	private void changePersonHandleState(int perid) {
-		Person per = personService.loadById(perid);
-		if (per != null) {
-			if (per.getHandleState() == 1) {
-				per.setHandleState(2);
-				personService.update(per);
-			}
-		}
 
-	}
-
-	private void changeInjurycaseHandleState(Integer inid) {
-		Injurycase injurycase = injurycaseService.loadById(inid);
-		if (injurycase != null) {
-			if (injurycase.getHandleState() == 1) {
-				injurycase.setHandleState(2);
-				injurycaseService.update(injurycase);
-			}
-		}
-	}
 
 	/**
 	 * 9:负案在逃人员,10:维稳人员 上传前科照片

@@ -217,6 +217,12 @@ public class InjurycaseAction extends BaseAction{
 					fileContentType, "case"));
 		}
 
+		if(injurycase.getHandleState()!=3)
+		{
+			injurycase.setHandleState(2);
+		}
+
+
 		if (injurycase.getEndSituation() != null
 				&& injurycase.getEndSituation() != "") {
 			injurycase.setHandleState(3);// 完结

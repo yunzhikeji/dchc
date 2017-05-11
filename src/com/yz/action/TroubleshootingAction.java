@@ -85,15 +85,6 @@ public class TroubleshootingAction extends ActionSupport implements
 
 	public String add() throws Exception {
 
-		if (troubleshooting.getPerson() != null) {
-			changePersonHandleState(troubleshooting.getPerson().getId());
-		}
-		if (troubleshooting.getInjurycase() != null) {
-			changeInjurycaseHandleState(troubleshooting.getInjurycase().getId());
-		}
-		if (troubleshooting.getClue() != null) {
-			changeClueHandleState(troubleshooting.getClue().getId());
-		}
 		troubleshootingService.add(troubleshooting);
 		return "success_child";
 	}
@@ -116,42 +107,6 @@ public class TroubleshootingAction extends ActionSupport implements
 		return "success_child";
 	}
 
-	// 改变人员当前处理状态
-	private void changePersonHandleState(int perid) {
-
-		Person per = personService.loadById(perid);
-		if (per != null) {
-			if (per.getHandleState() == 1) {
-				per.setHandleState(2);
-				personService.update(per);
-			}
-		}
-
-	}
-
-	// 改变线索当前处理状态
-	private void changeClueHandleState(int clid) {
-
-		Clue clue = clueService.loadById(clid);
-		if (clue != null) {
-			if (clue.getHandleState() == 1) {
-				clue.setHandleState(2);
-				clueService.update(clue);
-			}
-		}
-
-	}
-
-	private void changeInjurycaseHandleState(Integer inid) {
-
-		Injurycase injurycase = injurycaseService.loadById(inid);
-		if (injurycase != null) {
-			if (injurycase.getHandleState() == 1) {
-				injurycase.setHandleState(2);
-				injurycaseService.update(injurycase);
-			}
-		}
-	}
 
 	// 获得HttpServletResponse对象
 	public void setServletResponse(HttpServletResponse response) {

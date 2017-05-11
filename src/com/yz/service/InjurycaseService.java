@@ -87,7 +87,5 @@ public interface InjurycaseService {
 			UserRole userRole, int itype);
 
 
-	void changeInjurycaseHandleState(int inid);
-
 
 }

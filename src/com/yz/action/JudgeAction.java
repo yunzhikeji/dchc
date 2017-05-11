@@ -4,6 +4,7 @@ import com.yz.model.*;
 import com.yz.service.*;
 import com.yz.util.AjaxMsgUtil;
 import com.yz.util.DateTimeKit;
+import com.yz.util.IdsUtil;
 import com.yz.vo.AjaxMsgVO;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,6 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Component("judgeAction")
@@ -138,7 +138,7 @@ public class JudgeAction extends BaseAction{
 
 				judgeVO.setJoinDate(judge.getReportTime());
 				if (judge.getPerson() != null) {
-					if (isContainID(unit.getPids(), judge.getPerson().getId()
+					if (IdsUtil.isContainID(unit.getPids(), judge.getPerson().getId()
 							.toString())
 							|| currentUserRole.getUserLimit() == 2
 							|| unit.getNumber().equals(UnitAction.OPERTION_UNIT_NUMBER)) {
@@ -205,7 +205,7 @@ public class JudgeAction extends BaseAction{
 
 				if (judge.getInjurycase() != null) {
 					// 查看权限
-					if (isContainID(unit.getInids(), judge.getInjurycase()
+					if (IdsUtil.isContainID(unit.getInids(), judge.getInjurycase()
 							.getId().toString())
 							|| currentUserRole.getUserLimit() == 2
 							|| unit.getNumber().equals(UnitAction.OPERTION_UNIT_NUMBER)) {
@@ -244,7 +244,7 @@ public class JudgeAction extends BaseAction{
 				if (judge.getClue() != null) {
 
 					// 查看权限
-					if (isContainID(unit.getCids(), judge.getClue().getId()
+					if (IdsUtil.isContainID(unit.getCids(), judge.getClue().getId()
 							.toString())
 							|| currentUserRole.getUserLimit() == 2
 							|| unit.getNumber().equals(UnitAction.OPERTION_UNIT_NUMBER)) {
@@ -276,22 +276,6 @@ public class JudgeAction extends BaseAction{
 		AjaxMsgUtil.outputJSONArrayToAjax(response, ajaxMsgVOList);
 		return null;
 	}
-
-
-	// private
-
-
-	private boolean isContainID(String ids, String id) {
-
-		if(isNotBlankString(ids))
-		{
-			String[] idString = ids.split(",");
-			List<String> list = Arrays.asList(idString);
-			return list.contains(id);
-		}
-		return false;
-	}
-
 
 
 	// get、set-------------------------------------------

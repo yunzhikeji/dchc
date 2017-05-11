@@ -68,7 +68,6 @@ public class MediaAction extends BaseAction {
 		media.setSrc(fileService.upload(file, fileFileName, fileContentType,
 				"media"));
 		mediaService.add(media);
-		changeInjurycaseHandleState(media);
 		return "success_child";
 	}
 
@@ -80,7 +79,6 @@ public class MediaAction extends BaseAction {
 		fileService.addVideoScreenshot(media);
 		media.setSrc("/media/" + DateTimeKit.getDateRandom() + ".png");
 		mediaService.add(media);
-		changeInjurycaseHandleState(media);
 		return "success_child1";
 	}
 
@@ -126,13 +124,6 @@ public class MediaAction extends BaseAction {
 	}
 	
 	
-
-	private void changeInjurycaseHandleState(Media media) {
-		if (media.getInjurycase() != null) {
-			injurycaseService.changeInjurycaseHandleState(media.getInjurycase()
-					.getId());
-		}
-	}
 
 	// get、set-------------------------------------------
 	public int getMid() {

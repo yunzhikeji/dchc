@@ -58,42 +58,10 @@ public class LawcaseAction extends BaseAction{
 
 	public String add() throws Exception {
 		
-		if(lawcase.getPerson()!=null)
-		{
-			changePersonHandleState(lawcase.getPerson().getId());
-		}
-		if(lawcase.getClue()!=null)
-		{
-			changeClueHandleState(lawcase.getClue().getId());
-		}
 		lawcaseService.add(lawcase);
 		return "success_child";
 	}
 
-	// 改变人员当前处理状态
-	private void changePersonHandleState(int perid) {
-
-		Person per = personService.loadById(perid);
-		if (per != null) {
-			if (per.getHandleState() == 1) {
-				per.setHandleState(2);
-				personService.update(per);
-			}
-		}
-
-	}
-	
-	// 改变线索当前处理状态
-	private void changeClueHandleState(int clid) {
-		Clue clue = clueService.loadById(clid);
-		if (clue != null) {
-			if (clue.getHandleState() == 1) {
-				clue.setHandleState(2);
-				clueService.update(clue);
-			}
-		}
-
-	}
 
 	public String deleteLawcase() throws Exception {
 		lawcase = lawcaseService.loadById(lawid);

@@ -53,30 +53,6 @@ public class QueryAction extends BaseAction {
 		return "query";
 	}
 
-	public String add() throws Exception {
-
-		return "success_child";
-	}
-
-	public String delete() throws Exception {
-		return SUCCESS;
-	}
-
-	public String load() throws Exception {
-
-		return "load";
-	}
-
-	public String update() throws Exception {
-
-		return "success_child";
-	}
-
-	public String view() {
-
-		return "view";
-	}
-
 	// get、set-------------------------------------------
 	public PersonService getPersonService() {
 		return personService;

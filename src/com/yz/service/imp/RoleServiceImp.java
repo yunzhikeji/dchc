@@ -102,6 +102,12 @@ public abstract class RoleServiceImp {
 	}
 
 	private String removeLastCommaInSql(String ids) {
+		
+		if(StringUtils.isBlank(ids))
+		{
+			return "0";
+		}
+		
 		String lastChar = "";
 		do {
 			lastChar = ids.substring(ids.length() - 1, ids.length());

@@ -621,16 +621,6 @@ public class InjurycaseServiceImp extends RoleServiceImp implements InjurycaseSe
 	}
 
 
-	public void changeInjurycaseHandleState(int inid) {
-		Injurycase injurycase = injurycaseDao.loadById(inid);
-		if (injurycase != null) {
-			if (injurycase.getHandleState() == 1) {
-				injurycase.setHandleState(2);
-				injurycaseDao.update(injurycase);
-			}
-		}
-	}
-
 	@Override
 	protected String getObjectIds(UserRole userRole) {
 		return userRole.getUnit().getInids();

@@ -145,9 +145,6 @@ public class SuccessexampleAction extends BaseAction {
 	public String load() throws Exception {
 
 		successexample = successexampleService.loadById(id);// 当前修改成功案例的id
-		/*
-		 * 当前操作成功案例权限划分
-		 */
 		return "load";
 	}
 

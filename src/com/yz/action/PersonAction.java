@@ -577,6 +577,12 @@ public class PersonAction extends BaseAction {
 			person.setPhotoImg(fileService.upload(file, fileFileName, fileContentType, "person"));
 		}
 
+
+		if(person.getHandleState()!=3)
+		{
+			person.setHandleState(2);
+		}
+
 		if (person.getEndSituation() != null && person.getEndSituation() != "") {
 			person.setHandleState(3);// 完结
 		}
@@ -586,6 +592,7 @@ public class PersonAction extends BaseAction {
 					.getId());
 			person.setUserRole(userRole);// 设置录入人员
 		}
+
 
 		personService.update(person);
 

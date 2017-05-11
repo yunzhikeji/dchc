@@ -1,6 +1,10 @@
 package com.yz.util;
 
+import org.apache.commons.lang.StringUtils;
+
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -50,7 +54,21 @@ public class IdsUtil {
 
 	public static String excludeSameId(String ids)
 	{
-			return 	setToStringWithIds(stringToSetWithIds(ids));
+
+
+		return 	setToStringWithIds(stringToSetWithIds(ids));
+	}
+
+
+	public static boolean isContainID(String ids, String id) {
+
+		if(StringUtils.isNotBlank(ids))
+		{
+			String[] idString = ids.split(",");
+			List<String> list = Arrays.asList(idString);
+			return list.contains(id);
+		}
+		return false;
 	}
 
 

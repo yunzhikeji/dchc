@@ -60,8 +60,6 @@ public class CountAction extends BaseAction {
 
 	private Integer[] personCountArray(int con, String convalue, String starttime, String endtime, int i, UserRole userRole) {
 		Integer[] personCount = new Integer[16];
-		int count = 0;
-		int commonClueCount = 0;
 		switch (i) {
 			case 0:
 				break;
@@ -192,38 +190,6 @@ public class CountAction extends BaseAction {
 		}
 
 		return clueCount;
-	}
-
-	public String goToAdd() {
-
-		return "add";
-	}
-
-
-	public String add() throws Exception {
-
-		return "success_child";
-	}
-
-	public String delete() throws Exception {
-		return SUCCESS;
-	}
-
-	public String load() throws Exception {
-
-
-		return "load";
-	}
-
-	public String update() throws Exception {
-
-
-		return "success_child";
-	}
-
-	public String view() {
-
-		return "view";
 	}
 
 	// get、set-------------------------------------------

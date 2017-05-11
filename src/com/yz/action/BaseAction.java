@@ -118,6 +118,8 @@ public class BaseAction extends ActionSupport implements RequestAware,
 
 
 	protected boolean isNotBlankString(String param) {
+
+
 		return StringUtils.isNotBlank(param);
 	}
 

@@ -100,6 +100,12 @@ public class ClueAction extends BaseAction {
 
 	public String update() throws Exception {
 
+
+		if(clue.getHandleState()!=3)
+		{
+			clue.setHandleState(2);
+		}
+
 		if (clue.getEndSituation() != null && clue.getEndSituation() != "") {
 			clue.setHandleState(3);// 完结
 		}
