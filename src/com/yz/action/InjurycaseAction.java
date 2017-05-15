@@ -68,7 +68,16 @@ public class InjurycaseAction extends BaseAction{
 	 */
 	public String list() throws Exception {
 
-		decodeParameters();
+		if (isNotBlankString(convalue)) {
+			convalue = decodeAndReplaceBlank(convalue);
+		}
+		if (isNotBlankString(starttime)) {
+			starttime = decodeAndReplaceBlank(starttime);
+		}
+		if (isNotBlankString(endtime)) {
+			endtime = decodeAndReplaceBlank(endtime);
+		}
+		
 		if (page < 1) {
 			page = 1;
 		}
@@ -258,9 +267,14 @@ public class InjurycaseAction extends BaseAction{
 	public String listcba() throws UnsupportedEncodingException {
 		// 登陆验证
 
-		decodeParameters();
-		if (page < 1) {
-			page = 1;
+		if (isNotBlankString(convalue)) {
+			convalue = decodeAndReplaceBlank(convalue);
+		}
+		if (isNotBlankString(starttime)) {
+			starttime = decodeAndReplaceBlank(starttime);
+		}
+		if (isNotBlankString(endtime)) {
+			endtime = decodeAndReplaceBlank(endtime);
 		}
 
 		int size = 9;
@@ -405,7 +419,15 @@ public class InjurycaseAction extends BaseAction{
 	 */
 	public String export(){
 
-		decodeParameters();
+		if (isNotBlankString(convalue)) {
+			convalue = decodeAndReplaceBlank(convalue);
+		}
+		if (isNotBlankString(starttime)) {
+			starttime = decodeAndReplaceBlank(starttime);
+		}
+		if (isNotBlankString(endtime)) {
+			endtime = decodeAndReplaceBlank(endtime);
+		}
 		
 		// / 所有当前页记录对象
 		List<Injurycase> injurycasesExcel = injurycaseService.queryList(con, convalue, currentUserRole,

@@ -20,12 +20,11 @@ import java.io.File;
 @Scope("prototype")
 public class OtherpersonAction extends BaseAction {
 
-
 	// 条件
 	private int pid;// 人员id
-	private int inid; //案件id
+	private int inid; // 案件id
 	private int otherid;// 同案人员，关系人员
-
+	private int otype;
 	private String idcard;
 
 	// service层对象
@@ -39,14 +38,11 @@ public class OtherpersonAction extends BaseAction {
 	private ClueService clueService;
 	@Resource
 	private FileService fileService;
-	@Resource(name = "authObject")
-	private AuthObject authObject;
 
 	// 单个表对象
 	private Person person;
 	private Injurycase injurycase;
 	private Otherperson otherperson;
-
 
 	public String getPersonByIdcard() throws Exception {
 
@@ -63,12 +59,15 @@ public class OtherpersonAction extends BaseAction {
 			otherPersonVO.setQq(person.getQq());
 			otherPersonVO.setPhotoImg(person.getPhotoImg());
 			if (person.getGamblingCriminalMan() != null) {
-				otherPersonVO.setCurrentAddress(person.getGamblingCriminalMan().getCurrentAddress());
-				otherPersonVO.setCurrentAddressArea(person.getGamblingCriminalMan().getCurrentAddressArea());
+				otherPersonVO.setCurrentAddress(person.getGamblingCriminalMan()
+						.getCurrentAddress());
+				otherPersonVO.setCurrentAddressArea(person
+						.getGamblingCriminalMan().getCurrentAddressArea());
 			}
 		}
 
-		AjaxMsgUtil.outputJSONOToAjax(response, JSONObject.fromObject(otherPersonVO).toString());
+		AjaxMsgUtil.outputJSONOToAjax(response, JSONObject.fromObject(
+				otherPersonVO).toString());
 		return null;
 	}
 
@@ -84,19 +83,20 @@ public class OtherpersonAction extends BaseAction {
 
 	public String add() throws Exception {
 		if (picture1 != null && isNotBlankString(picture1FileName)) {
-			otherperson.setFrontPhoto(fileService.uploadOneFile(picture1, picture1FileName, picture1ContentType, "otherperson"));
+			otherperson.setFrontPhoto(fileService.uploadOneFile(picture1,
+					picture1FileName, picture1ContentType, "otherperson"));
 		}
 		if (picture2 != null && isNotBlankString(picture2FileName)) {
-			otherperson.setLeftPhoto(fileService.uploadOneFile(picture2, picture2FileName, picture2ContentType, "otherperson"));
+			otherperson.setLeftPhoto(fileService.uploadOneFile(picture2,
+					picture2FileName, picture2ContentType, "otherperson"));
 		}
 		if (picture3 != null && isNotBlankString(picture3FileName)) {
-			otherperson.setRightPhoto(fileService.uploadOneFile(picture3, picture3FileName, picture3ContentType, "otherperson"));
+			otherperson.setRightPhoto(fileService.uploadOneFile(picture3,
+					picture3FileName, picture3ContentType, "otherperson"));
 		}
 		otherpersonService.add(otherperson);
 		return "success_child";
 	}
-
-
 
 	/**
 	 * 9:负案在逃人员,10:维稳人员 上传前科照片
@@ -136,22 +136,24 @@ public class OtherpersonAction extends BaseAction {
 	public String update() throws Exception {
 		if (picture1 != null && isNotBlankString(picture1FileName)) {
 			fileService.deleteFileBySrc(otherperson.getFrontPhoto());
-			otherperson.setFrontPhoto(fileService.uploadOneFile(picture1, picture1FileName, picture1ContentType, "otherperson"));
+			otherperson.setFrontPhoto(fileService.uploadOneFile(picture1,
+					picture1FileName, picture1ContentType, "otherperson"));
 		}
 		if (picture2 != null && isNotBlankString(picture2FileName)) {
 
 			fileService.deleteFileBySrc(otherperson.getLeftPhoto());
-			otherperson.setLeftPhoto(fileService.uploadOneFile(picture2, picture2FileName, picture2ContentType, "otherperson"));
+			otherperson.setLeftPhoto(fileService.uploadOneFile(picture2,
+					picture2FileName, picture2ContentType, "otherperson"));
 		}
 
 		if (picture3 != null && isNotBlankString(picture3FileName)) {
 			fileService.deleteFileBySrc(otherperson.getRightPhoto());
-			otherperson.setRightPhoto(fileService.uploadOneFile(picture3, picture3FileName, picture3ContentType, "otherperson"));
+			otherperson.setRightPhoto(fileService.uploadOneFile(picture3,
+					picture3FileName, picture3ContentType, "otherperson"));
 		}
 		otherpersonService.update(otherperson);
 		return "success_child";
 	}
-
 
 	// get、set-------------------------------------------
 	public int getPid() {
@@ -325,4 +327,13 @@ public class OtherpersonAction extends BaseAction {
 	public void setFileService(FileService fileService) {
 		this.fileService = fileService;
 	}
+
+	public int getOtype() {
+		return otype;
+	}
+
+	public void setOtype(int otype) {
+		this.otype = otype;
+	}
+
 }

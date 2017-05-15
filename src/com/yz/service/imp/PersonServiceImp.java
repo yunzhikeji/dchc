@@ -94,6 +94,9 @@ public class PersonServiceImp extends RoleServiceImp implements PersonService {
 			if (con == 4) {
 				queryString += "and mo.userRole.realname like ? ";
 			}
+			if (con == 5) {
+				queryString += "and mo.userRole.unit.name like ? ";
+			}
 			p = new Object[]{'%' + convalue + '%'};
 		}
 		if (type != 0) {
@@ -145,6 +148,9 @@ public class PersonServiceImp extends RoleServiceImp implements PersonService {
 			}
 			if (con == 4) {
 				queryString += "and mo.userRole.realname like ? ";
+			}
+			if (con == 5) {
+				queryString += "and mo.userRole.unit.name like ? ";
 			}
 			p = new Object[]{'%' + convalue + '%'};
 		}

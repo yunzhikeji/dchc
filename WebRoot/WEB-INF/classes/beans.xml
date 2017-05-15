@@ -146,6 +146,8 @@
 	<aop:config>
 		<aop:pointcut id="bussinessService"
 			expression="execution(public * com.yz.service.*.*(..))" />
+			
+			
 		<aop:advisor pointcut-ref="bussinessService"
 			advice-ref="txAdvice" />
 	</aop:config>

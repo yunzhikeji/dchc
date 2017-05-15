@@ -20,9 +20,6 @@ public interface InjurycaseService {
 	// 修改对象
 	void update(Injurycase injurycase);
 
-	// 获取所有对象
-	List<Injurycase> getInjurycases();
-
 	// 加载一个id的对象
 	Injurycase loadById(int id);
 
@@ -40,6 +37,8 @@ public interface InjurycaseService {
 
 	Injurycase queryInjurycaseById(int id);
 
+
+	//保留
 	int getTotalCount(int con, String convalue,
 			UserRole currentUserRole, int itype, int queryState, String starttime,
 			String endtime);

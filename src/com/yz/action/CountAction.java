@@ -39,7 +39,15 @@ public class CountAction extends BaseAction {
 
 	public String personCount() throws Exception {
 
-		decodeParameters();
+		if (isNotBlankString(convalue)) {
+			convalue = decodeAndReplaceBlank(convalue);
+		}
+		if (isNotBlankString(starttime)) {
+			starttime = decodeAndReplaceBlank(starttime);
+		}
+		if (isNotBlankString(endtime)) {
+			endtime = decodeAndReplaceBlank(endtime);
+		}
 
 		personCounts = new ArrayList<Integer[]>();
 
@@ -102,7 +110,15 @@ public class CountAction extends BaseAction {
 
 	public String injurycaseCount() throws Exception {
 
-		decodeParameters();
+		if (isNotBlankString(convalue)) {
+			convalue = decodeAndReplaceBlank(convalue);
+		}
+		if (isNotBlankString(starttime)) {
+			starttime = decodeAndReplaceBlank(starttime);
+		}
+		if (isNotBlankString(endtime)) {
+			endtime = decodeAndReplaceBlank(endtime);
+		}
 
 		injurycaseCounts = new ArrayList<Integer[]>();
 
@@ -150,7 +166,15 @@ public class CountAction extends BaseAction {
 
 	public String clueCount() throws Exception {
 
-		decodeParameters();
+		if (isNotBlankString(convalue)) {
+			convalue = decodeAndReplaceBlank(convalue);
+		}
+		if (isNotBlankString(starttime)) {
+			starttime = decodeAndReplaceBlank(starttime);
+		}
+		if (isNotBlankString(endtime)) {
+			endtime = decodeAndReplaceBlank(endtime);
+		}
 
 		clueCounts = new ArrayList<Integer[]>();
 

@@ -215,6 +215,9 @@ public class InjurycaseServiceImp extends RoleServiceImp implements InjurycaseSe
 			if (con == 4) {
 				queryString += "and mo.userRole.realname like ? ";
 			}
+			if (con == 5) {
+				queryString += "and mo.userRole.unit.name like ? ";
+			}
 
 			p = new Object[]{'%' + convalue + '%'};
 		}
@@ -251,6 +254,9 @@ public class InjurycaseServiceImp extends RoleServiceImp implements InjurycaseSe
 			}
 			if (con == 4) {
 				queryString += "and mo.userRole.realname like ? ";
+			}
+			if (con == 5) {
+				queryString += "and mo.userRole.unit.name like ? ";
 			}
 			p = new Object[]{'%' + convalue + '%'};
 		}

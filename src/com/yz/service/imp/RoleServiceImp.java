@@ -15,7 +15,6 @@ public abstract class RoleServiceImp {
 	protected String assembleLimitSqlByUserRole(String querySql, UserRole userRole) {
 
 		if (userRole == null || userRole.getUnit() == null) {
-
 			querySql += " and mo.id in (0) ";
 			return setSqlIdsWithZero(querySql);
 		}

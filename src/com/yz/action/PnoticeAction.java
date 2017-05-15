@@ -24,8 +24,15 @@ public class PnoticeAction extends BaseAction {
 
 	public String list() throws Exception {
 
-		decodeParameters();
-
+		if (isNotBlankString(convalue)) {
+			convalue = decodeAndReplaceBlank(convalue);
+		}
+		if (isNotBlankString(starttime)) {
+			starttime = decodeAndReplaceBlank(starttime);
+		}
+		if (isNotBlankString(endtime)) {
+			endtime = decodeAndReplaceBlank(endtime);
+		}
 		if (page < 1) {
 			page = 1;
 		}

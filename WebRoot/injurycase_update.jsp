@@ -1999,8 +1999,7 @@
                                                         </td>
                                                         <td>
                                                             <a style="text-decoration: none" class="ml-5"
-                                                               onclick="addPage('编辑嫌疑人','otherpersonAction!load?otherid=
-                                                                   <s:property value="id"/>','500','300')"
+                                                               onclick="addPage('编辑嫌疑人','otherpersonAction!load?otherid=<s:property value="id"/>','500','300')"
                                                                href="javascript:;" title="编辑"><i
                                                                     class="Hui-iconfont">&#xe6df;</i> </a>
                                                             <a style="text-decoration: none" class="ml-5"
@@ -2022,8 +2021,7 @@
                                             发起疑难
                                             <input class="btn btn-primary radius mt-10 f-r"
                                                    type="button"
-                                                   onclick="addPage('发起疑难','troubleshootingAction!goToAdd?inid=
-                                                   <s:property value="id"/>','500','300')"
+                                                   onclick="addPage('发起疑难','troubleshootingAction!goToAdd?inid=<s:property value="id"/>','500','300')"
                                                    value="发起疑难">
                                         </div>
                                         <div class="col-12">

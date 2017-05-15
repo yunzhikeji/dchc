@@ -61,7 +61,15 @@ public class PersonAction extends BaseAction {
 
 	public String list() throws Exception {
 
-		decodeParameters();
+		if (isNotBlankString(convalue)) {
+			convalue = decodeAndReplaceBlank(convalue);
+		}
+		if (isNotBlankString(starttime)) {
+			starttime = decodeAndReplaceBlank(starttime);
+		}
+		if (isNotBlankString(endtime)) {
+			endtime = decodeAndReplaceBlank(endtime);
+		}
 
 		if (page < 1) {
 			page = 1;
@@ -703,7 +711,15 @@ public class PersonAction extends BaseAction {
 
 	public String export() {
 
-		decodeParameters();
+		if (isNotBlankString(convalue)) {
+			convalue = decodeAndReplaceBlank(convalue);
+		}
+		if (isNotBlankString(starttime)) {
+			starttime = decodeAndReplaceBlank(starttime);
+		}
+		if (isNotBlankString(endtime)) {
+			endtime = decodeAndReplaceBlank(endtime);
+		}
 		// 获取导出的表头和数据
 		// 获取表头,存放到ArrayList对象中(人员编号 姓名 出生日期 QQ 微信号 身份证号 户籍地址 户籍区域)
 		ArrayList fieldName = personService.getExcelFieldNameList(type);

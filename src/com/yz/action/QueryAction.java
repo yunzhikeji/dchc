@@ -29,7 +29,15 @@ public class QueryAction extends BaseAction {
 
 	public String query() throws Exception {
 
-		decodeParameters();
+		if (isNotBlankString(convalue)) {
+			convalue = decodeAndReplaceBlank(convalue);
+		}
+		if (isNotBlankString(starttime)) {
+			starttime = decodeAndReplaceBlank(starttime);
+		}
+		if (isNotBlankString(endtime)) {
+			endtime = decodeAndReplaceBlank(endtime);
+		}
 
 		if (personOption != 0) {
 			persons = personService.getPersonsByOption(personOption, convalue, currentUserRole);

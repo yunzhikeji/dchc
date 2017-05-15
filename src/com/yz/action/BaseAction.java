@@ -61,18 +61,6 @@ public class BaseAction extends ActionSupport implements RequestAware,
 	protected String[] fileFileName;
 
 
-	protected void decodeParameters() {
-		if (isNotBlankString(convalue)) {
-			decodeAndReplaceBlank(convalue);
-		}
-		if (isNotBlankString(starttime)) {
-			decodeAndReplaceBlank(starttime);
-		}
-		if (isNotBlankString(endtime)) {
-			decodeAndReplaceBlank(endtime);
-		}
-	}
-
 
 	protected boolean isFilesNotNull() {
 		if (file == null)

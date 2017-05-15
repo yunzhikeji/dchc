@@ -49,8 +49,15 @@ public class UserRoleAction extends BaseAction {
 	 * 用户管理
 	 */
 	public String list() throws Exception {
-
-		decodeParameters();
+		if (isNotBlankString(convalue)) {
+			convalue = decodeAndReplaceBlank(convalue);
+		}
+		if (isNotBlankString(starttime)) {
+			starttime = decodeAndReplaceBlank(starttime);
+		}
+		if (isNotBlankString(endtime)) {
+			endtime = decodeAndReplaceBlank(endtime);
+		}
 
 		if (page < 1) {
 			page = 1;
