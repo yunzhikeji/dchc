@@ -56,8 +56,8 @@ public class LoginAction extends BaseAction{
 	private List<Troubleshooting> troubleshootings;
 
 	// 用户身份证号码
-
 	private String cardid;
+
 
 	/** ***************************** 报文公共部分 *************************** */
 	/**
@@ -304,16 +304,21 @@ public class LoginAction extends BaseAction{
 	 */
 	public String login() throws Exception {
 
+		if(isLogined()||isVailSSOCertificate())
+		{
+			return "loginSucc";
+		}
+
 		if (checkDatebase())// 检查数据库
 		{
 			initCurrentUserRole();
 			return "loginSucc";
 		}
 
+
 		if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
 
 			setLoginFailMsg();
-
 			return "adminLogin";
 		}
 		password = MD5Util.convertMD5(MD5Util.string2MD5(password));
@@ -332,6 +337,11 @@ public class LoginAction extends BaseAction{
 
 
 	public String toLogin() {
+
+		if(isLogined()||isVailSSOCertificate())
+		{
+			return "loginSucc";
+		}
 
 		response.setHeader("Pragma", "No-cache");
 		response.setHeader("Cache-Control", "no-cache");
@@ -373,6 +383,48 @@ public class LoginAction extends BaseAction{
 		return "adminLogin";
 
 	}
+
+	private boolean isLogined() {
+
+		if(session.get(currentUserRole)!=null)
+		{
+			return true;
+		}
+		return false;
+	}
+
+	private boolean isVailSSOCertificate() {
+
+		if(checkSSOUser(getSSOUserAndSetSSOUserIntoHttpSession()))
+		{
+			return  true;
+		}
+		return  false;
+	}
+
+	private UserRole getSSOUserAndSetSSOUserIntoHttpSession() {
+		String usersfz = (String) session.get("usersfz");
+		if(StringUtils.isNotBlank(usersfz))
+		{
+			UserRole userRoleLogin = userRoleService.getUserRoleByCardid(usersfz);
+			if(userRoleLogin!=null)
+			{
+				setCurrentUserRoleInSession(userRoleLogin);
+				return userRoleLogin;
+			}
+		}
+		return new UserRole();
+	}
+
+	private boolean checkSSOUser(UserRole userRole)
+	{
+		if(userRole.getId()!=0)
+		{
+			return true;
+		}
+		return  false;
+	}
+
 
 	public String certificateLogin() {
 		// 第四步：客户端认证
@@ -1013,4 +1065,7 @@ public class LoginAction extends BaseAction{
 	public void setCardid(String cardid) {
 		this.cardid = cardid;
 	}
+
+
+
 }

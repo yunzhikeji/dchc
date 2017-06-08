@@ -1,18 +1,8 @@
 package com.yz.model;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 /**
  * Judge entity.研判信息,部门查证，上报情况
@@ -29,20 +19,37 @@ public class Judge implements java.io.Serializable {
 	private Clue clue;//所属刑侦线索
 	private Injurycase injurycase;//所属重伤案件
 	private Person person;//所属人员
+
+
 	private String reportUnit;//报送部门（多个以，隔开）
+
+
 	private String reportTime;//上报时间
+
 	private String transactor;//上报人（承办人）
+
 	private String deadline;//开始时间
+
 	private String telphone;//联系方式
+
 	private String judgeRequirement;//研判要求
+
 	private Integer indexNumber;//序号（表示研判顺序）
+
 	private String criminalJudge;//刑技研判
+
 	private String networkJudge;//网技研判
+
 	private String intelligenceJudge;//情报研判
+
 	private String imageJudge;//图帧研判
+
 	private Integer jtype;//1:研判信息  2：部门查证 3：上报情况
+
 	private Integer isNew;
+
 	private String scanImage;//立案决定书扫描件
+
 	private List<Media> medias = new ArrayList<Media>();// 文件
 
 	// Constructors

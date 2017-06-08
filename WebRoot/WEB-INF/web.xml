@@ -22,6 +22,37 @@
 
 
 	<filter>
+		<filter-name>CAS Filter</filter-name>
+		<filter-class>
+			cn.com.hnisi.authentication.client.filter.CASFilterExtend
+		</filter-class>
+		<init-param>
+			<param-name>casserverLoginIP</param-name>
+			<param-value>***.**.**.**:port</param-value>
+		</init-param>
+		<init-param>
+			<param-name>casserverValidateIP</param-name>
+			<param-value>***.**.**.**:port </param-value>
+		</init-param>
+		<init-param>
+			<param-name>serverIP</param-name>
+			<param-value>10.54.56.179:8080 </param-value>
+		</init-param>
+		<init-param>
+			<param-name>loginInfoRegisterClass</param-name>
+			<param-value>
+				com.yz.filter.LoginInfoRegisterImpl
+			</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CAS Filter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+
+	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>
 			org.springframework.web.filter.CharacterEncodingFilter
